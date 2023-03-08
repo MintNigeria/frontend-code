@@ -1,0 +1,19 @@
+<button
+  (click)="handleClick()"
+  type="button"
+  [disabled]="disabled"
+  [ngClass]="[
+    overRideButtonClass ? getCustomClass : 'align-center items-center',
+    disabled ? 'cursor-not-allowed opacity-80 ' : '',
+    status == 'LOADING' ? 'loading' : ''
+  ]"
+>
+  <ng-content #body></ng-content>
+  <div class="flex items-center gap-2 mx-auto">
+    <span><img src="{{ buttonImage }}" class="" /></span>
+    <span>{{ buttonText }} </span>
+    <span class="">
+      <img [src]="buttonImage2" alt="" />
+    </span>
+  </div>
+</button>
