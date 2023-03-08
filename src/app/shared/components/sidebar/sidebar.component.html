@@ -1,28 +1,37 @@
-<aside class="p-6 bg-darkBlue min-h-screen flex flex-col justify-between  ">
-    <div>
-      <img class=" " src="assets/images/main/logo_white.png" class=" w-fit pt-6" alt="">
-   
-      <div class=" ">
-        <div class="pb-4" *ngFor="let link of menuLinks" (click)="goToPath(link.path)" routerLinkActive="active"
-          #rla="routerLinkActive" routerLink={{link.path}}
-          [ngClass]="rla.isActive ? 'bg-white rounded-md py-3 px-2  text-bg-primaryBlue font-semibold text-lg font-sans' : 'font-bold text-lg text-grayscale py-3 px-2'">
-          <div class=" flex items-center cursor-pointer"><span><img [src]='rla.isActive ? link.active : link.inactive'
-                alt="" class="mr-3"></span> {{link.title}}</div>
+<aside class="p-6 relative bg-primaryBlue h-screen flex flex-col justify-between  ">
+  <div>
+    <img class=" " src="assets/images/main/logo.png" class=" w-fit pt-6 pb-8" alt="">
+ 
+    <div class=" ">
+      <div class="pb-4" *ngFor="let link of menuLinks"  routerLinkActive="active"
+        #rla="routerLinkActive" 
+        [ngClass]="rla.isActive ? 'bg-[#4086EF] rounded-xl py-3 px-2  text-bg-primaryBlue font-medium text-base font-inter' : 'font-medium text-base text-[#EBF3FF] py-3 px-2'">
+        <div class=" relative flex items-center justify-between cursor-pointer text-[#EBF3FF]">
+          <div class="flex" (click)="goToPath(link.path)" routerLink={{link.path}}>
+            <span><img [src]='rla.isActive ? link.active : link.inactive' alt="" class="mr-3"></span>
+            <p>{{link.title}}</p>
+          </div>
+          <span class="relative" *ngIf="link.hasChild === true" >
+            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.5 15.752L12.5 10.752L7.5 5.75195" stroke="#BDD5FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <!-- <app-sidebar-dropdown [childrenLinks]="link.childRoute"></app-sidebar-dropdown> -->
+          </span>
         </div>
       </div>
     </div>
-  
-    <!-- <div class="mt-5 border-t-[1.5px] pt-5">
-      <div class="" *ngFor="let link of secondaryLinks" routerLinkActive="active" (click)="logout(link.path)"
-        [routerLinkActiveOptions]="{ exact: true }" #rla="routerLinkActive" 
-        [ngClass]="rla.isActive ? 'bg-white rounded-md py-3 px-2 text-bg-primaryBlue font-semibold text-lg font-sans' : 'font-bold text-lg text-grayscale py-3 px-2'">
-        <div class=" flex items-center cursor-pointer"><span><img [src]='rla.isActive ? link.active : link.inactive'
-              alt="" class="mr-3"></span> {{link.title}}</div>
-      </div>
-    </div> -->
-  
-  
-  
-  
-  </aside>
-  
+  </div>
+
+  <div class="mt-5  flex items-center justify-between">
+    <div class="">
+      <p class="font-inter font-medium text-sm text-white">Olivia Rhye</p>
+      <p class="font-inter font-normal text-sm text-[#D7E7FE]">olivia@untitledui.com</p>
+    </div>
+    <img src="assets/images/log-out.svg"
+          alt="logout icons" class=" cursor-pointer">
+  </div>
+
+
+
+
+</aside>

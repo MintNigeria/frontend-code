@@ -1,1 +1,22 @@
-<p>header works!</p>
+<div class="bg-white sticky top-0  pl-2 pr-2 sm:px-7 py-3 flex justify-between md:justify-end items-center border-b-[1px] border-gray-100 ">
+    <label for="my-drawer-2" class="btn  btn-square btn-ghost drawer-button flex md:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+    </label>
+    
+    <!-- <div class="w-1/2">
+        <app-search-input ></app-search-input>
+    </div> -->
+
+    <div class="flex items-center">
+        
+        <div class="mx-9  hidden md:block">
+            <img src="assets/images/main/bell.svg" class="" alt="notification">
+        </div>
+        <div class="dropdown dropdown-end">
+            <img tabindex="0" class="cursor-pointer" routerLink="/main/profile" src="assets/images/main/Avatar.svg" class="" alt="logged user avatar">
+            <ul tabindex="0" class="md:hidden block dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                <li><a>Notification</a></li>
+              </ul>
+        </div>
+    </div>
+</div>

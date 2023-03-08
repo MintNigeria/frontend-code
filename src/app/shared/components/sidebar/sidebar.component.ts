@@ -12,78 +12,83 @@ export class SidebarComponent implements OnInit {
     {
       id: 1,
       title: 'Dashboard',
+      hasChild: false,
       path: 'dashboard',
-      active: 'assets/images/main/dashboardActive.svg',
-      inactive: 'assets/images/main/dashboardInactive.svg',
+      active: 'assets/images/dashboard-inactive.svg',
+      inactive: 'assets/images/dashboard-inactive.svg',
     },
     {
       id: 2,
-      title: 'Order',
-      path: 'orders',
-      active: 'assets/images/main/orderActive.svg',
-      inactive: 'assets/images/main/orderInactive.svg',
+      title: 'Requests',
+      hasChild: true,
+      path: 'requests',
+      active: 'assets/images/request-active.svg',
+      inactive: 'assets/images/request-active.svg',
+      childRoute:  [
+        {
+          route: 'manage-task',
+          name: 'All Tasks'
+        },
+        {
+          route: 'manage-task/create-task',
+          name: 'Create Task'
+        }
+      ]
+    },
+    {
+      id: 2,
+      title: 'Records',
+      hasChild: true,
+      path: 'records',
+      active: 'assets/images/gradaute-active.svg',
+      inactive: 'assets/images/graduate-active.svg',
+      childRoute:  [
+        {
+          route: 'approved',
+          name: 'Approved'
+        },
+        {
+          route: 'pending',
+          name: 'Pending'
+        }
+      ]
     },
     {
       id: 3,
-      title: 'Offerings',
-      path: 'offerings',
-      active: 'assets/images/main/offeringActive.svg',
-      inactive: 'assets/images/main/ordersInactive.svg',
+      title: 'Uploads',
+      hasChild: false,
+      path: 'uploads',
+      active: 'assets/images/institution-inactive.svg',
+      inactive: 'assets/images/institution-inactive.svg',
     },
     {
       id: 4,
-      title: 'Patients',
-      path: 'patients',
-      active: 'assets/images/main/customersActive.svg',
-      inactive: 'assets/images/main/patientsInactive.svg',
+      title: 'Transactions',
+      hasChild: false,
+      path: 'transactions',
+      active: 'assets/images/organization-inactive.svg',
+      inactive: 'assets/images/organization-inactive.svg',
     },
     {
       id: 5,
-      title: 'Financial Analytics',
-      path: 'financial-analytics',
-      active: 'assets/images/main/financialActive.svg',
-      inactive: 'assets/images/main/financialsInactive.svg',
+      title: 'configuration',
+      hasChild: false,
+      path: 'configuration',
+      active: 'assets/images/config-inactive.svg',
+      inactive: 'assets/images/config-inactive.svg',
     },
     {
       id: 6,
-      title: 'Clinic and Staffs',
-      path: 'clinic-and-staffs',
-      active: 'assets/images/main/clinicActive.svg',
-      inactive: 'assets/images/main/clinicInactive.svg',
-    },
-    {
-      id: 7,
-      title: 'Appointments',
-      path: 'appointments',
-      active: 'assets/images/main/appointmentActive.svg',
-      inactive: 'assets/images/main/appointmentInactive.svg',
-    },
-    {
-      id: 8,
-      title: 'Order Supplies',
-      path: 'order-supplies',
-      active: 'assets/images/main/suppliesActive.svg',
-      inactive: 'assets/images/main/suppliesInactive.svg',
+      title: 'Users and Roles',
+      hasChild: false,
+      path: 'users-and-roles',
+      active: 'assets/images/role-inactive.svg',
+      inactive: 'assets/images/role-inactive.svg',
     },
   ];
-  secondaryLinks = [
-    {
-      id: 1,
-      title: 'Settings',
-      // path: this.adminService.isUserAdmin()
-      //   ? 'settings'
-      //   : 'settings/my-settings',
-      active: 'assets/images/main/Settings.svg',
-      inactive: 'assets/images/main/Settings.svg',
-    },
-    {
-      id: 2,
-      title: 'Logout',
-      path: '',
-      active: 'assets/images/main/logout.svg',
-      inactive: 'assets/images/main/logout.svg',
-    },
-  ];
+
+  
+  
   continuDownloadId = 'addContinueDownloadModal';
 
   constructor(
