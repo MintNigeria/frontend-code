@@ -13,6 +13,7 @@ export class SidebarComponent implements OnInit {
   
   
   continuDownloadId = 'addContinueDownloadModal';
+  currentRoute!: string;
 
   constructor(
     private router: Router,
@@ -20,10 +21,11 @@ export class SidebarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.currentRoute = this.router.url
   }
 
   goToPath(path: any) {
-    this.router.navigate(['/', 'main', `${path}`]);
+    this.router.navigate([`${this.currentRoute}`, `${path}`]);
   }
 
 
