@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UploadsComponent } from './uploads.component';
 
+import { UploadsRoutingModule } from './uploads-routing.module';
+import { UploadsComponent } from './uploads.component';
 
 
 @NgModule({
@@ -9,7 +10,8 @@ import { UploadsComponent } from './uploads.component';
     UploadsComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    UploadsRoutingModule
   ]
 })
 export class UploadsModule { }

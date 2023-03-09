@@ -8,9 +8,19 @@ const routes: Routes = [
       import('./pages/auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: 'main',
+    path: 'institution',
     loadChildren: () =>
-      import('./pages/main/main.module').then((m) => m.MainModule),
+      import('./pages/institution/institution.module').then((m) => m.InstitutionModule),
+  },
+  {
+    path: 'organization',
+    loadChildren: () =>
+      import('./pages/organization/organization.module').then((m) => m.OrganizationModule),
+  },
+  {
+    path: 'graduate',
+    loadChildren: () =>
+      import('./pages/graduate/graduate.module').then((m) => m.GraduateModule),
   },
 ];
 
