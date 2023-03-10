@@ -1,0 +1,147 @@
+<div class="bg-white p-6">
+    <!--Header-->
+    <div class="flex  items-center md:gap-4 gap-2 ">
+        <div>
+            <img [routerLink]="'/main/requests'" src="assets/images/icons/home.svg" alt="home-icon">
+        </div>
+        <div>
+            <img src="assets/images/icons/forward_arrow.svg" alt="forward-arrow">
+        </div>
+
+        <div>
+            <p class="text-primaryBlue font-inter md:text-base text-sm font-medium cursor-pointer">
+                Verification
+            </p>
+
+        </div>
+
+    </div>
+    <div class="px-5">
+        <div class="items-center my-2">
+            <h4 class="font-medium font-poppins lg:text-4xl text-xl  text-darkGray my-3">
+                Search Result
+            </h4>
+            <p class="text-[lightGray] font-nunito text-base font-normal cursor-pointer">
+                Below are the available results associated with your search.
+            </p>
+        </div>
+    </div>
+    <!---->
+
+
+    <div class="mt-3  py-3 rounded-xl bg-white border border-solid border-borderLightGray">
+        <div
+            class="flex border-b border-solid border-[#EFF0F7]  items-center gap-3 p-[20px_24px]">
+            <h5 class="text-darkGray text-base md:text-lg font-medium">
+                Search result
+                <span>
+                    
+                </span>
+            </h5>
+            <div class="rounded text-center">
+                <div class=" rounded-full text-center w-auto bg-tabBlue">
+                    <p class="text-primaryBlue text-sm cursor-pointer font-inter font-medium">
+                        {{ searchResults.length }}
+                    </p>
+                </div>
+            </div>
+                    
+        </div>
+       
+        <div class="bg-white">
+            <!--Table Content-->
+
+            <div>
+
+                <div class="overflow-x-auto hide-scrollbar">
+                    <table class="table w-full">
+                        <thead>
+                            <tr>
+                                
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Name</th>
+                                 <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Faculty</th>
+                                <th class="flex gap-1 text-xs text-lightGray font-medium font-inter bg-tableHeader ">Department
+                                    <span><img src="assets/images/icons/arrow_down.svg" alt="" class="mt-0.5"></span>
+                                </th>
+                               
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Matriculation Number
+                                </th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Graduation Year
+                                </th>
+                               
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="">
+                            <tr *ngFor="let data of searchResults" class=" ">
+                            
+                                
+                                <td class="bg-white">
+                                    <div class="">
+                                        <div>
+                                            <div>
+                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">{{data.name}}</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </td>
+                                
+                                <td class="bg-white">
+                                    <div>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.faculty}}</p>
+                                       
+                                    </div>
+                                </td>
+
+                                <td class="bg-white">
+                                    <div>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.department}}</p>
+                                      
+                                    </div>
+                                </td>
+                                <td class="bg-white">
+                                    <div>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.matricNo}}</p>
+                                
+                                    </div>
+
+                                </td>
+                                <td class="bg-white">
+                                    <div>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.gradYear}}</p>
+                                
+                                    </div>
+
+                                </td>
+                                
+
+                                <td class="bg-white">
+                                    <div class="flex  gap-2 items-center" 
+                                    [routerLink]="'/organization/verifications/verify-documents/2/2'">
+                                        
+                                        <p 
+                                        class="my-0 text-sm font-inter cursor-pointer font-medium text-primaryBlue ">{{data.action}}</p>
+
+                                    </div>
+
+                                </td>
+
+
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+
+            <!---->
+        </div>
+                
+    </div>
+
+</div>
