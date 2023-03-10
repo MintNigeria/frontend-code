@@ -6,45 +6,21 @@ const routes: Routes = [
   {path: '', component: MainComponent,
 children: [
   {
-    path: 'dashboard',
+    path: 'institution',
     loadChildren: () =>
-      import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+      import('../institution/institution.module').then((m) => m.InstitutionModule),
   },
   {
-    path: 'requests',
+    path: 'graduate',
     loadChildren: () =>
-      import('./request/request.module').then((m) => m.RequestModule),
+      import('../graduate/graduate.module').then((m) => m.GraduateModule),
   },
   {
-    path: 'records',
+    path: 'organization',
     loadChildren: () =>
-      import('./records/records.module').then((m) => m.RecordsModule),
+      import('../organization/organization.module').then((m) => m.OrganizationModule),
   },
-  {
-    path: 'uploads',
-    loadChildren: () =>
-      import('./uploads/uploads.module').then((m) => m.UploadsModule),
-  },
-  {
-    path: 'reports',
-    loadChildren: () =>
-      import('./reports/reports.module').then((m) => m.ReportsModule),
-  },
-  {
-    path: 'transactions',
-    loadChildren: () =>
-      import('./transactions/transactions.module').then((m) => m.TransactionsModule),
-  },
-  {
-    path: 'configuration',
-    loadChildren: () =>
-      import('./configuration/configuration.module').then((m) => m.ConfigurationModule),
-  },
-  {
-    path: 'users-and-roles',
-    loadChildren: () =>
-      import('./users-and-roles/users-and-roles.module').then((m) => m.UsersAndRolesModule),
-  },
+ 
 ]}
 ];
 
