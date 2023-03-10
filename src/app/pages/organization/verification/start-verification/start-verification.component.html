@@ -1,0 +1,152 @@
+<div class="bg-white p-6">
+    <!--Header-->
+    <div class="flex  items-center md:gap-4 gap-2 ">
+        <div>
+            <img [routerLink]="'/main/requests'" src="assets/images/icons/home.svg" alt="home-icon">
+        </div>
+        <div>
+            <img src="assets/images/icons/forward_arrow.svg" alt="forward-arrow">
+        </div>
+
+        <div>
+            <p class="text-primaryBlue font-inter md:text-base text-sm font-medium cursor-pointer">
+                Verification
+            </p>
+
+        </div>
+
+    </div>
+    <div class="px-5">
+        <div class="items-center my-2">
+            <h4 class="font-medium font-poppins lg:text-4xl text-xl  text-darkGray my-3">
+                Verify Documents
+            </h4>
+        </div>
+    </div>
+    <!---->
+
+    <div class="border-1.5 rounded-xl mt-6">
+        <h3 class="py-7  border-b-1.5 px-6 font-inter font-medium lg:text-lg text-base text-darkGray bg-tableHeader rounded-t-xl">
+            Please search student records below
+        </h3>
+        <div class="p-6 " [formGroup]="profileForm">
+            <div class="border-b">
+                <div class="w-10/12 ">
+                    <div class="flex gap-6 mb-9">
+                        <div class="w-full md:w-1/4">
+                            <label class=" font-inter font-medium text-sm text-failedNormal" for="inline-full-name">
+                                Institution Type
+                            </label>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <select name="" id=""
+                                class="select h-[52px] lg:w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
+                                <option value="">University</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex gap-6 mb-9">
+                        <div class="w-full md:w-1/4">
+                            <label class=" font-inter font-medium text-sm text-failedNormal" for="inline-full-name">
+                                Select Institution
+                            </label>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <select name="" id=""
+                                class="select h-[52px] lg:w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
+                                <option value="">University of Lagos</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex gap-6 mb-9">
+                        <div class="w-full md:w-1/4">
+                            <label class=" font-inter font-medium text-sm text-failedNormal" for="inline-full-name">
+                                Department
+                            </label>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <select name="" id=""
+                                class="select h-[52px] lg:w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
+                                <option value="">Computer Science</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex gap-6 mb-9">
+                        <div class="w-full md:w-1/4">
+                            <label class=" font-inter font-medium text-sm text-failedNormal" for="inline-full-name">
+                                Matric Number
+                            </label>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <app-input 
+                            [formGrp]="profileForm" 
+                            formCtrlName="matric" 
+                            [type]="'email'" 
+                            [class]="'px-4 h-[52px] lg:w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                            placeholder="Enter your Matric Number" 
+                            [name]="'matric'"></app-input>
+                        </div>
+                    </div>
+                    <div class="flex gap-6 mb-9">
+                        <div class="w-full md:w-1/4">
+                            <label class=" font-inter font-medium text-sm text-failedNormal" for="inline-full-name">
+                                Full Name
+                            </label>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <app-input 
+                            [formGrp]="profileForm" 
+                            formCtrlName="name" 
+                            [type]="'text'" 
+                            [class]="'px-4 h-[52px] lg:w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                            placeholder="Enter your Full Name" 
+                            [name]="'name'"></app-input>
+                        </div>
+                    </div>
+                    <div class="flex gap-6 mb-9">
+                        <div class="w-full md:w-1/4">
+                            <label class=" font-inter font-medium text-sm text-failedNormal" for="inline-full-name">
+                                Gender
+                            </label>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <select name="" id=""
+                                class="select h-[52px] lg:w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
+                                <option value="">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex gap-6 mb-9">
+                        <div class="w-full md:w-1/4">
+                            <label class=" font-inter font-medium text-sm text-failedNormal" for="inline-full-name">
+                                Year of Graduation
+                            </label>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <select name="" id=""
+                                class="select h-[52px] lg:w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
+                                <option value="">2022</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end items-center gap-4 mt-4">
+                <app-button
+                [overRideButtonClass]="true"
+                customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
+                >Cancel</app-button>
+
+                <app-button
+                [overRideButtonClass]="true"
+                customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+                [routerLink]="'/organization/verifications/verify-documents/2'"
+                >Verify</app-button>
+            </div>
+        </div>
+    </div>
+
+    
+   
+
+</div>

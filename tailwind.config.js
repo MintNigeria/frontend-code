@@ -17,6 +17,9 @@ module.exports = {
         pendingNormal: "#DC6803",
         failedNormal: "#344054",
         danger: "#F04438",
+        tableHeader: "#F9FAFB",
+        buttonBlue: "#4086EF",
+        borderLightGray: "#EFF0F6",
       },
       fontFamily: {
         sans: ["Open Sans"],
