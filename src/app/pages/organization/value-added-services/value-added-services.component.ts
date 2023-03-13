@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ValueAddedServicesComponent implements OnInit {
 
+  selectedOption: string = "Academic Report";
+
+  confirmChanges = 'confirmChanges';
+  changesConfirmed = 'changesConfirmed';
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  generateReport() {
+    document.getElementById('confirmChanges')?.click();
+  }
+
+  cancelConfirmChanges() {
+    document.getElementById('confirmChanges')?.click();
   }
 
 }
