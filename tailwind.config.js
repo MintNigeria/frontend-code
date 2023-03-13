@@ -17,12 +17,26 @@ module.exports = {
         pendingNormal: "#DC6803",
         failedNormal: "#344054",
         danger: "#F04438",
+        tableHeader: "#F9FAFB",
+        buttonBlue: "#4086EF",
+        borderLightGray: "#EFF0F6",
+        failedLight: "#FEF3F2",
+        failedDark: "#B42318",
+        grayWhite: "#D0D5DD",
+        tinyBlack: "#010001",
+        grayScaleAsh:"#232A38",
+        lightBlue: "#EBF2FE",
+        borderlightBlue: "#BDD5FA",
+        discountBlue: '#1059C6',
+        discountBg: "#D7E7FE"
+
       },
       fontFamily: {
         sans: ["Open Sans"],
         nunito: ["Nunito"],
         inter: ["Inter"],
         poppins: ["Poppins"],
+        avenir: ["Avenir"],
       },
       borderWidth: {
         1.5: "1.5px",

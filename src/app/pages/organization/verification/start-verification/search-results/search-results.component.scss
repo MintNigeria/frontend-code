@@ -9,7 +9,7 @@ thead>tr>th {
 }
 
 tbody>tr>td {
-    @apply py-4 pl-6 border-b border-solid border-white;
+    @apply py-4 pl-6 border-b border-solid border-[#F7F7FC];
     white-space: nowrap;
 
 }
@@ -18,7 +18,7 @@ tbody>tr>td {
     content: '';
     width: 19px;
     height: 19px;
-    background-image: url(../../../../assets/images/icons/search.svg);
+    background-image: url(../../../../../../assets/images/icons/search.svg);
     background-size: cover;
     position: absolute;
     left: 22px;
