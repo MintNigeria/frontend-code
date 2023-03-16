@@ -1,0 +1,45 @@
+
+.custom-translate {
+    transform: translateY(-50%);
+}
+
+
+thead>tr>th {
+    white-space: nowrap;
+}
+
+tbody>tr>td {
+    @apply py-4 pl-6 border-b border-solid border-[#F7F7FC];
+    white-space: nowrap;
+
+}
+
+::ng-deep .searchSelect.ng-select.ng-select-single .ng-select-container::before {
+    content: '';
+    width: 19px;
+    height: 19px;
+    background-image: url(../../../../../assets/images/icons/Search.svg);
+    background-size: cover;
+    position: absolute;
+    left: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    
+}
+
+::ng-deep .searchSelect.ng-select.ng-select-single .ng-select-container.ng-has-value::before {
+    display: none !important;
+}
+
+::ng-deep .searchSelect.ng-select .ng-select-container .ng-value-container {
+    padding-left: 45px !important;
+}
+
+::ng-deep .searchSelect.ng-select .ng-select-container.ng-has-value .ng-value-container {
+    padding-left: 22px !important;
+}
+
+::ng-deep .searchSelect.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+}

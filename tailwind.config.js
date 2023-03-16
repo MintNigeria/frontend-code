@@ -28,7 +28,8 @@ module.exports = {
         lightBlue: "#EBF2FE",
         borderlightBlue: "#BDD5FA",
         discountBlue: '#1059C6',
-        discountBg: "#D7E7FE"
+        discountBg: "#D7E7FE",
+        failedDark: "#D92D20",
 
       },
       fontFamily: {
