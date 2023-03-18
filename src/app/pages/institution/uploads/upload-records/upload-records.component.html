@@ -1,0 +1,236 @@
+<div class="px-8  py-6 bg-white ">
+    <div class="flex gap-3 items-center">
+        <div>
+            <img [routerLink]="'/institution/uploads'" src="assets/images/icons/home.svg" alt="home_icon" />
+        </div>
+        <div>
+            <img src="assets/images/icons/forward_arrow.svg" alt="forward_arrow" />
+        </div>
+
+        <div>
+            <p
+            class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer"
+            >
+            Uploads
+            </p>
+        </div>
+    </div>
+    
+    <div class="bg-white py-6 ">
+        <div class="px-5">
+            <div class="items-center my-2">
+                <h4 class="font-medium font-poppins text-4xl text-[#101828] my-3">
+                    Upload Records
+                </h4>
+                <p
+                class="text-[#667085] font-nunito text-base font-normal cursor-pointer"
+                >
+                Please fill the academic information and ensure the excel spreadsheet information is correct before uploading.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white border rounded-lg py-6">
+        <div class="lg:mx-44 p-3">
+            <div>
+                <div class="border-b-1.5 py-7">
+                    <p class="font-inter font-semibold text-base text-uploadtxt">Academic Information</p>
+                </div>
+                <div class="">
+                    <div class="mt-6 grid lg:grid-cols-2 gap-3">
+                        <div>
+                            <div class="flex items-center">
+                                <p class="mb-2 font-inter font-medium text-base text-uploadtxt">
+                                Faculty
+                                </p>
+                                <p class="mb-2 font-inter font-medium text-base text-danger">*</p>
+                            </div>
+                            <div class="items-center gap-4">
+                            <select
+                                name=""
+                                id=""
+                                class="select w-full h-[52px] bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none"
+                            >   
+                                <option value="" [disabled]="true">Select Faculty</option>
+                                <option value="">Art</option>
+                                <option value="">Education</option>
+                                <option value="">Law</option>
+                                <option value="">Management Science</option>
+                                <option value="">Science</option>
+                                <option value="">Social Science</option>
+                                <option value="">Engineering</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center">
+                                <p class="mb-2 font-inter font-medium text-base text-uploadtxt">
+                                Department
+                                </p>
+                                <p class="mb-2 font-inter font-medium text-base text-danger">*</p>
+                            </div>
+                            <div class="items-center gap-4">
+                            <select
+                                name=""
+                                id=""
+                                class="select w-full h-[52px] bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none"
+                            >   
+                                <option value="" [disabled]="true">Select department</option>
+                                <option value="">Art</option>
+                                <option value="">Education</option>
+                                <option value="">Law</option>
+                                <option value="">Management Science</option>
+                                <option value="">Science</option>
+                                <option value="">Social Science</option>
+                                <option value="">Engineering</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center">
+                                <p class="mb-2 font-inter font-medium text-base text-uploadtxt">
+                                Degree
+                                </p>
+                                <p class="mb-2 font-inter font-medium text-base text-danger">*</p>
+                            </div>
+                            <div class="items-center gap-4">
+                            <select
+                                name=""
+                                id=""
+                                class="select w-full h-[52px] bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none"
+                            >   
+                                <option value="" [disabled]="true">Select degree</option>
+                                <option value="">Computer Science</option>
+                                <option value="">Education</option>
+                                <option value="">Law</option>
+                                <option value="">Management Science</option>
+                                <option value="">Science</option>
+                                <option value="">Social Science</option>
+                                <option value="">Engineering</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center">
+                                <p class="mb-2 font-inter font-medium text-base text-uploadtxt">
+                                Year of Graduation
+                                </p>
+                                <p class="mb-2 font-inter font-medium text-base text-danger">*</p>
+                            </div>
+                            <div class="items-center gap-4">
+                            <select
+                                name=""
+                                id=""
+                                class="select w-full h-[52px] bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none"
+                            >   
+                                <option value="" [disabled]="true">Select year of graduation</option>
+                                <option value="">2009</option>
+                                <option value="">2010</option>
+                                <option value="">2011</option>
+                                <option value="">2012</option>
+                                <option value="">2014</option>
+                
+                            </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="border-b-1.5 py-7">
+                    <p class="font-inter font-semibold text-base text-uploadtxt">Academic Spreadsheet</p>
+                </div>
+                <div class="p-12 border-b-1.5">
+                    <div class="mt-6">
+                        <div class="mb-3">
+                            <p 
+                            class="font-inter font-semibold text-uploadtxt text-base text-center mb-3">
+                            Click the ‘download template’ link below to download an Excel spreadsheet. Fill the excel template and upload it.
+                            </p>
+                            <p class="font-nunito font-normal text-base text-uploadtxt text-center mb-3">
+                                <span class="text-danger">Please Note: </span>
+                                You are only allowed to upload 50 documents at a time.
+                            </p>
+                            <p class="font-nunito font-semibold text-base text-primaryBlue text-center underline mb-3">
+                                Download Template
+                            </p>
+                        </div>
+
+                        <div class="relative  border rounded-lg">
+                            <label for="file1">
+                                <div class="">
+                                    <div class="flex justify-center mt-3 ">
+                                        <img src="assets/images/icons/upload_icon.svg" alt="upload_icon">
+                                    </div>
+                                    <div>
+                                        <p class="font-nunito font-medium text-base text-lightGray text-center">
+                                            <span class="text-primaryBlue font-semibold">Click to upload </span>
+                                            or drag and drop the document here
+                                        </p>
+                                        <p class="font-nunito font-normal text-xs text-lightGray text-center mb-3">
+                                            Excel (max. 5 mb)
+                                        </p>
+                                    </div>
+                                </div>
+                            </label>
+                            <input 
+                            (change)="handleFileUpload($event)" 
+                            class="hidden  file:absolute file:w-full file:h-full" 
+                            type="file"
+                            id="file1" />
+                        </div>
+                        <div *ngIf="selectedFile"
+                        class="border rounded-lg border-primaryBlue p-3 mt-3">
+                            <div class="flex justify-between">
+                                <div class="flex items-start gap-2">
+                                    <img src="assets/images/icons/file_upload.svg" alt="file_upload">
+                                    <div>
+                                        <p 
+                                        class="font-inter font-medium text-sm text-failedNormal">
+                                        {{selectedFile}}    
+                                        </p>
+                                        <p *ngIf="fileSize" 
+                                        class="text-sm font-inter font-normal text-lightGray">
+                                        {{fileSize}}
+                                        </p>
+                                    </div>
+                                    
+                                </div>
+                                <div class="flex gap-2 items-center">
+                                    <input type="checkbox" [checked]="progress === 100" class="checkbox checkbox-xs" /> 
+                                    <img src="assets/images/icons/delete_icon.svg" 
+                                    (click)="deleteFile()"
+                                    alt="delete_icon">
+                                </div>
+                            </div>
+                            <div class="relative mt-6 flex gap-2 items-center">
+                                <div 
+                                class="overflow-hidden h-2 text-xs flex rounded bg-gray-200 border w-full">
+                                    <div 
+                                    [style.width.%]="progress" 
+                                    class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
+                                </div>
+                                <div class="flex justify-between text-xs mt-1 text-gray-500">
+                                    <div>{{progress}}%</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+                <div class="flex justify-end mt-6">
+                    <app-button
+                    [overRideButtonClass]="true"
+                    customClass="h-[52px] w-32 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+                    [disabled]="progress < 100"
+                    [routerLink]="'/institution/uploads/confirm-uploads'"
+                    >Upload Record</app-button
+                    >
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</div>

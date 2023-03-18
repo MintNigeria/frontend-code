@@ -1,0 +1,271 @@
+<div class="bg-white p-6">
+    <div class="flex  items-center md:gap-4 gap-2 ">
+        <div>
+            <img [routerLink]="'/institution/uploads'" src="assets/images/icons/home.svg">
+        </div>
+        <div>
+            <img src="assets/images/icons/forward_arrow.svg">
+        </div>
+
+        <div>
+            <p class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer">
+                Uploads
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="flex  items-center md:gap-4 gap-2 mt-6" (click)="goBack()">
+        <div>
+            <img src="assets/images/icons/backward_arrow.svg">
+        </div>
+
+        <div>
+            <p class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer">
+                Back
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="px-5 lg:flex justify-between">
+        <div class="items-center my-2">
+            <div>
+                <h4 class="font-medium font-poppins lg:text-4xl text-lg  text-[#101828] my-3">
+                    Batch Number: 1234567
+                </h4>
+                <p class="text-[#667085] font-nunito text-base font-normal cursor-pointer">
+                    Date Uploaded: 12th June, 2022, 9:23 AM
+                </p>
+            </div>
+        </div>
+        
+        <div class="mt-6 mb-3 lg:mb-0 flex items-center gap-3">
+            <app-button
+                (buttonClick)="goBack()"
+                [overRideButtonClass]="true"
+                customClass="h-[52px] w-32 rounded-lg font-inter font-medium text-sm text-buttonBlue  bg-white border border-buttonBlue hover:bg-buttonBlue hover:text-white"
+                >Cancel Upload</app-button
+            >
+            <app-button
+                (buttonClick)="openChangesConfirmed()"
+                [overRideButtonClass]="true"
+                customClass="h-[52px] w-32 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+                >Confirm Upload</app-button
+            >  
+        </div>
+    </div>
+
+    <div class="border rounded-lg mt 6">
+        <div class="border-b-1.5 flex gap-3 p-6">
+            <div class="flex gap-2">
+                <p class="font-inter font-medium text-base text-darkGray">
+                    Count
+                </p>
+                <div class="rounded-full bg-tabBlue px-2">
+                    <p class="font-inter font-medium text-base text-buttonBlue">{{UploadedList.length}}</p>
+                </div>
+            </div>
+
+            <div class="flex gap-2">
+                <p class="font-inter font-medium text-base text-darkGray">
+                    Success
+                </p>
+                <div class="rounded-full bg-successLight px-2">
+                    <p class="font-inter font-medium text-base text-successNormal">96</p>
+                </div>
+            </div>
+
+            <div class="flex gap-2">
+                <p class="font-inter font-medium text-base text-darkGray">
+                    Failed
+                </p>
+                <div class="rounded-full bg-failedLight px-2">
+                    <p class="font-inter font-medium text-base text-failedDark">4</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white">
+            <div class="p-3 lg:flex gap-3">
+                <div class=" mb-9">
+                    <div class="w-full ">
+                        <label class=" font-inter font-medium text-sm text-failedNormal " for="inline-full-name">
+                            Faculty
+                        </label>
+                    </div>
+                    <div class="w-full  mt-2">
+                        <app-input 
+                        [formGrp]="UploadForm" 
+                        formCtrlName="faculty" 
+                        [type]="'text'" 
+                        [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-tableHeader rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                        placeholder="faculty" 
+                        [name]="'faculty'"
+                        [readonly]="true"></app-input>
+                    </div>
+                </div>
+                <div class=" mb-9">
+                    <div class="w-full ">
+                        <label class=" font-inter font-medium text-sm text-failedNormal " for="inline-full-name">
+                            Department
+                        </label>
+                    </div>
+                    <div class="w-full  mt-2">
+                        <app-input 
+                        [formGrp]="UploadForm" 
+                        formCtrlName="department" 
+                        [type]="'text'" 
+                        [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                        placeholder="department" 
+                        [name]="'department'"
+                        [readonly]="true"></app-input>
+                    </div>
+                </div>
+                <div class=" mb-9">
+                    <div class="w-full ">
+                        <label class=" font-inter font-medium text-sm text-failedNormal " for="inline-full-name">
+                            Degree
+                        </label>
+                    </div>
+                    <div class="w-full  mt-2">
+                        <app-input 
+                        [formGrp]="UploadForm" 
+                        formCtrlName="bsc" 
+                        [type]="'text'" 
+                        [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                        placeholder="bsc" 
+                        [name]="'bsc'"
+                        [readonly]="true"></app-input>
+                    </div>
+                </div>
+
+                <div class=" mb-9">
+                    <div class="w-full ">
+                        <label class=" font-inter font-medium text-sm text-failedNormal " for="inline-full-name">
+                            Year of Graduation
+                        </label>
+                    </div>
+                    <div class="w-full  mt-2">
+                        <app-input 
+                        [formGrp]="UploadForm" 
+                        formCtrlName="yearofGrad" 
+                        [type]="'text'" 
+                        [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                        placeholder="yearofGrad" 
+                        [name]="'yearofGrad'"
+                        [readonly]="true"></app-input>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="overflow-x-auto hide-scrollbar">
+                <table class="table w-full bg-white">
+                    <thead>
+                        <tr class="bg-white">
+                           <th class="text-xs text-[#667085] font-medium font-inter bg-tableHeader">Name</th>
+                           <th class="text-xs text-[#667085] font-medium font-inter bg-tableHeader">Gender</th>
+                           <th class="text-xs text-[#667085] font-medium font-inter bg-tableHeader">Date of Birth</th>
+                           <th class="text-xs text-[#667085] font-medium font-inter bg-tableHeader">Matric Number</th>
+                           <th class="text-xs text-[#667085] font-medium font-inter bg-tableHeader">Grade</th>
+                           <th class="text-xs text-[#667085] font-medium font-inter bg-tableHeader">Year of Entry</th>
+                           <th class="text-xs text-[#667085] font-medium font-inter bg-tableHeader">State of Origin</th>
+                           <th class="text-xs text-[#667085] font-medium font-inter bg-tableHeader">Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let data of UploadedList">
+                            <td class="bg-white font-inter font-medium text-base text-primaryBlue">
+                                {{data.name}}
+                            </td>
+                            <td class="bg-white font-inter font-medium text-base"
+                            [ngClass]="
+                            data.gender === 'male'? 'text-lightGray':
+                            data.gender === 'female'? 'text-lightGray' 
+                            :'text-danger' ">
+                                {{data.gender}}
+                            </td>
+                            <td class="bg-white font-inter font-medium text-base text-lightGray">
+                                {{data.dob}}
+                            </td>
+                            <td class="bg-white font-inter font-medium text-base"
+                            [ngClass]="
+                            data.matric === '070812003'? 'text-lightGray'
+                            :'text-danger' ">
+                                {{data.matric}}
+                            </td>
+                            <td class="bg-white font-inter font-medium text-base text-lightGray">
+                                {{data.grade}}
+                            </td>
+                            <td class="bg-white font-inter font-medium text-base text-lightGray">
+                                {{data.yearofEntry}}
+                            </td>
+                            <td class="bg-white font-inter font-medium text-base text-lightGray">
+                                {{data.stateOfOrigin}}
+                            </td>
+                            <td class="bg-white">
+                                <div class="flex gap-1 px-3 items-center w-fit rounded-lg font-inter font-medium text-base"
+                                [ngClass]="data.status === 'successful'? 'bg-successLight'
+                                :'bg-failedLight' ">
+                                    <div class="rounded-full w-2 h-2"
+                                    [ngClass]="data.status === 'successful' ? 'bg-successNormal' :
+                                    'bg-failedDark'"></div>
+                                    <p
+                                    [ngClass]="
+                                    data.status === 'successful'? 'text-successNormal'
+                                    :'text-danger' ">
+                                        {{data.status}}
+                                    </p>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-between mt-3 p-3">
+            <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
+            Showing 1 to 7 of {{ UploadedList.length }} entries
+            </p>
+            <div class="flex item gap-3">
+            <div
+                class="text-[10px] md:text-xs text-[#6E7191] bg-[#FCFCFC] rounded border border-solid border-[#EFF0F7] p-2 flex items-center justify-center gap-2 cursor-pointer"
+            >
+                <img src="assets/images/icons/prev.svg" alt="" />
+                <span>Prev</span>
+            </div>
+            <div
+                class="text-sm md:text-sm text-[#1D2B4F] bg-[#D9DBE9] rounded border border-solid border-[#D9DBE9] p-2"
+            >
+                1
+            </div>
+            <div
+                class="text-[10px] md:text-xs text-[#262338] bg-[#FCFCFC] rounded border border-solid border-[#0C3146] p-2 flex items-center justify-center gap-2 cursor-pointer"
+            >
+                <span>Next</span>
+                <img src="assets/images/icons/next.svg" alt="" />
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-modal [id]="changesConfirmed">
+    <div class="toast toast-top">
+        <div class="alert alert-success flex justify-between items-center">
+            <div class="font-avenir font-meduim lg:text-lg text-base">
+                <img src="assets/images/icons/confirmed_icon.svg" alt="close_toast">
+                <span class="text-successNormal">96 Records uploaded successfully.</span>
+            </div>
+            <label [for]="changesConfirmed">
+                <img src="assets/images/icons/green_x.svg" alt="close_toast">
+            </label>
+        </div>
+    </div>
+</app-modal>

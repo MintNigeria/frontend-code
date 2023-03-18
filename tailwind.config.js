@@ -30,6 +30,7 @@ module.exports = {
         discountBlue: '#1059C6',
         discountBg: "#D7E7FE",
         failedDark: "#D92D20",
+        uploadtxt: "#2F4662",
 
       },
       fontFamily: {

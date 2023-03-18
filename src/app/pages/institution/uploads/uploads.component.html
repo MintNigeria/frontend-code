@@ -1,1 +1,57 @@
-<p>uploads works!</p>
+<div class="px-8  py-6 bg-white ">
+    <div class="flex gap-3 items-center">
+        <div>
+            <img [routerLink]="'/institution/uploads'" src="assets/images/icons/home.svg" />
+        </div>
+        <div>
+            <img src="assets/images/icons/forward_arrow.svg" />
+        </div>
+
+        <div>
+            <p
+            class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer"
+            >
+            Uploads
+            </p>
+        </div>
+    </div>
+    
+    <div class="bg-white py-6 ">
+        <div class="px-5">
+            <div class="flex justify-between items-center my-2">
+                <h4 class="font-medium font-poppins text-4xl text-[#101828] my-3">
+                    Uploads
+                </h4>
+                <app-button
+                [routerLink]="'/institution/uploads/upload-records'"
+                [overRideButtonClass]="true"
+                [customClass]="'h-[52px] w-32 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue'">
+                    Upload Record
+                </app-button>
+            </div>
+        </div>
+    </div>
+    <div class="flex gap-6 md:gap-10 pt-3 border-b border-solid border-[#E0E3EA] border-t-0 border-r-0 border-l-0">
+        <div routerLink="/institution/uploads" #rlaMember="routerLinkActive"
+            class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
+            [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
+            <p>Success</p>
+            <div class="bg-tabBlue rounded-full px-2 ">
+                <p class="font-inter font-medium text-base text-active">2</p>
+            </div>
+        </div>
+
+        <div routerLink="/institution/uploads/failed" #rlaRoles="routerLinkActive"
+            class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
+            [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
+            <p>Failed</p>
+            <div class="bg-tabBlue rounded-full px-2 ">
+                <p class="font-inter font-medium text-base text-active" >2</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-6">
+        <router-outlet></router-outlet>
+      </div>
+</div>
