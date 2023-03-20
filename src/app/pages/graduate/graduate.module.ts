@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GraduateComponent } from './graduate.component';
 import { GraduateRoutingModule } from './graduate-routing.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -11,7 +12,8 @@ import { GraduateRoutingModule } from './graduate-routing.module';
   ],
   imports: [
     CommonModule,
-    GraduateRoutingModule
+    GraduateRoutingModule,
+    SharedModule
   ]
 })
 export class GraduateModule { }
