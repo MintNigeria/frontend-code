@@ -61,6 +61,14 @@ export class InstitutionComponent implements OnInit {
     },
     {
       id: 4,
+      title: 'Reports',
+      hasChild: false,
+      path: 'reports',
+      active: 'assets/images/reports.svg',
+      inactive: 'assets/images/reports.svg',
+    },
+    {
+      id: 5,
       title: 'Transactions',
       hasChild: false,
       path: 'transactions',
@@ -68,7 +76,7 @@ export class InstitutionComponent implements OnInit {
       inactive: 'assets/images/organization-inactive.svg',
     },
     {
-      id: 5,
+      id: 6,
       title: 'configuration',
       hasChild: false,
       path: 'configuration',
@@ -76,7 +84,7 @@ export class InstitutionComponent implements OnInit {
       inactive: 'assets/images/config-inactive.svg',
     },
     {
-      id: 6,
+      id: 7,
       title: 'Users and Roles',
       hasChild: false,
       path: 'users-and-roles',

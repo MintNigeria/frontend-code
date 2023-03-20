@@ -9,6 +9,8 @@ import { SearchComponent } from './components/search/search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FilesizePipe } from '../core/pipe/filesize.pipe';
+import { StatusTabComponent } from './components/status-tab/status-tab.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 const components: any[] = [
   InputComponent,
@@ -17,13 +19,17 @@ const components: any[] = [
   SidebarComponent,
   HeaderComponent,
   SearchComponent,
-  FilesizePipe
+  FilesizePipe,
+  StatusTabComponent,
+  ModalComponent,
 ]
 
 
 @NgModule({
   declarations: [
-    ...components
+    ...components,
+    StatusTabComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,

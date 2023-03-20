@@ -1,0 +1,285 @@
+<div class="bg-white p-6">
+    <div class="flex  items-center md:gap-4 gap-2 ">
+        <div>
+            <img [routerLink]="'/main/requests'" src="assets/images/icons/home.svg">
+        </div>
+        <div>
+            <img src="assets/images/icons/forward_arrow.svg">
+        </div>
+
+        <div>
+            <p class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer">
+                OrganizationRequests
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="flex  items-center md:gap-4 gap-2 mt-6" (click)="goBack()">
+        <div>
+            <img src="assets/images/icons/backward_arrow.svg">
+        </div>
+
+        <div>
+            <p class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer">
+                Back
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="px-5 lg:flex justify-between">
+        <div class="items-center my-2">
+            <div class="flex items-center gap-3">
+                <h4 class="font-medium font-poppins lg:text-4xl text-xl text-[#101828] my-3">
+                    Request ID: 3066
+                </h4>
+                <div class=" mt-2 rounded-full text-center w-[98px] bg-[#ECFDF3]">
+                    <div class="ml-4 flex items-center gap-2 w-[98px]">
+                        <p class="mtext-base font-inter md:text-base text-[#027A48]"
+                            >
+                            Complete
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <p class="text-[#667085] font-nunito text-base font-normal cursor-pointer">
+                Request made on January 25, 2023, 9:40 AM
+            </p>
+        </div>
+
+        <div class="mt-6">
+            <div>
+                <p class="mb-2 font-inter font-normal text-base text-lightGray">
+                Update Request Approval
+                </p>
+                <div class="flex items-center gap-4">
+                <select
+                    name=""
+                    id=""
+                    class="select lg:w-52 w-auto h-[52px] bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none"
+                >
+                    <option value="">Pending</option>
+                    <option value="">Processing</option>
+                    <option value="">Paused</option>
+                    <option value="">Dispatched</option>
+                    <option value="">Completed</option>
+                    <option value="">Declined</option>
+                </select>
+                <app-button
+                    [overRideButtonClass]="true"
+                    customClass="h-[52px] w-32 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+                    (buttonClick)="openConfirmation()"
+                    >Update</app-button
+                >
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="flex flex-col gap-5 pb-5 mt-6">
+           
+            <div class="px-7 py-3 rounded-xl bg-white border border-solid border-[#EFF0F6]">
+                <div
+                    class="border-b border-solid border-[#EFF0F7] flex items-center justify-between gap-3 p-[20px_24px]">
+                    <h5 class="text-[#101828] text-base md:text-lg font-medium">
+                        Academic Details
+                    </h5>
+                    
+                </div>
+                <div>
+                    <div class="px-7 pt-10 grid lg:grid-cols-3 gap-8 font-sans">
+                        <div>
+                            <h5 class="text-[#667085] text-base md:text-sm font-normal font-inter">
+                                Full Name
+                            </h5>
+                            <p class="text-base font-inter md:text-base text-[#101828]">
+                               {{data.fullName}}
+                            </p>
+                        </div>
+                       
+                       
+                      
+                         <div>
+                            <h5 class="text-[#667085] text-base md:text-base  font-normal font-inter">
+                                Institution
+                            </h5>
+                            <p class="text-base font-inter md:text-base text-[#101828]">
+                                {{data.institution}}
+                            </p>
+                        </div>
+                        
+                          <div>
+                            <h5 class="text-[#667085] text-base md:text-base  font-normal font-inter">
+                               Faculty
+                            </h5>
+                            <p class="text-base font-inter md:text-base text-[#101828]">
+                                {{data.faculty}}
+                            </p>
+                        </div>
+                         
+                         <div>
+                            <h5 class="text-[#667085] text-base md:text-base  font-normal font-inter">
+                                Department
+                            </h5>
+                            <p class="text-base font-inter md:text-base text-[#101828]">
+                                {{data.department}}
+                            </p>
+                        </div>
+                        <div>
+                            <h5 class="text-[#667085] text-base md:text-base  font-normal font-inter">
+                                Degree Type
+                            </h5>
+                            <p class="text-base font-inter md:text-base text-[#101828]">
+                                {{data.degree}}
+                            </p>
+                        </div>
+                        <div>
+                            <h5 class="text-[#667085] text-base md:text-base  font-normal font-inter">
+                                Matriculation Number
+                            </h5>
+                            <p class="text-base font-inter md:text-base text-[#101828]">
+                                {{data.matNumber}}
+                            </p>
+                        </div>
+                       <div>
+                            <h5 class="text-[#667085] text-base md:text-base  font-normal font-inter">
+                                Year of Entry
+                            </h5>
+                            <p class="text-base font-inter md:text-base text-[#101828]">
+                                {{data.yearOfEntry}}
+                            </p>
+                        </div>
+                        <div>
+                            <h5 class="text-[#667085] text-base md:text-base  font-normal font-inter">
+                                Year of Graduation
+                            </h5>
+                            <p class="text-base font-inter md:text-base text-[#101828]">
+                                {{data.yearOfgrad}}
+                            </p>
+                        </div>
+                         <div>
+                            <h5 class="text-[#667085] text-base md:text-base font-normal font-inter">
+                                Gender
+                            </h5>
+                            <p class="text-base font-inter md:text-base text-[#101828]">
+                                {{data.gender}}
+                            </p>
+                        </div>
+                        
+                       
+                    </div>
+                </div>
+            </div>
+
+             <div class="px-7 py-3 rounded-xl bg-white border border-solid border-[#EFF0F6]">
+                <div
+                    class="border-b border-solid border-[#EFF0F7] flex items-center justify-between gap-3 p-[20px_24px]">
+                    <h5 class="text-[#101828] text-base md:text-lg font-medium">
+                        Application Details
+                    </h5>
+                    
+                </div>
+                <div>
+                    <div class="px-7 pt-10 grid lg:grid-cols-3 gap-8 font-sans">
+                        <div>
+                            <h5 class="text-[#667085] text-base md:text-sm font-normal font-inter">
+                                Document Type
+                            </h5>
+                            <p class="text-base font-inter md:text-base text-[#101828]">
+                               {{data.docType}}
+                            </p>
+                        </div>
+                       
+                       
+                      
+                         <div>
+                            <h5 class="text-[#667085] text-base md:text-base  font-normal font-inter">
+                                Requesting Organization
+                            </h5>
+                            <p class="text-base font-inter md:text-base text-[#101828]">
+                                {{data.requestingOrganization}}
+                            </p>
+                        </div>
+                        
+                          
+                         
+                         <div>
+                            <h5 class="text-[#667085] text-base md:text-base  font-normal font-inter">
+                                Reason for Request
+                            </h5>
+                            <p class="text-base font-inter md:text-base text-[#101828]">
+                                {{data.reasonForRequest}}
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h5 class="text-[#667085] text-base md:text-base  font-normal font-inter">
+                                Payment Success
+                            </h5>
+                            <div class=" mt-2 rounded-full text-center w-[98px] bg-[#ECFDF3]">
+                                <div class="ml-4 flex items-center gap-2 w-[98px]">
+                                    <p class="mtext-base font-inter md:text-base text-[#027A48]"
+                                        >
+                                        {{data.payment}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        
+                       
+                    </div>
+                </div>
+            </div>
+
+           
+    </div>
+
+
+</div>
+
+
+<app-modal [id]="confirmationModal">
+    <div class="lg:rounded-xl bg-white hide-scrollbar h-auto w-auto lg:p-2 p-6 modal-box">
+        <div class="grid grid-rows-2 justify-items-center mt-8">
+            <img src="assets/images/icons/confirm_icon.svg" alt="confirm_icon">
+            <h3 class="font-inter font-medium text-2xl text-darkGray mt-8">Update Request Status?</h3>
+            <p class="text-center lg:w-96 font-inter font-normal text-base text-failedNormal mt-8">
+                Are you sure you want to update the request status?
+            </p>
+        </div>
+        <div class="flex justify-center mt-8 mb-8 gap-3">
+            <label
+                [for]="confirmationModal"
+                class="text-center bg-white rounded-lg border border-buttonBlue  hover:bg-buttonBlue hover:text-white text-buttonBlue text-base font-medium font-inter py-2 px-4 w-36 "
+            >
+                Cancel
+        </label>
+            <button
+                (click)="openChangesConfirmed()"
+                class="bg-buttonBlue rounded-lg  hover:bg-buttonBlue  text-white text-base font-medium font-inter py-2 px-4 w-36 "
+            >
+                Yes, Update
+            </button>
+        </div>
+    </div>
+</app-modal>
+
+
+<app-modal [id]="changesConfirmed">
+    <div class="toast toast-top">
+        <div class="alert alert-success flex justify-between items-center">
+            <div class="font-avenir font-meduim lg:text-lg text-base">
+                <img src="assets/images/icons/confirmed_icon.svg" alt="close_toast">
+                <span class="text-successNormal">Request updated successfully.</span>
+            </div>
+            <label [for]="changesConfirmed">
+                <img src="assets/images/icons/green_x.svg" alt="close_toast">
+            </label>
+        </div>
+    </div>
+</app-modal>
