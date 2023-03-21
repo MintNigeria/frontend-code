@@ -9,11 +9,18 @@ import { InstitutitionRegistrationComponent } from './institutition-registration
 import { OrganizationRegistrationComponent } from './organization-registration/organization-registration.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RecaptchaFormsModule, RecaptchaModule, RECAPTCHA_V3_SITE_KEY } from 'ng-recaptcha';
+import {
+  RecaptchaFormsModule,
+  RecaptchaModule,
+  RECAPTCHA_V3_SITE_KEY,
+} from 'ng-recaptcha';
 import { environment } from 'src/environments/environment';
 import { GraduateRegistrationComponent } from './graduate-registration/graduate-registration.component';
 import { NgOtpInputModule } from 'ng-otp-input';
-
+import { StoreModule } from '@ngrx/store';
+import { authReducers } from 'src/app/store/auth/reducers';
+import { AuthEffects } from 'src/app/store/auth/effects';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -22,7 +29,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
     LoginComponent,
     InstitutitionRegistrationComponent,
     OrganizationRegistrationComponent,
-    GraduateRegistrationComponent
+    GraduateRegistrationComponent,
   ],
   imports: [
     CommonModule,
@@ -32,8 +39,10 @@ import { NgOtpInputModule } from 'ng-otp-input';
     RecaptchaModule,
     RecaptchaFormsModule,
     NgOtpInputModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    StoreModule.forFeature('auth', authReducers),
+    EffectsModule.forFeature([AuthEffects]),
   ],
   // providers: [{ provide: RECAPTCHA_V3_SITE_KEY, useValue: environment.recaptchaKey }],
 })
-export class AuthModule { }
+export class AuthModule {}

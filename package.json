@@ -26,7 +26,16 @@
     "ng-recaptcha": "^10.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "ngrx-store-localstorage": "^10.0.0",
+    "ngx-device-detector": "^5.0.1",
+        "@ngrx/effects": "^14.3.2",
+    "@ngrx/store": "^14.3.2",
+    "@ngrx/store-devtools": "^14.3.2",
+    "@auth0/angular-jwt": "^5.1.2",
+    "@fortawesome/fontawesome-free": "^5.15.1",
+    "angular-notifier": "^12.0.0"
+
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.10",
