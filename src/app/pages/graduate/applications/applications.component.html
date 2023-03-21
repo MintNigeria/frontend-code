@@ -16,12 +16,15 @@
 </div>
 
 <div class="bg-white py-6 px-8">
-    <div class="px-5">
-      <div class="items-center my-2">
-        <h4 class="font-medium font-poppins text-4xl text-[#101828] my-3">
-          All Applications
-        </h4>
-      </div>
+    <div class="flex flex-wrap gap-4 items-center justify-between">
+      <h4 class="font-medium font-poppins text-4xl text-[#101828] my-5">
+        All Applications
+      </h4>
+      <button [routerLink]="'/graduate/my-applications/new'"
+        class="bg-[#4086EF] text-white font-medium font-inter text-sm px-4 py-2.5 rounded-xl"
+      >
+        Start New Application
+      </button>
     </div>
     <div class="w-full rounded-xl p-6 border-none bg-[#F5F9FF]">
       <form>
@@ -360,7 +363,7 @@
                       <td class="bg-white">
                         <div
                           class="flex gap-2 items-center"
-                          [routerLink]="'/main/requests/graduate/2'"
+                          [routerLink]="'/graduate/my-applications/' + data.id"
                         >
                           <p
                             class="my-0 text-sm font-inter cursor-pointer font-medium text-[#0D47A1]"
