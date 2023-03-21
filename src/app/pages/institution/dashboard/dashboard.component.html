@@ -1,11 +1,11 @@
-<div class="bg-white p-6">
+<div class="bg-white p-6 " *ngIf="user$ | async as user">
   <div class="flex justify-between">
     <div>
         <h4 class="font-poppins font-medium text-3xl headerGray capitalize pb-1">
-            Welcome back, 
+            Welcome back, {{ user.firstName }}
         </h4>
         <p class="font-nunito font-normal text-base text-lightGray mb-6">
-            Last login date: Mon 9, 2023 12:21PM
+            Last login date: {{ user.lastLogin }}
         </p>
     </div>
     <app-button
@@ -17,31 +17,32 @@
   </div>
 
   <div>
-    <div class="bg-white inline-flex rounded-md shadow-sm mb-6" role="group">
-        <button
-        type="button"
-        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-        >
-        12 months
-        </button>
-        <button
-        type="button"
-        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-        >
+    <div class="inline-flex rounded-md shadow-sm mb-6 bg-white" role="group">
+      <button (click)="changeRange(0)" type="button"
+        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
+        All Time
+      </button>
+  
+      <button (click)="changeRange(4)" type="button"
+        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
+        12 month
+      </button>
+      <button (click)="changeRange(3)" type="button"
+        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
         30 days
-        </button>
-        <button
-        type="button"
-        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-        >
+      </button>
+      <button (click)="changeRange(2)" type="button"
+        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
         7 days
-        </button>
-        <button
-        type="button"
-        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-        >
+      </button>
+      <button (click)="changeRange(1)" type="button"
+        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
         24 hours
-        </button>
+      </button>
+      <button (click)="changeRange(5)" type="button"
+        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
+        Custom date
+      </button>
     </div>
 
     <div>
@@ -252,30 +253,31 @@
             </button>
         </div>
     </div>
-    <div class="inline-flex rounded-md shadow-sm mb-6" role="group">
-      <button
-        type="button"
-        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-      >
-        12 months
+    <div class="inline-flex rounded-md shadow-sm mb-6 bg-white" role="group">
+      <button (click)="changeRange(0)" type="button"
+        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
+        All Time
       </button>
-      <button
-        type="button"
-        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-      >
+  
+      <button (click)="changeRange(4)" type="button"
+        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
+        12 month
+      </button>
+      <button (click)="changeRange(3)" type="button"
+        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
         30 days
       </button>
-      <button
-        type="button"
-        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-      >
+      <button (click)="changeRange(2)" type="button"
+        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
         7 days
       </button>
-      <button
-        type="button"
-        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-      >
+      <button (click)="changeRange(1)" type="button"
+        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
         24 hours
+      </button>
+      <button (click)="changeRange(5)" type="button"
+        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
+        Custom date
       </button>
     </div>
     <div class="flex justify-end items-center mb-4 gap-3">
