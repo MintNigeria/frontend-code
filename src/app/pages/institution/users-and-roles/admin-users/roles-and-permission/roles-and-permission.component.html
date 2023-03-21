@@ -1,0 +1,507 @@
+<div>
+    <ng-container *ngIf="setupToggle">
+        <div class="">
+            <div class="items-center">
+                <div class="border-1.5 rounded-lg shadow-md">
+                    <div class="flex justify-between items-center py-3 border-b-1.5 px-6 ">
+                        <h3 class="font-sans font-medium text-lg text-darkGray">Roles</h3>
+                        <app-button
+                            (buttonClick)="activateEditDepartment()"
+                            [overRideButtonClass]="true" 
+                            [customClass]="'w-fit h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2'">
+                            Add New Role
+                        </app-button>
+                    </div>
+                    <div class="p-6 ">
+                        <div class="lg:flex items-start gap-10">
+                            <div>
+                                <h3 class="font-sans font-medium text-lg text-darkGray mb-3">Default Roles</h3>
+                                <div class="bg-tableHeader border border-borderGray rounded-md shadow-md w-52 align-middle">
+                                    <div class="flex items-center justify-between h-10 p-2 m-2 bg-fadedBlue rounded-md shadow-md w-48">
+                                        <p class="text-base font-medium font-inter text-[#344054]">
+                                            Super Admin
+                                        </p>
+                                        <div class="w-6 h-6 rounded-full bg-none shadow-md">
+                                            <div class="flex items-center justify-center h-full">
+                                                <p class="m-0.5 text-sm font-medium font-inter text-[#344054] cursor-pointer">
+                                                    2
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center justify-between w-48 h-10 p-2 m-2 rounded-md" (click)="activateDepartment()">
+                                        <p class="font-medium font-inter text-base text-[#344054]">
+                                            Functional Admin
+                                        </p>
+                                        <div class="w-6 bg-[#F2F4F7] rounded-full text-center">
+                                            <div class="flex items-center justify-center h-full rounded-full">
+                                                <p class="font-medium font-inter text-sm text-[#344054] cursor-pointer m-0.5">
+                                                    2
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center justify-between w-48 h-10 p-2 m-2 rounded-md" (click)="activatedegreeType()">
+                                        <p class="font-medium font-inter text-base text-[#344054]">
+                                            Records
+                                        </p>
+                                        <div class="w-6 bg-[#F2F4F7] rounded-full text-center">
+                                            <div class="flex items-center justify-center h-full rounded-full">
+                                                <p class="font-medium font-inter text-sm text-[#344054] cursor-pointer m-0.5">
+                                                    2
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center justify-between w-48 h-10 p-2 m-2 rounded-md" (click)="activateManagement()">
+                                        <p class="font-medium font-inter text-base text-[#344054]">
+                                            Audit
+                                        </p>
+                                        <div class="w-6 bg-[#F2F4F7] rounded-full text-center">
+                                            <div class="flex items-center justify-center h-full rounded-full">
+                                                <p class="font-medium font-inter text-sm text-[#344054] cursor-pointer m-0.5">
+                                                    2
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center justify-between w-48 h-10 p-2 m-2 rounded-md" (click)="activatedegreeType()">
+                                        <p class="font-medium font-inter text-base text-[#344054]">
+                                            Management
+                                        </p>
+                                        <div class="w-6 bg-[#F2F4F7] rounded-full text-center">
+                                            <div class="flex items-center justify-center h-full rounded-full">
+                                                <p class="font-medium font-inter text-sm text-[#344054] cursor-pointer m-0.5">
+                                                    2
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+                                <h3 class="font-sans font-medium text-lg text-darkGray mb-3 mt-6">Custom Roles</h3>
+                                <div class="bg-tableHeader border border-borderGray rounded-md shadow-md w-52 align-middle">
+                                    <div class="flex items-center justify-between h-10 p-2 m-2 bg-fadedBlue rounded-md shadow-md w-48"
+                                    (click)="activateNewAdmin()">
+                                        <p class="text-base font-medium font-inter text-[#344054]">
+                                            New Admin
+                                        </p>
+                                        <div class="w-6 h-6 rounded-full bg-none shadow-md">
+                                            <div class="flex items-center justify-center h-full">
+                                                <p class="m-0.5 text-sm font-medium font-inter text-[#344054] cursor-pointer">
+                                                    2
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="lg:w-2/3 mt-3">
+                                <div *ngIf="superAdmin">
+                                    <h3 class="font-sans font-medium text-lg text-darkGray mb-3">Super Admin Users</h3>
+                                    <div class="overflow-x-auto mt-3 hide-scrollbar border rounded-xl shadow-sm">
+                                        <table class="table w-full">
+                                            <thead>
+                                                <tr>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl">Name</th>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl">Email</th>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of rolesList">
+                                                    <td class="font-inter font-medium text-base text-darkGray bg-white">{{data.superadmin}}</td>
+                                                    <td class="bg-white font-inter font-normal text-base text-lightGray">{{data.email}}</td>
+                                                    <td class="bg-white">
+                                                        <div class="flex gap-3">
+                                                            <div class="bg-lightBlue rounded-full px-2">
+                                                                <p class="font-inter font-medium text-base text-primaryBlue">{{data.identity}}</p>
+                                                            </div>
+                                                            <p class="font-inter font-medium text-base text-primaryBlue"
+                                                            [routerLink]="'/institution/users-and-roles/'">Edit</p>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="mt-6">
+                                        <h3 class="font-sans font-medium text-lg text-darkGray mb-3">Permissions</h3>
+                                        <div class="grid grid-cols-5">
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">User Create</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">User Update</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Dashboard</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Transactions</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Requests</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Configuration</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Reports</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">User Delete</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="functionalAdmin">
+                                    <h3 class="font-sans font-medium text-lg text-darkGray mb-3">Functional Admin Users</h3>
+                                    <div class="overflow-x-auto mt-3 hide-scrollbar border rounded-xl shadow-sm">
+                                        <table class="table w-full">
+                                            <thead>
+                                                <tr>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl">Name</th>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl">Email</th>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of superAdminList">
+                                                    <td class="font-inter font-medium text-base text-darkGray bg-white">{{data.functionalAdmin}}</td>
+                                                    <td class="bg-white font-inter font-normal text-base text-lightGray">{{data.functionalEmail}}</td>
+                                                    <td class="bg-white">
+                                                        <div class="flex gap-3">
+                                                            <p class="font-inter font-medium text-base text-lightGray"
+                                                            (click)="removeUser(data)">{{data.remove}}</p>
+                                                            <p class="font-inter font-medium text-base text-primaryBlue"
+                                                            [routerLink]="'/institution/users-and-roles/users'">{{data.edit}}</p>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="mt-6">
+                                        <h3 class="font-sans font-medium text-lg text-darkGray mb-3">Permissions</h3>
+                                        <div class="grid grid-cols-5">
+                                            
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Dashboard</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Transactions</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Requests</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Configuration</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Reports</p>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="records">
+                                    <h3 class="font-sans font-medium text-lg text-darkGray mb-3">Records</h3>
+                                    <div class="overflow-x-auto mt-3 hide-scrollbar border rounded-xl shadow-sm">
+                                        <table class="table w-full">
+                                            <thead>
+                                                <tr>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl">Name</th>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl">Email</th>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of superAdminList">
+                                                    <td class="font-inter font-medium text-base text-darkGray bg-white">{{data.functionalAdmin}}</td>
+                                                    <td class="bg-white font-inter font-normal text-base text-lightGray">{{data.functionalEmail}}</td>
+                                                    <td class="bg-white">
+                                                        <div class="flex gap-3">
+                                                            <p class="font-inter font-medium text-base text-lightGray"
+                                                                (click)="removeUser(data)">
+                                                                {{data.remove}}
+                                                            </p>
+                                                            <p class="font-inter font-medium text-base text-primaryBlue"
+                                                            [routerLink]="'/institution/users-and-roles/users'">
+                                                            {{data.edit}}
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="mt-6">
+                                        <h3 class="font-sans font-medium text-lg text-darkGray mb-3">Permissions</h3>
+                                        <div class="grid grid-cols-5">
+                                            
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Dashboard</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Transactions</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Requests</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Configuration</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Reports</p>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="audit">
+                                    <h3 class="font-sans font-medium text-lg text-darkGray mb-3">Audit</h3>
+                                    <div class="overflow-x-auto mt-3 hide-scrollbar border rounded-xl shadow-sm">
+                                        <table class="table w-full">
+                                            <thead>
+                                                <tr>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl">Name</th>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl">Email</th>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of superAdminList">
+                                                    <td class="font-inter font-medium text-base text-darkGray bg-white">{{data.functionalAdmin}}</td>
+                                                    <td class="bg-white font-inter font-normal text-base text-lightGray">{{data.functionalEmail}}</td>
+                                                    <td class="bg-white">
+                                                        <div class="flex gap-3">
+                                                            <p class="font-inter font-medium text-base text-lightGray"
+                                                                (click)="removeUser(data)">
+                                                                {{data.remove}}
+                                                            </p>
+                                                            <p class="font-inter font-medium text-base text-primaryBlue"
+                                                            [routerLink]="'/institution/users-and-roles/users'">
+                                                            {{data.edit}}
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="mt-6">
+                                        <h3 class="font-sans font-medium text-lg text-darkGray mb-3">Permissions</h3>
+                                        <div class="grid grid-cols-5">
+                                            
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Dashboard</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Transactions</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Requests</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Configuration</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Reports</p>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="management">
+                                    <h3 class="font-sans font-medium text-lg text-darkGray mb-3">Management</h3>
+                                    <div class="overflow-x-auto mt-3 hide-scrollbar border rounded-xl shadow-sm">
+                                        <table class="table w-full">
+                                            <thead>
+                                                <tr>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl">Name</th>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl">Email</th>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of superAdminList">
+                                                    <td class="font-inter font-medium text-base text-darkGray bg-white">{{data.functionalAdmin}}</td>
+                                                    <td class="bg-white font-inter font-normal text-base text-lightGray">{{data.functionalEmail}}</td>
+                                                    <td class="bg-white">
+                                                        <div class="flex gap-3">
+                                                            <p class="font-inter font-medium text-base text-lightGray"
+                                                                (click)="removeUser(data)">
+                                                                {{data.remove}}
+                                                            </p>
+                                                            <p class="font-inter font-medium text-base text-primaryBlue"
+                                                            [routerLink]="'/institution/users-and-roles/users'">
+                                                            {{data.edit}}
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="mt-6">
+                                        <h3 class="font-sans font-medium text-lg text-darkGray mb-3">Permissions</h3>
+                                        <div class="grid grid-cols-5">
+                                            
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Dashboard</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Transactions</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Requests</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Configuration</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Reports</p>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="newAdmin">
+                                    <h3 class="font-sans font-medium text-lg text-darkGray mb-3">New Admin</h3>
+                                    <div class="overflow-x-auto mt-3 hide-scrollbar border rounded-xl shadow-sm">
+                                        <table class="table w-full">
+                                            <thead>
+                                                <tr>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl">Name</th>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl">Email</th>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of superAdminList">
+                                                    <td class="font-inter font-medium text-base text-darkGray bg-white">{{data.functionalAdmin}}</td>
+                                                    <td class="bg-white font-inter font-normal text-base text-lightGray">{{data.functionalEmail}}</td>
+                                                    <td class="bg-white">
+                                                        <div class="flex gap-3">
+                                                            <p class="font-inter font-medium text-base text-lightGray"
+                                                                (click)="removeUser(data)">
+                                                                {{data.remove}}
+                                                            </p>
+                                                            <p class="font-inter font-medium text-base text-primaryBlue"
+                                                            [routerLink]="'/institution/users-and-roles/users'">
+                                                            {{data.edit}}
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="mt-6">
+                                        <h3 class="font-sans font-medium text-lg text-darkGray mb-3">Permissions</h3>
+                                        <div class="grid grid-cols-5">
+                                            
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Dashboard</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Transactions</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Requests</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Configuration</p>
+                                            </div>
+                                            <div class="bg-successLight rounded-full px-2 w-fit mt-3">
+                                                <p class="font-inter font-medium text-base text-successNormal">Reports</p>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+   
+    <ng-container *ngIf="editToggleType">
+        <div >
+            <div class="border-1.5 rounded-xl shadow-md">
+                <h3 class="py-2  border-b-1.5 rounded-t-xl px-6 font-sans font-medium text-lg text-darkGray bg-white">Roles</h3>
+                <div class="border-b-1.5">
+                    <div class="p-6 grid grid-cols-3 items-center">
+                        <p class="font-inter font-medium text-sm text-darkGray">Title</p>
+                        <app-input 
+                            [formGrp]="editForm" 
+                            formCtrlName="departmentName" 
+                            [placeholder]="'Enter Title'"
+                            [type]="'text'"
+                            [class]="' bg-white w-full h-10 mt-2 border border-[#D0D5DD] rounded-md placeholder:text-sm placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
+                        </app-input>
+                    </div>
+
+                    <div class="p-6 grid grid-cols-3 items-center">
+                        <label for="faculty" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Permission</label>
+                        <select 
+                            name="faculty" 
+                            id="faculty"
+                            class=" select h-[52px] w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] font-inter font-medium text-sm text-lightGray placeholder:font-inter placeholder:leading-6 placeholder:text-sm placeholder:text-lightGray placeholder:font-medium focus:border-[D0D5DD] outline-none">
+                            <option value="Select Permission" 
+                            [disabled]="true">Select Title</option>
+                            <option value="Art" >Art</option>
+                            <option value="Science" >Science</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex justify-end mb-6 mr-6 gap-3">
+                    <app-button
+                        [overRideButtonClass]="true" 
+                        [customClass]="'w-20 h-10 rounded-lg font-normal border border-buttonBlue text-buttonBlue leading-6 bg-none p-2 mt-6'">Cancel
+                    </app-button>
+                    <app-button
+                        (buttonClick)="openChangesConfirmed()"
+                        [overRideButtonClass]="true" 
+                        [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'">Create
+                    </app-button>
+                </div>
+            </div>
+            
+        </div>
+    </ng-container>
+</div>
+
+
+
+<app-modal [id]="changesConfirmed">
+    <div class="toast toast-top">
+        <div class="alert alert-success flex justify-between items-center">
+            <div class="font-avenir font-meduim lg:text-lg text-base">
+                <img src="assets/images/icons/confirmed_icon.svg" alt="close_toast">
+                <span class="text-successNormal">Created successfully.</span>
+            </div>
+            <label [for]="changesConfirmed">
+                <img src="assets/images/icons/green_x.svg" alt="close_toast">
+            </label>
+        </div>
+    </div>
+</app-modal>

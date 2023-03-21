@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import {  FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
+
 @Component({
-  selector: 'app-institution-setup',
-  templateUrl: './institution-setup.component.html',
-  styleUrls: ['./institution-setup.component.scss']
+  selector: 'app-roles-and-permission',
+  templateUrl: './roles-and-permission.component.html',
+  styleUrls: ['./roles-and-permission.component.scss']
 })
-export class InstitutionSetupComponent implements OnInit {
+export class RolesAndPermissionComponent implements OnInit {
 
   changesConfirmed = "changesConfirmed";
 
   selectedOption: string = "All";
   selectedInstitution : string = "All";
   gradYear : string = "All";
-  facultyFilter: string = "All";
+  superAdminFilter: string = "All";
   status: string = "All";
 
   filterStatus = { status: 'All'};
@@ -25,49 +26,53 @@ export class InstitutionSetupComponent implements OnInit {
 
   editForm: FormGroup;
 
-  faculty: boolean = true ;
-  degreeType: boolean = false;
-  department: boolean = false;
-  institutionName: boolean = false;
+  superAdmin: boolean = true ;
+  records: boolean = false;
+  functionalAdmin: boolean = false;
+  audit: boolean = false;
+  management: boolean = false;
+  newAdmin: boolean = false;
+  
 
-  facultyEdit: boolean = false;
+  superAdminEdit: boolean = false;
   setupToggle:boolean = true;
   editToggle:boolean = false;
   editToggleType:boolean = false;
   editToggleName: boolean = false;
   editToggleSector: boolean = false;
   
-  institutionNameList = [
+  rolesList = [
     {
-      type: 'University',
-      body: 'Academic Institution',
-      name: 'University of Lagos'
-    },
-    {
-      type: 'Polytechnic',
-      body: 'Academic Institution',
-      name: 'Yaba College of Technology'
-    },
-    {
-      type: 'Others',
-      body: 'Professional Institution',
-      name: 'Adeniran Ogunsanya College of Education'
-    },
+      email: 'olivia@unilag.com',
+      identity: 'You',
+      superadmin: 'University of Lagos'
+    }
   ]
 
-  facultyList = [
-    {
-      faculty: 'Art',
+  superAdminList = [
+    { 
+      id: 1,
+      superAdmin: 'Art',
       departmentCount: '1',
-      department: 'Accounting'
+      department: 'Accounting',
+      functionalAdmin: 'Phoenix Baker',
+      functionalEmail: 'phoenix@unilag.com',
+      remove: 'Remove',
+      edit: 'Edit',
     },
     {
-      faculty: 'Education',
+      id: 2,
+      superAdmin: 'Education',
       departmentCount: '0',
-      department: 'Banking and Finance '
+      department: 'Banking and Finance ',
+      functionalAdmin: 'Lana Steiner',
+      functionalEmail: 'lana@unilag.com',
+      remove: 'Remove',
+      edit: 'Edit',
     },
     {
-      faculty: 'Management Sciences',
+      id: 3,
+      superAdmin: 'Management Sciences',
       departmentCount: '2',
       department: 'History and International Study'
     }
@@ -76,7 +81,7 @@ export class InstitutionSetupComponent implements OnInit {
 
   constructor(private readonly formBuilder: FormBuilder) {
     this.editForm = this.formBuilder.group({
-      facultyName: ['', Validators.required],
+      superAdminName: ['', Validators.required],
       departmentName: [''],
       email: [false],
       fileUpload: [false],
@@ -87,39 +92,67 @@ export class InstitutionSetupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  activateFaculty(){
-    this.faculty = true;
-    this.institutionName = false;
-    this.degreeType = false;
-    this.department = false;
+  activatesuperAdmin(){
+    this.superAdmin = true;
+    this.audit = false
+    this.records = false;
+    this.functionalAdmin = false;
+    this.management = false;
+    this.newAdmin = false;
 
   }
 
   activatedegreeType(){
-    this.faculty = false;
-    this.institutionName = false;
-    this.degreeType = true;
-    this.department = false;
+    this.superAdmin = false;
+    this.audit = false;
+    this.records = true;
+    this.functionalAdmin = false;
+    this.management = false;
+    this.newAdmin = false;
 
   }
 
   activateDepartment(){
-    this.faculty = false;
-    this.institutionName = false;
-    this.degreeType = false;
-    this.department = true;
+    this.superAdmin = false;
+    this.audit = false;
+    this.records = false;
+    this.functionalAdmin = true;
+    this.management = false;
+    this.newAdmin = false;
 
   }
 
-  activateinstitutionName(){
-    this.faculty = false;
-    this.institutionName = true;
-    this.degreeType = false;
-    this.department = false;
+  activateAudit(){
+    this.superAdmin = false;
+    this.audit = true;
+    this.records = false;
+    this.functionalAdmin = false;
+    this.management = false;
+    this.newAdmin = false;
 
   }
 
-  activateEditFaculty(){
+  activateManagement(){
+    this.superAdmin = false;
+    this.audit = false;
+    this.records = false;
+    this.functionalAdmin = false;
+    this.management = true;
+    this.newAdmin = false;
+
+  }
+
+  activateNewAdmin(){
+    this.superAdmin = false;
+    this.audit = false;
+    this.records = false;
+    this.functionalAdmin = false;
+    this.management = false;
+    this.newAdmin = true;
+
+  }
+
+  activateEditsuperAdmin(){
     this.editToggle= true;
     this.setupToggle=false
   }
@@ -165,8 +198,8 @@ export class InstitutionSetupComponent implements OnInit {
     if (this.selectedInstitution !== 'All') {
       this.filterInstituition['selectedInstituition'] = this.selectedInstitution;
     }
-    if (this.facultyFilter !== 'All') {
-      this.filterDocument['facultyFilter'] = this.facultyFilter;
+    if (this.superAdminFilter !== 'All') {
+      this.filterDocument['facultyFilter'] = this.superAdminFilter;
     }
     
     console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
@@ -174,6 +207,13 @@ export class InstitutionSetupComponent implements OnInit {
 
   openChangesConfirmed(){
   document.getElementById('changesConfirmed')?.click();
+}
+
+  removeUser(user: any) {
+  const index = this.superAdminList.indexOf(user);
+  if (index !== -1) {
+    this.superAdminList.splice(index, 1);
+  }
 }
 
 }
