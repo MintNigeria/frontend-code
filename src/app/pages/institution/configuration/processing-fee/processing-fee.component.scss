@@ -1,0 +1,21 @@
+.checkbox{
+    border-radius:4px !important;
+    background-color: #D9DBE9 !important;
+  }
+  
+  .checkbox:checked, .checkbox[checked="true"], .checkbox[aria-checked="true"] {
+    border: 4px !important;
+    border-color: #4086EF !important;
+    background-color: #F5F9FF !important;
+    background-image: linear-gradient(-45deg, transparent 65%, #F5F9FF 65.99%), linear-gradient(45deg, transparent 75%, #F5F9FF 75.99%), linear-gradient(-45deg, #F5F9FF 40%, transparent 40.99%), linear-gradient(45deg, #F5F9FF 30%, #4086EF 30.99%, #4086EF 40%, transparent 40.99%), linear-gradient(-45deg, #4086EF 50%, #F5F9FF 50.99%) !important;
+}
+
+thead>tr>th {
+    white-space: nowrap;
+}
+
+tbody>tr>td {
+    @apply py-4 pl-6 border-b border-solid border-[#F7F7FC];
+    white-space: nowrap;
+
+}
