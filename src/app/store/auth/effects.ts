@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { catchError, map, mergeMap, of, switchMap, take } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
-import { StorageService } from 'src/app/core/services/shared/storage.service';
+import { StorageService } from 'src/app/core/services/storage.service';
 import { AppResponseInterface } from 'src/app/types/appState.interface';
 import { setAPIResponseMessage } from '../shared/app.action';
 

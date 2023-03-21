@@ -21,6 +21,9 @@ import { StoreModule } from '@ngrx/store';
 import { authReducers } from 'src/app/store/auth/reducers';
 import { AuthEffects } from 'src/app/store/auth/effects';
 import { EffectsModule } from '@ngrx/effects';
+import { InstitutionEffects } from 'src/app/store/institution/effects';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { UtilityEffects } from 'src/app/store/institution copy/effects';
 
 @NgModule({
   declarations: [
@@ -39,9 +42,10 @@ import { EffectsModule } from '@ngrx/effects';
     RecaptchaModule,
     RecaptchaFormsModule,
     NgOtpInputModule,
+    NgSelectModule,
     AuthRoutingModule,
     StoreModule.forFeature('auth', authReducers),
-    EffectsModule.forFeature([AuthEffects]),
+    EffectsModule.forFeature([AuthEffects, InstitutionEffects, UtilityEffects]),
   ],
   // providers: [{ provide: RECAPTCHA_V3_SITE_KEY, useValue: environment.recaptchaKey }],
 })

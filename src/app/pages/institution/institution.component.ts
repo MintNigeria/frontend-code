@@ -77,7 +77,7 @@ export class InstitutionComponent implements OnInit {
     },
     {
       id: 6,
-      title: 'configuration',
+      title: 'Configuration',
       hasChild: false,
       path: 'configuration',
       active: 'assets/images/config-inactive.svg',

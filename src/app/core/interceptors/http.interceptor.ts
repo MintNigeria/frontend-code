@@ -19,8 +19,8 @@ import {
   retry,
 } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { NotificationsService } from '../services/shared/notifications.service';
-import { StorageService } from '../services/shared/storage.service';
+import { NotificationsService } from '../services/notifications.service';
+import { StorageService } from '../services/storage.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
