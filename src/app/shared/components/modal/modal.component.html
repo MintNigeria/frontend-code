@@ -1,0 +1,35 @@
+<!-- 
+    How to use this Modal
+  Step 1:   Add a CTA button or any element that is needed to lauch the modal, add a named method as you wish
+            Example
+            <button class="btn btn-outline" (click)="launchModal()">Make Payment</button>
+  Step 2:  Create a label after the CTA or element like so
+            <label id="myModal"  for="messageModal" class="hidden "></label>
+  Step 3: On the component file, create the method that points to the label above
+            example 
+            launchModal() {
+            document.getElementById('myModal')?.click()
+            }
+Step 4: Add the modal component with <app-modal></app-modal>. Please make sure to 
+Step 5: Create a property that will be passed to the modal 
+            example   modalId = 'messageModal'
+Step 6: Pass the property to the modal via property binding
+        example 
+        <app-modal [id]="modalId">
+            <div>
+                content goes here
+            </div>
+        </app-modal>
+Step 7: Add anything you want to display on the modal to the div
+
+N:B => Any action to be done on modal should/will be executed on the parent component
+
+ -->
+<div>
+    <input type="checkbox" [id]="id" class="modal-toggle" />
+    <div class="modal">
+      <ng-content>
+      </ng-content>
+      
+    </div>
+</div>

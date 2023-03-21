@@ -1,0 +1,284 @@
+<div class="bg-white p-6">
+    <!--Header-->
+    <div class="flex  items-center md:gap-4 gap-2 ">
+        <div>
+            <img [routerLink]="'/main/requests'" src="assets/images/icons/home.svg" alt="home-icon">
+        </div>
+        <div>
+            <img src="assets/images/icons/forward_arrow.svg" alt="forward-arrow">
+        </div>
+
+        <div>
+            <p class="text-primaryBlue font-inter md:text-base text-sm font-medium cursor-pointer">
+                Verification History
+            </p>
+
+        </div>
+
+    </div>
+    <div class="px-5">
+        <div class="items-center my-2 flex justify-between">
+            <h4 class="font-medium font-poppins lg:text-4xl text-xl  text-darkGray my-3">
+                Verification History
+            </h4>
+            <div class="items-center mt-6 mb-3">
+                <app-button
+                [customClass]="'bg-buttonBlue text-white font-medium font-inter text-xs whitespace-nowrap h-10 rounded-xl'"
+                [overRideButtonClass]="true"
+                [buttonText]="'Start Verification'"
+                [routerLink]="'/organization/verifications/verify-documents'">
+                </app-button>
+            </div>
+        </div>
+    </div>
+    <!---->
+
+    <!--Filters-->
+
+    <div class="w-full  rounded-xl shadow-sm p-6 border-none  bg-tabBlue">
+            <form>
+                <div class="flex md:flex-row md:justify-between md:items-center  flex-col w-full">
+                    <div class="lg:flex lg:justify-between gap-4 grid grid-cols-2 ">
+                        <div class="lg:justify-between gap-4">
+                            <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
+                                Date
+                            </p>
+                            <div class="dropdown dropdown-bottom">
+                                <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
+                                <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedOption }}</p>
+                                <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
+                                </label>
+                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                <li><a (click)="selectedOption='data Time'">All Time</a></li>
+                                <li><a (click)="selectedOption='30 Days'">30 Days</a></li>
+                                <li><a (click)="selectedOption='7 days'">7 Days</a></li>
+                                <li><a (click)="selectedOption='24 Hours'">24 Hours</a></li>
+                                <li><a (click)="selectedOption='Custom Period'">Custom Period</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="lg:justify-between gap-4">
+                            <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
+                                Institution
+                            </p>
+                            <div class="dropdown dropdown-bottom">
+                                <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
+                                <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedInstitution }}</p>
+                                <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
+                                </label>
+                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-56">
+                                    <li><a (click)="selectedInstitution='All'">All</a></li>
+                                    <li><a (click)="selectedInstitution='University'">University</a></li>
+                                    <li><a (click)="selectedInstitution='Polytechnic'">Polytechnic</a></li>
+                                    <li><a (click)="selectedInstitution='College of Education'">College of Education</a></li>
+                                    <li><a (click)="selectedInstitution='Nursing School'">Nursing School</a></li>
+                                    <li><a (click)="selectedInstitution='Professional Institution'">Professional Institution</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="lg:justify-between gap-4">
+                            <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
+                                Department
+                            </p>
+                            <div class="dropdown dropdown-bottom">
+                                <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
+                                <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedSector }}</p>
+                                <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
+                                </label>
+                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-56">
+                                    <li><a (click)="selectedSector='All'">All</a></li>
+                                    <li><a (click)="selectedSector='Federal'">Federal</a></li>
+                                    <li><a (click)="selectedSector='State'">State</a></li>
+                                    <li><a (click)="selectedSector='Private'">Private</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center mt-6">
+                            <button type="button" class="bg-[#4086EF] text-white font-medium font-inter text-xs w-[80px] h-[40px] rounded-xl" (click)="addFilter()">Add Filter</button>
+                            <button  type="button" class="bg-none  text-[#4086EF] font-medium font-inter text-xs w-[80px] h-[40px] rounded" (click)="clearFilter()">Clear Filter</button>
+                        </div>
+
+                    </div>
+                    
+                </div>
+            </form>
+    </div>
+
+    <!---->
+
+    <!--Table-->
+
+    <div class="mt-3 py-3 rounded-xl bg-white border border-solid border-[#EFF0F6]">
+        <!--Search and Export-->
+        <div class="mt-3 bg-white">
+            <div class="md:block hidden px-7">
+                <form>
+                    <div class="flex md:flex-row md:justify-between md:items-center flex-col w-full">
+                        <div class="flex lg:justify-between gap-4">
+                            <div class="relative cursor-pointer mr-3">
+
+                                <input type="search" placeholder="Search name, request ID or institution"
+                                    class="bg-white rounded-[10px] border border-inputBg w-[400px]  py-[14px] px-8 placeholder:text-[#6E7191] text-sm lg:text-base focus:outline-none ">
+                                <div class="top-1/2 absolute  left-3 custom-translate pr-4">
+                                    <img src="assets/images/icons/search.svg" alt="search">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex md:items-center gap-4 ">
+                            <div>
+                                <div class="lg:justify-between gap-4">
+                                    <div class="dropdown dropdown-end">
+                                        <label tabindex="0" class="flex justify-between bg-[#F5F9FF] rounded-[10px] items-center  border border-none min-w-[101px] py-[8px] px-4 text-sm cursor-pointer">
+                                        <p class="my-0 text-[#0D47A1] font-inter font-medium text-sm">Export</p>
+                                        <img src="assets/images/icons/downward_arrow_blue.svg" alt="" class="">
+                                        </label>
+                                        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                            <li><a>Export as CSV</a></li>
+                                            <li><a >Export as PDF</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </form>
+
+            </div>
+            <!---->
+
+            <!--Table Content-->
+
+            <div>
+
+                <div class="overflow-x-auto mt-8 hide-scrollbar">
+                    <table class="table w-full">
+                        <thead>
+                            <tr>
+                                <th class="flex gap-1 text-xs text-lightGray font-medium font-inter bg-tableHeader ">Verification ID
+                                    <span><img src="assets/images/icons/arrow_down.svg" alt="" class="mt-0.5"></span>
+                                </th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Name</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Institution</th>
+                                <th class="flex gap-1 text-xs text-lightGray font-medium font-inter bg-tableHeader ">Department
+                                    <span><img src="assets/images/icons/arrow_down.svg" alt="" class="mt-0.5"></span>
+                                </th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Reason for Request</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="">
+                            <tr *ngFor="let data of verificationHistory" class=" ">
+                            
+                                
+                                <td class="bg-white">
+                                    <div class="items-center">
+                                        <div>
+                                            <div>
+                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">{{data.verificationID}}</p>
+                                                <p class="text-xs font-normal font-inter my-0 text-lightGray">
+                                                {{data.date}}
+                                                </p>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </td>
+                                <td class="bg-white">
+                                    <div class="items-center">
+                                        <div>
+                                            <div>
+                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">{{data.name}}</p>
+                                                <p class="text-xs font-normal font-inter my-0 text-lightGray">
+                                                {{data.phoneNumber}}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </td>
+                                
+                                <td class="bg-white">
+                                    <div>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.institution}}</p>
+                                       
+                                    </div>
+                                </td>
+
+                                <td class="bg-white">
+                                    <div>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.department}}</p>
+                                        
+                                    </div>
+                                </td>
+                                <td class="bg-white">
+                                    <div>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.reasonForRequest}}</p>
+                                      
+                                    </div>
+
+                                </td>
+                                
+
+                                <td class="bg-white">
+                                    <div class="flex  gap-2 items-center" 
+                                    [routerLink]="'/organization/verifications/view-verified-documents/2'">
+                                        
+                                        <p 
+                                        class="my-0 text-sm font-inter cursor-pointer font-medium text-primaryBlue ">{{data.action}}</p>
+
+                                    </div>
+
+                                </td>
+
+
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+
+            <!---->
+
+            <!--Pagination-->
+            <div class="flex px-7 items-center justify-between mt-3">
+                <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
+                    Showing 1 to 7 of {{ verificationHistory.length }} entries
+                </p>
+                <div class="flex item gap-3">
+                    <div
+                        class="text-[10px] md:text-xs text-[#6E7191] bg-[#FCFCFC] rounded border border-solid border-[#EFF0F7] p-2 flex items-center justify-center gap-2 cursor-pointer">
+                        <img src="assets/images/icons/prev.svg" alt="" />
+                        <span>Prev</span>
+                    </div>
+                    <div
+                        class="text-sm md:text-sm text-[#1D2B4F] bg-[#D9DBE9] rounded border border-solid border-[#D9DBE9] p-2">
+                        1
+                    </div>
+                    <div
+                        class="text-[10px] md:text-xs text-[#262338] bg-[#FCFCFC] rounded border border-solid border-[#0C3146] p-2 flex items-center justify-center gap-2 cursor-pointer">
+                        <span>Next</span>
+                        <img src="assets/images/icons/next.svg" alt="" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+                
+    </div>
+
+   
+
+</div>

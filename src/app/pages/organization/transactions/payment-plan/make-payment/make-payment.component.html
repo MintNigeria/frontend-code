@@ -1,0 +1,225 @@
+<div class="bg-white p-6">
+    <!--Header-->
+    <div class="flex  items-center md:gap-4 gap-2 ">
+        <div>
+            <img [routerLink]="'/organization/transaction'" src="assets/images/icons/home.svg" alt="home-icon">
+        </div>
+        <div>
+            <img src="assets/images/icons/forward_arrow.svg" alt="forward-arrow">
+        </div>
+
+        <div>
+            <p class="text-primaryBlue font-inter md:text-base text-sm font-medium cursor-pointer">
+                Transaction
+            </p>
+        </div>
+
+    </div>
+
+    <div class="px-5">
+        <div class="items-center my-2">
+            <h4 class="font-medium font-poppins lg:text-4xl text-xl  text-darkGray my-3">
+                Make Payment
+            </h4>
+        </div>
+    </div>
+
+    <div class="border-1.5 rounded-xl mt-6">
+        <h3 class="py-7  border-b-1.5 px-6 font-inter font-medium lg:text-lg text-base text-darkGray bg-tableHeader rounded-t-xl">
+            Credit Card Information
+        </h3>
+        <form class="p-6 mr-32" [formGroup]="paymentForm">
+
+            <div class="grid lg:grid-cols-2 mb-6">
+                <label 
+                for="cardholderName"
+                class="font-inter font-medium text-sm text-failedNormal mb-3 lg:mb-0">Name on card</label>
+                <input 
+                type="text"
+                class="px-4 h-[52px] lg:w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-light"
+                id="cardholderName"
+                name="cardholderName"
+                placeholder="Name on card"
+                required
+                />
+            </div>
+
+            <div class="grid lg:grid-cols-2 mb-6">
+                <label 
+                for="cardNumber"
+                class="font-inter font-medium text-sm text-failedNormal mb-3 lg:mb-0">Card Number</label>
+                <input 
+                class="px-4 h-[52px] lg:w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none"
+                type="text"
+                placeholder="Card Number"
+                formControlName="cardNumber"
+                name="cardNumber"/>
+            </div>
+
+            <div class="grid lg:grid-cols-2 mb-6">
+                <label 
+                for="expiryDate"
+                class="font-inter font-medium text-sm text-failedNormal mb-3 lg:mb-0"
+                >Expiry Date</label>
+                <div class="flex gap-6">
+                    <input
+                        class="px-4 h-[52px] w-1/2 bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none"
+                        type="text"
+                        placeholder="MM"
+                        formControlName="expiryMonth"
+                        name="expiryMonth"
+                    />
+                    <input
+                        class="px-4 h-[52px] w-1/2 bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none"
+                        type="text"
+                        placeholder="YY"
+                        formControlName="expiryYear"
+                        name="expiryYear"
+                    />
+                </div>
+            </div>
+            <div class="grid lg:grid-cols-2">
+                    <label 
+                    for="cvc"
+                    class="font-inter font-medium text-sm text-failedNormal mb-3 lg:mb-0">CVC</label>
+                    <div class="w-fit">
+                        <div class="lg:flex gap-6">
+                            <input
+                            class="px-4 h-[52px] w-1/2 bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none mb-3 lg:mb-0"
+                            type="text"
+                            placeholder="CVC"
+                            formControlName="cvc"
+                            name="cvc"
+                            />
+                            <img src="assets/images/icons/credit-card-Icons.svg" alt="credit-card-Icons">
+                        </div>
+                        <p class="hidden lg:visible font-nunito font-normal text-xs text-[#37474F] mt-3">The Card Verification Code, or CVC*, is an extra code printed at the back of your debit or credit card</p>
+                    </div>
+            </div>
+        </form>
+        <p class="visible lg:hidden p-6 font-nunito font-normal text-xs text-[#37474F]">The Card Verification Code, or CVC*, is an extra code printed at the back of your debit or credit card</p>
+        <hr class="w-11/12 mx-auto mt-6 mb-6">
+        <div class="grid lg:grid-cols-2 p-6 lg:mr-32">
+            <p class="font-inter font-medium text-sm text-failedNormal mb-3 lg:mb-0">Payment Summary</p>
+            <div class="rounded-lg border border-[#F2F4F7]">
+                    <div class="bg-white rounded-lg">
+                        <div class="flex justify-between p-3 items-center gap-3">
+                            <div>
+                                <p class="font-nunito font-normal text-base text-failedNormal">Total Amount</p>
+                                <p class="text-discountBlue font-semibold text-2xl font-avenir">₦10,000</p>
+                            </div>
+                            <div>
+                                <img src="assets/images/icons/wallet.svg" alt="wallet_icon">
+                            </div>
+                        </div> 
+                    </div>
+            </div>
+
+        </div>
+
+        <hr class="w-11/12 mx-auto mt-6 mb-6">
+
+        <div class="flex justify-end items-center gap-4 mt-6 mb-6 mr-8">
+            <app-button
+            [overRideButtonClass]="true"
+            customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
+            >Cancel</app-button>
+
+            <app-button
+            [overRideButtonClass]="true"
+            customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+            (buttonClick)="openOtpModal()"
+            >Make Payment</app-button>
+        </div>
+    </div>
+
+
+</div>
+
+
+<app-modal [id]="otpModal">
+    <div class="lg:rounded-xl p-6 bg-white hide-scrollbar modal-box">
+        <div>
+            <div class="grid grid-rows-2 justify-items-center">
+                <h3 class="font-inter font-medium text-2xl text-discountBlue">One Time Password</h3>
+                <p class="text-center lg:w-96 font-inter font-normal text-sm text-failedNormal">An OTP has been sent to adebim.....@gmail.com to authorize the transaction of 
+                    <span class="font-bold text-discountBlue">N5,000</span>
+                </p>
+            </div>
+            <div class="flex items-center justify-center">
+                <div class="flex gap-3 mt-8 mb-4">
+                    <input
+                    class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
+                    type="text"
+                    maxLength="1"
+                    (input)="onOtpChange(0, $event)"
+                    />
+                    <input
+                    class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
+                    type="text"
+                    maxLength="1"
+                    (input)="onOtpChange(1, $event)"
+                    />
+                    <input
+                    class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
+                    type="text"
+                    maxLength="1"
+                    (input)="onOtpChange(2, $event)"
+                    />
+                    <input
+                    class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
+                    type="text"
+                    maxLength="1"
+                    (input)="onOtpChange(3, $event)"
+                    />
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <p *ngIf="!timerExpired" class="text-[#2F4662] font-semibold text-base font-inter">Code would expire in 
+                    <span class="bg-[#0EA5AE] bg-opacity-20 rounded text-danger font-inter font-semibold text-base">{{ timer }}</span>
+                </p>
+                <!-- <p *ngIf="timerExpired" class="text-[#2F4662]">OTP expired</p> -->
+            </div>
+
+            <div class="flex justify-center mt-16">
+                <button
+                    class="bg-buttonBlue rounded-lg  hover:bg-buttonBlue text-white text-base font-medium font-inter py-2 px-4 w-56 disabled:opacity-50"
+                    [disabled]="!otpEntered"
+                    (click)="verifyOtp()"
+                >
+                    Verify
+                </button>
+            </div>
+
+            <div class="flex justify-center mt-16">
+                <p class="text-center w-96 font-inter font-normal text-sm text-failedNormal">Didn't get the code?
+                    <span class="font-medium text-discountBlue">Resend</span>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</app-modal>
+
+<app-modal [id]="successModal">
+    <div class="lg:rounded-xl bg-white hide-scrollbar h-auto w-auto lg:p-2 p-6 modal-box">
+        <div class="grid grid-rows-2 justify-items-center mt-8">
+            <img src="assets/images/icons/blueSuccess.svg" alt="blueSuccess">
+            <h3 class="font-inter font-medium text-2xl text-discountBlue mt-8">Congratulations</h3>
+            <p class="text-center lg:w-96 font-inter font-normal text-sm text-failedNormal mt-8">
+                Your payment was successful.
+            </p>
+        </div>
+        <div class="flex justify-center mt-8 mb-8">
+            <button
+                class="bg-buttonBlue rounded-lg  hover:bg-buttonBlue text-white text-base font-medium font-inter py-2 px-4 w-56 "
+                (click)="closeSuccess()"
+            >
+                Okay
+            </button>
+        </div>
+    </div>
+</app-modal>
+
+
