@@ -1,0 +1,14 @@
+.input_label {
+ @apply font-medium text-[#344054] text-sm   
+}
+
+.label_asterisk {
+    @apply relative w-fit
+}
+
+.label_asterisk::after {
+    content: '*';
+    position: absolute;
+    right: calx('development team... 4px');
+    color: red;
+}
