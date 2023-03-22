@@ -1,0 +1,39 @@
+
+.custom-translate {
+    transform: translateY(-50%);
+}
+
+.table:where(:not(.table-zebra)) :where(thead, tbody, tfoot) :where(tr:not(:last-child) :where(th, td)) {
+    border-bottom-width: 1px;
+    --tw-border-opacity: 1;
+    border-color: #EAECF0 !important;
+}
+
+::ng-deep .searchSelect.ng-select.ng-select-single .ng-select-container::before {
+    content: '';
+    width: 19px;
+    height: 19px;
+    background-image: url(../../../../../assets/images/icons/search.svg);
+    background-size: cover;
+    position: absolute;
+    left: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+::ng-deep .searchSelect.ng-select.ng-select-single .ng-select-container.ng-has-value::before {
+    display: none !important;
+}
+
+::ng-deep .searchSelect.ng-select .ng-select-container .ng-value-container {
+    padding-left: 45px !important;
+}
+
+::ng-deep .searchSelect.ng-select .ng-select-container.ng-has-value .ng-value-container {
+    padding-left: 22px !important;
+}
+
+::ng-deep .searchSelect.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+}
