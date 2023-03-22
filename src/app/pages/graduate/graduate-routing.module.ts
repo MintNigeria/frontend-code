@@ -20,6 +20,25 @@ const routes: Routes = [
             (m) => m.ApplicationsModule
           ),
       },
+      {
+        path: 'verifications',
+        loadChildren: () =>
+          import('./verifications/verifications.module').then(
+            (m) => m.VerificationsModule
+          ),
+      },
+      {
+        path: 'settings',
+        loadChildren: () =>
+          import('./settings/settings.module').then((m) => m.SettingsModule),
+      },
+      {
+        path: 'transactions',
+        loadChildren: () =>
+          import('./transactions/transactions.module').then(
+            (m) => m.TransactionsModule
+          ),
+      },
     ],
   },
 ];
