@@ -24,6 +24,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { InstitutionEffects } from 'src/app/store/institution/effects';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { UtilityEffects } from 'src/app/store/institution copy/effects';
+import { CreatePasswordComponent } from './create-password/create-password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { VerifyPasswordComponent } from './verify-password/verify-password.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,9 @@ import { UtilityEffects } from 'src/app/store/institution copy/effects';
     InstitutitionRegistrationComponent,
     OrganizationRegistrationComponent,
     GraduateRegistrationComponent,
+    CreatePasswordComponent,
+    ForgotPasswordComponent,
+    VerifyPasswordComponent,
   ],
   imports: [
     CommonModule,

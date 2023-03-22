@@ -25,9 +25,15 @@ export class SidebarComponent implements OnInit {
     console.log(this.currentRoute, this.router.url.split('/')[1])
   }
 
-  goToPath(path: any) {
-    this.router.navigate([`${this.currentRoute}`, `${path}`]);
+  goToPath(path: any, hasChild: boolean) {
+    if (hasChild === true ) {
+      return
+    } else {
+
+      this.router.navigate([`${this.currentRoute}`, `${path}`]);
+    }
   }
+ 
 
 
   logout(path: string) {

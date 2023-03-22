@@ -5,6 +5,11 @@ import { RecordsRoutingModule } from './records-routing.module';
 import { RecordsComponent } from './records.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { RecordDetailsComponent } from './record-details/record-details.component';
+import { GraduatesEffects } from 'src/app/store/graduates/effects';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { InstitutionEffects } from 'src/app/store/institution/effects';
+import { reportingReducer } from 'src/app/store/reporting/reducers';
 
 
 @NgModule({
@@ -15,7 +20,10 @@ import { RecordDetailsComponent } from './record-details/record-details.componen
   imports: [
     CommonModule,
     RecordsRoutingModule,
-    SharedModule
+    SharedModule,
+    StoreModule.forFeature('reporting', reportingReducer),
+    EffectsModule.forFeature([GraduatesEffects, InstitutionEffects]),
+
   ]
 })
 export class RecordsModule { }

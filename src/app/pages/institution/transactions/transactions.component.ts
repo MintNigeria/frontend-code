@@ -160,11 +160,7 @@ filter = {
 }
   transactionDetails: any;
   totalCount: any;
-  
-  
 
-
-  
 
   constructor(
     private route: ActivatedRoute,

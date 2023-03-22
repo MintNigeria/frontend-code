@@ -1,6 +1,7 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import {
   changePasswordSuccess,
+  createPasswordSuccess,
   getUserProfileSuccess,
   loginSuccess,
   LOGOUT,
@@ -38,6 +39,12 @@ export const authReducers = createReducer(
     return {
       ...state,
       message,
+    };
+  }),
+  on(createPasswordSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      payload,
     };
   }),
   on(getUserProfileSuccess, (state, { user }) => {

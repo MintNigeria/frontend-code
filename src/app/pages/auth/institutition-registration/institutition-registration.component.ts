@@ -5,8 +5,8 @@ import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { invokeGetStateAndLGA } from 'src/app/store/institution copy/action';
 import { stateLgaSelector } from 'src/app/store/institution copy/selector';
-import { createNewInstitution, createNewInstitutionSuccess, getInstitutionBody, getInstitutionSector, getInstitutionTypes, ValidateRegistrationCode, ValidateRegistrationCodeSuccess } from 'src/app/store/institution/action';
-import { institutionTypeSelector, institutionSectorSelector, institutionBodySelector } from 'src/app/store/institution/selector';
+import { createNewInstitution, createNewInstitutionSuccess, getAllInstitutionRecords, getAllInstitutionRecordsSuccess, getInstitutionBody, getInstitutionSector, getInstitutionTypes, ValidateRegistrationCode, ValidateRegistrationCodeSuccess } from 'src/app/store/institution/action';
+import { institutionTypeSelector, institutionSectorSelector, institutionBodySelector, institutionRecordSelector } from 'src/app/store/institution/selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { environment } from 'src/environments/environment';
 
@@ -30,8 +30,14 @@ selectedFileList: any  = []
   institutionSectors$ = this.appStore.pipe(select(institutionSectorSelector));
   institutionBody$ = this.appStore.pipe(select(institutionBodySelector));
   stateLGA$ = this.appStore.pipe(select(stateLgaSelector));
+  institutionName$ = this.appStore.pipe(select(institutionRecordSelector));
   lga: any;
-
+filter: any = {
+  InstitutionBodyId: '',
+  InstitutionTypeId: '',
+  SectorId: '',
+}
+  institutionList: any;
   constructor(
     private fb: FormBuilder,
     private appStore: Store<AppStateInterface>,
@@ -64,7 +70,7 @@ selectedFileList: any  = []
       institutionBodyId: [null, Validators.required],
       institutionTypeId: [null, Validators.required],
       institutionSectorId: [null, Validators.required],
-      InstitutionName: ['', Validators.required],
+      InstitutionName: [null, Validators.required],
       DateOfIncorporation: [''],
       RegistrationNumber: [''],
       LgaId: [null, Validators.required],
@@ -80,6 +86,32 @@ selectedFileList: any  = []
       consent: ['', Validators.required],
       nspm: ['', Validators.required],
     })
+  }
+
+  selectInstitutionBody(event: any) {
+    const filter = {...this.filter, ['InstitutionBodyId'] : event}
+    this.filter = filter;
+  }
+  selectInstitutionType(event: any) {
+    const filter = {...this.filter, ['InstitutionTypeId'] : event}
+    this.filter = filter;
+  }
+  selectInstitutionSector(event: any) {
+    const filter = {...this.filter, ['SectorId'] : event}
+    this.filter = filter;
+    this.store.dispatch(getAllInstitutionRecords({payload: this.filter}))
+    this.actions$.pipe(ofType(getAllInstitutionRecordsSuccess)).subscribe((res: any) => {
+        console.log(res);
+        this.institutionList = res.payload.data
+    })
+  }
+
+  changeRegistrationType(event: any) {
+    if (event.target.value === 'CAC' ) {
+      this.institutionRegForm.controls['RegisteringBody'].setValue('CAC')
+    } else {
+      this.institutionRegForm.controls['RegisteringBody'].setValue('')
+    }
   }
 
   selectLocalGovt(stateId: any) {

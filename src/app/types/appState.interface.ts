@@ -6,6 +6,7 @@ import * as fromInstitutions from '../store/institution/reducers';
 import * as fromUtility from '../store/institution copy/reducers';
 import * as fromReporting from '../store/reporting/reducers';
 import * as fromRequest from '../store/request/reducers'
+import * as fromGraduates from '../store/graduates/reducers'
 
 
 import {
@@ -20,6 +21,7 @@ import { IInstitutionStateInterface } from '../store/institution/types/index.typ
 import { IUtilityStateInterface } from '../store/institution copy/types/index.type';
 import { ReportingStateInterface } from '../store/reporting/types/index.types';
 import { RequestStateInterface } from '../store/request/types/index.types';
+import { GraduatesStateInterface } from '../store/graduates/types/index.type';
 
 // all module state should be imported here
 export interface AppStateInterface {
@@ -31,7 +33,7 @@ export interface AppStateInterface {
   // configuration: ConfigurationStateInterface,
   // usersAndRoles: UsersAndRolesStateInterface
   reporting : ReportingStateInterface,
-  // graduates : GraduatesStateInterface,
+  graduates : GraduatesStateInterface,
   // auditLog : AuditLogStateInterface
   institutions: IInstitutionStateInterface;
   utility: IUtilityStateInterface;
@@ -53,11 +55,13 @@ export const reducers: ActionReducerMap<AppStateInterface> = {
   institutions: fromInstitutions.institutionReducers,
   utility: fromUtility.utilityReducers,
   reporting : fromReporting.reportingReducer,
+  graduates : fromGraduates.graduatesReducer,
+
 
 
 };
 
-const reducerKeys = ['auth', 'requests', 'institutions', 'utility', 'dashboard', 'reporting' ];
+const reducerKeys = ['auth', 'requests', 'institutions', 'utility', 'dashboard', 'reporting', 'graduates' ];
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>

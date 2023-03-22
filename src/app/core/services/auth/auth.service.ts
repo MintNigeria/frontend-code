@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { IChangePassword, ILogin } from 'src/app/store/auth/index.types';
+import { IChangePassword, ICreatePassword, ILogin } from 'src/app/store/auth/index.types';
 import { BaseURI } from '../shared/baseURI.shared';
 
 abstract class AbstractAuthService {
@@ -46,6 +46,14 @@ export class AuthService extends BaseURI implements AbstractAuthService {
       payload
     );
   }
+
+  createPassword(payload: ICreatePassword) {
+    return this.http.post(
+      `${this.baseUrl}mint-auth/api/v1/Authentication/CreatePassword`,
+      payload
+    );
+  }
+  
   forgotPassword(email: string) {
     return this.http.get<any>(
       `${this.baseUrl}mint-auth/api/v1/authentication/ForgetPassword/${email}`

@@ -29,7 +29,7 @@
     <!--Filters-->
 
     <div class="w-full  rounded-xl shadow-sm p-6 border-none  bg-tabBlue">
-            <form>
+            <div>
                 <div class="flex md:flex-row md:justify-between md:items-center  flex-col w-full">
                     <div class="lg:flex lg:justify-between gap-4">
                         <div class="lg:justify-between gap-4">
@@ -95,7 +95,7 @@
                     </div>
                     
                 </div>
-            </form>
+            </div>
     </div>
 
     <!---->
@@ -114,7 +114,7 @@
             <div class="rounded text-center">
                 <div class=" rounded-full text-center w-auto bg-tabBlue">
                     <p class="text-primaryBlue text-sm cursor-pointer font-inter font-medium">
-                        {{ institutionList.length }} Reports
+                        {{ totalCount }} Reports
                     </p>
                 </div>
             </div>
@@ -126,15 +126,11 @@
                 <form>
                     <div class="flex md:flex-row md:justify-between md:items-center flex-col w-full">
                         <div class="flex lg:justify-between gap-4">
-                            <div class="relative cursor-pointer mr-3">
-
-                                <input type="search" placeholder="Search name, request ID or Organizations"
-                                    class="bg-white rounded-[10px] border border-inputBg w-[400px]  py-[14px] px-8 placeholder:text-[#6E7191] text-sm lg:text-base focus:outline-none ">
-                                <div class="top-1/2 absolute  left-3 custom-translate pr-4">
-                                    <img src="assets/images/icons/search.svg" alt="search">
-
-                                </div>
-                            </div>
+                            <app-search 
+                            [placeholder]="'Search by name, email'"
+                            (iconSearch)="search($event)"
+                [formGrp]="searchForm" formCtrlName="searchPhrase"  
+                ></app-search>
                         </div>
 
                         <div class="flex md:items-center gap-4 ">
@@ -145,9 +141,9 @@
                                         <p class="my-0 text-[#0D47A1] font-inter font-medium text-sm">Export</p>
                                         <img src="assets/images/icons/downward_arrow_blue.svg" alt="" class="">
                                         </label>
-                                        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                            <li><a>Export as CSV</a></li>
-                                            <li><a >Export as PDF</a></li>
+                                        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
+                                            <li (click)="download('CSV')"><a>Export as CSV</a></li>
+                                            <li (click)="download('Excel')"><a >Export as Excel</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -181,7 +177,7 @@
                         </thead>
 
                         <tbody class="bg-white">
-                            <tr *ngFor="let data of institutionList" class="bg-white">
+                            <tr *ngFor="let data of reportDetails | paginate: { itemsPerPage: filter.pageSize, currentPage: pageIndex, totalItems: totalCount }" class="bg-white">
                             
                                 
                                 <td class="bg-white">
@@ -197,16 +193,16 @@
                                 
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data?.date}}</p>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data?.date | date: 'mediumDate'}}</p>
                                         <p class="text-xs font-normal font-inter my-0 text-lightGray">
-                                        {{data?.time}}
+                                        {{data?.date | date: 'shortTime'}}
                                         </p>
                                     </div>
                                 </td>
 
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.docType}}</p>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.documentType}}</p>
                                        
                                     </div>
                                 </td>
@@ -234,20 +230,8 @@
                     Showing 1 to 7 of {{ institutionList.length }} entries
                 </p>
                 <div class="flex item gap-3">
-                    <div
-                        class="text-[10px] md:text-xs text-[#6E7191] bg-[#FCFCFC] rounded border border-solid border-[#EFF0F7] p-2 flex items-center justify-center gap-2 cursor-pointer">
-                        <img src="assets/images/icons/prev.svg" alt="" />
-                        <span>Prev</span>
-                    </div>
-                    <div
-                        class="text-sm md:text-sm text-[#1D2B4F] bg-[#D9DBE9] rounded border border-solid border-[#D9DBE9] p-2">
-                        1
-                    </div>
-                    <div
-                        class="text-[10px] md:text-xs text-[#262338] bg-[#FCFCFC] rounded border border-solid border-[#0C3146] p-2 flex items-center justify-center gap-2 cursor-pointer">
-                        <span>Next</span>
-                        <img src="assets/images/icons/next.svg" alt="" />
-                    </div>
+                    <pagination-controls (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next"></pagination-controls>
+          
                 </div>
             </div>
 

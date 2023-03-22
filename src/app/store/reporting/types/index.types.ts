@@ -3,4 +3,6 @@ export interface ReportingStateInterface {
   transactions: { data: any; totalCount: number };
   excelExport: any;
   csvExport: any;
+  excelExportReport: any;
+  csvExportReport: any;
 }
