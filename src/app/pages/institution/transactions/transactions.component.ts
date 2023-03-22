@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Actions, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { invokeGetTransactions, invokeGetTransactionsSuccess } from 'src/app/store/reporting/action';
+import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
   selector: 'app-transactions',
@@ -24,6 +31,9 @@ export class TransactionsComponent implements OnInit {
   selectedData: any;
   selectedDataId: any;
   
+  searchForm = new FormGroup({
+    searchPhrase: new FormControl(''),
+  });
   
 
   
@@ -132,44 +142,85 @@ export class TransactionsComponent implements OnInit {
     
   }
   ]
+  institutionId: any;
+  institutionData: any;
+  pageIndex = 1;
+filter = {
+  keyword: '',
+    filter: '',
+    pageSize: 10,
+    pageIndex: 1,
+    requestor: 1,
+    range: '',
+    fromDate: '',
+    toDate: '',
+    status: '',
+}
+  transactionDetails: any;
+  totalCount: any;
+  
   
 
-  
-  
-
 
   
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store,
+    private appStore: Store<AppStateInterface>,
+    private actions$: Actions
+  ) { }
 
   ngOnInit(): void {
+    const data: any = localStorage.getItem('userData')
+    this.institutionData = JSON.parse(data)
+    this.institutionId = this.institutionData.InstitutionId
+    this.store.dispatch(invokeGetTransactions({institutionId: this.institutionId, payload: this.filter}))
+    this.actions$.pipe(ofType(invokeGetTransactionsSuccess)).subscribe((res: any) => {
+      console.log(res)
+      this.transactionDetails = res.payload.data;
+      this.totalCount = res.payload.totalCount
+    })
+    this.searchForm.controls.searchPhrase.valueChanges
+    .pipe(debounceTime(400), distinctUntilChanged())
+    .subscribe((term) => {
+      this.search(term as string);
+    });
+    
   }
 
   showData(id: number) {
-    this.selectedData = this.transactionList.find(data => data.id === id);
-    this.selectedDataId = this.transactionList.find((transaction) => transaction.id === id);
+    this.selectedData = this.transactionDetails?.minifiedTransactionInfoVMs.find((data: any) => data.id === id);
+    this.transactionDetails?.minifiedTransactionInfoVMs.filter((transaction : any) => {
+      if (transaction.id === id) {
+        this. selectedDataId = transaction.id
+      }
+    });
 
     console.log(this.selectedData,this.selectedDataId)
   }
 
   addFilter() {
-    if (this.status !== 'All') {
-      this.filterStatus['status'] = this.status;
-    }
-    if (this.selectedOption !== 'All Time') {
-      this.filterOption['selectedOption'] = this.selectedOption;
-    }
-    if (this.selectedSector !== 'All') {
-      this.filterSector['selectedSector'] = this.selectedSector;
-    }
-    if (this.selectedInstituition !== 'All') {
-      this.filterInstituition['selectedInstituition'] = this.selectedInstituition;
-    }
-    if (this.documentType !== 'All') {
-      this.filterDocument['documentType'] = this.documentType;
-    }
+    // if (this.status !== 'All') {
+    //   this.filterStatus['status'] = this.status;
+    // }
+    // if (this.selectedOption !== 'All Time') {
+    //   this.filterOption['selectedOption'] = this.selectedOption;
+    // }
+    // if (this.selectedSector !== 'All') {
+    //   this.filterSector['selectedSector'] = this.selectedSector;
+    // }
+    // if (this.selectedInstituition !== 'All') {
+    //   this.filterInstituition['selectedInstituition'] = this.selectedInstituition;
+    // }
+    // if (this.documentType !== 'All') {
+    //   this.filterDocument['documentType'] = this.documentType;
+    // }
+
+    this.store.dispatch(invokeGetTransactions({institutionId: this.institutionId, payload: this.filter}))
+
     
-    console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
   }
 
   clearFilter() {
@@ -185,5 +236,29 @@ export class TransactionsComponent implements OnInit {
     this.filterDocument = {documentType: 'All'};
   }
 
+  changeInitiator(status: number, name: string) {
+    this.transactionType = name
+    const filter = {...this.filter, ['requestor'] : status}
+    this.filter = filter;
+  }
+
+  search(event: any) {
+    if (event) {
+      const filter = {...this.filter, ['keyword'] : event}
+      this.store.dispatch(invokeGetTransactions({institutionId: this.institutionId, payload: filter}))
+      } else {
+        const filter = {...this.filter, ['keyword'] : ''}
+        this.store.dispatch(invokeGetTransactions({institutionId: this.institutionId, payload: filter}))
+    }
+  }
+
+
+  getPage(currentPage: number) {
+    const filter = {...this.filter, ['pageIndex'] : currentPage}
+    this.store.dispatch(invokeGetTransactions({institutionId: this.institutionId, payload: filter}))
+
+    
+  
+  }
 
 }

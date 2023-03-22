@@ -1,8 +1,11 @@
-<div class="relative cursor-pointer mr-3">
+<div class="relative cursor-pointer mr-3" [formGroup]="formGrp">
 
-    <input type="text" placeholder="Search name, request ID or institution" #search
-        class="bg-inputBg rounded-[10px] border border-inputBg w-[400px]  py-[14px] px-12 placeholder:text-lightGray placeholder:text-base placeholder:font-normal placeholder:font-inter text-sm lg:text-base focus:outline-none ">
-    <div class="absolute inset-y-0 left-0 custom-translate px-5 flex items-center" (click)="getValue(search.value)">
+    <input type="text" [formControlName]="formCtrlName"
+    #key
+    (keyup.enter)="sendInput($event)"
+     [placeholder]="placeholder || 'Search name, request ID or institution'" #search
+        class="bg-white rounded-[10px] border border-inputBg w-[400px]  py-[14px] px-12 placeholder:text-lightGray placeholder:text-base placeholder:font-normal placeholder:font-inter text-sm lg:text-base focus:outline-none ">
+    <div class="absolute inset-y-0 left-0 custom-translate px-5 flex items-center"  (click)="iconClick(key.value)">
         <img src="assets/images/icons/search.svg">
 
     </div>

@@ -60,6 +60,7 @@ siteKey: string = environment.recaptchaKey
     this.actions$.pipe(ofType(loginSuccess)).subscribe((res: any) => {
       const helper = new JwtHelperService();
       this.loggedInUser = helper.decodeToken(res.accessToken);
+      localStorage.setItem('userData', JSON.stringify(this.loggedInUser))
       if (this.loggedInUser.UserType === 'Institution') {
           this.router.navigateByUrl('/institution/dashboard');
         // this.showOTPPage = true;
