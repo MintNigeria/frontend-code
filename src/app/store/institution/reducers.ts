@@ -8,6 +8,7 @@ import {
   getAllAdminInstitutionTransactionSuccess,
   getAllInstitutionUsersSuccess,
   getInstitutionBodySuccess,
+  getInstitutionConfigurationSuccess,
   getInstitutionSectorSuccess,
   getInstitutionTypeSuccess,
   invokeGetInstitutionsSuccess,
@@ -27,6 +28,7 @@ const initialState: IInstitutionStateInterface = {
   institutionBody: null,
   institutionRegistration: null,
   otpVerification: null,
+  institutionConfiguration: null,
 };
 
 export const institutionReducers = createReducer(
@@ -92,6 +94,13 @@ export const institutionReducers = createReducer(
   }),
 
   on(ValidateRegistrationCodeSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      otpVerification: payload
+    };
+  }),
+
+  on(getInstitutionConfigurationSuccess, (state, { payload }) => {
     return {
       ...state,
       otpVerification: payload

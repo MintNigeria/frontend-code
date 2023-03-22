@@ -8,4 +8,5 @@ export interface IInstitutionStateInterface {
   institutionAdminTransaction: any;
   institutionRegistration: any;
   otpVerification: any;
+  institutionConfiguration: any;
 }

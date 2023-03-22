@@ -41,3 +41,8 @@ export const institutionregistrationSelector = createSelector(
   selectFeature,
   (state) => state.institutionRegistration
 );
+
+export const institutionConfigurationSelector = createSelector(
+  selectFeature,
+  (state) => state.institutionConfiguration
+);

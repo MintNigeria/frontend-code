@@ -53,14 +53,14 @@
                     </label>
                     <ul
                         tabindex="0"
-                        class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                        class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52"
                     >
-                        <li><a (click)="selectedOption = 'data Time'">All Time</a></li>
-                        <li><a (click)="selectedOption = '30 Days'">30 Days</a></li>
-                        <li><a (click)="selectedOption = '7 days'">7 Days</a></li>
-                        <li><a (click)="selectedOption = '24 Hours'">24 Hours</a></li>
+                        <li><a (click)="changeRange(0, 'All Time') ">All Time</a></li>
+                        <li><a (click)="changeRange(3, '30 Days')">30 Days</a></li>
+                        <li><a (click)="changeRange(2, '7 days' )">7 Days</a></li>
+                        <li><a (click)="changeRange(1, '24 Hours')">24 Hours</a></li>
                         <li>
-                        <a (click)="selectedOption = 'Custom Period'"
+                        <a (click)="changeRange(5, 'Custom Period')"
                             >Custom Period</a
                         >
                         </li>
@@ -160,15 +160,14 @@
                         tabindex="0"
                         class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
                     >
-                        <li><a (click)="status = 'All'">All</a></li>
-                        <li>
-                        <a (click)="status = 'Certificate (Original)'">Pending</a>
+                       
+                        <li><a (click)="changeStatus(0, 'Pending')">Pending</a>
                         </li>
                         <li>
-                        <a (click)="status = 'Certificate (Template)'">Processing</a>
+                        <a (click)="changeStatus(1, 'Approved')">Processing</a>
                         </li>
                         <li>
-                        <a (click)="status = 'Certificate (Certified True Copy)'"
+                        <a (click)="changeStatus(2, 'Decline')"
                             >Completed</a
                         >
                         </li>
@@ -283,9 +282,9 @@
                                         <p class="my-0 text-[#0D47A1] font-inter font-medium text-sm">Export</p>
                                         <img src="assets/images/icons/downward_arrow_blue.svg" alt="" class="">
                                         </label>
-                                        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                            <li><a>Export as CSV</a></li>
-                                            <li><a >Export as PDF</a></li>
+                                        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
+                                            <li (click)="download('CSV')"><a>Export as CSV</a></li>
+                                            <li (click)="download('Excel')"><a >Export as Excel</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -412,8 +411,17 @@
                                 
                                 </div>
                             </div>
-
                             <div class="bg-white -mt-5">
+                                <div class="bg-white p-4 grid grid-cols-2 items-center">
+                                    <p class="text-base font-inter font-normal mb-3 text-lightGray">Payment Type:</p>
+                                    <div class="flex items-center">
+                                        <p class="text-base font-inter font-medium mb-3 text-darkGray">{{selectedData.paymentType}}</p>
+                                    </div>
+                                
+                                </div>
+                            </div>
+
+                            <!-- <div class="bg-white -mt-5">
                                 <div class="bg-white p-4 grid grid-cols-2 items-center">
                                     <p class="text-base font-inter font-normal mb-3 text-lightGray">Status:</p>
                                     <div class="flex items-center">
@@ -432,7 +440,7 @@
                                     </div>
                                 
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div>

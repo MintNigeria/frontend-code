@@ -9,6 +9,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { InstitutionEffects } from 'src/app/store/institution/effects';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     NgxPaginationModule,
     TransactionsRoutingModule,
     StoreModule.forFeature('reporting', reportingReducer),
-    EffectsModule.forFeature([ReportingEffects]),
+    EffectsModule.forFeature([ReportingEffects, InstitutionEffects]),
 
   ]
 })
