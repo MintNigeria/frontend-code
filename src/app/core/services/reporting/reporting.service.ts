@@ -58,4 +58,20 @@ export class ReportingService
       `${this.baseUrl}mint-higherinstitution/api/v1/Transaction/Institution/${institutionId}`, {params: payload}
     );
   }
+  
+  exportTransactionCSV(
+    institutionId: any,
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Transaction/ExportAsCSV?institutionId=${institutionId}`
+    );
+  }
+  
+  exportTransactionExcel(
+    institutionId: any,
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Transaction/ExportAsExcel?institutionId=${institutionId}`
+    );
+  }
 }

@@ -133,6 +133,14 @@ export class InstitutionService
       `${this.baseUrl}mint-higherinstitution/api/v1/Institution/GetInstitution/${id}`
     );
   }
+
+  getInstitutionConfiguration(id: any) {
+    console.log(id)
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionConfiguration/InstitutionDocumentType/${id}`
+    );
+  }
+
   approveRejectInstitution(payload: any) {
     return this.http.post<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionApproval/Approval-Action`, payload

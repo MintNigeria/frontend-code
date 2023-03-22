@@ -119,3 +119,16 @@ export const ValidateRegistrationCodeSuccess = createAction(
   '[institutions] validate otp success',
   props<{ payload: any }>()
 );
+
+
+export const getInstitutionConfiguration = createAction(
+  '[institutions] get institution configuration success',
+  props<{
+    id: any;
+  }>()
+);
+
+export const getInstitutionConfigurationSuccess = createAction(
+  '[institutions] get institution configuration success',
+  props<{ payload: any }>()
+);

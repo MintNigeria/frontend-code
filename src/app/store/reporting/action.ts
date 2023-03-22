@@ -31,3 +31,31 @@ export const invokeGetTransactionsSuccess = createAction(
     payload: any;
   }>()
 );
+
+export const exportTransactionCSV = createAction(
+  '[Reporting] export transaction CSV',
+  props<{
+    institutionId: string;
+  }>()
+);
+
+export const exportTransactionCSVSuccess = createAction(
+  '[Reporting] export transaction csv success',
+  props<{
+    payload: any;
+  }>()
+);
+
+export const exportTransactionExcel = createAction(
+  '[Reporting] export transaction Excel',
+  props<{
+    institutionId: string;
+  }>()
+);
+
+export const exportTransactionExcelSuccess = createAction(
+  '[Reporting] export transaction Excel success',
+  props<{
+    payload: any;
+  }>()
+);

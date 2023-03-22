@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
-import { invokeGetTransactions, invokeGetTransactionsSuccess } from 'src/app/store/reporting/action';
+import { getInstitutionConfiguration } from 'src/app/store/institution/action';
+import { exportTransactionCSV, exportTransactionCSVSuccess, exportTransactionExcel, exportTransactionExcelSuccess, invokeGetTransactions, invokeGetTransactionsSuccess } from 'src/app/store/reporting/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
@@ -151,10 +152,11 @@ filter = {
     pageSize: 10,
     pageIndex: 1,
     requestor: 1,
-    range: '',
+    range: 0,
     fromDate: '',
     toDate: '',
-    status: '',
+    status: 0,
+    transactionType: 0,
 }
   transactionDetails: any;
   totalCount: any;
@@ -178,7 +180,6 @@ filter = {
     this.institutionId = this.institutionData.InstitutionId
     this.store.dispatch(invokeGetTransactions({institutionId: this.institutionId, payload: this.filter}))
     this.actions$.pipe(ofType(invokeGetTransactionsSuccess)).subscribe((res: any) => {
-      console.log(res)
       this.transactionDetails = res.payload.data;
       this.totalCount = res.payload.totalCount
     })
@@ -187,6 +188,7 @@ filter = {
     .subscribe((term) => {
       this.search(term as string);
     });
+    this.store.dispatch(getInstitutionConfiguration({id: this.institutionId}))
     
   }
 
@@ -242,6 +244,21 @@ filter = {
     this.filter = filter;
   }
 
+  changeRange(range: number, name: string) {
+    this.selectedOption = name
+    if (range === 5) {
+      // launch calender
+    } else {
+      const filter = {...this.filter, ['range'] : range};
+      this.filter = filter;
+    }
+  }
+  changeStatus(status: number, name: string) {
+    this.status = name
+    const filter = {...this.filter, ['status'] : status};
+    this.filter = filter;
+  }
+
   search(event: any) {
     if (event) {
       const filter = {...this.filter, ['keyword'] : event}
@@ -250,6 +267,35 @@ filter = {
         const filter = {...this.filter, ['keyword'] : ''}
         this.store.dispatch(invokeGetTransactions({institutionId: this.institutionId, payload: filter}))
     }
+  }
+
+  download(type: string) {
+    if (type === 'CSV') {
+      this.downloadCSV()
+    } else {
+      this.downloadExcel()
+
+    }
+  }
+
+  downloadCSV() {
+    this.store.dispatch(exportTransactionCSV({institutionId: this.institutionId}))
+    this.actions$.pipe(ofType(exportTransactionCSVSuccess)).subscribe((res: any) => {
+       const link = document.createElement('a');
+        link.download = `${res.payload?.fileName}.csv`;
+        link.href = 'data:image/png;base64,' + res.payload?.base64String;
+        link.click();
+    })  
+  }
+
+  downloadExcel() {
+    this.store.dispatch(exportTransactionExcel({institutionId: this.institutionId}))
+    this.actions$.pipe(ofType(exportTransactionExcelSuccess)).subscribe((res: any) => {
+       const link = document.createElement('a');
+        link.download = `${res.payload?.fileName}.xlsx`;
+        link.href = 'data:image/png;base64,' + res.payload?.base64String;
+        link.click();
+    })
   }
 
 

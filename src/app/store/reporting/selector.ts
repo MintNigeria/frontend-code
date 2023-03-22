@@ -12,3 +12,13 @@ export const transactionSelector = createSelector(
   selectFeature,
   (state) => state.transactions
 );
+
+export const excelExportSelector = createSelector(
+  selectFeature,
+  (state) => state.excelExport
+);
+
+export const csvExportSelector = createSelector(
+  selectFeature,
+  (state) => state.csvExport
+);

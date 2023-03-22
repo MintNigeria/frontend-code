@@ -29,6 +29,8 @@ import {
   createNewInstitutionSuccess,
   ValidateRegistrationCode,
   ValidateRegistrationCodeSuccess,
+  getInstitutionConfiguration,
+  getInstitutionConfigurationSuccess,
 } from './action';
 
 @Injectable()
@@ -70,6 +72,41 @@ export class InstitutionEffects {
             );
             // read data and update payload
             return invokeGetInstitutionSuccess({
+              payload: data.payload,
+            });
+          })
+        );
+      })
+    );
+  });
+
+  getInstitutionConfiguration$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getInstitutionConfiguration),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const { id } = action;
+        return this.institutionService.getInstitutionConfiguration(id).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return getInstitutionConfigurationSuccess({
               payload: data.payload,
             });
           })
