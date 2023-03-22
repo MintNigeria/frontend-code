@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: GraduateComponent,
     children: [
-      { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+      // { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
       {
         path: 'dashboard',
         loadChildren: () =>

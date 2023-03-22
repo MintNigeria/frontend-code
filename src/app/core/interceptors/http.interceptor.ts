@@ -16,15 +16,23 @@ import {
   switchMap,
   finalize,
   tap,
+  retry,
 } from 'rxjs/operators';
-import { StorageService } from '../services/shared/storage.service';
 import { Router } from '@angular/router';
+import { NotificationsService } from '../services/notifications.service';
+import { StorageService } from '../services/storage.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private storageService: StorageService, private router: Router) {}
+  private token: any = '';
+
+  constructor(
+    private storageService: StorageService,
+    private router: Router,
+    private _notificationService: NotificationsService
+  ) {}
+
   private AUTH_HEADER = 'Authorization';
-  private token = this.storageService.getItem('token');
   private refreshTokenInProgress = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(
     null
@@ -34,50 +42,93 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    console.log(req);
+    // console.log(this.token);
     if (req.headers.get('skip')) {
       req = req.clone({
         headers: req.headers.delete('skip'),
       });
       return next.handle(req);
     }
+    this.token = this.storageService.getItem('token');
     if (!req.headers.has('Content-Type')) {
       req = req.clone({
         setHeaders: {
           Authorization: `Bearer ${this.token}`,
         },
-        headers: req.headers.set('Content-Type', 'application/json'),
       });
     }
     req = this.addAuthenticationToken(req);
     return next.handle(req).pipe(
+      retry(1),
       tap((evt) => {
         if (evt instanceof HttpResponse) {
           if (evt.status >= 200 && evt.status <= 226) {
-            if (evt.body.code && evt.body.code !== 1) {
-              //   use notification here
+            if (
+              evt.body.code &&
+              evt.body.code !== 1 &&
+              evt.body.code !== 'OK'
+            ) {
+              this._notificationService.publishMessages(
+                'error',
+                evt.body.errors.toString() || evt.body.description
+              );
             }
           }
         }
       }),
       catchError((_error: HttpErrorResponse) => {
+        // console.log(_error.status);
         if (_error) {
           if (_error.status === 401) {
-            this.storageService.removeItem('token');
-            //     //   use notification here with message "your session has expired you need to login again"
+            localStorage.clear();
 
-            this.router.navigate(['auth']);
+            // this.storageService.removeItem('token');
+            //     //   use notification here with message "your session has expired you need to login again"
+            this._notificationService.publishMessages(
+              'error',
+              'Your session has expired you need to login again'
+            );
+
+            // this.router.navigate(['/']);
+            location.href = '/';
           }
           if (_error.status === 403) {
-            this.storageService.removeItem('token');
+            localStorage.clear();
+
+            this._notificationService.publishMessages(
+              'error',
+              'You don"t have access to view this application'
+            );
             //  use notification here with message "You don't view this application"
-            this.router.navigate(['auth']);
+            this.router.navigate(['/']);
           }
           if (_error.status === 400) {
-            const { errors, errorMessages } = _error.error;
-            if (typeof errors === 'object') {
-              let value = Object.values(errors);
+            // console.log(_error);
+            const {
+              error,
+              errorMessages,
+              error_description,
+              errorDescription,
+            } = _error.error;
+            console.log(_error.error);
+            // console.log(error);
+            // console.log(error_description);
+            if (typeof error === 'object') {
+              let value = Object.values(error);
+              this._notificationService.publishMessages(
+                'error',
+                value.toString()
+              );
               //       //   notification value.toString()
             } else {
+              this._notificationService.publishMessages(
+                'error',
+                error_description.toString() ||
+                  error.toString() ||
+                  errorMessages.toString() ||
+                  errorDescription.toString()
+              );
               //       //   notification errors.toString() || errorMessages.toString()
             }
           }
@@ -114,6 +165,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return of(this.storageService.getItem('refreshToken'));
   }
   private addAuthenticationToken(request: HttpRequest<any>): HttpRequest<any> {
+    // console.log(this.token);
     if (!this.token) return request;
     if (!request.url.match(/www.example.com\//)) return request;
     return request.clone({
