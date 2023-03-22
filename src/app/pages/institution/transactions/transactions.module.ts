@@ -11,7 +11,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { InstitutionEffects } from 'src/app/store/institution/effects';
 
-
 @NgModule({
   declarations: [
     TransactionsComponent

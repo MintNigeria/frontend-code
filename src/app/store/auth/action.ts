@@ -26,6 +26,21 @@ export const changePasswordSuccess = createAction(
   props<{ message: string }>()
 );
 
+// reset password
+export const createPassword = createAction(
+  '[CREATE_PASSWORD] create Password',
+  props<{
+    email: string;
+    password: string;
+    confirmPassword: string;
+  }>()
+);
+
+export const createPasswordSuccess = createAction(
+  '[CREATE_PASSWORD] create Password Success',
+  props<{ payload: any }>()
+);
+
 export const requestPasswordReset = createAction(
   '[requestPasswordReset] Reset Password',
   props<{ email: string }>()

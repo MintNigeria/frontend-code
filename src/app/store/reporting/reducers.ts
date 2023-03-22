@@ -1,5 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import {
+  exportReportCSVSuccess,
+  exportReportExcelSuccess,
   exportTransactionCSVSuccess,
   exportTransactionExcelSuccess,
   invokeGetAllReportSuccess,
@@ -12,6 +14,8 @@ const initialState: ReportingStateInterface = {
   transactions: { data: null, totalCount: 0 },
   excelExport: null,
   csvExport: null,
+  excelExportReport: null,
+  csvExportReport: null,
 };
 
 export const reportingReducer = createReducer(
@@ -38,6 +42,18 @@ export const reportingReducer = createReducer(
     return {
       ...state,
       excelExport: payload,
+    };
+  }),
+  on(exportReportCSVSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      csvExportReport: payload,
+    };
+  }),
+  on(exportReportExcelSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      excelExportReport: payload,
     };
   })
 );

@@ -6,6 +6,9 @@ import {
   approveRejectInstitutionSuccess,
   createNewInstitutionSuccess,
   getAllAdminInstitutionTransactionSuccess,
+  getALlDepartmentInInstitutionSuccess,
+  getALlFacultiesInInstitutionSuccess,
+  getAllInstitutionRecordsSuccess,
   getAllInstitutionUsersSuccess,
   getInstitutionBodySuccess,
   getInstitutionConfigurationSuccess,
@@ -29,6 +32,9 @@ const initialState: IInstitutionStateInterface = {
   institutionRegistration: null,
   otpVerification: null,
   institutionConfiguration: null,
+  institutionFaculty: null,
+  institutionDepartment: null,
+  institutionRecord: null,
 };
 
 export const institutionReducers = createReducer(
@@ -104,6 +110,27 @@ export const institutionReducers = createReducer(
     return {
       ...state,
       otpVerification: payload
+    };
+  }),
+
+  on(getALlDepartmentInInstitutionSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      institutionDepartment: payload
+    };
+  }),
+
+  on(getALlFacultiesInInstitutionSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      institutionFaculty: payload
+    };
+  }),
+
+  on(getAllInstitutionRecordsSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      institutionRecord: payload
     };
   }),
 

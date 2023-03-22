@@ -11,6 +11,8 @@ import { RouterModule } from '@angular/router';
 import { FilesizePipe } from '../core/pipe/filesize.pipe';
 import { StatusTabComponent } from './components/status-tab/status-tab.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { CommaDelimiterPipe } from '../core/pipe/commaDelimiter.pipe';
+import { CheckMarkComponent } from './components/check-mark/check-mark.component';
 
 const components: any[] = [
   InputComponent,
@@ -22,6 +24,10 @@ const components: any[] = [
   FilesizePipe,
   StatusTabComponent,
   ModalComponent,
+  FilesizePipe,
+  CommaDelimiterPipe,
+  CheckMarkComponent
+
 ]
 
 
@@ -29,7 +35,7 @@ const components: any[] = [
   declarations: [
     ...components,
     StatusTabComponent,
-    ModalComponent
+    ModalComponent,
   ],
   imports: [
     CommonModule,

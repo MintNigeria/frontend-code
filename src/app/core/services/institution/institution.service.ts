@@ -83,6 +83,12 @@ export class InstitutionService
     );
   }
 
+  getAllInstitutionRecords(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/GetAllInstitutionRecords`, {params: payload}
+    );
+  }
+
   getAllInstitutions(
     institutionStatus: number,
     instituionTypeId: string,
@@ -134,6 +140,18 @@ export class InstitutionService
     );
   }
 
+  getALlFacultiesInInstitution(id: string) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/GetAllFacultiesInAnInstitution?InstitutionId=${id}`
+    );
+  }
+
+  getALlDepartmentInInstitution(id: string) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/GetAllDepartmeentsInAnInstitution?InstitutionId=${id}`
+    );
+  }
+
   getInstitutionConfiguration(id: any) {
     console.log(id)
     return this.http.get<any>(
@@ -146,4 +164,5 @@ export class InstitutionService
       `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionApproval/Approval-Action`, payload
     );
   }
+
 }

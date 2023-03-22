@@ -96,7 +96,15 @@ export const getInstitutionBody = createAction(
   '[institutions] get all institution Body',
 );
 export const getInstitutionBodySuccess = createAction(
-  '[institutions] get all institution Body transaction success',
+  '[institutions] get all institution Body  success',
+  props<{ payload: any }>()
+);
+export const getAllInstitutionRecords = createAction(
+  '[institutions] get all institution records',
+  props<{ payload: any }>()
+);
+export const getAllInstitutionRecordsSuccess = createAction(
+  '[institutions] get all institution records  success',
   props<{ payload: any }>()
 );
 
@@ -130,5 +138,29 @@ export const getInstitutionConfiguration = createAction(
 
 export const getInstitutionConfigurationSuccess = createAction(
   '[institutions] get institution configuration success',
+  props<{ payload: any }>()
+);
+
+export const getALlDepartmentInInstitution = createAction(
+  '[institutions] get institution departments ',
+  props<{
+    id: any;
+  }>()
+);
+
+export const getALlDepartmentInInstitutionSuccess = createAction(
+  '[institutions] get institution departments success',
+  props<{ payload: any }>()
+);
+
+export const getALlFacultiesInInstitution = createAction(
+  '[institutions] get institution departments ',
+  props<{
+    id: any;
+  }>()
+);
+
+export const getALlFacultiesInInstitutionSuccess = createAction(
+  '[institutions] get institution departments success',
   props<{ payload: any }>()
 );

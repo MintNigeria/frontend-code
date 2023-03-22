@@ -1,10 +1,8 @@
 <!-- <div class="max-w-screen-2xl mx-auto"> -->
-    <div class="">
+    <!-- <div class="">
         <div class="drawer drawer-mobile">
           <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
           <div class="drawer-content flex flex-col bg-[#FCFCFC]">
-            <!-- Page content here -->
-            <!-- <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label> -->
             <app-header></app-header>
             <main class=" bg-white max-w-screen-xl w-full mx-auto pt-8 p-4 z-50  ">
               <router-outlet></router-outlet>
@@ -21,4 +19,21 @@
           </div>
         </div>
       </div>
-      
+       -->
+      <div class="drawer drawer-mobile flex h-screen overflow-hidden">
+        <!-- <input id="my-drawer-2" type="checkbox" class="drawer-toggle z-0" /> -->
+        <div class="drawer-side ">
+          <div class="bg-gray-900 opacity-50 hidden fixed inset-0 z-10" id="sidebarBackdrop"></div>
+          <div class="w-[20rem] z-50 hidden md:flex ">
+            <app-sidebar [menuLinks]="menuLinks" ></app-sidebar>
+            
+          </div>
+        </div>
+        
+        <div class="bg-[#FCFCFC] relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+          <app-header></app-header>
+          <main class=" bg-white max-w-screen-xl w-full mx-auto pt-8 p-4">
+            <router-outlet></router-outlet>
+          </main>
+        </div>
+      </div>

@@ -46,3 +46,13 @@ export const institutionConfigurationSelector = createSelector(
   selectFeature,
   (state) => state.institutionConfiguration
 );
+
+export const institutionRecordSelector = createSelector(
+  selectFeature,
+  (state) => state.institutionRecord
+);
+
+export const departmentSelector = createSelector(
+  selectFeature,
+  (state) => state.institutionDepartment
+);

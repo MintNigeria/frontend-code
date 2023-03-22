@@ -24,19 +24,19 @@ export class InstitutionComponent implements OnInit {
       inactive: 'assets/images/request-active.svg',
       childRoute:  [
         {
-          route: 'manage-task',
-          name: 'All Tasks'
+          route: '/institution/requests',
+          name: 'Graduate'
         },
         {
-          route: 'manage-task/create-task',
-          name: 'Create Task'
+          route: '/institution/requests/organization',
+          name: 'Organization'
         }
       ]
     },
     {
       id: 2,
       title: 'Records',
-      hasChild: true,
+      hasChild: false,
       path: 'records',
       active: 'assets/images/gradaute-active.svg',
       inactive: 'assets/images/graduate-active.svg',

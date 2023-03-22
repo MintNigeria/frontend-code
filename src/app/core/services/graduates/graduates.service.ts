@@ -1,17 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IGraduateApproveReject } from 'src/app/store/graduates/types/index.type';
 import { BaseURI } from '../shared/baseURI.shared';
 
 
 abstract class AbstractGraduateService {
-  abstract getAllGraduates(
-    keyword: string,
-    filter: string,
-    sort: string ,
-    pageIndex: number,
-    pageSize: number
+  abstract getAllInstitutionGraduates(
+    institutionId: string,
+    filter: any
   ): Observable<any>;
 }
 
@@ -25,23 +21,21 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
    }
 
    
-   getAllGraduates(
-    keyword: string,
-    filter: string,
-    sort: string ,
-    pageSize: number,
-    pageIndex: number
+   getAllInstitutionGraduates(
+    institutionId: string,
+    filter: any
   ) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-auth/api/v1/Graduates/AllGraduates?Keyword=${keyword}&Filter=${filter}&Sort=${sort}&PageIndex=${pageIndex}&PageSize=${pageSize}`
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/InstitutionGraduates?InstitutionId=${institutionId}`, {params: filter}
     );
   }
 
    getGraduateById(
-    graduateId: string
+    graduateId: string,
+    institutionId: string
   ) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-auth/api/v1/Graduates/Graduate/${graduateId}`
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/InstitutionGraduate/${institutionId}/${graduateId}`
     );
   }
   
@@ -68,13 +62,6 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
   }
 
 
-  declineGraduateRequest(
-    payload: IGraduateApproveReject
-  ) {
-    return this.http.post<any>(
-      `${this.baseUrl}mint-auth/api/v1/GraduateApproval/Decline-Request`, payload
-    );
-  }
 
 
   downloadCSV(

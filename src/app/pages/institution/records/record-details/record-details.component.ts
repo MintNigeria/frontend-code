@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Actions } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { invokeGetGraduateDetails } from 'src/app/store/graduates/action';
+import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
   selector: 'app-record-details',
@@ -100,10 +105,25 @@ export class RecordDetailsComponent implements OnInit {
     action: 'view'
   }
  ]
+  graduateId: any;
+  institutionData: any;
+  institutionId: any;
 
-  constructor() {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store,
+    private appStore: Store<AppStateInterface>,
+    private actions$: Actions
+  ) {}
 
   ngOnInit(): void {
+    const data: any = localStorage.getItem('userData')
+    this.institutionData = JSON.parse(data)
+    this.institutionId = this.institutionData.InstitutionId
+
+    this.graduateId = this.route.snapshot.params['id']
+    this.store.dispatch(invokeGetGraduateDetails({graduateId: this.graduateId, institutionId: this.institutionId}))
   }
 
   goBack() {

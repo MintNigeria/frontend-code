@@ -19,6 +19,8 @@ import {
   getUserProfileSuccess,
   getUserProfile,
   passwordResetSuccess,
+  createPassword,
+  createPasswordSuccess,
 } from './action';
 
 @Injectable()
@@ -104,6 +106,43 @@ export class AuthEffects {
               // read data and update message
               return changePasswordSuccess({
                 message: '',
+              });
+            })
+          );
+      })
+    );
+  });
+
+  createPassword$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(createPassword),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const { password, confirmPassword, email } = action;
+        return this.authService
+          .createPassword({ password, confirmPassword, email })
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update message
+              return createPasswordSuccess({
+                payload: data,
               });
             })
           );
