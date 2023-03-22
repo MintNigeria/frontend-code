@@ -50,4 +50,12 @@ export class ReportingService
       `${this.baseUrl}mint-higherinstitution/api/v1/Transaction/Institutions?Keyword=${keyword}&Filter=${filter}&PageIndex=${pageIndex}&PageSize=${pageSize}`
     );
   }
+  getInstitutionTransactions(
+    institutionId: any,
+    payload: any
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Transaction/Institution/${institutionId}`, {params: payload}
+    );
+  }
 }

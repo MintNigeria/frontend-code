@@ -30,7 +30,7 @@
     <!--Filters-->
 
     <div class="w-full  rounded-xl shadow-sm p-6 border-none  bg-tabBlue">
-        <form>
+        <div>
             <div
                 class="flex md:flex-row md:justify-between md:items-center flex-col w-full"
             >
@@ -88,9 +88,9 @@
                         tabindex="0"
                         class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
                     >
-                        <li><a (click)="transactionType = 'Graduates'">Graduates</a></li>
+                        <li><a (click)="changeInitiator(1,  'Graduates') ">Graduates</a></li>
                         <li>
-                        <a (click)="transactionType = 'Organizations '"
+                        <a (click)="changeInitiator(2, 'Organizations ') "
                             >Organizations </a
                         >
                         </li>
@@ -178,7 +178,7 @@
 
                 <div class="flex items-center mt-6">
                     <button
-                    class="bg-[#4086EF] text-white font-medium font-inter text-xs w-[80px] h-[40px] rounded-xl"
+                    class="bg-primaryBlue text-white font-medium font-inter text-xs w-[80px] h-[40px] rounded-xl"
                     (click)="addFilter()"
                     >
                     Add Filter
@@ -192,7 +192,7 @@
                 </div>
                 </div>
             </div>
-            </form>
+            </div>
     </div>
 
     <!---->
@@ -206,7 +206,7 @@
                     <div class=" flex p-1 rounded mr-2  bg-[#12B76A]"><img src="assets/images/main/Number.svg" alt=""></div>
                     <p class="border-b border-dashed font-inter font-semibold text-base text-failedNormal"> Total revenue generated</p>
                 </div>
-                <p class="text-successNormal font-bold text-3xl font-poppins">₦145,836,366</p>
+                <p class="text-successNormal font-bold text-3xl font-poppins">₦{{transactionDetails?.totalRevenueGeneratedVM?.total}}</p>
                </div> 
             </div>
             <div class=" bg-white">
@@ -214,11 +214,11 @@
                 <div class="grid grid-cols-2 divide-x">
                     <div class="text-left">
                         <p class="font-normal text-sm font-inter text-lightGray pb-[2px]">From graduate requests</p>
-                        <p class="mb-4 font-medium text-sm font-inter text-failedNormal">₦78,874,658. 00</p>
+                        <p class="mb-4 font-medium text-sm font-inter text-failedNormal">₦{{transactionDetails?.totalRevenueGeneratedVM?.graduate}}</p>
                     </div>
                     <div class="text-right">
                         <p class="font-normal text-sm font-inter text-lightGray pb-[2px]">From organization requests</p>
-                        <p class=" font-medium text-sm font-inter text-failedNormal">₦78,874,658. 00</p>
+                        <p class=" font-medium text-sm font-inter text-failedNormal">₦{{transactionDetails?.totalRevenueGeneratedVM?.organization}}</p>
                     </div>
                 </div>
                </div> 
@@ -233,7 +233,7 @@
                     <div class=" flex p-1 rounded mr-2  bg-[#F38744]"><img src="assets/images/main/Fintech.svg" alt=""></div>
                     <p class="border-b border-dashed font-inter font-semibold text-base text-failedNormal"> Total Transactions</p>
                 </div>
-                <p class="text-failedNormal font-bold text-3xl font-poppins">95,761</p>
+                <p class="text-failedNormal font-bold text-3xl font-poppins">{{transactionDetails?.totalTransactionInVolumeVM?.total}}</p>
                </div> 
             </div>
             <div class=" bg-white">
@@ -241,11 +241,11 @@
                 <div class="grid grid-cols-2 divide-x">
                     <div class="text-left">
                         <p class="font-normal text-sm font-inter text-lightGray pb-[2px]">Successful Transactions</p>
-                        <p class="mb-4 font-medium text-sm font-inter text-failedNormal">95058</p>
+                        <p class="mb-4 font-medium text-sm font-inter text-failedNormal">{{transactionDetails?.totalTransactionInVolumeVM?.successful}}</p>
                     </div>
                     <div class="text-right">
                         <p class="font-normal text-sm font-inter text-lightGray pb-[2px]">Failed Transactions</p>
-                        <p class=" font-medium text-sm font-inter text-failedNormal">323</p>
+                        <p class=" font-medium text-sm font-inter text-failedNormal">{{transactionDetails?.totalTransactionInVolumeVM?.failed}}</p>
                     </div>
                 </div>
                </div> 
@@ -268,15 +268,11 @@
                 <form>
                     <div class="flex md:flex-row md:justify-between md:items-center flex-col w-full">
                         <div class="flex lg:justify-between gap-4">
-                            <div class="relative cursor-pointer mr-3">
-
-                                <input type="search" placeholder="Search Initiator"
-                                    class="bg-white rounded-[10px] border border-inputBg w-[400px]  py-[14px] px-8 placeholder:text-[#6E7191] text-sm lg:text-base focus:outline-none ">
-                                <div class="top-1/2 absolute  left-3 custom-translate pr-4">
-                                    <img src="assets/images/icons/search.svg" alt="search">
-
-                                </div>
-                            </div>
+                            <app-search 
+                            [placeholder]="'Search by name, email'"
+                            (iconSearch)="search($event)"
+                [formGrp]="searchForm" formCtrlName="searchPhrase"  
+                ></app-search>
                         </div>
 
                         <div class="flex md:items-center gap-4 ">
@@ -321,35 +317,35 @@
                             </thead>
 
                             <tbody class="bg-white">
-                                        <tr *ngFor="let data of transactionList" class="bg-white" [ngClass]="{ 'bg-primaryBlue': selectedDataId === data.id }">
+                                        <tr *ngFor="let data of transactionDetails?.minifiedTransactionInfoVMs | paginate: { itemsPerPage: filter.pageSize, currentPage: pageIndex, totalItems: totalCount } " class="bg-white" [ngClass]="{ 'bg-primaryBlue': selectedDataId === data.id }">
                                         
                                             
-                                            <td class="bg-white">
+                                            <td class="bg-white" [ngClass]="selectedDataId === data.id ? 'bg-blue-200': '' ">
                                                 <div>
                                                     <div>
                                                         <div>
-                                                            <p class="my-0 text-base cursor-pointer font-inter font-medium text-primaryBlue ">{{data.initiator}}</p>
+                                                            <p class="my-0 text-base cursor-pointer font-inter font-medium text-primaryBlue ">{{data.initiatorName}}</p>
                                                         </div>
                                                     </div>
 
                                                 </div>
                                             </td>
                                             
-                                            <td class="bg-white">
+                                            <td class="bg-white" [ngClass]="selectedDataId === data.id ? 'bg-blue-200': '' ">
                                                 <div>
                                                     <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data?.amount}}</p>
                                                 </div>
                                             </td>
 
-                                            <td class="bg-white">
+                                            <td class="bg-white" [ngClass]="selectedDataId === data.id ? 'bg-blue-200': '' ">
                                                 <div>
-                                                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.date}}</p>
+                                                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.createdOn | date : 'mediumDate'}}</p>
                                                 
                                                 </div>
                                             </td>
-                                            <td class="bg-white">
+                                            <td class="bg-white" [ngClass]="selectedDataId === data.id ? 'bg-blue-200': '' ">
                                                 <div>
-                                                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-primaryBlue " (click)="showData(data.id)">{{data.action}}</p>
+                                                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-primaryBlue " (click)="showData(data.id)">View</p>
                                                     
                                                 </div>
 
@@ -371,7 +367,7 @@
                                     <p class="text-base font-inter font-normal mb-3 text-lightGray">Transaction Amount:</p>
                                     <div class="flex items-center">
                                     <img src="assets/images/icons/naira.svg" alt="naira" class="m-1 -mt-1">
-                                        <p class="text-2xl font-inter font-bold mb-3 text-successNormal">{{transactionData.amount}}</p>
+                                        <p class="text-2xl font-inter font-bold mb-3 text-successNormal">{{selectedData.amount}}</p>
                                     </div>
                                 
                                 </div>
@@ -381,7 +377,7 @@
                                 <div class="bg-white p-4 grid grid-cols-2 items-center">
                                     <p class="text-base font-inter font-normal mb-3 text-lightGray">Transaction ID:</p>
                                     <div class="flex items-center">
-                                        <p class="text-base font-inter font-medium mb-3 text-darkGray">{{transactionData.transactionID}}</p>
+                                        <p class="text-base font-inter font-medium mb-3 text-darkGray">{{selectedData.transactionRefId}}</p>
                                     </div>
                                 
                                 </div>
@@ -391,7 +387,7 @@
                                 <div class="bg-white p-4 grid grid-cols-2 items-center">
                                     <p class="text-base font-inter font-normal mb-3 text-lightGray">Transaction Date:</p>
                                     <div class="flex items-center">
-                                        <p class="text-base font-inter font-medium mb-3 text-darkGray">{{transactionData.date}}</p>
+                                        <p class="text-base font-inter font-medium mb-3 text-darkGray">{{selectedData.createdOn | date:'mediumDate'}}</p>
                                     </div>
                                 
                                 </div>
@@ -401,7 +397,7 @@
                                 <div class="bg-white p-4 grid grid-cols-2 items-center">
                                     <p class="text-base font-inter font-normal mb-3 text-lightGray">Transaction Time:</p>
                                     <div class="flex items-center">
-                                        <p class="text-base font-inter font-medium mb-3 text-darkGray">{{transactionData.time}}</p>
+                                        <p class="text-base font-inter font-medium mb-3 text-darkGray">{{selectedData.createdOn | date:'shortTime'}}</p>
                                     </div>
                                 
                                 </div>
@@ -411,7 +407,7 @@
                                 <div class="bg-white p-4 grid grid-cols-2 items-center">
                                     <p class="text-base font-inter font-normal mb-3 text-lightGray">Transaction Type:</p>
                                     <div class="flex items-center">
-                                        <p class="text-base font-inter font-medium mb-3 text-darkGray">{{transactionData.type}}</p>
+                                        <p class="text-base font-inter font-medium mb-3 text-darkGray">{{selectedData.transactionType}}</p>
                                     </div>
                                 
                                 </div>
@@ -447,7 +443,7 @@
                                 <div class="bg-white p-4 grid grid-cols-2 items-center">
                                     <p class="text-base font-inter font-normal mb-3 text-lightGray">Initiator:</p>
                                     <div class="flex items-center">
-                                        <p class="text-base font-inter font-medium mb-3 text-darkGray">{{descriptionData.initiator}}</p>
+                                        <p class="text-base font-inter font-medium mb-3 text-darkGray">{{selectedData.initiatorName}}</p>
                                     </div>
                                 
                                 </div>
@@ -457,7 +453,7 @@
                                 <div class="bg-white p-4 grid grid-cols-2 items-center">
                                     <p class="text-base font-inter font-normal mb-3 text-lightGray">Matric Number:</p>
                                     <div class="flex items-center">
-                                        <p class="text-base font-inter font-medium mb-3 text-darkGray">{{descriptionData.matric}}</p>
+                                        <p class="text-base font-inter font-medium mb-3 text-darkGray">{{selectedData.matriculationNumber}}</p>
                                     </div>
                                 
                                 </div>
@@ -522,20 +518,8 @@
                     Showing 1 to 7 of {{ transactionList.length }} entries
                 </p>
                 <div class="flex item gap-3">
-                    <div
-                        class="text-[10px] md:text-xs text-[#6E7191] bg-[#FCFCFC] rounded border border-solid border-[#EFF0F7] p-2 flex items-center justify-center gap-2 cursor-pointer">
-                        <img src="assets/images/icons/prev.svg" alt="" />
-                        <span>Prev</span>
-                    </div>
-                    <div
-                        class="text-sm md:text-sm text-[#1D2B4F] bg-[#D9DBE9] rounded border border-solid border-[#D9DBE9] p-2">
-                        1
-                    </div>
-                    <div
-                        class="text-[10px] md:text-xs text-[#262338] bg-[#FCFCFC] rounded border border-solid border-[#0C3146] p-2 flex items-center justify-center gap-2 cursor-pointer">
-                        <span>Next</span>
-                        <img src="assets/images/icons/next.svg" alt="" />
-                    </div>
+                    <pagination-controls (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next"></pagination-controls>
+          
                 </div>
             </div>
 
