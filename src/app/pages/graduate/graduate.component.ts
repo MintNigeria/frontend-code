@@ -42,14 +42,6 @@ export class GraduateComponent implements OnInit {
     },
     {
       id: 5,
-      title: 'Support',
-      hasChild: false,
-      path: 'support',
-      active: 'assets/images/dashboard-inactive.svg',
-      inactive: 'assets/images/dashboard-inactive.svg',
-    },
-    {
-      id: 6,
       title: 'Settings',
       hasChild: false,
       path: 'settings',

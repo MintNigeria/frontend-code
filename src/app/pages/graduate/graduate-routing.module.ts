@@ -21,7 +21,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'verifications',
+        path: 'my-verifications',
         loadChildren: () =>
           import('./verifications/verifications.module').then(
             (m) => m.VerificationsModule

@@ -3,11 +3,15 @@ import { CommonModule } from '@angular/common';
 
 import { TransactionsRoutingModule } from './transactions-routing.module';
 import { TransactionsComponent } from './transactions.component';
+import { TransactionsIndexComponent } from './transactions-index/transactions-index.component';
+import { FundWalletComponent } from './fund-wallet/fund-wallet.component';
 
 
 @NgModule({
   declarations: [
-    TransactionsComponent
+    TransactionsComponent,
+    TransactionsIndexComponent,
+    FundWalletComponent
   ],
   imports: [
     CommonModule,
