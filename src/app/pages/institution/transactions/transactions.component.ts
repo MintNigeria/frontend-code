@@ -4,9 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
 import { getInstitutionConfiguration } from 'src/app/store/institution/action';
 import { exportTransactionCSV, exportTransactionCSVSuccess, exportTransactionExcel, exportTransactionExcelSuccess, invokeGetTransactions, invokeGetTransactionsSuccess } from 'src/app/store/reporting/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-transactions',
@@ -161,13 +163,18 @@ filter = {
   transactionDetails: any;
   totalCount: any;
 
-
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private store: Store,
     private appStore: Store<AppStateInterface>,
-    private actions$: Actions
+    private actions$: Actions,
+        private dialog: MatDialog
+
   ) { }
 
   ngOnInit(): void {
@@ -244,6 +251,17 @@ filter = {
     this.selectedOption = name
     if (range === 5) {
       // launch calender
+      const dialogRef = this.dialog.open(DateRangeComponent, {
+        // width: '600px',
+        height: 'auto',
+        disableClose: true,
+      });
+      dialogRef.afterClosed().subscribe((res: any) => {
+        if (res) {
+              console.log(res)
+        }
+  
+      })
     } else {
       const filter = {...this.filter, ['range'] : range};
       this.filter = filter;

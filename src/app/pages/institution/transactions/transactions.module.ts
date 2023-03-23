@@ -11,6 +11,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { InstitutionEffects } from 'src/app/store/institution/effects';
 
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
 @NgModule({
   declarations: [
     TransactionsComponent
@@ -20,6 +24,10 @@ import { InstitutionEffects } from 'src/app/store/institution/effects';
     SharedModule,
     NgxPaginationModule,
     TransactionsRoutingModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
     StoreModule.forFeature('reporting', reportingReducer),
     EffectsModule.forFeature([ReportingEffects, InstitutionEffects]),
 

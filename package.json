@@ -11,6 +11,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^14.2.12",
+    "@angular/cdk": "^14.2.7",
     "@angular/common": "^14.2.12",
     "@angular/compiler": "^14.2.12",
     "@angular/core": "^14.2.12",
@@ -29,6 +30,7 @@
     "angular-notifier": "^12.0.0",
     "daisyui": "^2.42.1",
     "flatpickr": "^4.6.13",
+    "moment": "^2.29.4",
     "ng-otp-input": "^1.8.5",
     "ng-recaptcha": "^10.0.0",
     "ngrx-store-localstorage": "^10.0.0",
