@@ -11,6 +11,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AwaitingApprovalComponent } from './processing-fee/awaiting-approval/awaiting-approval.component';
 import { AwaitingApprovalFeeComponent } from './verification-fee/awaiting-approval-fee/awaiting-approval-fee.component';
+import { ConfigurationEffects } from 'src/app/store/configuration/effects';
+import { configurationReducer } from 'src/app/store/configuration/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 
 
 @NgModule({
@@ -29,6 +33,9 @@ import { AwaitingApprovalFeeComponent } from './verification-fee/awaiting-approv
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    StoreModule.forFeature('configuration', configurationReducer),
+    EffectsModule.forFeature([ConfigurationEffects]),
+
 
   ]
 })
