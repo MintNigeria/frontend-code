@@ -50,7 +50,7 @@ siteKey: string = environment.recaptchaKey
         '',
         Validators.compose([Validators.email, Validators.required])
       ),
-      recaptchaReactive: new FormControl(null, [Validators.required])
+      recaptchaReactive: new FormControl(null)
     });
   }
 
