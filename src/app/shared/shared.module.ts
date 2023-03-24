@@ -33,6 +33,7 @@ const components: any[] = [
   CommaDelimiterPipe,
   CheckMarkComponent,
   DateRangeComponent,
+  
 
 ]
 

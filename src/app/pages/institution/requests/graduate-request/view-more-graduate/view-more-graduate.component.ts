@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Actions } from '@ngrx/effects';
+import { select, Store } from '@ngrx/store';
+import { invokeGetRequestDetails } from 'src/app/store/request/action';
+import { requestDetailsSelector } from 'src/app/store/request/selector';
+import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
   selector: 'app-view-more-graduate',
@@ -99,10 +105,30 @@ export class ViewMoreGraduateComponent implements OnInit {
   }
  ]
 
-  constructor() {}
+ requestId: any;
+ requestDetails$ = this.appStore.pipe(select(requestDetailsSelector));
+ requestDetail: any;
 
-  ngOnInit(): void {
-  }
+ constructor(
+   private route: ActivatedRoute,
+   private router: Router,
+   private store: Store,
+   private appStore: Store<AppStateInterface>,
+   private actions$: Actions
+ ) {}
+
+ ngOnInit(): void {
+   this.requestId = this.route.snapshot.params['id']
+   this.store.dispatch(invokeGetRequestDetails({id: this.requestId}))
+   this.getRequestDetails()
+
+ }
+
+ getRequestDetails() {
+   this.requestDetails$.subscribe((res: any) => {
+     this.requestDetail = res
+   })
+ }
 
   goBack() {
   window.history.back();

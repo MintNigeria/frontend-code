@@ -71,6 +71,21 @@ export const invokeGetGraduateDetailsSuccess = createAction(
   );
 
 
+  export const getAllInstitutionUpload = createAction(
+    '[graduates] get all institution uploads',
+    props<{
+     payload : any
+    }>()
+    ); 
+
+  export const getAllInstitutionUploadSuccess = createAction(
+    '[graduates] get all institution upload Success',
+    props<{
+     payload : any
+    }>()
+    ); 
+
+
   export const downloadCSV = createAction(
     '[graduates] download graduate CSV File',
     props<{
@@ -97,3 +112,38 @@ export const invokeGetGraduateDetailsSuccess = createAction(
      payload : any
     }>()
     ); 
+
+    export const downloadRecordUploadFormat = createAction(
+      '[Graduates] download graduate record upload file ',
+      props<{
+        payload: any;
+      }>()
+    );
+    
+    export const downloadRecordUploadFormatSuccess = createAction(
+      '[Graduates] download graduate record upload file success',
+      props<{ payload: any }>()
+    );
+    export const uploadGraduateRecord = createAction(
+      '[Graduates] upload graduate records file ',
+      props<{
+        payload: any;
+      }>()
+    );
+    
+    export const uploadGraduateRecordSuccess = createAction(
+      '[Graduates] upload graduate records file success',
+      props<{ payload: any }>()
+    );
+
+    export const createGraduateRecord = createAction(
+      '[Graduates] create graduate records ',
+      props<{
+        payload: any;
+      }>()
+    );
+    
+    export const createGraduateRecordSuccess = createAction(
+      '[Graduates] create graduate records success',
+      props<{ payload: any }>()
+    );

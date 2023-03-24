@@ -63,88 +63,6 @@ export class TransactionsComponent implements OnInit {
     }
 
 
-  transactionList = [
-    {
-    id: 1,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  },
-  {
-    id: 2,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  },
-  {
-    id: 3,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  },
-  {
-    id: 4,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  },
-  {
-    id: 5,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  },
-  {
-    id: 6,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  },
-   {
-    id: 7,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  },
-   {
-    id: 8,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  },
-   {
-    id: 9,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  },
-   {
-    id: 10,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  }
-  ]
   institutionId: any;
   institutionData: any;
   pageIndex = 1;
@@ -163,10 +81,7 @@ filter = {
   transactionDetails: any;
   totalCount: any;
 
-  range = new FormGroup({
-    start: new FormControl<Date | null>(null),
-    end: new FormControl<Date | null>(null),
-  });
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -199,7 +114,7 @@ filter = {
     this.selectedData = this.transactionDetails?.minifiedTransactionInfoVMs.find((data: any) => data.id === id);
     this.transactionDetails?.minifiedTransactionInfoVMs.filter((transaction : any) => {
       if (transaction.id === id) {
-        this. selectedDataId = transaction.id
+        this.selectedDataId = transaction.id
       }
     });
 
@@ -259,6 +174,10 @@ filter = {
       dialogRef.afterClosed().subscribe((res: any) => {
         if (res) {
               console.log(res)
+              const {start , end} = res; // use this start and end as fromDate and toDate on your filter
+              this.selectedOption = `${start} - ${end}`
+              const filter = {...this.filter, ['fromDate'] : start, ['toDate'] : end}
+              this.filter = filter;
         }
   
       })
@@ -316,9 +235,6 @@ filter = {
   getPage(currentPage: number) {
     const filter = {...this.filter, ['pageIndex'] : currentPage}
     this.store.dispatch(invokeGetTransactions({institutionId: this.institutionId, payload: filter}))
-
-    
-  
   }
 
 }

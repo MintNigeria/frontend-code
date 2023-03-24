@@ -15,6 +15,11 @@ import { ConfigurationEffects } from 'src/app/store/configuration/effects';
 import { configurationReducer } from 'src/app/store/configuration/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { InstitutionEffects } from 'src/app/store/institution/effects';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { CreateDegreeTypeComponent } from './create-degree-type/create-degree-type.component';
+import { CreateDepartmentComponent } from './create-department/create-department.component';
+import { CreateFacultyComponent } from './create-faculty/create-faculty.component';
 
 
 @NgModule({
@@ -25,7 +30,10 @@ import { StoreModule } from '@ngrx/store';
     DispatchFeeComponent,
     InstitutionSetupComponent,
     AwaitingApprovalComponent,
-    AwaitingApprovalFeeComponent
+    AwaitingApprovalFeeComponent,
+    CreateDegreeTypeComponent,
+    CreateDepartmentComponent,
+    CreateFacultyComponent
   ],
   imports: [
     CommonModule,
@@ -33,8 +41,9 @@ import { StoreModule } from '@ngrx/store';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    NgSelectModule,
     StoreModule.forFeature('configuration', configurationReducer),
-    EffectsModule.forFeature([ConfigurationEffects]),
+    EffectsModule.forFeature([ConfigurationEffects, InstitutionEffects]),
 
 
   ]

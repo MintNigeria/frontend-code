@@ -11,6 +11,14 @@ import { UsersComponent } from './admin-users/users/users.component';
 import { RolesAndPermissionComponent } from './admin-users/roles-and-permission/roles-and-permission.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { usersAndRolesReducer } from 'src/app/store/users-and-roles/reducer';
+import { UsersAndRolesEffects } from 'src/app/store/users-and-roles/effects';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { InstitutionEffects } from 'src/app/store/institution/effects';
+import { ReportingEffects } from 'src/app/store/reporting/effects';
+import { UserListComponent } from './admin-users/user-list/user-list.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -21,7 +29,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MyProfileComponent,
     ChangePasswordComponent,
     UsersComponent,
-    RolesAndPermissionComponent
+    RolesAndPermissionComponent,
+    UserListComponent
   ],
   imports: [
     CommonModule,
@@ -29,6 +38,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
+    StoreModule.forFeature('usersAndRoles', usersAndRolesReducer),
+    EffectsModule.forFeature([UsersAndRolesEffects, InstitutionEffects]),
+
   ]
 })
 export class UsersAndRolesModule { }

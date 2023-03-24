@@ -12,4 +12,11 @@ export interface IInstitutionStateInterface {
   institutionFaculty: any;
   institutionDepartment: any;
   institutionRecord: any;
+  institutionDegreeType: any;
+  newDegreeType: any;
+  newDepartment: any;
+  newFaculty: any;
+  updateDegreeType: any;
+  updateDepartment: any;
+  updateFaculty: any;
 }

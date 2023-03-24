@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Actions, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { invokeGetInstitution, invokeGetInstitutionSuccess } from 'src/app/store/institution/action';
+import { AppStateInterface } from 'src/app/types/appState.interface';
 
 
 @Component({
@@ -15,18 +20,34 @@ export class MyProfileComponent implements OnInit {
 
   confirmChanges = 'confirmChanges';
   changesConfirmed = 'changesConfirmed';
+  institutionData: any;
+  institutionId: any;
 
   
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store,
+    private appStore: Store<AppStateInterface>,
+    private actions$: Actions,
   ) { }
 
   ngOnInit(): void {
     this.initProfileForm()
-    setTimeout(() => {
-      this.populateForm()
-    }, 2000);
+    const data: any = localStorage.getItem('userData')
+    this.institutionData = JSON.parse(data)
+    console.log(this.institutionData)
+    this.institutionId = this.institutionData.InstitutionId
+    this.store.dispatch(invokeGetInstitution({id: '13'}))
+    this.actions$.pipe(ofType(invokeGetInstitutionSuccess)).subscribe((res: any) => {
+      console.log(res)
+      this.populateForm(res.payload)
+    })
+    // setTimeout(() => {
+    //   this.populateForm()
+    // }, 2000);
   }
 
   initProfileForm() {
@@ -44,18 +65,18 @@ export class MyProfileComponent implements OnInit {
     })
   }
 
-  populateForm() {
+  populateForm(data: any) {
     this.profileForm.patchValue({
-      name: 'University of Lagos',
-      sector: 'Financial Institution',
+      name: data.institutionName,
+      sector: data.institutionSector,
       establishment: '02-02-1967',
       type: 'CAC',
-      regNumber: 'RC2345678',
-      email: 'admin@unilag.edu.ng',
-      phone: '070894994954',
+      regNumber: data.rcNumber,
+      email: data.emailAddress,
+      phone: data.phoneNumber,
       state: 'Lagos',
       lga: 'VI',
-      address: '14, Karimu Kotun Road',
+      address: data.address,
     })
   }
 

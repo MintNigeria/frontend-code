@@ -134,7 +134,7 @@ export class UsersAndRolesEffects {
               );
               // read data and update message
               return changePasswordUserRoleSuccess({
-                message: '',
+                message: data,
               });
             })
           );
