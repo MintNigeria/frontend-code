@@ -13,6 +13,11 @@ import { StatusTabComponent } from './components/status-tab/status-tab.component
 import { ModalComponent } from './components/modal/modal.component';
 import { CommaDelimiterPipe } from '../core/pipe/commaDelimiter.pipe';
 import { CheckMarkComponent } from './components/check-mark/check-mark.component';
+import { DateRangeComponent } from './date-range/date-range.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const components: any[] = [
   InputComponent,
@@ -26,7 +31,9 @@ const components: any[] = [
   ModalComponent,
   FilesizePipe,
   CommaDelimiterPipe,
-  CheckMarkComponent
+  CheckMarkComponent,
+  DateRangeComponent,
+  
 
 ]
 
@@ -41,6 +48,11 @@ const components: any[] = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+        MatDialogModule,
+
     RouterModule
   ],
   exports: [

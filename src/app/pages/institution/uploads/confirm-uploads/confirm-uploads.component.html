@@ -65,7 +65,7 @@
                     Count
                 </p>
                 <div class="rounded-full bg-tabBlue px-2">
-                    <p class="font-inter font-medium text-base text-buttonBlue">{{UploadedList.length}}</p>
+                    <p class="font-inter font-medium text-base text-buttonBlue">{{UploadedList?.length}}</p>
                 </div>
             </div>
 
@@ -133,7 +133,7 @@
                     <div class="w-full  mt-2">
                         <app-input 
                         [formGrp]="UploadForm" 
-                        formCtrlName="bsc" 
+                        formCtrlName="degree" 
                         [type]="'text'" 
                         [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                         placeholder="bsc" 
@@ -178,47 +178,45 @@
                     </thead>
 
                     <tbody>
-                        <tr *ngFor="let data of UploadedList">
+                        <tr *ngFor="let data of UploadedList | paginate: { itemsPerPage: 10, currentPage: page }">
                             <td class="bg-white font-inter font-medium text-base text-primaryBlue">
-                                {{data.name}}
+                                {{data.firstName + ' ' + data.lastName}}
                             </td>
                             <td class="bg-white font-inter font-medium text-base"
                             [ngClass]="
-                            data.gender === 'male'? 'text-lightGray':
-                            data.gender === 'female'? 'text-lightGray' 
+                            data.gender === 1? 'text-lightGray':
+                            data.gender === 2? 'text-lightGray' 
                             :'text-danger' ">
-                                {{data.gender}}
+                                {{data.gender === 1 ? 'Male' : 'Female'}}
                             </td>
                             <td class="bg-white font-inter font-medium text-base text-lightGray">
-                                {{data.dob}}
+                                {{data.dateOfBirth | date: 'mediumDate'}}
                             </td>
                             <td class="bg-white font-inter font-medium text-base"
-                            [ngClass]="
-                            data.matric === '070812003'? 'text-lightGray'
-                            :'text-danger' ">
-                                {{data.matric}}
+                            >
+                                {{data?.academicInformation?.matriculationNumber}}
                             </td>
                             <td class="bg-white font-inter font-medium text-base text-lightGray">
-                                {{data.grade}}
+                                {{data?.academicInformation?.grade}}
                             </td>
                             <td class="bg-white font-inter font-medium text-base text-lightGray">
-                                {{data.yearofEntry}}
+                                {{data?.academicInformation?.yearOfEntry}}
                             </td>
                             <td class="bg-white font-inter font-medium text-base text-lightGray">
                                 {{data.stateOfOrigin}}
                             </td>
                             <td class="bg-white">
                                 <div class="flex gap-1 px-3 items-center w-fit rounded-lg font-inter font-medium text-base"
-                                [ngClass]="data.status === 'successful'? 'bg-successLight'
+                                [ngClass]="data.successStatus === true ? 'bg-successLight'
                                 :'bg-failedLight' ">
                                     <div class="rounded-full w-2 h-2"
-                                    [ngClass]="data.status === 'successful' ? 'bg-successNormal' :
+                                    [ngClass]="data.successStatus === true ? 'bg-successNormal' :
                                     'bg-failedDark'"></div>
                                     <p
                                     [ngClass]="
-                                    data.status === 'successful'? 'text-successNormal'
+                                    data.successStatus === true? 'text-successNormal'
                                     :'text-danger' ">
-                                        {{data.status}}
+                                        {{data.successStatus === true ? 'successful' : 'failed'}}
                                     </p>
 
                                 </div>
@@ -229,28 +227,13 @@
             </div>
         </div>
 
-        <div class="flex items-center justify-between mt-3 p-3">
-            <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
+        <div class="flex items-center justify-end mt-3 p-3">
+            <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
             Showing 1 to 7 of {{ UploadedList.length }} entries
-            </p>
+            </p> -->
             <div class="flex item gap-3">
-            <div
-                class="text-[10px] md:text-xs text-[#6E7191] bg-[#FCFCFC] rounded border border-solid border-[#EFF0F7] p-2 flex items-center justify-center gap-2 cursor-pointer"
-            >
-                <img src="assets/images/icons/prev.svg" alt="" />
-                <span>Prev</span>
-            </div>
-            <div
-                class="text-sm md:text-sm text-[#1D2B4F] bg-[#D9DBE9] rounded border border-solid border-[#D9DBE9] p-2"
-            >
-                1
-            </div>
-            <div
-                class="text-[10px] md:text-xs text-[#262338] bg-[#FCFCFC] rounded border border-solid border-[#0C3146] p-2 flex items-center justify-center gap-2 cursor-pointer"
-            >
-                <span>Next</span>
-                <img src="assets/images/icons/next.svg" alt="" />
-            </div>
+                <pagination-controls (pageChange)="page = $event" previousLabel="Prev" nextLabel="Next"></pagination-controls>
+      
             </div>
         </div>
     </div>
@@ -261,7 +244,7 @@
         <div class="alert alert-success flex justify-between items-center">
             <div class="font-avenir font-meduim lg:text-lg text-base">
                 <img src="assets/images/icons/confirmed_icon.svg" alt="close_toast">
-                <span class="text-successNormal">96 Records uploaded successfully.</span>
+                <span class="text-successNormal">Records uploaded successfully.</span>
             </div>
             <label [for]="changesConfirmed">
                 <img src="assets/images/icons/green_x.svg" alt="close_toast">

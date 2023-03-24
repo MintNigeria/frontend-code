@@ -56,6 +56,7 @@ export class ConfigurationService
       `${this.baseUrl}mint-higherinstitution/api/v1/Configuration/AllConfigurations?Keyword=${keyword}&Filter=${filter}&PageIndex=${pageIndex}&PageSize=${pageSize}&ConfigurationStatus=${configurationStatus}`
     );
   }
+  
   getAllProcessingDocument() {
     return this.http.get<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/ProcessingFeeDocument`
@@ -199,6 +200,52 @@ export class ConfigurationService
   updateOrganisationSector(payload : IUpdateInstitutionType){
     return this.http.post<any>(
       `${this.baseUrl}mint-organization/api/v1/OrganizationSector/UpdateOrganizationSector`, payload
+    );
+  }
+
+  // mine
+
+  getInstitutionConfiguration(
+    institutionId: string
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionConfiguration/Configuration/${institutionId}`
+    );
+  }
+
+  updateInstitutionConfigurationDispatchFee(
+    institutionId: string,
+    payload: any
+  ) {
+    return this.http.put<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionConfiguration/DispatchFee/${institutionId}`, payload
+    );
+  }
+
+  updateInstitutionConfigurationProcessingFee(
+    institutionId: string,
+    payload: any
+  ) {
+    return this.http.put<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionConfiguration/ProcessingFee/${institutionId}`, payload
+    );
+  }
+
+  updateInstitutionVerificationFee(
+    institutionId: string,
+    payload: any
+  ) {
+    return this.http.put<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionConfiguration/VerificationFees/${institutionId}`, payload
+    );
+  }
+
+  getActiveInstitutionConfigurations(
+    institutionId: string,
+    payload: any
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionConfiguration/ActiveDeliveryOptions/${institutionId}`
     );
   }
 

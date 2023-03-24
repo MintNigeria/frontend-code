@@ -63,8 +63,8 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
 
 
 
-
-  downloadCSV(
+// this will be changed, not sure who uses it
+  downloadANotherCSV(
     payload: any
   ) {
     console.log(payload)
@@ -73,11 +73,54 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
     );
   }
 
-  downloadExcel(
+  downloadANotherExcel(
     payload: any
   ) {
     return this.http.get<any>(
       `${this.baseUrl}mint-auth/api/v1/Graduates/ExportAsExcel`, {params: payload}
+    );
+  }
+
+// this is export for graduate records
+  downloadCSV(
+    payload: any
+  ) {
+    console.log(payload)
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/ExportAsCSV`, {params: payload}
+    );
+  }
+
+  downloadExcel(
+    payload: any
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/ExportAsExcel`, {params: payload}
+    );
+  }
+
+  uploadGraduateRecord(payload: any) {
+    const body = new FormData()
+    body.append('InstitutionId', payload.institutionId)
+    body.append('FacultyId', payload.faculty)
+    body.append('DepartmentId', payload.department)
+    body.append('DegreeTypeId', payload.degreeType)
+    body.append('YearOfGraduation', payload.yearOfGraduation)
+    body.append('File', payload.Document)
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/UploadGraduates`, body
+    );
+  }
+
+  createGraduateRecord(payload: any) {
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/CreateGraduates`, payload
+    );
+  }
+  
+  downloadRecordUploadFormat(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/DownloadUploadFormat`, {params: payload}
     );
   }
 }

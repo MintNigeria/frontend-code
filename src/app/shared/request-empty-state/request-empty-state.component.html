@@ -1,0 +1,24 @@
+<div class="bg-[#F8F9FB] ">
+  <div class="mb-4">
+    <h1 class="font-[500] text-lg text-[#0039A6] font-avenir-book">
+      {{ headText }}
+    </h1>
+    <p class="text-[#4B5466] text-base font-avenir-book">{{ subHeadText }}</p>
+  </div>
+  <div
+    class="flex items-center justify-center py-4 px-4 font-avenir-book bg-white  md:py-28"
+  >
+    <div class="w-[50%] mx-auto">
+      <img
+        class="block mx-auto mb-4"
+        src="assets/images/dataRequestIcon.svg"
+        alt="requestIcon"
+      />
+      <h1 class="text-lg text-center font-medium text-[#0039A6] mb-2.5">
+        {{ dataStatus }}
+      </h1>
+      <p class="text-base text-[#4B5466]">{{ bodyText }}</p>
+      <ng-content select="[buttonSpace]"> </ng-content>
+    </div>
+  </div>
+</div>

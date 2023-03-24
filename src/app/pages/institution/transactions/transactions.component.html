@@ -521,10 +521,10 @@
             
 
             <!--Pagination-->
-            <div class="flex items-center justify-between mt-10">
-                <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
+            <div class="flex items-center justify-end mt-10">
+                <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
                     Showing 1 to 7 of {{ transactionList.length }} entries
-                </p>
+                </p> -->
                 <div class="flex item gap-3">
                     <pagination-controls (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next"></pagination-controls>
           

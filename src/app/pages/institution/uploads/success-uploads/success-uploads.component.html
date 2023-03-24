@@ -5,15 +5,11 @@
             <form>
                 <div class="flex md:flex-row md:justify-between md:items-center flex-col w-full">
                     <div class="flex lg:justify-between gap-4">
-                        <div class="relative cursor-pointer mr-3">
-
-                            <input type="search" placeholder="Search Batch number"
-                                class="bg-white rounded-[10px] border border-inputBg w-[400px]  py-[14px] px-8 placeholder:text-[#6E7191] text-sm lg:text-base focus:outline-none ">
-                            <div class="top-1/2 absolute  left-3 custom-translate pr-4">
-                                <img src="assets/images/icons/search.svg" alt="search">
-
-                            </div>
-                        </div>
+                        <app-search 
+                        [placeholder]="'Search batch number'"
+                        (iconSearch)="search($event)"
+            [formGrp]="searchForm" formCtrlName="searchPhrase"  
+            ></app-search>
                     </div>
                 </div>
             </form>
@@ -40,46 +36,46 @@
                         </thead>
 
                         <tbody class="bg-white">
-                            <tr *ngFor="let data of uploadsData" class="bg-white" [ngClass]="{ 'bg-primaryBlue': selectedDataId === data.id }">
+                            <tr *ngFor="let data of uploads | paginate: { itemsPerPage: filter.pageSize, currentPage: pageIndex, totalItems: totalCount } " class="bg-white" >
                             
                                 
-                                <td class="bg-white">
+                                <td class="bg-white" [ngClass]="selectedDataId === data.batchId ? 'bg-blue-200': '' ">
                                     <div>
                                         <div>
                                             <div>
-                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-lightGray ">{{data.date}}</p>
-                                                <p class="my-0 text-sm cursor-pointer font-inter font-normal text-lightGray ">{{data.time}}</p>
+                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-lightGray ">{{data.date | date: 'mediumDate'}}</p>
+                                                <p class="my-0 text-sm cursor-pointer font-inter font-normal text-lightGray ">{{data.date | date:'shortTime'}}</p>
                                             </div>
                                         </div>
 
                                     </div>
                                 </td>
                                 
-                                <td class="bg-white">
+                                <td class="bg-white" [ngClass]="selectedDataId === data.batchId ? 'bg-blue-200': '' ">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">{{data.batchNUmber}}</p>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">{{data.batchNumber}}</p>
                                     </div>
                                 </td>
 
-                                <td class="bg-white">
+                                <td class="bg-white" [ngClass]="selectedDataId === data.batchId ? 'bg-blue-200': '' ">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.count}}</p>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.totalCount}}</p>
                                     
                                     </div>
                                 </td>
-                                <td class="bg-white">
+                                <td class="bg-white" [ngClass]="selectedDataId === data.batchId ? 'bg-blue-200': '' ">
                                     <div 
-                                    [ngClass]="data.status === 'uploaded' ? 'bg-successLight':'bg-failedLight'"
+                                    [ngClass]="data.status === true ? 'bg-successLight':'bg-failedLight'"
                                     class="rounded-lg">
                                         <p
-                                        [ngClass]="data.status === 'uploaded' ? 'text-successNormal':'text-failedDark'"
+                                        [ngClass]="data.status === true ? 'text-successNormal':'text-failedDark'"
                                         class="font-inter font-medium text-sm px-2">
-                                        {{data.status}}</p>
+                                        successful </p>
                                     </div>
                                 </td>
-                                <td class="bg-white">
+                                <td class="bg-white" [ngClass]="selectedDataId === data.batchId ? 'bg-blue-200': '' ">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-primaryBlue " (click)="showData(data.id)">{{data.action}}</p>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-primaryBlue " (click)="showData(data.batchId)">View</p>
                                         
                                     </div>
 
@@ -100,7 +96,7 @@
                             <div class="bg-white p-4 grid grid-cols-2 items-center">
                                 <p class="text-base font-inter font-normal mb-3 text-lightGray">Batch Number:</p>
                                 <div class="flex items-center">
-                                    <p class="text-base font-inter font-medium mb-3 text-darkGray">{{infoData.batchNUmber}}</p>
+                                    <p class="text-base font-inter font-medium mb-3 text-darkGray">{{selectedData.batchNumber}}</p>
                                 </div>
                             
                             </div>
@@ -110,7 +106,7 @@
                             <div class="bg-white p-4 grid grid-cols-2 items-center">
                                 <p class="text-base font-inter font-normal mb-3 text-lightGray">Uploaded By:</p>
                                 <div class="flex items-center">
-                                    <p class="text-base font-inter font-medium mb-3 text-darkGray">{{infoData.uploadedBy}}</p>
+                                    <p class="text-base font-inter font-medium mb-3 text-darkGray">{{selectedData.uploadedBy}}</p>
                                 </div>
                             
                             </div>
@@ -120,7 +116,7 @@
                             <div class="bg-white p-4 grid grid-cols-2 items-center">
                                 <p class="text-base font-inter font-normal mb-3 text-lightGray">Date Uploaded:</p>
                                 <div class="flex items-center">
-                                    <p class="text-base font-inter font-medium mb-3 text-darkGray">{{infoData.dateUploaded}}</p>
+                                    <p class="text-base font-inter font-medium mb-3 text-darkGray">{{selectedData.date | date: 'mediumDate'}}</p>
                                 </div>
                             
                             </div>
@@ -132,11 +128,11 @@
                                 <div class="flex items-center">
                                     <div class="rounded text-center">
                                         <div class=" rounded-full text-center w-auto"
-                                            [ngClass]="infoData.status ==='Uploaded'? 'bg-successLight':'bg-failedLight'">
+                                            [ngClass]="selectedData.status === true? 'bg-successLight':'bg-failedLight'">
                                             <div class="flex items-center gap-2 w-auto">
                                                 <p class="my-0 text-sm cursor-pointer font-inter font-medium w-auto"
-                                                    [ngClass]="infoData.status ==='Uploaded'? 'text-successNormal':'text-failedDark'">
-                                                    {{infoData.status | titlecase}}
+                                                    [ngClass]="selectedData.status === true ? 'text-successNormal':'text-failedDark'">
+                                                    Successful
                                                 </p>
                                             </div>
                                         </div>
@@ -151,7 +147,7 @@
                             <div class="bg-white p-4 grid grid-cols-2 items-center">
                                 <p class="text-base font-inter font-normal mb-3 text-lightGray">Count:</p>
                                 <div class="flex items-center">
-                                    <p class="text-base font-inter font-medium mb-3 text-darkGray">{{infoData.count}}</p>
+                                    <p class="text-base font-inter font-medium mb-3 text-darkGray">{{selectedData.successCount + ' successful,' + selectedData.failedCount + ' failed,'}}</p>
                                 </div>
                             
                             </div>
@@ -179,25 +175,13 @@
         
 
         <!--Pagination-->
-        <div class="flex items-center justify-between mt-10">
-            <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
+        <div class="flex items-center justify-end mt-10">
+            <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
                 Showing 1 to 7 of {{ uploadsData.length }} entries
-            </p>
+            </p> -->
             <div class="flex item gap-3">
-                <div
-                    class="text-[10px] md:text-xs text-[#6E7191] bg-[#FCFCFC] rounded border border-solid border-[#EFF0F7] p-2 flex items-center justify-center gap-2 cursor-pointer">
-                    <img src="assets/images/icons/prev.svg" alt="" />
-                    <span>Prev</span>
-                </div>
-                <div
-                    class="text-sm md:text-sm text-[#1D2B4F] bg-[#D9DBE9] rounded border border-solid border-[#D9DBE9] p-2">
-                    1
-                </div>
-                <div
-                    class="text-[10px] md:text-xs text-[#262338] bg-[#FCFCFC] rounded border border-solid border-[#0C3146] p-2 flex items-center justify-center gap-2 cursor-pointer">
-                    <span>Next</span>
-                    <img src="assets/images/icons/next.svg" alt="" />
-                </div>
+                <pagination-controls (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next"></pagination-controls>
+      
             </div>
         </div>
 

@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Actions, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
+import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import { createGraduateRecord, createGraduateRecordSuccess, uploadGraduateRecord, uploadGraduateRecordSuccess } from 'src/app/store/graduates/action';
+import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
   selector: 'app-confirm-uploads',
@@ -7,139 +14,53 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./confirm-uploads.component.scss']
 })
 export class ConfirmUploadsComponent implements OnInit {
-
+  page: number = 1;
   UploadForm!: FormGroup
   changesConfirmed = "changesConfirmed";
 
-  UploadedList = [
-    {
-      name: 'Adekunle Ciroma',
-      gender: 'male',
-      dob: '12/01/1989',
-      matric: '070812003',
-      grade:'Second Class Upper',
-      yearofEntry: '2010',
-      stateOfOrigin: 'Lagos',
-      status: 'successful'
-    },
-    {
-      name: 'Adekunle Ciroma',
-      gender: 'maleeee',
-      dob: '12/01/1989',
-      matric: 'abe',
-      grade:'Second Class Upper',
-      yearofEntry: '2010',
-      stateOfOrigin: 'Lagos',
-      status: 'failed'
-    },
-    {
-      name: 'Adekunle Ciroma',
-      gender: 'male',
-      dob: '12/01/1989',
-      matric: '070812003',
-      grade:'Second Class Upper',
-      yearofEntry: '2010',
-      stateOfOrigin: 'Lagos',
-      status: 'successful'
-    },
-    {
-      name: 'Adekunle Ciroma',
-      gender: 'male',
-      dob: '12/01/1989',
-      matric: '070812003',
-      grade:'Second Class Upper',
-      yearofEntry: '2010',
-      stateOfOrigin: 'Lagos',
-      status: 'successful'
-    },
-    {
-      name: 'Adekunle Ciroma',
-      gender: 'male',
-      dob: '12/01/1989',
-      matric: '070812003',
-      grade:'Second Class Upper',
-      yearofEntry: '2010',
-      stateOfOrigin: 'Lagos',
-      status: 'successful'
-    },
-    {
-      name: 'Adekunle Ciroma',
-      gender: 'male',
-      dob: '12/01/1989',
-      matric: '070812003',
-      grade:'Second Class Upper',
-      yearofEntry: '2010',
-      stateOfOrigin: 'Lagos',
-      status: 'successful'
-    },
-    {
-      name: 'Adekunle Ciroma',
-      gender: 'male',
-      dob: '12/01/1989',
-      matric: '070812003',
-      grade:'Second Class Upper',
-      yearofEntry: '2010',
-      stateOfOrigin: 'Lagos',
-      status: 'successful'
-    },
-    {
-      name: 'Adekunle Ciroma',
-      gender: 'male',
-      dob: '12/01/1989',
-      matric: '070812003',
-      grade:'Second Class Upper',
-      yearofEntry: '2010',
-      stateOfOrigin: 'Lagos',
-      status: 'successful'
-    },
-    {
-      name: 'Adekunle Ciroma',
-      gender: 'maleeee',
-      dob: '12/01/1989',
-      matric: 'abe',
-      grade:'Second Class Upper',
-      yearofEntry: '2010',
-      stateOfOrigin: 'Lagos',
-      status: 'failed'
-    },
-    {
-      name: 'Adekunle Ciroma',
-      gender: 'maleeee',
-      dob: '12/01/1989',
-      matric: 'abe',
-      grade:'Second Class Upper',
-      yearofEntry: '2010',
-      stateOfOrigin: 'Lagos',
-      status: 'failed'
-    },
-    {
-      name: 'Adekunle Ciroma',
-      gender: 'male',
-      dob: '12/01/1989',
-      matric: '070812003',
-      grade:'Second Class Upper',
-      yearofEntry: '2010',
-      stateOfOrigin: 'Lagos',
-      status: 'successful'
-    },
-    {
-      name: 'Adekunle Ciroma',
-      gender: 'male',
-      dob: '12/01/1989',
-      matric: '070812003',
-      grade:'Second Class Upper',
-      yearofEntry: '2010',
-      stateOfOrigin: 'Lagos',
-      status: 'successful'
-    },
-  ]
+  
 successful: any;
+  UploadedList: any;
+  institutionData: any;
+  institutionId: any;
+  ipAddress: any;
+  deviceModel: string;
 
   constructor(
-    private fb: FormBuilder
-  ) { }
+    private fb: FormBuilder,
+    private utilityService: UtilityService,
+    private router: Router,
+    private store: Store,
+    private appStore: Store<AppStateInterface>,
+    private actions$: Actions,
+    private notification: NotificationsService
+  ) {
+    const userAgent = navigator.userAgent;
+    if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
+     this.deviceModel = 'iPad or iPhone';
+   } else if (userAgent.match(/Android/i)) {
+     this.deviceModel = 'Android';
+   } else if (userAgent.match(/Window/i)) {
+     this.deviceModel = 'Window';
+   } else {
+     this.deviceModel = 'Other';
+   }
+   }
 
   ngOnInit(): void {
+
+        const dat: any = localStorage.getItem('userData')
+    this.institutionData = JSON.parse(dat)
+    this.institutionId = this.institutionData.InstitutionId
+
+    const data: any = localStorage.getItem('recordUpload')
+    this.UploadedList = JSON.parse(data)
+
+    this.utilityService.getuserIP().subscribe((res) => {
+      this.ipAddress = res.ip
+    })
+    // this.institutionId = this.institutionData.InstitutionId
+    console.log(this.UploadedList)
     this.initUploadForm()
     setTimeout(() => {
       this.populateForm()
@@ -150,7 +71,7 @@ successful: any;
     this.UploadForm = this.fb.group({
       faculty: [''],
       department: [''],
-      bsc: [''],
+      degree: [''],
       yearofGrad:['']
       
     })
@@ -158,10 +79,10 @@ successful: any;
 
   populateForm() {
     this.UploadForm.patchValue({
-      faculty: 'Management Sciences',
-      department: 'Business Administration',
-      bsc: 'B.Sc',
-      yearofGrad: '2014',
+      faculty: this.UploadedList[0].academicInformation.facultyName,
+      department:  this.UploadedList[0].academicInformation.department,
+      degree:  this.UploadedList[0].academicInformation.degree,
+      yearofGrad:  this.UploadedList[0].academicInformation.yearOfGraduation,
     })
   }
 
@@ -171,7 +92,45 @@ successful: any;
 }
 
 openChangesConfirmed(){
-  document.getElementById('changesConfirmed')?.click();
+  const newUploadRecord = this.UploadedList.map((record: any) => {
+    return {
+      firstName: record.firstName,
+      lastName: record.lastName,
+      middleName: record.middleName,
+      gender: record.gender,
+      dateOfBirth: record.dateOfBirth,
+      stateOfOrigin: record.stateOfOrigin,
+      academicInformation:{
+        program: record.academicInformation.program,
+        matriculationNumber:  record.academicInformation.matriculationNumber,
+        grade: record.academicInformation.grade,
+        yearOfEntry: record.academicInformation.yearOfEntry
+      }
+    }
+  })
+  const payload = {
+    addInstitutionGraduateVMs : [...newUploadRecord],
+    institutionId: Number(this.institutionId),
+  facultyId: this.UploadedList[0].academicInformation.facultyId,
+  departmentId: this.UploadedList[0].academicInformation.departmentId,
+  degreeTypeId: this.UploadedList[0].academicInformation.degreeTypeId,
+  yearOfGraduation: this.UploadedList[0].academicInformation.yearOfGraduation,
+  imei: '',
+  serialNumber: '',
+  device: this.deviceModel,
+  ipAddress: this.ipAddress 
+  }
+  this.notification.publishMessages('success', 'Mad man')
+  this.store.dispatch(createGraduateRecord({payload}))
+  this.actions$.pipe(ofType(createGraduateRecordSuccess)).subscribe((res: any) => {
+   if (res.payload.hasErrors === false) {
+
+     document.getElementById('changesConfirmed')?.click();
+     localStorage.removeItem('recordUpload');
+     this.router.navigateByUrl('/institution/records')
+   }
+
+  })
 }
 
 }

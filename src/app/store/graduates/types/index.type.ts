@@ -39,4 +39,9 @@ export interface GraduatesStateInterface {
     pendingGradautes: { data: Array<any>; totalCount: number };
     graduateDetail: IGraduateDetails | null;
     downloadFile: any;
+    recorduploads: any;
+    graduateRecord: any;
+  graduateRecordUploadFormat: any;
+  uploadRecord: any;
+  createGraduaterecord: any;
   }

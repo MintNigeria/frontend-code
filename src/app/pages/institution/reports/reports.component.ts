@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
 import { exportReportCSV, exportReportCSVSuccess, exportReportExcel, exportReportExcelSuccess, invokeGetAllReport, invokeGetAllReportSuccess, invokeGetTransactions, invokeGetTransactionsSuccess } from 'src/app/store/reporting/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
@@ -80,7 +82,7 @@ export class ReportsComponent implements OnInit {
   }
  ]
 
- filter = {
+ filterParams = {
   institutionId: '',
   InstitutionType: '',
   DocumentType: '',
@@ -109,16 +111,17 @@ export class ReportsComponent implements OnInit {
     private router: Router,
     private store: Store,
     private appStore: Store<AppStateInterface>,
-    private actions$: Actions
+    private actions$: Actions,
+    private dialog: MatDialog
+
   ) { }
 
   ngOnInit(): void {
     const data: any = localStorage.getItem('userData')
     this.institutionData = JSON.parse(data)
     this.institutionId = this.institutionData.InstitutionId
-    this.store.dispatch(invokeGetAllReport({payload: {...this.filter, institutionId: 13}}))
+    this.store.dispatch(invokeGetAllReport({payload: {...this.filterParams, institutionId: 13}}))
     this.actions$.pipe(ofType(invokeGetAllReportSuccess)).subscribe((res: any) => {
-      console.log(res)
       this.reportDetails = res.payload.data;
       this.totalCount = res.payload.totalCount
     })
@@ -147,16 +150,38 @@ export class ReportsComponent implements OnInit {
       this.filterDocument['documentType'] = this.documentType;
     }
     
-    console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
+    this.store.dispatch(invokeGetAllReport({payload: {...this.filterParams, institutionId: 13}}))
   }
 
+  changeRange(range: number, name: string) {
+    this.selectedOption = name
+    if (range === 5) {
+      const dialogRef = this.dialog.open(DateRangeComponent, {
+        height: 'auto',
+        disableClose: true,
+      });
+      dialogRef.afterClosed().subscribe((res: any) => {
+        if (res) {
+              console.log(res)
+              const {start , end} = res; // use this start and end as fromDate and toDate on your filter
+              this.selectedOption = `${start} - ${end}`
+              const filter = {...this.filterParams, ['fromDate'] : start, ['toDate'] : end}
+              this.filterParams = filter;
+        }
+  
+      })
+    } else {
+      const filter = {...this.filterParams, ['range'] : String(range)};
+      this.filterParams = filter;
+    }
+  }
   
   search(event: any) {
     if (event) {
-      const filter = {...this.filter, ['keyword'] : event}
+      const filter = {...this.filterParams, ['keyword'] : event}
       this.store.dispatch(invokeGetAllReport({payload: {...filter, institutionId: 13}}))
     } else {
-        const filter = {...this.filter, ['keyword'] : ''}
+        const filter = {...this.filterParams, ['keyword'] : ''}
         this.store.dispatch(invokeGetAllReport({payload: {...filter, institutionId: 13}}))
       }
   }
@@ -192,7 +217,7 @@ export class ReportsComponent implements OnInit {
 
   
   getPage(currentPage: number) {
-    const filter = {...this.filter, ['pageIndex'] : currentPage}
+    const filter = {...this.filterParams, ['pageIndex'] : currentPage}
     this.store.dispatch(invokeGetAllReport({payload: {...filter, institutionId: this.institutionId}}))
   }
 

@@ -45,6 +45,22 @@ export class RequestService
     super();
   }
 
+  getAllInstitutionGraduateRequest(
+  payload: any    
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionRequest/GetGraduatesRequestsDashboard`, {params: payload}
+    );
+  }
+
+  getAllInstitutionOrganizationRequest(
+  payload: any    
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionRequest/GetVerificationRequestsDashboard`, {params: payload}
+    );
+  }
+
   getAllRequest(
     institutionType? : string,
     documentType? : string,

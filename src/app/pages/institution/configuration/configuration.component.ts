@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Actions } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { getInstitutionConfiguration } from 'src/app/store/institution/action';
+import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
   selector: 'app-configuration',
@@ -6,10 +11,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./configuration.component.scss']
 })
 export class ConfigurationComponent implements OnInit {
+  institutionData: any;
+  institutionId: any;
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private store: Store,
+    private appStore: Store<AppStateInterface>,
+    private actions$: Actions
+  ) { }
 
   ngOnInit(): void {
+    const data: any = localStorage.getItem('userData')
+    this.institutionData = JSON.parse(data)
+    this.institutionId = this.institutionData.InstitutionId
+    this.store.dispatch(getInstitutionConfiguration({id: this.institutionId}))
   }
 
 }
