@@ -91,4 +91,5 @@ export interface UsersAndRolesStateInterface {
   getStateAndLGA: any;
   institutionRole: any;
   newInstitutionuser: ICreateInstitutionUser | null;
+  updateInstitutionuser:  any;
 }

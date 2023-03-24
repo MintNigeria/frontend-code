@@ -53,12 +53,10 @@ export class ProcessingFeeComponent implements OnInit {
     this.institutionId = this.institutionData.InstitutionId
     this.store.dispatch(getAllProcessingFee())
     this.actions$.pipe(ofType(getAllProcessingFeeSuccess)).subscribe((res: any) => {
-      console.log(res)
       this.processingFees = res.payload
     })
     this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
     this.actions$.pipe(ofType(getInstitutionConfigurationSuccess)).subscribe((res: any) => {
-      console.log(res)
       this.processingFeeList = res.payload.processingFeesVM
       // this.processingFees = res.payload
     })
@@ -81,7 +79,6 @@ export class ProcessingFeeComponent implements OnInit {
   }
 
   getDocumentTypeName(event: any) {
-    console.log(event)
     const data = this.processingFees.find((value: any) => value.id == Number(event));
     this.selectedDocumentType = this.processingFees.filter((value: any) => {
       if (value.id == Number(event)) {
@@ -90,7 +87,6 @@ export class ProcessingFeeComponent implements OnInit {
     });
     this.deliveryOption = data.processingFeeDeliveryTypeVMs
     this.deliveryOptionIds = this.deliveryOption.map((data: any) => data.id)
-    console.log(this.deliveryOptionIds)
   }
 
   getCheckedValue(name: string, event: any) {
@@ -116,7 +112,6 @@ export class ProcessingFeeComponent implements OnInit {
       processingFeeDocumentId: this.selectedDocumentType[0].id,
       deliveryOptions: this.deliveryOptionIds
     }
-    console.log([payload])
     this.store.dispatch(createProcessingFeeDocumentType({institutionId: this.institutionId ,payload: [payload]}))
     this.actions$.pipe(ofType(createProcessingFeeDocumentTypeSuccess)).subscribe((res: any) => {
       console.log(res)

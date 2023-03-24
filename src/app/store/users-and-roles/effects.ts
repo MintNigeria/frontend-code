@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { catchError, from, map, mergeMap, switchMap, take } from 'rxjs';
 import { AppResponseInterface } from 'src/app/types/appState.interface';
 import { setAPIResponseMessage } from '../shared/app.action';
-import { changePasswordUserRole, changePasswordUserRoleSuccess, getAllUsersAndRoles, getAllUsersAndRolesSuccess, getGlobalAdminUser, getGlobalAdminUserSuccess, getAllGlobalUsersAndRoles, getAllGlobalUsersAndRolesSuccess, updateGlobalAdminUser, updateGlobalAdminUserSuccess, invokeGlobalAdminRole, invokeGlobalAdminRoleSuccess, invokePermissionAndRoles, invokePermissionAndRoleSuccess, invokeAdminUsersInRole, invokeAdminUsersInRoleSuccess,  invokeRolePermission, invokeRolePermissionSuccess, invokeGetStates, invokeGetStatesSuccess, invokeGetLGA, invokeGetLGASuccess, getInstitutionRoles, getInstitutionRolesSuccess, createInstitutionUserWithRoleSuccess, createInstitutionUserWithRole,  } from './actions';
+import { changePasswordUserRole, changePasswordUserRoleSuccess, getAllUsersAndRoles, getAllUsersAndRolesSuccess, getGlobalAdminUser, getGlobalAdminUserSuccess, getAllGlobalUsersAndRoles, getAllGlobalUsersAndRolesSuccess, updateGlobalAdminUser, updateGlobalAdminUserSuccess, invokeGlobalAdminRole, invokeGlobalAdminRoleSuccess, invokePermissionAndRoles, invokePermissionAndRoleSuccess, invokeAdminUsersInRole, invokeAdminUsersInRoleSuccess,  invokeRolePermission, invokeRolePermissionSuccess, invokeGetStates, invokeGetStatesSuccess, invokeGetLGA, invokeGetLGASuccess, getInstitutionRoles, getInstitutionRolesSuccess, createInstitutionUserWithRoleSuccess, createInstitutionUserWithRole, updateInstitutionUserWithRole, updateInstitutionUserWithRoleSuccess,  } from './actions';
 import { UsersAndRolesService } from 'src/app/core/services/users-and-roles/users-and-roles.service';
 
 @Injectable()
@@ -407,6 +407,43 @@ export class UsersAndRolesEffects {
               );
               // read data and update message
               return createInstitutionUserWithRoleSuccess({
+                payload: data,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  updateInstitutionUserWithRole$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(updateInstitutionUserWithRole),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const { payload } = action;
+        return this.usersAndRolesService
+          .updateInstitutionUserWithRole( payload )
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update message
+              return updateInstitutionUserWithRoleSuccess({
                 payload: data,
               });
             })

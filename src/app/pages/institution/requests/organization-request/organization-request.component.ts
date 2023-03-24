@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Actions } from '@ngrx/effects';
+import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
 import { getAllInstitutionOrganizationRequest } from 'src/app/store/request/action';
 import { organisationRequestSelector } from 'src/app/store/request/selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
+import { getInstitutionConfiguration, getInstitutionConfigurationSuccess } from 'src/app/store/configuration/action';
 
 @Component({
   selector: 'app-organization-request',
@@ -50,6 +51,7 @@ selectedOption: string = 'All Time';
       fromDate: '',
       toDate: '',
   }
+  processingFeeList: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -71,6 +73,11 @@ selectedOption: string = 'All Time';
     .subscribe((term) => {
       this.search(term as string);
     });
+    this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
+    this.actions$.pipe(ofType(getInstitutionConfigurationSuccess)).subscribe((res: any) => {
+      this.processingFeeList = res.payload.processingFeesVM
+      // this.processingFees = res.payload
+    })
   }
 
   viewRequest(id: any) {
@@ -95,13 +102,7 @@ selectedOption: string = 'All Time';
       this.filterDocument['documentType'] = this.documentType;
     }
 
-    console.log(
-      this.filterStatus,
-      this.filterOption,
-      this.filterSector,
-      this.filterInstituition,
-      this.filterDocument
-    );
+    this.store.dispatch(getAllInstitutionOrganizationRequest({payload: {...this.filterParams, institutionId: this.institutionId}}))
   }
 
   clearFilter() {
@@ -140,6 +141,13 @@ selectedOption: string = 'All Time';
       const filter = {...this.filterParams, ['range'] : String(range)};
       this.filterParams = filter;
     }
+  }
+
+  changeDocumentType(name: string) {
+    this.documentType = name;
+    const filter = {...this.filterParams, ['DocumentType'] : name}
+    this.filterParams = filter;
+
   }
   changeStatus(status: number, name: string) {
     this.status = name

@@ -11,7 +11,7 @@ import { invokeGetStateAndLGA } from 'src/app/store/institution copy/action';
 import { stateLgaSelector } from 'src/app/store/institution copy/selector';
 import { getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess, getInstitutionUserInfo, getInstitutionUserInfoSuccess } from 'src/app/store/institution/action';
 import { selectAppAPIResponse } from 'src/app/store/shared/app.selector';
-import { createInstitutionUserWithRole, createInstitutionUserWithRoleSuccess, getInstitutionRoles, getInstitutionRolesSuccess, updateGlobalAdminUser } from 'src/app/store/users-and-roles/actions';
+import { createInstitutionUserWithRole, createInstitutionUserWithRoleSuccess, getInstitutionRoles, getInstitutionRolesSuccess, updateGlobalAdminUser, updateInstitutionUserWithRole, updateInstitutionUserWithRoleSuccess } from 'src/app/store/users-and-roles/actions';
 import { getLGASelector } from 'src/app/store/users-and-roles/selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { Status } from 'src/app/types/shared.types';
@@ -37,6 +37,7 @@ export class UsersComponent implements OnInit {
   institutionData: any;
   institutionId: any;
   roles!: any[];
+  userData: any;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -72,14 +73,14 @@ export class UsersComponent implements OnInit {
     if (this.userId !== undefined) {
       this.editUser = true
       this.actions$.pipe(ofType(getInstitutionUserInfoSuccess)).subscribe((res: any) => {
-        console.log(res)
+        this.userData = res.payload;
         this.userForm.patchValue({
           // firstName: res?.payload?.firstName,
           title: res?.payload?.title,
           fullName: res?.payload?.fullName,
           emailAddress: res?.payload?.emailAddress,
           phoneNumber: res?.payload?.phoneNumber,
-          faculty: res?.payload?.department,
+          faculty: res?.payload?.faculty,
           department: res?.payload?.department,
           stateOfResidence: res?.payload?.state,
           localGovernment: res?.payload?.localGovernment,
@@ -171,20 +172,61 @@ saveUser() {
 selectLocalGovt(stateId: any) {
   this.stateLGA$.subscribe((x) => {
     const data = x.find((value: any) => value.id == Number(stateId));
-   
+    this.userForm.controls['stateOfResidence'].setValue(data.name)
+
 
     this.lga = data.lgaVMs;
   });
 }
 
 createNewUser() {
-  console.log('er', this.userForm.value) 
+  const {title, fullName, phoneNumber, emailAddress, faculty, department, stateOfResidence, localGovernment, address, roleId, staffIdNumber} = this.userForm.value
   const payload = {
-    
+    title,
+    fullName,
+    emailAddress,
+    phoneNumber,
+    faculty,
+    department,
+    stateOfResidence,
+    localGovernment,
+    address,
+    roleId: String(roleId),
+    staffIdNumber,
+    institutionId: Number(this.institutionId)
   }
-  this.store.dispatch(createInstitutionUserWithRole({payload: this.userForm.value}))
+  this.store.dispatch(createInstitutionUserWithRole({payload}))
   this.actions$.pipe(ofType(createInstitutionUserWithRoleSuccess)).subscribe((res: any) => {
-    console.log(res)
+    if (res.payload.hasErrors === false) {
+      this.router.navigateByUrl('/institution/users-and-roles/users')
+    }
+  })
+}
+
+updateUserData() {
+  const {title, fullName, phoneNumber, emailAddress, faculty, department, stateOfResidence, localGovernment, address, roleId, staffIdNumber, isEnabled} = this.userForm.value
+  const payload = {
+    title,
+    fullName,
+    emailAddress,
+    phoneNumber,
+    faculty,
+    department,
+    stateOfResidence,
+    localGovernment,
+    address,
+    staffIdNumber,
+    oldRoleId: this.userData.roleId,
+    newRoleId: roleId,
+    userId: this.userData.userId,
+    institutionId: Number(this.institutionId),
+    isEnabled
+  }
+  this.store.dispatch(updateInstitutionUserWithRole({payload}))
+  this.actions$.pipe(ofType(updateInstitutionUserWithRoleSuccess)).subscribe((res: any) => {
+    if (res.payload.hasErrors === false) {
+      this.router.navigateByUrl('/institution/users-and-roles/users')
+    }
   })
 }
 }

@@ -15,6 +15,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { ConfigurationEffects } from 'src/app/store/configuration/effects';
 @NgModule({
   declarations: [
     TransactionsComponent
@@ -29,7 +30,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     ReactiveFormsModule,
     MatFormFieldModule,
     StoreModule.forFeature('reporting', reportingReducer),
-    EffectsModule.forFeature([ReportingEffects, InstitutionEffects]),
+    EffectsModule.forFeature([ReportingEffects, InstitutionEffects, ConfigurationEffects]),
 
   ]
 })
