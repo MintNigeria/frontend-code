@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { LogoutModalComponent } from '../logout-modal/logout-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,6 +20,7 @@ export class SidebarComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -45,10 +48,10 @@ export class SidebarComponent implements OnInit {
   }
 
   openLogoutModal() {
-    // const dialogRef = this.dialog.open(LogoutModalComponent, {
-    //   // width: '600px',
-    //   // height: '600px'
-    // });
+    const dialogRef = this.dialog.open(LogoutModalComponent, {
+      // width: '600px',
+      // height: '600px'
+    });
   }
 
 }

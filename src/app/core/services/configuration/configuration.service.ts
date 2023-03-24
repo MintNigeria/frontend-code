@@ -57,11 +57,7 @@ export class ConfigurationService
     );
   }
   
-  getAllProcessingDocument() {
-    return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/ProcessingFeeDocument`
-    );
-  }
+  
 
   getAllPaymentPlans() {
     return this.http.get<any>(
@@ -203,15 +199,7 @@ export class ConfigurationService
     );
   }
 
-  // mine
-
-  getInstitutionConfiguration(
-    institutionId: string
-  ) {
-    return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionConfiguration/Configuration/${institutionId}`
-    );
-  }
+  
 
   updateInstitutionConfigurationDispatchFee(
     institutionId: string,
@@ -246,6 +234,34 @@ export class ConfigurationService
   ) {
     return this.http.get<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionConfiguration/ActiveDeliveryOptions/${institutionId}`
+    );
+  }
+
+
+  // mine
+
+  getInstitutionConfiguration(
+    institutionId: string
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionConfiguration/Configuration/${institutionId}`
+    );
+  }
+
+  getAllProcessingDocument() {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/ProcessingFeeDocument`
+    );
+  }
+
+  createProcessingFeeDocumentType(
+    institutionId: string,
+   payload : any
+  ) {
+    
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionConfiguration/ProcessingFeeDocumentType/${institutionId}`,
+      payload
     );
   }
 

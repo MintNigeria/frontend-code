@@ -6,9 +6,11 @@ import {
   createInstitutionTypeSuccess,
   createOrganisationIndustrySuccess,
   createOrganisationSectorSuccess,
+  createProcessingFeeDocumentTypeSuccess,
   getAllConfigurationSuccess,
   getAllDocumentTypeSuccess,
   getAllPaymentPlansSuccess,
+  getAllProcessingFeeSuccess,
   getInstitutionbodySuccess,
   getInstitutionConfigurationSuccess,
   getInstitutionNameSuccess,
@@ -36,7 +38,9 @@ const initialState: ConfigurationStateInterface = {
   organisationSector : [],
   organisationIndustry : [],
   message: '',
-  institutionConfig : null
+  institutionConfig : null,
+  processingfee : null,
+  newprocessingfee : null,
 };
 
 export const configurationReducer = createReducer(
@@ -171,6 +175,18 @@ export const configurationReducer = createReducer(
     return {
       ...state,
       institutionConfig: payload,
+    };
+  }),
+  on(getAllProcessingFeeSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      processingfee: payload,
+    };
+  }),
+  on(createProcessingFeeDocumentTypeSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      newprocessingfee: payload,
     };
   }),
  

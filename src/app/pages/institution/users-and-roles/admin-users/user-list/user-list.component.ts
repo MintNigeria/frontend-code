@@ -75,7 +75,7 @@ export class UserListComponent implements OnInit {
   // }
 
   seeDetails(id: string){
-    this.router.navigateByUrl(`/main/user-roles/users/${id}`);
+    this.router.navigateByUrl(`/institution/users-and-roles/users/${id}`);
   }
 
   search(event: any) {

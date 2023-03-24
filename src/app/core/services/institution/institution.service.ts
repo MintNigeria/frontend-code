@@ -135,6 +135,11 @@ export class InstitutionService
       `${this.baseUrl}mint-auth/api/v1/InstitutionUser/InstitutionUsersAndRoles`, {params: payload}
     );
   }
+  getInstitutionUserInfo(userId: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-auth/api/v1/InstitutionUser/InstitutionUser/${userId}`
+    );
+  }
 
   getAllAdminInstitutionTransaction(
     institutionId: string,

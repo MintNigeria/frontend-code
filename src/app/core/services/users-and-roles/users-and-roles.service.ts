@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IAddGlobalAdminUser, IChangeRolePassword } from 'src/app/store/users-and-roles/types/index.types';
+import { IChangeRolePassword } from 'src/app/store/users-and-roles/types/index.types';
 import { BaseURI } from '../shared/baseURI.shared';
 
 abstract class AbstractUsersAndRolesService {
@@ -87,6 +87,18 @@ export class UsersAndRolesService
     )
   }
 
+  getInsitutionRoles(id: string){
+    return this.http.get<any>(
+      `${this.baseUrl}mint-auth/api/v1/Role/InstitutionRoles/${id}`
+    )
+  }
+
+  createInstitutionUserWithRole(payload: any): Observable<any> {
+    
+    return this.http.post(
+      `${this.baseUrl}mint-auth/api/v1/InstitutionUser/CreateInstitutionUserWithRole`, payload
+    )
+  }
   addGlobalAdminUser(payload: any): Observable<any> {
     const formData = new FormData();
     let payload_ = payload as any;

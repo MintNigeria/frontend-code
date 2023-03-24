@@ -18,12 +18,16 @@ import {
   createOrganisationIndustrySuccess,
   createOrganisationSector,
   createOrganisationSectorSuccess,
+  createProcessingFeeDocumentType,
+  createProcessingFeeDocumentTypeSuccess,
   getAllConfiguration,
   getAllConfigurationSuccess,
   getAllDocumentType,
   getAllDocumentTypeSuccess,
   getAllPaymentPlans,
   getAllPaymentPlansSuccess,
+  getAllProcessingFee,
+  getAllProcessingFeeSuccess,
   getInstitutionbody,
   getInstitutionbodySuccess,
   getInstitutionConfiguration,
@@ -939,6 +943,76 @@ export class ConfigurationEffects {
             // read data and update payload
             return getInstitutionConfigurationSuccess({
               payload: data.payload,
+            });
+          })
+        );
+      })
+    );
+  });
+
+  getAllProcessingFee$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(getAllProcessingFee),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.configurationService.getAllProcessingDocument().pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return getAllProcessingFeeSuccess({
+              payload: data.payload,
+            });
+          })
+        );
+      })
+    );
+  });
+
+  createProcessingFeeDocumentType$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(createProcessingFeeDocumentType),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.configurationService.createProcessingFeeDocumentType(action.institutionId, action.payload).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return createProcessingFeeDocumentTypeSuccess({
+              payload: data,
             });
           })
         );

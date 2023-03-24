@@ -207,6 +207,8 @@ export const createOrganisationSector = createAction(
   props<{payload : ICreateInstitutionType}>()
 )
 
+
+
 export const createOrganisationSectorSuccess = createAction(
   '[configuration] create Organisation Sector success' ,
   props<{payload : any}>()
@@ -237,5 +239,24 @@ export const getInstitutionConfiguration = createAction(
 
 export const getInstitutionConfigurationSuccess = createAction(
   '[configuration] gget institution configuration Success',
+  props<{payload : any}>()
+)
+
+export const getAllProcessingFee = createAction(
+  '[configuration] get all processing fee',
+);
+
+export const getAllProcessingFeeSuccess = createAction(
+  '[configuration] get all processing fee Success',
+  props<{payload : any}>()
+)
+
+export const createProcessingFeeDocumentType = createAction(
+  '[configuration] create new processing fee',
+  props<{institutionId: string, payload : any}>()
+);
+
+export const createProcessingFeeDocumentTypeSuccess = createAction(
+  '[configuration] create new processing fee Success',
   props<{payload : any}>()
 )

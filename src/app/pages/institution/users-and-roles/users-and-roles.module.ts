@@ -19,6 +19,7 @@ import { InstitutionEffects } from 'src/app/store/institution/effects';
 import { ReportingEffects } from 'src/app/store/reporting/effects';
 import { UserListComponent } from './admin-users/user-list/user-list.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    NgSelectModule,
     NgxPaginationModule,
     StoreModule.forFeature('usersAndRoles', usersAndRolesReducer),
     EffectsModule.forFeature([UsersAndRolesEffects, InstitutionEffects]),

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { catchError, from, map, mergeMap, switchMap, take } from 'rxjs';
 import { AppResponseInterface } from 'src/app/types/appState.interface';
 import { setAPIResponseMessage } from '../shared/app.action';
-import { createGlobalAdminUser, createGlobalAdminUserSuccess, changePasswordUserRole, changePasswordUserRoleSuccess, getAllUsersAndRoles, getAllUsersAndRolesSuccess, getGlobalAdminUser, getGlobalAdminUserSuccess, getAllGlobalUsersAndRoles, getAllGlobalUsersAndRolesSuccess, updateGlobalAdminUser, updateGlobalAdminUserSuccess, invokeGlobalAdminRole, invokeGlobalAdminRoleSuccess, invokePermissionAndRoles, invokePermissionAndRoleSuccess, invokeAdminUsersInRole, invokeAdminUsersInRoleSuccess,  invokeRolePermission, invokeRolePermissionSuccess, invokeGetStates, invokeGetStatesSuccess, invokeGetLGA, invokeGetLGASuccess,  } from './actions';
+import { changePasswordUserRole, changePasswordUserRoleSuccess, getAllUsersAndRoles, getAllUsersAndRolesSuccess, getGlobalAdminUser, getGlobalAdminUserSuccess, getAllGlobalUsersAndRoles, getAllGlobalUsersAndRolesSuccess, updateGlobalAdminUser, updateGlobalAdminUserSuccess, invokeGlobalAdminRole, invokeGlobalAdminRoleSuccess, invokePermissionAndRoles, invokePermissionAndRoleSuccess, invokeAdminUsersInRole, invokeAdminUsersInRoleSuccess,  invokeRolePermission, invokeRolePermissionSuccess, invokeGetStates, invokeGetStatesSuccess, invokeGetLGA, invokeGetLGASuccess, getInstitutionRoles, getInstitutionRolesSuccess, createInstitutionUserWithRoleSuccess, createInstitutionUserWithRole,  } from './actions';
 import { UsersAndRolesService } from 'src/app/core/services/users-and-roles/users-and-roles.service';
 
 @Injectable()
@@ -142,6 +142,44 @@ export class UsersAndRolesEffects {
     );
   });
 
+  getInstitutionRoles$  = createEffect(() => {
+    return this.action$.pipe(
+      ofType( getInstitutionRoles),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const { id } = action
+        return this.usersAndRolesService.getInsitutionRoles(
+            id
+        )
+          .pipe(
+            map((data: any) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getInstitutionRolesSuccess({
+                payload: data?.payload,
+              });
+            })
+          );
+      })
+    );
+  });
+
   getGlobalAdminUserById$  = createEffect(() => {
     return this.action$.pipe(
       ofType( getGlobalAdminUser),
@@ -218,43 +256,7 @@ export class UsersAndRolesEffects {
     );
   });
 
-  
-  createGlobalAdminUser$ = createEffect(() => {
-    return this.action$.pipe(
-      ofType(createGlobalAdminUser),
-      switchMap((action) => {
-        this.appStore.dispatch(
-          setAPIResponseMessage({
-            apiResponseMessage: {
-              apiResponseMessage: '',
-              isLoading: true,
-              isApiSuccessful: false,
-            },
-          })
-        );
-        const { payload } = action;
-        return this.usersAndRolesService
-          .addGlobalAdminUser( payload )
-          .pipe(
-            map((data) => {
-              this.appStore.dispatch(
-                setAPIResponseMessage({
-                  apiResponseMessage: {
-                    apiResponseMessage: '',
-                    isLoading: false,
-                    isApiSuccessful: true,
-                  },
-                })
-              );
-              // read data and update message
-              return createGlobalAdminUserSuccess({
-                message: '',
-              });
-            })
-          );
-      })
-    );
-  });
+ 
 
   getGlobalUsersAndRoles$ = createEffect(() => {
     return this.action$.pipe(
@@ -369,6 +371,43 @@ export class UsersAndRolesEffects {
               // read data and update message
               return invokeGlobalAdminRoleSuccess({
                 message: '',
+              });
+            })
+          );
+      })
+    );
+  });
+
+  createInstitutionUserWithRole$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(createInstitutionUserWithRole),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const { payload } = action;
+        return this.usersAndRolesService
+          .createInstitutionUserWithRole( payload )
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update message
+              return createInstitutionUserWithRoleSuccess({
+                payload: data,
               });
             })
           );

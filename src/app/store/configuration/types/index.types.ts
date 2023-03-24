@@ -26,4 +26,6 @@ export interface ConfigurationStateInterface {
   organisationIndustry : any[],
   message: string;
   institutionConfig: any;
+  processingfee: any;
+  newprocessingfee: any;
 }

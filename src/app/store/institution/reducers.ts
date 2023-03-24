@@ -18,6 +18,7 @@ import {
   getInstitutionConfigurationSuccess,
   getInstitutionSectorSuccess,
   getInstitutionTypeSuccess,
+  getInstitutionUserInfoSuccess,
   invokeGetInstitutionsSuccess,
   invokeGetInstitutionSuccess,
   updateDegreeTypeInInstitutionSuccess,
@@ -39,6 +40,7 @@ const initialState: IInstitutionStateInterface = {
   institutionRegistration: null,
   otpVerification: null,
   institutionConfiguration: null,
+  userInfo: null,
   institutionFaculty: null,
   institutionDepartment: null,
   institutionRecord: null,
@@ -124,6 +126,13 @@ export const institutionReducers = createReducer(
     return {
       ...state,
       otpVerification: payload
+    };
+  }),
+
+  on(getInstitutionUserInfoSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      userInfo: payload
     };
   }),
 

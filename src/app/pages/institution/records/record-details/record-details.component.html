@@ -40,7 +40,7 @@
                     
                 </div>
                 <p class="text-[#667085] font-nunito text-base font-normal cursor-pointer">
-                    Uploaded on January 25, 2023, 9:40 AM
+                    Uploaded on {{record?.createdOn | date: 'medium'}}
                 </p>
             </div>
         </div>
@@ -64,7 +64,7 @@
                              Name
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                               {{data.fullName}}
+                               {{record?.fullName}}
                             </p>
                         </div>
                        
@@ -73,7 +73,7 @@
                                Gender
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                                {{data.gender}}
+                                {{record?.gender}}
                             </p>
                         </div>
 
@@ -82,7 +82,7 @@
                                 Date of Birth
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                                {{data.dob}}
+                                {{record?.dateOfBirth | date: 'mediumDate'}}
                             </p>
                         </div>
 
@@ -91,7 +91,7 @@
                                 State of Origin
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                                {{data.state}}
+                                {{record?.stateOfOrigin}}
                             </p>
                         </div>
                     </div>
@@ -113,7 +113,7 @@
                                 Faculty
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                               {{data.faculty}}
+                               {{record?.academicInformation.facultyName}}
                             </p>
                         </div>
                        
@@ -124,7 +124,7 @@
                                 Department
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                                {{data.department}}
+                                {{record?.academicInformation.department}}
                             </p>
                         </div>
                         
@@ -133,7 +133,7 @@
                                Degree Type
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                                {{data.degree}}
+                                {{record?.academicInformation.degree}}
                             </p>
                         </div>
                          
@@ -142,7 +142,7 @@
                                 Matric Number
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                                {{data.matNumber}}
+                                {{record?.academicInformation.matriculationNumber}}
                             </p>
                         </div>
                         <div>
@@ -150,7 +150,7 @@
                                 Year of Entry
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                                {{data.yearOfEntry}}
+                                {{record?.academicInformation.yearOfEntry}}
                             </p>
                         </div>
                         <div>
@@ -158,7 +158,7 @@
                                 Year of Graduation
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                                {{data.yearOfgrad}}
+                                {{record?.academicInformation.yearOfGraduation}}
                             </p>
                         </div>
                         <div>
@@ -166,7 +166,7 @@
                                 Grade
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                                {{data.grade}}
+                                {{record?.academicInformation.grade}}
                             </p>
                         </div>
                        
