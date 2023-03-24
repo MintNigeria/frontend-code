@@ -1,0 +1,42 @@
+<div class="  p-8 w-full hide-scrollbar  max-w-5xl">
+        
+    <div class=" mt-5 w-full">
+        <div class="text-center ">
+            <div class="flex justify-center mx-auto text-center items-center ">
+
+                <img src="assets/images/icons/warning-icon.svg" alt="success">
+            </div>
+
+            <div class="lg:w-[400px] md:w-[300px] w-[250px]">
+                <p class="lg:text-2xl md:text-lg text-base font-bold font-monteserrat mt-9">Log out
+                </p>
+                <p class="lg:text-lg md:text-base text-sm font-sans mt-6">Are you sure you want to log out from your account?
+                       
+                </p>
+
+            </div>
+
+            <div class="flex justify-center gap-6 mt-5 ">
+               <div>
+                <app-button [overRideButtonClass]="true" (buttonClick)="closeModal()"
+                customClass="md:py-4  py-2 md:px-5 px-2 rounded-lg font-normal text-base border-[#0069A3] border text-[#0069A3] leading-6 bg-transparent mt-4">No, Cancel
+            </app-button>
+               </div>
+
+               <div>
+                <app-button [overRideButtonClass]="true"  (buttonClick)="logOutUser()"
+                customClass="md:py-4  py-2 md:px-5 px-2 rounded-lg font-normal text-base text-white leading-6 bg-red-600 mt-4">Yes, Log Out
+            </app-button>
+
+               </div>
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+</div>

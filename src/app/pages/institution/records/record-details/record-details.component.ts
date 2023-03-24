@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Actions } from '@ngrx/effects';
+import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { invokeGetGraduateDetails } from 'src/app/store/graduates/action';
+import { invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess } from 'src/app/store/graduates/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
@@ -108,6 +108,7 @@ export class RecordDetailsComponent implements OnInit {
   graduateId: any;
   institutionData: any;
   institutionId: any;
+  record: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -124,6 +125,10 @@ export class RecordDetailsComponent implements OnInit {
 
     this.graduateId = this.route.snapshot.params['id']
     this.store.dispatch(invokeGetGraduateDetails({graduateId: this.graduateId, institutionId: this.institutionId}))
+    this.actions$.pipe(ofType(invokeGetGraduateDetailsSuccess)).subscribe((res: any) => {
+      console.log(res)
+      this.record = res.payload;
+    })
   }
 
   goBack() {

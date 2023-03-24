@@ -135,7 +135,21 @@ export const getInstitutionConfiguration = createAction(
 export const getInstitutionConfigurationSuccess = createAction(
   '[institutions] get institution configuration success',
   props<{ payload: any }>()
-);
+  );
+  
+  export const getInstitutionUserInfo = createAction(
+    '[institutions] get institution user info',
+    props<{
+      id: any;
+    }>()
+  );
+  
+  export const getInstitutionUserInfoSuccess = createAction(
+    '[institutions] get institution user info success',
+    props<{
+      payload: any;
+    }>()
+  );
 
 export const getALlDepartmentInInstitution = createAction(
   '[institutions] get institution departments ',

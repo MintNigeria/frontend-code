@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { createGlobalAdminUserSuccess, changePasswordUserRoleSuccess, getAllUsersAndRolesSuccess, getGlobalAdminUserSuccess, getAllGlobalUsersAndRolesSuccess, updateGlobalAdminUserSuccess, invokePermissionAndRoleSuccess, invokeAdminUsersInRoleSuccess, invokeRolePermissionSuccess, invokeGetStatesSuccess, invokeGetLGASuccess } from './actions';
+import { changePasswordUserRoleSuccess, getAllUsersAndRolesSuccess, getGlobalAdminUserSuccess, getAllGlobalUsersAndRolesSuccess, updateGlobalAdminUserSuccess, invokePermissionAndRoleSuccess, invokeAdminUsersInRoleSuccess, invokeRolePermissionSuccess, invokeGetStatesSuccess, invokeGetLGASuccess, getInstitutionRolesSuccess, createInstitutionUserWithRoleSuccess } from './actions';
 import { UsersAndRolesStateInterface } from './types/index.types';
 
 
@@ -39,7 +39,9 @@ const initialState:UsersAndRolesStateInterface  = {
   },
   getStates: {data: []},
   getLGA: {data: []},
-  getStateAndLGA: {data: []}
+  getStateAndLGA: {data: []},
+  institutionRole: null,
+  newInstitutionuser: null
 
 
 }
@@ -70,12 +72,7 @@ export const usersAndRolesReducer = createReducer (
       globalUser: payload
     };
   }),
-  on(createGlobalAdminUserSuccess, (state, { message }) => {
-    return {
-      ...state,
-      createGlobalAdminSuccessMessage: message,
-    };
-  }),
+ 
   on(getAllGlobalUsersAndRolesSuccess , (state, {payload})=> {
     return {
       ...state,
@@ -110,6 +107,20 @@ export const usersAndRolesReducer = createReducer (
     return {
       ...state,
       getStateAndLGA: payload
+    };
+  }),
+  
+  on(getInstitutionRolesSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      institutionRole: payload
+    };
+  }),
+  
+  on(createInstitutionUserWithRoleSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      newInstitutionuser: payload
     };
   }),
   

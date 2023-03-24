@@ -51,6 +51,8 @@ import {
   updateFacultyInInstitutionSuccess,
   updateDegreeTypeInInstitution,
   updateDegreeTypeInInstitutionSuccess,
+  getInstitutionUserInfo,
+  getInstitutionUserInfoSuccess,
 } from './action';
 
 @Injectable()
@@ -348,6 +350,41 @@ export class InstitutionEffects {
             );
             // read data and update payload
             return getInstitutionConfigurationSuccess({
+              payload: data.payload,
+            });
+          })
+        );
+      })
+    );
+  });
+ 
+  getInstitutionUserInfo$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getInstitutionUserInfo),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const { id } = action;
+        return this.institutionService.getInstitutionUserInfo(id).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return getInstitutionUserInfoSuccess({
               payload: data.payload,
             });
           })

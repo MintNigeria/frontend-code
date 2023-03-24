@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { IChangePassword } from '../auth/index.types';
-import { IAddGlobalAdminUser, IChangeRolePassword, ICreateAdminRole, IRolesAndPermissions, IUpdateGlobalAdminUser } from './types/index.types';
+import { IChangeRolePassword, ICreateAdminRole, ICreateInstitutionUser, IRolesAndPermissions, IUpdateGlobalAdminUser } from './types/index.types';
 
 
 export const getAllUsersAndRoles = createAction (
@@ -67,6 +67,18 @@ export const changePasswordUserRoleSuccess = createAction(
   props<{ message: string }>()
 );
 
+export const getInstitutionRoles = createAction (
+  '[Users and Roles] Get Instution roles',
+  props<{
+    id: string
+  }>()
+)
+export const getInstitutionRolesSuccess = createAction (
+  '[Users and Roles] Get Instution roles success',
+  props<{
+    payload: any
+  }>()
+)
 export const getGlobalAdminUser = createAction (
   '[Users and Roles] Get Global Admin Users',
   props<{
@@ -95,17 +107,21 @@ export const invokeRolePermissionSuccess = createAction (
   }>()
 )
 
-export const createGlobalAdminUser = createAction (
-  '[Users and Roles] Add New Admin User',
+export const createInstitutionUserWithRole = createAction (
+  '[Users and Roles] Add New institution User',
   props<{
-    payload : IAddGlobalAdminUser
+    payload : ICreateInstitutionUser
    }>()
 )
 
-export const createGlobalAdminUserSuccess = createAction(
-  '[Users and Roles] Create New Admin User',
-  props<{ message: string }>()
-);
+export const createInstitutionUserWithRoleSuccess = createAction (
+  '[Users and Roles] Add New institution User success',
+  props<{
+    payload : any
+   }>()
+)
+
+
 
 export const updateGlobalAdminUser = createAction (
   '[Users and Roles] Create New Admin User Success',

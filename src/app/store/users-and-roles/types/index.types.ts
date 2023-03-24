@@ -4,18 +4,19 @@ export interface IChangeRolePassword {
   confirmNewPassword: string;
 }
 
-export interface IAddGlobalAdminUser {
-  firstName: string;
-  lastName: string;
+export interface ICreateInstitutionUser {
+  institutionId: number;
+  fullName: string;
   emailAddress: string;
-  mobileNumber: string;
-  staffId: string;
-  roleId: string;
-  department: string;
-  stateOfResidence: string;
-  localGovernment: string;
+  phoneNumber: string;
   address: string;
-  isEnabled: boolean;
+  department: string;
+  staffIdNumber: string;
+  roleId: string;
+  title: string;
+  faculty: string;
+  state: string;
+  localGovernment: string
 }
 
 export interface IUpdateGlobalAdminUser {
@@ -88,4 +89,6 @@ export interface UsersAndRolesStateInterface {
   getStates: any;
   getLGA: any;
   getStateAndLGA: any;
+  institutionRole: any;
+  newInstitutionuser: ICreateInstitutionUser | null;
 }

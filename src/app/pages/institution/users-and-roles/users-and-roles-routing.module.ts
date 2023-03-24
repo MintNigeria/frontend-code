@@ -20,7 +20,7 @@ const routes: Routes = [
           { path: 'change-password', component: ChangePasswordComponent },
           { path: 'users', component: UserListComponent },
           { path: 'users/create-new-user', component: UsersComponent },
-          { path: 'users/edit-user/:id', component: UsersComponent },
+          { path: 'users/:id', component: UsersComponent },
           { path: 'roles-and-permission', component: RolesAndPermissionComponent }
         ]
       },

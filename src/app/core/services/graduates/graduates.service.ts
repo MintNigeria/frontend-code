@@ -35,7 +35,7 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
     institutionId: string
   ) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/InstitutionGraduate/${institutionId}/${graduateId}`
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/InstitutionGraduate?institutionId=${institutionId}&graduateId=${graduateId}`
     );
   }
   
