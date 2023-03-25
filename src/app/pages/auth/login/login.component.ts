@@ -65,6 +65,14 @@ siteKey: string = environment.recaptchaKey
           this.router.navigateByUrl('/institution/dashboard');
         // this.showOTPPage = true;
       }
+      if (this.loggedInUser.UserType === 'Graduates') {
+          this.router.navigateByUrl('/graduate/dashboard');
+        // this.showOTPPage = true;
+      }
+      if (this.loggedInUser.UserType === 'Organization') {
+          this.router.navigateByUrl('/organization/dashboard');
+        // this.showOTPPage = true;
+      }
     })
     // let auth$ = this.appStore.pipe(select(selectAppAPIResponse));
     // auth$.subscribe((x) => {

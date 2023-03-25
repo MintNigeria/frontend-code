@@ -57,7 +57,7 @@ export class DashboardService
     filter: any
   ) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionDashboard/TopRequestsByInstitutions`, {params: filter}
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionDashboard/TopRequestsByOrganizations`, {params: filter}
     );
   }
 

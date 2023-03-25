@@ -86,7 +86,7 @@ export class ProcessingFeeComponent implements OnInit {
       }
     });
     this.deliveryOption = data.processingFeeDeliveryTypeVMs
-    this.deliveryOptionIds = this.deliveryOption.map((data: any) => data.id)
+    this.deliveryOptionIds = this.deliveryOption.map((data: any) => data.deliveryOption)
   }
 
   getCheckedValue(name: string, event: any) {

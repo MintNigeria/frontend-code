@@ -9,7 +9,7 @@ import { DateRangeComponent } from 'src/app/shared/date-range/date-range.compone
 import { getAllInstitutionOrganizationRequest } from 'src/app/store/request/action';
 import { organisationRequestSelector } from 'src/app/store/request/selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
-import { getInstitutionConfiguration, getInstitutionConfigurationSuccess } from 'src/app/store/configuration/action';
+import { getInstitutionConfiguration, getInstitutionConfigurationSuccess, getOrganisationIndustry, getOrganisationIndustrySuccess, getOrganisationSector, getOrganisationSectorSuccess } from 'src/app/store/configuration/action';
 
 @Component({
   selector: 'app-organization-request',
@@ -42,6 +42,8 @@ selectedOption: string = 'All Time';
     filterParams = {
     institutionId: '',
     DocumentType: '',
+    OrganisationIndustry: '',
+    OrganisationSector: '',
     status: '',
     keyword: '',
       filter: '',
@@ -52,6 +54,8 @@ selectedOption: string = 'All Time';
       toDate: '',
   }
   processingFeeList: any;
+  industrtList: any;
+  sectorList: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -76,8 +80,16 @@ selectedOption: string = 'All Time';
     this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
     this.actions$.pipe(ofType(getInstitutionConfigurationSuccess)).subscribe((res: any) => {
       this.processingFeeList = res.payload.processingFeesVM
-      // this.processingFees = res.payload
     })
+    this.store.dispatch(getOrganisationIndustry())
+    this.actions$.pipe(ofType(getOrganisationIndustrySuccess)).subscribe((res: any) => {
+      this.industrtList = res.payload
+    })
+    this.store.dispatch(getOrganisationSector())
+    this.actions$.pipe(ofType(getOrganisationSectorSuccess)).subscribe((res: any) => {
+      this.sectorList = res.payload
+    })
+
   }
 
   viewRequest(id: any) {
@@ -146,6 +158,18 @@ selectedOption: string = 'All Time';
   changeDocumentType(name: string) {
     this.documentType = name;
     const filter = {...this.filterParams, ['DocumentType'] : name}
+    this.filterParams = filter;
+
+  }
+  changeIndustryType(name: string) {
+    this.selectedInstituition = name;
+    const filter = {...this.filterParams, ['OrganisationIndustry'] : name}
+    this.filterParams = filter;
+
+  }
+  changeSectorType(name: string) {
+    this.selectedSector = name;
+    const filter = {...this.filterParams, ['OrganisationSector'] : name}
     this.filterParams = filter;
 
   }
