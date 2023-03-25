@@ -1,35 +1,29 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { NotifierService } from 'angular-notifier';
+import { NotificationType } from 'src/app/types/index.types';
 @Injectable({
   providedIn: 'root',
 })
 export class NotificationsService {
-  message!: string;
-  notification: EventEmitter<any> = new EventEmitter<any>();
-  constructor() {}
+  // type: string = 'default' | ''
+  /**
+   * Constructor
+   *
+   * @param {NotifierService} notifier Notifier service
+   */
+  constructor(private _notifier: NotifierService) {}
 
-  alertStatus: BehaviorSubject<{
-    content: string;
-    style: string;
-    show: boolean;
-  }> = new BehaviorSubject<{
-    content: string;
-    style: string;
-    show: boolean;
-  }>({ content: 'testing', style: 'info', show: false });
-
-  publishMessages(content: string, style: string) {
-    this.alertStatus.next({
-      content,
-      style,
-      show: true,
-    });
-    setTimeout(() => {
-      this.dismissMessage();
-    }, 10000);
+  /**
+   * Show a notification
+   *
+   * @param {string} type    Notification type
+   * @param {string} message Notification message
+   */
+  publishMessages(type: NotificationType, message: string): void {
+    this._notifier.notify(type, message);
   }
 
   dismissMessage() {
-    this.alertStatus.next({ content: '', style: 'info', show: false });
+    this._notifier.hideAll();
   }
 }
