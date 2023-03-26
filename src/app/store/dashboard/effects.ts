@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { catchError, from, map, mergeMap, switchMap, take } from 'rxjs';
 import { AppResponseInterface } from 'src/app/types/appState.interface';
 import { setAPIResponseMessage } from '../shared/app.action';
-import { getAllDashboard, getAllDashboardInfoData, getAllDashboardInfoSuccess, getAllDashboardSuccess, getDashboardRevenueAnalysis, getDashboardRevenueAnalysisSuccess, getDashboardTopInstitutions, getDashboardTopInstitutionsSuccess } from './action';
+import { getAllDashboard, getAllDashboardInfoData, getAllDashboardInfoSuccess, getAllDashboardSuccess, getDashboardRevenueAnalysis, getDashboardRevenueAnalysisSuccess, getDashboardTopInstitutions, getDashboardTopInstitutionsSuccess, getOrganizationDashboardInfo, getOrganizationDashboardInfoSuccess } from './action';
 import { DashboardService } from 'src/app/core/services/dashboard/dashboard.service';
 
 @Injectable()
@@ -332,6 +332,46 @@ export class DashboardEffects {
               );
               // read data and update payload
               return getDashboardTopInstitutionsSuccess({
+                payload: data.payload
+                 
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getOrganizationDashboardInfo$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(getOrganizationDashboardInfo),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.dashboardService
+          .getOrganizationDashboardInfo(
+            action.payload
+          )
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getOrganizationDashboardInfoSuccess({
                 payload: data.payload
                  
               });

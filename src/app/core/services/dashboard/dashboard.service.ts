@@ -61,4 +61,12 @@ export class DashboardService
     );
   }
 
+  getOrganizationDashboardInfo(
+    filter: any
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionDashboard/TopOrganizationDasboard`, {params: filter}
+    );
+  }
+
 }

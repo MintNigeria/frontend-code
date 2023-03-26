@@ -66,26 +66,14 @@ export class ChangePasswordComponent implements OnInit {
     this.store.dispatch(changePasswordUserRole({ payload: this.passwordForm.value }));
     let message$ = this.appStore.pipe(select(messageNotification), take(2));
     this.actions$.pipe(ofType(changePasswordUserRoleSuccess)).subscribe((res: any) => {
-      console.log(res.message.hasErrors)
       if (res.message.hasErrors === false) {
         document.getElementById('confirmChanges')?.click();
         this.notification.publishMessages('success', res.message.description)
+        this.passwordForm.reset()
       }
-      message$.subscribe((x) => {
-        if (res.message.hasErrors === false) this.notification.publishMessages('success', res.message.description);
-      });
+
     })
-    // let auth$ = this.appStore.pipe(select(selectAppAPIResponse));
-    // let message$ = this.appStore.pipe(select(messageNotification), take(2));
-    // auth$.subscribe((x) => {
-    //   if (x.isApiSuccessful) {
-    //     this.status = Status.SUCCESS;
-    //     // this.router.navigateByUrl('/');
-    //   }
-    // });
-    // message$.subscribe((x) => {
-    //   if (x) 
-    // });
+
   }
 
 

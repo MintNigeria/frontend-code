@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { take } from 'rxjs';
-import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { UsersAndRolesService } from 'src/app/core/services/users-and-roles/users-and-roles.service';
 import { messageNotification } from 'src/app/store/auth/selector';
 import { invokeGetStateAndLGA } from 'src/app/store/institution copy/action';
@@ -15,6 +14,7 @@ import { createInstitutionUserWithRole, createInstitutionUserWithRoleSuccess, ge
 import { getLGASelector } from 'src/app/store/users-and-roles/selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { Status } from 'src/app/types/shared.types';
+import { NotificationsService } from 'src/app/core/services/notifications.service';
 
 
 @Component({
@@ -62,7 +62,6 @@ export class UsersComponent implements OnInit {
     })
     this.store.dispatch(getInstitutionRoles({id: this.institutionId}))
     this.actions$.pipe(ofType(getInstitutionRolesSuccess)).subscribe((res: any) => {
-      console.log(res)
       this.roles = [...res.payload.defaultRoles, ...res.payload.defaultRoles]
     })
     this.store.dispatch(
@@ -118,13 +117,11 @@ export class UsersComponent implements OnInit {
 
 changeFaculty(event: any) {
   const data = this.facultyList.find((value: any) => value.id == Number(event));
-  console.log(data)
   this.userForm.controls['faculty'].setValue(data.name)
   this.departmentList = data.departmentVMs;
 }
 
 enableDisableUser(event: any) {
-  console.log(event.checked);
   if (event.checked === true) {
     this.enableToggleButton = 'Enabled';
   } else {
@@ -142,32 +139,7 @@ enableDisableUser(event: any) {
   //   });
 }
 
-saveUser() {
-  if (this.buttonText === 'Create User') {
-    // this.userAndRolesService
-    //   .addGlobalAdminUser(this.userForm.value)
-    //   .subscribe((res) => {
-    //     if (!res.hasErrors) {
-    //       this.notification.publishMessages('success', 'New User Created');
-    //     }
-    //   });
-  } else {
-    // write logic to update user here
-  //   this.store.dispatch(
-  //     updateGlobalAdminUser({ payload: this.userForm.value })
-  //   );
-  //   let userAdmin$ = this.appStore.pipe(select(selectAppAPIResponse));
-  //   let message$ = this.appStore.pipe(select(messageNotification), take(2));
-  //   userAdmin$.subscribe((x) => {
-  //     if (x.isApiSuccessful) {
-  //       this.status = Status.SUCCESS;
-  //     }
-  //   });
-  //   message$.subscribe((res) => {
-  //     if (res) this.notification.publishMessages('success', res);
-  //   });
-  }
-}
+
 
 selectLocalGovt(stateId: any) {
   this.stateLGA$.subscribe((x) => {
@@ -198,6 +170,7 @@ createNewUser() {
   this.store.dispatch(createInstitutionUserWithRole({payload}))
   this.actions$.pipe(ofType(createInstitutionUserWithRoleSuccess)).subscribe((res: any) => {
     if (res.payload.hasErrors === false) {
+      this.notification.publishMessages('success', res.payload.payload);
       this.router.navigateByUrl('/institution/users-and-roles/users')
     }
   })
@@ -225,6 +198,8 @@ updateUserData() {
   this.store.dispatch(updateInstitutionUserWithRole({payload}))
   this.actions$.pipe(ofType(updateInstitutionUserWithRoleSuccess)).subscribe((res: any) => {
     if (res.payload.hasErrors === false) {
+      this.notification.publishMessages('success', res.payload.payload);
+
       this.router.navigateByUrl('/institution/users-and-roles/users')
     }
   })

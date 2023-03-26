@@ -10,6 +10,7 @@ import * as fromGraduates from '../store/graduates/reducers'
 import * as fromConfiguration from '../store/configuration/reducers'
 import * as fromUsersAndRoles from '../store/users-and-roles/reducer'
 import * as fromDashboard from '../store/dashboard/reducer'
+import * as fromOrganization from '../store/organization/reducers'
 
 
 import {
@@ -28,6 +29,7 @@ import { GraduatesStateInterface } from '../store/graduates/types/index.type';
 import { ConfigurationStateInterface } from '../store/configuration/types/index.types';
 import { UsersAndRolesStateInterface } from '../store/users-and-roles/types/index.types';
 import { DashboardStateInterface } from '../store/dashboard/types/index.types';
+import { OrganizationStateInterface } from '../store/organization/types/index.types';
 
 
 // all module state should be imported here
@@ -35,7 +37,7 @@ export interface AppStateInterface {
   auth: IAuthStateInterface;
   apiResponse: AppResponseInterface;
   requests: RequestStateInterface;
-  // organizations: OrganizationStateInterface;
+  organizations: OrganizationStateInterface;
   dashboard: DashboardStateInterface,
   configuration: ConfigurationStateInterface,
   usersAndRoles: UsersAndRolesStateInterface
@@ -59,6 +61,7 @@ export const reducers: ActionReducerMap<AppStateInterface> = {
   auth: fromAuth.authReducers,
   apiResponse: fromShared.appReducer,
   requests: fromRequest.requestReducer,
+  organizations: fromOrganization.organizationReducer,
   institutions: fromInstitutions.institutionReducers,
   utility: fromUtility.utilityReducers,
   reporting : fromReporting.reportingReducer,
@@ -71,7 +74,7 @@ export const reducers: ActionReducerMap<AppStateInterface> = {
 
 };
 
-const reducerKeys = ['auth', 'requests', 'institutions', 'utility', 'dashboard', 'reporting', 'graduates', 'configuration', 'usersAndRoles', 'dashboard' ];
+const reducerKeys = ['auth', 'requests', 'institutions', 'utility', 'dashboard', 'reporting', 'graduates', 'configuration', 'usersAndRoles', 'dashboard', 'organizations' ];
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>

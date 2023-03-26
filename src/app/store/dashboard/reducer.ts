@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { getAllDashboardInfoData, getAllDashboardInfoSuccess, getAllDashboardSuccess, getDashboardRevenueAnalysisSuccess, getDashboardTopInstitutionsSuccess } from './action';
+import { getAllDashboardInfoData, getAllDashboardInfoSuccess, getAllDashboardSuccess, getDashboardRevenueAnalysisSuccess, getDashboardTopInstitutionsSuccess, getOrganizationDashboardInfoSuccess } from './action';
 import { DashboardStateInterface } from './types/index.types';
 
 
@@ -45,6 +45,12 @@ export const dashboardReducer = createReducer (
     }
   }),
   on(getDashboardTopInstitutionsSuccess, (state, {payload})=> {
+    return {
+      ...state,
+      dashBoard: payload
+    }
+  }),
+  on(getOrganizationDashboardInfoSuccess, (state, {payload})=> {
     return {
       ...state,
       dashBoard: payload

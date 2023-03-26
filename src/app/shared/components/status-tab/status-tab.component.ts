@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class StatusTabComponent implements OnInit {
 
   @Input() text!: string;
-  @Input() status!: string;
+  @Input() status!: any;
 
   constructor() { }
 
@@ -16,11 +16,11 @@ export class StatusTabComponent implements OnInit {
   }
 
   get statusClass() {
-    return this.status === 'successful' ? 'bg-successNormal text-successNormal ' : 'bg-failedDark text-failedDark';
+    return this.status === 1 ? 'bg-successNormal text-successNormal ' : 'bg-failedDark text-failedDark';
   }
 
   get tabClass() {
-    return this.status === 'successful' ? 'bg-successLight' : 'bg-failedLight';
+    return this.status === 1 ? 'bg-successLight' : 'bg-failedLight';
   }
 
 }

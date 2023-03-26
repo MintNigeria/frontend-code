@@ -45,3 +45,12 @@ export const getDashboardTopInstitutionsSuccess = createAction (
   '[dashboard] get dashboard top institution request Success',
   props<{payload: any}>()
 )
+
+export const getOrganizationDashboardInfo = createAction (
+  '[dashboard] get organization dashboard info',
+  props<{payload: any}>()
+)
+export const getOrganizationDashboardInfoSuccess = createAction (
+  '[dashboard] get organization dashboard info Success',
+  props<{payload: any}>()
+)
