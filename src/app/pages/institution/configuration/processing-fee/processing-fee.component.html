@@ -23,7 +23,7 @@
 
     </div>
     
-    <div class="p-3 border-b" *ngFor="let type of processingFeeList">
+    <div class="p-3 border-b" *ngFor="let type of processingFeeList; let parent = index">
         <div class="w-10/12 ">
             <div class="lg:flex gap-6 mb-6">
                 <div class="w-full md:w-2/4">
@@ -38,14 +38,20 @@
                 <div class="w-full md:w-2/3  gap-6">
                     <div class="w-full  flex gap-6">
                         <div class="lg:flex gap-3 items-center">
-                            <div class=" mb-6 mt-3" *ngFor="let unit of type.processingFeeConfigVM">
+                            <div class=" mb-6 mt-3" *ngFor="let unit of type.processingFeeConfigVM; let child = index">
                                 <div class="w-full ">
                                     <label class=" font-inter font-medium text-sm text-failedNormal " for="inline-full-name">
                                         {{unit.deliveryOptionsType || 'N/A'}}
                                     </label>
                                 </div>
                                 <div class="w-full  mt-2">
-                                    <app-input 
+                                    <input type="text"
+                                    (input)="getFee(unit, $event.target, parent, child)"
+                                    [value]="unit.fee"
+                                    placeholder="N 5000"
+                                    [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-tableHeader rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                                    [name]="'fee'">
+                                    <!-- <app-input 
                                     [formGrp]="feeForm" 
                                     formCtrlName="fee" 
                                     [type]="'text'" 
@@ -53,7 +59,7 @@
                                     placeholder="N 5000" 
                                     [name]="'fee'"
                                     
-                                    ></app-input>
+                                    ></app-input> -->
                                 </div>
                             </div>
                         </div>

@@ -207,7 +207,7 @@
                     <div>
                       <div>
                         <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">
-                          {{data.transactionId}}</p>
+                          {{data.transactionId || 'N/A'}}</p>
                       </div>
                     </div>
 
@@ -218,7 +218,7 @@
                     <div>
                       <div>
                         <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">
-                          {{data.transactionDate | date: 'mediumDate'}}</p>
+                          {{data.transactionDate || 'N/A' | date: 'mediumDate'}}</p>
                       </div>
                     </div>
 
@@ -227,7 +227,7 @@
 
                 <td class="bg-white">
                   <div>
-                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.description}}
+                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.description || 'N/A'}}
                     </p>
 
                   </div>
@@ -235,7 +235,7 @@
 
                 <td class="bg-white">
                   <div>
-                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.amountPaid}}</p>
+                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">₦{{data.amountPaid | commaDelimiter}}</p>
 
                   </div>
                 </td>

@@ -92,6 +92,11 @@ export class InstitutionService
       `${this.baseUrl}mint-higherinstitution/api/v1/DegreeType/GetAllIDegreeTypes`, {params: payload}
     );
   }
+  getFacultyAndDepartmentByInstitutionName(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/FacultiesAndDepartmentsByInstitutionName`, {params: payload}
+    );
+  }
 
   createDegreeType(payload: any) {
     return this.http.post<any>(

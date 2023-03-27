@@ -42,33 +42,33 @@
                     </div>
                     <div class="bg-white -mt-5">
                         <div class="bg-white p-4 grid grid-cols-2 items-center">
-                            <p class="text-base font-inter font-normal mb-3 text-lightGray">First Name:</p>
+                            <p class="text-base font-inter font-normal mb-3 text-lightGray">Full Name:</p>
                             <div class="flex items-center">
-                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{studentDetails.fullName}}</p>
+                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{graduateData.fullName}}</p>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white -mt-5">
+                    <!-- <div class="bg-white -mt-5">
                         <div class="bg-white p-4 grid grid-cols-2 items-center">
                             <p class="text-base font-inter font-normal mb-3 text-lightGray">Middle Name:</p>
                             <div class="flex items-center">
-                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{studentDetails.fullName}}</p>
+                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{graduateData.fullName}}</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="bg-white -mt-5">
+                    </div> -->
+                    <!-- <div class="bg-white -mt-5">
                         <div class="bg-white p-4 grid grid-cols-2 items-center">
                             <p class="text-base font-inter font-normal mb-3 text-lightGray">Last Name:</p>
                             <div class="flex items-center">
                                 <p class="text-base font-inter font-medium mb-3 text-darkGray">{{studentDetails.fullName}}</p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="bg-white -mt-5">
                         <div class="bg-white p-4 grid grid-cols-2 items-center">
                             <p class="text-base font-inter font-normal mb-3 text-lightGray">Gender:</p>
                             <div class="flex items-center">
-                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{studentDetails.gender}}</p>
+                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{graduateData.gender}}</p>
                             </div>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                         <div class="bg-white p-4 grid grid-cols-2 items-center">
                             <p class="text-base font-inter font-normal mb-3 text-lightGray">Institution:</p>
                             <div class="flex items-center">
-                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{academicDetails.institution}}</p>
+                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{graduateData?.academicInformation?.institutionName}}</p>
                             </div>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                         <div class="bg-white p-4 grid grid-cols-2 items-center">
                             <p class="text-base font-inter font-normal mb-3 text-lightGray">Faculty:</p>
                             <div class="flex items-center">
-                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{academicDetails.faculty}}</p>
+                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{graduateData?.academicInformation?.facultyName}}</p>
                             </div>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                         <div class="bg-white p-4 grid grid-cols-2 items-center">
                             <p class="text-base font-inter font-normal mb-3 text-lightGray">Department:</p>
                             <div class="flex items-center">
-                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{academicDetails.department}}</p>
+                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{graduateData?.academicInformation?.department}}</p>
                             </div>
                         </div>
                     </div>
@@ -106,7 +106,7 @@
                         <div class="bg-white p-4 grid grid-cols-2 items-center">
                             <p class="text-base font-inter font-normal mb-3 text-lightGray">Matric Number:</p>
                             <div class="flex items-center">
-                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{academicDetails.matricNo}}</p>
+                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{graduateData?.academicInformation?.matriculationNumber}}</p>
                             </div>
                         </div>
                     </div>
@@ -114,7 +114,7 @@
                         <div class="bg-white p-4 grid grid-cols-2 items-center">
                             <p class="text-base font-inter font-normal mb-3 text-lightGray">Degree:</p>
                             <div class="flex items-center">
-                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{academicDetails.degree}}</p>
+                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{graduateData?.academicInformation?.degree}}</p>
                             </div>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                         <div class="bg-white p-4 grid grid-cols-2 items-center">
                             <p class="text-base font-inter font-normal mb-3 text-lightGray">Grade:</p>
                             <div class="flex items-center">
-                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{academicDetails.grade}}</p>
+                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{graduateData?.academicInformation?.grade}}</p>
                             </div>
                         </div>
                     </div>
@@ -130,7 +130,7 @@
                         <div class="bg-white p-4 grid grid-cols-2 items-center">
                             <p class="text-base font-inter font-normal mb-3 text-lightGray">Year of Entry:</p>
                             <div class="flex items-center">
-                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{academicDetails.yearOfEntry}}</p>
+                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{graduateData?.academicInformation?.yearOfEntry}}</p>
                             </div>
                         </div>
                     </div>
@@ -138,7 +138,7 @@
                         <div class="bg-white p-4 grid grid-cols-2 items-center">
                             <p class="text-base font-inter font-normal mb-3 text-lightGray">Year of Graduation:</p>
                             <div class="flex items-center">
-                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{academicDetails.yearOfGrad}}</p>
+                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{graduateData?.academicInformation?.yearOfGraduation}}</p>
                             </div>
                         </div>
                     </div>

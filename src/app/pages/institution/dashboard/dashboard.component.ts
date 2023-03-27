@@ -165,9 +165,9 @@ changeRange(range: number) {
 }
 
 createDistributionChart3( ) {
-  const {revenueFromTranscripts, revenueFromCertificates, revenueFromOther} = this.revenueAnalysisData
-  const label = ['Certificates', 'Transcript','Others'];
-  const bar = [revenueFromCertificates,revenueFromTranscripts, revenueFromOther];
+  const {completedRequests, processingRequests, pendingRequests} = this.revenueAnalysisData
+  const label = ['Completed', 'Processing','Pending'];
+  const bar = [completedRequests, processingRequests, pendingRequests];
   //console.log(bar)
   const t_ctx = document.getElementById('pieData') as unknown as any;
   const ctx = t_ctx.getContext('2d')

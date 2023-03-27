@@ -71,11 +71,7 @@
                                 </label>
                                 <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-56">
                                     <li><a (click)="selectedInstitution='All'">All</a></li>
-                                    <li><a (click)="selectedInstitution='University'">University</a></li>
-                                    <li><a (click)="selectedInstitution='Polytechnic'">Polytechnic</a></li>
-                                    <li><a (click)="selectedInstitution='College of Education'">College of Education</a></li>
-                                    <li><a (click)="selectedInstitution='Nursing School'">Nursing School</a></li>
-                                    <li><a (click)="selectedInstitution='Professional Institution'">Professional Institution</a></li>
+                                    <li *ngFor="let unit of institutionList"> <a  (click)="changeInstitution(unit.institutionName)">{{unit?.institutionName}}</a></li>
                                 </ul>
                             </div>
                         </div>

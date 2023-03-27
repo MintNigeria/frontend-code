@@ -97,6 +97,75 @@ export const getOrganizationVerificationHistoryDataSuccess = createAction(
   props<{ payload: any }>()
 );
 
+export const verifyGraduateRecord = createAction(
+  '[organization] verify graduate record',
+  props<{
+    payload: any;
+  }>()
+);
+
+export const verifyGraduateRecordSuccess = createAction(
+  '[organization] verify graduate record success',
+  props<{ payload: any }>()
+);
+
+export const organizationProfile = createAction(
+  '[organization] get organization profile',
+  props<{
+    id: any;
+  }>()
+);
+
+export const organizationProfileSuccess = createAction(
+  '[organization] get organization profile success',
+  props<{ payload: any }>()
+);
+
+export const verifyHistoryInstitutionDropdown = createAction(
+  '[organization] get institution list for verification history',
+  props<{
+    id: any;
+  }>()
+);
+
+export const verifyHistoryInstitutionDropdownSuccess = createAction(
+  '[organization] get institution list for verification history success',
+  props<{ payload: any }>()
+);
+
+export const organizationSectorAndIndustry = createAction(
+  '[organization] get organization industry and sector name for verification purpose',
+  props<{
+    id: any;
+  }>()
+);
+
+export const organizationSectorAndIndustrySuccess = createAction(
+  '[organization] get organization industry and sector name for verification purpose success',
+  props<{ payload: any }>()
+);
+
+export const reasonForRequest = createAction(
+  '[organization] reason for request',
+ 
+);
+
+export const reasonForRequestSuccess = createAction(
+  '[organization] reason for request success',
+  props<{ payload: any }>()
+  );
+  
+  export const makePayment = createAction(
+    '[organization] Make payment',
+    props<{ payload: any }>()
+ 
+);
+
+export const makePaymentSuccess = createAction(
+  '[organization] Make payment success',
+  props<{ payload: any }>()
+);
+
 // ///////////////////////
 
 export const getAllOrganization = createAction(
