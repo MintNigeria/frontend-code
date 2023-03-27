@@ -1,8 +1,8 @@
-<div class="bg-white p-6">
+<div class="bg-white p-2">
     <!--Header-->
-    <div class="flex  items-center md:gap-4 gap-2 ">
+    <div class="flex  items-center md:gap-4 gap-2 mb-6">
         <div>
-            <img [routerLink]="'/main/requests'" src="assets/images/icons/home.svg" alt="home-icon">
+            <img [routerLink]="'/organization/value-added-services'" src="assets/images/icons/home.svg" alt="home-icon">
         </div>
         <div>
             <img src="assets/images/icons/forward_arrow.svg" alt="forward-arrow">
@@ -10,28 +10,39 @@
 
         <div>
             <p class="text-primaryBlue font-inter md:text-base text-sm font-medium cursor-pointer">
-                Talent Search Pool
+               Talent Search Pool
+            </p>
+
+        </div>
+    </div>
+
+    <div class="flex  items-center md:gap-4 gap-2 mt-6 mb-6" (click)="goBack()">
+        <div>
+            <img src="assets/images/icons/back_arrow.svg">
+        </div>
+
+        <div>
+            <p class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer">
+                Back to all talent search pool
             </p>
 
         </div>
 
     </div>
-    <div class="px-5">
-        <div class="items-center my-2 flex justify-between">
+
+    <div class="px-3">
+        <div class="items-center my-2 lg:flex lg:justify-between">
             <h4 class="font-medium font-poppins lg:text-4xl text-xl  text-darkGray my-3">
-                Talent Search Pool
+               Talent Search Pool
             </h4>
-            <div class="items-center mt-6 mb-3">
-                <app-button
-                [overRideButtonClass]="true"
-                [customClass]="'font-inter text-base font-medium text-white bg-buttonBlue rounded-lg p-3'"
-                [routerLink]="'/organization/talent-search-pool/search-talent'">
-                    New Talent Search
-                </app-button>
-            </div>
+            <app-button
+            [overRideButtonClass]="true"
+            [customClass]="'bg-buttonBlue text-white font-inter font-medium text-base p-2 rounded-lg'"
+            [routerLink]="'/organization/talent-search-pool/search-talent'">
+                New Talent Search
+            </app-button>
         </div>
     </div>
-    <!---->
 
     <!--Filters-->
 
@@ -41,26 +52,28 @@
                     <div class="lg:flex lg:justify-between gap-4 grid grid-cols-2 ">
                         <div class="lg:justify-between gap-4">
                             <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
-                                Date
+                                Grade
                             </p>
                             <div class="dropdown dropdown-bottom">
                                 <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
                                 <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedOption }}</p>
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
                                 </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                <li><a (click)="selectedOption='data Time'">All Time</a></li>
-                                <li><a (click)="selectedOption='30 Days'">30 Days</a></li>
-                                <li><a (click)="selectedOption='7 days'">7 Days</a></li>
-                                <li><a (click)="selectedOption='24 Hours'">24 Hours</a></li>
-                                <li><a (click)="selectedOption='Custom Period'">Custom Period</a></li>
-                                </ul>
+                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
+                                    <li><a (click)="changeRange(0, 'All Time') ">All Time</a></li>
+                                    <li><a (click)="changeRange(3, '30 Days')">30 Days</a></li>
+                                    <li><a (click)="changeRange(2, '7 days' )">7 Days</a></li>
+                                    <li><a (click)="changeRange(1, '24 Hours')">24 Hours</a></li>
+                                    <li>
+                                      <a (click)="changeRange(5, 'Custom Period')">Custom Period</a>
+                                    </li>
+                                  </ul>
                             </div>
                         </div>
 
                         <div class="lg:justify-between gap-4">
                             <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
-                                Institution
+                                Gender
                             </p>
                             <div class="dropdown dropdown-bottom">
                                 <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
@@ -80,25 +93,7 @@
 
                         <div class="lg:justify-between gap-4">
                             <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
-                                Faculty
-                            </p>
-                            <div class="dropdown dropdown-bottom">
-                                <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
-                                <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedSector }}</p>
-                                <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
-                                </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-56">
-                                    <li><a (click)="selectedSector='All'">All</a></li>
-                                    <li><a (click)="selectedSector='Federal'">Federal</a></li>
-                                    <li><a (click)="selectedSector='State'">State</a></li>
-                                    <li><a (click)="selectedSector='Private'">Private</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="lg:justify-between gap-4">
-                            <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
-                                Degree Type
+                                Graduation Year
                             </p>
                             <div class="dropdown dropdown-bottom">
                                 <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
@@ -127,31 +122,37 @@
 
     <!---->
 
-    <!--Table-->
-
     <div class="mt-3 py-3 rounded-xl bg-white border border-solid border-[#EFF0F6]">
-        <!--Search and Export-->
-        <div class="mt-3 bg-white">
-            <div class="md:block hidden px-7">
-                <form>
-                    <div class="flex md:flex-row md:justify-between md:items-center flex-col w-full">
-                        <div class="flex lg:justify-between gap-4">
-                            <div class="relative cursor-pointer mr-3">
-
-                                <input type="search" placeholder="Search name, request ID or institution"
-                                    class="bg-white rounded-[10px] border border-inputBg w-[400px]  py-[14px] px-8 placeholder:text-[#6E7191] text-sm lg:text-base focus:outline-none ">
-                                <div class="top-1/2 absolute  left-3 custom-translate pr-4">
-                                    <img src="assets/images/icons/search.svg" alt="search">
-
-                                </div>
+        <div class="px-5">
+            <div class="items-center my-2 lg:flex lg:justify-between">
+                <div class="my-3">
+                    <h4 class="font-medium font-poppins lg:text-2xl text-xl  text-darkGray">
+                        50 Reports Generated
+                    </h4>
+                    <p class="text-darkGray font-sans md:text-base text-sm font-normal cursor-pointer">
+                        Below are the available reports generated
+                    </p>
+                </div>
+                <div class="flex md:items-center gap-4 ">
+                    <div>
+                        <div class="lg:justify-between gap-4">
+                            <div class="dropdown dropdown-end">
+                                <label tabindex="0" class="flex justify-between bg-buttonBlue rounded-[10px] items-center  border border-none min-w-[101px] py-[8px] px-4 text-sm cursor-pointer">
+                                <p class="my-0 text-white font-inter font-medium text-sm">Export</p>
+                                <img src="assets/images/icons/downward_arrow_white.svg" alt="downward_arrow_white">
+                                </label>
+                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                    <li><a>Export as CSV</a></li>
+                                    <li><a >Export as PDF</a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                </form>
-
+                </div>
             </div>
-            <!---->
-
+        </div>
+        <!--Search and Export-->
+        <div class="mt-3 bg-white">
             <!--Table Content-->
 
             <div>
@@ -160,31 +161,25 @@
                     <table class="table w-full">
                         <thead>
                             <tr>
-                                <th class="flex gap-1 text-xs text-lightGray font-medium font-inter bg-tableHeader ">Batch ID
-                                </th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Institution Name</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Name</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Institution</th>
                                 <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Faculty</th>
-                                <th class="flex gap-1 text-xs text-lightGray font-medium font-inter bg-tableHeader ">Department
-                                </th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Degree Type</th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Counts</th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Action</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Department</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Graduation Year</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Grade</th>
                             </tr>
                         </thead>
 
                         <tbody class="">
-                            <tr *ngFor="let data of verificationHistory" class=" ">
+                            <tr *ngFor="let data of generatedList" class=" ">
                             
                                 
                                 <td class="bg-white">
                                     <div class="items-center">
                                         <div>
                                             <div>
-                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">{{data.verificationID}}</p>
-                                                <p class="text-xs font-normal font-inter my-0 text-lightGray">
-                                                {{data.date}}
-                                                </p>
-
+                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">{{data.name}}</p>
+                                                <p class="my-0 text-sm cursor-pointer font-inter font-normal text-lightGray ">{{data.gender}}</p>
                                             </div>
                                         </div>
 
@@ -192,45 +187,45 @@
                                 </td>
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.institution}}</p>  
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.institution}}</p>
+                                      
+                                    </div>
+
+                                </td>
+                                <td class="bg-white">
+                                    <div class="items-center">
+                                        <div>
+                                            <div>
+                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-lightGray ">{{data.faculty}}</p>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </td>
                                 
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.faculty}}</p>  
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.department}}</p>
+                                       
                                     </div>
                                 </td>
 
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.department}}</p>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.gradYear}}</p>
                                         
                                     </div>
                                 </td>
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.degreeType}}</p>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.grade}}</p>
                                       
                                     </div>
-
                                 </td>
-                                <td class="bg-white">
-                                    <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.counts}}</p>
-                                      
-                                    </div>
 
-                                </td>
-                                <td class="bg-white">
-                                    <div 
-                                    class="flex  gap-2 items-center" 
-                                    [routerLink]="'/organization/talent-search-pool/view-report/2'">
-                                    <p 
-                                    class="my-0 text-sm font-inter cursor-pointer font-medium text-primaryBlue ">{{data.action}}</p>
-                                    </div>
 
-                                </td>
+
+
                             </tr>
                         </tbody>
                     </table>
@@ -244,7 +239,7 @@
             <!--Pagination-->
             <div class="flex px-7 items-center justify-between mt-3">
                 <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
-                    Showing 1 to 7 of {{ verificationHistory.length }} entries
+                    Showing 1 to 7 of {{ generatedList.length }} entries
                 </p>
                 <div class="flex item gap-3">
                     <div
@@ -267,7 +262,4 @@
         </div>
                 
     </div>
-
-   
-
 </div>
