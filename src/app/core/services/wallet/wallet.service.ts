@@ -36,5 +36,11 @@ export class WalletService
     )
   }
 
+  makePayment(payload:any){
+    return this.http.post<any> (
+      `${this.baseUrl}mint-higherinstitution/api/v1/Transaction/Main-Make-Payment`, payload
+    )
+  }
+
   
 }

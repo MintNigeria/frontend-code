@@ -68,11 +68,37 @@ export class OrganizationService
     );
   }
 
+  verifyGraduateRecord(payload: any) {
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Verify-Graduate`, payload
+    );
+  }
+
+  verifyHistoryInstitutionDropdown(id: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/InstitutionName-By-Verification-Histories/${id}`);
+  }
+
+  organizationProfile(id: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-organization/api/v1/Organization/Profile/${id}`);
+  }
+
+  organizationSectorAndIndustry(id: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-organization/api/v1/Organization/OrganizationIndustryAndSectorByName/${id}`);
+  }
+
+  reasonForRequest() {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Reason-For-Request`);
+  }
+
   getOrganizationSubscriptionHistory(
     payload: any
   ) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Subscription-Historys`, {params: payload}
+      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Organization-transactions`, {params: payload}
     );
   }
 
@@ -80,7 +106,7 @@ export class OrganizationService
     payload: any
   ) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Historys`, {params: payload}
+      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Histories`, {params: payload}
     );
   }
 
@@ -95,7 +121,7 @@ export class OrganizationService
 
 
 
-  
+
 
   getAllOrganization(
     organizationStatus: number,

@@ -32,6 +32,7 @@ export class VerifyDocumentsComponent implements OnInit {
     yearOfEntry: '2016',
     yearOfGrad: '2019'
   }
+  graduateData!: any;
 
   constructor(
     private appStore: Store<AppStateInterface>,
@@ -46,6 +47,7 @@ export class VerifyDocumentsComponent implements OnInit {
     this.store.dispatch(getOrganizationVerificationHistoryData({id}))
     this.actions$.pipe(ofType(getOrganizationVerificationHistoryDataSuccess)).subscribe((res: any) => {
       // //console.log(res)
+      this.graduateData = res.payload.payload;
     })
   }
 

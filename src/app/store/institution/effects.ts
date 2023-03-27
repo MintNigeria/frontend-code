@@ -53,6 +53,8 @@ import {
   updateDegreeTypeInInstitutionSuccess,
   getInstitutionUserInfo,
   getInstitutionUserInfoSuccess,
+  getFacultyAndDepartmentByInstitutionName,
+  getFacultyAndDepartmentByInstitutionNameSuccess,
 } from './action';
 
 @Injectable()
@@ -773,6 +775,43 @@ export class InstitutionEffects {
               );
               // read data and update payload
               return ValidateRegistrationCodeSuccess({
+                payload: data
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getFacultyAndDepartmentByInstitutionName$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getFacultyAndDepartmentByInstitutionName),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.institutionService.getFacultyAndDepartmentByInstitutionName(action.payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getFacultyAndDepartmentByInstitutionNameSuccess({
                 payload: data
                   
               });
