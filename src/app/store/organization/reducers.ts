@@ -6,6 +6,7 @@ import {
   fundOrganizationWalletSuccess,
   getAllOrganizationSuccess,
   getOrganizationSubscriptionHistorySuccess,
+  getOrganizationVerificationHistoryDataSuccess,
   getOrganizationVerificationHistorySuccess,
   getOrganizationWalletIdSuccess,
   invokeGetOrganizationSuccess,
@@ -26,6 +27,7 @@ const initialState: OrganizationStateInterface = {
   validateWalletPayment: null,
   subscriptionHistory: null,
   verificationHistory: null,
+  verificationHistoryData: null,
   fundwallet: {},
   organizationTransaction: null,
   transactionDetails: null,
@@ -75,6 +77,12 @@ export const organizationReducer = createReducer(
     return {
       ...state,
       verificationHistory: payload,
+    };
+  }),
+  on(getOrganizationVerificationHistoryDataSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      verificationHistoryData: payload,
     };
   }),
 

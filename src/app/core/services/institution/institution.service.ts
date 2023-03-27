@@ -198,7 +198,7 @@ export class InstitutionService
   }
 
   getInstitutionConfiguration(id: any) {
-    console.log(id)
+    //console.log(id)
     return this.http.get<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionConfiguration/InstitutionDocumentType/${id}`
     );

@@ -126,7 +126,7 @@ export class RecordDetailsComponent implements OnInit {
     this.graduateId = this.route.snapshot.params['id']
     this.store.dispatch(invokeGetGraduateDetails({graduateId: this.graduateId, institutionId: this.institutionId}))
     this.actions$.pipe(ofType(invokeGetGraduateDetailsSuccess)).subscribe((res: any) => {
-      console.log(res)
+      //console.log(res)
       this.record = res.payload;
     })
   }

@@ -89,7 +89,7 @@ export class CreatePasswordComponent implements OnInit {
     }
     this.store.dispatch(createPassword({...payload }))
     this.actions$.pipe(ofType(createPasswordSuccess)).subscribe((res: any) => {
-     console.log(res)
+     //console.log(res)
      if (res.hasErrors === false) {
       this.router.navigateByUrl('/')
      }

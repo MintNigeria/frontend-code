@@ -69,7 +69,7 @@ pk: string = environment.pkKey
     this.selectedPlanData = plan
     this.store.dispatch(getOrganizationWalletId({id: this.userData.OrganizationId}))
     this.actions$.pipe(ofType(getOrganizationWalletIdSuccess)).subscribe((res: any) => {
-      console.log(res)
+      //console.log(res)
       this.walletId = res.payload.id;
     })
     // launch paystack thing here
@@ -90,7 +90,7 @@ pk: string = environment.pkKey
   }
 
   onSuccess(trx: any) {
-    console.log(trx)
+    //console.log(trx)
     this.isTransactionSuccessful = trx.status
     const payload = {
       organizationId: Number(this.userData.OrganizationId),
@@ -99,20 +99,20 @@ pk: string = environment.pkKey
       walletId: this.walletId,
       transactionReferencenumber: trx.reference
     }
-    console.log(payload)
+    //console.log(payload)
     this.store.dispatch(fundOrganizationWallet({payload}))
     this.actions$.pipe(ofType(fundOrganizationWalletSuccess)).subscribe((res: any) => {
-      console.log('res, res', res)
+      //console.log('res, res', res)
       // const id = res.payload.payload.
       this.validatePayment(res)
     })
   }
   onClose() {
-    console.log('trx')
+    //console.log('trx')
   }
 
   validatePayment(data: any) {
-    console.log(data)
+    //console.log(data)
     const payload = {
       transactionId: Number(data?.payload?.payload?.transactionId),
       makePaymentType: 3,
@@ -126,7 +126,7 @@ pk: string = environment.pkKey
     }
     this.store.dispatch(validateOrganizationFundWallet({payload}))
     this.actions$.pipe(ofType(validateOrganizationFundWalletSuccess)).subscribe((res: any) => {
-      console.log(res)
+      //console.log(res)
       if (res) {
 
         this.notification.publishMessages('success', 'test')

@@ -44,74 +44,6 @@ export class VerificationComponent implements OnInit {
   });
 
 
-  verificationHistory = [
-  {
-    id: '1',
-    date: '12/01/2023',
-    verificationID: '#3066',
-    name:'Adekunle Ciroma',
-    phoneNumber: '0819036356377',
-    institution: 'University of Lagos',
-    department: 'Banking and Finance',
-    reasonForRequest: 'Educational Verification',
-    action: 'View'
-  },
-  {
-    id: '2',
-    date: '12/01/2023',
-    verificationID: '#3066',
-    name:'Adekunle Ciroma',
-    phoneNumber: '0819036356377',
-    institution: 'University of Lagos',
-    department: 'Banking and Finance',
-    reasonForRequest: 'Educational Verification',
-    action: 'View'
-  },
-  {
-    id: '3',
-    date: '12/01/2023',
-    verificationID: '#3066',
-    name:'Adekunle Ciroma',
-    phoneNumber: '0819036356377',
-    institution: 'University of Lagos',
-    department: 'Banking and Finance',
-    reasonForRequest: 'Educational Verification',
-    action: 'View'
-  },
-  {
-    id: '4',
-    date: '12/01/2023',
-    verificationID: '#3066',
-    name:'Adekunle Ciroma',
-    phoneNumber: '0819036356377',
-    institution: 'University of Lagos',
-    department: 'Banking and Finance',
-    reasonForRequest: 'Educational Verification',
-    action: 'View'
-  },
-  {
-    id: '5',
-    date: '12/01/2023',
-    verificationID: '#3066',
-    name:'Adekunle Ciroma',
-    phoneNumber: '0819036356377',
-    institution: 'University of Lagos',
-    department: 'Banking and Finance',
-    reasonForRequest: 'Educational Verification',
-    action: 'View'
-  },
-  {
-    id: '6',
-    date: '12/01/2023',
-    verificationID: '#3066',
-    name:'Adekunle Ciroma',
-    phoneNumber: '0819036356377',
-    institution: 'University of Lagos',
-    department: 'Banking and Finance',
-    reasonForRequest: 'Educational Verification',
-    action: 'View'
-  }
- ]
 
   constructor(
     private appStore: Store<AppStateInterface>,
@@ -126,7 +58,6 @@ export class VerificationComponent implements OnInit {
     this.userData = JSON.parse(data)
     this.store.dispatch(getOrganizationVerificationHistory({payload: {...this.filter, OrganizationId: this.userData.OrganizationId}}))
     this.actions$.pipe(ofType(getOrganizationVerificationHistorySuccess)).subscribe((res: any) => {
-      console.log(res)
       this.history = res.payload.payload;
       this.total = res.payload.totalCount
       // this.balance = res.payload;
@@ -155,7 +86,7 @@ export class VerificationComponent implements OnInit {
       this.filterDocument['documentType'] = this.documentType;
     }
     
-    console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
+    this.store.dispatch(getOrganizationVerificationHistory({payload: {...this.filter, OrganizationId: this.userData.OrganizationId}}))
   }
 
   clearFilter() {
@@ -215,6 +146,11 @@ export class VerificationComponent implements OnInit {
         const filter = {...this.filter, ['keyword'] : ''}
         this.store.dispatch(getOrganizationVerificationHistory({payload: {...this.filter, OrganizationId: this.userData.OrganizationId}}))
       }
+  }
+
+  getPage(currentPage: number) {
+    const filter = {...this.filter, ['pageIndex'] : currentPage}
+    this.store.dispatch(getOrganizationVerificationHistory({payload: {...filter, OrganizationId: this.userData.OrganizationId}}))
   }
 
 

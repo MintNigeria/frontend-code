@@ -92,7 +92,7 @@ export class ProcessingFeeComponent implements OnInit {
   getCheckedValue(name: string, event: any) {
     if (event.checked === true) {
 
-      console.log(name, event.value)
+      //console.log(name, event.value)
       // const a = this.selectedDocumentType.processingFeeDeliveryTypeVMs.map((x: any) => {
       //   if (x.id ===)
       // })
@@ -114,7 +114,7 @@ export class ProcessingFeeComponent implements OnInit {
     }
     this.store.dispatch(createProcessingFeeDocumentType({institutionId: this.institutionId ,payload: [payload]}))
     this.actions$.pipe(ofType(createProcessingFeeDocumentTypeSuccess)).subscribe((res: any) => {
-      console.log(res)
+      //console.log(res)
 
     })
   }

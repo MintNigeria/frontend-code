@@ -30,7 +30,7 @@ export class VerificationFeeComponent implements OnInit {
     this.institutionId = this.institutionData.InstitutionId
     this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
     this.actions$.pipe(ofType(getInstitutionConfigurationSuccess)).subscribe((res: any) => {
-      console.log(res)
+      //console.log(res)
       this.vericationList = res.payload.institutionVerifcationFeeVMs
       // this.processingFees = res.payload
     })

@@ -67,7 +67,7 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
   downloadANotherCSV(
     payload: any
   ) {
-    console.log(payload)
+    //console.log(payload)
     return this.http.get<any>(
       `${this.baseUrl}mint-auth/api/v1/Graduates/ExportAsCSV`, {params: payload}
     );
@@ -85,7 +85,7 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
   downloadCSV(
     payload: any
   ) {
-    console.log(payload)
+    //console.log(payload)
     return this.http.get<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/ExportAsCSV`, {params: payload}
     );

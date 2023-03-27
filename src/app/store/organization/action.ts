@@ -85,6 +85,18 @@ export const getOrganizationVerificationHistorySuccess = createAction(
   props<{ payload: any }>()
 );
 
+export const getOrganizationVerificationHistoryData = createAction(
+  '[organization] get organization verification history data',
+  props<{
+    id: any;
+  }>()
+);
+
+export const getOrganizationVerificationHistoryDataSuccess = createAction(
+  '[organization] get organization verification history data success',
+  props<{ payload: any }>()
+);
+
 // ///////////////////////
 
 export const getAllOrganization = createAction(

@@ -62,7 +62,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   getDashboardCardInfo() {
     this.dashboardCardInfo$.subscribe((res: any) => {
       this.cardInfo = res
-      console.log(res)
+      //console.log(res)
       // this.createDistributionChart()
   })
 }
@@ -84,7 +84,7 @@ getTopInstitutions() {
     // const b = this.topInstitutionRequests?.topRequestsVMs?.map((x: any) => {
     //   return x.noOfRequests
     // })
-    // console.log(res.topRequestsVMs, a, b)
+    // //console.log(res.topRequestsVMs, a, b)
     this.createDistributionChart()
   })
 }
@@ -168,7 +168,7 @@ createDistributionChart3( ) {
   const {revenueFromTranscripts, revenueFromCertificates, revenueFromOther} = this.revenueAnalysisData
   const label = ['Certificates', 'Transcript','Others'];
   const bar = [revenueFromCertificates,revenueFromTranscripts, revenueFromOther];
-  console.log(bar)
+  //console.log(bar)
   const t_ctx = document.getElementById('pieData') as unknown as any;
   const ctx = t_ctx.getContext('2d')
 

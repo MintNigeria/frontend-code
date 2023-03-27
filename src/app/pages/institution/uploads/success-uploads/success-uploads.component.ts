@@ -75,10 +75,10 @@ searchForm = new FormGroup({
     this.selectedData = this.uploads.find((data: any) => data.batchId === id);
     this.uploads.filter((x: any) => {
       if (x.batchId === id) {
-        console.log(x.batchId )
+        //console.log(x.batchId )
         this.selectedDataId = x.batchId
       }});
-      console.log(this.selectedData,this.selectedDataId)
+      //console.log(this.selectedData,this.selectedDataId)
 
   }
 

@@ -42,11 +42,11 @@ export class MyProfileComponent implements OnInit {
     this.initProfileForm()
     const data: any = localStorage.getItem('userData')
     this.institutionData = JSON.parse(data)
-    console.log(this.institutionData)
+    //console.log(this.institutionData)
     this.institutionId = this.institutionData.InstitutionId
     this.store.dispatch(invokeGetInstitution({id: '13'}))
     this.actions$.pipe(ofType(invokeGetInstitutionSuccess)).subscribe((res: any) => {
-      console.log(res)
+      //console.log(res)
       this.populateForm(res.payload)
     })
     this.store.dispatch(
@@ -89,7 +89,7 @@ export class MyProfileComponent implements OnInit {
 
   handleFileUpload(e: any) {
     const file = e.target.files[0];
-    console.log(file)
+    //console.log(file)
     if (!this.allowedFiled.includes(file.type)) {
 		  alert("Invalid format! Please select only correct file type");
 

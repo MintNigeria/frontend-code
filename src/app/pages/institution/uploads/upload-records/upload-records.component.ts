@@ -71,11 +71,11 @@ export class UploadRecordsComponent implements OnInit {
     })
     // this.http.get('https://jsonip.com').subscribe(
     //   (value:any) => {
-    //     console.log(value);
+    //     //console.log(value);
     //     // this.userIP = value.ip;
     //   },
     //   (error) => {
-    //     console.log(error);
+    //     //console.log(error);
     //   }
     // );
   }
@@ -98,7 +98,7 @@ export class UploadRecordsComponent implements OnInit {
 
   handleFileUpload(e: any) {
     const file = e.target.files[0];
-    console.log(file)
+    //console.log(file)
     if (!this.allowedFiled.includes(file.type)) {
 		  alert("Invalid format! Please select only correct file type");
 
@@ -115,7 +115,7 @@ export class UploadRecordsComponent implements OnInit {
     this.store.dispatch(downloadRecordUploadFormat({payload: {institutionId: this.institutionId}}))
     this.actions$.pipe(ofType(downloadRecordUploadFormatSuccess)).subscribe((res: any) => {
       const link = document.createElement('a');
-      console.log(res)
+      //console.log(res)
        link.download = `${res.payload?.fileName}.xlsx`;
        link.href = 'data:image/png;base64,' + res.payload?.base64;
        link.click();
@@ -137,7 +137,7 @@ export class UploadRecordsComponent implements OnInit {
 
     xhr.onreadystatechange = () => {
       if (xhr.readyState === XMLHttpRequest.DONE) {
-        console.log(xhr.responseText);
+        //console.log(xhr.responseText);
         // do something with the response
       }
     };
@@ -159,7 +159,7 @@ submitUpload() {
   }
   this.store.dispatch(uploadGraduateRecord({payload: data}))
   this.actions$.pipe(ofType(uploadGraduateRecordSuccess)).subscribe((res: any) => {
-   console.log(res)
+   //console.log(res)
    if (res.payload.hasErrors === false) {
     localStorage.setItem('recordUpload', JSON.stringify(res.payload.payload))
     this.router.navigateByUrl(`/institution/uploads/confirm-uploads`)
