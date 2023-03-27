@@ -70,7 +70,7 @@ export class ReportsComponent implements OnInit {
     const data: any = localStorage.getItem('userData')
     this.institutionData = JSON.parse(data)
     this.institutionId = this.institutionData.InstitutionId
-    this.store.dispatch(invokeGetAllReport({payload: {...this.filterParams, institutionId: 13}}))
+    this.store.dispatch(invokeGetAllReport({payload: {...this.filterParams, institutionId: this.institutionId}}))
     this.actions$.pipe(ofType(invokeGetAllReportSuccess)).subscribe((res: any) => {
       this.reportDetails = res.payload.data;
       this.totalCount = res.payload.totalCount
@@ -110,7 +110,7 @@ export class ReportsComponent implements OnInit {
       this.filterDocument['documentType'] = this.documentType;
     }
     
-    this.store.dispatch(invokeGetAllReport({payload: {...this.filterParams, institutionId: 13}}))
+    this.store.dispatch(invokeGetAllReport({payload: {...this.filterParams, institutionId: this.institutionId}}))
   }
 
   changeRange(range: number, name: string) {
