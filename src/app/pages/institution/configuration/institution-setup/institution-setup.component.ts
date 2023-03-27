@@ -256,6 +256,7 @@ createFaculty() {
   this.actions$.pipe(ofType(createFacultyInInstitutionSuccess)).subscribe((res: any) => {
     if (res.payload.hasErrors === false) {
       this.notification.publishMessages('success', res.payload.description);
+      location.reload()
       // document.getElementById('changesConfirmed')?.click();
     }
  
@@ -277,7 +278,7 @@ createDepartment() {
   this.actions$.pipe(ofType(createDepartmentInInstitutionSuccess)).subscribe((res: any) => {
     if (res.payload.hasErrors === false) {
       this.notification.publishMessages('success', res.payload.description);
- 
+      location.reload()
       // document.getElementById('changesConfirmed')?.click();
       this.activateDepartment()
     }
@@ -299,6 +300,7 @@ createDegreeType() {
   this.actions$.pipe(ofType(createDegreeTypeInInstitutionSuccess)).subscribe((res: any) => {
     if (res.payload.hasErrors === false) {
       this.notification.publishMessages('success', res.payload.description);
+      location.reload()
 
       // document.getElementById('changesConfirmed')?.click();
       this.activatedegreeType()

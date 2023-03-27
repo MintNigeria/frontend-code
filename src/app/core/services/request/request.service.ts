@@ -61,6 +61,14 @@ export class RequestService
     );
   }
 
+  updateInstitutionRequest(
+  payload: any    
+  ) {
+    return this.http.put<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionRequest/ProcessInstitutionRequest`, payload
+    );
+  }
+
   getAllRequest(
     institutionType? : string,
     documentType? : string,

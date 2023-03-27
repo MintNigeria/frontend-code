@@ -73,6 +73,21 @@ export const invokeGetRequestDetailsSuccess = createAction(
   props<{
    payload : any
   }>()
+  );
+   
+export const updateInstitutionRequest = createAction(
+  '[request] update request details status',
+  props<{
+    payload: any;
+  }>()
+);
+
+
+export const updateInstitutionRequestSuccess = createAction(
+  '[request] update request details status success',
+  props<{
+   payload : any
+  }>()
   ); 
   
 

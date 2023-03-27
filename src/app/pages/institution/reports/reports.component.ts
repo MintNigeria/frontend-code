@@ -6,7 +6,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
-import { getInstitutionConfiguration, getInstitutionConfigurationSuccess } from 'src/app/store/configuration/action';
+import { getInstitutionConfiguration, getInstitutionConfigurationSuccess, getOrganisationIndustry, getOrganisationIndustrySuccess } from 'src/app/store/configuration/action';
 import { exportReportCSV, exportReportCSVSuccess, exportReportExcel, exportReportExcelSuccess, invokeGetAllReport, invokeGetAllReportSuccess, invokeGetTransactions, invokeGetTransactionsSuccess } from 'src/app/store/reporting/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
@@ -54,6 +54,8 @@ export class ReportsComponent implements OnInit {
   });
   reportDetails: any;
   processingFeeList: any;
+  industrtList: any;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -78,11 +80,16 @@ export class ReportsComponent implements OnInit {
       this.processingFeeList = res.payload.processingFeesVM
       // this.processingFees = res.payload
     })
+    this.store.dispatch(getOrganisationIndustry())
+    this.actions$.pipe(ofType(getOrganisationIndustrySuccess)).subscribe((res: any) => {
+      this.industrtList = res.payload
+    })
     this.searchForm.controls.searchPhrase.valueChanges
     .pipe(debounceTime(400), distinctUntilChanged())
     .subscribe((term) => {
       this.search(term as string);
     });
+
 
   }
 
@@ -127,6 +134,13 @@ export class ReportsComponent implements OnInit {
       const filter = {...this.filterParams, ['range'] : String(range)};
       this.filterParams = filter;
     }
+  }
+
+  changeIndustryType(name: string) {
+    this.selectedSector = name;
+    const filter = {...this.filterParams, ['Sector'] : name}
+    this.filterParams = filter;
+
   }
 
   changeDocumentType(name: string) {

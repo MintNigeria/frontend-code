@@ -76,12 +76,9 @@
                     id=""
                     class="select lg:w-52 w-auto h-[52px] bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none"
                 >
-                    <option value="">Pending</option>
-                    <option value="">Processing</option>
-                    <option value="">Paused</option>
-                    <option value="">Dispatched</option>
-                    <option value="">Completed</option>
-                    <option value="">Declined</option>
+                <option selected>Select</option>
+                <option [value]="i" *ngFor="let unit of requestStatus; let i = index">{{unit.name}}</option>
+
                 </select>
                 <app-button
                     [overRideButtonClass]="true"
