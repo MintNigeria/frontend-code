@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Actions } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { getInstitutionSector, getInstitutionTypes } from 'src/app/store/institution/action';
+import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
   selector: 'app-start-verification',
@@ -12,10 +17,20 @@ export class StartVerificationComponent implements OnInit {
   allowedFiled = ["image/png", "image/jpeg", "application/pdf"];
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private appStore: Store<AppStateInterface>,
+    private store: Store,
+    private router: Router,
+    private actions$  : Actions
   ) { }
 
   ngOnInit(): void {
+    this.store.dispatch(
+      getInstitutionSector()
+    );
+    this.store.dispatch(
+      getInstitutionTypes()
+    );
     this.initReferenceForm()
     setTimeout(() => {
       this.populateForm()

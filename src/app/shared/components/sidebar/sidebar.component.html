@@ -1,4 +1,4 @@
-<aside class="p-6 w-[20rem] relative bg-primaryBlue h-screen flex flex-col justify-between  ">
+<aside class="p-6 w-[20rem] relative bg-primaryBlue h-screen flex flex-col justify-between  " *ngIf="user$ | async as user">
   <div>
     <img class=" " src="assets/images/main/logo.png" class=" w-fit pt-6 pb-8" alt="">
  
@@ -69,10 +69,14 @@
 
   <div class="mt-5  flex items-center justify-between">
     <div class="">
-      <p class="font-inter font-medium text-sm text-white">Olivia Rhye</p>
-      <p class="font-inter font-normal text-sm text-[#D7E7FE]">olivia@untitledui.com</p>
+      <p class="font-inter capitalize font-medium text-sm text-white">
+        {{ user?.firstName }} {{ user?.lastName }}
+      </p>
+      <p class="font-inter font-normal text-sm text-[#D7E7FE]">
+        {{ user?.email }}
+      </p>
     </div>
-    <img src="assets/images/log-out.svg"
+    <img src="assets/images/log-out.svg" (click)="openLogoutModal()"
           alt="logout icons" class=" cursor-pointer">
   </div>
 

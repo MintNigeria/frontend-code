@@ -8,6 +8,11 @@ import { OrganizationProfileComponent } from './organization-profile/organizatio
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { InstitutionEffects } from 'src/app/store/institution/effects';
+import { UsersAndRolesEffects } from 'src/app/store/users-and-roles/effects';
+import { usersAndRolesReducer } from 'src/app/store/users-and-roles/reducer';
 
 
 @NgModule({
@@ -23,6 +28,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+        StoreModule.forFeature('usersAndRoles', usersAndRolesReducer),
+    EffectsModule.forFeature([UsersAndRolesEffects, InstitutionEffects]),
+
 
   ]
 })

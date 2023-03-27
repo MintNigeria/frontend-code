@@ -21,6 +21,22 @@ export const getAllRequestSuccess = createAction (
   '[request] get all request Success',
   props<{payload: any}>()
 )
+export const getAllInstitutionGraduateRequest = createAction (
+  '[request] get all institution graduate request',
+  props<{payload: any}>()
+)
+export const getAllInstitutionGraduateRequestSuccess = createAction (
+  '[request] get all institution graduate request Success',
+  props<{payload: any}>()
+)
+export const getAllInstitutionOrganizationRequest = createAction (
+  '[request] get all institution Organization request',
+  props<{payload: any}>()
+)
+export const getAllInstitutionOrganizationRequestSuccess = createAction (
+  '[request] get all institution Organization request Success',
+  props<{payload: any}>()
+)
 
 export const getAllOrganisationRequest = createAction (
   '[request] get all Organisation request',
@@ -54,6 +70,21 @@ export const invokeGetRequestDetails = createAction(
 
 export const invokeGetRequestDetailsSuccess = createAction(
   '[graduates] report request details success',
+  props<{
+   payload : any
+  }>()
+  );
+   
+export const updateInstitutionRequest = createAction(
+  '[request] update request details status',
+  props<{
+    payload: any;
+  }>()
+);
+
+
+export const updateInstitutionRequestSuccess = createAction(
+  '[request] update request details status success',
   props<{
    payload : any
   }>()

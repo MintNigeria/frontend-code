@@ -37,30 +37,20 @@
                 <div class="border-b-1.5 py-7">
                     <p class="font-inter font-semibold text-base text-uploadtxt">Academic Information</p>
                 </div>
-                <div class="">
+                <div class="" [formGroup]="uploadRecordForm">
                     <div class="mt-6 grid lg:grid-cols-2 gap-3">
                         <div>
                             <div class="flex items-center">
-                                <p class="mb-2 font-inter font-medium text-base text-uploadtxt">
+                                <label class="mb-[6px] font-inter font-medium text-base text-uploadtxt">
                                 Faculty
-                                </p>
-                                <p class="mb-2 font-inter font-medium text-base text-danger">*</p>
+                                <span class=" font-inter font-medium text-base text-danger">*</span>
+                                </label>
                             </div>
                             <div class="items-center gap-4">
-                            <select
-                                name=""
-                                id=""
-                                class="select w-full h-[52px] bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none"
-                            >   
-                                <option value="" [disabled]="true">Select Faculty</option>
-                                <option value="">Art</option>
-                                <option value="">Education</option>
-                                <option value="">Law</option>
-                                <option value="">Management Science</option>
-                                <option value="">Science</option>
-                                <option value="">Social Science</option>
-                                <option value="">Engineering</option>
-                            </select>
+                                <ng-select class="custom-ng-dropdown" (change)="changeFaculty($event)" formControlName="faculty" [selectOnTab]="true"
+                                placeholder="Select Institution Name">
+                                <ng-option *ngFor="let unit of facultyList" [value]="unit?.id">{{unit?.name}}</ng-option>
+                              </ng-select>
                             </div>
                         </div>
                         <div>
@@ -71,44 +61,24 @@
                                 <p class="mb-2 font-inter font-medium text-base text-danger">*</p>
                             </div>
                             <div class="items-center gap-4">
-                            <select
-                                name=""
-                                id=""
-                                class="select w-full h-[52px] bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none"
-                            >   
-                                <option value="" [disabled]="true">Select department</option>
-                                <option value="">Art</option>
-                                <option value="">Education</option>
-                                <option value="">Law</option>
-                                <option value="">Management Science</option>
-                                <option value="">Science</option>
-                                <option value="">Social Science</option>
-                                <option value="">Engineering</option>
-                            </select>
+                                <ng-select class="custom-ng-dropdown"  formControlName="department" [selectOnTab]="true"
+                                placeholder="Select Institution Name">
+                                <ng-option *ngFor="let unit of departmentList" [value]="unit?.id">{{unit?.departmentName}}</ng-option>
+                              </ng-select>
                             </div>
                         </div>
                         <div>
                             <div class="flex items-center">
-                                <p class="mb-2 font-inter font-medium text-base text-uploadtxt">
+                                <label class="mb-2 font-inter font-medium text-base text-uploadtxt">
                                 Degree
-                                </p>
+                                </label>
                                 <p class="mb-2 font-inter font-medium text-base text-danger">*</p>
                             </div>
                             <div class="items-center gap-4">
-                            <select
-                                name=""
-                                id=""
-                                class="select w-full h-[52px] bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none"
-                            >   
-                                <option value="" [disabled]="true">Select degree</option>
-                                <option value="">Computer Science</option>
-                                <option value="">Education</option>
-                                <option value="">Law</option>
-                                <option value="">Management Science</option>
-                                <option value="">Science</option>
-                                <option value="">Social Science</option>
-                                <option value="">Engineering</option>
-                            </select>
+                                <ng-select class="custom-ng-dropdown" (change)="changeFaculty($event)" formControlName="degreeType" [selectOnTab]="true"
+                                placeholder="Select Institution Name">
+                                <ng-option *ngFor="let unit of degreeTypeList" [value]="unit?.id">{{unit?.name}}</ng-option>
+                              </ng-select>
                             </div>
                         </div>
                         <div>
@@ -119,19 +89,9 @@
                                 <p class="mb-2 font-inter font-medium text-base text-danger">*</p>
                             </div>
                             <div class="items-center gap-4">
-                            <select
-                                name=""
-                                id=""
-                                class="select w-full h-[52px] bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none"
-                            >   
-                                <option value="" [disabled]="true">Select year of graduation</option>
-                                <option value="">2009</option>
-                                <option value="">2010</option>
-                                <option value="">2011</option>
-                                <option value="">2012</option>
-                                <option value="">2014</option>
-                
-                            </select>
+                                <app-input [formGrp]="uploadRecordForm" formCtrlName="yearOfGraduation" [type]="'text'" [class]="
+                                'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                              " placeholder="Enter year of graduation" [name]="'Graduation year'"></app-input>
                             </div>
                         </div>
                     </div>
@@ -152,7 +112,7 @@
                                 <span class="text-danger">Please Note: </span>
                                 You are only allowed to upload 50 documents at a time.
                             </p>
-                            <p class="font-nunito font-semibold text-base text-primaryBlue text-center underline mb-3">
+                            <p (click)="downloadFormat()" class="font-nunito font-semibold text-base text-primaryBlue text-center underline mb-3">
                                 Download Template
                             </p>
                         </div>
@@ -188,17 +148,17 @@
                                     <div>
                                         <p 
                                         class="font-inter font-medium text-sm text-failedNormal">
-                                        {{selectedFile}}    
+                                        {{selectedFile.name}}    
                                         </p>
-                                        <p *ngIf="fileSize" 
+                                        <p 
                                         class="text-sm font-inter font-normal text-lightGray">
-                                        {{fileSize}}
+                                        {{selectedFile.size | filesize }}
                                         </p>
                                     </div>
                                     
                                 </div>
                                 <div class="flex gap-2 items-center">
-                                    <input type="checkbox" [checked]="progress === 100" class="checkbox checkbox-xs" /> 
+                                    <input type="checkbox" checked class="checkbox checkbox-xs" /> 
                                     <img src="assets/images/icons/delete_icon.svg" 
                                     (click)="deleteFile()"
                                     alt="delete_icon">
@@ -208,11 +168,11 @@
                                 <div 
                                 class="overflow-hidden h-2 text-xs flex rounded bg-gray-200 border w-full">
                                     <div 
-                                    [style.width.%]="progress" 
+                                    [style.width.%]="100" 
                                     class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
                                 </div>
                                 <div class="flex justify-between text-xs mt-1 text-gray-500">
-                                    <div>{{progress}}%</div>
+                                    <div>100%</div>
                                 </div>
                             </div>
                         </div>
@@ -224,8 +184,8 @@
                     <app-button
                     [overRideButtonClass]="true"
                     customClass="h-[52px] w-32 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
-                    [disabled]="progress < 100"
-                    [routerLink]="'/institution/uploads/confirm-uploads'"
+                    [disabled]="uploadRecordForm.invalid"
+                    (buttonClick)="submitUpload()"
                     >Upload Record</app-button
                     >
                 </div>

@@ -9,6 +9,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchResultsComponent } from './start-verification/search-results/search-results.component';
 import { VerifyDocumentsComponent } from './start-verification/search-results/verify-documents/verify-documents.component';
 import { NewVerificationComponent } from './new-verification/new-verification.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { NewVerificationComponent } from './new-verification/new-verification.co
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
+    NgSelectModule
   ]
 })
 export class VerificationModule { }

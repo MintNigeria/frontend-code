@@ -4,18 +4,26 @@ import { IInstitutionStateInterface } from './types/index.type';
 import * as storage from '../storage';
 import {
   approveRejectInstitutionSuccess,
+  createDegreeTypeInInstitutionSuccess,
+  createDepartmentInInstitutionSuccess,
+  createFacultyInInstitutionSuccess,
   createNewInstitutionSuccess,
   getAllAdminInstitutionTransactionSuccess,
   getALlDepartmentInInstitutionSuccess,
   getALlFacultiesInInstitutionSuccess,
+  getAllInstitutionDegreeTypeSuccess,
   getAllInstitutionRecordsSuccess,
   getAllInstitutionUsersSuccess,
   getInstitutionBodySuccess,
   getInstitutionConfigurationSuccess,
   getInstitutionSectorSuccess,
   getInstitutionTypeSuccess,
+  getInstitutionUserInfoSuccess,
   invokeGetInstitutionsSuccess,
   invokeGetInstitutionSuccess,
+  updateDegreeTypeInInstitutionSuccess,
+  updateDepartmentInInstitutionSuccess,
+  updateFacultyInInstitutionSuccess,
   ValidateRegistrationCodeSuccess,
 } from './action';
 
@@ -32,9 +40,17 @@ const initialState: IInstitutionStateInterface = {
   institutionRegistration: null,
   otpVerification: null,
   institutionConfiguration: null,
+  userInfo: null,
   institutionFaculty: null,
   institutionDepartment: null,
   institutionRecord: null,
+  institutionDegreeType: null,
+  newDegreeType: null,
+  newDepartment: null,
+  newFaculty: null,
+  updateDegreeType: null,
+  updateDepartment: null,
+  updateFaculty: null,
 };
 
 export const institutionReducers = createReducer(
@@ -113,6 +129,13 @@ export const institutionReducers = createReducer(
     };
   }),
 
+  on(getInstitutionUserInfoSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      userInfo: payload
+    };
+  }),
+
   on(getALlDepartmentInInstitutionSuccess, (state, { payload }) => {
     return {
       ...state,
@@ -131,6 +154,55 @@ export const institutionReducers = createReducer(
     return {
       ...state,
       institutionRecord: payload
+    };
+  }),
+  
+  on(getAllInstitutionDegreeTypeSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      institutionDegreeType: payload
+    };
+  }),
+  
+  on(createDegreeTypeInInstitutionSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      newDegreeType: payload
+    };
+  }),
+
+  on(updateDegreeTypeInInstitutionSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      updateDegreeType: payload
+    };
+  }),
+  
+  on(createDepartmentInInstitutionSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      newDepartment: payload
+    };
+  }),
+  
+  on(updateDepartmentInInstitutionSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      updateDepartment: payload
+    };
+  }),
+  
+  on(createFacultyInInstitutionSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      newFaculty: payload
+    };
+  }),
+  
+  on(updateFacultyInInstitutionSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      updateFaculty: payload
     };
   }),
 

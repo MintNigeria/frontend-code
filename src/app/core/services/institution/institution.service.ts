@@ -27,13 +27,15 @@ export class InstitutionService
   extends BaseURI
   implements AbstractInstitutionService
 {
+  createDegreeTypeInInstitution(payload: any) {
+    throw new Error('Method not implemented.');
+  }
   constructor(private http: HttpClient) {
     super();
   }
 
   RegisterInstitution(payload: any) {
     const {approvalFile} = payload
-    console.log(payload)
     const body = new FormData()
     body.append('InstitutionTypeId', payload.institutionTypeId)
     body.append('InstitutionSectorId', payload.institutionSectorId)
@@ -66,6 +68,8 @@ export class InstitutionService
     );
   }
 
+  
+
   getAllInstitutionBody() {
     return this.http.get<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionBody/GetAllInstitutionBodies`
@@ -82,6 +86,26 @@ export class InstitutionService
       `${this.baseUrl}mint-higherinstitution/api/v1/Sector/GetAllInstitutionSector`
     );
   }
+
+  getAllInstitutionDegreeType(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/DegreeType/GetAllIDegreeTypes`, {params: payload}
+    );
+  }
+
+  createDegreeType(payload: any) {
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/DegreeType/CreateDegreeType`, payload
+    );
+  }
+
+  updateDegreeType(payload: any) {
+    return this.http.put<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/DegreeType/UpdateDegreeType`, payload
+    );
+  }
+
+ 
 
   getAllInstitutionRecords(payload: any) {
     return this.http.get<any>(
@@ -106,15 +130,14 @@ export class InstitutionService
     );
   }
 
-  getAllInstitutionUsers(
-    instituionId: string,
-    keyword: string,
-    filter: string,
-    pageIndex: number,
-    pageSize: number
-  ) {
+  getAllInstitutionUsers(payload: any) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-auth/api/v1/InstitutionUser/InstitutionUsersAndRoles?InstitutionId=${instituionId}&Keyword=${keyword}&Filter=${filter}&PageIndex=${pageIndex}&PageSize=${pageSize}`
+      `${this.baseUrl}mint-auth/api/v1/InstitutionUser/InstitutionUsersAndRoles`, {params: payload}
+    );
+  }
+  getInstitutionUserInfo(userId: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-auth/api/v1/InstitutionUser/InstitutionUser/${userId}`
     );
   }
 
@@ -145,6 +168,16 @@ export class InstitutionService
       `${this.baseUrl}mint-higherinstitution/api/v1/Institution/GetAllFacultiesInAnInstitution?InstitutionId=${id}`
     );
   }
+  createFaculty(payload: any) {
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/CreateFaculty`, payload
+    );
+  }
+  updateFaculty(payload: any) {
+    return this.http.put<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/UpdateFaculty`, payload
+    );
+  }
 
   getALlDepartmentInInstitution(id: string) {
     return this.http.get<any>(
@@ -152,8 +185,20 @@ export class InstitutionService
     );
   }
 
+  createDepartment(payload: any) {
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/CreateDepartment`, payload
+    );
+  }
+
+  updateDepartment(payload: any) {
+    return this.http.put<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/UpdateDepartment`, payload
+    );
+  }
+
   getInstitutionConfiguration(id: any) {
-    console.log(id)
+    //console.log(id)
     return this.http.get<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionConfiguration/InstitutionDocumentType/${id}`
     );

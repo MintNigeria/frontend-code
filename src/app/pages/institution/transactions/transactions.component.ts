@@ -4,9 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
-import { getInstitutionConfiguration } from 'src/app/store/institution/action';
+import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
 import { exportTransactionCSV, exportTransactionCSVSuccess, exportTransactionExcel, exportTransactionExcelSuccess, invokeGetTransactions, invokeGetTransactionsSuccess } from 'src/app/store/reporting/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { getInstitutionConfiguration, getInstitutionConfigurationSuccess } from 'src/app/store/configuration/action';
 
 @Component({
   selector: 'app-transactions',
@@ -61,88 +63,6 @@ export class TransactionsComponent implements OnInit {
     }
 
 
-  transactionList = [
-    {
-    id: 1,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  },
-  {
-    id: 2,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  },
-  {
-    id: 3,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  },
-  {
-    id: 4,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  },
-  {
-    id: 5,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  },
-  {
-    id: 6,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  },
-   {
-    id: 7,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  },
-   {
-    id: 8,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  },
-   {
-    id: 9,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  },
-   {
-    id: 10,
-    date: 'Jan 6,2022',
-    initiator: 'Adekunle Ciroma',
-    amount: '2,000',
-    action: 'view',
-    
-  }
-  ]
   institutionId: any;
   institutionData: any;
   pageIndex = 1;
@@ -156,10 +76,11 @@ filter = {
     fromDate: '',
     toDate: '',
     status: 0,
-    transactionType: 0,
+    transactionType: '',
 }
   transactionDetails: any;
   totalCount: any;
+  processingFeeList: any;
 
 
   constructor(
@@ -167,7 +88,9 @@ filter = {
     private router: Router,
     private store: Store,
     private appStore: Store<AppStateInterface>,
-    private actions$: Actions
+    private actions$: Actions,
+        private dialog: MatDialog
+
   ) { }
 
   ngOnInit(): void {
@@ -179,12 +102,17 @@ filter = {
       this.transactionDetails = res.payload.data;
       this.totalCount = res.payload.totalCount
     })
+    this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
+    this.actions$.pipe(ofType(getInstitutionConfigurationSuccess)).subscribe((res: any) => {
+      this.processingFeeList = res.payload.processingFeesVM
+      // this.processingFees = res.payload
+    })
     this.searchForm.controls.searchPhrase.valueChanges
     .pipe(debounceTime(400), distinctUntilChanged())
     .subscribe((term) => {
       this.search(term as string);
     });
-    this.store.dispatch(getInstitutionConfiguration({id: this.institutionId}))
+    this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
     
   }
 
@@ -192,11 +120,10 @@ filter = {
     this.selectedData = this.transactionDetails?.minifiedTransactionInfoVMs.find((data: any) => data.id === id);
     this.transactionDetails?.minifiedTransactionInfoVMs.filter((transaction : any) => {
       if (transaction.id === id) {
-        this. selectedDataId = transaction.id
+        this.selectedDataId = transaction.id
       }
     });
 
-    console.log(this.selectedData,this.selectedDataId)
   }
 
   addFilter() {
@@ -244,11 +171,33 @@ filter = {
     this.selectedOption = name
     if (range === 5) {
       // launch calender
+      const dialogRef = this.dialog.open(DateRangeComponent, {
+        // width: '600px',
+        height: 'auto',
+        disableClose: true,
+      });
+      dialogRef.afterClosed().subscribe((res: any) => {
+        if (res) {
+              const {start , end} = res; // use this start and end as fromDate and toDate on your filter
+              this.selectedOption = `${start} - ${end}`
+              const filter = {...this.filter, ['fromDate'] : start, ['toDate'] : end}
+              this.filter = filter;
+        }
+  
+      })
     } else {
       const filter = {...this.filter, ['range'] : range};
       this.filter = filter;
     }
   }
+
+  changeDocumentType(name: string) {
+    this.documentType = name;
+    const filter = {...this.filter, ['transactionType'] : name}
+    this.filter = filter;
+
+  }
+
   changeStatus(status: number, name: string) {
     this.status = name
     const filter = {...this.filter, ['status'] : status};
@@ -298,9 +247,6 @@ filter = {
   getPage(currentPage: number) {
     const filter = {...this.filter, ['pageIndex'] : currentPage}
     this.store.dispatch(invokeGetTransactions({institutionId: this.institutionId, payload: filter}))
-
-    
-  
   }
 
 }

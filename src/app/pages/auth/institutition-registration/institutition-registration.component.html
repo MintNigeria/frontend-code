@@ -252,7 +252,7 @@
         </div>
         <div class="mb-8">
           <p class="font-nunito font-normal text-sm text-lightGray">Already a registered academic institution? <span
-              class="cursor-pointer text-primaryBlue font-medium" routerLink="/auth">Sign In</span> </p>
+              class="cursor-pointer text-primaryBlue font-medium" routerLink="/">Sign In</span> </p>
         </div>
       </div>
     </ng-container>
@@ -265,7 +265,7 @@
   <div class="bg-white w-full h-screen  flex justify-center items-center">
     <div class="w-fill md:w-3/5 mx-auto">
       <h4 class="font-semibold font-poppins text-3xl pb-3 text-darkGray">Email verification</h4>
-      <p class="leading-6 text-base pb-8 text-lightGray font-nunito mb-8">We’ve sent a unique code to test@yopmail.com
+      <p class="leading-6 text-base pb-8 text-lightGray font-nunito mb-8">We’ve sent a unique code to {{institutionRegForm.get("EmailAddress")?.value}}
         in order to verify your email address. Please enter the code below.</p>
       <div class="mb-8">
         <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{ length: 4 }"></ng-otp-input>
@@ -280,7 +280,7 @@
         <div class="text-asteriskRed bg-[#E7F6F7] font-semibold font-sans text-danger px-3 py-1 rouded">15:00</div>
       </div>
       <div class="mb-6">
-        <app-button (buttonClick)="verifyOTP()" [overRideButtonClass]="true"
+        <app-button (buttonClick)="verifyOTP()" [overRideButtonClass]="true" [disabled]="otplength?.length !== 4"
           customClass="w-40 h-12 rounded-lg font-inter font-medium text-base text-white leading-6 bg-primaryBlue">Verify
         </app-button>
       </div>
@@ -291,3 +291,34 @@
     </div>
   </div>
 </ng-container>
+
+<label id="myModal" for="messageModal" class="hidden "></label>
+
+<app-modal [id]="modalId">
+  <div class="modal-box bg-white  p-8 w-fit   max-w-5xl">
+   
+    <div class=" mt-5   w-full" >
+      <div class="rounded-lg mb-4">
+        <div class="flex flex-col items-center gap-5">
+          <img src="assets/images/approval-modal.svg" class="mb-5" alt="">
+          <p class="font-medium font-inter text-base text-headerGray">
+              Email Verified
+          </p>            
+          <p class="font-normal font-inter text-base text-lightGray">
+              Your email address verification was successful
+          </p>
+
+        </div>
+      </div>
+
+      <div class="flex justify-center items-center">
+
+        <app-button (buttonClick)="continue()"  [overRideButtonClass]="true"
+          customClass="w-32 h-12 rounded-lg font-normal text-base text-white leading-6 bg-primaryBlue">Continue
+        </app-button>
+      </div>
+
+    </div>
+   
+  </div>
+</app-modal>

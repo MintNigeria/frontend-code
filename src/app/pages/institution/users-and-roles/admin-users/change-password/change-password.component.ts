@@ -1,5 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Actions, ofType } from '@ngrx/effects';
+import { select, Store } from '@ngrx/store';
+import { take } from 'rxjs';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
+import { messageNotification } from 'src/app/store/auth/selector';
+import { selectAppAPIResponse } from 'src/app/store/shared/app.selector';
+import { changePasswordUserRole, changePasswordUserRoleSuccess } from 'src/app/store/users-and-roles/actions';
+import { AppStateInterface } from 'src/app/types/appState.interface';
+import { Status } from 'src/app/types/shared.types';
 
 
 @Component({
@@ -13,33 +23,32 @@ export class ChangePasswordComponent implements OnInit {
 
   confirmChanges = 'confirmChanges';
   changesConfirmed = 'changesConfirmed';
+  status: Status = Status.NORMAL;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store,
+    private appStore: Store<AppStateInterface>,
+    private actions$: Actions,
+    private notification: NotificationsService
+
   ) { }
 
   ngOnInit(): void {
     this.initPasswordForm()
-    setTimeout(() => {
-      this.populateForm()
-    }, 2000);
+  
   }
 
   initPasswordForm() {
     this.passwordForm = this.fb.group({
       currentPassword: ['', Validators.required],
       newPassword: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
+      confirmNewPassword: ['', Validators.required],
     })
   }
 
-  populateForm() {
-    this.passwordForm.patchValue({
-      currentPassword: 'Olivia Rhye',
-      newPassword: 'Super Admin',
-      confirmPassword: 'admin@unilag.edu.ng',
-    })
-  }
 
    openConfirmChanges() {
     document.getElementById('confirmChanges')?.click();
@@ -50,8 +59,21 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   openChangesConfirmed(){
-    document.getElementById('changesConfirmed')?.click();
-    document.getElementById('confirmChanges')?.click();
+  }
+  
+  updatePassword(){
+    // document.getElementById('changesConfirmed')?.click();
+    this.store.dispatch(changePasswordUserRole({ payload: this.passwordForm.value }));
+    let message$ = this.appStore.pipe(select(messageNotification), take(2));
+    this.actions$.pipe(ofType(changePasswordUserRoleSuccess)).subscribe((res: any) => {
+      if (res.message.hasErrors === false) {
+        document.getElementById('confirmChanges')?.click();
+        this.notification.publishMessages('success', res.message.description)
+        this.passwordForm.reset()
+      }
+
+    })
+
   }
 
 

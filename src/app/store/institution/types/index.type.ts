@@ -9,7 +9,15 @@ export interface IInstitutionStateInterface {
   institutionRegistration: any;
   otpVerification: any;
   institutionConfiguration: any;
+  userInfo: any;
   institutionFaculty: any;
   institutionDepartment: any;
   institutionRecord: any;
+  institutionDegreeType: any;
+  newDegreeType: any;
+  newDepartment: any;
+  newFaculty: any;
+  updateDegreeType: any;
+  updateDepartment: any;
+  updateFaculty: any;
 }

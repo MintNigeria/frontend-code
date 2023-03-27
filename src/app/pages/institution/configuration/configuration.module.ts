@@ -11,6 +11,15 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AwaitingApprovalComponent } from './processing-fee/awaiting-approval/awaiting-approval.component';
 import { AwaitingApprovalFeeComponent } from './verification-fee/awaiting-approval-fee/awaiting-approval-fee.component';
+import { ConfigurationEffects } from 'src/app/store/configuration/effects';
+import { configurationReducer } from 'src/app/store/configuration/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { InstitutionEffects } from 'src/app/store/institution/effects';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { CreateDegreeTypeComponent } from './create-degree-type/create-degree-type.component';
+import { CreateDepartmentComponent } from './create-department/create-department.component';
+import { CreateFacultyComponent } from './create-faculty/create-faculty.component';
 
 
 @NgModule({
@@ -21,7 +30,10 @@ import { AwaitingApprovalFeeComponent } from './verification-fee/awaiting-approv
     DispatchFeeComponent,
     InstitutionSetupComponent,
     AwaitingApprovalComponent,
-    AwaitingApprovalFeeComponent
+    AwaitingApprovalFeeComponent,
+    CreateDegreeTypeComponent,
+    CreateDepartmentComponent,
+    CreateFacultyComponent
   ],
   imports: [
     CommonModule,
@@ -29,6 +41,10 @@ import { AwaitingApprovalFeeComponent } from './verification-fee/awaiting-approv
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    NgSelectModule,
+    StoreModule.forFeature('configuration', configurationReducer),
+    EffectsModule.forFeature([ConfigurationEffects, InstitutionEffects]),
+
 
   ]
 })

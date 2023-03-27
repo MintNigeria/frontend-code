@@ -11,7 +11,7 @@
             <p
             class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer"
             >
-            Graduate Requests
+            Graduate Records
             </p>
         </div>
     </div>
@@ -20,7 +20,7 @@
         <div class="px-5">
             <div class="flex justify-between items-center my-2">
                 <h4 class="font-medium font-poppins text-4xl text-[#101828] my-3">
-                    Graduate Requests
+                    Graduate Records
                 </h4>
                 <app-button
                 [routerLink]="'/institution/uploads/upload-records'"
@@ -45,9 +45,9 @@
                                 <p class="my-0 text-[#667085] font-inter font-medium text-sm">{{ selectedOption }}</p>
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
                                 </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
                                 <li><a (click)="selectedOption='All'">All</a></li>
-                                <li><a (click)="changeFaculty('id', 'name')">Science</a></li>
+                                <li><a (click)="changeFaculty(unit.id, unit.name)" *ngFor="let unit of facultyList">{{unit.name}}</a></li>
                                 <!-- <li><a (click)="changeFaculty()selectedOption='Art'">Art</a></li> -->
                                 </ul>
                             </div>
@@ -63,7 +63,7 @@
                                 <img src="assets/images/icons/downward_arrow.svg">
                                 </label>
                                 <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72">
-                                    <li *ngFor="let unit of (departments$ | async)"><a (click)="changeDepartment(unit.id, unit.departmentName)">{{unit.departmentName}}</a></li>
+                                    <li *ngFor="let unit of departmentList"><a (click)="changeDepartment(unit.id, unit.departmentName)">{{unit.departmentName}}</a></li>
                                     <!-- <li><a (click)="changeDepartment('id', 'name')">Computer Science</a></li> -->
                                     <!-- <li><a (click)="department='English Department'">English Department</a></li> -->
                                 </ul>
@@ -123,7 +123,7 @@
             <div class="rounded text-center">
                 <div class=" rounded-full text-center w-auto bg-tabBlue">
                     <p class="text-primaryBlue text-sm cursor-pointer font-inter font-medium">
-                        {{ recordsList.length }}
+                        {{ totalCount }}
                     </p>
                 </div>
             </div>
@@ -193,7 +193,7 @@
                         </thead>
 
                         <tbody class="bg-white">
-                            <tr *ngFor="let data of recordList" class="bg-white">
+                            <tr *ngFor="let data of recordList | paginate: { itemsPerPage: filter.pageSize, currentPage: pageIndex, totalItems: totalCount }" class="bg-white">
                             
                                 
                                 <td class="bg-white">
@@ -252,25 +252,12 @@
             <!---->
 
             <!--Pagination-->
-            <div class="flex items-center justify-between mt-10">
-                <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
+            <div class="flex items-center justify-end mt-10">
+                <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
                     Showing 1 to 7 of {{ recordsList.length }} entries
-                </p>
+                </p> -->
                 <div class="flex item gap-3">
-                    <div
-                        class="text-[10px] md:text-xs text-[#6E7191] bg-[#FCFCFC] rounded border border-solid border-[#EFF0F7] p-2 flex items-center justify-center gap-2 cursor-pointer">
-                        <img src="assets/images/icons/prev.svg" alt="" />
-                        <span>Prev</span>
-                    </div>
-                    <div
-                        class="text-sm md:text-sm text-[#1D2B4F] bg-[#D9DBE9] rounded border border-solid border-[#D9DBE9] p-2">
-                        1
-                    </div>
-                    <div
-                        class="text-[10px] md:text-xs text-[#262338] bg-[#FCFCFC] rounded border border-solid border-[#0C3146] p-2 flex items-center justify-center gap-2 cursor-pointer">
-                        <span>Next</span>
-                        <img src="assets/images/icons/next.svg" alt="" />
-                    </div>
+                    <pagination-controls (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next"></pagination-controls>
                 </div>
             </div>
 

@@ -22,4 +22,8 @@ export class UtilityService
       `${this.baseUrl}mint-higherinstitution/api/v1/Utility/StatesAndLocalGovts`
     )
   }
+
+  getuserIP() {
+    return this.http.get<any>('https://jsonip.com')
+  }
 }

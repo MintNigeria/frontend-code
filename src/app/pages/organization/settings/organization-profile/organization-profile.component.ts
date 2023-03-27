@@ -61,7 +61,7 @@ export class OrganizationProfileComponent implements OnInit {
 
   handleFileUpload(e: any) {
     const file = e.target.files[0];
-    console.log(file)
+    //console.log(file)
     if (!this.allowedFiled.includes(file.type)) {
 		  alert("Invalid format! Please select only correct file type");
 

@@ -82,7 +82,7 @@ export class MakePaymentVasComponent implements OnInit {
 
   verifyOtp() {
     const enteredOtp = this.otp.join('');
-    console.log('Entered OTP:', enteredOtp);
+    //console.log('Entered OTP:', enteredOtp);
     this.openSuccess();
   }
 

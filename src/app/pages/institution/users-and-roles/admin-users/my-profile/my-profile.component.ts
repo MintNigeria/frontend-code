@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Actions, ofType } from '@ngrx/effects';
+import { select, Store } from '@ngrx/store';
+import { invokeGetStateAndLGA } from 'src/app/store/institution copy/action';
+import { stateLgaSelector } from 'src/app/store/institution copy/selector';
+import { invokeGetInstitution, invokeGetInstitutionSuccess } from 'src/app/store/institution/action';
+import { AppStateInterface } from 'src/app/types/appState.interface';
 
 
 @Component({
@@ -15,18 +22,39 @@ export class MyProfileComponent implements OnInit {
 
   confirmChanges = 'confirmChanges';
   changesConfirmed = 'changesConfirmed';
+  institutionData: any;
+  institutionId: any;
+  stateLGA$ = this.appStore.pipe(select(stateLgaSelector));
+  lga: any;
 
   
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store,
+    private appStore: Store<AppStateInterface>,
+    private actions$: Actions,
   ) { }
 
   ngOnInit(): void {
     this.initProfileForm()
-    setTimeout(() => {
-      this.populateForm()
-    }, 2000);
+    const data: any = localStorage.getItem('userData')
+    this.institutionData = JSON.parse(data)
+    //console.log(this.institutionData)
+    this.institutionId = this.institutionData.InstitutionId
+    this.store.dispatch(invokeGetInstitution({id: '13'}))
+    this.actions$.pipe(ofType(invokeGetInstitutionSuccess)).subscribe((res: any) => {
+      //console.log(res)
+      this.populateForm(res.payload)
+    })
+    this.store.dispatch(
+      invokeGetStateAndLGA()
+      );
+    // setTimeout(() => {
+    //   this.populateForm()
+    // }, 2000);
   }
 
   initProfileForm() {
@@ -44,24 +72,24 @@ export class MyProfileComponent implements OnInit {
     })
   }
 
-  populateForm() {
+  populateForm(data: any) {
     this.profileForm.patchValue({
-      name: 'University of Lagos',
-      sector: 'Financial Institution',
+      name: data.institutionName,
+      sector: data.institutionSector,
       establishment: '02-02-1967',
       type: 'CAC',
-      regNumber: 'RC2345678',
-      email: 'admin@unilag.edu.ng',
-      phone: '070894994954',
-      state: 'Lagos',
-      lga: 'VI',
-      address: '14, Karimu Kotun Road',
+      regNumber: data.rcNumber,
+      email: data.emailAddress,
+      phone: data.phoneNumber,
+      state: data.state,
+      lga: data.lga,
+      address: data.address,
     })
   }
 
   handleFileUpload(e: any) {
     const file = e.target.files[0];
-    console.log(file)
+    //console.log(file)
     if (!this.allowedFiled.includes(file.type)) {
 		  alert("Invalid format! Please select only correct file type");
 
@@ -83,6 +111,16 @@ export class MyProfileComponent implements OnInit {
   openChangesConfirmed(){
     document.getElementById('changesConfirmed')?.click();
     document.getElementById('confirmChanges')?.click();
+  }
+
+  selectLocalGovt(stateId: any) {
+    this.stateLGA$.subscribe((x) => {
+      const data = x.find((value: any) => value.id == Number(stateId));
+      this.profileForm.controls['state'].setValue(data.name)
+  
+  
+      this.lga = data.lgaVMs;
+    });
   }
 
 

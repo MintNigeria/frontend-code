@@ -5,7 +5,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { downloadCSV, downloadCSVSuccess, downloadExcel, downloadExcelSuccess, invokeGetAllGraduates, invokeGetAllGraduatesSuccess } from 'src/app/store/graduates/action';
-import { getALlDepartmentInInstitution, getALlFacultiesInInstitution } from 'src/app/store/institution/action';
+import { getALlDepartmentInInstitution, getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess } from 'src/app/store/institution/action';
 import { departmentSelector } from 'src/app/store/institution/selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
@@ -36,56 +36,7 @@ export class RecordsComponent implements OnInit {
   });
   
 
-  recordsList = [
-  {
-    id: '1',
-    name: 'Adekunle Ciroma',
-    faculty: 'Management Science',
-    department: 'Banking and Finance',
-    matNumber: '090922039',
-    gradYear: '2019'
-  },
-  {
-    id: '2',
-    name: 'Adekunle Ciroma',
-    faculty: 'Management Science',
-    department: 'Banking and Finance',
-    matNumber: '090922039',
-    gradYear: '2019'
-  },
-  {
-    id: '3',
-    name: 'Adekunle Ciroma',
-    faculty: 'Management Science',
-    department: 'Banking and Finance',
-    matNumber: '090922039',
-    gradYear: '2019'
-  },
-  {
-    id: '4',
-    name: 'Adekunle Ciroma',
-    faculty: 'Management Science',
-    department: 'Banking and Finance',
-    matNumber: '090922039',
-    gradYear: '2019'
-  },
-  {
-    id: '5',
-    name: 'Adekunle Ciroma',
-    faculty: 'Management Science',
-    department: 'Banking and Finance',
-    matNumber: '090922039',
-    gradYear: '2019'
-  },
-  {
-    id: '6',
-    name: 'Adekunle Ciroma',
-    faculty: 'Management Science',
-    department: 'Banking and Finance',
-    matNumber: '090922039',
-    gradYear: '2019'
-  }
- ]
+
   institutionData: any;
   institutionId: any;
   pageIndex = 1;
@@ -102,6 +53,8 @@ filter = {
   transactionDetails: any;
   totalCount: any;
   recordList: any;
+  facultyList: any;
+  departmentList: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -122,6 +75,9 @@ filter = {
     })
     this.store.dispatch(getALlDepartmentInInstitution({id: this.institutionId}))
     this.store.dispatch(getALlFacultiesInInstitution({id: this.institutionId}))
+    this.actions$.pipe(ofType(getALlFacultiesInInstitutionSuccess)).subscribe((res: any) => {
+      this.facultyList = res.payload;
+    })
     this.searchForm.controls.searchPhrase.valueChanges
     .pipe(debounceTime(400), distinctUntilChanged())
     .subscribe((term) => {
@@ -147,7 +103,7 @@ filter = {
     // }
     this.store.dispatch(invokeGetAllGraduates({institutionId: this.institutionId, payload: this.filter}))
 
-    // console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
+    // //console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
   }
 
   clearFilter() {
@@ -165,12 +121,15 @@ filter = {
   changeFaculty(id: any, name: string) {
     this.selectedOption = name
     const filter = {...this.filter, ['facultyId'] : id}
+    const data = this.facultyList.find((value: any) => value.id == Number(id));
+
+    this.departmentList = data.departmentVMs;
     this.filter = filter;
   }
 
   changeDepartment(id: any, name: string) {
-    this.department = name
     const filter = {...this.filter, ['departmentId'] : id}
+    this.department = name
     this.filter = filter;
   }
 
@@ -196,7 +155,7 @@ filter = {
   downloadCSV() {
     this.store.dispatch(downloadCSV({payload: {institutionId: this.institutionId}}))
     this.actions$.pipe(ofType(downloadCSVSuccess)).subscribe((res: any) => {
-      console.log(res) 
+      //console.log(res) 
       const link = document.createElement('a');
         link.download = `${res.payload?.fileName}.csv`;
         link.href = 'data:image/png;base64,' + res.payload?.base64;
@@ -212,6 +171,11 @@ filter = {
         link.href = 'data:image/png;base64,' + res.payload?.base64;
         link.click();
     })
+  }
+
+  getPage(currentPage: number) {
+    const filter = {...this.filter, ['pageIndex'] : currentPage}
+    this.store.dispatch(invokeGetAllGraduates({institutionId: this.institutionId, payload: filter}))
   }
 
 }

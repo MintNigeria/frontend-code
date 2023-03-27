@@ -7,6 +7,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaymentPlanComponent } from './payment-plan/payment-plan.component';
 import { MakePaymentComponent } from './payment-plan/make-payment/make-payment.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { MakePaymentComponent } from './payment-plan/make-payment/make-payment.c
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule
   ]
 })
 export class TransactionsModule { }

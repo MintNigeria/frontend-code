@@ -8,20 +8,31 @@ import { OrganizationRequestComponent } from './organization-request/organizatio
 import { ViewMoreGraduateComponent } from './graduate-request/view-more-graduate/view-more-graduate.component';
 import { ViewMoreOrganizationComponent } from './organization-request/view-more-organization/view-more-organization.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { RequestEffects } from 'src/app/store/request/effects';
+import { requestReducer } from 'src/app/store/request/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { RequestEmptyStateComponent } from "../../../shared/request-empty-state/request-empty-state.component";
+import { ConfigurationEffects } from 'src/app/store/configuration/effects';
 
 
 @NgModule({
-  declarations: [
-    RequestsComponent,
-    GraduateRequestComponent,
-    OrganizationRequestComponent,
-    ViewMoreGraduateComponent,
-    ViewMoreOrganizationComponent
-  ],
-  imports: [
-    CommonModule,
-    RequestsRoutingModule,
-    SharedModule,
-  ]
+    declarations: [
+        RequestsComponent,
+        GraduateRequestComponent,
+        OrganizationRequestComponent,
+        ViewMoreGraduateComponent,
+        ViewMoreOrganizationComponent
+    ],
+    imports: [
+        CommonModule,
+        RequestsRoutingModule,
+        SharedModule,
+        NgxPaginationModule,
+        StoreModule.forFeature('requests', requestReducer),
+        EffectsModule.forFeature([RequestEffects, ConfigurationEffects]),
+        RequestEmptyStateComponent
+    ]
 })
 export class RequestsModule { }

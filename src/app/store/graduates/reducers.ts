@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { approveRejectPendingGraduateSuccess, downloadCSVSuccess, downloadExcelSuccess, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess } from './action';
+import { approveRejectPendingGraduateSuccess, createGraduateRecordSuccess, downloadCSVSuccess, downloadExcelSuccess, downloadRecordUploadFormatSuccess, getAllInstitutionUploadSuccess, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, uploadGraduateRecordSuccess } from './action';
 import {GraduatesStateInterface} from './types/index.type';
 
 
@@ -28,7 +28,13 @@ const initialState: GraduatesStateInterface  = {
       device: null,
       ipAddress: null
   },
-  downloadFile: {}
+  downloadFile: {},
+  recorduploads: null,
+  graduateRecord: null,
+  graduateRecordUploadFormat: null,
+  uploadRecord: null,
+  createGraduaterecord: null,
+
 };
 
 export const graduatesReducer = createReducer(
@@ -68,6 +74,30 @@ export const graduatesReducer = createReducer(
     return {
       ...state,
       downloadFile: payload
+    };
+  }),
+  on(getAllInstitutionUploadSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      recorduploads: payload
+    };
+  }),
+  on(downloadRecordUploadFormatSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      graduateRecordUploadFormat: payload
+    };
+  }),
+  on(uploadGraduateRecordSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      graduateRecordUploadFormat: payload
+    };
+  }),
+  on(createGraduateRecordSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      createGraduaterecord: payload
     };
   }),
 

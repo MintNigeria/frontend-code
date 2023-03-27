@@ -1,0 +1,23 @@
+<div class="bg-white">
+      <mat-form-field class="demo-inline-calendar-card" style="width: 100%;" >
+          <!-- <mat-label>Enter a date range</mat-label> -->
+          <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+            <input matStartDate formControlName="start" placeholder="Start date">
+            <input matEndDate formControlName="end" placeholder="End date">
+          </mat-date-range-input>
+          <!-- <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint> -->
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        
+          <!-- <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+          <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error> -->
+        </mat-form-field>
+        <div>
+            <button
+                    class="bg-primaryBlue text-white font-medium font-inter text-xs w-[80px] h-[40px] rounded-xl"
+                    (click)="saveSelection()"
+                    >
+                    Continue
+                    </button>
+        </div>
+  </div>

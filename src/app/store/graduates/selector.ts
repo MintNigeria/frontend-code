@@ -21,3 +21,8 @@ export const downloadFileSelector  = createSelector(
   (state) => state.downloadFile
 );
 
+export const recordUploadsSelector  = createSelector(
+  selectFeature,
+  (state) => state.recorduploads
+);
+
