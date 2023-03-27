@@ -136,8 +136,6 @@ actionRequest() {
     document.getElementById('confirmationModal')?.click();
     this.notification.publishMessages('success', res.payload)
     this.store.dispatch(invokeGetRequestDetails({id: this.requestId}))
-
-
   })
   
 }

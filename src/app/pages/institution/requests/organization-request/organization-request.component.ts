@@ -71,7 +71,7 @@ selectedOption: string = 'All Time';
     const data: any = localStorage.getItem('userData')
     this.institutionData = JSON.parse(data)
     this.institutionId = this.institutionData.InstitutionId
-    this.store.dispatch(getAllInstitutionOrganizationRequest({payload: {...this.filterParams, institutionId: 13}}))
+    this.store.dispatch(getAllInstitutionOrganizationRequest({payload: {...this.filterParams, institutionId: this.institutionId}}))
     this.searchForm.controls.searchPhrase.valueChanges
     .pipe(debounceTime(400), distinctUntilChanged())
     .subscribe((term) => {
