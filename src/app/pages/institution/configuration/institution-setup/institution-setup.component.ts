@@ -185,9 +185,9 @@ export class InstitutionSetupComponent implements OnInit {
   }
 
   activateEditFaculty(){
-    this.router.navigateByUrl('/institution/configuration/institution-setup/create-degree-type')
-    // this.editToggle= true;
-    // this.setupToggle=false
+    // this.router.navigateByUrl('/institution/configuration/institution-setup/create-degree-type')
+    this.editToggle= true;
+    this.setupToggle=false
   }
 
   activateEditDepartment(){
