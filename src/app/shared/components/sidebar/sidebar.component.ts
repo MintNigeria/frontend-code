@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LogoutModalComponent } from '../logout-modal/logout-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { select, Store } from '@ngrx/store';
+import { isUserSelector } from 'src/app/store/auth/selector';
+import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class SidebarComponent implements OnInit {
 @Input() menuLinks : any[] = []
  
+user$ = this.appStore.pipe(select(isUserSelector));
 
   
   
@@ -20,7 +24,8 @@ export class SidebarComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private appStore: Store<AppStateInterface>
   ) {}
 
   ngOnInit(): void {

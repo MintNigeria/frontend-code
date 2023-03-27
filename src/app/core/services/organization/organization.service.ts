@@ -92,6 +92,11 @@ export class OrganizationService
     );
   }
 
+
+
+
+  
+
   getAllOrganization(
     organizationStatus: number,
     keyword: string,
