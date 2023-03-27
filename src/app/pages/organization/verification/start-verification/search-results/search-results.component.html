@@ -16,132 +16,344 @@
         </div>
 
     </div>
-    <div class="px-5">
-        <div class="items-center my-2">
-            <h4 class="font-medium font-poppins lg:text-4xl text-xl  text-darkGray my-3">
-                Search Result
-            </h4>
-            <p class="text-[lightGray] font-nunito text-base font-normal cursor-pointer">
-                Below are the available results associated with your search.
+    <div class="flex  items-center md:gap-4 gap-2 mt-6" (click)="goBack()">
+        <div>
+            <img src="assets/images/icons/back_arrow.svg">
+        </div>
+
+        <div>
+            <p class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer">
+                Back to all verifications
             </p>
+
+        </div>
+
+    </div>
+
+    <div class="px-5">
+        <div class="my-2">
+            <div class="flex justify-between items-center">
+                <h4 class="font-medium font-poppins lg:text-4xl text-xl  text-darkGray my-3">
+                    New Verification
+                </h4>
+                <div class="border rounded-lg flex gap-1 items-center h-8 p-2">
+                    <img src="assets/images/icons/walletIcon.svg" alt="walletIcon" >
+                    <p class="font-inter font-medium text-sm text-failedNormal">Wallet Balance: ₦1,000. 00</p>
+                </div>
+            </div>
         </div>
     </div>
+
+    <div class="grid lg:grid-cols-2 p-6  border-t border-b">
+        <div class="w-2/4">
+            <p class="font-inter font-medium text-sm text-failedNormal mb-3 lg:mb-0">Payment Summary</p>
+            <p class="font-inter font-normal text-sm text-lightGray mb-3 lg:mb-0">Please confirm your total transaction amount before proceeding.</p>
+        </div>
+        <div class="rounded-lg border border-[#F2F4F7]">
+                <div class="bg-white rounded-lg">
+                    <div class="flex justify-between p-3 items-center gap-3">
+                        <div>
+                            <p class="font-nunito font-normal text-base text-failedNormal">Total Amount</p>
+                            <p class="text-discountBlue font-semibold text-2xl font-avenir">₦10,000</p>
+                        </div>
+                        <div>
+                            <img src="assets/images/icons/wallet.svg" alt="wallet_icon">
+                        </div>
+                    </div> 
+                    <div class="flex justify-between p-3 items-center gap-3 border-t-1.5">
+                        
+                        <p class="font-nunito font-normal text-base text-failedNormal">Verification Fee</p>
+                        <p class="font-nunito font-normal text-base text-failedNormal">₦5,000.00</p>
+                        
+                    </div> 
+                </div>
+        </div>
+     
+    </div>
+
+    <div class="border-b" *ngIf="main">
+        <div class="grid lg:grid-cols-2 p-6">
+            <div class="w-2/4">
+                <p class="font-inter font-medium text-sm text-failedNormal mb-3 lg:mb-0">Payment type</p>
+                <p class="font-inter font-normal text-sm text-lightGray mb-3 lg:mb-0">Select an option to get started</p>
+            </div>
+            <div>
+                <div class="rounded-lg border border-[#F2F4F7]" >
+                    <div class="bg-white rounded-lg">
+                        <div class="flex justify-between p-3 items-center gap-3">
+                            <div class="flex gap-2">
+                                <img src="assets/images/icons/walletBlue.svg" alt="walletBlue">
+                                <div>
+                                    <p class="font-nunito font-medium text-sm text-darkGray">Credit Card</p>
+                                    <p class="text-buttonBlue font-normal text-sm font-avenir">Pay with your credit or debit card.</p>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="radio" name="paymentMethod" id="creditCard" (click)="selectPaymentMethod('creditCard')">
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                <div class="rounded-lg border border-[#F2F4F7] mt-3"  >
+                    <div class="bg-white rounded-lg">
+                        <div class="flex justify-between p-3 items-center gap-3">
+                            <div class="flex gap-2">
+                                <img src="assets/images/icons/wallerSide.svg" alt="walletBlue">
+                                <div>
+                                    <p class="font-nunito font-medium text-sm text-darkGray">Pay with Wallet</p>
+                                    <p class="text-lightGray font-normal text-sm font-avenir">Fund your wallet and pay seamlessly.</p>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="radio" name="paymentMethod" id="wallet" (click)="selectPaymentMethod('wallet')">
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-end items-center gap-4 mt-6 mb-6 mr-8">
+            <app-button
+            [overRideButtonClass]="true"
+            customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
+            >Cancel</app-button>
+
+            <app-button
+            [overRideButtonClass]="true"
+            customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+            (buttonClick)="proceedToPayment()"
+            >Proceed to Payment</app-button>
+        </div>
+    </div>
+
+    <div class="border-t border-b" *ngIf="selectedPaymentMethod === 'wallet'">
+        <div class="grid lg:grid-cols-2 p-6 ">
+            <div class="w-2/4">
+                <p class="font-inter font-medium text-sm text-failedNormal mb-3 lg:mb-0">Your Wallet</p>
+                
+            </div>
+            <div class="rounded-lg border border-[#F2F4F7]">
+                <div class="bg-buttonBlue rounded-lg">
+                    <div class="flex justify-between p-6 items-center gap-3">
+                        <div>
+                            <p class="font-inter font-normal text-base text-white">Wallet Balance</p>
+                            <p class="text-white font-bold text-4xl font-poppins">₦10,000</p>
+                        </div>
+                        <div>
+                            <app-button
+                            [overRideButtonClass]="true"
+                            [customClass]="'bg-white text-buttonBlue rounded text-sm font-medium font-inter p-2 '">
+                                Fund Wallet
+                            </app-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="w-11/12 mx-auto mt-6 mb-6">
+        <div class="flex justify-end items-center gap-4 mt-6 mb-6 mr-8">
+            <app-button
+            [overRideButtonClass]="true"
+            customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
+            >Back</app-button>
+
+            <app-button
+            [overRideButtonClass]="true"
+            customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+            (buttonClick)="openSuccess()"
+            >Make Payment</app-button>
+        </div>
+
+     
+    </div>
+
+    
+
+
     <!---->
 
+    <div *ngIf="selectedPaymentMethod === 'creditCard'">
+        <div class="p-6 ">
+            <div class="border-b border-t">
+               <h3 class="py-7  border-b-1.5 px-6 font-inter font-medium lg:text-lg text-base text-darkGray bg-tableHeader rounded-t-xl">
+                    Credit Card Information
+                </h3>
+                <form class="p-6 mr-32" [formGroup]="paymentForm">
 
-    <div class="mt-3  py-3 rounded-xl bg-white border border-solid border-borderLightGray">
-        <div
-            class="flex border-b border-solid border-[#EFF0F7]  items-center gap-3 p-[20px_24px]">
-            <h5 class="text-darkGray text-base md:text-lg font-medium">
-                Search result
-                <span>
-                    
-                </span>
-            </h5>
-            <div class="rounded text-center">
-                <div class=" rounded-full text-center w-auto bg-tabBlue">
-                    <p class="text-primaryBlue text-sm cursor-pointer font-inter font-medium">
-                        {{ searchResults.length }}
-                    </p>
-                </div>
-            </div>
-                    
-        </div>
-       
-        <div class="bg-white">
-            <!--Table Content-->
+                    <div class="grid lg:grid-cols-2 mb-6">
+                        <label 
+                        for="cardholderName"
+                        class="font-inter font-medium text-sm text-failedNormal mb-3 lg:mb-0">Name on card</label>
+                        <input 
+                        type="text"
+                        class="px-4 h-[52px] lg:w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-light"
+                        id="cardholderName"
+                        name="cardholderName"
+                        placeholder="Name on card"
+                        required
+                        />
+                    </div>
 
-            <div>
+                    <div class="grid lg:grid-cols-2 mb-6">
+                        <label 
+                        for="cardNumber"
+                        class="font-inter font-medium text-sm text-failedNormal mb-3 lg:mb-0">Card Number</label>
+                        <input 
+                        class="px-4 h-[52px] lg:w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none"
+                        type="text"
+                        placeholder="Card Number"
+                        formControlName="cardNumber"
+                        name="cardNumber"/>
+                    </div>
 
-                <div class="overflow-x-auto hide-scrollbar">
-                    <table class="table w-full">
-                        <thead>
-                            <tr>
-                                
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Name</th>
-                                 <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Faculty</th>
-                                <th class="flex gap-1 text-xs text-lightGray font-medium font-inter bg-tableHeader ">Department
-                                    <span><img src="assets/images/icons/arrow_down.svg" alt="" class="mt-0.5"></span>
-                                </th>
-                               
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Matriculation Number
-                                </th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Graduation Year
-                                </th>
-                               
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody class="">
-                            <tr *ngFor="let data of searchResults" class=" ">
-                            
-                                
-                                <td class="bg-white">
-                                    <div class="">
-                                        <div>
-                                            <div>
-                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">{{data.name}}</p>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </td>
-                                
-                                <td class="bg-white">
-                                    <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.faculty}}</p>
-                                       
-                                    </div>
-                                </td>
-
-                                <td class="bg-white">
-                                    <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.department}}</p>
-                                      
-                                    </div>
-                                </td>
-                                <td class="bg-white">
-                                    <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.matricNo}}</p>
-                                
-                                    </div>
-
-                                </td>
-                                <td class="bg-white">
-                                    <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.gradYear}}</p>
-                                
-                                    </div>
-
-                                </td>
-                                
-
-                                <td class="bg-white">
-                                    <div class="flex  gap-2 items-center" 
-                                    [routerLink]="'/organization/verifications/verify-documents/2/2'">
-                                        
-                                        <p 
-                                        class="my-0 text-sm font-inter cursor-pointer font-medium text-primaryBlue ">{{data.action}}</p>
-
-                                    </div>
-
-                                </td>
-
-
-
-
-                            </tr>
-                        </tbody>
-                    </table>
-
-
-                </div>
-            </div>
-
-            <!---->
-        </div>
+                    <div class="grid lg:grid-cols-2 mb-6">
+                        <label 
+                        for="expiryDate"
+                        class="font-inter font-medium text-sm text-failedNormal mb-3 lg:mb-0"
+                        >Expiry Date</label>
+                        <div class="flex gap-6">
+                            <input
+                                class="px-4 h-[52px] w-1/2 bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none"
+                                type="text"
+                                placeholder="MM"
+                                formControlName="expiryMonth"
+                                name="expiryMonth"
+                            />
+                            <input
+                                class="px-4 h-[52px] w-1/2 bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none"
+                                type="text"
+                                placeholder="YY"
+                                formControlName="expiryYear"
+                                name="expiryYear"
+                            />
+                        </div>
+                    </div>
+                    <div class="grid lg:grid-cols-2">
+                            <label 
+                            for="cvc"
+                            class="font-inter font-medium text-sm text-failedNormal mb-3 lg:mb-0">CVC</label>
+                            <div class="w-fit">
+                                <div class="lg:flex gap-6">
+                                    <input
+                                    class="px-4 h-[52px] w-1/2 bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none mb-3 lg:mb-0"
+                                    type="text"
+                                    placeholder="CVC"
+                                    formControlName="cvc"
+                                    name="cvc"
+                                    />
+                                    <img src="assets/images/icons/credit-card-Icons.svg" alt="credit-card-Icons">
+                                </div>
+                                <p class="hidden lg:visible font-nunito font-normal text-xs text-[#37474F] mt-3">The Card Verification Code, or CVC*, is an extra code printed at the back of your debit or credit card</p>
+                            </div>
+                    </div>
+                </form>
+                <p class="visible lg:hidden p-6 font-nunito font-normal text-xs text-[#37474F]">The Card Verification Code, or CVC*, is an extra code printed at the back of your debit or credit card</p>
                 
+                <hr class="w-11/12 mx-auto mt-6 mb-6">
+
+                <div class="flex justify-end items-center gap-4 mt-6 mb-6 mr-8">
+                    <app-button
+                    [overRideButtonClass]="true"
+                    customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
+                    >Cancel</app-button>
+
+                    <app-button
+                    [overRideButtonClass]="true"
+                    customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+                    (buttonClick)="openOtpModal()"
+                    >Make Payment</app-button>
+                </div>
+            </div>
+            
+        </div>
     </div>
 
+
+    
 </div>
+
+
+<app-modal [id]="otpModal">
+    <div class="lg:rounded-xl p-6 bg-white hide-scrollbar modal-box">
+        <div>
+            <div class="grid grid-rows-2 justify-items-center">
+                <h3 class="font-inter font-medium text-2xl text-discountBlue">One Time Password</h3>
+                <p class="text-center lg:w-96 font-inter font-normal text-sm text-failedNormal">An OTP has been sent to adebim.....@gmail.com to authorize the transaction of 
+                    <span class="font-bold text-discountBlue">N5,000</span>
+                </p>
+            </div>
+            <div class="flex items-center justify-center">
+                <div class="flex gap-3 mt-8 mb-4">
+                    <input
+                    class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
+                    type="text"
+                    maxLength="1"
+                    (input)="onOtpChange(0, $event)"
+                    />
+                    <input
+                    class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
+                    type="text"
+                    maxLength="1"
+                    (input)="onOtpChange(1, $event)"
+                    />
+                    <input
+                    class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
+                    type="text"
+                    maxLength="1"
+                    (input)="onOtpChange(2, $event)"
+                    />
+                    <input
+                    class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
+                    type="text"
+                    maxLength="1"
+                    (input)="onOtpChange(3, $event)"
+                    />
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <p *ngIf="!timerExpired" class="text-[#2F4662] font-semibold text-base font-inter">Code would expire in 
+                    <span class="bg-[#0EA5AE] bg-opacity-20 rounded text-danger font-inter font-semibold text-base">{{ timer }}</span>
+                </p>
+                <!-- <p *ngIf="timerExpired" class="text-[#2F4662]">OTP expired</p> -->
+            </div>
+
+            <div class="flex justify-center mt-16">
+                <button
+                    class="bg-buttonBlue rounded-lg  hover:bg-buttonBlue text-white text-base font-medium font-inter py-2 px-4 w-56 disabled:opacity-50"
+                    [disabled]="!otpEntered"
+                    (click)="verifyOtp()"
+                >
+                    Verify
+                </button>
+            </div>
+
+            <div class="flex justify-center mt-16">
+                <p class="text-center w-96 font-inter font-normal text-sm text-failedNormal">Didn't get the code?
+                    <span class="font-medium text-discountBlue">Resend</span>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</app-modal>
+
+<app-modal [id]="successModal">
+    <div class="lg:rounded-xl bg-white hide-scrollbar h-auto w-auto lg:p-2 p-6 modal-box">
+        <div class="grid grid-rows-2 justify-items-center mt-8">
+            <img src="assets/images/icons/blueSuccess.svg" alt="blueSuccess">
+            <h3 class="font-inter font-medium text-2xl text-discountBlue mt-8">Congratulations</h3>
+            <p class="text-center lg:w-96 font-inter font-normal text-sm text-failedNormal mt-8">
+                Your payment was successful.
+            </p>
+        </div>
+        <div class="flex justify-center mt-8 mb-8">
+            <button
+                class="bg-buttonBlue rounded-lg  hover:bg-buttonBlue text-white text-base font-medium font-inter py-2 px-4 w-56 "
+                (click)="closeSuccess()"
+            >
+                Okay
+            </button>
+        </div>
+    </div>
+</app-modal>
