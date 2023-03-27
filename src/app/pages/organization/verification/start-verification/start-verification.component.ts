@@ -7,43 +7,40 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./start-verification.component.scss']
 })
 export class StartVerificationComponent implements OnInit {
-profileForm!: FormGroup
+  referenceForm!: FormGroup
   selectedFile!: null
-allowedFiled = ["image/png", "image/jpeg", "application/pdf"];
+  allowedFiled = ["image/png", "image/jpeg", "application/pdf"];
 
   constructor(
     private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
-    this.initProfileForm()
+    this.initReferenceForm()
     setTimeout(() => {
       this.populateForm()
     }, 2000);
   }
 
-  initProfileForm() {
-    this.profileForm = this.fb.group({
-      name: ['', Validators.required],
-      type: ['', Validators.required],
-      email: ['', Validators.required],
-      matric: ['', Validators.required],
-      state: ['', Validators.required],
-      lga: ['', Validators.required],
-      address: ['', Validators.required],
-    })
+  initReferenceForm() {
+    this.referenceForm = this.fb.group({
+    refNumber: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]{14}$/)]],
+    reasonForRequest: ['', Validators.required],
+  });
   }
 
   populateForm() {
-    this.profileForm.patchValue({
-      name: 'Chukwuka Chiemelie Esther',
-      type: 'Super Admin',
-      email: 'admin@yopmail.com',
-      matric: '1234567890',
-      state: 'Lagos',
-      lga: 'VI',
-      address: '14, Karimu Kotun Road',
+    this.referenceForm.patchValue({
+      refNumber: '23467898763FMS'
     })
   }
+
+  goBack() {
+  window.history.back();
+  }
+
+  isRefNumberValid(): boolean {
+  const refNumberControl = this.referenceForm.get('refNumber');
+  return (refNumberControl?.valid ?? false) && (refNumberControl?.touched ?? false);}
 
 }
