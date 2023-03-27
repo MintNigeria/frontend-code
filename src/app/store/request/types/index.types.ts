@@ -136,5 +136,6 @@ export interface Organisation   {
 export interface RequestStateInterface {
   request: { data: any; totalCount: number };
   requestDetails: Request | null;
-  organisationRequest : {data : any; totalCount : number}
+  organisationRequest : {data : any; totalCount : number},
+  updateRequest: any
 }

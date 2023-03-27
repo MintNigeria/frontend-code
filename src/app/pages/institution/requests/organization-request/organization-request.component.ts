@@ -71,7 +71,7 @@ selectedOption: string = 'All Time';
     const data: any = localStorage.getItem('userData')
     this.institutionData = JSON.parse(data)
     this.institutionId = this.institutionData.InstitutionId
-    this.store.dispatch(getAllInstitutionOrganizationRequest({payload: {...this.filterParams, institutionId: this.institutionId}}))
+    this.store.dispatch(getAllInstitutionOrganizationRequest({payload: {...this.filterParams, institutionId: 13}}))
     this.searchForm.controls.searchPhrase.valueChanges
     .pipe(debounceTime(400), distinctUntilChanged())
     .subscribe((term) => {
@@ -97,22 +97,22 @@ selectedOption: string = 'All Time';
   }
 
   addFilter() {
-    if (this.status !== 'All') {
-      this.filterStatus['status'] = this.status;
-    }
-    if (this.selectedOption !== 'All Time') {
-      this.filterOption['selectedOption'] = this.selectedOption;
-    }
-    if (this.selectedSector !== 'All') {
-      this.filterSector['selectedSector'] = this.selectedSector;
-    }
-    if (this.selectedInstituition !== 'All') {
-      this.filterInstituition['selectedInstituition'] =
-        this.selectedInstituition;
-    }
-    if (this.documentType !== 'All') {
-      this.filterDocument['documentType'] = this.documentType;
-    }
+    // if (this.status !== 'All') {
+    //   this.filterStatus['status'] = this.status;
+    // }
+    // if (this.selectedOption !== 'All Time') {
+    //   this.filterOption['selectedOption'] = this.selectedOption;
+    // }
+    // if (this.selectedSector !== 'All') {
+    //   this.filterSector['selectedSector'] = this.selectedSector;
+    // }
+    // if (this.selectedInstituition !== 'All') {
+    //   this.filterInstituition['selectedInstituition'] =
+    //     this.selectedInstituition;
+    // }
+    // if (this.documentType !== 'All') {
+    //   this.filterDocument['documentType'] = this.documentType;
+    // }
 
     this.store.dispatch(getAllInstitutionOrganizationRequest({payload: {...this.filterParams, institutionId: this.institutionId}}))
   }

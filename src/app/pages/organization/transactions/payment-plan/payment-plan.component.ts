@@ -129,7 +129,7 @@ pk: string = environment.pkKey
       //console.log(res)
       if (res) {
 
-        this.notification.publishMessages('success', 'test')
+        this.notification.publishMessages('success', 'successful')
         this.router.navigateByUrl('/organization/transactions')
       }
 

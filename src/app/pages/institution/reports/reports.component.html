@@ -85,6 +85,8 @@
                                 </label>
                                 <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-56">
                                     <li><a (click)="selectedSector='All'">All</a></li>
+                                    <li><a (click)="changeIndustryType(unit.name)" *ngFor="let unit of industrtList">{{unit.name}}</a></li>
+
                                 </ul>
                             </div>
                         </div>

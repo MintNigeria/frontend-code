@@ -5,7 +5,7 @@ import { catchError, from, map, mergeMap, switchMap, take } from 'rxjs';
 import { RequestService } from 'src/app/core/services/request/request.service';
 import { AppResponseInterface } from 'src/app/types/appState.interface';
 import { setAPIResponseMessage } from '../shared/app.action';
-import { getAllInstitutionGraduateRequest, getAllInstitutionGraduateRequestSuccess, getAllInstitutionOrganizationRequest, getAllInstitutionOrganizationRequestSuccess, getAllOrganisationRequest, getAllOrganisationRequestSuccess, getAllRequest, getAllRequestSuccess, invokeGetRequestDetails, invokeGetRequestDetailsSuccess } from './action';
+import { getAllInstitutionGraduateRequest, getAllInstitutionGraduateRequestSuccess, getAllInstitutionOrganizationRequest, getAllInstitutionOrganizationRequestSuccess, getAllOrganisationRequest, getAllOrganisationRequestSuccess, getAllRequest, getAllRequestSuccess, invokeGetRequestDetails, invokeGetRequestDetailsSuccess, updateInstitutionRequest, updateInstitutionRequestSuccess } from './action';
 
 @Injectable()
 export class RequestEffects {
@@ -146,6 +146,46 @@ export class RequestEffects {
               // read data and update payload
               return getAllInstitutionOrganizationRequestSuccess({
                 payload: { data: data.payload, totalCount: data.totalCount }
+              });
+            })
+          );
+      })
+    );
+  });
+
+  updateInstitutionRequest$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(updateInstitutionRequest),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const { 
+          payload } = action;
+        return this.requestService
+          .updateInstitutionRequest(
+            payload
+          )
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return updateInstitutionRequestSuccess({
+                payload: data.payload
               });
             })
           );
