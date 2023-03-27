@@ -4,6 +4,10 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { DashboardEffects } from 'src/app/store/dashboard/effects';
+import { dashboardReducer } from 'src/app/store/dashboard/reducer';
 
 
 @NgModule({
@@ -13,7 +17,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    SharedModule
+    SharedModule,
+    StoreModule.forFeature('dashboard', dashboardReducer),
+    EffectsModule.forFeature([DashboardEffects])
   ]
 })
 export class DashboardModule { }

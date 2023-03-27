@@ -5,10 +5,10 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
-import { getInstitutionConfiguration } from 'src/app/store/institution/action';
 import { exportTransactionCSV, exportTransactionCSVSuccess, exportTransactionExcel, exportTransactionExcelSuccess, invokeGetTransactions, invokeGetTransactionsSuccess } from 'src/app/store/reporting/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { MatDialog } from '@angular/material/dialog';
+import { getInstitutionConfiguration, getInstitutionConfigurationSuccess } from 'src/app/store/configuration/action';
 
 @Component({
   selector: 'app-transactions',
@@ -76,10 +76,11 @@ filter = {
     fromDate: '',
     toDate: '',
     status: 0,
-    transactionType: 0,
+    transactionType: '',
 }
   transactionDetails: any;
   totalCount: any;
+  processingFeeList: any;
 
 
   constructor(
@@ -101,12 +102,17 @@ filter = {
       this.transactionDetails = res.payload.data;
       this.totalCount = res.payload.totalCount
     })
+    this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
+    this.actions$.pipe(ofType(getInstitutionConfigurationSuccess)).subscribe((res: any) => {
+      this.processingFeeList = res.payload.processingFeesVM
+      // this.processingFees = res.payload
+    })
     this.searchForm.controls.searchPhrase.valueChanges
     .pipe(debounceTime(400), distinctUntilChanged())
     .subscribe((term) => {
       this.search(term as string);
     });
-    this.store.dispatch(getInstitutionConfiguration({id: this.institutionId}))
+    this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
     
   }
 
@@ -118,7 +124,6 @@ filter = {
       }
     });
 
-    console.log(this.selectedData,this.selectedDataId)
   }
 
   addFilter() {
@@ -173,7 +178,6 @@ filter = {
       });
       dialogRef.afterClosed().subscribe((res: any) => {
         if (res) {
-              console.log(res)
               const {start , end} = res; // use this start and end as fromDate and toDate on your filter
               this.selectedOption = `${start} - ${end}`
               const filter = {...this.filter, ['fromDate'] : start, ['toDate'] : end}
@@ -186,6 +190,14 @@ filter = {
       this.filter = filter;
     }
   }
+
+  changeDocumentType(name: string) {
+    this.documentType = name;
+    const filter = {...this.filter, ['transactionType'] : name}
+    this.filter = filter;
+
+  }
+
   changeStatus(status: number, name: string) {
     this.status = name
     const filter = {...this.filter, ['status'] : status};

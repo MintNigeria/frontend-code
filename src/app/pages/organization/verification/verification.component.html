@@ -48,13 +48,15 @@
                                 <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedOption }}</p>
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
                                 </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                <li><a (click)="selectedOption='data Time'">All Time</a></li>
-                                <li><a (click)="selectedOption='30 Days'">30 Days</a></li>
-                                <li><a (click)="selectedOption='7 days'">7 Days</a></li>
-                                <li><a (click)="selectedOption='24 Hours'">24 Hours</a></li>
-                                <li><a (click)="selectedOption='Custom Period'">Custom Period</a></li>
-                                </ul>
+                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
+                                    <li><a (click)="changeRange(0, 'All Time') ">All Time</a></li>
+                                    <li><a (click)="changeRange(3, '30 Days')">30 Days</a></li>
+                                    <li><a (click)="changeRange(2, '7 days' )">7 Days</a></li>
+                                    <li><a (click)="changeRange(1, '24 Hours')">24 Hours</a></li>
+                                    <li>
+                                      <a (click)="changeRange(5, 'Custom Period')">Custom Period</a>
+                                    </li>
+                                  </ul>
                             </div>
                         </div>
 
@@ -118,18 +120,14 @@
                 <form>
                     <div class="flex md:flex-row md:justify-between md:items-center flex-col w-full">
                         <div class="flex lg:justify-between gap-4">
-                            <div class="relative cursor-pointer mr-3">
-
-                                <input type="search" placeholder="Search name, request ID or institution"
-                                    class="bg-white rounded-[10px] border border-inputBg w-[400px]  py-[14px] px-8 placeholder:text-[#6E7191] text-sm lg:text-base focus:outline-none ">
-                                <div class="top-1/2 absolute  left-3 custom-translate pr-4">
-                                    <img src="assets/images/icons/search.svg" alt="search">
-
-                                </div>
-                            </div>
+                            <app-search 
+                            [placeholder]="'Search...'"
+                            (iconSearch)="search($event)"
+                [formGrp]="searchForm" formCtrlName="searchPhrase"  
+                ></app-search>
                         </div>
-
-                        <div class="flex md:items-center gap-4 ">
+        
+                        <!-- <div class="flex md:items-center gap-4 ">
                             <div>
                                 <div class="lg:justify-between gap-4">
                                     <div class="dropdown dropdown-end">
@@ -137,16 +135,16 @@
                                         <p class="my-0 text-[#0D47A1] font-inter font-medium text-sm">Export</p>
                                         <img src="assets/images/icons/downward_arrow_blue.svg" alt="" class="">
                                         </label>
-                                        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                            <li><a>Export as CSV</a></li>
-                                            <li><a >Export as PDF</a></li>
+                                        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
+                                            <li (click)="download('CSV')"><a>Export as CSV</a></li>
+                                            <li (click)="download('Excel')"><a >Export as Excel</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-
+                        </div> -->
+        
+        
                     </div>
                 </form>
 

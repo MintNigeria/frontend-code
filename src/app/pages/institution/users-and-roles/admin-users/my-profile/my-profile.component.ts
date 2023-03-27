@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+import { invokeGetStateAndLGA } from 'src/app/store/institution copy/action';
+import { stateLgaSelector } from 'src/app/store/institution copy/selector';
 import { invokeGetInstitution, invokeGetInstitutionSuccess } from 'src/app/store/institution/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
@@ -22,6 +24,8 @@ export class MyProfileComponent implements OnInit {
   changesConfirmed = 'changesConfirmed';
   institutionData: any;
   institutionId: any;
+  stateLGA$ = this.appStore.pipe(select(stateLgaSelector));
+  lga: any;
 
   
 
@@ -45,6 +49,9 @@ export class MyProfileComponent implements OnInit {
       console.log(res)
       this.populateForm(res.payload)
     })
+    this.store.dispatch(
+      invokeGetStateAndLGA()
+      );
     // setTimeout(() => {
     //   this.populateForm()
     // }, 2000);
@@ -74,8 +81,8 @@ export class MyProfileComponent implements OnInit {
       regNumber: data.rcNumber,
       email: data.emailAddress,
       phone: data.phoneNumber,
-      state: 'Lagos',
-      lga: 'VI',
+      state: data.state,
+      lga: data.lga,
       address: data.address,
     })
   }
@@ -104,6 +111,16 @@ export class MyProfileComponent implements OnInit {
   openChangesConfirmed(){
     document.getElementById('changesConfirmed')?.click();
     document.getElementById('confirmChanges')?.click();
+  }
+
+  selectLocalGovt(stateId: any) {
+    this.stateLGA$.subscribe((x) => {
+      const data = x.find((value: any) => value.id == Number(stateId));
+      this.profileForm.controls['state'].setValue(data.name)
+  
+  
+      this.lga = data.lgaVMs;
+    });
   }
 
 

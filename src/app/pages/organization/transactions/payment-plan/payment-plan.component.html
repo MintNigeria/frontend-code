@@ -28,25 +28,26 @@
     </div>
 
     <div class="mt-3 p-7 rounded-xl bg-white border border-solid border-[#EFF0F6] grid lg:grid-cols-4 gap-6">
-        <div class="rounded-lg border">
+        <div class="rounded-lg border" *ngFor="let unit of planList">
                 <div class="bg-lightBlue rounded-lg">
                     <div class="p-6 items-center gap-3">
                         <div>
-                            <p class="font-nunito font-normal text-base text-failedNormal mb-4">Simple Plan</p>
-                            <p class="text-grayScaleAsh font-semibold text-3xl font-avenir">₦10,000</p>
+                            <p class="font-nunito font-normal text-base text-failedNormal mb-4">{{unit.name}}</p>
+                            <p class="text-grayScaleAsh font-semibold text-3xl font-avenir">₦{{unit.amount | commaDelimiter}}</p>
                             <p class="font-nunito font-normal text-xs text-failedNormal mb-4">Minimum Deposit</p>
                         </div>
                         <div>
                             <app-button
                                 [overRideButtonClass]="true"
+                                (buttonClick)="selectPlan(unit)"
                                 [customClass]="'border rounded-lg border-borderlightBlue bg-white text-failedNormal font-inter font-medium text-sm h-8 w-44 items-center hover:text-white hover:bg-buttonBlue'"
-                                [routerLink]="'/organization/transactions/make-payment/2'">
+                                >
                             Verify</app-button>
                         </div>
                     </div> 
                 </div>
         </div>
-
+<!-- 
         <div class="rounded-lg border">
                 <div class="bg-lightBlue rounded-lg">
                     <div class="p-6 items-center gap-3">
@@ -117,6 +118,6 @@
                         </div>
                     </div> 
                 </div>
-        </div>
+        </div> -->
     </div>
 </div>

@@ -110,12 +110,26 @@ export const invokeRolePermissionSuccess = createAction (
 export const createInstitutionUserWithRole = createAction (
   '[Users and Roles] Add New institution User',
   props<{
-    payload : ICreateInstitutionUser
+    payload : any
    }>()
 )
 
 export const createInstitutionUserWithRoleSuccess = createAction (
   '[Users and Roles] Add New institution User success',
+  props<{
+    payload : any
+   }>()
+)
+
+export const updateInstitutionUserWithRole = createAction (
+  '[Users and Roles] update institution User',
+  props<{
+    payload : any
+   }>()
+)
+
+export const updateInstitutionUserWithRoleSuccess = createAction (
+  '[Users and Roles] update institution User success',
   props<{
     payload : any
    }>()

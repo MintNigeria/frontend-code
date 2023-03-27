@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Actions } from '@ngrx/effects';
+import { Actions, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
 import { getAllInstitutionGraduateRequest } from 'src/app/store/request/action';
 import { requestSelector } from 'src/app/store/request/selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
+import { getInstitutionConfiguration, getInstitutionConfigurationSuccess } from 'src/app/store/configuration/action';
 
 @Component({
   selector: 'app-graduate-request',
@@ -52,6 +53,7 @@ export class GraduateRequestComponent implements OnInit {
     fromDate: '',
     toDate: '',
 }
+  processingFeeList: any;
 
 
  constructor(
@@ -73,6 +75,11 @@ export class GraduateRequestComponent implements OnInit {
     .subscribe((term) => {
       this.search(term as string);
     });
+    this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
+    this.actions$.pipe(ofType(getInstitutionConfigurationSuccess)).subscribe((res: any) => {
+      this.processingFeeList = res.payload.processingFeesVM
+      // this.processingFees = res.payload
+    })
   }
 
   
@@ -141,6 +148,13 @@ export class GraduateRequestComponent implements OnInit {
       const filter = {...this.filterParams, ['range'] : String(range)};
       this.filterParams = filter;
     }
+  }
+
+  changeDocumentType(name: string) {
+    this.documentType = name;
+    const filter = {...this.filterParams, ['DocumentType'] : name}
+    this.filterParams = filter;
+
   }
   changeStatus(status: number, name: string) {
     this.status = name

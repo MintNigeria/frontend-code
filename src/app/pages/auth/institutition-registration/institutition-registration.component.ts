@@ -18,6 +18,7 @@ import { environment } from 'src/environments/environment';
 export class InstitutitionRegistrationComponent implements OnInit {
   otplength: any;
   otpValue: any;
+  modalId = 'messageModal'
 
   siteKey: string = environment.recaptchaKey
 
@@ -171,10 +172,17 @@ filter: any = {
     this.store.dispatch(ValidateRegistrationCode({payload}))
     this.actions$.pipe(ofType(ValidateRegistrationCodeSuccess)).subscribe((res: any) => {
       if (res.payload.hasErrors === false) {
+        document.getElementById('myModal')?.click()
+
         this.showOTPPage = true;
-        this.router.navigateByUrl('/')
       }
     })
+  }
+  
+  continue() {
+    document.getElementById('myModal')?.click()
+    this.router.navigateByUrl('/')
+
   }
  
   resendOTP() {

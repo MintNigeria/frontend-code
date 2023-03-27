@@ -33,6 +33,57 @@ export class OrganizationService
     super();
   }
 
+  registerOrganization(payload: any) {
+    const {approvalFile} = payload
+    const body = new FormData()
+    body.append('OrganizationIndustryId', payload.OrganizationIndustryId)
+    body.append('OrganizationSectorId', payload.OrganizationSectorId)
+    body.append('RegisteringBody', payload.RegisteringBody)
+    body.append('Name', payload.Name)
+    body.append('DateOfIncorporation', payload.DateOfIncorporation)
+    body.append('CAC', payload.CAC)
+    body.append('LgaId', payload.LgaId)
+    body.append('StateId', payload.StateId)
+    body.append('State', payload.State)
+    body.append('Lga', payload.Lga)
+    body.append('Address', payload.Address)
+    body.append('PhoneNumber', payload.PhoneNumber)
+    body.append('Email', payload.EmailAddress)
+    body.append('ApproverVM.Title', payload.Title)
+    body.append('ApproverVM.FirstName', payload.FirstName)
+    body.append('ApproverVM.LastName', payload.LastName)
+    body.append('ApproverVM.Designation', payload.Designation)
+    body.append('Documents', payload.Designation)
+    for (let i = 0; i < approvalFile.length; i++) {
+      body.append('Document[' + i + ']', approvalFile[i]);
+    }
+    return this.http.post<any>(
+      `${this.baseUrl}mint-organization/api/v1/Organization/CreateOrganization`, body
+    );
+  }
+
+  validateOrganizationCode(payload: any) {
+    return this.http.post<any>(
+      `${this.baseUrl}mint-organization/api/v1/OrganizationUser/EmailVerification`, payload
+    );
+  }
+
+  getOrganizationSubscriptionHistory(
+    payload: any
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Subscription-Historys`, {params: payload}
+    );
+  }
+
+  getOrganizationVerificationHistory(
+    payload: any
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Historys`, {params: payload}
+    );
+  }
+
   getAllOrganization(
     organizationStatus: number,
     keyword: string,

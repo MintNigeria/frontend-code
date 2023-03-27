@@ -99,6 +99,12 @@ export class UsersAndRolesService
       `${this.baseUrl}mint-auth/api/v1/InstitutionUser/CreateInstitutionUserWithRole`, payload
     )
   }
+  updateInstitutionUserWithRole(payload: any): Observable<any> {
+    
+    return this.http.put(
+      `${this.baseUrl}mint-auth/api/v1/Role/UpdateInstitutionUserAndRole`, payload
+    )
+  }
   addGlobalAdminUser(payload: any): Observable<any> {
     const formData = new FormData();
     let payload_ = payload as any;

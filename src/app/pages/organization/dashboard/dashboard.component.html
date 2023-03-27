@@ -17,35 +17,30 @@
     </div>
   </div>
 
-  <div class="inline-flex rounded-md shadow-sm mb-6" role="group">
-    <button
-      type="button"
-      class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-    >
-      12 months
+  <div class="inline-flex rounded-md shadow-sm mb-6 bg-white" role="group">
+    <button (click)="changeRange(0)" type="button"
+      class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
+      All Time
     </button>
-    <button
-      type="button"
-      class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-    >
+
+    <button (click)="changeRange(4)" type="button"
+      class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
+      12 month
+    </button>
+    <button (click)="changeRange(3)" type="button"
+      class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
       30 days
     </button>
-    <button
-      type="button"
-      class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-    >
+    <button (click)="changeRange(2)" type="button"
+      class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
       7 days
     </button>
-    <button
-      type="button"
-      class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-    >
+    <button (click)="changeRange(1)" type="button"
+      class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
       24 hours
     </button>
-    <button
-      type="button"
-      class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-    >
+    <button (click)="changeRange(5)" type="button"
+      class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
       Custom date
     </button>
   </div>
@@ -61,7 +56,7 @@
                         </div>
                         <p class="border-b border-dashed font-inter font-semibold lg:text-base text-xs text-failedNormal">Account Balance</p>
                     </div>
-                    <p class="text-successNormal font-bold text-3xl font-poppins">₦145,836</p>
+                    <p class="text-successNormal font-bold text-3xl font-poppins">₦{{cardInfo?.walletBalance || 0}}</p>
                 </div>
                 <div>
                     <app-button
@@ -82,7 +77,7 @@
                         <p class="font-inter font-semibold lg:text-base text-xs text-failedNormal">Total Verifications</p>
                     </div>
                     <div class="flex justify-between">
-                        <p class="text-[#101828] font-bold text-3xl font-poppins">₦145,836</p>
+                        <p class="text-[#101828] font-bold text-3xl font-poppins">{{cardInfo?.totalVerifications || 0}}</p>
                         <div>
                             <img src="assets/images/icons/chart.svg" alt="chart">
                         </div>

@@ -6,6 +6,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
+import { getInstitutionConfiguration, getInstitutionConfigurationSuccess } from 'src/app/store/configuration/action';
 import { exportReportCSV, exportReportCSVSuccess, exportReportExcel, exportReportExcelSuccess, invokeGetAllReport, invokeGetAllReportSuccess, invokeGetTransactions, invokeGetTransactionsSuccess } from 'src/app/store/reporting/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
@@ -27,60 +28,6 @@ export class ReportsComponent implements OnInit {
   filterSector = { selectedSector: 'All'};
   filterInstituition = {selectedInstituition: 'All'};
   filterDocument = {documentType: 'All'};
-
-  
-
-
-  institutionList = [
-  {
-    id: '1',
-    date: '12/01/2023',
-    initiator: 'Adekunle Ciroma',
-    docType: 'Certificate (Template)',
-    reason: 'Educational Purpose',
-    time: '12:24am'
-  },
-  {
-    id: '2',
-    date: '12/01/2023',
-    initiator: 'Adekunle Ciroma',
-    docType: 'Certificate (Template)',
-    reason: 'Educational Purpose',
-    time: '12:24am'
-  },
-  {
-    id: '3',
-    date: '12/01/2023',
-    initiator: 'Adekunle Ciroma',
-    docType: 'Certificate (Template)',
-    reason: 'Educational Purpose',
-    time: '12:24am'
-  },
-  {
-    id: '4',
-    date: '12/01/2023',
-    initiator: 'Adekunle Ciroma',
-    docType: 'Certificate (Template)',
-    reason: 'Educational Purpose',
-    time: '12:24am'
-  },
-  {
-    id: '5',
-    date: '12/01/2023',
-    initiator: 'Adekunle Ciroma',
-    docType: 'Certificate (Template)',
-    reason: 'Educational Purpose',
-    time: '12:24am'
-  },
-  {
-    id: '6',
-    date: '12/01/2023',
-    initiator: 'Adekunle Ciroma',
-    docType: 'Certificate (Template)',
-    reason: 'Educational Purpose',
-    time: '12:24am'
-  }
- ]
 
  filterParams = {
   institutionId: '',
@@ -106,6 +53,7 @@ export class ReportsComponent implements OnInit {
     searchPhrase: new FormControl(''),
   });
   reportDetails: any;
+  processingFeeList: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -124,6 +72,11 @@ export class ReportsComponent implements OnInit {
     this.actions$.pipe(ofType(invokeGetAllReportSuccess)).subscribe((res: any) => {
       this.reportDetails = res.payload.data;
       this.totalCount = res.payload.totalCount
+    })
+     this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
+    this.actions$.pipe(ofType(getInstitutionConfigurationSuccess)).subscribe((res: any) => {
+      this.processingFeeList = res.payload.processingFeesVM
+      // this.processingFees = res.payload
     })
     this.searchForm.controls.searchPhrase.valueChanges
     .pipe(debounceTime(400), distinctUntilChanged())
@@ -174,6 +127,13 @@ export class ReportsComponent implements OnInit {
       const filter = {...this.filterParams, ['range'] : String(range)};
       this.filterParams = filter;
     }
+  }
+
+  changeDocumentType(name: string) {
+    this.documentType = name;
+    const filter = {...this.filterParams, ['DocumentType'] : name}
+    this.filterParams = filter;
+
   }
   
   search(event: any) {

@@ -143,7 +143,6 @@ export class InstitutionSetupComponent implements OnInit {
       this.degreeTypeTotalCount = res.payload.totalCount;
     })
     this.loadIp();
-    this.notification.publishMessages('success', 'testing')
 
   }
 
@@ -255,9 +254,8 @@ createFaculty() {
   }
   this.store.dispatch(createFacultyInInstitution({payload}))
   this.actions$.pipe(ofType(createFacultyInInstitutionSuccess)).subscribe((res: any) => {
-    console.log(res)
     if (res.payload.hasErrors === false) {
-      this.notification.publishMessages('success', 'testing')
+      this.notification.publishMessages('success', res.payload.description);
       // document.getElementById('changesConfirmed')?.click();
     }
  
@@ -277,10 +275,10 @@ createDepartment() {
   }
   this.store.dispatch(createDepartmentInInstitution({payload}))
   this.actions$.pipe(ofType(createDepartmentInInstitutionSuccess)).subscribe((res: any) => {
-    console.log(res)
     if (res.payload.hasErrors === false) {
+      this.notification.publishMessages('success', res.payload.description);
  
-      document.getElementById('changesConfirmed')?.click();
+      // document.getElementById('changesConfirmed')?.click();
       this.activateDepartment()
     }
  
@@ -299,10 +297,10 @@ createDegreeType() {
   }
   this.store.dispatch(createDegreeTypeInInstitution({payload}))
   this.actions$.pipe(ofType(createDegreeTypeInInstitutionSuccess)).subscribe((res: any) => {
-    console.log(res)
     if (res.payload.hasErrors === false) {
- 
-      document.getElementById('changesConfirmed')?.click();
+      this.notification.publishMessages('success', res.payload.description);
+
+      // document.getElementById('changesConfirmed')?.click();
       this.activatedegreeType()
     }
  

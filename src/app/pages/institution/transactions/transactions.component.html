@@ -86,7 +86,7 @@
                     </label>
                     <ul
                         tabindex="0"
-                        class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
+                        class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72"
                     >
                         <li><a (click)="changeInitiator(1,  'Graduates') ">Graduates</a></li>
                         <li>
@@ -114,28 +114,9 @@
                         </p>
                         <img src="assets/images/icons/downward_arrow.svg" />
                     </label>
-                    <ul
-                        tabindex="0"
-                        class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
-                    >
-                        <li><a (click)="documentType = 'All'">All</a></li>
-                        <li>
-                        <a (click)="documentType = 'Certificate (Original)'"
-                            >Certificate (Original)</a
-                        >
-                        </li>
-                        <li>
-                        <a (click)="documentType = 'Certificate (Template)'"
-                            >Certificate (Template)</a
-                        >
-                        </li>
-                        <li>
-                        <a
-                            (click)="documentType = 'Certificate (Certified True Copy)'"
-                            >Certificate (Certified True Copy)</a
-                        >
-                        </li>
-                        <li><a (click)="documentType = 'Transcript'">Transcript</a></li>
+                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72">
+                        <li><a (click)="documentType='All'">All</a></li>
+                        <li><a (click)="changeDocumentType(unit.documentTypeName)" *ngFor="let unit of processingFeeList">{{unit.documentTypeName}}</a></li>
                     </ul>
                     </div>
                 </div>
@@ -158,7 +139,7 @@
                     </label>
                     <ul
                         tabindex="0"
-                        class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
+                        class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72"
                     >
                        
                         <li><a (click)="changeStatus(0, 'Pending')">Pending</a>

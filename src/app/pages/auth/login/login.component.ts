@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.notificationService.publishMessages('success', 'test');
     this.currentRoute = this.route.snapshot.url[1].path;
     this.initLoginForm();
   }
@@ -62,11 +61,21 @@ export class LoginComponent implements OnInit {
       const helper = new JwtHelperService();
       this.loggedInUser = helper.decodeToken(res.accessToken);
       localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
+      this.notificationService.publishMessages('success', 'Login Successful');
       if (this.loggedInUser.UserType === 'Institution') {
         this.router.navigateByUrl('/institution/dashboard');
+
         // this.showOTPPage = true;
       }
-    });
+      if (this.loggedInUser.UserType === 'Graduates') {
+          this.router.navigateByUrl('/graduate/dashboard');
+        // this.showOTPPage = true;
+      }
+      if (this.loggedInUser.UserType === 'Organization') {
+          this.router.navigateByUrl('/organization/dashboard');
+        // this.showOTPPage = true;
+      }
+    })
     // let auth$ = this.appStore.pipe(select(selectAppAPIResponse));
     // auth$.subscribe((x) => {
     //   if (x.isApiSuccessful && !x.isLoading) this.status = Status.SUCCESS;

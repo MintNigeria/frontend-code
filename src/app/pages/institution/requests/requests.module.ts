@@ -14,6 +14,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RequestEmptyStateComponent } from "../../../shared/request-empty-state/request-empty-state.component";
+import { ConfigurationEffects } from 'src/app/store/configuration/effects';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import { RequestEmptyStateComponent } from "../../../shared/request-empty-state/
         SharedModule,
         NgxPaginationModule,
         StoreModule.forFeature('requests', requestReducer),
-        EffectsModule.forFeature([RequestEffects]),
+        EffectsModule.forFeature([RequestEffects, ConfigurationEffects]),
         RequestEmptyStateComponent
     ]
 })
