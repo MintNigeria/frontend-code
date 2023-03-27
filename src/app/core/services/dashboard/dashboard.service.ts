@@ -40,7 +40,7 @@ export class DashboardService
     filter: any
   ) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionDashboard/GetTansactionAndRevenueInfo`, {params: filter}
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionDashboard/GetInstitutionTansactionAndRevenueInfo`, {params: filter}
     );
   }
 
@@ -48,7 +48,7 @@ export class DashboardService
     filter: any
   ) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionDashboard/GetRevenueAnalysis`, {params: filter}
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionDashboard/GetInstitutionRevenueAnalysis`, {params: filter}
     );
   }
   

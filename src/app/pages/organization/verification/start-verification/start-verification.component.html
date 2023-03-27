@@ -38,7 +38,7 @@
                 </h4>
                 <div class="border rounded-lg flex gap-1 items-center h-8 p-2">
                     <img src="assets/images/icons/walletIcon.svg" alt="walletIcon" >
-                    <p class="font-inter font-medium text-sm text-failedNormal">Wallet Balance: ₦1,000. 00</p>
+                    <p class="font-inter font-medium text-sm text-failedNormal">Wallet Balance: ₦{{balance || 0 | commaDelimiter}}</p>
                 </div>
             </div>
         </div>
@@ -61,8 +61,8 @@
                                 Reference Number <span><p class="text-danger">*</p></span>
                             </label>
                             <app-input
-                            [maxLength]="14"
-                            [minLength]="14"
+                            [maxLength]="13"
+                            [minLength]="13"
                             [formGrp]="referenceForm"
                             formCtrlName="refNumber"
                             [type]="'text'"
@@ -88,14 +88,14 @@
                             <label class="flex font-inter font-medium text-sm text-failedNormal" for="inline-full-name">
                                 Reason for Request
                             </label>
-                            <select name="" id=""
-                                class="select h-[52px] lg:w-full mt-2 bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
-                                <option value="Select reason for request" [disabled]="true">Select reason for request</option>
-                                <option value="Educational Purpose">Educational Purpose</option>
-                                <option value="Employment Purpose">Employment Purpose</option>
-                                <option value="Travel Purpose">Travel Purpose</option>
-                                <option value="Others">Others</option>
-                            </select>
+                            <ng-select class="custom-ng-dropdown" 
+              formControlName="reasonForRequest" 
+              [selectOnTab]="true" 
+              placeholder="Select reason"
+              >
+          <ng-option *ngFor="let unit of requestReason" [value]="unit.reasonForRequestValue">{{unit.reasonForRequest}}</ng-option>
+          </ng-select>
+                            
                         </div>
                     </div>
 
@@ -109,7 +109,7 @@
                         
                         [overRideButtonClass]="true"
                         customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
-                        [routerLink]="'/organization/verifications/verify-documents/2'"
+                        (buttonClick)="verifyData()"
                         >Verify</app-button>
                     </div>
                     

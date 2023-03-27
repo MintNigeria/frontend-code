@@ -65,7 +65,7 @@
             </p>
           </div>
           <p class="text-successNormal font-bold text-3xl font-poppins">
-            ₦{{cardInfo?.revenueGeneratedVM.totalRevenueGenerated | commaDelimiter}}</p>
+            ₦{{cardInfo?.revenueGeneratedVM.totalRevenueGenerated || 0 | commaDelimiter}}</p>
 
         </div>
       </div>
@@ -76,7 +76,7 @@
               From graduates requests
             </p>
             <p class="mb-4 font-medium text-sm font-inter text-failedNormal">
-              ₦{{cardInfo?.revenueGeneratedVM.totalRevenueFromGraduates | commaDelimiter}}
+              ₦{{cardInfo?.revenueGeneratedVM.totalRevenueFromGraduates || 0 | commaDelimiter}}
             </p>
           </div>
           
@@ -85,7 +85,7 @@
               From organisation requests
             </p>
             <p class="font-medium text-sm font-inter text-failedNormal">
-              ₦{{cardInfo?.revenueGeneratedVM.totalRevenueFromOrganizations | commaDelimiter}}            </p>
+              ₦{{cardInfo?.revenueGeneratedVM.totalRevenueFromOrganizations || 0 | commaDelimiter}}            </p>
           </div>
           
         </div>
@@ -105,7 +105,7 @@
             </p>
           </div>
           <p class="text-failedNormal font-bold text-3xl font-poppins">
-            {{cardInfo?.requestsDashboardVM.totalRequests}}
+            {{cardInfo?.requestsDashboardVM.totalRequests || 0}}
           </p>
         </div>
       </div>
@@ -117,7 +117,7 @@
                 Pending
                 </p>
                 <p class="mb-4 font-medium text-sm font-inter text-failedNormal">
-                  {{cardInfo?.requestsDashboardVM.pendingRequests}}
+                  {{cardInfo?.requestsDashboardVM.pendingRequests || 0}}
                 </p>
             </div>
             <!-- <div class="flex gap-1 items-center">
@@ -134,7 +134,7 @@
                 Completed
                 </p>
                 <p class="mb-4 font-medium text-sm font-inter text-failedNormal">
-                  {{cardInfo?.requestsDashboardVM.completedRequests}}
+                  {{cardInfo?.requestsDashboardVM.completedRequests || 0}}
                 </p>
             </div>
             <!-- <div class="flex gap-1 items-center">
@@ -161,7 +161,7 @@
             </p>
           </div>
           <p class="text-failedNormal font-bold text-3xl font-poppins">
-            ₦{{cardInfo?.transactionsDashboardVM.totalAmountFromTransactions | commaDelimiter}}
+            ₦{{cardInfo?.transactionsDashboardVM.totalAmountFromTransactions || 0 | commaDelimiter}}
           </p>
         </div>
       </div>
@@ -173,7 +173,7 @@
                   From graduates requests
                 </p>
                 <p class="mb-4 font-medium text-sm font-inter text-failedNormal">
-                  ₦{{cardInfo?.transactionsDashboardVM.totalAmountFromGraduateRequests | commaDelimiter}}
+                  ₦{{cardInfo?.transactionsDashboardVM.totalAmountFromGraduateRequests || 0 | commaDelimiter}}
                 </p>
             </div>
             <!-- <div class="flex gap-1 items-center">
@@ -189,7 +189,7 @@
                   From organisation requests
                 </p>
                 <p class="mb-4 font-medium text-sm font-inter text-failedNormal">
-                  ₦{{cardInfo?.transactionsDashboardVM.totalAmountFromOrganizationRequests | commaDelimiter}}
+                  ₦{{cardInfo?.transactionsDashboardVM.totalAmountFromOrganizationRequests || 0 | commaDelimiter}}
                 </p>
             </div>
             <!-- <div class="flex gap-1 items-center">
@@ -359,10 +359,10 @@
       <div class="flex gap-5 mb-4">
         <div>
           <p class="font-nunito font-normal text-lightGray text-sm pb-1">
-            Total Revenue
+            Total Request
           </p>
           <p class="font-inter font-medium text-sm text-failedNormal">
-            ₦{{revenueAnalysisData?.totalRevenueGenerated | commaDelimiter}}
+            {{revenueAnalysisData?.totalRequests || 0 | commaDelimiter}}
           </p>
         </div>
         <div class=" w-8/12 h-8/12">
@@ -376,10 +376,10 @@
               class="relative before:absolute before:content-[''] before:w-2 before:h-[95%] before:my-auto before:rounded-3xl before:mr-4 before:top-0 before:left-0 before:bg-[#2ED3B7] mb-3">
               <div class="ml-4">
                 <p class="font-nunito font-normal text-lightGray text-sm pb-1">
-                  Transcript
+                  Completed Request
                 </p>
                 <p class="font-inter font-medium text-sm text-failedNormal">
-                  ₦{{revenueAnalysisData?.revenueFromTranscripts | commaDelimiter}}
+                  {{revenueAnalysisData?.completedRequests }}
                 </p>
               </div>
             </div>
@@ -390,10 +390,10 @@
               class="relative before:absolute before:content-[''] before:w-2 before:h-[95%] before:my-auto before:rounded-3xl before:mr-4 before:top-0 before:left-0 before:bg-[#FEC84B] mb-3">
               <div class="ml-4">
                 <p class="font-nunito font-normal text-lightGray text-sm pb-1">
-                  Certificates
+                  Processing Request
                 </p>
                 <p class="font-inter font-medium text-sm text-failedNormal">
-                  ₦{{revenueAnalysisData?.revenueFromCertificates | commaDelimiter}}
+                  {{revenueAnalysisData?.processingRequests || 0}}
                 </p>
               </div>
             </div>
@@ -404,10 +404,10 @@
               class="relative before:absolute before:content-[''] before:w-2 before:h-[95%] before:my-auto before:rounded-3xl before:mr-4 before:top-0 before:left-0 before:bg-[#4086EF] mb-3">
               <div class="ml-4">
                 <p class="font-nunito font-normal text-lightGray text-sm pb-1">
-                  Others
+                  Pending Request
                 </p>
                 <p class="font-inter font-medium text-sm text-failedNormal">
-                  ₦{{revenueAnalysisData?.revenueFromOther | commaDelimiter }}
+                  {{revenueAnalysisData?.pendingRequests || 0 }}
                 </p>
               </div>
             </div>

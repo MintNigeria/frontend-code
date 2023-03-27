@@ -34,11 +34,23 @@ import {
   invokeGetOrganizationTransactionDetailsSuccess,
   invokeOrganizationTransactions,
   invokeOrganizationTransactionsSuccess,
+  makePayment,
+  makePaymentSuccess,
+  organizationProfile,
+  organizationProfileSuccess,
+  organizationSectorAndIndustry,
+  organizationSectorAndIndustrySuccess,
+  reasonForRequest,
+  reasonForRequestSuccess,
   registerOrganization,
   registerOrganizationSuccess,
   validateOrganizationCode,
   validateOrganizationCodeSuccess,
   validateOrganizationFundWallet,
+  verifyGraduateRecord,
+  verifyGraduateRecordSuccess,
+  verifyHistoryInstitutionDropdown,
+  verifyHistoryInstitutionDropdownSuccess,
 } from './action';
 
 @Injectable()
@@ -355,6 +367,238 @@ export class OrganizationEffects {
               // read data and update payload
 
               return getOrganizationVerificationHistoryDataSuccess({
+                payload: data,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  verifyGraduateRecord$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(verifyGraduateRecord),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        const { payload } = action;
+        return this.organizationService
+          .verifyGraduateRecord(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+
+              return verifyGraduateRecordSuccess({
+                payload: data,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  verifyHistoryInstitutionDropdown$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(verifyHistoryInstitutionDropdown),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        const { id } = action;
+        return this.organizationService
+          .verifyHistoryInstitutionDropdown(id)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+
+              return verifyHistoryInstitutionDropdownSuccess({
+                payload: data,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  organizationProfile$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(organizationProfile),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        const { id } = action;
+        return this.organizationService
+          .organizationProfile(id)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+
+              return organizationProfileSuccess({
+                payload: data,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  organizationSectorAndIndustry$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(organizationSectorAndIndustry),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        const { id } = action;
+        return this.organizationService
+          .organizationSectorAndIndustry(id)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+
+              return organizationSectorAndIndustrySuccess({
+                payload: data.payload,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  reasonForRequest$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(reasonForRequest),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.organizationService
+          .reasonForRequest()
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+
+              return reasonForRequestSuccess({
+                payload: data.payload,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  makePayment$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(makePayment),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const {payload} = action
+        return this.walletService
+          .makePayment(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+
+              return makePaymentSuccess({
                 payload: data,
               });
             })

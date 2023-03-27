@@ -141,7 +141,7 @@ searchForm = new FormGroup({
   }
   changeType(name: string) {
     this.selectedType = name
-    const filter = {...this.filter, ['TransactionType'] : status};
+    const filter = {...this.filter, ['TransactionType'] : name};
     this.filter = filter;
   }
 

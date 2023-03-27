@@ -5,6 +5,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { NotifierService } from 'angular-notifier';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
+import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { createProcessingFeeDocumentType, createProcessingFeeDocumentTypeSuccess, getAllProcessingFee, getAllProcessingFeeSuccess, getInstitutionConfiguration, getInstitutionConfigurationSuccess } from 'src/app/store/configuration/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
@@ -29,6 +30,9 @@ export class ProcessingFeeComponent implements OnInit {
   institutionId: any;
   ins: any;
   processingFeeList: any;
+  deviceModel: string;
+  ipAddress!: any;
+  updatedData: any;
 
   constructor(
      private fb: FormBuilder,
@@ -37,6 +41,8 @@ export class ProcessingFeeComponent implements OnInit {
     private appStore: Store<AppStateInterface>,
     private router: Router,
     private actions$: Actions,
+    private utilityService: UtilityService,
+
   ) {
     this.editForm = this.formBuilder.group({
       documentName: ['', Validators.required],
@@ -45,6 +51,17 @@ export class ProcessingFeeComponent implements OnInit {
       fileUpload: [false],
       hardCopy: [false]
     });
+    const userAgent = navigator.userAgent;
+
+    if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
+      this.deviceModel = 'iPad or iPhone';
+    } else if (userAgent.match(/Android/i)) {
+      this.deviceModel = 'Android';
+    } else if (userAgent.match(/Window/i)) {
+      this.deviceModel = 'Window';
+    } else {
+      this.deviceModel = 'Other';
+    }
    }
 
   ngOnInit(): void {
@@ -55,28 +72,55 @@ export class ProcessingFeeComponent implements OnInit {
     this.actions$.pipe(ofType(getAllProcessingFeeSuccess)).subscribe((res: any) => {
       this.processingFees = res.payload
     })
+    this.loadIp();
+
     this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
     this.actions$.pipe(ofType(getInstitutionConfigurationSuccess)).subscribe((res: any) => {
       this.processingFeeList = res.payload.processingFeesVM
+      this.updatedData = this.processingFeeList.map((x: any, index: number) => {
+        const a = x.processingFeeConfigVM.map((element: any) => {
+          return {
+            processingFeeConfigId: element.id,
+            fee: element.fee
+          }
+        });
+        return {
+          processingFeeId: x.id,
+          updateProcessingFeeConfigVM : a,
+          imei: '',
+    serialNumber: '',
+    device: this.deviceModel,
+    ipAddress: this.ipAddress
+        }
+      })
+      
+      console.log(this.updatedData)
       // this.processingFees = res.payload
     })
-    this.initFeeForm()
-    setTimeout(() => {
-      this.populateForm()
-    }, 2000);
+
+    // this.initFeeForm()
+    // setTimeout(() => {
+    //   this.populateForm()
+    // }, 2000);
   }
 
-  initFeeForm() {
-    this.feeForm = this.fb.group({
-      fee: [''],
+  loadIp() {
+    this.utilityService.getuserIP().subscribe((res: any) => {
+     this.ipAddress = res.ip
     })
   }
 
-   populateForm() {
-    this.feeForm.patchValue({
-      fee: 'N 5000',
-    })
-  }
+  // initFeeForm() {
+  //   this.feeForm = this.fb.group({
+  //     fee: [''],
+  //   })
+  // }
+
+  //  populateForm() {
+  //   this.feeForm.patchValue({
+  //     fee: 'N 5000',
+  //   })
+  // }
 
   getDocumentTypeName(event: any) {
     const data = this.processingFees.find((value: any) => value.id == Number(event));
@@ -117,5 +161,25 @@ export class ProcessingFeeComponent implements OnInit {
       //console.log(res)
 
     })
+  }
+
+  getFee(data: any, input: any, parent: number, child: number)  {
+    // console.log(data, input.value, parent, child)
+    console.log(data)
+    // console.log(this.processingFeeList[parent])
+    const a = this.updatedData.map((x: any, index: any) => {
+      if (parent === index) {
+        const b = x.updateProcessingFeeConfigVM.filter((element: any, ind: number) => {
+          if (ind === child && data.id === element.processingFeeConfigId) {
+            return {...element[ind], processingFeeConfigId: element.processingFeeConfigId, fee: Number(input.value)}
+          } 
+        })
+        return b
+      } else {
+        return x
+      }
+    })
+   
+    console.log('new data set', a)
   }
 }

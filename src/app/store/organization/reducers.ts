@@ -12,9 +12,15 @@ import {
   invokeGetOrganizationSuccess,
   invokeGetOrganizationTransactionDetailsSuccess,
   invokeOrganizationTransactionsSuccess,
+  makePaymentSuccess,
+  organizationProfileSuccess,
+  organizationSectorAndIndustrySuccess,
+  reasonForRequestSuccess,
   registerOrganizationSuccess,
   validateOrganizationCodeSuccess,
   validateOrganizationFundWalletSuccess,
+  verifyGraduateRecordSuccess,
+  verifyHistoryInstitutionDropdownSuccess,
 } from './action';
 import { OrganizationStateInterface } from './types/index.types';
 
@@ -28,6 +34,12 @@ const initialState: OrganizationStateInterface = {
   subscriptionHistory: null,
   verificationHistory: null,
   verificationHistoryData: null,
+  verifyRecord: null,
+  historyInstitution: null,
+  profile: null,
+  requestReason: null,
+  makePayment: null,
+  orgIndustryAndSectorName: null,
   fundwallet: {},
   organizationTransaction: null,
   transactionDetails: null,
@@ -83,6 +95,42 @@ export const organizationReducer = createReducer(
     return {
       ...state,
       verificationHistoryData: payload,
+    };
+  }),
+  on(verifyGraduateRecordSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      verifyRecord: payload,
+    };
+  }),
+  on(verifyHistoryInstitutionDropdownSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      historyInstitution: payload,
+    };
+  }),
+  on(organizationProfileSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      profile: payload,
+    };
+  }),
+  on(organizationSectorAndIndustrySuccess, (state, { payload }) => {
+    return {
+      ...state,
+      orgIndustryAndSectorName: payload,
+    };
+  }),
+  on(reasonForRequestSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      requestReason: payload,
+    };
+  }),
+  on(makePaymentSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      makePayment: payload,
     };
   }),
 

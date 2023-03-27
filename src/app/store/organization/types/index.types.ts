@@ -21,8 +21,14 @@ export interface OrganizationStateInterface {
   subscriptionHistory: any;
   verificationHistory: any;
   verificationHistoryData: any;
+  verifyRecord: any;
   organization: any;
+  requestReason: any;
+  makePayment: any;
+  orgIndustryAndSectorName: any;
   organizationTransaction: any;
+  historyInstitution: any;
+  profile: any;
   transactionDetails: any;
   message: string;
   downloadFile: any;

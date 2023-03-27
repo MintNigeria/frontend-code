@@ -14,6 +14,7 @@ import {
   getAllInstitutionDegreeTypeSuccess,
   getAllInstitutionRecordsSuccess,
   getAllInstitutionUsersSuccess,
+  getFacultyAndDepartmentByInstitutionNameSuccess,
   getInstitutionBodySuccess,
   getInstitutionConfigurationSuccess,
   getInstitutionSectorSuccess,
@@ -51,6 +52,7 @@ const initialState: IInstitutionStateInterface = {
   updateDegreeType: null,
   updateDepartment: null,
   updateFaculty: null,
+  faultyAndDepartmentName: null,
 };
 
 export const institutionReducers = createReducer(
@@ -203,6 +205,13 @@ export const institutionReducers = createReducer(
     return {
       ...state,
       updateFaculty: payload
+    };
+  }),
+  
+  on(getFacultyAndDepartmentByInstitutionNameSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      faultyAndDepartmentName : payload
     };
   }),
 
