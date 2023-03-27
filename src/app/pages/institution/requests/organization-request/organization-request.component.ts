@@ -141,7 +141,7 @@ selectedOption: string = 'All Time';
       });
       dialogRef.afterClosed().subscribe((res: any) => {
         if (res) {
-              console.log(res)
+              //console.log(res)
               const {start , end} = res; // use this start and end as fromDate and toDate on your filter
               this.selectedOption = `${start} - ${end}`
               const filter = {...this.filterParams, ['fromDate'] : start, ['toDate'] : end}
@@ -182,7 +182,7 @@ selectedOption: string = 'All Time';
   search(event: any) {
     if (event) {
       const filter = {...this.filterParams, ['keyword'] : event}
-      console.log(filter)
+      //console.log(filter)
       this.store.dispatch(getAllInstitutionOrganizationRequest({payload: {...filter, institutionId: this.institutionId}}))
     } else {
         const filter = {...this.filterParams, ['keyword'] : ''}

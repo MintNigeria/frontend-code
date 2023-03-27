@@ -51,7 +51,7 @@ searchForm = new FormGroup({
     this.institutionId = this.institutionData.InstitutionId
     this.store.dispatch(getAllInstitutionUpload({payload: {...this.filter, institutionId: this.institutionId}}))
     this.actions$.pipe(ofType(getAllInstitutionUploadSuccess)).subscribe((res: any) => {
-      console.log(res)
+      //console.log(res)
       this.uploads = res.payload.data;
       this.totalCount = res.payload.totalCount;
     })
@@ -77,10 +77,10 @@ searchForm = new FormGroup({
     this.selectedData = this.uploads.find((data: any) => data.batchId === id);
     this.uploads.filter((x: any) => {
       if (x.batchId === id) {
-        console.log(x.batchId )
+        //console.log(x.batchId )
         this.selectedDataId = x.batchId
       }});
-      console.log(this.selectedData,this.selectedDataId)
+      //console.log(this.selectedData,this.selectedDataId)
 
   }
 

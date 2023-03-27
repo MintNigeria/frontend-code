@@ -20,6 +20,7 @@ export interface OrganizationStateInterface {
   validateWalletPayment: any;
   subscriptionHistory: any;
   verificationHistory: any;
+  verificationHistoryData: any;
   organization: any;
   organizationTransaction: any;
   transactionDetails: any;

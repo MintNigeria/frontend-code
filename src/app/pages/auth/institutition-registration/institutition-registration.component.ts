@@ -102,7 +102,7 @@ filter: any = {
     this.filter = filter;
     this.store.dispatch(getAllInstitutionRecords({payload: this.filter}))
     this.actions$.pipe(ofType(getAllInstitutionRecordsSuccess)).subscribe((res: any) => {
-        console.log(res);
+        //console.log(res);
         this.institutionList = res.payload.data
     })
   }
@@ -117,19 +117,19 @@ filter: any = {
 
   selectLocalGovt(stateId: any) {
     // const id = stateId.target.value;
-    // console.log(value)
+    // //console.log(value)
     this.stateLGA$.subscribe((x) => {
       const data = x.find((value: any) => value.id == Number(stateId));
      
 
       this.lga = data.lgaVMs;
-      console.log(data);
+      //console.log(data);
     });
   }
 
   handleFileUpload(e: any) {
     const file = e.target.files[0];
-    console.log(file)
+    //console.log(file)
     if (!this.allowedFiled.includes(file.type)) {
 		  alert("Invalid format! Please select only correct file type");
 
@@ -141,7 +141,7 @@ filter: any = {
   }
 
   public resolved(captchaResponse: string): void {
-    console.log(`Resolved captcha with response: ${captchaResponse}`);
+    //console.log(`Resolved captcha with response: ${captchaResponse}`);
     this.institutionRegForm.controls['recaptchaReactive'].setValue(captchaResponse)
   }
 
@@ -149,7 +149,7 @@ filter: any = {
     const data = {
       approvalFile : this.selectedFileList, ...this.institutionRegForm.value
     }
-    console.log(data, this.institutionRegForm)
+    //console.log(data, this.institutionRegForm)
     this.store.dispatch(createNewInstitution({payload: data}))
     this.actions$.pipe(ofType(createNewInstitutionSuccess)).subscribe((res: any) => {
       if (res.payload.hasErrors === false) {

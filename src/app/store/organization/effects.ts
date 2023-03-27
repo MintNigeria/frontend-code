@@ -23,6 +23,8 @@ import {
   getOrganizationSubscriptionHistory,
   getOrganizationSubscriptionHistorySuccess,
   getOrganizationVerificationHistory,
+  getOrganizationVerificationHistoryData,
+  getOrganizationVerificationHistoryDataSuccess,
   getOrganizationVerificationHistorySuccess,
   getOrganizationWalletId,
   getOrganizationWalletIdSuccess,
@@ -314,6 +316,45 @@ export class OrganizationEffects {
               // read data and update payload
 
               return getOrganizationVerificationHistorySuccess({
+                payload: data,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getOrganizationVerificationHistoryData$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(getOrganizationVerificationHistoryData),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        const { id } = action;
+        return this.organizationService
+          .getOrganizationVerificationHistoryData(id)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+
+              return getOrganizationVerificationHistoryDataSuccess({
                 payload: data,
               });
             })

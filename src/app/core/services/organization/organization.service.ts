@@ -84,6 +84,14 @@ export class OrganizationService
     );
   }
 
+  getOrganizationVerificationHistoryData(
+    id: any
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Graduate-Record/${id}`
+    );
+  }
+
   getAllOrganization(
     organizationStatus: number,
     keyword: string,

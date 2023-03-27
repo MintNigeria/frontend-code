@@ -136,7 +136,7 @@ export class GraduateRequestComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe((res: any) => {
         if (res) {
-              console.log(res)
+              //console.log(res)
               const {start , end} = res; // use this start and end as fromDate and toDate on your filter
               this.selectedOption = `${start} - ${end}`
               const filter = {...this.filterParams, ['fromDate'] : start, ['toDate'] : end}

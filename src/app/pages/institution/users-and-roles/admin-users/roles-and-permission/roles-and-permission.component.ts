@@ -202,7 +202,7 @@ export class RolesAndPermissionComponent implements OnInit {
       this.filterDocument['facultyFilter'] = this.superAdminFilter;
     }
     
-    console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
+    //console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
   }
 
   openChangesConfirmed(){
