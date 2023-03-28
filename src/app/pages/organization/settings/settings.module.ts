@@ -13,6 +13,7 @@ import { StoreModule } from '@ngrx/store';
 import { InstitutionEffects } from 'src/app/store/institution/effects';
 import { UsersAndRolesEffects } from 'src/app/store/users-and-roles/effects';
 import { usersAndRolesReducer } from 'src/app/store/users-and-roles/reducer';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { usersAndRolesReducer } from 'src/app/store/users-and-roles/reducer';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    NgSelectModule,
         StoreModule.forFeature('usersAndRoles', usersAndRolesReducer),
     EffectsModule.forFeature([UsersAndRolesEffects, InstitutionEffects]),
 

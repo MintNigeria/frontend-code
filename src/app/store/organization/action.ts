@@ -15,6 +15,20 @@ export const registerOrganizationSuccess = createAction(
   }>()
 );
 
+export const updateOrganization = createAction(
+  '[organization] update organization',
+  props<{
+   payload: any
+  }>()
+);
+
+export const updateOrganizationSuccess = createAction(
+  '[organization] update organization success',
+  props<{
+   payload: any
+  }>()
+);
+
 export const validateOrganizationCode = createAction(
   '[organization] validate new organization OTP',
   props<{

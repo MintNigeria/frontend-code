@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { catchError, from, map, mergeMap, switchMap, take } from 'rxjs';
 import { AppResponseInterface } from 'src/app/types/appState.interface';
 import { setAPIResponseMessage } from '../shared/app.action';
-import { getAllDashboard, getAllDashboardInfoData, getAllDashboardInfoSuccess, getAllDashboardSuccess, getDashboardRevenueAnalysis, getDashboardRevenueAnalysisSuccess, getDashboardTopInstitutions, getDashboardTopInstitutionsSuccess, getOrganizationDashboardInfo, getOrganizationDashboardInfoSuccess } from './action';
+import { getAllDashboard, getAllDashboardInfoData, getAllDashboardInfoSuccess, getAllDashboardSuccess, getDashboardRevenueAnalysis, getDashboardRevenueAnalysisSuccess, getDashboardTopInstitutions, getDashboardTopInstitutionsSuccess, getOrganizationDashboardBottomInfo, getOrganizationDashboardBottomInfoSuccess, getOrganizationDashboardInfo, getOrganizationDashboardInfoSuccess, getOrganizationVeficiationAnalysis, getOrganizationVeficiationAnalysisSuccess } from './action';
 import { DashboardService } from 'src/app/core/services/dashboard/dashboard.service';
 
 @Injectable()
@@ -372,6 +372,86 @@ export class DashboardEffects {
               );
               // read data and update payload
               return getOrganizationDashboardInfoSuccess({
+                payload: data.payload
+                 
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getOrganizationDashboardBottomInfo$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(getOrganizationDashboardBottomInfo),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.dashboardService
+          .getOrganizationBottomInfo(
+            action.payload
+          )
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getOrganizationDashboardBottomInfoSuccess({
+                payload: data.payload
+                 
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getOrganizationVeficiationAnalysis$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(getOrganizationVeficiationAnalysis),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.dashboardService
+          .getOrganizationVerificationAnalysis(
+            action.payload
+          )
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getOrganizationVeficiationAnalysisSuccess({
                 payload: data.payload
                  
               });

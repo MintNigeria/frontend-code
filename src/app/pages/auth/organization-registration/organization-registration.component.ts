@@ -11,6 +11,7 @@ import { institutionTypeSelector, institutionSectorSelector, institutionBodySele
 import { registerOrganization, registerOrganizationSuccess, validateOrganizationCode, validateOrganizationCodeSuccess } from 'src/app/store/organization/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { environment } from 'src/environments/environment';
+import { Country, State, City }  from 'country-state-city';
 
 @Component({
   selector: 'app-organization-registration',
@@ -20,7 +21,9 @@ import { environment } from 'src/environments/environment';
 export class OrganizationRegistrationComponent implements OnInit {
   otplength: any;
   otpValue: any;
-
+  countries = Country.getAllCountries();
+  states: any;
+  cities: any;
   siteKey: string = environment.recaptchaKey
 
 institutionRegForm!: FormGroup
@@ -39,6 +42,13 @@ selectedFileList: any  = []
   modalId = 'messageModal'
 
   institutionList: any;
+  country: any;
+  selectedCountry: any;
+  selectedState!: any;
+  selectedCity!: any;
+  state: any;
+  city: any;
+  countryCode: any;
   constructor(
     private fb: FormBuilder,
     private appStore: Store<AppStateInterface>,
@@ -65,6 +75,9 @@ selectedFileList: any  = []
       invokeGetStateAndLGA()
     );
     
+    	// const countries = Country?.getAllCountries()
+      // console.log(contries)
+
   }
 
   initInstitutionRegForm() {
@@ -73,9 +86,8 @@ selectedFileList: any  = []
       Name : ['', Validators.required],
       EmailAddress: ['', [Validators.required, Validators.email]],
       PhoneNumber : ['', Validators.required],
-      LgaId: [null, Validators.required],
-      Lga: [null, Validators.required],
-      StateId: [null, Validators.required],
+      City: [null, Validators.required],
+      Country: [null, Validators.required],
       State: [null, Validators.required],
       Address : ['', Validators.required],
       OrganizationSectorId: [null, Validators.required],
@@ -94,6 +106,29 @@ selectedFileList: any  = []
   }
 
  
+  onCountryChange(event: any): void {
+    this.countryCode = JSON.parse(event).isoCode
+    this.states = State.getStatesOfCountry(JSON.parse(event).isoCode);
+    console.log(this.states)
+    this.selectedCountry = JSON.parse(event);
+    this.institutionRegForm.controls['Country'].setValue(this.selectedCountry.name)
+    
+    // this.cities = this.selectedState = this.selectedCity = null;
+  }
+  
+  onStateChange(event: any): void {
+    this.cities = City.getCitiesOfState(this.countryCode, JSON.parse(event).isoCode)
+    this.selectedState = JSON.parse(event);
+    this.institutionRegForm.controls['State'].setValue(this.selectedState.name)
+    
+  }
+  
+  onCityChange(event: any): void {
+    this.selectedCity = JSON.parse(event)
+    this.institutionRegForm.controls['City'].setValue(this.selectedCity.name)
+    console.log(this.institutionRegForm.value)
+
+  }
 
   changeRegistrationType(event: any) {
     if (event.target.value === 'CAC' ) {
