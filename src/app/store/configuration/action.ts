@@ -260,3 +260,23 @@ export const createProcessingFeeDocumentTypeSuccess = createAction(
   '[configuration] create new processing fee Success',
   props<{payload : any}>()
 )
+
+export const sendProcessingFeeForApproval = createAction(
+  '[configuration] send processing fee for approval',
+  props<{institutionId: string, payload : any}>()
+);
+
+export const sendProcessingFeeForApprovalSuccess = createAction(
+  '[configuration] send processing fee for approval Success',
+  props<{payload : any}>()
+)
+
+export const sendverificationFeeForApproval = createAction(
+  '[configuration] send verification fee for approval',
+  props<{institutionId: string, payload : any}>()
+);
+
+export const sendverificationFeeForApprovalSuccess = createAction(
+  '[configuration] send verification fee for approval Success',
+  props<{payload : any}>()
+)

@@ -19,6 +19,8 @@ import {
   getOrganisationIndustrySuccess,
   getOrganisationSectorSuccess,
   getSuccessMessage,
+  sendProcessingFeeForApprovalSuccess,
+  sendverificationFeeForApprovalSuccess,
   updateInstitutionBodySuccess,
   updateInstitutionSectorSuccess,
   updateInstitutionTypeSuccess,
@@ -41,6 +43,8 @@ const initialState: ConfigurationStateInterface = {
   institutionConfig : null,
   processingfee : null,
   newprocessingfee : null,
+  sendForApproval : null,
+  sendverificationForApproval : null,
 };
 
 export const configurationReducer = createReducer(
@@ -187,6 +191,18 @@ export const configurationReducer = createReducer(
     return {
       ...state,
       newprocessingfee: payload,
+    };
+  }),
+  on(sendProcessingFeeForApprovalSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      sendForApproval: payload,
+    };
+  }),
+  on(sendverificationFeeForApprovalSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      sendverificationForApproval: payload,
     };
   }),
  

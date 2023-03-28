@@ -23,7 +23,7 @@
 
     </div>
     
-    <div class="p-3 border-b" *ngFor="let type of vericationList">
+    <div class="p-3 border-b" *ngFor="let type of vericationList; let parent = index">
         <div class="w-10/12 ">
             <div class="lg:flex gap-6 mb-6">
                 <div class="w-full md:w-2/4">
@@ -46,6 +46,7 @@
                                 </div> -->
                                 <div class="w-full  mt-2">
                                     <input type="text"
+                                    (input)="getFee(type, $event.target, parent)"
                                     [value]="type.fee"
                                     placeholder="N 5000"
                                     [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-tableHeader rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
@@ -74,7 +75,7 @@
             >Cancel
         </app-button>
         <app-button
-        [routerLink]="'/institution/configuration/awaiting-approval-fee'"
+        (buttonClick)="sendForApproval()"
         [overRideButtonClass]="true"
         customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
             >Send for Approval

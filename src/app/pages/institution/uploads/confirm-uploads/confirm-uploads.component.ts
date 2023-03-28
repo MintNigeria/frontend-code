@@ -120,12 +120,12 @@ openChangesConfirmed(){
   device: this.deviceModel,
   ipAddress: this.ipAddress 
   }
-  this.notification.publishMessages('success', 'Mad man')
   this.store.dispatch(createGraduateRecord({payload}))
   this.actions$.pipe(ofType(createGraduateRecordSuccess)).subscribe((res: any) => {
-   if (res.payload.hasErrors === false) {
+    if (res.payload.hasErrors === false) {
+     this.notification.publishMessages('success', 'Successful')
 
-     document.getElementById('changesConfirmed')?.click();
+    //  document.getElementById('changesConfirmed')?.click();
      localStorage.removeItem('recordUpload');
      this.router.navigateByUrl('/institution/records')
    }
