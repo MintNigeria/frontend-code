@@ -21,6 +21,11 @@ export class DateRangeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  closeModal() {
+    this.dialogRef.close();
+
+  }
+
   saveSelection() {
     const {start, end} = this.range.value;
     const payload = {
