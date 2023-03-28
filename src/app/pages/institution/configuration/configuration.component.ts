@@ -22,10 +22,6 @@ export class ConfigurationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const data: any = localStorage.getItem('userData')
-    this.institutionData = JSON.parse(data)
-    this.institutionId = this.institutionData.InstitutionId
-    this.store.dispatch(getInstitutionConfiguration({id: this.institutionId}))
   }
 
 }

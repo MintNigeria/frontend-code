@@ -28,4 +28,6 @@ export interface ConfigurationStateInterface {
   institutionConfig: any;
   processingfee: any;
   newprocessingfee: any;
+  sendForApproval: any;
+  sendverificationForApproval: any;
 }

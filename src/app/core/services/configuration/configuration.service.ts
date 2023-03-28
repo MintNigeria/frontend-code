@@ -265,4 +265,26 @@ export class ConfigurationService
     );
   }
 
+  sendProcessingFeeForApproval(
+    institutionId: string,
+   payload : any
+  ) {
+    
+    return this.http.put<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionConfiguration/ProcessingFee/${institutionId}`,
+      payload
+    );
+  }
+
+  sendverificationFeeForApproval(
+    institutionId: string,
+   payload : any
+  ) {
+    
+    return this.http.put<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionConfiguration/VerificationFees/${institutionId}`,
+      payload
+    );
+  }
+
 }

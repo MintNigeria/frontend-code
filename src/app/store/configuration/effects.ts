@@ -43,6 +43,10 @@ import {
   getOrganisationSector,
   getOrganisationSectorSuccess,
   getSuccessMessage,
+  sendProcessingFeeForApproval,
+  sendProcessingFeeForApprovalSuccess,
+  sendverificationFeeForApproval,
+  sendverificationFeeForApprovalSuccess,
   updateInstitutionBody,
   updateInstitutionBodySuccess,
   updateInstitutionSector,
@@ -1012,6 +1016,76 @@ export class ConfigurationEffects {
             );
             // read data and update payload
             return createProcessingFeeDocumentTypeSuccess({
+              payload: data,
+            });
+          })
+        );
+      })
+    );
+  });
+
+  sendProcessingFeeForApproval$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(sendProcessingFeeForApproval),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.configurationService.sendProcessingFeeForApproval(action.institutionId, action.payload).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return sendProcessingFeeForApprovalSuccess({
+              payload: data,
+            });
+          })
+        );
+      })
+    );
+  });
+
+  sendverificationFeeForApproval$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(sendverificationFeeForApproval),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.configurationService.sendverificationFeeForApproval(action.institutionId, action.payload).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return sendverificationFeeForApprovalSuccess({
               payload: data,
             });
           })

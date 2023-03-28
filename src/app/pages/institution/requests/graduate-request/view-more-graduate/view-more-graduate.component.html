@@ -71,7 +71,7 @@
                 Update Request Approval
                 </p>
                 <div class="flex items-center gap-4">
-                <select
+                <select (change)="selectOption($event.target)"
                     name=""
                     id=""
                     class="select lg:w-52 w-auto h-[52px] bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none"
@@ -289,7 +289,7 @@
                 Cancel
         </label>
             <button
-                (click)="openChangesConfirmed()"
+                (click)="actionRequest()"
                 class="bg-buttonBlue rounded-lg  hover:bg-buttonBlue  text-white text-base font-medium font-inter py-2 px-4 w-36 "
             >
                 Yes, Update

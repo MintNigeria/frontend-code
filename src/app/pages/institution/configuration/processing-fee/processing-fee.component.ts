@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { NotifierService } from 'angular-notifier';
-import { NotificationsService } from 'src/app/core/services/notifications.service';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
-import { createProcessingFeeDocumentType, createProcessingFeeDocumentTypeSuccess, getAllProcessingFee, getAllProcessingFeeSuccess, getInstitutionConfiguration, getInstitutionConfigurationSuccess } from 'src/app/store/configuration/action';
+import { createProcessingFeeDocumentType, createProcessingFeeDocumentTypeSuccess, getAllProcessingFee, getAllProcessingFeeSuccess, getInstitutionConfiguration, getInstitutionConfigurationSuccess, sendProcessingFeeForApproval, sendProcessingFeeForApprovalSuccess } from 'src/app/store/configuration/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
@@ -42,6 +42,7 @@ export class ProcessingFeeComponent implements OnInit {
     private router: Router,
     private actions$: Actions,
     private utilityService: UtilityService,
+    private notification: NotificationsService
 
   ) {
     this.editForm = this.formBuilder.group({
@@ -94,7 +95,6 @@ export class ProcessingFeeComponent implements OnInit {
         }
       })
       
-      console.log(this.updatedData)
       // this.processingFees = res.payload
     })
 
@@ -165,21 +165,32 @@ export class ProcessingFeeComponent implements OnInit {
 
   getFee(data: any, input: any, parent: number, child: number)  {
     // console.log(data, input.value, parent, child)
-    console.log(data)
-    // console.log(this.processingFeeList[parent])
-    const a = this.updatedData.map((x: any, index: any) => {
-      if (parent === index) {
-        const b = x.updateProcessingFeeConfigVM.filter((element: any, ind: number) => {
-          if (ind === child && data.id === element.processingFeeConfigId) {
-            return {...element[ind], processingFeeConfigId: element.processingFeeConfigId, fee: Number(input.value)}
-          } 
-        })
-        return b
+    const allData = this.updatedData;
+    let newData = this.updatedData[parent]
+    const j = newData.updateProcessingFeeConfigVM.map((f: any, h: any) => {
+      if (h === child) {
+        return {processingFeeConfigId : f.processingFeeConfigId, fee: Number(input.value)}
       } else {
-        return x
+        return f
       }
     })
+    newData.updateProcessingFeeConfigVM = j
+    this.updatedData[parent] = newData;
+    sessionStorage.setItem('prox_f', JSON.stringify(this.updatedData))
    
-    console.log('new data set', a)
+  }
+
+  sendForApproval() {
+    const data: any = sessionStorage.getItem('prox_f')
+    const newData = JSON.parse(data)
+this.store.dispatch(sendProcessingFeeForApproval({institutionId: this.institutionId, payload: newData }))
+this.actions$.pipe(ofType(sendProcessingFeeForApprovalSuccess)).subscribe((res: any) => {
+  if (res.payload.hasErrors === false) {
+    this.notification.publishMessages('success', res.payload.description)
+    this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
+    sessionStorage.removeItem('prox_f')
+
+  }
+})
   }
 }

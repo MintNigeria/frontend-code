@@ -14,7 +14,7 @@
                      <div class="flex items-center gap-2 w-fit p-2">
                         <div class="ml-3 w-2 h-2 rounded-full bg-[#027A48]"></div>
                         <p class="my-0 text-sm cursor-pointer font-inter font-medium w-auto text-[#027A48]">
-                            Approved
+                            N/A
                         </p>
                      </div>
                 </div>
@@ -266,7 +266,7 @@
         <app-button
         [overRideButtonClass]="true"
         customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
-        [routerLink]="'/institution/configuration/awaiting-approval'"
+        (buttonClick)="sendForApproval()"
             >Send for Approval
         </app-button>
     </div>
