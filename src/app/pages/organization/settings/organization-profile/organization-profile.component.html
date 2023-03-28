@@ -161,13 +161,15 @@
                             State
                           </label>
                     </div>
-                    <div class="w-full md:w-2/3">
-                        <select 
-                        name="" 
-                        id=""
-                        class="select h-[52px] w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
-                        <option value="">Lagos</option>
-                      </select>
+                    <div class="w-full md:w-2/3" *ngIf="stateLGA$ | async as states">
+                        <ng-select class="custom-ng-dropdown"
+                        formControlName="state"
+                        [selectOnTab]="true"
+                        placeholder="Select State"
+                        (change)="selectLocalGovt($event)"
+                        >
+                    <ng-option *ngFor="let state of states" [value]="state.id">{{state.name}}</ng-option>
+                    </ng-select>
                     </div>
                 </div>
                 <div class="flex gap-6 mb-9">
@@ -177,12 +179,13 @@
                           </label>
                     </div>
                     <div class="w-full md:w-2/3">
-                        <select 
-                        name="" 
-                        id=""
-                        class="select h-[52px] w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
-                        <option value="">Lagos Mainland</option>
-                      </select>
+                        <ng-select class="custom-ng-dropdown" 
+                        formControlName="lga" 
+                        [selectOnTab]="true" 
+                        placeholder="Select LGA"
+                        >
+                    <ng-option *ngFor="let lga of lga" [value]="lga.name">{{lga.name}}</ng-option>
+                    </ng-select>
                     </div>
                 </div>
                 <div class="flex gap-6 mb-9">

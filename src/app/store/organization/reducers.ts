@@ -17,6 +17,7 @@ import {
   organizationSectorAndIndustrySuccess,
   reasonForRequestSuccess,
   registerOrganizationSuccess,
+  updateOrganizationSuccess,
   validateOrganizationCodeSuccess,
   validateOrganizationFundWalletSuccess,
   verifyGraduateRecordSuccess,
@@ -28,6 +29,7 @@ const initialState: OrganizationStateInterface = {
   organizations: { data: [], totalCount: 0 },
   organization: null,
   newOrganization: null,
+  updateOrganization: null,
   newOrganizationValidation: null,
   walletId: null,
   validateWalletPayment: null,
@@ -53,6 +55,12 @@ export const organizationReducer = createReducer(
     return {
       ...state,
       newOrganization: payload,
+    };
+  }),
+  on(updateOrganizationSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      updateOrganization: payload,
     };
   }),
   on(validateOrganizationCodeSuccess, (state, { payload }) => {

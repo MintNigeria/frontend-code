@@ -69,4 +69,20 @@ export class DashboardService
     );
   }
 
+  getOrganizationBottomInfo(
+    filter: any
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionDashboard/BottomOrganizationDasboard`, {params: filter}
+    );
+  }
+  
+  getOrganizationVerificationAnalysis(
+    filter: any
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionDashboard/OrganizationVerificationAnalysis`, {params: filter}
+    );
+  }
+
 }

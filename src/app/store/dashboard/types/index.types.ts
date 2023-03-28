@@ -24,5 +24,8 @@ export interface IDashboardCardInfo {
 
 export interface DashboardStateInterface {
   dashBoard: { data: Array<any>; totalCount: number };
+  organizationDashboard: { data: Array<any>; totalCount: number };
+  organizationBottomDashboard: any;
+  organizationVerification: any;
   dashboardCardStats: IDashboardCardInfo | null
 }

@@ -44,6 +44,8 @@ import {
   reasonForRequestSuccess,
   registerOrganization,
   registerOrganizationSuccess,
+  updateOrganization,
+  updateOrganizationSuccess,
   validateOrganizationCode,
   validateOrganizationCodeSuccess,
   validateOrganizationFundWallet,
@@ -94,6 +96,45 @@ export class OrganizationEffects {
               // read data and update payload
 
               return registerOrganizationSuccess({
+                payload: data,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  updateOrganization$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(updateOrganization),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        const { payload } = action;
+        return this.organizationService
+          .updateOrganization(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+
+              return updateOrganizationSuccess({
                 payload: data,
               });
             })

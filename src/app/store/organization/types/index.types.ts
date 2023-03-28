@@ -14,6 +14,7 @@ export interface IOrganizationApproveReject {
 export interface OrganizationStateInterface {
   organizations: { data: Array<any>; totalCount: number };
   newOrganization: any;
+  updateOrganization: any;
   newOrganizationValidation: any;
   walletId: any;
   fundwallet: any;

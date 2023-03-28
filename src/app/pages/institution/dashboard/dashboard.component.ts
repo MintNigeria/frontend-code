@@ -47,6 +47,14 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.store.dispatch(getDashboardTopInstitutions({payload: {...this.cardFilter, institutionId: this.institutionId}}))
     this.getDashboardCardInfo()
     this.getRevenueAnalysis()
+    this.getTopInstitutions()
+
+  }
+
+  reloadScreen() {
+    this.store.dispatch(getAllDashboardInfoData({payload: {...this.cardFilter, institutionId: this.institutionId }}))
+    this.store.dispatch(getDashboardRevenueAnalysis({payload: {...this.filter, institutionId: this.institutionId}}))
+    this.store.dispatch(getDashboardTopInstitutions({payload: {...this.cardFilter, institutionId: this.institutionId}}))
 
   }
 
@@ -55,9 +63,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.createDistributionChart2()
 
   }
-  createDistributionChart2() {
-    throw new Error('Method not implemented.');
-  }
+
 
   getDashboardCardInfo() {
     this.dashboardCardInfo$.subscribe((res: any) => {
@@ -211,5 +217,62 @@ createDistributionChart3( ) {
   myChart.update();
 }
 
+
+  createDistributionChart2() {
+    const data = this.topInstitutionRequests?.topRequestsVMs;
+    const a = this.revenueAnalysisData.requestStatisticsVms?.map((x: any) => {
+      return x.graduate
+    })
+    const b = this.revenueAnalysisData.requestStatisticsVms?.map((x: any) => {
+      return x.organization
+    })
+    console.log(a, b)
+    const labels = ['MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT', 'SUN'];
+    const bar = [100, 80, 25, 50, 400, 150, 200, 250, 300, 350];
+    const line = [0, 50, 75, 50, 100, 150, 60, 35, 200, 150];
+    const t_ctx = document.getElementById('request') as unknown as any;
+    const ctx = t_ctx.getContext('2d')
+
+
+    const chart = new Chart(ctx, {
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            type: 'bar',
+            label: 'Graduate',
+            data: a,
+            // fill: false,
+            backgroundColor: '#0D47A1'
+          }, {
+            type: 'line',
+            label: 'Organization',
+            data: b,
+            // fill: false,
+            borderColor: '#92BAF6'
+          }]
+      },
+      options: {
+        interaction: {},
+        scales: {
+          x: {
+            display: true,
+          },
+          y: {
+            display: true,
+          },
+        },
+        plugins: {
+          legend: {
+            display: false,
+            position: 'right',
+          },
+        },
+      },
+    }
+
+    );
+    chart.update()
+  }
 
 }

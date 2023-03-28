@@ -42,10 +42,9 @@ export class OrganizationService
     body.append('Name', payload.Name)
     body.append('DateOfIncorporation', payload.DateOfIncorporation)
     body.append('CAC', payload.CAC)
-    body.append('LgaId', payload.LgaId)
-    body.append('StateId', payload.StateId)
     body.append('State', payload.State)
-    body.append('Lga', payload.Lga)
+    body.append('City', payload.City)
+    body.append('Country', payload.Country)
     body.append('Address', payload.Address)
     body.append('PhoneNumber', payload.PhoneNumber)
     body.append('Email', payload.EmailAddress)
@@ -59,6 +58,23 @@ export class OrganizationService
     }
     return this.http.post<any>(
       `${this.baseUrl}mint-organization/api/v1/Organization/CreateOrganization`, body
+    );
+  }
+
+  updateOrganization(payload: any) {
+    const body = new FormData()
+    body.append('Id', payload.id)
+    body.append('Name', payload.Name)
+    body.append('DateOfIncorporation', payload.DateOfIncorporation)
+    body.append('CAC', payload.CAC)
+    body.append('State', payload.State)
+    body.append('Lga', payload.Lga)
+    body.append('Address', payload.Address)
+    body.append('PhoneNumber', payload.PhoneNumber)
+    body.append('Logo', payload.PhoneNumber)
+
+    return this.http.post<any>(
+      `${this.baseUrl}mint-organization/api/v1/Organization/UpdateOrganization`, body
     );
   }
 

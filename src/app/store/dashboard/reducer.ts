@@ -1,10 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
-import { getAllDashboardInfoData, getAllDashboardInfoSuccess, getAllDashboardSuccess, getDashboardRevenueAnalysisSuccess, getDashboardTopInstitutionsSuccess, getOrganizationDashboardInfoSuccess } from './action';
+import { getAllDashboardInfoData, getAllDashboardInfoSuccess, getAllDashboardSuccess, getDashboardRevenueAnalysisSuccess, getDashboardTopInstitutionsSuccess, getOrganizationDashboardBottomInfoSuccess, getOrganizationDashboardInfoSuccess, getOrganizationVeficiationAnalysisSuccess } from './action';
 import { DashboardStateInterface } from './types/index.types';
 
 
 const initialState: DashboardStateInterface = {
   dashBoard: { data: [], totalCount: 0 },
+  organizationDashboard: { data: [], totalCount: 0 },
+  organizationBottomDashboard: null,
+  organizationVerification: null,
   dashboardCardStats: {
     revenueGeneratedVM: {
       totalRevenueFromGraduates: 0,
@@ -53,7 +56,19 @@ export const dashboardReducer = createReducer (
   on(getOrganizationDashboardInfoSuccess, (state, {payload})=> {
     return {
       ...state,
-      dashBoard: payload
+      organizationDashboard: payload
+    }
+  }),
+  on(getOrganizationDashboardBottomInfoSuccess, (state, {payload})=> {
+    return {
+      ...state,
+      organizationBottomDashboard: payload
+    }
+  }),
+  on(getOrganizationVeficiationAnalysisSuccess, (state, {payload})=> {
+    return {
+      ...state,
+      organizationVerification: payload
     }
   }),
 

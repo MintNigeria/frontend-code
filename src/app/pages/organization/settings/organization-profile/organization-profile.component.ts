@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Actions, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+import { invokeGetStateAndLGA } from 'src/app/store/institution copy/action';
+import { stateLgaSelector } from 'src/app/store/institution copy/selector';
 import { organizationProfile, organizationProfileSuccess } from 'src/app/store/organization/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
@@ -12,6 +14,7 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
   styleUrls: ['./organization-profile.component.scss']
 })
 export class OrganizationProfileComponent implements OnInit {
+  stateLGA$ = this.appStore.pipe(select(stateLgaSelector));
 
  profileForm!: FormGroup
   selectedFile!: null
@@ -20,6 +23,7 @@ export class OrganizationProfileComponent implements OnInit {
   confirmChanges = 'confirmChanges';
   changesConfirmed = 'changesConfirmed';
   userData: any;
+  lga: any;
 
   
 
@@ -34,13 +38,17 @@ export class OrganizationProfileComponent implements OnInit {
     const data: any = localStorage.getItem('userData')
     this.userData = JSON.parse(data)
     this.initProfileForm()
+    this.store.dispatch(
+      invokeGetStateAndLGA()
+      );
     this.store.dispatch(organizationProfile({id: this.userData.OrganizationId }))
     this.actions$.pipe(ofType(organizationProfileSuccess)).subscribe((res: any) => {
       console.log(res)
+      
+      setTimeout(() => {
+        this.populateForm(res.payload.payload)
+      }, 2000);
     })
-    setTimeout(() => {
-      this.populateForm()
-    }, 2000);
   }
 
   initProfileForm() {
@@ -58,18 +66,18 @@ export class OrganizationProfileComponent implements OnInit {
     })
   }
 
-  populateForm() {
+  populateForm(data: any) {
     this.profileForm.patchValue({
-      name: 'First Bank',
-      sector: 'Financial Institution',
-      establishment: '02-02-1967',
-      type: 'CAC',
-      regNumber: 'RC2345678',
-      email: 'admin@unilag.edu.ng',
-      phone: '070894994954',
-      state: 'Lagos',
-      lga: 'VI',
-      address: '14, Karimu Kotun Road',
+      name: data.name,
+      sector: data.organizationSector,
+      establishment: data?.dateOfInCorporation,
+      type: data.registeringBody,
+      regNumber: data.cac,
+      email: data.email,
+      phone: data.phoneNumber,
+      state: data.state,
+      lga: data.lga,
+      address: data.address,
     })
   }
 
@@ -83,6 +91,16 @@ export class OrganizationProfileComponent implements OnInit {
 		} else {
       this.selectedFile = e.target.files[0].name
     }
+  }
+
+  selectLocalGovt(stateId: any) {
+    this.stateLGA$.subscribe((x) => {
+      const data = x.find((value: any) => value.id == Number(stateId));
+      this.profileForm.controls['state'].setValue(data.name)
+  
+  
+      this.lga = data.lgaVMs;
+    });
   }
 
   
