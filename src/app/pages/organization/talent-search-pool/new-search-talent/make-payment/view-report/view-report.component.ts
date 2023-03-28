@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
 
 @Component({
-  selector: 'app-view-reports',
-  templateUrl: './view-reports.component.html',
-  styleUrls: ['./view-reports.component.scss']
+  selector: 'app-view-report',
+  templateUrl: './view-report.component.html',
+  styleUrls: ['./view-report.component.scss']
 })
-export class ViewReportsComponent implements OnInit {
+export class ViewReportComponent implements OnInit {
 
   selectedOption: string = "All Time";
   selectedInstitution : string = "All";
@@ -19,6 +21,15 @@ export class ViewReportsComponent implements OnInit {
   filterInstituition = {selectedInstituition: 'All'};
   filterDocument = {documentType: 'All'};
 
+
+  filter= {
+    'TimeBoundSearchVm.TimeRange': 0,
+    keyword: '',
+      filter: '',
+      pageSize: 10,
+      pageIndex: 1,
+   }
+
   
 
 
@@ -30,7 +41,8 @@ export class ViewReportsComponent implements OnInit {
     department: 'History',
     gradYear: '2019',
     institution: 'University of Lagos',
-    grade: '2:2'
+    grade: '2:2',
+    gender: 'male'
   },
   {
     id: '2',
@@ -39,7 +51,8 @@ export class ViewReportsComponent implements OnInit {
     department: 'History',
     gradYear: '2019',
     institution: 'University of Lagos',
-    grade: '2:2'
+    grade: '2:2',
+    gender: 'male'
   },
   {
     id: '3',
@@ -48,7 +61,8 @@ export class ViewReportsComponent implements OnInit {
     department: 'History',
     gradYear: '2019',
     institution: 'University of Lagos',
-    grade: '2:2'
+    grade: '2:2',
+    gender: 'male'
   },
   {
     id: '4',
@@ -57,7 +71,8 @@ export class ViewReportsComponent implements OnInit {
     department: 'History',
     gradYear: '2019',
     institution: 'University of Lagos',
-    grade: '2:2'
+    grade: '2:2',
+    gender: 'male'
   },
   {
     id: '5',
@@ -66,7 +81,8 @@ export class ViewReportsComponent implements OnInit {
     department: 'History',
     gradYear: '2019',
     institution: 'University of Lagos',
-    grade: '2:2'
+    grade: '2:2',
+    gender: 'male'
   },
   {
     id: '6',
@@ -75,11 +91,14 @@ export class ViewReportsComponent implements OnInit {
     department: 'History',
     gradYear: '2019',
     institution: 'University of Lagos',
-    grade: '2:2'
+    grade: '2:2',
+    gender: 'male'
   }
  ]
 
-  constructor() { }
+  constructor(
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
   }
@@ -115,6 +134,34 @@ export class ViewReportsComponent implements OnInit {
     this.filterInstituition = {selectedInstituition: 'All'};
     this.documentType = 'All'
     this.filterDocument = {documentType: 'All'};
+  }
+
+  goBack() {
+  window.history.back();
+  }
+
+  changeRange(range: number, name: string) {
+    this.selectedOption = name
+    if (range === 5) {
+      // launch calender
+      const dialogRef = this.dialog.open(DateRangeComponent, {
+        // width: '600px',
+        height: 'auto',
+        disableClose: true,
+      });
+      dialogRef.afterClosed().subscribe((res: any) => {
+        if (res) {
+              const {start , end} = res; // use this start and end as fromDate and toDate on your filter
+              this.selectedOption = `${start} - ${end}`
+              const filter = {...this.filter, ['TimeBoundSearchVm.FromDate'] : start, ['TimeBoundSearchVm.ToDate'] : end}
+              this.filter = filter;
+        }
+  
+      })
+    } else {
+      const filter = {...this.filter, ['range'] : range};
+      this.filter = filter;
+    }
   }
 
 

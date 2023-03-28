@@ -34,9 +34,9 @@ export class OrganizationComponent implements OnInit {
     },
     {
       id: 4,
-      title: 'Value Added Service',
+      title: 'Talent Search Pool',
       hasChild: false,
-      path: 'value-added-services',
+      path: 'talent-search-pool',
       active: 'assets/images/valueaddedservice_inactive.svg',
       inactive: 'assets/images/valueaddedservice_inactive.svg',
     },
