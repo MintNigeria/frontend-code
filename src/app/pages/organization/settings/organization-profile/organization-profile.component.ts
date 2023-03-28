@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Actions, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { organizationProfile, organizationProfileSuccess } from 'src/app/store/organization/action';
+import { AppStateInterface } from 'src/app/types/appState.interface';
 
 
 @Component({
@@ -15,15 +19,25 @@ export class OrganizationProfileComponent implements OnInit {
 
   confirmChanges = 'confirmChanges';
   changesConfirmed = 'changesConfirmed';
+  userData: any;
 
   
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private appStore: Store<AppStateInterface>,
+    private store: Store,
+    private actions$: Actions,
   ) { }
 
   ngOnInit(): void {
+    const data: any = localStorage.getItem('userData')
+    this.userData = JSON.parse(data)
     this.initProfileForm()
+    this.store.dispatch(organizationProfile({id: this.userData.OrganizationId }))
+    this.actions$.pipe(ofType(organizationProfileSuccess)).subscribe((res: any) => {
+      console.log(res)
+    })
     setTimeout(() => {
       this.populateForm()
     }, 2000);
