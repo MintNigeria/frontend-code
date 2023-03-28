@@ -12,7 +12,13 @@
           <!-- <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
           <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error> -->
         </mat-form-field>
-        <div>
+        <div class="flex justify-center items-center gap-6">
+            <button
+                    class="bg-primaryBlue text-white font-medium font-inter text-xs w-[80px] h-[40px] rounded-xl"
+                    (click)="closeModal()"
+                    >
+                    Cancel
+                    </button>
             <button
                     class="bg-primaryBlue text-white font-medium font-inter text-xs w-[80px] h-[40px] rounded-xl"
                     (click)="saveSelection()"
