@@ -65,7 +65,6 @@ export class VerificationFeeComponent implements OnInit {
       ipAddress: this.ipAddress
         }
       })
-      console.log(this.updatedData)
       
     })
   }
@@ -94,7 +93,7 @@ this.actions$.pipe(ofType(sendverificationFeeForApprovalSuccess)).subscribe((res
   if (res.payload.hasErrors === false) {
     this.notification.publishMessages('success', res.payload.description)
     this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
-
+    sessionStorage.removeItem('verX_f')
   }
 })
 

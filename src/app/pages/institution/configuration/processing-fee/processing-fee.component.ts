@@ -188,6 +188,7 @@ this.actions$.pipe(ofType(sendProcessingFeeForApprovalSuccess)).subscribe((res: 
   if (res.payload.hasErrors === false) {
     this.notification.publishMessages('success', res.payload.description)
     this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
+    sessionStorage.removeItem('prox_f')
 
   }
 })
