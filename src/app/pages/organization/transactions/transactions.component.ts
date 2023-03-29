@@ -59,12 +59,12 @@ searchForm = new FormGroup({
     this.userData = JSON.parse(data)
     this.store.dispatch(getOrganizationWalletId({id: this.userData.OrganizationId}))
     this.actions$.pipe(ofType(getOrganizationWalletIdSuccess)).subscribe((res: any) => {
-      //console.log(res)
+      ////console.log(res)
       this.balance = res.payload.balance;
     })
     this.store.dispatch(getOrganizationSubscriptionHistory({payload: {...this.filter, OrganizationId: this.userData.OrganizationId}}))
     this.actions$.pipe(ofType(getOrganizationSubscriptionHistorySuccess)).subscribe((res: any) => {
-      //console.log(res)
+      ////console.log(res)
       this.history = res.payload.payload;
       this.total = res.payload.totalCount
       // this.balance = res.payload;

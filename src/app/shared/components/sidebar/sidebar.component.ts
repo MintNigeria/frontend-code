@@ -30,7 +30,7 @@ user$ = this.appStore.pipe(select(isUserSelector));
 
   ngOnInit(): void {
     this.currentRoute = this.router.url.split('/')[1]
-    //console.log(this.currentRoute, this.router.url.split('/')[1])
+    ////console.log(this.currentRoute, this.router.url.split('/')[1])
   }
 
   goToPath(path: any, hasChild: boolean) {

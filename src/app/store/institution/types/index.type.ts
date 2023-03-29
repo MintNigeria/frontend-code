@@ -21,4 +21,5 @@ export interface IInstitutionStateInterface {
   updateDepartment: any;
   updateFaculty: any;
   faultyAndDepartmentName: any;
+  dropdown: any;
 }

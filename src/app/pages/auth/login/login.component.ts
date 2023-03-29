@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit {
   fetchOTPCode() {}
 
   public resolved(captchaResponse: string): void {
-    //console.log(`Resolved captcha with response: ${captchaResponse}`);
+    ////console.log(`Resolved captcha with response: ${captchaResponse}`);
     this.loginAuth.controls['recaptchaReactive'].setValue(captchaResponse);
   }
 

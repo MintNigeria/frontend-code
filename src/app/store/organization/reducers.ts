@@ -5,6 +5,9 @@ import {
   downloadOrganizationExcelSuccess,
   fundOrganizationWalletSuccess,
   getAllOrganizationSuccess,
+  getAlltalentSearchPoolResultSuccess,
+  getAlltalentSearchPoolSuccess,
+  getDepartmentGradesSuccess,
   getOrganizationSubscriptionHistorySuccess,
   getOrganizationVerificationHistoryDataSuccess,
   getOrganizationVerificationHistorySuccess,
@@ -13,6 +16,7 @@ import {
   invokeGetOrganizationTransactionDetailsSuccess,
   invokeOrganizationTransactionsSuccess,
   makePaymentSuccess,
+  newTalentPoolSearchSuccess,
   organizationProfileSuccess,
   organizationSectorAndIndustrySuccess,
   reasonForRequestSuccess,
@@ -41,6 +45,10 @@ const initialState: OrganizationStateInterface = {
   profile: null,
   requestReason: null,
   makePayment: null,
+  searchpool: null,
+  searchpoolresult: null,
+  newPoolSearch: null,
+  departmentDegree: null,
   orgIndustryAndSectorName: null,
   fundwallet: {},
   organizationTransaction: null,
@@ -141,6 +149,34 @@ export const organizationReducer = createReducer(
       makePayment: payload,
     };
   }),
+  on(getAlltalentSearchPoolSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      makePayment: payload,
+    };
+  }),
+  on(getAlltalentSearchPoolResultSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      makePayment: payload,
+    };
+  }),
+  on(getDepartmentGradesSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      departmentDegree: payload,
+    };
+  }),
+  on(newTalentPoolSearchSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      newPoolSearch: payload,
+    };
+  }),
+
+
+
+
 
 
   on(getAllOrganizationSuccess, (state, { payload }) => {

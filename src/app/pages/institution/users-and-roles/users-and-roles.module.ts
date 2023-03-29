@@ -20,6 +20,7 @@ import { ReportingEffects } from 'src/app/store/reporting/effects';
 import { UserListComponent } from './admin-users/user-list/user-list.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { CreateRoleComponent } from './admin-users/create-role/create-role.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ChangePasswordComponent,
     UsersComponent,
     RolesAndPermissionComponent,
-    UserListComponent
+    UserListComponent,
+    CreateRoleComponent
   ],
   imports: [
     CommonModule,

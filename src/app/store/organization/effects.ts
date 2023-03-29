@@ -20,6 +20,12 @@ import {
   getAllOrganization,
   getAllOrganizationSuccess,
   getAllPendingOrganization,
+  getAlltalentSearchPool,
+  getAlltalentSearchPoolResult,
+  getAlltalentSearchPoolResultSuccess,
+  getAlltalentSearchPoolSuccess,
+  getDepartmentGrades,
+  getDepartmentGradesSuccess,
   getOrganizationSubscriptionHistory,
   getOrganizationSubscriptionHistorySuccess,
   getOrganizationVerificationHistory,
@@ -36,6 +42,8 @@ import {
   invokeOrganizationTransactionsSuccess,
   makePayment,
   makePaymentSuccess,
+  newTalentPoolSearch,
+  newTalentPoolSearchSuccess,
   organizationProfile,
   organizationProfileSuccess,
   organizationSectorAndIndustry,
@@ -647,6 +655,162 @@ export class OrganizationEffects {
       })
     );
   });
+
+  getAlltalentSearchPoolResult$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(getAlltalentSearchPoolResult),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const {payload} = action
+        return this.organizationService
+          .getAlltalentSearchPoolResult(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+
+              return getAlltalentSearchPoolResultSuccess({
+                payload: data,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getAlltalentSearchPool$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(getAlltalentSearchPool),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const {payload} = action
+        return this.organizationService
+          .getAlltalentSearchPool(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+
+              return getAlltalentSearchPoolSuccess({
+                payload: data,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getDepartmentGrades$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(getDepartmentGrades),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const {institutionId, departmentId} = action
+        return this.organizationService
+          .getDepartmentGrades(institutionId, departmentId)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+
+              return getDepartmentGradesSuccess({
+                payload: data,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  newTalentPoolSearch$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(newTalentPoolSearch),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const {payload} = action
+        return this.organizationService
+          .newTalentPoolSearch(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+
+              return newTalentPoolSearchSuccess({
+                payload: data,
+              });
+            })
+          );
+      })
+    );
+  });
+
+
+
+
 
 
   getOrganizationsTransaction$ = createEffect(() => {

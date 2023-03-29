@@ -78,7 +78,7 @@
 
                         <div class="lg:justify-between gap-4">
                             <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
-                                Department
+                                Faculty
                             </p>
                             <div class="dropdown dropdown-bottom">
                                 <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
@@ -86,10 +86,24 @@
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
                                 </label>
                                 <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-56">
+                                    <li><a (click)="selectedFaculty='All'">All</a></li>
+                                    <li *ngFor="let unit of facultyList"> <a #faculty (click)="changeFaculty(unit.id, unit.name)">{{unit?.name}}</a></li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="lg:justify-between gap-4">
+                            <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
+                                Department
+                            </p>
+                            <div class="dropdown dropdown-bottom">
+                                <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
+                                    <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedSector }}</p>
+                                    <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
+                                </label>
+                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-56">
                                     <li><a (click)="selectedSector='All'">All</a></li>
-                                    <li><a (click)="selectedSector='Federal'">Federal</a></li>
-                                    <li><a (click)="selectedSector='State'">State</a></li>
-                                    <li><a (click)="selectedSector='Private'">Private</a></li>
+                                    <li *ngFor="let unit of departmentList"> <a  (click)="changeDepartment(unit.id, unit.departmentName)">{{unit?.departmentName}}</a></li>
                                 </ul>
                             </div>
                         </div>

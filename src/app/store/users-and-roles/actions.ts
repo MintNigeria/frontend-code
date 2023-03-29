@@ -38,9 +38,10 @@ export const getAllGlobalUsersAndRolesSuccess = createAction (
 )
 
 export const invokeAdminUsersInRole = createAction (
-  '[Users And Roles] get Global Users in Roles',
+  '[Users And Roles] get institution Users in Roles',
   props<{
     roleId: string;
+    institutionId: string;
     keyword: string;
     filter: string;
     pageSize: number;
@@ -50,7 +51,7 @@ export const invokeAdminUsersInRole = createAction (
 
 
 export const invokeAdminUsersInRoleSuccess = createAction (
-  '[Users And Roles] get all Global Users in Roles Success',
+  '[Users And Roles] get all institution Users in Roles Success',
   props<{payload: any}>()
 )
 

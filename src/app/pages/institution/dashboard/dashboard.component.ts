@@ -68,7 +68,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   getDashboardCardInfo() {
     this.dashboardCardInfo$.subscribe((res: any) => {
       this.cardInfo = res
-      //console.log(res)
+      ////console.log(res)
       // this.createDistributionChart()
   })
 }
@@ -90,7 +90,7 @@ getTopInstitutions() {
     // const b = this.topInstitutionRequests?.topRequestsVMs?.map((x: any) => {
     //   return x.noOfRequests
     // })
-    // //console.log(res.topRequestsVMs, a, b)
+    // ////console.log(res.topRequestsVMs, a, b)
     this.createDistributionChart()
   })
 }
@@ -174,7 +174,7 @@ createDistributionChart3( ) {
   const {completedRequests, processingRequests, pendingRequests} = this.revenueAnalysisData
   const label = ['Completed', 'Processing','Pending'];
   const bar = [completedRequests, processingRequests, pendingRequests];
-  //console.log(bar)
+  ////console.log(bar)
   const t_ctx = document.getElementById('pieData') as unknown as any;
   const ctx = t_ctx.getContext('2d')
 
@@ -226,7 +226,7 @@ createDistributionChart3( ) {
     const b = this.revenueAnalysisData.requestStatisticsVms?.map((x: any) => {
       return x.organization
     })
-    console.log(a, b)
+    //console.log(a, b)
     const labels = ['MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT', 'SUN'];
     const bar = [100, 80, 25, 50, 400, 150, 200, 250, 300, 350];
     const line = [0, 50, 75, 50, 100, 150, 60, 35, 200, 150];

@@ -76,7 +76,7 @@ selectedFileList: any  = []
     );
     
     	// const countries = Country?.getAllCountries()
-      // console.log(contries)
+      // //console.log(contries)
 
   }
 
@@ -109,7 +109,6 @@ selectedFileList: any  = []
   onCountryChange(event: any): void {
     this.countryCode = JSON.parse(event).isoCode
     this.states = State.getStatesOfCountry(JSON.parse(event).isoCode);
-    console.log(this.states)
     this.selectedCountry = JSON.parse(event);
     this.institutionRegForm.controls['Country'].setValue(this.selectedCountry.name)
     
@@ -126,7 +125,6 @@ selectedFileList: any  = []
   onCityChange(event: any): void {
     this.selectedCity = JSON.parse(event)
     this.institutionRegForm.controls['City'].setValue(this.selectedCity.name)
-    console.log(this.institutionRegForm.value)
 
   }
 

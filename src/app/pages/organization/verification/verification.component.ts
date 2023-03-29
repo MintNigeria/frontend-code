@@ -20,6 +20,7 @@ export class VerificationComponent implements OnInit {
    selectedOption: string = "All Time";
   selectedInstitution : string = "All";
   selectedSector : string = "All";
+  selectedFaculty : string = "All";
   documentType: string = "All";
   status: string = "All";
 
@@ -44,6 +45,8 @@ export class VerificationComponent implements OnInit {
     searchPhrase: new FormControl(''),
   });
   institutionList: any;
+  facultyList: any;
+  departmentList: any;
 
 
 
@@ -60,7 +63,7 @@ export class VerificationComponent implements OnInit {
     this.userData = JSON.parse(data)
     this.store.dispatch(verifyHistoryInstitutionDropdown({id: this.userData.OrganizationId}))
     this.actions$.pipe(ofType(verifyHistoryInstitutionDropdownSuccess)).subscribe((res: any) => {
-      console.log(res)
+      //console.log(res)
       this.institutionList = res.payload.payload
       // this.balance = res.payload;
     })
@@ -78,21 +81,7 @@ export class VerificationComponent implements OnInit {
   }
 
   addFilter() {
-    // if (this.status !== 'All') {
-    //   this.filterStatus['status'] = this.status;
-    // }
-    // if (this.selectedOption !== 'All Time') {
-    //   this.filterOption['selectedOption'] = this.selectedOption;
-    // }
-    // if (this.selectedSector !== 'All') {
-    //   this.filterSector['selectedSector'] = this.selectedSector;
-    // }
-    // if (this.selectedInstitution !== 'All') {
-    //   this.filterInstituition['selectedInstituition'] = this.selectedInstitution;
-    // }
-    // if (this.documentType !== 'All') {
-    //   this.filterDocument['documentType'] = this.documentType;
-    // }
+    
     
     this.store.dispatch(getOrganizationVerificationHistory({payload: {...this.filter, OrganizationId: this.userData.OrganizationId}}))
   }
@@ -108,6 +97,15 @@ export class VerificationComponent implements OnInit {
     this.filterInstituition = {selectedInstituition: 'All'};
     this.documentType = 'All'
     this.filterDocument = {documentType: 'All'};
+    const filter= {
+      'TimeBoundSearchVm.TimeRange': 0,
+      keyword: '',
+        filter: '',
+        pageSize: 10,
+        pageIndex: 1,
+     }
+    this.store.dispatch(getOrganizationVerificationHistory({payload: {...filter, OrganizationId: this.userData.OrganizationId}}))
+
   }
 
   changeRange(range: number, name: string) {
@@ -146,9 +144,25 @@ export class VerificationComponent implements OnInit {
     this.filter = filter;
     this.store.dispatch(getFacultyAndDepartmentByInstitutionName({payload: {institutionName: name}}))
     this.actions$.pipe(ofType(getFacultyAndDepartmentByInstitutionNameSuccess)).subscribe((res: any) => {
-      console.log(res)
+      this.facultyList = res.payload.payload;
+
     })
   }
+
+  changeFaculty(id: any, name: string) {
+    this.selectedFaculty = name
+    const data = this.facultyList.find((value: any) => value.id == Number(id));
+    this.departmentList = data.departmentVMs;
+
+  }
+
+  changeDepartment(id: any, name: string) {
+    this.selectedSector = name
+    const filter = {...this.filter, ['Department'] : name};
+    this.filter = filter;
+
+  }
+  
 
   search(event: any) {
     if (event) {

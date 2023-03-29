@@ -62,7 +62,7 @@ export class UsersComponent implements OnInit {
     })
     this.store.dispatch(getInstitutionRoles({id: this.institutionId}))
     this.actions$.pipe(ofType(getInstitutionRolesSuccess)).subscribe((res: any) => {
-      this.roles = [...res.payload.defaultRoles, ...res.payload.defaultRoles]
+      this.roles = [...res.payload.defaultRoles, ...res.payload.customRoles]
     })
     this.store.dispatch(
       invokeGetStateAndLGA()

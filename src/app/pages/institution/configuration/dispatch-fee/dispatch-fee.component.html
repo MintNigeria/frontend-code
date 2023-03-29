@@ -9,15 +9,15 @@
         </div>
     </div>
     
-    <div class="p-3 border-b">
+    <div class="p-3 border-b" *ngFor="let unit of dispatchFee; let parent = index">
         <div class="w-10/12 ">
             <div class="flex gap-6 mb-6">
                 <div class="w-full md:w-2/4">
                     <p class=" font-inter font-medium text-base text-failedNormal">
-                        NIPOST
+                        {{unit.name | uppercase}}
                     </p>
                     <p class="font-inter font-normal text-sm text-lightGray">
-                    Delivery of documents using the Nigeria Postal Service.
+                   {{unit.description}}
                     </p>
                 </div>
 
@@ -31,14 +31,12 @@
                                     </label>
                                 </div>
                                 <div class="w-full  mt-2">
-                                    <app-input 
-                                    [formGrp]="feeForm" 
-                                    formCtrlName="fee" 
-                                    [type]="'text'" 
+                                    <input type="text"
+                                    (input)="getFee(unit, $event.target, parent)"
+                                    [value]="unit.fee"
+                                    placeholder="N 5000"
                                     [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-tableHeader rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
-                                    placeholder="N 5000" 
-                                    [name]="'fee'"
-                                    ></app-input>
+                                    [name]="'fee'">
                                 </div>
                             </div>
                         </div>
@@ -48,7 +46,7 @@
         </div>
     </div>
 
-    <div class="p-3 border-b">
+    <!-- <div class="p-3 border-b">
         <div class="w-10/12 ">
              <p class=" font-inter font-medium text-base text-failedNormal mb-6">
                 Private Courier
@@ -479,7 +477,7 @@
                 </div>    
             </div>
         </div>
-    </div>
+    </div> -->
 
 
     <div class="flex justify-end items-center gap-4 mt-4 mb-6">
@@ -490,6 +488,7 @@
         </app-button>
         <app-button
         [overRideButtonClass]="true"
+        (buttonClick)="saveDispatch()"
         customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
             >Save Changes
         </app-button>

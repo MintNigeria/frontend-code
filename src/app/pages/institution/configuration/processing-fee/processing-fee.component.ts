@@ -33,6 +33,7 @@ export class ProcessingFeeComponent implements OnInit {
   deviceModel: string;
   ipAddress!: any;
   updatedData: any;
+  isFeeApproved: any;
 
   constructor(
      private fb: FormBuilder,
@@ -78,6 +79,8 @@ export class ProcessingFeeComponent implements OnInit {
     this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
     this.actions$.pipe(ofType(getInstitutionConfigurationSuccess)).subscribe((res: any) => {
       this.processingFeeList = res.payload.processingFeesVM
+      this.isFeeApproved = res.payload.isProcessingFeeApproved
+
       this.updatedData = this.processingFeeList.map((x: any, index: number) => {
         const a = x.processingFeeConfigVM.map((element: any) => {
           return {
@@ -136,7 +139,7 @@ export class ProcessingFeeComponent implements OnInit {
   getCheckedValue(name: string, event: any) {
     if (event.checked === true) {
 
-      //console.log(name, event.value)
+      ////console.log(name, event.value)
       // const a = this.selectedDocumentType.processingFeeDeliveryTypeVMs.map((x: any) => {
       //   if (x.id ===)
       // })
@@ -158,13 +161,13 @@ export class ProcessingFeeComponent implements OnInit {
     }
     this.store.dispatch(createProcessingFeeDocumentType({institutionId: this.institutionId ,payload: [payload]}))
     this.actions$.pipe(ofType(createProcessingFeeDocumentTypeSuccess)).subscribe((res: any) => {
-      //console.log(res)
+      ////console.log(res)
 
     })
   }
 
   getFee(data: any, input: any, parent: number, child: number)  {
-    // console.log(data, input.value, parent, child)
+    // //console.log(data, input.value, parent, child)
     const allData = this.updatedData;
     let newData = this.updatedData[parent]
     const j = newData.updateProcessingFeeConfigVM.map((f: any, h: any) => {

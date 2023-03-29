@@ -43,6 +43,8 @@ import {
   getOrganisationSector,
   getOrganisationSectorSuccess,
   getSuccessMessage,
+  saveDispatchFee,
+  saveDispatchFeeSuccess,
   sendProcessingFeeForApproval,
   sendProcessingFeeForApprovalSuccess,
   sendverificationFeeForApproval,
@@ -1086,6 +1088,41 @@ export class ConfigurationEffects {
             );
             // read data and update payload
             return sendverificationFeeForApprovalSuccess({
+              payload: data,
+            });
+          })
+        );
+      })
+    );
+  });
+
+  saveDispatchFee$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(saveDispatchFee),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.configurationService.saveDispatchFee(action.institutionId, action.payload).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return saveDispatchFeeSuccess({
               payload: data,
             });
           })

@@ -179,6 +179,50 @@ export const makePaymentSuccess = createAction(
   '[organization] Make payment success',
   props<{ payload: any }>()
 );
+  
+  export const getAlltalentSearchPool = createAction(
+    '[organization] get talent search pool',
+    props<{ payload: any }>()
+ 
+);
+
+export const getAlltalentSearchPoolSuccess = createAction(
+  '[organization] get talent search pool success',
+  props<{ payload: any }>()
+);
+  
+  export const getAlltalentSearchPoolResult = createAction(
+    '[organization] get talent search pool result',
+    props<{ payload: any }>()
+ 
+);
+
+export const getAlltalentSearchPoolResultSuccess = createAction(
+  '[organization] get talent search pool result success',
+  props<{ payload: any }>()
+);
+  
+  export const getDepartmentGrades = createAction(
+    '[organization] get institution department grades',
+    props<{ institutionId: any, departmentId: any }>()
+ 
+);
+
+export const getDepartmentGradesSuccess = createAction(
+  '[organization] get institution department grades success',
+  props<{ payload: any }>()
+);
+  
+  export const newTalentPoolSearch = createAction(
+    '[organization] new talent pool search',
+    props<{payload: any }>()
+ 
+);
+
+export const newTalentPoolSearchSuccess = createAction(
+  '[organization] new talent pool search success',
+  props<{ payload: any }>()
+);
 
 // ///////////////////////
 

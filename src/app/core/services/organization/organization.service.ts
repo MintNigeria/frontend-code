@@ -64,16 +64,18 @@ export class OrganizationService
   updateOrganization(payload: any) {
     const body = new FormData()
     body.append('Id', payload.id)
-    body.append('Name', payload.Name)
-    body.append('DateOfIncorporation', payload.DateOfIncorporation)
-    body.append('CAC', payload.CAC)
-    body.append('State', payload.State)
-    body.append('Lga', payload.Lga)
-    body.append('Address', payload.Address)
-    body.append('PhoneNumber', payload.PhoneNumber)
-    body.append('Logo', payload.PhoneNumber)
+    body.append('Country', payload.country)
+    body.append('State', payload.state)
+    body.append('City', payload.city)
+    body.append('Address', payload.address)
+    body.append('PhoneNumber', payload.phone)
+    body.append('Logo', payload.file)
+    body.append('imei', payload.imei)
+    body.append('serialNumber', payload.serialNumber)
+    body.append('device', payload.device)
+    body.append('ipAddress', payload.ipAddress)
 
-    return this.http.post<any>(
+    return this.http.put<any>(
       `${this.baseUrl}mint-organization/api/v1/Organization/UpdateOrganization`, body
     );
   }
@@ -131,6 +133,40 @@ export class OrganizationService
   ) {
     return this.http.get<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Graduate-Record/${id}`
+    );
+  }
+
+  getAlltalentSearchPool(
+    payload: any
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Organization-Search-Pool`, {params: payload}
+    );
+  }
+
+  getAlltalentSearchPoolResult(
+    payload: any
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Organization-Search-Pool-Results`, {params: payload}
+    );
+  }
+
+  newTalentPoolSearch(
+    payload: any
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Organization-Talent-Search`, {params: payload}
+    );
+  }
+
+
+  getDepartmentGrades(
+    institutionId: any,
+    deparmentId: any
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Institution-Grades-By-Department?InstitutionId=${institutionId}&Department=${deparmentId}`
     );
   }
 

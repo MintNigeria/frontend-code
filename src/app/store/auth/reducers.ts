@@ -71,7 +71,7 @@ export function clearStateMetaReducer<State extends {}>(
 ): ActionReducer<State> {
   return function clearStateFn(state: any, action: Action) {
     if (action.type === LOGOUT) {
-      //console.log('here');
+      ////console.log('here');
       state = {} as State; // ==> Emptying state here
     }
     return reducer(state, action);

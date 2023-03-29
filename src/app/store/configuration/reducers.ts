@@ -19,6 +19,7 @@ import {
   getOrganisationIndustrySuccess,
   getOrganisationSectorSuccess,
   getSuccessMessage,
+  saveDispatchFeeSuccess,
   sendProcessingFeeForApprovalSuccess,
   sendverificationFeeForApprovalSuccess,
   updateInstitutionBodySuccess,
@@ -45,6 +46,7 @@ const initialState: ConfigurationStateInterface = {
   newprocessingfee : null,
   sendForApproval : null,
   sendverificationForApproval : null,
+  savedispatch : null,
 };
 
 export const configurationReducer = createReducer(
@@ -203,6 +205,12 @@ export const configurationReducer = createReducer(
     return {
       ...state,
       sendverificationForApproval: payload,
+    };
+  }),
+  on(saveDispatchFeeSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      savedispatch: payload,
     };
   }),
  

@@ -30,4 +30,5 @@ export interface ConfigurationStateInterface {
   newprocessingfee: any;
   sendForApproval: any;
   sendverificationForApproval: any;
+  savedispatch: any;
 }
