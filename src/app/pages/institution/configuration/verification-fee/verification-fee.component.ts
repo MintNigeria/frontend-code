@@ -21,6 +21,7 @@ export class VerificationFeeComponent implements OnInit {
   deviceModel: string;
   ipAddress!: any;
   updatedData: any;
+  isFeeApproved: any;
 
   constructor( 
     private fb: FormBuilder,
@@ -52,7 +53,8 @@ export class VerificationFeeComponent implements OnInit {
 
     this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
     this.actions$.pipe(ofType(getInstitutionConfigurationSuccess)).subscribe((res: any) => {
-      //console.log(res)
+      ////console.log(res)
+      this.isFeeApproved = res.payload.isVerificationFeeApproved
       this.vericationList = res.payload.institutionVerifcationFeeVMs
       // this.processingFees = res.payload
       this.updatedData = this.vericationList?.map((x: any) => {

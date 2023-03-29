@@ -103,7 +103,7 @@ filter = {
     // }
     this.store.dispatch(invokeGetAllGraduates({institutionId: this.institutionId, payload: this.filter}))
 
-    // //console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
+    // ////console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
   }
 
   clearFilter() {
@@ -155,7 +155,7 @@ filter = {
   downloadCSV() {
     this.store.dispatch(downloadCSV({payload: {institutionId: this.institutionId}}))
     this.actions$.pipe(ofType(downloadCSVSuccess)).subscribe((res: any) => {
-      //console.log(res) 
+      ////console.log(res) 
       const link = document.createElement('a');
         link.download = `${res.payload?.fileName}.csv`;
         link.href = 'data:image/png;base64,' + res.payload?.base64;

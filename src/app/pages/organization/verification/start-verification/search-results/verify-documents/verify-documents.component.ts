@@ -46,7 +46,7 @@ export class VerifyDocumentsComponent implements OnInit {
     const id = this.route.snapshot.params['id']
     this.store.dispatch(getOrganizationVerificationHistoryData({id}))
     this.actions$.pipe(ofType(getOrganizationVerificationHistoryDataSuccess)).subscribe((res: any) => {
-      // //console.log(res)
+      // ////console.log(res)
       this.graduateData = res.payload.payload;
     })
   }

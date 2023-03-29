@@ -73,7 +73,7 @@ export class DashboardService
     filter: any
   ) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionDashboard/BottomOrganizationDasboard`, {params: filter}
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionDashboard/BottomOrganizationDashboard`, {params: filter}
     );
   }
   
@@ -81,7 +81,7 @@ export class DashboardService
     filter: any
   ) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionDashboard/OrganizationVerificationAnalysis`, {params: filter}
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionDashboard/OrganizationVerificationAnalytics`, {params: filter}
     );
   }
 

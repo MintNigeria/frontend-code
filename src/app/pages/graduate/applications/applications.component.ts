@@ -113,7 +113,7 @@ export class ApplicationsComponent implements OnInit {
       this.filterDocument['documentType'] = this.documentType;
     }
     
-    //console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
+    ////console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
   }
 
   clearFilter() {

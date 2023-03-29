@@ -280,3 +280,13 @@ export const sendverificationFeeForApprovalSuccess = createAction(
   '[configuration] send verification fee for approval Success',
   props<{payload : any}>()
 )
+
+export const saveDispatchFee = createAction(
+  '[configuration] save dispatch fee',
+  props<{institutionId: string, payload : any}>()
+);
+
+export const saveDispatchFeeSuccess = createAction(
+  '[configuration] save dispatch fee Success',
+  props<{payload : any}>()
+)

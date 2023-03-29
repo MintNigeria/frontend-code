@@ -172,7 +172,7 @@ export class SearchResultsComponent implements OnInit {
 
   verifyOtp() {
     const enteredOtp = this.otp.join('');
-    console.log('Entered OTP:', enteredOtp);
+    //console.log('Entered OTP:', enteredOtp);
     this.openSuccess();
   }
 
@@ -255,16 +255,16 @@ export class SearchResultsComponent implements OnInit {
   }
 
   onSuccess(trx: any) {
-    //console.log(trx)
+    ////console.log(trx)
     this.isTransactionSuccessful = trx.status
       this.validatePayment()
   }
   onClose() {
-    //console.log('trx')
+    ////console.log('trx')
   }
 
   validatePayment() {
-    //console.log(data)
+    ////console.log(data)
     const payload = {
       transactionId: Number(this.transactionId),
       makePaymentType: 5,
@@ -278,7 +278,7 @@ export class SearchResultsComponent implements OnInit {
     }
     this.store.dispatch(validateOrganizationFundWallet({payload}))
     this.actions$.pipe(ofType(validateOrganizationFundWalletSuccess)).subscribe((res: any) => {
-      //console.log(res)
+      ////console.log(res)
       if (res) {
         this.notification.publishMessages('success', 'successful')
         this.router.navigate(['organization/verifications']);      
@@ -310,14 +310,14 @@ openCreditCardPayment() {
   this.creditCard = true;
   this.wallet = false;
   this.main= false;
-  console.log('Credit Card payment initiated');
+  //console.log('Credit Card payment initiated');
 }
 
 openWalletPayment() {
   this.creditCard = false;
   this.wallet = true;
   this.main= false;
-  console.log('Wallet payment initiated');
+  //console.log('Wallet payment initiated');
 }
 
 

@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
-import { getAllDashboardInfoData, getOrganizationDashboardInfo, getOrganizationDashboardInfoSuccess } from 'src/app/store/dashboard/action';
+import { getAllDashboardInfoData, getOrganizationDashboardBottomInfo, getOrganizationDashboardBottomInfoSuccess, getOrganizationDashboardInfo, getOrganizationDashboardInfoSuccess, getOrganizationVeficiationAnalysis, getOrganizationVeficiationAnalysisSuccess } from 'src/app/store/dashboard/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
@@ -86,6 +86,7 @@ export class DashboardComponent implements OnInit {
 }
   cardInfo: any;
   userData: any;
+  verificationData: any;
   constructor(
     private appStore: Store<AppStateInterface>,
     private store: Store,
@@ -99,6 +100,16 @@ export class DashboardComponent implements OnInit {
     this.store.dispatch(getOrganizationDashboardInfo({payload: {...this.filter, organizationId: this.userData.OrganizationId}}))
     this.actions$.pipe(ofType(getOrganizationDashboardInfoSuccess)).subscribe((res: any) => {
       this.cardInfo = res.payload;
+    })
+   
+    this.store.dispatch(getOrganizationDashboardBottomInfo({payload: {...this.filter, organizationId: this.userData.OrganizationId}}))
+    this.actions$.pipe(ofType(getOrganizationDashboardBottomInfoSuccess)).subscribe((res: any) => {
+      this.verificationData = res.payload;
+    })
+
+    this.store.dispatch(getOrganizationVeficiationAnalysis({payload: {...this.filter, organizationId: this.userData.OrganizationId}}))
+    this.actions$.pipe(ofType(getOrganizationVeficiationAnalysisSuccess)).subscribe((res: any) => {
+      //console.log(res)
     })
   }
 

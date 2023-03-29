@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Actions, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
+import { getAlltalentSearchPoolResult, getAlltalentSearchPoolResultSuccess } from 'src/app/store/organization/action';
 
 @Component({
   selector: 'app-view-report',
@@ -23,104 +27,48 @@ export class ViewReportComponent implements OnInit {
 
 
   filter= {
-    'TimeBoundSearchVm.TimeRange': 0,
     keyword: '',
       filter: '',
       pageSize: 10,
       pageIndex: 1,
    }
+   userData: any;
+   poolId: any;
+  poolList: any;
+  total: any;
+  pageIndex = 1
+  years: Array<any> = [];
 
   
-
-
-  generatedList = [
-  {
-    id: '1',
-    name:'Adekunle Ciroma',
-    faculty: 'Management Science',
-    department: 'History',
-    gradYear: '2019',
-    institution: 'University of Lagos',
-    grade: '2:2',
-    gender: 'male'
-  },
-  {
-    id: '2',
-    name:'Adekunle Ciroma',
-    faculty: 'Social Sciences',
-    department: 'History',
-    gradYear: '2019',
-    institution: 'University of Lagos',
-    grade: '2:2',
-    gender: 'male'
-  },
-  {
-    id: '3',
-    name:'Adekunle Ciroma',
-    faculty: 'Sciences',
-    department: 'History',
-    gradYear: '2019',
-    institution: 'University of Lagos',
-    grade: '2:2',
-    gender: 'male'
-  },
-  {
-    id: '4',
-    name:'Adekunle Ciroma',
-    faculty: 'Art',
-    department: 'History',
-    gradYear: '2019',
-    institution: 'University of Lagos',
-    grade: '2:2',
-    gender: 'male'
-  },
-  {
-    id: '5',
-    name:'Adekunle Ciroma',
-    faculty: 'Social Sciences',
-    department: 'History',
-    gradYear: '2019',
-    institution: 'University of Lagos',
-    grade: '2:2',
-    gender: 'male'
-  },
-  {
-    id: '6',
-    name:'Adekunle Ciroma',
-    faculty: 'Social Sciences',
-    department: 'History',
-    gradYear: '2019',
-    institution: 'University of Lagos',
-    grade: '2:2',
-    gender: 'male'
-  }
- ]
-
   constructor(
-    private dialog: MatDialog
+    private store: Store,
+    private actions$: Actions,
+    private dialog : MatDialog,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    const data: any = localStorage.getItem('userData')
+    this.userData = JSON.parse(data)
+
+    let currentYear = new Date().getFullYear();   
+    for (let index = 1920; index <= currentYear; ++index) {
+      this.years.push(index)
+      
+    }
+    this.poolId = this.route.snapshot.params['id']
+    this.store.dispatch(getAlltalentSearchPoolResult({payload: {...this.filter, id: this.poolId}}))
+    this.actions$.pipe(ofType(getAlltalentSearchPoolResultSuccess)).subscribe((res: any) => {
+      //console.log(res)
+      this.poolList = res.payload.payload
+      this.total = res.payload.totalCount
+      // this.balance = res.payload;
+    })
   }
 
   addFilter() {
-    if (this.status !== 'All') {
-      this.filterStatus['status'] = this.status;
-    }
-    if (this.selectedOption !== 'All Time') {
-      this.filterOption['selectedOption'] = this.selectedOption;
-    }
-    if (this.selectedSector !== 'All') {
-      this.filterSector['selectedSector'] = this.selectedSector;
-    }
-    if (this.selectedInstitution !== 'All') {
-      this.filterInstituition['selectedInstituition'] = this.selectedInstitution;
-    }
-    if (this.documentType !== 'All') {
-      this.filterDocument['documentType'] = this.documentType;
-    }
-    
-    //console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
+    this.store.dispatch(getAlltalentSearchPoolResult({payload: {...this.filter, id: this.poolId}}))
   }
 
   clearFilter() {
@@ -134,6 +82,14 @@ export class ViewReportComponent implements OnInit {
     this.filterInstituition = {selectedInstituition: 'All'};
     this.documentType = 'All'
     this.filterDocument = {documentType: 'All'};
+    const filter= {
+      keyword: '',
+        filter: '',
+        pageSize: 10,
+        pageIndex: 1,
+     }
+     this.store.dispatch(getAlltalentSearchPoolResult({payload: {...filter, id: this.poolId}}))
+
   }
 
   goBack() {
@@ -162,6 +118,25 @@ export class ViewReportComponent implements OnInit {
       const filter = {...this.filter, ['range'] : range};
       this.filter = filter;
     }
+  }
+  
+  changeGender(gender: number, name: string) {
+    this.selectedInstitution = name
+    const filter = {...this.filter, ['Gender'] : gender}
+    this.filter = filter;
+
+  }
+  changeYear(year: number) {
+    this.selectedSector = String(year)
+    const filter = {...this.filter, ['Year'] : year}
+    this.filter = filter;
+
+  }
+
+  getPage(currentPage: number) {
+    const filter = {...this.filter, ['pageIndex'] : currentPage}
+
+    this.store.dispatch(getAlltalentSearchPoolResult({payload: {...filter, id: this.poolId}}))
   }
 
 

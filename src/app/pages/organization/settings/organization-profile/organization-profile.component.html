@@ -10,7 +10,8 @@
                     </div>
                     <div class="lg:w-full md:w-2/3 mt-3 lg:mt-0">
                         <div class="flex items-start gap-5 mb-9">
-                            <img tabindex="0" class="cursor-pointer" routerLink="/main/profile" src="assets/images/main/Avatar.svg" class="" alt="logged user avatar">
+                            <img tabindex="0" class="cursor-pointer " routerLink="/main/profile" *ngIf="profileImage !== null" src="data:image/png;base64,{{profileImage}}" class="!w-10 !h-10 rounded-full object-cover" alt="logged user avatar">
+                            <img tabindex="0" class="cursor-pointer" routerLink="/main/profile" *ngIf="profileImage === null" src="assets/images/main/Avatar.svg" class="" alt="logged user avatar">
                             <div class="relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
                                 <label for="file1">
                                   <img src="assets/images/auth/upload.svg" alt="uploadIcon"
@@ -106,7 +107,7 @@
                     </div>
                 </div>
 
-                <div class="flex gap-6 mb-9">
+                <!-- <div class="flex gap-6 mb-9">
                     <div class="w-full md:w-1/4">
                         <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
                             Registration Type
@@ -121,7 +122,7 @@
                         [name]="'type'"
                         [readonly]="true"></app-input>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="flex gap-6 mb-9">
                     <div class="w-full md:w-1/4">
@@ -146,12 +147,14 @@
                           </label>
                     </div>
                     <div class="w-full md:w-2/3">
-                        <select 
-                        name="" 
-                        id=""
-                        class="select h-[52px] w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
-                        <option value="">Nigeria</option>
-                      </select>
+                        <ng-select class="custom-ng-dropdown" 
+                        formControlName="country" 
+                        [selectOnTab]="true" 
+                        placeholder="Select Country"
+                        (change)="onCountryChange($event)"
+                        >
+                    <ng-option  *ngFor="let country of countries" [value]="country | json">{{country.name}}</ng-option>
+                    </ng-select>
                     </div>
                 </div>
 
@@ -161,15 +164,15 @@
                             State
                           </label>
                     </div>
-                    <div class="w-full md:w-2/3" *ngIf="stateLGA$ | async as states">
-                        <ng-select class="custom-ng-dropdown"
-                        formControlName="state"
-                        [selectOnTab]="true"
-                        placeholder="Select State"
-                        (change)="selectLocalGovt($event)"
-                        >
-                    <ng-option *ngFor="let state of states" [value]="state.id">{{state.name}}</ng-option>
-                    </ng-select>
+                    <div class="w-full md:w-2/3" >
+                        <ng-select class="custom-ng-dropdown" 
+                formControlName="state" 
+                [selectOnTab]="true" 
+                placeholder="Select State"
+                (change)="onStateChange($event)"
+                >
+            <ng-option *ngFor="let state of states" [value]="state | json">{{state.name}}</ng-option>
+            </ng-select>
                     </div>
                 </div>
                 <div class="flex gap-6 mb-9">
@@ -180,12 +183,13 @@
                     </div>
                     <div class="w-full md:w-2/3">
                         <ng-select class="custom-ng-dropdown" 
-                        formControlName="lga" 
-                        [selectOnTab]="true" 
-                        placeholder="Select LGA"
-                        >
-                    <ng-option *ngFor="let lga of lga" [value]="lga.name">{{lga.name}}</ng-option>
-                    </ng-select>
+              formControlName="city" 
+              [selectOnTab]="true" 
+              placeholder="Select City"
+              (change)="onCityChange($event)"
+              >
+          <ng-option *ngFor="let lga of cities" [value]="lga | json">{{lga.name}}</ng-option>
+          </ng-select>
                     </div>
                 </div>
                 <div class="flex gap-6 mb-9">
@@ -240,7 +244,7 @@
             <app-button
             [overRideButtonClass]="true"
             [customClass]="'bg-buttonBlue rounded-lg  hover:bg-buttonBlue text-white text-base font-medium font-inter py-2 px-4'"
-            (buttonClick)="openChangesConfirmed()"
+            (buttonClick)="saveUpdates()"
             >
                 Yes, Update
             </app-button>

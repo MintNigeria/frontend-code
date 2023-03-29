@@ -74,11 +74,12 @@ export class UsersAndRolesEffects {
             },
           })
         );
-        const { roleId, keyword, filter, pageSize, pageIndex } =
+        const { roleId, institutionId, keyword, filter, pageSize, pageIndex } =
           action;
         return this.usersAndRolesService
-          .getAdminUsersInRole(
+          .getInstitutionUsersInRole(
             roleId,
+            institutionId,
             keyword,
             filter,
             pageSize,

@@ -235,7 +235,7 @@ export class InstitutionSetupComponent implements OnInit {
       this.filterDocument['facultyFilter'] = this.facultyFilter;
     }
     
-    //console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
+    ////console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
   }
 
   openChangesConfirmed(){

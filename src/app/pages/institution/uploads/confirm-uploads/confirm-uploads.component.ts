@@ -60,7 +60,7 @@ successful: any;
       this.ipAddress = res.ip
     })
     // this.institutionId = this.institutionData.InstitutionId
-    //console.log(this.UploadedList)
+    ////console.log(this.UploadedList)
     this.initUploadForm()
     setTimeout(() => {
       this.populateForm()

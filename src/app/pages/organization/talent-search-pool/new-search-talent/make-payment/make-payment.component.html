@@ -38,7 +38,7 @@
                 </h4>
                 <div class="border rounded-lg flex gap-1 items-center h-8 p-2">
                     <img src="assets/images/icons/walletIcon.svg" alt="walletIcon" >
-                    <p class="font-inter font-medium text-sm text-failedNormal">Wallet Balance: ₦1,000. 00</p>
+                    <p class="font-inter font-medium text-sm text-failedNormal">Wallet Balance: ₦{{balance || 0 | commaDelimiter}}</p>
                 </div>
             </div>
         </div>
@@ -54,19 +54,19 @@
                     <div class="flex justify-between p-3 items-center gap-3">
                         <div>
                             <p class="font-nunito font-normal text-base text-failedNormal">Total Amount</p>
-                            <p class="text-discountBlue font-semibold text-2xl font-avenir">₦10,000</p>
+                            <p class="text-discountBlue font-semibold text-2xl font-avenir">₦{{trxData?.amount | commaDelimiter}}</p>
                         </div>
                         <div>
                             <img src="assets/images/icons/wallet.svg" alt="wallet_icon">
                         </div>
                     </div> 
-                    <div class="flex justify-between p-3 items-center gap-3 border-t-1.5">
+                    <!-- <div class="flex justify-between p-3 items-center gap-3 border-t-1.5">
                         <p class="font-nunito font-normal text-base text-failedNormal">Report  Fee</p>
                         <p class="font-nunito font-semibold text-base text-darkGray">₦500.00</p> 
-                    </div>
+                    </div> -->
                     <div class="flex justify-between p-3 items-center gap-3">
                         <p class="font-nunito font-normal text-base text-failedNormal">Total Number of Reports</p>
-                        <p class="font-nunito font-semibold text-base text-darkGray">50</p> 
+                        <p class="font-nunito font-semibold text-base text-darkGray">{{trxData?.institutionGraduateIds?.length}}</p> 
                     </div> 
                 </div>
         </div>
@@ -139,10 +139,11 @@
                     <div class="flex justify-between p-6 items-center gap-3">
                         <div>
                             <p class="font-inter font-normal text-base text-white">Wallet Balance</p>
-                            <p class="text-white font-bold text-4xl font-poppins">₦10,000</p>
+                            <p class="text-white font-bold text-4xl font-poppins">₦{{balance || 0 | commaDelimiter}}</p>
                         </div>
                         <div>
                             <app-button
+                            routerLink="/organization/transactions/payment-plan"
                             [overRideButtonClass]="true"
                             [customClass]="'bg-white text-buttonBlue rounded text-sm font-medium font-inter p-2 '">
                                 Fund Wallet
@@ -162,7 +163,8 @@
             <app-button
             [overRideButtonClass]="true"
             customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
-            (buttonClick)="openSuccess()"
+            (buttonClick)="payWithWallet()"
+
             >Make Payment</app-button>
         </div>
 
@@ -177,10 +179,18 @@
     <div *ngIf="selectedPaymentMethod === 'creditCard'">
         <div class="p-6 ">
             <div class="border-b border-t">
-               <h3 class="py-7  border-b-1.5 px-6 font-inter font-medium lg:text-lg text-base text-darkGray bg-tableHeader rounded-t-xl">
-                    Credit Card Information
+                <h3 class="py-7  border-b-1.5 px-6 font-inter font-medium lg:text-lg text-base text-darkGray bg-tableHeader rounded-t-xl">
+                    Please select a merchant
                 </h3>
-                <form class="p-6 mr-32" [formGroup]="paymentForm">
+
+                <div class="grid grid-cols-3 mt-5 mb-10">
+                    <div class="bg bg-lightBlue rounded-lg py-10 px-8 border shadow-lg">
+                        <div class="text-primaryBlue cursor-pointer" (click)="selectPaymentMerchant('Paystack')"> Paystack
+                    </div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                </div>
+                <!-- <form class="p-6 mr-32" [formGroup]="paymentForm">
 
                     <div class="grid lg:grid-cols-2 mb-6">
                         <label 
@@ -251,7 +261,7 @@
                 </form>
                 <p class="visible lg:hidden p-6 font-nunito font-normal text-xs text-[#37474F]">The Card Verification Code, or CVC*, is an extra code printed at the back of your debit or credit card</p>
                 
-                <hr class="w-11/12 mx-auto mt-6 mb-6">
+                <hr class="w-11/12 mx-auto mt-6 mb-6"> -->
 
                 <div class="flex justify-end items-center gap-4 mt-6 mb-6 mr-8">
                     <app-button
@@ -262,7 +272,7 @@
                     <app-button
                     [overRideButtonClass]="true"
                     customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
-                    (buttonClick)="openOtpModal()"
+                    (buttonClick)="payWithCard()"
                     >Make Payment</app-button>
                 </div>
             </div>

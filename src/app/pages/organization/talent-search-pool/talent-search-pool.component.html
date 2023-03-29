@@ -48,13 +48,15 @@
                                 <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedOption }}</p>
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
                                 </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                <li><a (click)="selectedOption='data Time'">All Time</a></li>
-                                <li><a (click)="selectedOption='30 Days'">30 Days</a></li>
-                                <li><a (click)="selectedOption='7 days'">7 Days</a></li>
-                                <li><a (click)="selectedOption='24 Hours'">24 Hours</a></li>
-                                <li><a (click)="selectedOption='Custom Period'">Custom Period</a></li>
-                                </ul>
+                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
+                                    <li><a (click)="changeRange(0, 'All Time') ">All Time</a></li>
+                                    <li><a (click)="changeRange(3, '30 Days')">30 Days</a></li>
+                                    <li><a (click)="changeRange(2, '7 days' )">7 Days</a></li>
+                                    <li><a (click)="changeRange(1, '24 Hours')">24 Hours</a></li>
+                                    <li>
+                                      <a (click)="changeRange(5, 'Custom Period')">Custom Period</a>
+                                    </li>
+                                  </ul>
                             </div>
                         </div>
 
@@ -69,11 +71,7 @@
                                 </label>
                                 <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-56">
                                     <li><a (click)="selectedInstitution='All'">All</a></li>
-                                    <li><a (click)="selectedInstitution='University'">University</a></li>
-                                    <li><a (click)="selectedInstitution='Polytechnic'">Polytechnic</a></li>
-                                    <li><a (click)="selectedInstitution='College of Education'">College of Education</a></li>
-                                    <li><a (click)="selectedInstitution='Nursing School'">Nursing School</a></li>
-                                    <li><a (click)="selectedInstitution='Professional Institution'">Professional Institution</a></li>
+                                    <li *ngFor="let unit of institutionList"> <a  (click)="changeInstitution(unit.institutionName, unit.id)">{{unit?.institutionName}}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -88,10 +86,9 @@
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
                                 </label>
                                 <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-56">
-                                    <li><a (click)="selectedSector='All'">All</a></li>
-                                    <li><a (click)="selectedSector='Federal'">Federal</a></li>
-                                    <li><a (click)="selectedSector='State'">State</a></li>
-                                    <li><a (click)="selectedSector='Private'">Private</a></li>
+                                    <li><a (click)="selectedFaculty='All'">All</a></li>
+                                    <li *ngFor="let unit of facultyList"> <a  (click)="changeFaculty(unit.name)">{{unit?.name}}</a></li>
+
                                 </ul>
                             </div>
                         </div>
@@ -107,9 +104,8 @@
                                 </label>
                                 <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-56">
                                     <li><a (click)="selectedSector='All'">All</a></li>
-                                    <li><a (click)="selectedSector='Federal'">Federal</a></li>
-                                    <li><a (click)="selectedSector='State'">State</a></li>
-                                    <li><a (click)="selectedSector='Private'">Private</a></li>
+                                    <li *ngFor="let unit of degreeType"> <a  (click)="changeDegree(unit.name)">{{unit?.name}}</a></li>
+
                                 </ul>
                             </div>
                         </div>
@@ -136,15 +132,11 @@
                 <form>
                     <div class="flex md:flex-row md:justify-between md:items-center flex-col w-full">
                         <div class="flex lg:justify-between gap-4">
-                            <div class="relative cursor-pointer mr-3">
-
-                                <input type="search" placeholder="Search name, request ID or institution"
-                                    class="bg-white rounded-[10px] border border-inputBg w-[400px]  py-[14px] px-8 placeholder:text-[#6E7191] text-sm lg:text-base focus:outline-none ">
-                                <div class="top-1/2 absolute  left-3 custom-translate pr-4">
-                                    <img src="assets/images/icons/search.svg" alt="search">
-
-                                </div>
-                            </div>
+                            <app-search 
+                            [placeholder]="'Search...'"
+                            (iconSearch)="search($event)"
+                            [formGrp]="searchForm" formCtrlName="searchPhrase"  
+                            ></app-search>
                         </div>
                     </div>
                 </form>
@@ -173,16 +165,16 @@
                         </thead>
 
                         <tbody class="">
-                            <tr *ngFor="let data of verificationHistory" class=" ">
+                            <tr *ngFor="let data of poolList | paginate: { itemsPerPage: filter.pageSize, currentPage: filter.pageIndex, totalItems: total }" class=" ">
                             
                                 
                                 <td class="bg-white">
                                     <div class="items-center">
                                         <div>
                                             <div>
-                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">{{data.verificationID}}</p>
+                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">{{data.searchPoolBatchId}}</p>
                                                 <p class="text-xs font-normal font-inter my-0 text-lightGray">
-                                                {{data.date}}
+                                                {{data.createdOn | date}}
                                                 </p>
 
                                             </div>
@@ -192,7 +184,7 @@
                                 </td>
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.institution}}</p>  
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.institutionName}}</p>  
                                     </div>
                                 </td>
                                 
@@ -210,14 +202,14 @@
                                 </td>
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.degreeType}}</p>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.degree}}</p>
                                       
                                     </div>
 
                                 </td>
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.counts}}</p>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.count}}</p>
                                       
                                     </div>
 
@@ -225,9 +217,9 @@
                                 <td class="bg-white">
                                     <div 
                                     class="flex  gap-2 items-center" 
-                                    [routerLink]="'/organization/talent-search-pool/view-report/2'">
+                                    [routerLink]="'/organization/talent-search-pool/view-report/'+data.id">
                                     <p 
-                                    class="my-0 text-sm font-inter cursor-pointer font-medium text-primaryBlue ">{{data.action}}</p>
+                                    class="my-0 text-sm font-inter cursor-pointer font-medium text-primaryBlue ">View</p>
                                     </div>
 
                                 </td>
@@ -242,27 +234,16 @@
             <!---->
 
             <!--Pagination-->
-            <div class="flex px-7 items-center justify-between mt-3">
-                <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
-                    Showing 1 to 7 of {{ verificationHistory.length }} entries
-                </p>
+            <div class="flex items-center justify-end mt-10">
+                <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
+                        Showing 1 to 7 of {{ transactionList.length }} entries
+                    </p> -->
                 <div class="flex item gap-3">
-                    <div
-                        class="text-[10px] md:text-xs text-[#6E7191] bg-[#FCFCFC] rounded border border-solid border-[#EFF0F7] p-2 flex items-center justify-center gap-2 cursor-pointer">
-                        <img src="assets/images/icons/prev.svg" alt="" />
-                        <span>Prev</span>
-                    </div>
-                    <div
-                        class="text-sm md:text-sm text-[#1D2B4F] bg-[#D9DBE9] rounded border border-solid border-[#D9DBE9] p-2">
-                        1
-                    </div>
-                    <div
-                        class="text-[10px] md:text-xs text-[#262338] bg-[#FCFCFC] rounded border border-solid border-[#0C3146] p-2 flex items-center justify-center gap-2 cursor-pointer">
-                        <span>Next</span>
-                        <img src="assets/images/icons/next.svg" alt="" />
-                    </div>
+                  <pagination-controls (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next">
+                  </pagination-controls>
+        
                 </div>
-            </div>
+              </div>
 
         </div>
                 

@@ -9,6 +9,7 @@ import { MakePaymentComponent } from './new-search-talent/make-payment/make-paym
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ViewReportComponent } from './new-search-talent/make-payment/view-report/view-report.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { ViewReportComponent } from './new-search-talent/make-payment/view-repor
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
+    NgxPaginationModule,
   ]
 })
 export class TalentSearchPoolModule { }

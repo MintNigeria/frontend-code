@@ -26,6 +26,10 @@ export interface OrganizationStateInterface {
   organization: any;
   requestReason: any;
   makePayment: any;
+  searchpool: any;
+  searchpoolresult: any;
+  newPoolSearch: any;
+  departmentDegree: any;
   orgIndustryAndSectorName: any;
   organizationTransaction: any;
   historyInstitution: any;
