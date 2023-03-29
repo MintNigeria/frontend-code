@@ -1,1 +1,214 @@
-<p>search-list works!</p>
+<div>
+
+  <div class="overflow-x-auto mt-8 hide-scrollbar">
+    <table class="table w-full">
+      <thead>
+        <tr>
+          <th
+            class="flex gap-1 text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+          >
+          Full Name
+            <span
+              ><img
+                src="assets/images/icons/arrow_down.svg"
+                alt=""
+                class="mt-0.5"
+            /></span>
+          </th>
+          <th
+            class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+          >
+          Matriculation Number
+          </th>
+          <th
+            class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+          >
+          Year of Entry
+          </th>
+          <th
+            class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+          >
+          Year of graduation
+          </th>
+
+          <th
+            class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+          >
+           Certificate
+          </th>
+          <th
+            class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+          >
+            Action
+          </th>
+        </tr>
+      </thead>
+
+      <tbody class="">
+        <tr *ngFor="let data of recordList" class=" ">
+          <td class="bg-white">
+            <div>
+              <p
+                class="my-0 text-base cursor-pointer font-inter font-medium text-[#101828]"
+              >
+                {{ data.fullName }}
+              </p>
+              
+            </div>
+          </td>
+
+          <td class="bg-white">
+            <div>
+              <p
+                class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]"
+              >
+                {{ data.matriculationNo }}
+              </p>
+            </div>
+          </td>
+
+          <td class="bg-white">
+            <div>
+              <p
+                class="my-0 text-base font-inter cursor-pointer font-medium text-[#0D47A1]"
+              >
+                {{ data.yearOfEntry}}
+              </p>
+            </div>
+          </td>
+
+          <td class="bg-white">
+            <div>
+              <p
+                class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]"
+              >
+                {{ data.yearOfGraduation }}
+              </p>
+            </div>
+          </td>
+          <td class="bg-white">
+            <div>
+              <p
+                class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]"
+              >
+                {{ data.certificate }}
+              </p>
+            </div>
+          </td>
+
+          
+
+          <td class="bg-white">
+            <div
+              class="flex gap-2 items-center"
+              (click)="viewDetails()"
+            >
+              <p
+                class="my-0 text-sm font-inter cursor-pointer font-medium text-[#0D47A1]"
+              >
+                view
+              </p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <app-modal [id]="edit">
+    <div class="modal-box p-10 bg-white hide-scrollbar">
+      <div class="flex gap-5 pb-5 mt-6">
+         
+      
+        <div class="px-7 py-3 rounded-xl bg-white border border-solid border-[#EFF0F6]">
+           <div
+               class="border-b border-solid border-[#EFF0F7] flex items-center justify-between gap-7 p-[20px_24px]">
+               <h5 class="text-[#101828] text-base md:text-lg font-medium">
+                   Academic Details
+               </h5>
+               
+           </div>
+           <div class="w-full">
+               <div class="px-10 pt-10 grid lg:grid-cols-3 gap-8 font-sans w-full">
+                   <div>
+                       <h5 class="text-[#667085] text-base md:text-sm font-normal font-inter">
+                           Full Name
+                       </h5>
+                       <p class="text-base font-inter md:text-base text-[#101828]">
+                          {{data.fullName}}
+                       </p>
+                   </div>
+                  
+                  
+                 
+                    <div>
+                       <h5 class="text-[#667085] text-base md:text-base  font-normal font-inter">
+                           Gender
+                       </h5>
+                       <p class="text-base font-inter md:text-base text-[#101828]">
+                           {{data.gender}}
+                       </p>
+                   </div>
+                   
+                     <div>
+                       <h5 class="text-[#667085] text-base md:text-base  font-normal font-inter">
+                          Institution Name
+                       </h5>
+                       <p class="text-base font-inter md:text-base text-[#101828]">
+                           {{data.institution}}
+                       </p>
+                   </div>
+                    
+                    <div>
+                       <h5 class="text-[#667085] text-base md:text-base  font-normal font-inter">
+                           Faculty
+                       </h5>
+                       <p class="text-base font-inter md:text-base text-[#101828]">
+                           {{data.faculty}}
+                       </p>
+                   </div>
+                   <div>
+                       <h5 class="text-[#667085] text-base md:text-base  font-normal font-inter">
+                           Department
+                       </h5>
+                       <p class="text-base font-inter md:text-base text-[#101828]">
+                           {{data.department}}
+                       </p>
+                   </div>
+                   <div>
+                       <h5 class="text-[#667085] text-base md:text-base  font-normal font-inter">
+                           Matriculation Number
+                       </h5>
+                       <p class="text-base font-inter md:text-base text-[#101828]">
+                           {{data.matNumber}}
+                       </p>
+                   </div>
+                   <div>
+                       <h5 class="text-[#667085] text-base md:text-base  font-normal font-inter">
+                           Year of Entry
+                       </h5>
+                       <p class="text-base font-inter md:text-base text-[#101828]">
+                           {{data.yearOfEntry}}
+                       </p>
+                   </div>
+                   <div>
+                     <h5 class="text-[#667085] text-base md:text-base  font-normal font-inter">
+                         Year of Graduation
+                     </h5>
+                     <p class="text-base font-inter md:text-base text-[#101828]">
+                         {{data.yearOfgrad}}
+                     </p>
+                 </div>
+                  
+                   
+                  
+               </div>
+           </div>
+       </div>
+
+     
+</div>
+    </div>
+  </app-modal>
+  
+</div>

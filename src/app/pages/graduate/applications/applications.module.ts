@@ -10,6 +10,7 @@ import { AcademicDetailsComponent } from './new-application/academic-details/aca
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SearchListComponent } from './new-application/search-list/search-list.component';
+import { AcademicSearchDetailsComponent } from './new-application/search-list/academic-search-details/academic-search-details.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { SearchListComponent } from './new-application/search-list/search-list.c
     ViewApplicationComponent,
     NewApplicationComponent,
     AcademicDetailsComponent,
-    SearchListComponent
+    SearchListComponent,
+    AcademicSearchDetailsComponent
   ],
   imports: [
     CommonModule,
