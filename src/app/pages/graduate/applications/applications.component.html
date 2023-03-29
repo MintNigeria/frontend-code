@@ -262,18 +262,19 @@
                   </thead>
       
                   <tbody class="">
-                    <tr *ngFor="let data of graduateList" class=" ">
+                    <tr *ngFor="let data of graduateList | paginate: { itemsPerPage: filter.pageSize, currentPage: filter.pageIndex, totalItems: total }" class=" ">
                       <td class="bg-white">
                         <div>
                           <p
                             class="my-0 text-base cursor-pointer font-inter font-medium text-[#101828]"
                           >
-                            {{ data.requestID }}
+                            {{ data?.applicationNumber }}
                           </p>
                           <p
                             class="text-xs font-normal font-inter my-0 text-[#667085]"
                           >
-                            {{ data?.date }}
+                            {{ data?.createdOn | date
+                            }}
                           </p>
                         </div>
                       </td>
@@ -283,7 +284,7 @@
                           <p
                             class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]"
                           >
-                            {{ data.docType }}
+                            {{ data.documentType }}
                           </p>
                         </div>
                       </td>
@@ -313,13 +314,13 @@
                           <div
                             class="rounded-full text-center w-auto"
                             [ngClass]="
-                              data.status.toLowerCase() === 'completed'
+                              data.status.toLowerCase() === 'Completed'
                                 ? 'bg-[#ECFDF3]'
-                                : data.status.toLowerCase() === 'processing'
+                                : data.status.toLowerCase() === 'Processing'
                                 ? 'bg-[#FFF8E9]'
-                                : data.status.toLowerCase() === 'paused'
+                                : data.status.toLowerCase() === 'Paused'
                                 ? 'bg-[#FFF8E9]'
-                                : data.status.toLowerCase() === 'pending'
+                                : data.status.toLowerCase() === 'Pending'
                                 ? 'bg-[#F2F4F7]'
                                 : ''
                             "
@@ -328,13 +329,13 @@
                               <div
                                 class="ml-3 w-2 h-2 rounded-full"
                                 [ngClass]="
-                                  data.status.toLowerCase() === 'completed'
+                                  data.status.toLowerCase() === 'Completed'
                                     ? 'bg-[#027A48]'
-                                    : data.status.toLowerCase() === 'processing'
+                                    : data.status.toLowerCase() === 'Processing'
                                     ? 'bg-[#EAAC30]'
-                                    : data.status.toLowerCase() === 'paused'
+                                    : data.status.toLowerCase() === 'Paused'
                                     ? 'bg-[#EAAC30]'
-                                    : data.status.toLowerCase() === 'pending'
+                                    : data.status.toLowerCase() === 'Pending'
                                     ? 'bg-[#344054]'
                                     : ''
                                 "
@@ -342,13 +343,13 @@
                               <p
                                 class="my-0 text-sm cursor-pointer font-inter font-medium w-auto"
                                 [ngClass]="
-                                  data.status.toLowerCase() === 'completed'
+                                  data.status.toLowerCase() === 'Completed'
                                     ? 'text-[#027A48]'
-                                    : data.status.toLowerCase() === 'processing'
+                                    : data.status.toLowerCase() === 'Processing'
                                     ? 'text-[#EAAC30]'
-                                    : data.status.toLowerCase() === 'paused'
+                                    : data.status.toLowerCase() === 'Paused'
                                     ? 'text-[#EAAC30]'
-                                    : data.status.toLowerCase() === 'pending'
+                                    : data.status.toLowerCase() === 'Pending'
                                     ? 'text-[#344054]'
                                     : ''
                                 "
@@ -368,7 +369,7 @@
                           <p
                             class="my-0 text-sm font-inter cursor-pointer font-medium text-[#0D47A1]"
                           >
-                            {{ data.action }}
+                            View
                           </p>
                         </div>
                       </td>
@@ -378,28 +379,14 @@
               </div>
         </div>
   
-        <div class="flex items-center justify-between mt-10">
-          <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
-            Showing 1 to 7 of {{ graduateList.length }} entries
-          </p>
+        <div class="flex items-center justify-end mt-10">
+          <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
+                  Showing 1 to 7 of {{ transactionList.length }} entries
+              </p> -->
           <div class="flex item gap-3">
-            <div
-              class="text-[10px] md:text-xs text-[#6E7191] bg-[#FCFCFC] rounded border border-solid border-[#EFF0F7] p-2 flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <img src="assets/images/icons/prev.svg" alt="" />
-              <span>Prev</span>
-            </div>
-            <div
-              class="text-sm md:text-sm text-[#1D2B4F] bg-[#D9DBE9] rounded border border-solid border-[#D9DBE9] p-2"
-            >
-              1
-            </div>
-            <div
-              class="text-[10px] md:text-xs text-[#262338] bg-[#FCFCFC] rounded border border-solid border-[#0C3146] p-2 flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <span>Next</span>
-              <img src="assets/images/icons/next.svg" alt="" />
-            </div>
+            <pagination-controls (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next">
+            </pagination-controls>
+  
           </div>
         </div>
       </div>

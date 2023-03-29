@@ -297,7 +297,7 @@
                     <div class="mt-3 mb-3">
                         <div class="mt-3">
                             <p class="font-medium text-sm font-inter text-darkGray">Delivery Options</p>
-                            <p class="font-normal text-sm font-inter text-[#D0D5DD]">Select up to three (3) delivery options that will be available to this document type.</p>
+                            <p class="font-normal text-sm font-inter text-[#D0D5DD]">Select  delivery options that will be available to this document type.</p>
                         </div>
                         <div class="flex gap-3 mt-3" *ngFor="let unit of deliveryOption">
                              <input type="checkbox" [value]="unit.id" (change)="getCheckedValue(unit.deliveryTypeName, $event.target)" checked="checked" class="checkbox checkbg"  />

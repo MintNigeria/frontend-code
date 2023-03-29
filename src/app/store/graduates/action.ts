@@ -147,3 +147,27 @@ export const invokeGetGraduateDetailsSuccess = createAction(
       '[Graduates] create graduate records success',
       props<{ payload: any }>()
     );
+
+    export const getAllGraduateRequestForGradaute = createAction(
+      '[Graduates] get graduate request records for graduate ',
+      props<{
+        payload: any;
+      }>()
+    );
+    
+    export const getAllGraduateRequestForGradauteSuccess = createAction(
+      '[Graduates] get graduate request records for graduate success',
+      props<{ payload: any }>()
+    );
+
+    export const getAllGraduateRequestDetailForGradaute = createAction(
+      '[Graduates] get graduate request detail records for graduate ',
+      props<{
+        requestId: any;
+      }>()
+    );
+    
+    export const getAllGraduateRequestDetailForGradauteSuccess = createAction(
+      '[Graduates] get graduate request detail records for graduate success',
+      props<{ payload: any }>()
+    );

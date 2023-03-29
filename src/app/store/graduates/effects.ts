@@ -6,7 +6,7 @@ import { GraduatesService } from 'src/app/core/services/graduates/graduates.serv
 import { UploadsService } from 'src/app/core/services/uploads/uploads.service';
 import { AppResponseInterface } from 'src/app/types/appState.interface';
 import { setAPIResponseMessage } from '../shared/app.action';
-import { approvePendingGraduate, approveRejectPendingGraduateSuccess, createGraduateRecord, createGraduateRecordSuccess, downloadCSV, downloadCSVSuccess, downloadExcel, downloadExcelSuccess, downloadRecordUploadFormat, downloadRecordUploadFormatSuccess, getAllInstitutionUpload, getAllInstitutionUploadSuccess, invokeGetAllGraduates, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduates, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, rejectPendingGraduate, uploadGraduateRecord, uploadGraduateRecordSuccess } from './action';
+import { approvePendingGraduate, approveRejectPendingGraduateSuccess, createGraduateRecord, createGraduateRecordSuccess, downloadCSV, downloadCSVSuccess, downloadExcel, downloadExcelSuccess, downloadRecordUploadFormat, downloadRecordUploadFormatSuccess, getAllGraduateRequestDetailForGradaute, getAllGraduateRequestDetailForGradauteSuccess, getAllGraduateRequestForGradaute, getAllGraduateRequestForGradauteSuccess, getAllInstitutionUpload, getAllInstitutionUploadSuccess, invokeGetAllGraduates, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduates, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, rejectPendingGraduate, uploadGraduateRecord, uploadGraduateRecordSuccess } from './action';
 
 @Injectable()
 export class GraduatesEffects {
@@ -402,6 +402,82 @@ export class GraduatesEffects {
               );
               // read data and update payload
               return createGraduateRecordSuccess({
+                payload: data
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getAllGraduateRequestForGradaute$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getAllGraduateRequestForGradaute),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.graduateService
+          .getAllGraduateRequestForGradaute(action.payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getAllGraduateRequestForGradauteSuccess({
+                payload: data
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getAllGraduateRequestDetailForGradaute$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getAllGraduateRequestDetailForGradaute),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.graduateService
+          .getAllGraduateRequestDetailForGradaute(action.requestId)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getAllGraduateRequestDetailForGradauteSuccess({
                 payload: data
                   
               });

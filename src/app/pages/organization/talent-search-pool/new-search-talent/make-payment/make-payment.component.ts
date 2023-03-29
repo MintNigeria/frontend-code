@@ -301,7 +301,7 @@ validatePayment() {
   ////console.log(data)
   const payload = {
     transactionId: Number(this.transactionId),
-    makePaymentType: 5,
+    makePaymentType: 6,
     merchantType: 'PAYSTACK',
     isPaymentSuccessful: this.isTransactionSuccessful === 'success' ? true : false,
     imei: '',
