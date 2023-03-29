@@ -44,4 +44,8 @@ export interface GraduatesStateInterface {
   graduateRecordUploadFormat: any;
   uploadRecord: any;
   createGraduaterecord: any;
+  graduateRequestRecord: any;
+  graduateRequestDetailsRecord: any;
+  graduatewallet: any;
+  graduateTransactionHistory: any;
   }

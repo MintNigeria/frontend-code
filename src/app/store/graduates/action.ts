@@ -147,3 +147,46 @@ export const invokeGetGraduateDetailsSuccess = createAction(
       '[Graduates] create graduate records success',
       props<{ payload: any }>()
     );
+
+    export const getAllGraduateRequestForGradaute = createAction(
+      '[Graduates] get graduate request records for graduate ',
+      props<{
+        payload: any;
+      }>()
+    );
+    
+    export const getAllGraduateRequestForGradauteSuccess = createAction(
+      '[Graduates] get graduate request records for graduate success',
+      props<{ payload: any }>()
+    );
+
+    export const getAllGraduateRequestDetailForGradaute = createAction(
+      '[Graduates] get graduate request detail records for graduate ',
+      props<{
+        requestId: any;
+      }>()
+    );
+    
+    export const getAllGraduateRequestDetailForGradauteSuccess = createAction(
+      '[Graduates] get graduate request detail records for graduate success',
+      props<{ payload: any }>()
+    );
+
+    export const getGraduateWalletId = createAction(
+      '[Graduates] get graduate wallet ',
+    );
+    
+    export const getGraduateWalletIdSuccess = createAction(
+      '[Graduates] get graduate wallet success',
+      props<{ payload: any }>()
+      );
+      
+      export const getGraduateTransactionHistory = createAction(
+        '[Graduates] get graduate transaction history wallet ',
+        props<{ payload: any }>()
+    );
+    
+    export const getGraduateTransactionHistorySuccess = createAction(
+      '[Graduates] get graduate transaction history wallet success',
+      props<{ payload: any }>()
+    );

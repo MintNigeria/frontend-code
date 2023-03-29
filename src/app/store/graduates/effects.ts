@@ -4,15 +4,17 @@ import { Store } from '@ngrx/store';
 import { catchError, map, mergeMap, switchMap, take } from 'rxjs';
 import { GraduatesService } from 'src/app/core/services/graduates/graduates.service';
 import { UploadsService } from 'src/app/core/services/uploads/uploads.service';
+import { WalletService } from 'src/app/core/services/wallet/wallet.service';
 import { AppResponseInterface } from 'src/app/types/appState.interface';
 import { setAPIResponseMessage } from '../shared/app.action';
-import { approvePendingGraduate, approveRejectPendingGraduateSuccess, createGraduateRecord, createGraduateRecordSuccess, downloadCSV, downloadCSVSuccess, downloadExcel, downloadExcelSuccess, downloadRecordUploadFormat, downloadRecordUploadFormatSuccess, getAllInstitutionUpload, getAllInstitutionUploadSuccess, invokeGetAllGraduates, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduates, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, rejectPendingGraduate, uploadGraduateRecord, uploadGraduateRecordSuccess } from './action';
+import { approvePendingGraduate, approveRejectPendingGraduateSuccess, createGraduateRecord, createGraduateRecordSuccess, downloadCSV, downloadCSVSuccess, downloadExcel, downloadExcelSuccess, downloadRecordUploadFormat, downloadRecordUploadFormatSuccess, getAllGraduateRequestDetailForGradaute, getAllGraduateRequestDetailForGradauteSuccess, getAllGraduateRequestForGradaute, getAllGraduateRequestForGradauteSuccess, getAllInstitutionUpload, getAllInstitutionUploadSuccess, getGraduateTransactionHistory, getGraduateTransactionHistorySuccess, getGraduateWalletId, getGraduateWalletIdSuccess, invokeGetAllGraduates, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduates, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, rejectPendingGraduate, uploadGraduateRecord, uploadGraduateRecordSuccess } from './action';
 
 @Injectable()
 export class GraduatesEffects {
   constructor(
     private actions$: Actions,
     private graduateService : GraduatesService,
+    private walletService: WalletService,
     private uploadService : UploadsService,
     private appStore: Store<AppResponseInterface>
   ) {}
@@ -402,6 +404,158 @@ export class GraduatesEffects {
               );
               // read data and update payload
               return createGraduateRecordSuccess({
+                payload: data
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getAllGraduateRequestForGradaute$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getAllGraduateRequestForGradaute),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.graduateService
+          .getAllGraduateRequestForGradaute(action.payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getAllGraduateRequestForGradauteSuccess({
+                payload: data
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getAllGraduateRequestDetailForGradaute$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getAllGraduateRequestDetailForGradaute),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.graduateService
+          .getAllGraduateRequestDetailForGradaute(action.requestId)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getAllGraduateRequestDetailForGradauteSuccess({
+                payload: data
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getGraduateWalletId$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getGraduateWalletId),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.walletService
+          .getGraduateWalletId()
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getGraduateWalletIdSuccess({
+                payload: data
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getGraduateTransactionHistory$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getGraduateTransactionHistory),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.graduateService
+          .getGraduateTransactionHistory(action.payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getGraduateTransactionHistorySuccess({
                 payload: data
                   
               });
