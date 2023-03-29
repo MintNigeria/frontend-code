@@ -13,6 +13,9 @@ import { graduatesReducer } from 'src/app/store/graduates/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { SearchListComponent } from './new-application/search-list/search-list.component';
+import { AcademicSearchDetailsComponent } from './new-application/search-list/academic-search-details/academic-search-details.component';
 
 
 @NgModule({
@@ -20,17 +23,19 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ApplicationsComponent,
     ViewApplicationComponent,
     NewApplicationComponent,
-    AcademicDetailsComponent
+    AcademicDetailsComponent,
+    SearchListComponent,
+    AcademicSearchDetailsComponent
   ],
   imports: [
     CommonModule,
     ApplicationsRoutingModule,
     SharedModule,
     ReactiveFormsModule,
+    NgSelectModule,
     NgxPaginationModule,
     StoreModule.forFeature('graduates', graduatesReducer),
     EffectsModule.forFeature([GraduatesEffects]),
-
   ]
 })
 export class ApplicationsModule { }
