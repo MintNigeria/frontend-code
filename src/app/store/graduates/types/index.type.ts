@@ -46,4 +46,6 @@ export interface GraduatesStateInterface {
   createGraduaterecord: any;
   graduateRequestRecord: any;
   graduateRequestDetailsRecord: any;
+  graduatewallet: any;
+  graduateTransactionHistory: any;
   }

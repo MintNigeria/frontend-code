@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { approveRejectPendingGraduateSuccess, createGraduateRecordSuccess, downloadCSVSuccess, downloadExcelSuccess, downloadRecordUploadFormatSuccess, getAllGraduateRequestForGradauteSuccess, getAllInstitutionUploadSuccess, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, uploadGraduateRecordSuccess } from './action';
+import { approveRejectPendingGraduateSuccess, createGraduateRecordSuccess, downloadCSVSuccess, downloadExcelSuccess, downloadRecordUploadFormatSuccess, getAllGraduateRequestForGradauteSuccess, getAllInstitutionUploadSuccess, getGraduateTransactionHistorySuccess, getGraduateWalletIdSuccess, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, uploadGraduateRecordSuccess } from './action';
 import {GraduatesStateInterface} from './types/index.type';
 
 
@@ -36,6 +36,8 @@ const initialState: GraduatesStateInterface  = {
   createGraduaterecord: null,
   graduateRequestRecord: null,
   graduateRequestDetailsRecord: null,
+  graduatewallet: null,
+  graduateTransactionHistory: null,
 
 };
 
@@ -106,6 +108,18 @@ export const graduatesReducer = createReducer(
     return {
       ...state,
       graduateRequestDetailsRecord: payload
+    };
+  }),
+  on(getGraduateWalletIdSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      graduatewallet: payload
+    };
+  }),
+  on(getGraduateTransactionHistorySuccess, (state, { payload }) => {
+    return {
+      ...state,
+      graduateTransactionHistory: payload
     };
   }),
 

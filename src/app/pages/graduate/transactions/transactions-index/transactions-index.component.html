@@ -4,7 +4,7 @@
     <div class="bg-[#4086EF] text-white flex-wrap justify-between px-6 py-8 flex items-center  rounded-[7px]">
         <div class=""> 
             <p class="text-sm font-medium font-inter">Wallet Balance</p>
-            <h3 class="mt-2 font-semibold text-4xl leading-[44px] font-poppins">₦145,836</h3>
+            <h3 class="mt-2 font-semibold text-4xl leading-[44px] font-poppins">₦{{walletData?.balance | commaDelimiter  }}</h3>
         </div>
         <button routerLink="/graduate/transactions/fund-wallet" class="[box-shadow:_0px_1px_2px_rgba(16,_24,_40,_0.05)] rounded-lg bg-white text-[#4086EF]  border-white border border-solid px-5 py-3 font-medium text-sm font-inter">
             Fund Wallet
@@ -33,18 +33,13 @@
                     </p>
                     <img src="assets/images/icons/downward_arrow.svg" />
                   </label>
-                  <ul
-                    tabindex="0"
-                    class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-                  >
-                    <li><a (click)="selectedOption = 'data Time'">All Time</a></li>
-                    <li><a (click)="selectedOption = '30 Days'">30 Days</a></li>
-                    <li><a (click)="selectedOption = '7 days'">7 Days</a></li>
-                    <li><a (click)="selectedOption = '24 Hours'">24 Hours</a></li>
+                  <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
+                    <li><a (click)="changeRange(0, 'All Time') ">All Time</a></li>
+                    <li><a (click)="changeRange(3, '30 Days')">30 Days</a></li>
+                    <li><a (click)="changeRange(2, '7 days' )">7 Days</a></li>
+                    <li><a (click)="changeRange(1, '24 Hours')">24 Hours</a></li>
                     <li>
-                      <a (click)="selectedOption = 'Custom Period'"
-                        >Custom Period</a
-                      >
+                      <a (click)="changeRange(5, 'Custom Period')">Custom Period</a>
                     </li>
                   </ul>
                 </div>
@@ -112,18 +107,14 @@
                     tabindex="0"
                     class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
                   >
-                    <li><a (click)="status = 'All'">All</a></li>
-                    <li>
-                      <a (click)="status = 'Certificate (Original)'">Pending</a>
-                    </li>
-                    <li>
-                      <a (click)="status = 'Certificate (Template)'">Processing</a>
-                    </li>
-                    <li>
-                      <a (click)="status = 'Certificate (Certified True Copy)'"
-                        >Completed</a
-                      >
-                    </li>
+                  <li><a (click)="changeStatus(0, 'Pending')">Pending</a>
+                  </li>
+                  <li>
+                    <a (click)="changeStatus(1, 'Approved')">Approved</a>
+                  </li>
+                  <li>
+                    <a (click)="changeStatus(2, 'Decline')">Declined</a>
+                  </li>
                   </ul>
                 </div>
               </div>
@@ -244,13 +235,13 @@
                 </thead>
     
                 <tbody class="">
-                  <tr *ngFor="let data of transactionHistory" class=" ">
+                  <tr *ngFor="let data of transactionHistory | paginate: { itemsPerPage: filter.pageSize, currentPage: filter.pageIndex, totalItems: total } " class=" ">
                     <td class="bg-white">
                       <div>
                         <p
                           class="text-xs font-normal font-inter my-0 text-[#667085]"
                         >
-                          {{ data?.date }}
+                          {{ data?.transactionDate | date }}
                         </p>
                       </div>
                     </td>
@@ -260,7 +251,7 @@
                         <p
                           class="my-0 text-base font-inter font-normal text-[#667085]"
                         >
-                          {{ data.amount }}
+                          {{ data.amountPaid | commaDelimiter }}
                         </p>
                       </div>
                     </td>
@@ -270,7 +261,7 @@
                         <p
                           class="my-0 text-base font-inter font-medium text-[#667085]"
                         >
-                          {{ data.paymentMethod }}
+                          {{ data.paymentType }}
                         </p>
                       </div>
                     </td>
@@ -280,90 +271,61 @@
                         <p
                           class="my-0 text-base font-inter font-normal text-[#667085]"
                         >
-                          {{ data.transactionDesc }}
+                          {{ data.description }}
                         </p>
                       </div>
                     </td>
     
                     <td class="bg-white">
                       <div class="rounded text-center">
-                        <div
-                          class="rounded-full text-center w-auto"
-                          [ngClass]="
-                            data.status.toLowerCase() === 'completed'
-                              ? 'bg-[#ECFDF3]'
-                              : data.status.toLowerCase() === 'processing'
-                              ? 'bg-[#FFF8E9]'
-                              : data.status.toLowerCase() === 'paused'
-                              ? 'bg-[#FFF8E9]'
-                              : data.status.toLowerCase() === 'pending'
-                              ? 'bg-[#F2F4F7]'
-                              : ''
-                          "
-                        >
-                          <div class="flex items-center gap-2 w-auto">
-                            <div
-                              class="ml-3 w-2 h-2 rounded-full"
-                              [ngClass]="
-                                data.status.toLowerCase() === 'completed'
-                                  ? 'bg-[#027A48]'
-                                  : data.status.toLowerCase() === 'processing'
-                                  ? 'bg-[#EAAC30]'
-                                  : data.status.toLowerCase() === 'paused'
-                                  ? 'bg-[#EAAC30]'
-                                  : data.status.toLowerCase() === 'pending'
-                                  ? 'bg-[#344054]'
-                                  : ''
-                              "
-                            ></div>
-                            <p
-                              class="my-0 text-sm cursor-pointer font-inter font-medium w-auto"
-                              [ngClass]="
-                                data.status.toLowerCase() === 'completed'
-                                  ? 'text-[#027A48]'
-                                  : data.status.toLowerCase() === 'processing'
-                                  ? 'text-[#EAAC30]'
-                                  : data.status.toLowerCase() === 'paused'
-                                  ? 'text-[#EAAC30]'
-                                  : data.status.toLowerCase() === 'pending'
-                                  ? 'text-[#344054]'
-                                  : ''
-                              "
-                            >
-                              {{ data.status | titlecase }}
-                            </p>
+                          <div
+                            class="rounded-full text-center w-fit px-2 py-[2px] flex items-center"
+                            
+                          >
+                          <div
+                            class="mr-3 w-2 h-2 rounded-full"
+                            [ngClass]="
+                            data.paymentStatus === 2
+                                ? 'bg-[#E61B00]'
+                                : data.paymentStatus === 1
+                                ? 'bg-[#008400]'
+                                : 'bg-[#EE6D00]'
+                                "
+                          ></div>
+                          <p
+                            class="my-0 text-sm cursor-pointer font-inter font-medium w-auto"
+                            [ngClass]="
+                              data.paymentStatus === 2
+                                ? 'text-[#E61B00]'
+                                : data.paymentStatus === 1
+                                ? 'text-[#008400]'
+                                : 'text-[#EE6D00]'
+                                
+                            "
+                          >
+                            {{ data.paymentStatus === 1? 'Approved' : data.paymentStatus === 2 ? 'Declined' : 'Pending' }}
+                          </p>
+                            
                           </div>
                         </div>
-                      </div>
-                    </td>
+                   
+  
+                  </td>
                   </tr>
                 </tbody>
               </table>
         </div>
   
-        <div class="flex items-center justify-between mt-10">
-          <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
-            Showing 1 to 7 of {{ transactionHistory.length }} entries
-          </p>
-          <div class="flex item gap-3">
-            <div
-              class="text-[10px] md:text-xs text-[#6E7191] bg-[#FCFCFC] rounded border border-solid border-[#EFF0F7] p-2 flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <img src="assets/images/icons/prev.svg" alt="" />
-              <span>Prev</span>
-            </div>
-            <div
-              class="text-sm md:text-sm text-[#1D2B4F] bg-[#D9DBE9] rounded border border-solid border-[#D9DBE9] p-2"
-            >
-              1
-            </div>
-            <div
-              class="text-[10px] md:text-xs text-[#262338] bg-[#FCFCFC] rounded border border-solid border-[#0C3146] p-2 flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <span>Next</span>
-              <img src="assets/images/icons/next.svg" alt="" />
-            </div>
-          </div>
+       <!--Pagination-->
+      <div class="flex items-center justify-end mt-10">
+        <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
+                Showing 1 to 7 of {{ transactionList.length }} entries
+            </p> -->
+        <div class="flex item gap-3">
+          <pagination-controls (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next">
+          </pagination-controls>
+
         </div>
+      </div>
     </div>
 </section>

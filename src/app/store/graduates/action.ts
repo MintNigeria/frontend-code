@@ -171,3 +171,22 @@ export const invokeGetGraduateDetailsSuccess = createAction(
       '[Graduates] get graduate request detail records for graduate success',
       props<{ payload: any }>()
     );
+
+    export const getGraduateWalletId = createAction(
+      '[Graduates] get graduate wallet ',
+    );
+    
+    export const getGraduateWalletIdSuccess = createAction(
+      '[Graduates] get graduate wallet success',
+      props<{ payload: any }>()
+      );
+      
+      export const getGraduateTransactionHistory = createAction(
+        '[Graduates] get graduate transaction history wallet ',
+        props<{ payload: any }>()
+    );
+    
+    export const getGraduateTransactionHistorySuccess = createAction(
+      '[Graduates] get graduate transaction history wallet success',
+      props<{ payload: any }>()
+    );
