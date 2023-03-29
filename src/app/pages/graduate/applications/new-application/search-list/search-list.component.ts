@@ -45,5 +45,15 @@ export class SearchListComponent implements OnInit {
     document.getElementById('editModal')?.click();
   }
 
+  cancel(){
+
+  }
+
+  openEdit() {
+    document.getElementById('editModal')?.click();
+  }
+  closeEdit() {
+    document.getElementById('editModal')?.click();
+  }
   
 }
