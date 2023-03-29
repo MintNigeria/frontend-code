@@ -8,6 +8,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { NewApplicationComponent } from './new-application/new-application.component';
 import { AcademicDetailsComponent } from './new-application/academic-details/academic-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { SearchListComponent } from './new-application/search-list/search-list.component';
+import { AcademicSearchDetailsComponent } from './new-application/search-list/academic-search-details/academic-search-details.component';
 
 
 @NgModule({
@@ -15,13 +18,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     ApplicationsComponent,
     ViewApplicationComponent,
     NewApplicationComponent,
-    AcademicDetailsComponent
+    AcademicDetailsComponent,
+    SearchListComponent,
+    AcademicSearchDetailsComponent
   ],
   imports: [
     CommonModule,
     ApplicationsRoutingModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule,
   ]
 })
 export class ApplicationsModule { }
