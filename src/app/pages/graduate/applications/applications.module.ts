@@ -11,6 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SearchListComponent } from './new-application/search-list/search-list.component';
 import { AcademicSearchDetailsComponent } from './new-application/search-list/academic-search-details/academic-search-details.component';
+import { ApplicationDetailsComponent } from './new-application/application-details/application-details.component';
+import { ReviewOrderComponent } from './new-application/review-order/review-order.component';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { AcademicSearchDetailsComponent } from './new-application/search-list/ac
     NewApplicationComponent,
     AcademicDetailsComponent,
     SearchListComponent,
-    AcademicSearchDetailsComponent
+    AcademicSearchDetailsComponent,
+    ApplicationDetailsComponent,
+    ReviewOrderComponent
   ],
   imports: [
     CommonModule,

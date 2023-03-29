@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-list',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchListComponent implements OnInit {
   edit = 'editModal';
-  constructor() { }
+  constructor(
+    private router : Router
+  ) { }
 
   ngOnInit(): void {
   }
@@ -50,6 +53,7 @@ export class SearchListComponent implements OnInit {
   }
 
   openEdit() {
+    this.router.navigateByUrl('/graduate/my-applications/new/app-details')
     document.getElementById('editModal')?.click();
   }
   closeEdit() {
