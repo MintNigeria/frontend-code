@@ -123,4 +123,23 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
       `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/DownloadUploadFormat`, {params: payload}
     );
   }
+
+  getAllGraduateRequestForGradaute(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Requests`, {params: payload}
+    );
+  }
+
+  getAllGraduateRequestDetailForGradaute(requestId: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/${requestId}`
+    );
+  }
+
+  getGraduateTransactionHistory(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Graduate-Transaction-History`, {params: payload}
+    );
+  }
+
 }

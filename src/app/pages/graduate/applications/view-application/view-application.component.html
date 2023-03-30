@@ -23,7 +23,7 @@
 </div>
 
 <h4 class="font-medium font-poppins text-4xl text-[#101828] my-5 px-5 md:px-8">
-    Application ID: #3045
+    Application ID: #{{requestDetail?.applicationNumber}}
 </h4>
 
 <div class="px-5 md:px-8 mt-3">
@@ -56,39 +56,39 @@
             <div class="divide-y divide-[#EAECF0]">
                 <div class="pb-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
                     <h5 class="font-medium text-[#344054]">Full Name</h5>
-                    <p class="font-medium text-[#667085]">Chukwuka Chiemelie Esther</p>
+                    <p class="font-medium text-[#667085]">{{requestDetail?.graduteFullName}}</p>
                 </div>
                 <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
                     <h5 class="font-medium text-[#344054]">Institution Name </h5>
-                    <p class="font-medium text-[#667085]">Nnamdi Azikiwe University</p>
+                    <p class="font-medium text-[#667085]">{{requestDetail?.institutionName}}</p>
                 </div>
                 <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
                     <h5 class="font-medium text-[#344054]">Faculty </h5>
-                    <p class="font-medium text-[#667085]">Sciences</p>
+                    <p class="font-medium text-[#667085]">{{requestDetail?.facultyName}}</p>
                 </div>
                 <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
                     <h5 class="font-medium text-[#344054]">Department </h5>
-                    <p class="font-medium text-[#667085]">Sciences</p>
+                    <p class="font-medium text-[#667085]">{{requestDetail?.department}}</p>
                 </div>
                 <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
                     <h5 class="font-medium text-[#344054]">Degree Type </h5>
-                    <p class="font-medium text-[#667085]">Sciences</p>
+                    <p class="font-medium text-[#667085]">{{requestDetail?.degree}}</p>
                 </div>
                 <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
                     <h5 class="font-medium text-[#344054]">Matric Number </h5>
-                    <p class="font-medium text-[#667085]">Sciences</p>
+                    <p class="font-medium text-[#667085]">{{requestDetail?.matriculationNumber}}</p>
                 </div>
                 <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
                     <h5 class="font-medium text-[#344054]">Year of Entry </h5>
-                    <p class="font-medium text-[#667085]">Sciences</p>
+                    <p class="font-medium text-[#667085]">{{requestDetail?.yearOfEntry}}</p>
                 </div>
                 <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
                     <h5 class="font-medium text-[#344054]">Year of Graduation </h5>
-                    <p class="font-medium text-[#667085]">Sciences</p>
+                    <p class="font-medium text-[#667085]">{{requestDetail?.yearOfGraduation}}</p>
                 </div>
                 <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
                     <h5 class="font-medium text-[#344054]">Gender </h5>
-                    <p class="font-medium text-[#667085]">Sciences</p>
+                    <p class="font-medium text-[#667085]">{{requestDetail?.gender || 'N/A'}}</p>
                 </div>
             </div>
 
@@ -103,23 +103,23 @@
             <div class="divide-y divide-[#EAECF0]">
                 <div class="pb-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
                     <h5 class="font-medium text-[#344054]">Document Requested</h5>
-                    <p class="font-medium text-[#667085]">Transcript</p>
+                    <p class="font-medium text-[#667085]">{{requestDetail?.d}}</p>
                 </div>
                 <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
                     <h5 class="font-medium text-[#344054]">Delivery Option</h5>
-                    <p class="font-medium text-[#667085]">Email</p>
+                    <p class="font-medium text-[#667085]">{{requestDetail?.deliveryOption}}</p>
                 </div>
                 <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
                     <h5 class="font-medium text-[#344054]">Phone Number</h5>
-                    <p class="font-medium text-[#667085]">09023456789</p>
+                    <p class="font-medium text-[#667085]">{{requestDetail?.reasonForRequest}}</p>
                 </div>
                 <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
                     <h5 class="font-medium text-[#344054]">Reason for Request</h5>
-                    <p class="font-medium text-[#667085]">Educational Purpose</p>
+                    <p class="font-medium text-[#667085]">{{requestDetail?.reasonForRequest}}</p>
                 </div>
                 <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
                     <h5 class="font-medium text-[#344054]">Destination</h5>
-                    <p class="font-medium text-[#667085]">ciroma@yopmail.com</p>
+                    <p class="font-medium text-[#667085]">{{requestDetail?.email}}</p>
                 </div>
             </div>
 
@@ -132,8 +132,14 @@
             </div>
 
             <div class="flex flex-wrap gap-8">
-                <img src="assets/images/graduates/sample-document.svg" class="" alt="">
-                <img src="assets/images/graduates/sample-document.svg" class="" alt="">
+                <div *ngFor="let unit of requestDetail?.requestSupportingDocumentVM">
+                    <div class="relative">
+                        <img src="data:image/png;base64,{{unit.fileUploadVM.path}}" class="w-52 h-52 rounded-lg " alt="">
+                        <div (click)="download(unit)" class="cursor-pointer  absolute top-2 left-2 bg-black px-[6px] rounded-md">
+                            <svg class="h-5 w-5 text-white"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />  <polyline points="7 11 12 16 17 11" />  <line x1="12" y1="4" x2="12" y2="16" /></svg>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>

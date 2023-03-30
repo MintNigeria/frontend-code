@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Actions, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import { getAllGraduateRequestForGradaute, getAllGraduateRequestForGradauteSuccess } from 'src/app/store/graduates/action';
+import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
   selector: 'app-applications',
@@ -19,81 +26,43 @@ export class ApplicationsComponent implements OnInit {
   filterDocument = {documentType: 'All'};
 
   array = []
+  graduateList: any;
 
- 
+  filter= {
+    'TimeBoundSearchVm.TimeRange': 0,
+    keyword: '',
+      filter: '',
+      pageSize: 10,
+      pageIndex: 1,
+   }
+   userData: any;
+    applicationList: any;
+    total: any;
+  pageIndex = 1
+  searchForm = new FormGroup({
+    searchPhrase: new FormControl(''),
+  });
+  
+  constructor(
+    private appStore: Store<AppStateInterface>,
+    private store: Store,
+    private actions$: Actions,
+    private utilityService: UtilityService,
+    private dialog: MatDialog
 
-  graduateList = [
-    {
-      id: '1',
-      requestID: '#3086',
-      date: '12/01/2023',
-      deliveryOption: 'Email',
-      number: '080912002',
-      docType: 'Certificate(Original)',
-      destination: 'ameerkenny@yopmail.com',
-      status: 'Completed',
-      action: 'view'
-    },
-    {
-      id: '1',
-      requestID: '#3086',
-      date: '12/01/2023',
-      deliveryOption: 'Email',
-      number: '080912002',
-      docType: 'Certificate(Original)',
-      destination: 'ameerkenny@yopmail.com',
-      status: 'Completed',
-      action: 'view'
-    },
-    {
-      id: '1',
-      requestID: '#3086',
-      date: '12/01/2023',
-      deliveryOption: 'Email',
-      number: '080912002',
-      docType: 'Certificate(Original)',
-      destination: 'ameerkenny@yopmail.com',
-      status: 'Completed',
-      action: 'view'
-    },
-    {
-      id: '1',
-      requestID: '#3086',
-      date: '12/01/2023',
-      deliveryOption: 'Email',
-      number: '080912002',
-      docType: 'Certificate(Original)',
-      destination: 'ameerkenny@yopmail.com',
-      status: 'Completed',
-      action: 'view'
-    },
-    {
-      id: '1',
-      requestID: '#3086',
-      date: '12/01/2023',
-      deliveryOption: 'Email',
-      number: '080912002',
-      docType: 'Certificate(Original)',
-      destination: 'ameerkenny@yopmail.com',
-      status: 'Completed',
-      action: 'view'
-    },
-    {
-      id: '1',
-      requestID: '#3086',
-      date: '12/01/2023',
-      deliveryOption: 'Email',
-      number: '080912002',
-      docType: 'Certificate(Original)',
-      destination: 'ameerkenny@yopmail.com',
-      status: 'Completed',
-      action: 'view'
-    },
-  ]
-
-  constructor() { }
+  ) { }
 
   ngOnInit(): void {
+    // getAllGraduateRequestForGradaute
+    const data: any = localStorage.getItem('userData')
+    this.userData = JSON.parse(data)
+    this.store.dispatch(getAllGraduateRequestForGradaute({payload: {...this.filter, GraduateId: this.userData.GraduateId}}))
+    this.actions$.pipe(ofType(getAllGraduateRequestForGradauteSuccess)).subscribe((res: any) => {
+      console.log(res)
+      this.graduateList = res.payload.payload
+      // this.balance = res.payload;
+    })
+
   }
 
   addFilter() {
@@ -129,4 +98,8 @@ export class ApplicationsComponent implements OnInit {
     this.filterDocument = {documentType: 'All'};
   }
 
+  getPage(currentPage: number) {
+    const filter = {...this.filter, ['pageIndex'] : currentPage}
+    this.store.dispatch(getAllGraduateRequestForGradaute({payload: {...filter, GraduateId: this.userData.GraduateId}}))
+  }
 }
