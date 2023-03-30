@@ -210,3 +210,13 @@ export const invokeGetGraduateDetailsSuccess = createAction(
       '[Graduates] validate graduate registration success',
       props<{ payload: any }>()
     );
+      
+      export const fundGraduateWallet = createAction(
+        '[Graduates] fund graduate wallet ',
+        props<{ payload: any }>()
+    );
+    
+    export const fundGraduateWalletSuccess = createAction(
+      '[Graduates] fund graduate wallet success',
+      props<{ payload: any }>()
+    );

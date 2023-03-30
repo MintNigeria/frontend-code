@@ -278,7 +278,7 @@
     <div class="bg-white w-full h-screen  flex justify-center items-center">
       <div class="w-fill md:w-3/5 mx-auto">
         <h4 class="font-semibold font-poppins text-3xl pb-3 text-darkGray">Email verification</h4>
-        <p class="leading-6 text-base pb-8 text-lightGray font-nunito mb-8">We’ve sent a unique code to {{institutionRegForm.get("EmailAddress")?.value}}
+        <p class="leading-6 text-base pb-8 text-lightGray font-nunito mb-8">We’ve sent a unique code to {{institutionRegForm.get("Email")?.value}}
           in order to verify your email address. Please enter the code below.</p>
         <div class="mb-8">
           <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{ length: 4 }"></ng-otp-input>

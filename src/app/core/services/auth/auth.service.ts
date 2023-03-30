@@ -55,13 +55,24 @@ export class AuthService extends BaseURI implements AbstractAuthService {
   }
   
   forgotPassword(email: string) {
+    const body = new FormData()
+    body.append('userName', email)
+    return this.http.post<any>(
+      `${this.baseUrl}mint-auth/api/v1/Authentication/RequestPasswordReset`, body
+    );
+  }
+  
+  sendTwoFactorCode(email: string) {
     return this.http.get<any>(
       `${this.baseUrl}mint-auth/api/v1/authentication/ForgetPassword/${email}`
     );
   }
-  sendTwoFactorCode(email: string) {
-    return this.http.get<any>(
-      `${this.baseUrl}mint-auth/api/v1/authentication/ForgetPassword/${email}`
+
+  resendOTP(email: string) {
+    const body = new FormData()
+    body.append('email', email)
+    return this.http.post<any>(
+      `${this.baseUrl}mint-auth/api/v1/Authentication/RequestEmailVerification/`, body
     );
   }
 }

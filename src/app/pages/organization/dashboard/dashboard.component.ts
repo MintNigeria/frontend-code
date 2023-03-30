@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { DashboardService } from 'src/app/core/services/dashboard/dashboard.service';
 import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
 import { getAllDashboardInfoData, getOrganizationDashboardBottomInfo, getOrganizationDashboardBottomInfoSuccess, getOrganizationDashboardInfo, getOrganizationDashboardInfoSuccess, getOrganizationVeficiationAnalysis, getOrganizationVeficiationAnalysisSuccess } from 'src/app/store/dashboard/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
@@ -91,7 +92,8 @@ export class DashboardComponent implements OnInit {
     private appStore: Store<AppStateInterface>,
     private store: Store,
     private actions$: Actions,
-    private dialog : MatDialog
+    private dialog : MatDialog,
+    private dashboardService: DashboardService
   ) { }
 
   ngOnInit(): void {
@@ -107,10 +109,15 @@ export class DashboardComponent implements OnInit {
       this.verificationData = res.payload;
     })
 
-    this.store.dispatch(getOrganizationVeficiationAnalysis({payload: {...this.filter, organizationId: this.userData.OrganizationId}}))
-    this.actions$.pipe(ofType(getOrganizationVeficiationAnalysisSuccess)).subscribe((res: any) => {
-      //console.log(res)
+    // called directly as a temporaty fix. 
+    this.dashboardService.getOrganizationVerificationAnalysis({...this.filter, organizationId: this.userData.OrganizationId}).subscribe((res: any) => {
+      console.log(res)
     })
+
+    // this.store.dispatch(getOrganizationVeficiationAnalysis({payload: {...this.filter, organizationId: this.userData.OrganizationId}}))
+    // this.actions$.pipe(ofType(getOrganizationVeficiationAnalysisSuccess)).subscribe((res: any) => {
+    //   //console.log(res)
+    // })
   }
 
   changeRange(range: number) {

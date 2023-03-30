@@ -7,6 +7,7 @@
         class="pb-4"
         *ngFor="let link of menuLinks"
         routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
         #rla="routerLinkActive"
         [ngClass]="
           rla.isActive
@@ -27,7 +28,8 @@
                 class="mr-3"
             /></span>
             <!-- {{ rla.isActive }} -->
-            <p>{{ link.title }}</p>
+            
+            <a [routerLink]="link?.path">{{ link.title }}</a>
           </div>
           <span class="relative" *ngIf="link.hasChild === true">
             <div class="dropdown dropdown-right dropdown-hover">

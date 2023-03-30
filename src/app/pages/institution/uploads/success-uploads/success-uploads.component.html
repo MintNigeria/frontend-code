@@ -56,7 +56,7 @@
                             <tr *ngFor="let data of uploads | paginate: { itemsPerPage: filter.pageSize, currentPage: pageIndex, totalItems: totalCount } " class="bg-white" >
                             
                                 
-                                <td class="bg-white" [ngClass]="selectedDataId === data.batchId ? 'bg-blue-200': '' ">
+                                <td  [ngClass]="selectedDataId === data.batchId ? 'bg-blue-200': '' ">
                                     <div>
                                         <div>
                                             <div>
@@ -68,19 +68,19 @@
                                     </div>
                                 </td>
                                 
-                                <td class="bg-white" [ngClass]="selectedDataId === data.batchId ? 'bg-blue-200': '' ">
+                                <td  [ngClass]="selectedDataId === data.batchId ? 'bg-blue-200': '' ">
                                     <div>
                                         <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">{{data.batchNumber}}</p>
                                     </div>
                                 </td>
 
-                                <td class="bg-white" [ngClass]="selectedDataId === data.batchId ? 'bg-blue-200': '' ">
+                                <td  [ngClass]="selectedDataId === data.batchId ? 'bg-blue-200': '' ">
                                     <div>
                                         <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.totalCount}}</p>
                                     
                                     </div>
                                 </td>
-                                <td class="bg-white" [ngClass]="selectedDataId === data.batchId ? 'bg-blue-200': '' ">
+                                <td  [ngClass]="selectedDataId === data.batchId ? 'bg-blue-200': '' ">
                                     <div 
                                     [ngClass]="data.status === true ? 'bg-successLight':'bg-failedLight'"
                                     class="rounded-lg">
@@ -90,7 +90,7 @@
                                         successful </p>
                                     </div>
                                 </td>
-                                <td class="bg-white" [ngClass]="selectedDataId === data.batchId ? 'bg-blue-200': '' ">
+                                <td  [ngClass]="selectedDataId === data.batchId ? 'bg-blue-200': '' ">
                                     <div>
                                         <p class="my-0 text-base cursor-pointer font-inter font-normal text-primaryBlue " (click)="showData(data.batchId)">View</p>
                                         

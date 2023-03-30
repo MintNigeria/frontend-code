@@ -25,6 +25,7 @@ pk: string = environment.pkKey
   deviceModel: string;
   ipAddress: any;
   isTransactionSuccessful: any;
+  referenceNumber: any;
   constructor(
     private appStore: Store<AppStateInterface>,
     private store: Store,
@@ -91,7 +92,8 @@ pk: string = environment.pkKey
 
   onSuccess(trx: any) {
     ////console.log(trx)
-    this.isTransactionSuccessful = trx.status
+    this.isTransactionSuccessful = trx.status,
+    this.referenceNumber = trx.reference
     const payload = {
       organizationId: Number(this.userData.OrganizationId),
       amount: this.selectedPlanData.amount,
@@ -116,6 +118,7 @@ pk: string = environment.pkKey
     const payload = {
       transactionId: Number(data?.payload?.payload?.transactionId),
       makePaymentType: 3,
+      refrenceNumber: this.referenceNumber,
       merchantType: 'PAYSTACK',
       isPaymentSuccessful: this.isTransactionSuccessful === 'success' ? true : false,
       imei: '',
@@ -127,11 +130,9 @@ pk: string = environment.pkKey
     this.store.dispatch(validateOrganizationFundWallet({payload}))
     this.actions$.pipe(ofType(validateOrganizationFundWalletSuccess)).subscribe((res: any) => {
       ////console.log(res)
-      if (res) {
-
-        this.notification.publishMessages('success', 'successful')
-        this.router.navigateByUrl('/organization/transactions')
-      }
+      this.notification.publishMessages('success', 'successful')
+      this.router.navigateByUrl('/organization/transactions')
+     
 
     })
   }
