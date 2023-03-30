@@ -196,11 +196,12 @@ selectedFileList: any  = []
   }
 
   verifyOTP() {
-    const {EmailAddress} = this.institutionRegForm.value
+    const {Email} = this.institutionRegForm.value
     const payload = {
-      userName: EmailAddress,
+      userName: Email,
       code: this.otpValue
     }
+    console.log(payload)
     
     this.store.dispatch(validateGraduateRegistration({payload}))
     this.actions$.pipe(ofType(validateGraduateRegistrationSuccess)).subscribe((res: any) => {
