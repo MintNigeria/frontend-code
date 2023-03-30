@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ApplicationsComponent } from './applications.component';
 import { AcademicDetailsComponent } from './new-application/academic-details/academic-details.component';
 import { ApplicationDetailsComponent } from './new-application/application-details/application-details.component';
+import { MakePaymentComponent } from './new-application/make-payment/make-payment.component';
 import { NewApplicationComponent } from './new-application/new-application.component';
 import { ReviewOrderComponent } from './new-application/review-order/review-order.component';
 import { AcademicSearchDetailsComponent } from './new-application/search-list/academic-search-details/academic-search-details.component';
@@ -29,6 +30,10 @@ const routes: Routes = [
       {
         path: 'review-order',
         component: ReviewOrderComponent
+      },
+      {
+        path: 'make-payment',
+        component: MakePaymentComponent
       }
     ],
   },

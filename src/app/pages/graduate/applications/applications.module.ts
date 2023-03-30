@@ -18,6 +18,7 @@ import { SearchListComponent } from './new-application/search-list/search-list.c
 import { AcademicSearchDetailsComponent } from './new-application/search-list/academic-search-details/academic-search-details.component';
 import { ApplicationDetailsComponent } from './new-application/application-details/application-details.component';
 import { ReviewOrderComponent } from './new-application/review-order/review-order.component';
+import { MakePaymentComponent } from './new-application/make-payment/make-payment.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ReviewOrderComponent } from './new-application/review-order/review-orde
     SearchListComponent,
     AcademicSearchDetailsComponent,
     ApplicationDetailsComponent,
-    ReviewOrderComponent
+    ReviewOrderComponent,
+    MakePaymentComponent
   ],
   imports: [
     CommonModule,
