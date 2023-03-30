@@ -1,1 +1,257 @@
-<p>make-payment works!</p>
+<div
+  class="border border-solid border-[#EAECF0] border-t-2 border-b-2 border-l-0 border-r-0 rounded-sm divide-y divide-[#EAECF0] my-3" *ngIf="makePayment">
+
+  <div class="grid py-8 xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
+    <div>
+      <h3 class="font-medium text-sm text-[#344054]">Payment Summary</h3>
+      <p class="text-sm text-[#667085]">
+        Please confirm your total transaction amount before proceeding.
+      </p>
+    </div>
+
+    <div class="bg-white rounded border border-solid border-[#EAECF0] p-5 divide-y divide-[#EAECF0] ">
+      <div class="grid gap-2 md:grid-cols-[auto_auto] justify-between py-3">
+        <div class="py-3">
+          <p class="pb-1">Total amount</p>
+          <h5 class="font-bold text-[#1059C6] text-2xl">
+            ₦309.99
+          </h5>
+        </div>
+        <img src="assets/images/graduates/wallet.svg" alt="">
+      </div>
+      <div class="py-3">
+        <div class="grid gap-2 md:grid-cols-[auto_auto] justify-between py-2">
+          <h5 class="font-medium text-[#344054]">
+            Processing Fee
+          </h5>
+          <p class="text-sm text-[#667085]">
+            N50,892.00
+          </p>
+        </div>
+        <div class="grid gap-2 md:grid-cols-[auto_auto] justify-between py-2">
+          <h5 class="font-medium text-[#344054]">
+            Delivery Fee
+          </h5>
+          <p class="text-sm text-[#667085]">
+            N50,892.00
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="grid py-8 xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
+    <div>
+      <h3 class="font-medium text-sm text-[#344054]">Your Wallet</h3>
+
+    </div>
+    <div>
+      <div class="bg-[#4086EF] rounded p-7 w-full flex justify-between">
+        <div>
+          <h3 class="text-white">
+
+          </h3>
+          <h1 class="text-white text-3xl">N {{balance || 0 | commaDelimiter}}</h1>
+        </div>
+        <div class="bg-white px-3 py-2 rounded-md text-">
+          Fund Wallet
+        </div>
+      </div>
+      <p class="text-[#B42318]">You do not have enough to pay for your order. Please fund you wallet to continue</p>
+    </div>
+
+
+
+  </div>
+  <div class="flex justify-end mt-4 gap-3 py-8">
+
+    <app-button  [overRideButtonClass]="true"
+      customClass="w-[80px] h-12 rounded-lg font-inter font-medium text-base leading-6 bg-white border-2 border-solid border-[#EAECF0] text-[#344054]">Cancel</app-button>
+    <app-button [overRideButtonClass]="true"
+      customClass="h-12 px-4 rounded-lg hover:bg-primaryBlue font-inter font-medium text-base text-white leading-6 bg-[#4086EF]" (buttonClick)="proceedWallet()"
+      >Proceed to Payment</app-button>
+  </div>
+</div>
+
+<div
+  class="border border-solid border-[#EAECF0] border-t-2 border-b-2 border-l-0 border-r-0 rounded-sm divide-y divide-[#EAECF0] my-3" *ngIf="fundWallet">
+
+  <div class="grid py-8 xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
+    <div>
+      <h3 class="font-medium text-sm text-[#344054]">Your Card Details</h3>
+      <p class="text-sm text-[#667085]">
+        Please fill out your card details
+      </p>
+    </div>
+    <div class="grid gap-5 grid-cols-2">
+      <div class="col-span-2">
+        <p class="input_label label_asterisk my-1">Name on Card</p>
+        <app-input [formGrp]="makePaymentForm" formCtrlName="nameOnCard" [type]="'text'" [class]="
+            'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+          " placeholder="Enter here" [name]="'nameOnCard'"></app-input>
+
+      </div>
+
+      <div class="col-span-2">
+        <p class="input_label label_asterisk my-1">Card Number</p>
+        <app-input [formGrp]="makePaymentForm" formCtrlName="cardNo" [type]="'text'" [class]="
+            'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+          " placeholder="Enter here" [name]="'fullName'"></app-input>
+
+      </div>
+    
+      <div class="">
+        <p class="input_label label_asterisk my-1">Expiry Date</p>
+        <app-input [formGrp]="makePaymentForm" formCtrlName="expiryDate" [type]="'text'" [class]="
+            'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+          " placeholder="MM" [name]="'fullName'"></app-input>
+
+      </div>
+     
+      <div class="">
+        <p class="input_label label_asterisk my-1">&nbsp; &nbsp;</p>
+        <app-input [formGrp]="makePaymentForm" formCtrlName="expiryYear" [type]="'text'" [class]="
+            'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+          " placeholder="YY" [name]="'fullName'"></app-input>
+
+      </div>
+      <div class="col-span-2 flex justify-between gap-6 items-center ">
+        <div class="w-1/2">
+          <p class="input_label label_asterisk my-1">CVC</p>
+          <app-input [formGrp]="makePaymentForm" formCtrlName="cvc" [type]="'number'" [class]="
+              'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+            " placeholder="" [name]="'cvx'"></app-input>
+  
+        </div>
+        <div class="w-1/2">
+          <p class="input_label label_asterisk my-1">&nbsp; &nbsp;&nbsp;</p>
+          <img src="assets/images/graduates/credit-card-icons.svg" alt="">
+        </div>
+        
+      </div>
+      <span class="text-sm col-span-2 text-[#37474F]">
+        The Card Verification Code, or CVC*, is an extra code printed at the back of your debit or credit card
+      </span>
+
+    </div>
+  
+  </div>
+  <div class="grid py-8 xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
+    <div>
+      <h3 class="font-medium text-sm text-[#344054]">Amount to Fund</h3>
+      <p class="text-sm text-[#667085]">
+        Please enter the amount you wish to fund your wallet with
+      </p>
+    </div>
+    <div class="grid gap-5 grid-cols-2">
+      <div class="col-span-2">
+        <p class="input_label label_asterisk my-1">Amount</p>
+        <app-input [formGrp]="makePaymentForm" formCtrlName="amount" [type]="'text'" [class]="
+            'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+          " placeholder="Enter here" [name]="'amount'"></app-input>
+
+      </div>
+
+ 
+    
+  
+
+    </div>
+  
+  </div>
+ 
+  <div class="flex justify-end mt-4 gap-3 py-8">
+
+    <app-button (buttonClick)="cancel()" [overRideButtonClass]="true"
+      customClass="w-[80px] h-12 rounded-lg font-inter font-medium text-base leading-6 bg-white border-2 border-solid border-[#EAECF0] text-[#344054]">Cancel</app-button>
+    <app-button [overRideButtonClass]="true"
+      customClass="h-12 px-4 rounded-lg hover:bg-primaryBlue font-inter font-medium text-base text-white leading-6 bg-[#4086EF]"
+      (buttonClick)="payWithCard()">Fund Wallet</app-button>
+  </div>
+</div>
+
+
+<app-modal [id]="otpModal">
+  <div class="lg:rounded-xl p-6 bg-white hide-scrollbar modal-box">
+      <div>
+          <div class="grid grid-rows-2 justify-items-center">
+              <h3 class="font-inter font-medium text-2xl text-discountBlue">One Time Password</h3>
+              <p class="text-center lg:w-96 font-inter font-normal text-sm text-failedNormal">An OTP has been sent to adebim.....@gmail.com to authorize the transaction of 
+                  <span class="font-bold text-discountBlue">N5,000</span>
+              </p>
+          </div>
+          <div class="flex items-center justify-center">
+              <div class="flex gap-3 mt-8 mb-4">
+                  <input
+                  class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
+                  type="text"
+                  maxLength="1"
+                  (input)="onOtpChange(0, $event)"
+                  />
+                  <input
+                  class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
+                  type="text"
+                  maxLength="1"
+                  (input)="onOtpChange(1, $event)"
+                  />
+                  <input
+                  class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
+                  type="text"
+                  maxLength="1"
+                  (input)="onOtpChange(2, $event)"
+                  />
+                  <input
+                  class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
+                  type="text"
+                  maxLength="1"
+                  (input)="onOtpChange(3, $event)"
+                  />
+              </div>
+          </div>
+
+          <div class="text-center mt-4">
+              <p *ngIf="!timerExpired" class="text-[#2F4662] font-semibold text-base font-inter">Code would expire in 
+                  <span class="bg-[#0EA5AE] bg-opacity-20 rounded text-danger font-inter font-semibold text-base">{{ timer }}</span>
+              </p>
+              <p *ngIf="timerExpired" class="text-[#2F4662]">OTP expired</p>
+          </div>
+
+          <div class="flex justify-center mt-16">
+              <button
+                  class="bg-buttonBlue rounded-lg  hover:bg-buttonBlue text-white text-base font-medium font-inter py-2 px-4 w-56 disabled:opacity-50"
+                  [disabled]="!otpEntered"
+                  (click)="verifyOtp()"
+              >
+                  Verify
+              </button>
+          </div>
+
+          <div class="flex justify-center mt-16">
+              <p class="text-center w-96 font-inter font-normal text-sm text-failedNormal">Didn't get the code?
+                  <span class="font-medium text-discountBlue">Resend</span>
+              </p>
+          </div>
+
+      </div>
+  </div>
+</app-modal>
+
+<app-modal [id]="successModal">
+  <div class="lg:rounded-xl bg-white hide-scrollbar h-auto w-auto lg:p-2 p-6 modal-box">
+      <div class="grid grid-rows-2 justify-items-center mt-8">
+          <img src="assets/images/icons/blueSuccess.svg" alt="blueSuccess">
+          <h3 class="font-inter font-medium text-2xl text-discountBlue mt-8">Congratulations</h3>
+          <p class="text-center lg:w-96 font-inter font-normal text-sm text-failedNormal mt-8">
+              Your payment was successful.
+          </p>
+      </div>
+      <div class="flex justify-center mt-8 mb-8">
+          <button
+              class="bg-buttonBlue rounded-lg  hover:bg-buttonBlue text-white text-base font-medium font-inter py-2 px-4 w-56 "
+              (click)="closeSuccess()"
+          >
+              Okay
+          </button>
+      </div>
+  </div>
+</app-modal>
