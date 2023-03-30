@@ -23,7 +23,8 @@ export class ReviewOrderComponent implements OnInit {
     reasonForRequest: 'Educational Purpose',
     state: 'Lagos',
     payment: 'Sucess',
-    grade:'second class upper'
+    grade:'second class upper',
+    phoneNumber: '080748266272'
 
 
   }
@@ -105,17 +106,16 @@ export class ReviewOrderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openConfirmation(){
-  document.getElementById('confirmationModal')?.click();
+
+  cancel() {
+   
+  }
+  
+
+goBack() {
+  window.history.back();
 }
 
-openChangesConfirmed(){
-  document.getElementById('changesConfirmed')?.click();
-}
-
-closeConfirmation(){
-  document.getElementById('confirmationModal')?.click();
-}
 
 
 }

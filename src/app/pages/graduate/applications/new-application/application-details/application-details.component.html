@@ -57,7 +57,7 @@
 
 
           </div>
-          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer" 
+          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer"
             [ngClass]="certifiedCopy? 'bg-[#F5F9FF] border-[#BDD5FA] text-[#4086EF]' : 'border-[#EAECF0]'"
             (click)="certifiedCopyClicked()">
             <div class="flex gap-4 justify-start items-start w-[92%]">
@@ -240,7 +240,9 @@
           <p class="font-medium mb-1 mt-2  text-sm text-failedNormal ">
             Supporting Document <span class="text-danger">*</span>
           </p>
-          <p class="font-nunito font-normal text-sm text-failedNormal mb-[6px]">You can upload one or more supporting documents such as valid means of ID, student final clearance, notification of results, court affidavit, police reports etc.</p>
+          <p class="font-nunito font-normal text-sm text-failedNormal mb-[6px]">You can upload one or more supporting
+            documents such as valid means of ID, student final clearance, notification of results, court affidavit,
+            police reports etc.</p>
         </div>
         <div class="grid md:grid-cols-2 grid-cols-1 gap-6">
           <div>
@@ -384,10 +386,10 @@
     <div class="flex justify-end mt-4 gap-3">
 
       <app-button (buttonClick)="cancel()" [overRideButtonClass]="true"
-          customClass="w-[80px] h-12 rounded-lg font-inter font-medium text-base leading-6 bg-white border-2 border-solid border-[#EAECF0] text-[#344054]">Cancel</app-button>
+        customClass="w-[80px] h-12 rounded-lg font-inter font-medium text-base leading-6 bg-white border-2 border-solid border-[#EAECF0] text-[#344054]">Cancel</app-button>
       <app-button [overRideButtonClass]="true"
-          customClass="w-[80px] h-12 rounded-lg font-inter font-medium text-base text-white leading-6 bg-[#4086EF]"
-          routerLink="/graduate/my-applications/new/review-order">Continue</app-button>
-  </div>
+        customClass="w-[80px] h-12 rounded-lg font-inter font-medium text-base text-white leading-6 bg-[#4086EF]"
+        routerLink="/graduate/my-applications/new/review-order">Continue</app-button>
+    </div>
   </form>
 </div>
