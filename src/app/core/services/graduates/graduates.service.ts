@@ -21,6 +21,39 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
    }
 
    
+   registerNewGraduate(payload: any) {
+    const {approvalFile} = payload
+    const body = new FormData()
+    body.append('FirstName', payload.FirstName)
+    body.append('LastName', payload.LastName)
+    body.append('PhoneNumber', payload.PhoneNumber)
+    body.append('Email', payload.Email)
+    body.append('Address', payload.Address)
+    body.append('Gender', payload.Gender)
+    body.append('City', payload.City)
+    body.append('Country', payload.Country)
+    body.append('State', payload.State)
+    body.append('ZipCode', payload.ZipCode)
+    body.append('IdType', payload.IdType)
+    body.append('IdNumber', payload.IdNumber)
+    body.append('InstitutionAttendedVMs[0].InstitutionTypeId', payload.institutionTypeId)
+    body.append('InstitutionAttendedVMs[0].InstitutionSectorId', payload.institutionSectorId)
+    body.append('InstitutionAttendedVMs[0].InstitutionBodyId', payload.institutionBodyId)
+    body.append('InstitutionAttendedVMs[0].InstitutionName', payload.InstitutionName)
+    body.append('Documents', payload.Designation)
+    for (let i = 0; i < approvalFile.length; i++) {
+      body.append('Document[' + i + ']', approvalFile[i]);
+    }
+    return this.http.post<any>(
+      `${this.baseUrl}mint-auth/api/v1/Graduates/CreateGraduate`, body
+    );
+  }
+
+  validateGraduateRegistration(payload: any) {
+    return this.http.post<any>(
+      `${this.baseUrl}mint-auth/api/v1/Authentication/EmailVerification`, payload
+    );
+  }
    getAllInstitutionGraduates(
     institutionId: string,
     filter: any
