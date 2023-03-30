@@ -25,6 +25,7 @@ import {
   invokeGetInstitutionSuccess,
   updateDegreeTypeInInstitutionSuccess,
   updateDepartmentInInstitutionSuccess,
+  updatedInstitutionSuccess,
   updateFacultyInInstitutionSuccess,
   ValidateRegistrationCodeSuccess,
 } from './action';
@@ -51,6 +52,7 @@ const initialState: IInstitutionStateInterface = {
   newDepartment: null,
   newFaculty: null,
   updateDegreeType: null,
+  updateRegistration: null,
   updateDepartment: null,
   updateFaculty: null,
   faultyAndDepartmentName: null,
@@ -116,6 +118,13 @@ export const institutionReducers = createReducer(
     return {
       ...state,
       institutionRegistration: payload
+    };
+  }),
+
+  on(updatedInstitutionSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      updateRegistration: payload
     };
   }),
 

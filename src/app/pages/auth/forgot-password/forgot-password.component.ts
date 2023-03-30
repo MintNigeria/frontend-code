@@ -5,7 +5,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { RecaptchaErrorParameters } from 'ng-recaptcha';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
-import { invokeLoginUser, loginSuccess } from 'src/app/store/auth/action';
+import { invokeLoginUser, loginSuccess, requestPasswordReset, requestPasswordResetSuccess } from 'src/app/store/auth/action';
 import { isUserSelector } from 'src/app/store/auth/selector';
 import { selectAppAPIResponse } from 'src/app/store/shared/app.selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
@@ -52,34 +52,14 @@ export class ForgotPasswordComponent implements OnInit {
 
   accessAccount() {
     this.status = Status.LOADING;
-    this.store.dispatch(invokeLoginUser(this.loginAuth.value));
-    this.actions$.pipe(ofType(loginSuccess)).subscribe((res: any) => {
-      console.log(res) 
-      if (res.accessToken !== undefined) {
-        this.notificationService.publishMessages('success', 'Login Successful');
-        if (this.loggedInUser.UserType === 'Institution') {
-          this.router.navigateByUrl('/institution/dashboard');
-  
-          // this.showOTPPage = true;
-        }
-        if (this.loggedInUser.UserType === 'Graduates') {
-            this.router.navigateByUrl('/graduate/dashboard');
-          // this.showOTPPage = true;
-        }
-        if (this.loggedInUser.UserType === 'Organization') {
-            this.router.navigateByUrl('/organization/dashboard');
-          // this.showOTPPage = true;
-        }
+    this.store.dispatch(requestPasswordReset(this.loginAuth.value));
+    this.actions$.pipe(ofType(requestPasswordResetSuccess)).subscribe((res: any) => {
+      if (res.message.hasErrors === false) {
+        this.notificationService.publishMessages('success', res.message.description);
+        window.history.back()
       }
     })
-    // let auth$ = this.appStore.pipe(select(selectAppAPIResponse));
-    // auth$.subscribe((x) => {
-    //   if (x.isApiSuccessful && !x.isLoading) this.status = Status.SUCCESS;
-    //   if (!x.isApiSuccessful && !x.isLoading) this.status = Status.SUCCESS;
-    // });
-    // this.user$.subscribe((x) => {
-    //   if(x)
-    // });
+  
   }
 
   fetchOTPCode() {}

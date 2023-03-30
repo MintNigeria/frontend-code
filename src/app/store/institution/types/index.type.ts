@@ -18,6 +18,7 @@ export interface IInstitutionStateInterface {
   newDepartment: any;
   newFaculty: any;
   updateDegreeType: any;
+  updateRegistration: any;
   updateDepartment: any;
   updateFaculty: any;
   faultyAndDepartmentName: any;

@@ -36,6 +36,12 @@ export class WalletService
     )
   }
 
+  fundGraduateWallet(payload:any){
+    return this.http.post<any> (
+      `${this.baseUrl}mint-higherinstitution/api/v1/Transaction/Graduate-Fund-Wallet`, payload
+    )
+  }
+
   validateOrganizationFundWallet(payload:any){
     return this.http.post<any> (
       `${this.baseUrl}mint-higherinstitution/api/v1/Transaction/Main-Validate-Payment`, payload

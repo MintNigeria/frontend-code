@@ -62,6 +62,22 @@ export class InstitutionService
     );
   }
 
+  updatedInstitution(payload: any, id: any) {
+    const body = new FormData()
+    body.append('LgaId', payload.lga)
+    body.append('StateId', payload.state)
+    body.append('Address', payload.address)
+    body.append('PhoneNumber', payload.phoneNumber)
+    body.append('Logo', payload.logo)
+    body.append('imei', payload.imei)
+    body.append('serialNumber', payload.serialNumber)
+    body.append('device', payload.device)
+    body.append('ipAddress', payload.ipAddress)
+    return this.http.put<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/UpdateInstitution/${id}`, body
+    );
+  }
+
   ValidateRegistrationCode(payload: any) {
     return this.http.post<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/Institution/ValidateRegistrationCode`, payload
