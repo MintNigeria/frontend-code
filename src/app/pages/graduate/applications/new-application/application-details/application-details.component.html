@@ -214,8 +214,11 @@
               " placeholder="Enter Phone Number" [name]="'fullName'"></app-input>
 
           </div>
-          <div class="text-sm cursor-pointer" (click)="showAdditionalNumber()">
+          <div class="text-sm cursor-pointer flex gap-2" (click)="showAdditionalNumber()">
+           <img src="assets/images/graduates/add.svg" alt="">
+            <p>
             Add additional Number
+           </p>
           </div>
           <div class="col-span-2" *ngIf="additionalNumber">
             <p class="input_label label_asterisk my-1">Add Phone Number</p>
