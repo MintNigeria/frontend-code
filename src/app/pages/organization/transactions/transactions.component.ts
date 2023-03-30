@@ -77,21 +77,6 @@ searchForm = new FormGroup({
   }
 
   addFilter() {
-    // if (this.status !== 'All') {
-    //   this.filterStatus['status'] = this.status;
-    // }
-    // if (this.selectedOption !== 'All Time') {
-    //   this.filterOption['selectedOption'] = this.selectedOption;
-    // }
-    // if (this.selectedSector !== 'All') {
-    //   this.filterSector['selectedSector'] = this.selectedSector;
-    // }
-    // if (this.selectedType !== 'All') {
-    //   this.filterInstituition['selectedInstituition'] = this.selectedType;
-    // }
-    // if (this.documentType !== 'All') {
-    //   this.filterDocument['documentType'] = this.documentType;
-    // }
     
     this.store.dispatch(getOrganizationSubscriptionHistory({payload: {...this.filter, OrganizationId: this.userData.OrganizationId}}))
   }

@@ -81,10 +81,10 @@ export const getGraduateDashboardTopDataSuccess = createAction (
   props<{payload: any}>()
 )
 export const getGraduateDashboardBottomData = createAction (
-  '[dashboard] get graduate dashboard top info',
+  '[dashboard] get graduate dashboard bottom info',
   props<{payload: any}>()
 )
 export const getGraduateDashboardBottomDataSuccess = createAction (
-  '[dashboard] get graduate dashboard top info',
+  '[dashboard] get graduate dashboard bottom info',
   props<{payload: any}>()
 )
