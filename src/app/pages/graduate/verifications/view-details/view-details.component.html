@@ -1,0 +1,118 @@
+<div class="bg-white p-6">
+    <!--Header-->
+    <div class="flex  items-center md:gap-4 gap-2 ">
+        <div>
+            <img [routerLink]="'/main/requests'" src="assets/images/icons/home.svg" alt="home-icon">
+        </div>
+        <div>
+            <img src="assets/images/icons/forward_arrow.svg" alt="forward-arrow">
+        </div>
+
+        <div>
+            <p class="text-primaryBlue font-inter md:text-base text-sm font-medium cursor-pointer">
+                Dashboard
+            </p>
+
+        </div>
+
+    </div>
+    <div class="flex  items-center md:gap-4 gap-2 mt-6" (click)="goBack()">
+        <div>
+            <img src="assets/images/icons/back_arrow.svg">
+        </div>
+
+        <div>
+            <p class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer">
+                Back to all verifications
+            </p>
+        </div>
+
+    </div>
+
+    <div class="mt-6">
+        <h4 class="font-medium font-poppins lg:text-4xl text-xl  text-darkGray my-3">
+            New Verification
+        </h4>
+    </div>
+
+    <div class="border rounded-lg p-6">
+        <div class="border-b-1.5 grid grid-cols-2">
+            <div class="w-fit">
+                <p class="font-medium font-inter text-base  text-darkGray my-3">Academic Details Summary</p>
+                <p class="font-medium font-inter text-base  text-lightGray my-3">Please confirm your academic details</p>
+            </div>
+            <div class="w-fit">
+                <div class="border-b grid grid-cols-2">
+                    <p class="font-medium font-inter text-base  text-darkGray my-3">Full Name</p>
+                    <p class="font-medium font-inter text-base  text-lightGray my-3">{{details.fullName}}</p>
+                </div>
+                <div class="border-b grid grid-cols-2">
+                    <p class="font-medium font-inter text-base  text-darkGray my-3">Institution Name</p>
+                    <p class="font-medium font-inter text-base  text-lightGray my-3">{{details.institution}}</p>
+                </div>
+                <div class="border-b grid grid-cols-2">
+                    <p class="font-medium font-inter text-base  text-darkGray my-3">Faculty</p>
+                    <p class="font-medium font-inter text-base  text-lightGray my-3">{{details.faculty}}</p>
+                </div>
+                <div class="border-b grid grid-cols-2">
+                    <p class="font-medium font-inter text-base  text-darkGray my-3">Department</p>
+                    <p class="font-medium font-inter text-base  text-lightGray my-3">{{details.department}}</p>
+                </div>
+                <div class="border-b grid grid-cols-2">
+                    <p class="font-medium font-inter text-base  text-darkGray my-3">Degree Type</p>
+                    <p class="font-medium font-inter text-base  text-lightGray my-3">{{details.degreeType}}</p>
+                </div>
+                <div class="border-b grid grid-cols-2">
+                    <p class="font-medium font-inter text-base  text-darkGray my-3">Matric Number</p>
+                    <p class="font-medium font-inter text-base  text-lightGray my-3">{{details.matricNumber}}</p>
+                </div>
+                <div class="border-b grid grid-cols-2">
+                    <p class="font-medium font-inter text-base  text-darkGray my-3">Year of Entry</p>
+                    <p class="font-medium font-inter text-base  text-lightGray my-3">{{details.yearOfEntry}}</p>
+                </div>
+                <div class="border-b grid grid-cols-2">
+                    <p class="font-medium font-inter text-base  text-darkGray my-3">Year of Graduation</p>
+                    <p class="font-medium font-inter text-base  text-lightGray my-3">{{details.yearofGrad}}</p>
+                </div>
+                <div class="grid grid-cols-2 mb-6">
+                    <p class="font-medium font-inter text-base  text-darkGray my-3">Gender</p>
+                    <p class="font-medium font-inter text-base  text-lightGray my-3">{{details.gender}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="border-b-1.5 grid grid-cols-2">
+            <div class="w-fit">
+                <p class="font-medium font-inter text-base  text-darkGray my-3">Verification Details</p>
+            </div>
+            <div class="w-fit">
+                <div class="border-b grid grid-cols-2 gap-10">
+                    <p class="font-medium font-inter text-base  text-darkGray my-3">Document Type</p>
+                    <p class="font-medium font-inter text-base  text-lightGray my-3">{{details.documentType}}</p>
+                </div>
+                <div class="border-b grid grid-cols-2 gap-10">
+                    <p class="font-medium font-inter text-base  text-darkGray my-3">Reason For Request</p>
+                    <p class="font-medium font-inter text-base  text-lightGray my-3">{{details.reasonForRequest}}</p>
+                </div>
+                <div class="border-b grid grid-cols-2 items-center gap-10">
+                    <p class="font-medium font-inter text-base  text-darkGray my-3">Status</p>
+                    <app-status-tab 
+                    [text]="details.status"></app-status-tab>
+                </div>
+                <div class="mb-6 grid grid-cols-2 gap-10">
+                    <p class="font-medium font-inter text-base  text-darkGray my-3">Verification Code</p>
+                    <p class="font-medium font-inter text-base  text-lightGray my-3">{{details.code}}</p>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="mb-6 grid grid-cols-2">
+            <div class="w-fit">
+                <p class="font-medium font-inter text-base  text-darkGray my-3">Supporting Document</p>
+            </div>
+            <div class="w-fit">
+                
+            </div>
+        </div>
+    </div>
+</div>
