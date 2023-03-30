@@ -10,7 +10,8 @@ import { SharedModule } from '../shared.module';
   styleUrls: ['./request-empty-state.component.scss']
 })
 export class RequestEmptyStateComponent implements OnInit {
-  img: string = 'assets/images/my-request/plus.svg';
+  img: string = 'assets/images/icons/notransaction.svg';
+
   @Input() headText! : string
   @Input() subHeadText! : string
   @Input() dataStatus! : string

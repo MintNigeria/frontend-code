@@ -4,7 +4,7 @@
     <div class="bg-[#4086EF] text-white flex-wrap justify-between px-6 py-8 flex items-center  rounded-[7px]">
         <div class=""> 
             <p class="text-sm font-medium font-inter">Wallet Balance</p>
-            <h3 class="mt-2 font-semibold text-4xl leading-[44px] font-poppins">₦{{walletData?.balance | commaDelimiter  }}</h3>
+            <h3 class="mt-2 font-semibold text-4xl leading-[44px] font-poppins">₦{{walletData?.balance || 0 | commaDelimiter  }}</h3>
         </div>
         <button routerLink="/graduate/transactions/fund-wallet" class="[box-shadow:_0px_1px_2px_rgba(16,_24,_40,_0.05)] rounded-lg bg-white text-[#4086EF]  border-white border border-solid px-5 py-3 font-medium text-sm font-inter">
             Fund Wallet
@@ -313,9 +313,15 @@
                 </tbody>
               </table>
         </div>
+
+        <app-request-empty-state
+        *ngIf="transactionHistory?.length < 1"
+        [dataStatus]="'Searching record..'"
+        ></app-request-empty-state>
+
   
        <!--Pagination-->
-      <div class="flex items-center justify-end mt-10">
+      <div class="flex items-center justify-end mt-10"  *ngIf="transactionHistory?.length >= 1">
         <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
                 Showing 1 to 7 of {{ transactionList.length }} entries
             </p> -->

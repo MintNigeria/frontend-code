@@ -73,12 +73,12 @@ export const dashboardReducer = createReducer (
   //     organizationVerification: payload
   //   }
   // }),
-  on(getOrganizationVeficiationAnalysisSuccess, (state, {payload})=> {
-    return {
-      ...state,
-      organizationVerification: payload
-    }
-  }),
+  // on(getOrganizationVeficiationAnalysisSuccess, (state, {payload})=> {
+  //   return {
+  //     ...state,
+  //     organizationVerification: payload
+  //   }
+  // }),
   on(getGraduateDashboardTopDataSuccess, (state, {payload})=> {
     return {
       ...state,
