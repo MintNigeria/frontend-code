@@ -1,0 +1,398 @@
+<div class="px-5 md:px-6 mt-6 pb-20">
+  <form action="" [formGroup]="appDetailsForm">
+    <div
+      class=" border border-solid border-[#EAECF0] border-t-2 border-b-0 border-r-0 border-l-0 rounded-sm p-4 md:p-6 divide-y divide-[#EAECF0]">
+      <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
+        <div>
+          <h3 class="font-medium text-sm text-[#344054]">Document Type</h3>
+          <p class="text-sm text-[#667085]">
+            Select the document type
+          </p>
+        </div>
+
+        <div class="grid gap-5">
+          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer"
+            [ngClass]="certificateOriginal? 'border-[#BDD5FA] bg-[#F5F9FF] text-[#4086EF]' : 'border-[#EAECF0]'"
+            (click)="originalCertificateClicked()">
+            <div class="flex gap-4 justify-start items-start w-[92%]">
+              <img src="assets/images/graduates/featured-icon.svg" alt="">
+              <div>
+                <div class=" text-[#344054]">
+                  Certificate Original
+                </div>
+
+                <p *ngIf="certificateOriginal===true">
+                  Certificate would be shared ony to official institution account(s).
+                </p>
+
+
+              </div>
+
+            </div>
+            <div>
+              <input type="radio" name="certificateType" [value]="4" formControlName="certificate"
+                class="form-radio h-5 w-5 text-gray-600" [checked]="certificateOriginal" />
+            </div>
+
+
+          </div>
+
+          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer"
+            [ngClass]="certificateTemplate? 'bg-[#F5F9FF] border-[#BDD5FA] text-[#4086EF]' : 'border-[#EAECF0]'"
+            (click)="certificateTemplateClicked()">
+            <div class="flex gap-4 justify-start items-start w-[92%]">
+              <img src="assets/images/graduates/featured-icon.svg" alt="">
+              <div>
+                <p class=" text-[#344054]">
+                  Certificate Template
+                </p>
+                <div *ngIf="certificateTemplate===true">
+                  Provide login credential for certificate uploading on third party platform.
+                </div>
+              </div>
+
+            </div>
+            <input type="radio" name="certificateType" [value]="1" formControlName="certificate"
+              class="form-radio h-5 w-5 text-gray-600" [checked]="certificateTemplate" />
+
+
+          </div>
+          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer"
+            [ngClass]="certifiedCopy? 'bg-[#F5F9FF] border-[#BDD5FA] text-[#4086EF]' : 'border-[#EAECF0]'"
+            (click)="certifiedCopyClicked()">
+            <div class="flex gap-4 justify-start items-start w-[92%]">
+              <img src="assets/images/graduates/featured-icon.svg" alt="">
+              <div>
+                <p class="text-[#344054]">
+                  Certificate (Certified True Copy)
+                </p>
+                <div *ngIf="certifiedCopy === true">
+                  E.g Hard copy would be send to Scholarship board, Embassies, International
+                  Schools/Tertiary Institutions etc.
+                </div>
+              </div>
+
+            </div>
+            <input type="radio" name="certificateType" [value]="3" formControlName="certificate"
+              class="form-radio h-5 w-5 text-gray-600" [checked]="certifiedCopy" />
+
+
+          </div>
+          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer"
+            [ngClass]="transcript? 'bg-[#F5F9FF] border-[#BDD5FA] text-[#4086EF]' : 'border-[#EAECF0]'"
+            (click)="transcriptClicked()">
+            <div class="flex gap-4 justify-start items-start w-[92%]">
+              <img src="assets/images/graduates/featured-icon.svg" alt="">
+              <div>
+                <p class="text-[#344054]">
+                  Transcript
+                </p>
+                <div *ngIf="transcript === true">
+                  E.g Hard copy would be send to Scholarship board, Embassies, International
+                  Schools/Tertiary Institutions etc.
+                </div>
+              </div>
+
+            </div>
+            <input type="radio" name="certificateType" [value]="2" formControlName="certificate"
+              class="form-radio h-5 w-5 text-gray-600" [checked]="transcript" />
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div
+      class=" border border-solid border-[#EAECF0] border-t-2 border-b-0 border-r-0 border-l-0 rounded-sm p-4 md:p-6 divide-y divide-[#EAECF0]">
+      <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
+        <div>
+          <h3 class="font-medium text-sm text-[#344054]">Delivery Type</h3>
+          <p class="text-sm text-[#667085]">
+            Select the delivery type
+          </p>
+        </div>
+
+        <div class="grid gap-5">
+          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer" *ngIf="emailUploadMethod"
+            [ngClass]="emailSelect? 'border-[#BDD5FA] bg-[#F5F9FF] text-[#4086EF]' : 'border-[#EAECF0]'"
+            (click)="emailClicked()">
+            <div class="flex gap-4 justify-start items-start w-[92%]">
+              <img src="assets/images/graduates/featured-icon.svg" alt="">
+              <div>
+                <div class=" text-[#344054]">
+                  Email Upload - N2,500
+                </div>
+              </div>
+
+            </div>
+            <div>
+              <input type="radio" name="deliveryType" [value]="4" formControlName="deliveryMethod"
+                class="form-radio h-5 w-5 text-gray-600" [checked]="emailSelect" />
+            </div>
+
+
+          </div>
+
+          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer" *ngIf="fileUploadMethod"
+            [ngClass]="fileUpload? 'bg-[#F5F9FF] border-[#BDD5FA] text-[#4086EF]' : 'border-[#EAECF0]'"
+            (click)="fileUploadClicked()">
+            <div class="flex gap-4 justify-start items-start w-[92%]">
+              <img src="assets/images/graduates/featured-icon.svg" alt="">
+              <div>
+                <p class=" text-[#344054]">
+                  File Upload - N2,500
+                </p>
+              </div>
+
+            </div>
+            <input type="radio" name="deliveryType" [value]="1" formControlName="deliveryMethod"
+              class="form-radio h-5 w-5 text-gray-600" [checked]="fileUpload" />
+
+
+          </div>
+          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer" *ngIf="hardCopyMethod"
+            [ngClass]="hardCopy? 'bg-[#F5F9FF] border-[#BDD5FA] text-[#4086EF]' : 'border-[#EAECF0]'"
+            (click)="hardCopyClicked()">
+            <div class="flex gap-4 justify-start items-start w-[92%]">
+              <img src="assets/images/graduates/featured-icon.svg" alt="">
+              <div>
+                <p class="text-[#344054]">
+                  Hard Copy - N2,500
+                </p>
+
+              </div>
+
+            </div>
+            <input type="radio" name="deliveryType" [value]="8" formControlName="deliveryMethod"
+              class="form-radio h-5 w-5 text-gray-600" [checked]="hardCopy" />
+
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <div
+      class=" border border-solid border-[#EAECF0] border-t-0 border-b-2 border-r-0 border-l-0 rounded-sm p-4 md:p-6 divide-y divide-[#EAECF0]">
+      <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
+        <div>
+          <h3 class="font-medium text-sm text-[#344054]">Destination</h3>
+          <p class="text-sm text-[#667085]">
+            Please fill out your academic details delivery
+          </p>
+        </div>
+
+        <div class="grid gap-5 grid-cols-2">
+          <div class="col-span-2">
+            <p class="input_label label_asterisk my-1">URL</p>
+            <app-input [formGrp]="appDetailsForm" formCtrlName="url" [type]="'text'" [class]="
+                'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+              " placeholder="Enter URL Address" [name]="'urlAddress'"></app-input>
+
+          </div>
+
+          <div>
+            <p class="input_label label_asterisk my-1">Enter Login Username</p>
+            <app-input [formGrp]="appDetailsForm" formCtrlName="loginUser" [type]="'number'" [class]="
+                'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+              " placeholder="Enter Login Username" [name]="'fullName'"></app-input>
+
+          </div>
+          <div>
+            <p class="input_label label_asterisk my-1">Enter Login Password</p>
+            <app-input [formGrp]="appDetailsForm" formCtrlName="loginPassword" [type]="'number'" [class]="
+                'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+              " placeholder="Enter Login Password" [name]="'fullName'"></app-input>
+
+          </div>
+          <div class="col-span-2">
+            <p class="input_label label_asterisk my-1">Phone Number</p>
+            <app-input [formGrp]="appDetailsForm" formCtrlName="phoneNo" [type]="'number'" [class]="
+                'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+              " placeholder="Enter Phone Number" [name]="'fullName'"></app-input>
+
+          </div>
+          <div class="text-sm cursor-pointer flex gap-2" (click)="showAdditionalNumber()">
+           <img src="assets/images/graduates/add.svg" alt="">
+            <p>
+            Add additional Number
+           </p>
+          </div>
+          <div class="col-span-2" *ngIf="additionalNumber">
+            <p class="input_label label_asterisk my-1">Add Phone Number</p>
+            <app-input [formGrp]="appDetailsForm" formCtrlName="additionalPhoneNo" [type]="'number'" [class]="
+                'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+              " placeholder="Enter Phone Number" [name]="'addPhoneNo'"></app-input>
+
+          </div>
+          <div class="col-span-2">
+            <p class="input_label label_asterisk my-1">Reason for request</p>
+            <app-input [formGrp]="appDetailsForm" formCtrlName="reasonForRequest" [type]="'name'" [class]="
+                'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+              " placeholder="Enter reason for Request" [name]="'reasonForRequest'"></app-input>
+
+          </div>
+
+        </div>
+
+      </div>
+      <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20 my-3 py-5">
+        <div>
+          <p class="font-medium mb-1 mt-2  text-sm text-failedNormal ">
+            Supporting Document <span class="text-danger">*</span>
+          </p>
+          <p class="font-nunito font-normal text-sm text-failedNormal mb-[6px]">You can upload one or more supporting
+            documents such as valid means of ID, student final clearance, notification of results, court affidavit,
+            police reports etc.</p>
+        </div>
+        <div class="grid md:grid-cols-2 grid-cols-1 gap-6">
+          <div>
+            <p class="text-black text-base">
+              White Background Passport<span class="text-danger">*</span>
+            </p>
+            <div
+              class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
+              <div>
+                <label for="file1">
+                  <img src="assets/images/auth/upload.svg" alt="uploadIcon"
+                    class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
+                  <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> </p>
+                  <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
+                      class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF
+                    or
+                    JPG
+                    (max. 5mb) </p>
+                </label>
+                <input (change)="handleFileUpload($event)" class="hidden  file:absolute file:w-full file:h-full"
+                  type="file" id="file1" />
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="text-black text-base">
+              Valid Means of ID<span class="text-danger">*</span>
+            </p>
+            <div
+              class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
+              <div>
+                <label for="file1">
+                  <img src="assets/images/auth/upload.svg" alt="uploadIcon"
+                    class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
+                  <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> </p>
+                  <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
+                      class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF
+                    or
+                    JPG
+                    (max. 5mb) </p>
+                </label>
+                <input (change)="handleFileUpload($event)" class="hidden  file:absolute file:w-full file:h-full"
+                  type="file" id="file1" />
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="text-black text-base">
+              Student Final Clearance<span class="text-danger">*</span>
+            </p>
+            <div
+              class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
+              <div>
+                <label for="file1">
+                  <img src="assets/images/auth/upload.svg" alt="uploadIcon"
+                    class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
+                  <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> </p>
+                  <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
+                      class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF
+                    or
+                    JPG
+                    (max. 5mb) </p>
+                </label>
+                <input (change)="handleFileUpload($event)" class="hidden  file:absolute file:w-full file:h-full"
+                  type="file" id="file1" />
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="text-black text-base">
+              Notification of Result<span class="text-danger">*</span>
+            </p>
+            <div
+              class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
+              <div>
+                <label for="file1">
+                  <img src="assets/images/auth/upload.svg" alt="uploadIcon"
+                    class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
+                  <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> </p>
+                  <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
+                      class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF
+                    or
+                    JPG
+                    (max. 5mb) </p>
+                </label>
+                <input (change)="handleFileUpload($event)" class="hidden  file:absolute file:w-full file:h-full"
+                  type="file" id="file1" />
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="text-black text-base">
+              Court Affidavit<span class="text-danger">*</span>
+            </p>
+            <div
+              class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
+              <div>
+                <label for="file1">
+                  <img src="assets/images/auth/upload.svg" alt="uploadIcon"
+                    class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
+                  <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> </p>
+                  <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
+                      class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF
+                    or
+                    JPG
+                    (max. 5mb) </p>
+                </label>
+                <input (change)="handleFileUpload($event)" class="hidden  file:absolute file:w-full file:h-full"
+                  type="file" id="file1" />
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="text-black text-base">
+              Police Report<span class="text-danger">*</span>
+            </p>
+            <div
+              class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
+              <div>
+                <label for="file1">
+                  <img src="assets/images/auth/upload.svg" alt="uploadIcon"
+                    class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
+                  <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> </p>
+                  <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
+                      class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF
+                    or
+                    JPG
+                    (max. 5mb) </p>
+                </label>
+                <input (change)="handleFileUpload($event)" class="hidden  file:absolute file:w-full file:h-full"
+                  type="file" id="file1" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+    <div class="flex justify-end mt-4 gap-3">
+
+      <app-button (buttonClick)="cancel()" [overRideButtonClass]="true"
+        customClass="w-[80px] h-12 rounded-lg font-inter font-medium text-base leading-6 bg-white border-2 border-solid border-[#EAECF0] text-[#344054]">Cancel</app-button>
+      <app-button [overRideButtonClass]="true"
+        customClass="h-12 px-4 rounded-lg hover:bg-primaryBlue font-inter font-medium text-base text-white leading-6 bg-[#4086EF]"
+        routerLink="/graduate/my-applications/new/review-order">Continue</app-button>
+    </div>
+  </form>
+</div>
