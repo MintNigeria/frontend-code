@@ -19,6 +19,8 @@ import { AcademicSearchDetailsComponent } from './new-application/search-list/ac
 import { ApplicationDetailsComponent } from './new-application/application-details/application-details.component';
 import { ReviewOrderComponent } from './new-application/review-order/review-order.component';
 import { MakePaymentComponent } from './new-application/make-payment/make-payment.component';
+import { organizationReducer } from 'src/app/store/organization/reducers';
+import { OrganizationEffects } from 'src/app/store/organization/effects';
 
 
 @NgModule({
@@ -41,7 +43,8 @@ import { MakePaymentComponent } from './new-application/make-payment/make-paymen
     NgSelectModule,
     NgxPaginationModule,
     StoreModule.forFeature('graduates', graduatesReducer),
-    EffectsModule.forFeature([GraduatesEffects]),
+    StoreModule.forFeature('organization', organizationReducer),
+    EffectsModule.forFeature([GraduatesEffects, OrganizationEffects]),
   ]
 })
 export class ApplicationsModule { }

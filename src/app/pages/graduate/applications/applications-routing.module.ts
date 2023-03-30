@@ -6,7 +6,7 @@ import { ApplicationDetailsComponent } from './new-application/application-detai
 import { MakePaymentComponent } from './new-application/make-payment/make-payment.component';
 import { NewApplicationComponent } from './new-application/new-application.component';
 import { ReviewOrderComponent } from './new-application/review-order/review-order.component';
-import { AcademicSearchDetailsComponent } from './new-application/search-list/academic-search-details/academic-search-details.component';
+
 import { SearchListComponent } from './new-application/search-list/search-list.component';
 import { ViewApplicationComponent } from './view-application/view-application.component';
 
@@ -37,7 +37,7 @@ const routes: Routes = [
       }
     ],
   },
-  { path: ':id', component: ViewApplicationComponent },
+  { path: 'view-application/:id', component: ViewApplicationComponent },
 ];
 
 @NgModule({
