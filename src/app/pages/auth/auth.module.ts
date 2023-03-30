@@ -29,6 +29,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { VerifyPasswordComponent } from './verify-password/verify-password.component';
 import { ConfigurationEffects } from 'src/app/store/configuration/effects';
 import { OrganizationEffects } from 'src/app/store/organization/effects';
+import { GraduatesEffects } from 'src/app/store/graduates/effects';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import { OrganizationEffects } from 'src/app/store/organization/effects';
     NgSelectModule,
     AuthRoutingModule,
     StoreModule.forFeature('auth', authReducers),
-    EffectsModule.forFeature([AuthEffects, UtilityEffects, ConfigurationEffects, OrganizationEffects, InstitutionEffects]),
+    EffectsModule.forFeature([AuthEffects, UtilityEffects, ConfigurationEffects, OrganizationEffects, InstitutionEffects, GraduatesEffects]),
   ],
   // providers: [{ provide: RECAPTCHA_V3_SITE_KEY, useValue: environment.recaptchaKey }],
 })
