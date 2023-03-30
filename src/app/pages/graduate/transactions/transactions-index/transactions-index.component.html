@@ -141,7 +141,7 @@
     <div class="border border-[#EFF0F7] bg-white rounded-xl p-6 mt-4">
         <div class="flex items-center gap-2 border-b border-b-[#EAECF0] pb-5">
             <h3 class="font-medium text-lg text-[#101828]">Transaction History</h3>
-            <span class="text-[#0D47A1] text-xs bg-[#F5F9FF] px-2 py-[2px] rounded-2xl">1000</span>
+            <span class="text-[#0D47A1] text-xs bg-[#F5F9FF] px-2 py-[2px] rounded-2xl">{{total}}</span>
         </div>
         <div class="md:block hidden mt-5">
           <form>
@@ -149,16 +149,14 @@
               class="flex md:flex-row md:justify-between md:items-center flex-col w-full"
             >
               <div class="flex lg:justify-between gap-4">
-                <div class="relative cursor-pointer mr-3">
-                  <input
-                    type="search"
-                    placeholder="Search"
-                    class="bg-white rounded-[10px] border border-inputBg w-[400px] py-[14px] pr-8 px-10 text-black placeholder:text-[#6E7191] text-sm lg:text-base focus:outline-none"
-                  />
-                  <div class="top-1/2 absolute left-3 custom-translate pr-4">
-                    <img src="assets/images/icons/search.svg" />
-                  </div>
-                </div>
+                <div class="flex lg:justify-between gap-4">
+                  <app-search 
+                  [placeholder]="'Search...'"
+                  (iconSearch)="search($event)"
+      [formGrp]="searchForm" formCtrlName="searchPhrase"  
+      ></app-search>
+              </div>
+
               </div>
   
               <div class="flex md:items-center gap-4">
