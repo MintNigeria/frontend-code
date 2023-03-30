@@ -114,7 +114,7 @@
         </div>
 
         <div class="grid gap-5">
-          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer" *ngIf="certificateTemplate"
+          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer" *ngIf="emailUploadMethod"
             [ngClass]="emailSelect? 'border-[#BDD5FA] bg-[#F5F9FF] text-[#4086EF]' : 'border-[#EAECF0]'"
             (click)="emailClicked()">
             <div class="flex gap-4 justify-start items-start w-[92%]">
@@ -134,7 +134,7 @@
 
           </div>
 
-          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer" *ngIf="certificateTemplate"
+          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer" *ngIf="fileUploadMethod"
             [ngClass]="fileUpload? 'bg-[#F5F9FF] border-[#BDD5FA] text-[#4086EF]' : 'border-[#EAECF0]'"
             (click)="fileUploadClicked()">
             <div class="flex gap-4 justify-start items-start w-[92%]">
@@ -151,7 +151,7 @@
 
 
           </div>
-          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer" *ngIf="certificateOriginal"
+          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer" *ngIf="hardCopyMethod"
             [ngClass]="hardCopy? 'bg-[#F5F9FF] border-[#BDD5FA] text-[#4086EF]' : 'border-[#EAECF0]'"
             (click)="hardCopyClicked()">
             <div class="flex gap-4 justify-start items-start w-[92%]">
@@ -388,7 +388,7 @@
       <app-button (buttonClick)="cancel()" [overRideButtonClass]="true"
         customClass="w-[80px] h-12 rounded-lg font-inter font-medium text-base leading-6 bg-white border-2 border-solid border-[#EAECF0] text-[#344054]">Cancel</app-button>
       <app-button [overRideButtonClass]="true"
-        customClass="w-[80px] h-12 rounded-lg font-inter font-medium text-base text-white leading-6 bg-[#4086EF]"
+        customClass="h-12 px-4 rounded-lg hover:bg-primaryBlue font-inter font-medium text-base text-white leading-6 bg-[#4086EF]"
         routerLink="/graduate/my-applications/new/review-order">Continue</app-button>
     </div>
   </form>

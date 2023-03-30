@@ -12,6 +12,9 @@ export class ApplicationDetailsComponent implements OnInit {
   certifiedCopy: boolean = false;
   transcript: boolean = false;
   additionalNumber: boolean = false;
+  hardCopyMethod: boolean = true;
+  emailUploadMethod: boolean = false;
+  fileUploadMethod: boolean = false;
   appDetailsForm!: FormGroup;
 
   emailSelect: boolean = true;
@@ -50,6 +53,9 @@ selectedFileList: any  = []
     this.certificateTemplate = false;
     this.certifiedCopy = false;
     this.transcript = false;
+    this.hardCopyMethod = true;
+    this.fileUploadMethod = false;
+    this.emailUploadMethod = false;
   }
 
   certificateTemplateClicked(){
@@ -57,7 +63,9 @@ selectedFileList: any  = []
     this.certificateTemplate = true;
     this.certifiedCopy = false;
     this.transcript = false;
-    this.hardCopy = true;
+    this.fileUploadMethod = true;
+    this.emailUploadMethod = true;
+    
   }
 
  

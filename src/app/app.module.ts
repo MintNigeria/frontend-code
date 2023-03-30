@@ -17,9 +17,10 @@ import { AuthInterceptor } from './core/interceptors/http.interceptor';
 import { appReducer } from './store/shared/app.reducer';
 import { metaReducers, reducers } from './types/appState.interface';
 import { customNotifierOptions } from './types/index.types';
+import { MakePaymentComponent } from './pages/graduates/applications/new-application/make-payment/make-payment.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MakePaymentComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
