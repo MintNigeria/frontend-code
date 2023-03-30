@@ -1,1 +1,343 @@
-<p>verifications works!</p>
+<div class="flex items-center md:gap-4 gap-2 px-5 md:px-8 pt-4">
+  <div>
+    <img [routerLink]="'/graduate/dashboard'" src="assets/images/icons/home.svg" />
+  </div>
+  <div>
+    <img src="assets/images/icons/forward_arrow.svg" />
+  </div>
+
+  <div>
+    <p
+      class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer"
+    >
+      All Verifications
+    </p>
+  </div>
+</div>
+
+<div class="bg-white py-6 px-8">
+  <div class="flex flex-wrap gap-4 items-center justify-between">
+    <h4 class="font-medium font-poppins text-4xl text-[#101828] my-5">
+      All Verifications
+    </h4>
+    <button [routerLink]="'/graduate/my-verifications/new'"
+      class="bg-[#4086EF] text-white font-medium font-inter text-sm px-4 py-2.5 rounded-xl"
+    >
+      Start New Verification
+    </button>
+  </div>
+  <div class="w-full rounded-xl p-6 border-none bg-[#F5F9FF]">
+    <form>
+      <div
+        class="flex md:flex-row md:justify-between md:items-center flex-col w-full"
+      >
+        <div class="flex lg:justify-between gap-4">
+          <div class="lg:justify-between gap-4">
+            <p
+              class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2"
+            >
+              Date
+            </p>
+            <div class="dropdown dropdown-bottom">
+              <label
+                tabindex="0"
+                class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg w-[160px] h-[40px] py-[14px] px-3 cursor-pointer"
+              >
+                <p class="my-0 text-[#667085] font-inter font-medium text-sm">
+                  {{ selectedOption }}
+                </p>
+                <img src="assets/images/icons/downward_arrow.svg" />
+              </label>
+              <ul
+                tabindex="0"
+                class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                <li><a (click)="selectedOption = 'data Time'">All Time</a></li>
+                <li><a (click)="selectedOption = '30 Days'">30 Days</a></li>
+                <li><a (click)="selectedOption = '7 days'">7 Days</a></li>
+                <li><a (click)="selectedOption = '24 Hours'">24 Hours</a></li>
+                <li>
+                  <a (click)="selectedOption = 'Custom Period'"
+                    >Custom Period</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        
+
+          <div class="lg:justify-between gap-4">
+            <p
+              class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2"
+            >
+              Status
+            </p>
+            <div class="dropdown dropdown-bottom">
+              <label
+                tabindex="0"
+                class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg w-[160px] h-[40px] py-[14px] px-3 cursor-pointer"
+              >
+                <p class="my-0 text-[#667085] font-inter font-medium text-sm">
+                  {{ status }}
+                </p>
+                <img src="assets/images/icons/downward_arrow.svg" />
+              </label>
+              <ul
+                tabindex="0"
+                class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
+              >
+                <li><a (click)="status = 'All'">All</a></li>
+                <li>
+                  <a (click)="status = 'Certificate (Original)'">Pending</a>
+                </li>
+                <li>
+                  <a (click)="status = 'Certificate (Template)'">Processing</a>
+                </li>
+                <li>
+                  <a (click)="status = 'Certificate (Certified True Copy)'"
+                    >Completed</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="flex items-center mt-6">
+            <button
+              class="bg-[#4086EF] text-white font-medium font-inter text-xs w-[80px] h-[40px] rounded-xl"
+              (click)="addFilter()"
+            >
+              Add Filter
+            </button>
+            <button
+              class="bg-none text-[#4086EF] font-medium font-inter text-xs w-[80px] h-[40px] rounded"
+              (click)="clearFilter()"
+            >
+              Clear Filter
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="border border-[#EFF0F7] bg-white rounded-xl p-6 mt-4">
+    <div class="mt-0 bg-white">
+      <div class="md:block hidden">
+        <form>
+          <div
+            class="flex md:flex-row md:justify-between md:items-center flex-col w-full"
+          >
+            <div class="flex lg:justify-between gap-4">
+              <div class="relative cursor-pointer mr-3">
+                <input
+                  type="search"
+                  placeholder="Search verification ID or verification code"
+                  class="bg-white rounded-[10px] border border-inputBg w-[400px] py-[14px] px-8 text-black placeholder:text-[#6E7191] text-sm lg:text-base focus:outline-none"
+                />
+                <div class="top-1/2 absolute left-3 custom-translate pr-4">
+                  <img src="assets/images/icons/search.svg" />
+                </div>
+              </div>
+            </div>
+
+            <div class="flex md:items-center gap-4">
+              <div>
+                <div class="lg:justify-between gap-4">
+                  <div class="dropdown dropdown-end">
+                    <label
+                      tabindex="0"
+                      class="flex justify-between bg-[#F5F9FF] rounded-[10px] items-center border border-none min-w-[101px] py-[8px] px-4 text-sm cursor-pointer"
+                    >
+                      <p
+                        class="my-0 text-[#0D47A1] font-inter font-medium text-sm"
+                      >
+                        Export
+                      </p>
+                      <img
+                        src="assets/images/icons/downward_arrow_blue.svg"
+                        alt=""
+                        class=""
+                      />
+                    </label>
+                    <ul
+                      tabindex="0"
+                      class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52"
+                    >
+                      <li><a>Export as CSV</a></li>
+                      <li><a>Export as PDF</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div>
+          <div class="overflow-x-auto mt-8 hide-scrollbar">
+              <table class="table w-full">
+                <thead>
+                  <tr>
+                    <th
+                      class="flex gap-1 text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+                    >
+                      Application ID
+                      <span
+                        ><img
+                          src="assets/images/icons/arrow_down.svg"
+                          alt=""
+                          class="mt-0.5"
+                      /></span>
+                    </th>
+                    <th
+                      class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+                    >
+                      Document Type
+                    </th>
+                    <th
+                      class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+                    >
+                    Generated Verification Code
+                    </th>
+                   
+    
+                    <th
+                      class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+                    >
+                      Status
+                    </th>
+                    <th
+                      class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+                    >
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+    
+                <tbody class="">
+                  <tr *ngFor="let data of verificationList | paginate: { itemsPerPage: filter.pageSize, currentPage: filter.pageIndex, totalItems: total }" class=" ">
+                    <td class="bg-white">
+                      <div>
+                        <p
+                          class="my-0 text-base cursor-pointer font-inter font-medium text-[#101828]"
+                        >
+                          {{ data?.applicationNumber }}
+                        </p>
+                        <p
+                          class="text-xs font-normal font-inter my-0 text-[#667085]"
+                        >
+                          {{ data?.createdOn | date
+                          }}
+                        </p>
+                      </div>
+                    </td>
+    
+                    <td class="bg-white">
+                      <div>
+                        <p
+                          class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]"
+                        >
+                          {{ data.documentType }}
+                        </p>
+                      </div>
+                    </td>
+    
+                    <td class="bg-white">
+                      <div>
+                        <p
+                          class="my-0 text-base font-inter cursor-pointer font-medium"
+                        >
+                          {{ data.gradVerificationCode}}
+                        </p>
+                      </div>
+                    </td>
+    
+                 
+    
+                    <td class="bg-white">
+                      <div class="rounded text-center">
+                        <div
+                          class="rounded-full text-center w-auto"
+                          [ngClass]="
+                            data.status === 'Completed'
+                              ? 'bg-[#ECFDF3]'
+                              : data.status === 'Declined'
+                              ? 'bg-[#FFF8E9]'
+                              : data.status === 'Paused'
+                              ? 'bg-[#FFF8E9]'
+                              : data.status === 'Pending'
+                              ? 'bg-[#F2F4F7]'
+                              : ''
+                          "
+                        >
+                          <div class="flex items-center gap-2 w-auto">
+                            <div
+                              class="ml-3 w-2 h-2 rounded-full"
+                              [ngClass]="
+                                data.status === 'Completed'
+                                  ? 'bg-[#027A48]'
+                                  : data.status === 'Declined'
+                                  ? 'bg-[#FEF3F2]'
+                                  : data.status === 'Paused'
+                                  ? 'bg-[#EAAC30]'
+                                  : data.status === 'Pending'
+                                  ? 'bg-[#344054]'
+                                  : ''
+                              "
+                            ></div>
+                            <p
+                              class="my-0 text-sm cursor-pointer font-inter font-medium w-auto"
+                              [ngClass]="
+                                data.status === 'Completed'
+                                  ? 'text-[#027A48]'
+                                  : data.status === 'Declined'
+                                  ? 'text-[#B42318]'
+                                  : data.status === 'Paused'
+                                  ? 'text-[#EAAC30]'
+                                  : data.status === 'Pending'
+                                  ? 'text-[#344054]'
+                                  : ''
+                              "
+                            >
+                              {{ data.status | titlecase }}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+    
+                    <td class="bg-white">
+                      <div
+                        class="flex gap-2 items-center"
+                        [routerLink]="'/graduate/my-verifications/verification-details/'+data.id"
+                      >
+                        <p
+                          class="my-0 text-sm font-inter cursor-pointer font-medium text-[#0D47A1]"
+                        >
+                          View
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+      </div>
+
+      <div class="flex items-center justify-end mt-10">
+        <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
+                Showing 1 to 7 of {{ transactionList.length }} entries
+            </p> -->
+        <div class="flex item gap-3">
+          <pagination-controls (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next">
+          </pagination-controls>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
