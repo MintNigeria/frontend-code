@@ -5,10 +5,13 @@ import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import { getGraduateProfile, getGraduateProfileSuccess, updateGraduateProfile, updateGraduateProfileSuccess } from 'src/app/store/graduates/action';
 import { invokeGetStateAndLGA } from 'src/app/store/institution copy/action';
 import { stateLgaSelector } from 'src/app/store/institution copy/selector';
 import { invokeGetInstitution, invokeGetInstitutionSuccess, updatedInstitution, updatedInstitutionSuccess } from 'src/app/store/institution/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
+import { Country, State, City }  from 'country-state-city';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-my-profile',
@@ -16,7 +19,9 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
   styleUrls: ['./my-profile.component.scss']
 })
 export class MyProfileComponent implements OnInit {
-
+  countries = Country.getAllCountries();
+  states: any;
+  cities: any;
   profileForm!: FormGroup
   selectedFile!: null
   allowedFiled = ["image/png", "image/jpeg", "application/pdf"];
@@ -31,6 +36,12 @@ export class MyProfileComponent implements OnInit {
   ipAddress: any;
   profileImage: any;
 
+  selectedCountry: any;
+  selectedState!: any;
+  selectedCity!: any;
+  state: any;
+  city: any;
+  countryCode: any;
   
 
   constructor(
@@ -65,11 +76,11 @@ export class MyProfileComponent implements OnInit {
     ////console.log(this.institutionData)
     this.loadIp();
 
-    this.institutionId = this.institutionData.InstitutionId
-    this.store.dispatch(invokeGetInstitution({id: this.institutionId}))
-    this.actions$.pipe(ofType(invokeGetInstitutionSuccess)).subscribe((res: any) => {
-      ////console.log(res)
-      this.populateForm(res.payload)
+    this.institutionId = this.institutionData.GraduateId
+    this.store.dispatch(getGraduateProfile({id: this.institutionId}))
+    this.actions$.pipe(ofType(getGraduateProfileSuccess)).subscribe((res: any) => {
+      console.log(res)
+      this.populateForm(res.payload.payload)
       this.profileImage = res.payload.logo;
 
     })
@@ -88,46 +99,72 @@ export class MyProfileComponent implements OnInit {
   }
   initProfileForm() {
     this.profileForm = this.fb.group({
-      name: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      middleName: ['', Validators.required],
       type: ['', Validators.required],
       email: ['', Validators.required],
       phone: ['', Validators.required],
+      country: ['', Validators.required],
+      city: ['', Validators.required],
       state: ['', Validators.required],
       lga: ['', Validators.required],
       gender: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
       lgaId: [''],
+      zipCode: [''],
       stateId: [''],
       address: ['', Validators.required],
-      sector: ['', Validators.required],
-      establishment: ['', Validators.required],
-      regNumber: ['',Validators.required],
       twitter: [''],
       facebook: [''],
       linkedIn: [''],
       socialMedia: [''],
-      logo: [null]
+      profileImage: [null]
     })
   }
 
   populateForm(data: any) {
     this.profileForm.patchValue({
-      name: data.institutionName,
-      sector: data.institutionSector,
-      establishment: '02-02-1967',
-      type: 'CAC',
-      regNumber: data.rcNumber,
-      email: data.emailAddress,
-      phone: data.phoneNumber,
-      state: data.state,
-      lga: data.lga,
-      address: data.address,
-      gender: 'male',
-      twitter: 'twitter.com/',
-      facebook:'facebook.com/',
-      linkedIn: 'linkedin.com/',
-      socialMedia: 'ciroma',
+      firstName: data?.firstName,
+      lastName: data?.lastName,
+      middleName: data?.middleName,
+      email: data?.email,
+      phone: data?.phoneNumber,
+      state: data?.state,
+      country: data?.country,
+      dateOfBirth: moment(data?.dateOfBirth).format('YYYY-MM-DD'),
+      city: data?.city,
+      address: data?.address,
+      zipCode: data?.zipCode,
+      gender: data?.gender,
+      twitter: data?.twitter,
+      facebook: data?.facebook,
+      linkedIn: data?.linkedIn,
       
     })
+  }
+
+  onCountryChange(event: any): void {
+    this.countryCode = JSON.parse(event).isoCode
+    this.states = State.getStatesOfCountry(JSON.parse(event).isoCode);
+    this.selectedCountry = JSON.parse(event);
+    this.profileForm.controls['country'].setValue(this.selectedCountry.name)
+    
+    // this.cities = this.selectedState = this.selectedCity = null;
+  }
+  
+  onStateChange(event: any): void {
+    this.cities = City.getCitiesOfState(this.countryCode, JSON.parse(event).isoCode)
+    //console.log(this.cities)
+    this.selectedState = JSON.parse(event);
+    this.profileForm.controls['state'].setValue(this.selectedState.name)
+    
+  }
+  
+  onCityChange(event: any): void {
+    this.selectedCity = JSON.parse(event)
+    this.profileForm.controls['city'].setValue(this.selectedCity.name)
+
   }
 
   handleFileUpload(e: any) {
@@ -139,7 +176,7 @@ export class MyProfileComponent implements OnInit {
 		  return;
 		} else {
       this.selectedFile = e.target.files[0].name
-      this.profileForm.controls['logo'].setValue(file)
+      this.profileForm.controls['ProfileImage'].setValue(file)
 
     }
   }
@@ -158,36 +195,18 @@ export class MyProfileComponent implements OnInit {
     document.getElementById('confirmChanges')?.click();
   }
 
-  selectLocalGovt(data: any) {
-    console.log(data)
-    this.stateLGA$.subscribe((x) => {
-      const record = x.find((value: any) => value.id == Number(data.id));
-      this.profileForm.controls['state'].setValue(data.id)
-  
-  
-      this.lga = record.lgaVMs;
-    });
-  }
-  selectLga(data: any) {
-    this.profileForm.controls['lga'].setValue(data.id)
-    
-  }
 
   saveUpdates() {
-    const {lga, state, address, logo, phone } = this.profileForm.value;
+    const {firstName, lastName, email, phone, state, country, dateOfBirth, city, address, zipCode, twitter, facebook, linkedIn, profileImage } = this.profileForm.value;
     const payload = {
       imei: '',
       serialNumber: '',
       device: this.deviceModel,
       ipAddress: this.ipAddress,
-      lga,
-      state,
-      address,
-      logo,
-      phone
+      firstName, lastName, email, phone, state, country, dateOfBirth, city, address, zipCode, twitter, facebook, linkedIn, profileImage 
     }
-    this.store.dispatch(updatedInstitution({payload, id: this.institutionId}))
-    this.actions$.pipe(ofType(updatedInstitutionSuccess)).subscribe((res: any) => {
+    this.store.dispatch(updateGraduateProfile({payload}))
+    this.actions$.pipe(ofType(updateGraduateProfileSuccess)).subscribe((res: any) => {
       console.log(res)
       document.getElementById('confirmChanges')?.click();
       this.notification.publishMessages('success', res.payload.payload)

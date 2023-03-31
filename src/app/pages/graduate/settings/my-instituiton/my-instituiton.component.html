@@ -14,7 +14,7 @@
                             <app-input 
                             [readonly]="true"
                             [formGrp]="profileForm" 
-                            formCtrlName="name" 
+                            formCtrlName="body" 
                             [type]="'text'" 
                             [class]="'px-4 h-[52px] w-full bg-grayWhite border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                             Issuer="Enter your Institution"
@@ -33,7 +33,7 @@
                             <app-input 
                             [readonly]="true"
                             [formGrp]="profileForm" 
-                            formCtrlName="name" 
+                            formCtrlName="type" 
                             [type]="'text'" 
                             [class]="'px-4 h-[52px] w-full bg-grayWhite border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                             Issuer="Enter your Institution"
@@ -52,7 +52,7 @@
                             <app-input 
                             [readonly]="true"
                             [formGrp]="profileForm" 
-                            formCtrlName="name" 
+                            formCtrlName="sector" 
                             [type]="'text'" 
                             [class]="'px-4 h-[52px] w-full bg-grayWhite border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                             Issuer="Enter your Institution"
@@ -129,10 +129,10 @@
                             <ng-select class="custom-ng-dropdown"
                             formControlName="state"
                             [selectOnTab]="true"
-                            placeholder="Select State"
+                            placeholder="Select year of entry"
                             
                             >
-                        <ng-option>Dummy Data</ng-option>
+                            <ng-option *ngFor="let unit of years" [value]="unit">{{unit}}</ng-option>
                         </ng-select>
                         </div>
                     </div>
@@ -148,10 +148,10 @@
                             <ng-select class="custom-ng-dropdown"
                             formControlName="state"
                             [selectOnTab]="true"
-                            placeholder="Select State"
+                            placeholder="Select year of graduation"
                             
                             >
-                        <ng-option>Dummy Data</ng-option>
+                            <ng-option *ngFor="let unit of years" [value]="unit">{{unit}}</ng-option>
                         </ng-select>
                         </div>
                         <div class="flex gap-3 items-center mt-3">

@@ -9,7 +9,7 @@
         </app-button>
     </div>
     <div class="p-6 ">
-        <div class="border-b">
+        <div class="border-b mb-6" *ngFor="let unit of hubDocuments">
             <div class="flex gap-16 mb-8">
                <div>
                 <img src="assets/images/icons/dcoDummy.svg" alt="Dummy Document">
@@ -17,22 +17,23 @@
                <div class="grid grid-cols-2 gap-x-32">
                 <div>
                     <p class="font-inter font-normal text-base text-grayWhite">Document Name</p>
-                    <p class="font-inter font-medium text-base text-darkGray">NYSC Certificate</p>
+                    <p class="font-inter font-medium text-base text-darkGray">{{unit.documentName}}</p>
                 </div>
                 <div>
                     <p class="font-inter font-normal text-base text-grayWhite">Date Uploaded</p>
-                    <p class="font-inter font-medium text-base text-darkGray">March 17, 2023</p>
+                    <p class="font-inter font-medium text-base text-darkGray">{{unit.dateUploaded | date: 'mediumDate'}}3</p>
                 </div>
                 <div>
                     <p class="font-inter font-normal text-base text-grayWhite">Issued By</p>
-                    <p class="font-inter font-medium text-base text-darkGray">NYSC</p>
+                    <p class="font-inter font-medium text-base text-darkGray">{{unit.issuerName}}</p>
                 </div>
                 <div>
                     <p class="font-inter font-normal text-base text-grayWhite">Date Issued</p>
-                    <p class="font-inter font-medium text-base text-darkGray">November 23, 2019</p>
+                    <p class="font-inter font-medium text-base text-darkGray">{{unit.dateIssued | date: 'mediumDate'}}</p>
                 </div>
                 <div class="flex gap-8">
                     <app-button
+                    (buttonClick)="downloadFile(unit)"
                     [overRideButtonClass]="true"
                     [customClass]="'p-2 font-inter font-medium text-base text-darkGray border rounded-lg bg-transparent'">
                     Download
@@ -48,45 +49,7 @@
             </div>
            
         </div>
-        <div class="mt-6">
-            <div class="flex gap-16 mb-8">
-               <div>
-                <img src="assets/images/icons/dcoDummy.svg" alt="Dummy Document">
-               </div>
-               <div class="grid grid-cols-2 gap-x-32">
-                <div>
-                    <p class="font-inter font-normal text-base text-grayWhite">Document Name</p>
-                    <p class="font-inter font-medium text-base text-darkGray">NYSC Certificate</p>
-                </div>
-                <div>
-                    <p class="font-inter font-normal text-base text-grayWhite">Date Uploaded</p>
-                    <p class="font-inter font-medium text-base text-darkGray">March 17, 2023</p>
-                </div>
-                <div>
-                    <p class="font-inter font-normal text-base text-grayWhite">Issued By</p>
-                    <p class="font-inter font-medium text-base text-darkGray">NYSC</p>
-                </div>
-                <div>
-                    <p class="font-inter font-normal text-base text-grayWhite">Date Issued</p>
-                    <p class="font-inter font-medium text-base text-darkGray">November 23, 2019</p>
-                </div>
-                <div class="flex gap-8">
-                    <app-button
-                    [overRideButtonClass]="true"
-                    [customClass]="'p-2 font-inter font-medium text-base text-darkGray border rounded-lg bg-transparent'">
-                    Download
-                    </app-button>
-                    <app-button
-                    [overRideButtonClass]="true"
-                    [customClass]="'p-2 font-inter font-medium text-base text-darkGray border-none  bg-transparent'">
-                    Delete
-                    </app-button>
-                </div>
-               </div>
-
-            </div>
-           
-        </div>
+       
     </div>
 </div>
 
@@ -103,7 +66,7 @@
                         <div class="flex justify-center mt-3 ">
                             <img src="assets/images/icons/upload_icon.svg" alt="upload_icon">
                         </div>
-                        <div>
+                        <div *ngIf="!selectedFile">
                             <p class="font-nunito font-medium text-base text-lightGray text-center">
                                 <span class="text-primaryBlue font-semibold">Click to upload </span>
                                 or drag and drop the document here
@@ -111,6 +74,9 @@
                             <p class="font-nunito font-normal text-xs text-lightGray text-center mb-3">
                                 (max. 5 mb)
                             </p>
+                        </div>
+                        <div *ngIf="selectedFile">
+                            <p>{{selectedFile?.name}}</p>
                         </div>
                     </div>
                 </label>
@@ -158,7 +124,7 @@
                     <app-input 
                     [formGrp]="uploadForm" 
                     formCtrlName="date" 
-                    [type]="'text'" 
+                    [type]="'date'" 
                     [class]="'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                     Issuer="Select Date" 
                     [name]="'date'"></app-input>
@@ -172,7 +138,7 @@
                     Cancel 
                 </app-button>
                 <app-button
-                (buttonClick)="openChangesConfirmed()"
+                (buttonClick)="uploadItem()"
                 [overRideButtonClass]="true"
                 [customClass]="'font-inter font-normal text-base text-white p-2 rounded-lg bg-buttonBlue'">
                     Upload 

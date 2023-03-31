@@ -175,4 +175,77 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
     );
   }
 
+  getAllHubItem(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-auth/api/v1/Graduates/ViewHubItems`, {params: payload}
+    );
+  }
+
+  notifyMyInstitution(payload: any) {
+    return this.http.post<any>(
+      `${this.baseUrl}mint-auth/api/v1/Graduates/NotifyMyInstitution`, payload
+    );
+  }
+
+  getMyInstitutionNotified(id: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-auth/api/v1/Graduates/MyInstitutionToNotify/${id}`
+    );
+  }
+
+  getGraduateProfile(id: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-auth/api/v1/Graduates/GetGraduateProfile/${id}`
+    );
+  }
+
+  getGraduateInstitutions(id: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-auth/api/v1/Graduates/GraduateInstitutions/${id}`
+    );
+  }
+
+  updateGraduateInstitutions(id: any, payload: any) {
+    return this.http.put<any>(
+      `${this.baseUrl}mint-auth/api/v1/Graduates/GraduateInstitutions/${id}`, payload
+    );
+  }
+
+  updateGraduateProfile(payload: any) {
+    const body = new FormData()
+    body.append('FirstName', payload.firstName)
+    body.append('LastName', payload.lastName)
+    body.append('PhoneNumber', payload.phone)
+    body.append('DateOfBirth', payload.dateOfBirth)
+    body.append('Country', payload.country)
+    body.append('State', payload.state)
+    body.append('City', payload.city)
+    body.append('ZipCode', payload.zipCode)
+    body.append('Twitter', payload.twitter)
+    body.append('Facebook', payload.facebook)
+    body.append('LinkedIn', payload.linkedIn)
+    body.append('ProfileImage', payload.profileImage)
+    body.append('Device', payload.device)
+    body.append('IpAddress', payload.ipAddress)
+    body.append('IMEI', payload.imei)
+    body.append('SerialNumber', payload.serialNumber)
+    return this.http.put<any>(
+      `${this.baseUrl}mint-auth/api/v1/Graduates/GraduateProfile`, body
+    );
+  }
+  uploadHubItem(payload: any) {
+    const body = new FormData()
+    body.append('File', payload.file)
+    body.append('DocumentName', payload.documentName)
+    body.append('IssuerName', payload.Issuer)
+    body.append('DateIssued', payload.date)
+    body.append('IMEI', payload.imei)
+    body.append('SerialNumber', payload.serialNumber)
+    body.append('Device', payload.device)
+    body.append('IpAddress', payload.ipAddress)
+    return this.http.post<any>(
+      `${this.baseUrl}mint-auth/api/v1/Graduates/UploadHubItem`, body
+    );
+  }
+
 }

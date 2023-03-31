@@ -40,7 +40,7 @@
                             </label>
                             <app-input 
                             [formGrp]="profileForm" 
-                            formCtrlName="name" 
+                            formCtrlName="firstName" 
                             [type]="'text'" 
                             [class]="'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                             Issuer="Enter your Institution"
@@ -52,7 +52,7 @@
                             </label>
                             <app-input 
                             [formGrp]="profileForm" 
-                            formCtrlName="name" 
+                            formCtrlName="middleName" 
                             [type]="'text'" 
                             [class]="'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                             Issuer="Enter your Institution"
@@ -64,7 +64,7 @@
                             </label>
                             <app-input 
                             [formGrp]="profileForm" 
-                            formCtrlName="name" 
+                            formCtrlName="lastName" 
                             [type]="'text'" 
                             [class]="'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                             Issuer="Enter your Institution"
@@ -115,8 +115,8 @@
                             </label>
                             <app-input 
                             [formGrp]="profileForm" 
-                            formCtrlName="name" 
-                            [type]="'text'" 
+                            formCtrlName="dateOfBirth" 
+                            [type]="'date'" 
                             [class]="'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                             Issuer="Choose Date of Birth"
                             [name]="'name'"></app-input>
@@ -134,14 +134,14 @@
                             <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
                                 Country
                             </label>
-                            <div class="w-full " *ngIf="stateLGA$ | async as states">
-                                <ng-select class="custom-ng-dropdown"
-                                formControlName="state"
-                                [selectOnTab]="true"
-                                placeholder="Select State"
-                                (change)="selectLocalGovt($event)"
+                            <div class="w-full " >
+                                <ng-select class="custom-ng-dropdown" 
+                                formControlName="country" 
+                                [selectOnTab]="true" 
+                                placeholder="Select Country"
+                                (change)="onCountryChange($event)"
                                 >
-                            <ng-option *ngFor="let state of states" [value]="state">{{state.name}}</ng-option>
+                            <ng-option  *ngFor="let country of countries" [value]="country | json">{{country.name}}</ng-option>
                             </ng-select>
                             </div>
                         </div>
@@ -149,14 +149,14 @@
                             <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
                                 State
                             </label>
-                            <div class="w-full " *ngIf="stateLGA$ | async as states">
-                                <ng-select class="custom-ng-dropdown"
-                                formControlName="state"
-                                [selectOnTab]="true"
+                            <div class="w-full " >
+                                <ng-select class="custom-ng-dropdown" 
+                                formControlName="state" 
+                                [selectOnTab]="true" 
                                 placeholder="Select State"
-                                (change)="selectLocalGovt($event)"
+                                (change)="onStateChange($event)"
                                 >
-                            <ng-option *ngFor="let state of states" [value]="state">{{state.name}}</ng-option>
+                            <ng-option *ngFor="let state of states" [value]="state | json">{{state.name}}</ng-option>
                             </ng-select>
                             </div>
                         </div>
@@ -166,13 +166,12 @@
                             </label>
                             <div class="w-full ">
                                 <ng-select class="custom-ng-dropdown" 
-                                formControlName="lga" 
+                                formControlName="city" 
                                 [selectOnTab]="true" 
-                                placeholder="Select LGA"
-                                (change)="selectLga($event)"
-
+                                placeholder="Select City"
+                                (change)="onCityChange($event)"
                                 >
-                            <ng-option *ngFor="let lga of lga" [value]="lga">{{lga.name}}</ng-option>
+                            <ng-option *ngFor="let lga of cities" [value]="lga | json">{{lga.name}}</ng-option>
                             </ng-select>
                             </div>
                         </div>
@@ -197,7 +196,7 @@
                             <div class="w-full ">
                                 <app-input 
                                 [formGrp]="profileForm" 
-                                formCtrlName="address" 
+                                formCtrlName="zipCode" 
                                 [type]="'text'" 
                                 [class]="'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                                 Issuer="Enter your Zip Code" 
@@ -214,57 +213,28 @@
                         </label>
                     </div>
                     <div class="w-full md:w-2/3 ">
-                        <div class="flex">
-                            <app-input 
-                                [formGrp]="profileForm" 
-                                formCtrlName="twitter" 
-                                [type]="'text'" 
-                                [class]="'px-4 h-[52px] w-1/2 bg-white  border-l focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
-                                Issuer="twitter" 
-                                [name]="'twitter'"
-                                [readonly]="true"></app-input>
-                            <app-input 
-                                [formGrp]="profileForm" 
-                                formCtrlName="socialMedia" 
-                                [type]="'text'" 
-                                [class]="'px-4 h-[52px] w-fit bg-white  border-r focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
-                                Issuer="Enter your username" 
-                                [name]="'socialMedia'"></app-input>
-                        </div>
-                        <div class="flex mt-3">
-                            <app-input 
-                                [formGrp]="profileForm" 
-                                formCtrlName="facebook" 
-                                [type]="'text'" 
-                                [class]="'px-4 h-[52px] w-1/2 bg-white  border-l focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
-                                Issuer="facebook" 
-                                [name]="'facebook'"
-                                [readonly]="true"></app-input>
-                            <app-input 
-                                [formGrp]="profileForm" 
-                                formCtrlName="socialMedia" 
-                                [type]="'text'" 
-                                [class]="'px-4 h-[52px] w-fit bg-white  border-r focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
-                                Issuer="Enter your username" 
-                                [name]="'socialMedia'"></app-input>
-                        </div>
-                        <div class="flex mt-3 mb-6">
-                            <app-input 
-                                [formGrp]="profileForm" 
-                                formCtrlName="linkedIn" 
-                                [type]="'text'" 
-                                [class]="'px-4 h-[52px] w-1/2 bg-white  border-l focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
-                                Issuer="linkedIn" 
-                                [name]="'linkedIn'"
-                                [readonly]="true"></app-input>
-                            <app-input 
-                                [formGrp]="profileForm" 
-                                formCtrlName="socialMedia" 
-                                [type]="'text'" 
-                                [class]="'px-4 h-[52px] w-fit bg-white  border-r focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
-                                Issuer="Enter your username" 
-                                [name]="'socialMedia'"></app-input>
-                        </div>
+                        <div class="form-control mb-3">
+                            
+                            <label class="input-group">
+                              <span>twitter</span>
+                              <input type="text" placeholder="info@site.com" formControlName="twitter" class="input input-bordered px-4 h-[52px] w-fit bg-white  border-r focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none" />
+                            </label>
+                          </div>
+                        <div class="form-control mb-3">
+                            
+                            <label class="input-group">
+                              <span>facebook</span>
+                              <input type="text" placeholder="info@site.com" formControlName="facebook" class="input input-bordered px-4 h-[52px] w-fit bg-white  border-r focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none" />
+                            </label>
+                          </div>
+                        <div class="form-control mb-6">
+                            
+                            <label class="input-group">
+                              <span>linkedIn</span>
+                              <input type="text" placeholder="info@site.com" formControlName="linkedIn" class="input input-bordered px-4 h-[52px] w-fit bg-white  border-r focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none" />
+                            </label>
+                          </div>
+                      
                        
                     </div>
                 </div>
