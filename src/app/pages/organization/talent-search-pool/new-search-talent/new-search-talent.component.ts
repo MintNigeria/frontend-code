@@ -19,7 +19,7 @@ export class NewSearchTalentComponent implements OnInit {
 
   confirmChanges = 'confirmChanges';
   changesConfirmed = 'changesConfirmed';
-newTalentsearchForm!: FormGroup
+  newTalentsearchForm!: FormGroup
   institutionList: any;
   facultyList: any;
   departmentList: any;

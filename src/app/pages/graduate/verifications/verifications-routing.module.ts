@@ -5,6 +5,7 @@ import { InstitutionDetailsComponent } from './new-verification/institution-deta
 import { NewVerificationComponent } from './new-verification/new-verification.component';
 import { VerificationDetailsComponent } from './verification-details/verification-details.component';
 import { VerificationsComponent } from './verifications.component';
+import { ViewDetailsComponent } from './view-details/view-details.component';
 
 const routes: Routes = [
   { path: '', component: VerificationsComponent },
