@@ -32,7 +32,7 @@ export class VerificationsComponent implements OnInit {
       documentType: 'Certificate Verification',
       gradVerificationCode: '123456789XYZ',
       status: 'Completed',
-      data: 4,
+      id: 4,
     
     },
     {
@@ -59,7 +59,7 @@ export class VerificationsComponent implements OnInit {
       documentType: 'Certificate Verification',
       gradVerificationCode: '123456789XYZ',
       status: 'Declined',
-      data: 3
+      id: 3
     
     }
   ]

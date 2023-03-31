@@ -19,8 +19,9 @@ import { metaReducers, reducers } from './types/appState.interface';
 import { customNotifierOptions } from './types/index.types';
 
 
+
 @NgModule({
-  declarations: [AppComponent, ],
+  declarations: [AppComponent,  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

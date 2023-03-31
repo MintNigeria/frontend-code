@@ -30,7 +30,7 @@
 
             </div>
             <div>
-              <input type="radio" name="certificateType" [value]="4" formControlName="certificate"
+              <input type="radio" name="certificateType" [value]="4" 
                 class="form-radio h-5 w-5 text-gray-600" [checked]="certificateOriginal" />
             </div>
 
@@ -52,7 +52,7 @@
               </div>
 
             </div>
-            <input type="radio" name="certificateType" [value]="1" formControlName="certificate"
+            <input type="radio" name="certificateType" [value]="1" 
               class="form-radio h-5 w-5 text-gray-600" [checked]="certificateTemplate" />
 
 
@@ -73,7 +73,7 @@
               </div>
 
             </div>
-            <input type="radio" name="certificateType" [value]="3" formControlName="certificate"
+            <input type="radio" name="certificateType" [value]="3" 
               class="form-radio h-5 w-5 text-gray-600" [checked]="certifiedCopy" />
 
 
@@ -94,8 +94,8 @@
               </div>
 
             </div>
-            <input type="radio" name="certificateType" [value]="2" formControlName="certificate"
-              class="form-radio h-5 w-5 text-gray-600" [checked]="transcript" />
+            <input type="radio" name="certificateType" [value]="2" class="form-radio h-5 w-5 text-gray-600"
+              [checked]="transcript" />
 
 
           </div>
@@ -127,8 +127,8 @@
 
             </div>
             <div>
-              <input type="radio" name="deliveryType" [value]="4" formControlName="deliveryMethod"
-                class="form-radio h-5 w-5 text-gray-600" [checked]="emailSelect" />
+              <input type="radio" name="deliveryType" [value]="4" class="form-radio h-5 w-5 text-gray-600"
+                [checked]="emailSelect" />
             </div>
 
 
@@ -146,8 +146,8 @@
               </div>
 
             </div>
-            <input type="radio" name="deliveryType" [value]="1" formControlName="deliveryMethod"
-              class="form-radio h-5 w-5 text-gray-600" [checked]="fileUpload" />
+            <input type="radio" name="deliveryType" [value]="1" class="form-radio h-5 w-5 text-gray-600"
+              [checked]="fileUpload" />
 
 
           </div>
@@ -164,8 +164,8 @@
               </div>
 
             </div>
-            <input type="radio" name="deliveryType" [value]="8" formControlName="deliveryMethod"
-              class="form-radio h-5 w-5 text-gray-600" [checked]="hardCopy" />
+            <input type="radio" name="deliveryType" [value]="8" class="form-radio h-5 w-5 text-gray-600"
+              [checked]="hardCopy" />
 
 
           </div>
@@ -215,10 +215,10 @@
 
           </div>
           <div class="text-sm cursor-pointer flex gap-2" (click)="showAdditionalNumber()">
-           <img src="assets/images/graduates/add.svg" alt="">
+            <img src="assets/images/graduates/add.svg" alt="">
             <p>
-            Add additional Number
-           </p>
+              Add additional Number
+            </p>
           </div>
           <div class="col-span-2" *ngIf="additionalNumber">
             <p class="input_label label_asterisk my-1">Add Phone Number</p>

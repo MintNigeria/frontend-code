@@ -1,4 +1,6 @@
+import { LocationStrategy } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-verification-details',
@@ -8,10 +10,18 @@ import { Component, OnInit } from '@angular/core';
 export class VerificationDetailsComponent implements OnInit {
   requestId: any;
   requestDetail: any;
-  constructor() { }
+  verificationDetails: boolean = false;
+  id!: string;
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private location: LocationStrategy
+  ) { }
 
   ngOnInit(): void {
-    
+    this.id = this.activatedRoute.snapshot.params['id'];
+    if (this.id !== undefined){
+      this.verificationDetails = true;
+    }
   }
 
   download(file: any) {
@@ -21,4 +31,10 @@ export class VerificationDetailsComponent implements OnInit {
         link.href = 'data:image/png;base64,' + file.fileUploadVM.path;
         link.click();
   }
+
+  back() {
+    this.location.back();
+  }
+
+
 }

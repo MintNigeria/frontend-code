@@ -132,7 +132,7 @@
                     <a (click)="status = 'Certificate (Original)'">Pending</a>
                   </li>
                   <li>
-                    <a (click)="status = 'Certificate (Template)'">Processing</a>
+                    <a (click)="status = 'Certificate (Template)'">Processed</a>
                   </li>
                   <li>
                     <a (click)="status = 'Certificate (Certified True Copy)'"
@@ -314,13 +314,13 @@
                           <div
                             class="rounded-full text-center w-auto"
                             [ngClass]="
-                              data.status.toLowerCase() === 'Completed'
+                              data.status === 'Completed'
                                 ? 'bg-[#ECFDF3]'
-                                : data.status.toLowerCase() === 'Processing'
+                                : data.status === 'Processed'
                                 ? 'bg-[#FFF8E9]'
-                                : data.status.toLowerCase() === 'Paused'
+                                : data.status === 'Paused'
                                 ? 'bg-[#FFF8E9]'
-                                : data.status.toLowerCase() === 'Pending'
+                                : data.status === 'Pending'
                                 ? 'bg-[#F2F4F7]'
                                 : ''
                             "
@@ -329,13 +329,13 @@
                               <div
                                 class="ml-3 w-2 h-2 rounded-full"
                                 [ngClass]="
-                                  data.status.toLowerCase() === 'Completed'
+                                  data.status === 'Completed'
                                     ? 'bg-[#027A48]'
-                                    : data.status.toLowerCase() === 'Processing'
+                                    : data.status === 'Processed'
                                     ? 'bg-[#EAAC30]'
-                                    : data.status.toLowerCase() === 'Paused'
+                                    : data.status === 'Paused'
                                     ? 'bg-[#EAAC30]'
-                                    : data.status.toLowerCase() === 'Pending'
+                                    : data.status === 'Pending'
                                     ? 'bg-[#344054]'
                                     : ''
                                 "
@@ -343,13 +343,13 @@
                               <p
                                 class="my-0 text-sm cursor-pointer font-inter font-medium w-auto"
                                 [ngClass]="
-                                  data.status.toLowerCase() === 'Completed'
+                                  data.status === 'Completed'
                                     ? 'text-[#027A48]'
-                                    : data.status.toLowerCase() === 'Processing'
+                                    : data.status === 'Processed'
                                     ? 'text-[#EAAC30]'
-                                    : data.status.toLowerCase() === 'Paused'
+                                    : data.status === 'Paused'
                                     ? 'text-[#EAAC30]'
-                                    : data.status.toLowerCase() === 'Pending'
+                                    : data.status === 'Pending'
                                     ? 'text-[#344054]'
                                     : ''
                                 "
