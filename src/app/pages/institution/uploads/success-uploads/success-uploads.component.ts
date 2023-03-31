@@ -78,9 +78,13 @@ searchForm = new FormGroup({
         ////console.log(x.batchId )
         this.selectedDataId = x.batchId
       }});
+      console.log(id, this.selectedDataId)
       ////console.log(this.selectedData,this.selectedDataId)
 
+      
   }
+
+  
 
   getPage(currentPage: number) {
     const filter = {...this.filter, ['pageIndex'] : currentPage}

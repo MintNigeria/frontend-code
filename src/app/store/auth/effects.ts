@@ -21,6 +21,8 @@ import {
   passwordResetSuccess,
   createPassword,
   createPasswordSuccess,
+  resendOTP,
+  resendOTPSuccess,
 } from './action';
 
 @Injectable()
@@ -177,7 +179,42 @@ export class AuthEffects {
             );
             // read data and update message
             return requestPasswordResetSuccess({
-              message: data.description,
+              message: data,
+            });
+          })
+        );
+      })
+    );
+  });
+
+  resendOTP$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(resendOTP),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+
+        return this.authService.resendOTP(action.email).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update message
+            return resendOTPSuccess({
+              message: data,
             });
           })
         );

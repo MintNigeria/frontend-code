@@ -52,9 +52,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   reloadScreen() {
-    this.store.dispatch(getAllDashboardInfoData({payload: {...this.cardFilter, institutionId: this.institutionId }}))
+    const cardFilter = {
+      range: 0,
+      institutionId: '',
+    }
+    this.store.dispatch(getAllDashboardInfoData({payload: {...cardFilter, institutionId: this.institutionId }}))
     this.store.dispatch(getDashboardRevenueAnalysis({payload: {...this.filter, institutionId: this.institutionId}}))
-    this.store.dispatch(getDashboardTopInstitutions({payload: {...this.cardFilter, institutionId: this.institutionId}}))
+    this.store.dispatch(getDashboardTopInstitutions({payload: {...cardFilter, institutionId: this.institutionId}}))
 
   }
 

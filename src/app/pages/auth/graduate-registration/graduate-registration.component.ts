@@ -13,6 +13,7 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import { environment } from 'src/environments/environment';
 import { Country, State, City }  from 'country-state-city';
 import { registerNewGraduate, registerNewGraduateSuccess, validateGraduateRegistration, validateGraduateRegistrationSuccess } from 'src/app/store/graduates/action';
+import { resendOTP, resendOTPSuccess } from 'src/app/store/auth/action';
 @Component({
   selector: 'app-graduate-registration',
   templateUrl: './graduate-registration.component.html',
@@ -196,11 +197,12 @@ selectedFileList: any  = []
   }
 
   verifyOTP() {
-    const {EmailAddress} = this.institutionRegForm.value
+    const {Email} = this.institutionRegForm.value
     const payload = {
-      userName: EmailAddress,
+      userName: Email,
       code: this.otpValue
     }
+    console.log(payload)
     
     this.store.dispatch(validateGraduateRegistration({payload}))
     this.actions$.pipe(ofType(validateGraduateRegistrationSuccess)).subscribe((res: any) => {
@@ -219,7 +221,14 @@ selectedFileList: any  = []
   }
  
   resendOTP() {
+    const {Email} = this.institutionRegForm.value
 
+    this.store.dispatch(resendOTP({email: Email}))
+    this.actions$.pipe(ofType(resendOTPSuccess)).subscribe((res: any) => {
+      if (res.message.hasErrors === false) {
+        console.log('res', res)
+      }
+    })
   }
 
 }

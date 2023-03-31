@@ -84,5 +84,21 @@ export class DashboardService
       `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionDashboard/OrganizationVerificationAnalytics`, {params: filter}
     );
   }
+  
+  getGraduateDashboardTopData(
+    filter: any
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/GetTopPartGraduateDashboard`, {params: filter}
+    );
+  }
+  
+  getGraduateDashboardBottomData(
+    filter: any
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/GetBottomHalfOfGraduateDashboard`, {params: filter}
+    );
+  }
 
 }

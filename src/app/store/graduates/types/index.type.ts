@@ -50,4 +50,5 @@ export interface GraduatesStateInterface {
   graduateTransactionHistory: any;
   registerGraduate: any;
   validateRegistration: any;
+  fundwallet: any;
   }

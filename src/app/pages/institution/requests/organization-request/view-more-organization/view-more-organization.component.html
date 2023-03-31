@@ -78,8 +78,9 @@
                     <option [value]="i" *ngFor="let unit of requestStatus; let i = index">{{unit.name}}</option>
                 </select>
                 <app-button
+                [disabled]="requestDetail?.paymentStatus !== 1"
                     [overRideButtonClass]="true"
-                    customClass="h-[52px] w-32 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+                    customClass="h-[52px] w-32 rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
                     (buttonClick)="openConfirmation()"
                     >Update</app-button
                 >

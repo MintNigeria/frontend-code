@@ -36,12 +36,12 @@
                     </div>
                     <div class="w-full md:w-2/3">
                         <ng-select class="custom-ng-dropdown" 
-              [selectOnTab]="true" 
-              placeholder="Select Institution"
-              (change)="getInstitutionFaculty($event)"
-              >
-          <ng-option *ngFor="let unit of institutionList" [value]="unit">{{unit.institutionName}}</ng-option>
-          </ng-select>
+                        [selectOnTab]="true" 
+                        placeholder="Select Institution"
+                        (change)="getInstitutionFaculty($event)"
+                        >
+                            <ng-option *ngFor="let unit of institutionList" [value]="unit">{{unit.institutionName}}</ng-option>
+                        </ng-select>
                       
                     </div>
                 </div>

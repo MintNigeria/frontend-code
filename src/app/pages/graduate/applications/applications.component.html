@@ -169,18 +169,13 @@
             <div
               class="flex md:flex-row md:justify-between md:items-center flex-col w-full"
             >
-              <div class="flex lg:justify-between gap-4">
-                <div class="relative cursor-pointer mr-3">
-                  <input
-                    type="search"
-                    placeholder="Search application ID"
-                    class="bg-white rounded-[10px] border border-inputBg w-[400px] py-[14px] px-8 text-black placeholder:text-[#6E7191] text-sm lg:text-base focus:outline-none"
-                  />
-                  <div class="top-1/2 absolute left-3 custom-translate pr-4">
-                    <img src="assets/images/icons/search.svg" />
-                  </div>
-                </div>
-              </div>
+            <div class="flex lg:justify-between gap-4">
+              <app-search 
+              [placeholder]="'Search...'"
+              (iconSearch)="search($event)"
+  [formGrp]="searchForm" formCtrlName="searchPhrase"  
+  ></app-search>
+          </div>
   
               <div class="flex md:items-center gap-4">
                 <div>
@@ -294,7 +289,7 @@
                           <p
                             class="my-0 text-base font-inter cursor-pointer font-medium text-[#0D47A1]"
                           >
-                            {{ data.deliveryOption }}
+                            {{ data.deliveryOption || 'N/A' }}
                           </p>
                         </div>
                       </td>
@@ -304,13 +299,13 @@
                           <p
                             class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]"
                           >
-                            {{ data.destination }}
+                            {{ data.destination || 'N/A' }}
                           </p>
                         </div>
                       </td>
       
                       <td class="bg-white">
-                        <div class="rounded text-center">
+                        <div class="rounded text-center w-fit px-2 py-[2px] flex items-center">
                           <div
                             class="rounded-full text-center w-auto"
                             [ngClass]="
@@ -327,11 +322,11 @@
                           >
                             <div class="flex items-center gap-2 w-auto">
                               <div
-                                class="ml-3 w-2 h-2 rounded-full"
+                                class="mx-3 w-2 h-2 rounded-full"
                                 [ngClass]="
                                   data.status === 'Completed'
                                     ? 'bg-[#027A48]'
-                                    : data.status === 'Processed'
+                                    : data.status === 'Processing'
                                     ? 'bg-[#EAAC30]'
                                     : data.status === 'Paused'
                                     ? 'bg-[#EAAC30]'
@@ -345,7 +340,7 @@
                                 [ngClass]="
                                   data.status === 'Completed'
                                     ? 'text-[#027A48]'
-                                    : data.status === 'Processed'
+                                    : data.status === 'Processing'
                                     ? 'text-[#EAAC30]'
                                     : data.status === 'Paused'
                                     ? 'text-[#EAAC30]'
@@ -364,7 +359,7 @@
                       <td class="bg-white">
                         <div
                           class="flex gap-2 items-center"
-                          [routerLink]="'/graduate/my-applications/' + data.id"
+                          [routerLink]="'/graduate/my-applications/view-application/' + data.id"
                         >
                           <p
                             class="my-0 text-sm font-inter cursor-pointer font-medium text-[#0D47A1]"
@@ -378,8 +373,14 @@
                 </table>
               </div>
         </div>
+
+        <app-request-empty-state
+        *ngIf="graduateList?.length < 1"
+        [dataStatus]="'Searching record..'"
+        ></app-request-empty-state>
+
   
-        <div class="flex items-center justify-end mt-10">
+        <div class="flex items-center justify-end mt-10" *ngIf="graduateList?.length >= 1">
           <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
                   Showing 1 to 7 of {{ transactionList.length }} entries
               </p> -->

@@ -7,6 +7,7 @@ import { SearchTableComponent } from './new-verification/search-table/search-tab
 import { VerificationReasonComponent } from './new-verification/verification-reason/verification-reason.component';
 import { VerificationDetailsComponent } from './verification-details/verification-details.component';
 import { VerificationsComponent } from './verifications.component';
+import { ViewDetailsComponent } from './view-details/view-details.component';
 
 const routes: Routes = [
   { path: '', component: VerificationsComponent },
