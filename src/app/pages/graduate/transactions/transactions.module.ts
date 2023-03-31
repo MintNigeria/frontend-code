@@ -12,6 +12,7 @@ import { StoreModule } from '@ngrx/store';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { OrganizationEffects } from 'src/app/store/organization/effects';
+import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/request-empty-state.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { OrganizationEffects } from 'src/app/store/organization/effects';
   imports: [
     CommonModule,
     SharedModule,
+    RequestEmptyStateComponent,
     TransactionsRoutingModule,
     NgxPaginationModule,
     StoreModule.forFeature('graduates', graduatesReducer),

@@ -19,6 +19,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LogoutModalComponent } from './components/logout-modal/logout-modal.component';
+import { RequestEmptyStateComponent } from './request-empty-state/request-empty-state.component';
 
 const components: any[] = [
   InputComponent,
@@ -34,7 +35,8 @@ const components: any[] = [
   CommaDelimiterPipe,
   CheckMarkComponent,
   DateRangeComponent,
-  LogoutModalComponent
+  LogoutModalComponent,
+  ModalComponent,
 
 ]
 
@@ -42,8 +44,6 @@ const components: any[] = [
 @NgModule({
   declarations: [
     ...components,
-    StatusTabComponent,
-    ModalComponent,
   ],
   imports: [
     CommonModule,

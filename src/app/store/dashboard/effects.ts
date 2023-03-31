@@ -421,46 +421,6 @@ export class DashboardEffects {
     );
   });
 
-  getOrganizationVeficiationAnalysis$ = createEffect(() => {
-    return this.action$.pipe(
-      ofType(getOrganizationVeficiationAnalysis),
-      switchMap((action) => {
-        this.appStore.dispatch(
-          setAPIResponseMessage({
-            apiResponseMessage: {
-              apiResponseMessage: '',
-              isLoading: true,
-              isApiSuccessful: false,
-            },
-          })
-        );
-        
-        return this.dashboardService
-          .getOrganizationVerificationAnalysis(
-            action.payload
-          )
-          .pipe(
-            map((data) => {
-              this.appStore.dispatch(
-                setAPIResponseMessage({
-                  apiResponseMessage: {
-                    apiResponseMessage: '',
-                    isLoading: false,
-                    isApiSuccessful: true,
-                  },
-                })
-              );
-              // read data and update payload
-              return getOrganizationVeficiationAnalysisSuccess({
-                payload: data.payload
-                 
-              });
-            })
-          );
-      })
-    );
-  });
-
   getGraduateDashboardTopData$ = createEffect(() => {
     return this.action$.pipe(
       ofType(getGraduateDashboardTopData),
@@ -540,6 +500,48 @@ export class DashboardEffects {
       })
     );
   });
+
+  getOrganizationVeficiationAnalysis$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(getOrganizationVeficiationAnalysis),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.dashboardService
+          .getOrganizationVerificationAnalysis(
+            action.payload
+          )
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getOrganizationVeficiationAnalysisSuccess({
+                payload: data.payload
+                 
+              });
+            })
+          );
+      })
+    );
+  });
+
+ 
 
   
 }

@@ -21,6 +21,7 @@ import { ReviewOrderComponent } from './new-application/review-order/review-orde
 import { MakePaymentComponent } from './new-application/make-payment/make-payment.component';
 import { organizationReducer } from 'src/app/store/organization/reducers';
 import { OrganizationEffects } from 'src/app/store/organization/effects';
+import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/request-empty-state.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { OrganizationEffects } from 'src/app/store/organization/effects';
     ApplicationsRoutingModule,
     SharedModule,
     ReactiveFormsModule,
+    RequestEmptyStateComponent,
     NgSelectModule,
     NgxPaginationModule,
     StoreModule.forFeature('graduates', graduatesReducer),
