@@ -220,3 +220,83 @@ export const invokeGetGraduateDetailsSuccess = createAction(
       '[Graduates] fund graduate wallet success',
       props<{ payload: any }>()
     );
+      
+      export const uploadHubItem = createAction(
+        '[Graduates] upload  hub item ',
+        props<{ payload: any }>()
+    );
+    
+    export const uploadHubItemSuccess = createAction(
+      '[Graduates] upload  hub item success',
+      props<{ payload: any }>()
+    );
+      
+      export const getAllHubItem = createAction(
+        '[Graduates] get all hub item ',
+        props<{ payload: any }>()
+    );
+    
+    export const getAllHubItemSuccess = createAction(
+      '[Graduates] get all hub item success',
+      props<{ payload: any }>()
+    );
+      
+      export const notifyMyInstitution = createAction(
+        '[Graduates] notify my institution ',
+        props<{ payload: any }>()
+    );
+    
+    export const notifyMyInstitutionSuccess = createAction(
+      '[Graduates] notify my institution success',
+      props<{ payload: any }>()
+    );
+      
+      export const getMyInstitutionNotified = createAction(
+        '[Graduates] get my notification to my institution ',
+        props<{ id: any }>()
+    );
+    
+    export const getMyInstitutionNotifiedSuccess = createAction(
+      '[Graduates] get my notification to my institution success',
+      props<{ payload: any }>()
+    );
+      
+      export const getGraduateInstitutions = createAction(
+        '[Graduates] get graduate institutions ',
+        props<{ id: any }>()
+    );
+    
+    export const getGraduateInstitutionsSuccess = createAction(
+      '[Graduates] get graduate institutions success',
+      props<{ payload: any }>()
+    );
+      
+      export const getGraduateProfile = createAction(
+        '[Graduates] get graduate profile ',
+        props<{ id: any }>()
+    );
+    
+    export const getGraduateProfileSuccess = createAction(
+      '[Graduates] get graduate profile success',
+      props<{ payload: any }>()
+    );
+      
+      export const updateGraduateInstitutions = createAction(
+        '[Graduates] update graduate institution ',
+        props<{ payload: any, id: any }>()
+    );
+    
+    export const updateGraduateInstitutionsSuccess = createAction(
+      '[Graduates] update graduate institution success',
+      props<{ payload: any }>()
+    );
+      
+      export const updateGraduateProfile = createAction(
+        '[Graduates] update graduate profile ',
+        props<{ payload: any }>()
+    );
+    
+    export const updateGraduateProfileSuccess = createAction(
+      '[Graduates] update graduate profile success',
+      props<{ payload: any }>()
+    );

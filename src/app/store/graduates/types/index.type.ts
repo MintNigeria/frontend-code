@@ -51,4 +51,12 @@ export interface GraduatesStateInterface {
   registerGraduate: any;
   validateRegistration: any;
   fundwallet: any;
+  hubItems: any;
+  uploadHubItems: any;
+  notifyInstitutition: any;
+  institutionNotified: any;
+  graduateProfile: any;
+  graduateInstitutions: any;
+  updateInstitutions: any;
+  updateprofile: any;
   }

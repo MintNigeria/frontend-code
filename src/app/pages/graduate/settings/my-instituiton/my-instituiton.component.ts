@@ -6,6 +6,7 @@ import { NotificationsService } from 'src/app/core/services/shared/notifications
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { invokeGetInstitution, invokeGetInstitutionSuccess, updatedInstitution, updatedInstitutionSuccess } from 'src/app/store/institution/action';
+import { getGraduateInstitutions, getGraduateInstitutionsSuccess } from 'src/app/store/graduates/action';
 
 
 @Component({
@@ -15,13 +16,14 @@ import { invokeGetInstitution, invokeGetInstitutionSuccess, updatedInstitution, 
 })
 export class MyInstituitonComponent implements OnInit {
 
+  years: Array<any> = [];
 
   profileForm!: FormGroup
   confirmChanges = 'confirmChanges';
   changesConfirmed = 'changesConfirmed';
 
-  institutionData: any;
-  institutionId: any;
+  graduateData: any;
+  graduateId: any;
 
   constructor(
     private fb: FormBuilder,
@@ -35,19 +37,22 @@ export class MyInstituitonComponent implements OnInit {
   ngOnInit(): void {
     this.initProfileForm()
     const data: any = localStorage.getItem('userData')
-    this.institutionData = JSON.parse(data)
-    this.institutionId = this.institutionData.InstitutionId
-    this.store.dispatch(invokeGetInstitution({id: this.institutionId}))
-    this.actions$.pipe(ofType(invokeGetInstitutionSuccess)).subscribe((res: any) => {
-      ////console.log(res)
-      this.populateForm(res.payload)
-     
-
+    this.graduateData = JSON.parse(data)
+    this.graduateId = this.graduateData.GraduateId
+    this.store.dispatch(getGraduateInstitutions({id: this.graduateId}))
+    this.actions$.pipe(ofType(getGraduateInstitutionsSuccess)).subscribe((res: any) => {
+      this.populateForm(res.payload.payload[0])
     })
+    let currentYear = new Date().getFullYear();   
+    for (let index = 1920; index <= currentYear; ++index) {
+      this.years.push(index)
+      
+    }
   }
 
   initProfileForm() {
     this.profileForm = this.fb.group({
+      body: ['', Validators.required],
       name: ['', Validators.required],
       type: ['', Validators.required],
       email: ['', Validators.required],
@@ -72,9 +77,10 @@ export class MyInstituitonComponent implements OnInit {
   populateForm(data: any) {
     this.profileForm.patchValue({
       name: data.institutionName,
+      body: data.institutionBody,
       sector: data.institutionSector,
       establishment: '02-02-1967',
-      type: 'CAC',
+      type: data.institutionType,
       regNumber: data.rcNumber,
       email: data.emailAddress,
       phone: data.phoneNumber,

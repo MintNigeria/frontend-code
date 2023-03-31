@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { approveRejectPendingGraduateSuccess, createGraduateRecordSuccess, downloadCSVSuccess, downloadExcelSuccess, downloadRecordUploadFormatSuccess, fundGraduateWalletSuccess, getAllGraduateRequestForGradauteSuccess, getAllInstitutionUploadSuccess, getGraduateTransactionHistorySuccess, getGraduateWalletIdSuccess, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, registerNewGraduateSuccess, uploadGraduateRecordSuccess, validateGraduateRegistrationSuccess } from './action';
+import { approveRejectPendingGraduateSuccess, createGraduateRecordSuccess, downloadCSVSuccess, downloadExcelSuccess, downloadRecordUploadFormatSuccess, fundGraduateWalletSuccess, getAllGraduateRequestForGradauteSuccess, getAllHubItemSuccess, getAllInstitutionUploadSuccess, getGraduateInstitutionsSuccess, getGraduateProfileSuccess, getGraduateTransactionHistorySuccess, getGraduateWalletIdSuccess, getMyInstitutionNotifiedSuccess, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, notifyMyInstitutionSuccess, registerNewGraduateSuccess, updateGraduateInstitutionsSuccess, updateGraduateProfileSuccess, uploadGraduateRecordSuccess, uploadHubItemSuccess, validateGraduateRegistrationSuccess } from './action';
 import {GraduatesStateInterface} from './types/index.type';
 
 
@@ -40,8 +40,15 @@ const initialState: GraduatesStateInterface  = {
   graduateTransactionHistory: null,
   registerGraduate: null,
   validateRegistration: null,
-  fundwallet: null
-
+  fundwallet: null,
+  hubItems: null,
+  uploadHubItems: null,
+  notifyInstitutition: null,
+  institutionNotified: null,
+  graduateInstitutions: null,
+  graduateProfile: null,
+  updateprofile: null,
+  updateInstitutions: null,
 };
 
 export const graduatesReducer = createReducer(
@@ -141,6 +148,54 @@ export const graduatesReducer = createReducer(
     return {
       ...state,
       fundwallet: payload
+    };
+  }),
+  on(getAllHubItemSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      hubItems: payload
+    };
+  }),
+  on(uploadHubItemSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      uploadHubItems: payload
+    };
+  }),
+  on(notifyMyInstitutionSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      notifyInstitutition: payload
+    };
+  }),
+  on(getMyInstitutionNotifiedSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      institutionNotified: payload
+    };
+  }),
+  on(getGraduateInstitutionsSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      graduateInstitutions: payload
+    };
+  }),
+  on(getGraduateProfileSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      graduateProfile: payload
+    };
+  }),
+  on(updateGraduateInstitutionsSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      updateInstitutions: payload
+    };
+  }),
+  on(updateGraduateProfileSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      updateprofile: payload
     };
   }),
 
