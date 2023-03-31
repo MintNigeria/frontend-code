@@ -122,6 +122,16 @@ export const createNewInstitutionSuccess = createAction(
   props<{ payload: any }>()
 );
 
+export const updatedInstitution = createAction(
+  '[institutions] update institution',
+  props<{ payload: any, id: any }>()
+);
+
+export const updatedInstitutionSuccess = createAction(
+  '[institutions] update institution',
+  props<{ payload: any }>()
+);
+
 export const ValidateRegistrationCode = createAction(
   '[institutions] validate otp code',
   props<{ payload: any }>()

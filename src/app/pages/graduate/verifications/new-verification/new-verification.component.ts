@@ -12,8 +12,4 @@ export class NewVerificationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  goBack() {
-  window.history.back();
-  }
-
 }

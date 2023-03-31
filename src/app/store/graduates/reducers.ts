@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { approveRejectPendingGraduateSuccess, createGraduateRecordSuccess, downloadCSVSuccess, downloadExcelSuccess, downloadRecordUploadFormatSuccess, getAllGraduateRequestForGradauteSuccess, getAllInstitutionUploadSuccess, getGraduateTransactionHistorySuccess, getGraduateWalletIdSuccess, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, uploadGraduateRecordSuccess } from './action';
+import { approveRejectPendingGraduateSuccess, createGraduateRecordSuccess, downloadCSVSuccess, downloadExcelSuccess, downloadRecordUploadFormatSuccess, fundGraduateWalletSuccess, getAllGraduateRequestForGradauteSuccess, getAllInstitutionUploadSuccess, getGraduateTransactionHistorySuccess, getGraduateWalletIdSuccess, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, registerNewGraduateSuccess, uploadGraduateRecordSuccess, validateGraduateRegistrationSuccess } from './action';
 import {GraduatesStateInterface} from './types/index.type';
 
 
@@ -38,6 +38,9 @@ const initialState: GraduatesStateInterface  = {
   graduateRequestDetailsRecord: null,
   graduatewallet: null,
   graduateTransactionHistory: null,
+  registerGraduate: null,
+  validateRegistration: null,
+  fundwallet: null
 
 };
 
@@ -120,6 +123,24 @@ export const graduatesReducer = createReducer(
     return {
       ...state,
       graduateTransactionHistory: payload
+    };
+  }),
+  on(registerNewGraduateSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      registerGraduate: payload
+    };
+  }),
+  on(validateGraduateRegistrationSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      validateRegistration: payload
+    };
+  }),
+  on(fundGraduateWalletSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      fundwallet: payload
     };
   }),
 

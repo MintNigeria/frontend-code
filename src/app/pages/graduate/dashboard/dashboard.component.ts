@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Actions } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { NotificationsService } from 'src/app/core/services/notifications.service';
+import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import { getGraduateDashboardTopData } from 'src/app/store/dashboard/action';
+import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +15,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  filter = {
+    range: 0,
+  }
+  userData: any;
+  constructor(
+    private router: Router,
+    private store: Store,
+    private appStore: Store<AppStateInterface>,
+    private actions$: Actions,
+    private fb: FormBuilder,
+    private utilityService: UtilityService,
+    private notification: NotificationsService,
+  ) { }
 
   ngOnInit(): void {
+    const data: any = localStorage.getItem('userData')
+    this.userData = JSON.parse(data)
+    this.store.dispatch(getGraduateDashboardTopData({payload: {...this.filter, GraduateId: this.userData.GraduateId}}))
   }
   graduateList = [
     {

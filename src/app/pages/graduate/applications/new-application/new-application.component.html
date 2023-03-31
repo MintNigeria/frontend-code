@@ -38,7 +38,10 @@
             <img src="assets/images/graduates/notes.svg" alt="">
             <div>Academic Details</div>
         </div>
-        <div class="flex flex-col items-center text-center gap-5 shrink-0">
+        <div class="flex flex-col items-center text-center gap-5 shrink-0" 
+        routerLink="/graduates/applications/new/app-details"
+        [routerLinkActiveOptions]="{exact : true}" routerLinkActive #requestTransaction="routerLinkActive"  
+        [ngClass]="requestTransaction.isActive? 'border-primaryBlue': 'border-[#D9DFE9]'">
             <img src="assets/images/graduates/details.svg" alt="">
             <div>Application Details</div>
         </div>

@@ -190,3 +190,33 @@ export const invokeGetGraduateDetailsSuccess = createAction(
       '[Graduates] get graduate transaction history wallet success',
       props<{ payload: any }>()
     );
+      
+      export const registerNewGraduate = createAction(
+        '[Graduates] create new graduate ',
+        props<{ payload: any }>()
+    );
+    
+    export const registerNewGraduateSuccess = createAction(
+      '[Graduates] create new graduate success',
+      props<{ payload: any }>()
+    );
+      
+      export const validateGraduateRegistration = createAction(
+        '[Graduates] validate graduate registration ',
+        props<{ payload: any }>()
+    );
+    
+    export const validateGraduateRegistrationSuccess = createAction(
+      '[Graduates] validate graduate registration success',
+      props<{ payload: any }>()
+    );
+      
+      export const fundGraduateWallet = createAction(
+        '[Graduates] fund graduate wallet ',
+        props<{ payload: any }>()
+    );
+    
+    export const fundGraduateWalletSuccess = createAction(
+      '[Graduates] fund graduate wallet success',
+      props<{ payload: any }>()
+    );

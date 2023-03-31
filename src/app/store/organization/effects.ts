@@ -57,6 +57,7 @@ import {
   validateOrganizationCode,
   validateOrganizationCodeSuccess,
   validateOrganizationFundWallet,
+  validateOrganizationFundWalletSuccess,
   verifyGraduateRecord,
   verifyGraduateRecordSuccess,
   verifyHistoryInstitutionDropdown,
@@ -298,7 +299,7 @@ export class OrganizationEffects {
               );
               // read data and update payload
 
-              return fundOrganizationWalletSuccess({
+              return validateOrganizationFundWalletSuccess({
                 payload: data,
               });
             })

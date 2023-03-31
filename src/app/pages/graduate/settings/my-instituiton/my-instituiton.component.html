@@ -1,0 +1,226 @@
+<div class="border-1.5 rounded-t-md">
+    <h3 class="py-4  border-b-1.5 px-6 font-sans font-bold text-base text-black">Institutions</h3>
+    <div class="p-6 " [formGroup]="profileForm">
+        <div class="border-b">
+            <div class="lg:w-10/12 ">
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                            Institution Body
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <div class="">
+                            <app-input 
+                            [readonly]="true"
+                            [formGrp]="profileForm" 
+                            formCtrlName="name" 
+                            [type]="'text'" 
+                            [class]="'px-4 h-[52px] w-full bg-grayWhite border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                            Issuer="Enter your Institution"
+                            [name]="'name'"></app-input>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                            Institution Type
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <div class="">
+                            <app-input 
+                            [readonly]="true"
+                            [formGrp]="profileForm" 
+                            formCtrlName="name" 
+                            [type]="'text'" 
+                            [class]="'px-4 h-[52px] w-full bg-grayWhite border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                            Issuer="Enter your Institution"
+                            [name]="'name'"></app-input>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                           Institution Sector
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <div class="">
+                            <app-input 
+                            [readonly]="true"
+                            [formGrp]="profileForm" 
+                            formCtrlName="name" 
+                            [type]="'text'" 
+                            [class]="'px-4 h-[52px] w-full bg-grayWhite border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                            Issuer="Enter your Institution"
+                            [name]="'name'"></app-input>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                           Institution Name
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <div class="">
+                            <app-input 
+                            [readonly]="true"
+                            [formGrp]="profileForm" 
+                            formCtrlName="name" 
+                            [type]="'text'" 
+                            [class]="'px-4 h-[52px] w-full bg-grayWhite border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                            Issuer="Enter your Institution"
+                            [name]="'name'"></app-input>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                           Faculty
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <div class="w-full ">
+                            <ng-select class="custom-ng-dropdown"
+                            formControlName="state"
+                            [selectOnTab]="true"
+                            placeholder="Select State"
+                            
+                            >
+                        <ng-option>Dummy Data</ng-option>
+                        </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                           Department
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <div class="w-full ">
+                            <ng-select class="custom-ng-dropdown"
+                            formControlName="state"
+                            [selectOnTab]="true"
+                            placeholder="Select State"
+                            
+                            >
+                        <ng-option>Dummy Data</ng-option>
+                        </ng-select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                           Year of Entry
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <div class="w-full ">
+                            <ng-select class="custom-ng-dropdown"
+                            formControlName="state"
+                            [selectOnTab]="true"
+                            placeholder="Select State"
+                            
+                            >
+                        <ng-option>Dummy Data</ng-option>
+                        </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                           Year of Graduation
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <div class="w-full ">
+                            <ng-select class="custom-ng-dropdown"
+                            formControlName="state"
+                            [selectOnTab]="true"
+                            placeholder="Select State"
+                            
+                            >
+                        <ng-option>Dummy Data</ng-option>
+                        </ng-select>
+                        </div>
+                        <div class="flex gap-3 items-center mt-3">
+                            <img src="assets/images/icons/xgray.svg" alt="delete">
+                            <p class="font-inter font-medium text-base text-lightGray">Delete institution</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+           
+        </div>
+         <div class="flex gap-3 items-center mt-3">
+            <img src="assets/images/icons/add.svg" alt="add">
+            <p class="font-inter font-medium text-base text-lightGray">Add another institution</p>
+        </div>
+
+        
+        <div class="flex justify-end items-center gap-4 mt-4">
+            <app-button
+            
+            [overRideButtonClass]="true"
+            customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
+            >Cancel</app-button>
+            <app-button
+            (buttonClick)="openChangesConfirmed()"
+            [overRideButtonClass]="true"
+            customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
+            >Save</app-button>
+        </div>
+    </div>
+</div>
+
+<app-modal [id]="confirmChanges">
+    <div class="lg:rounded-xl bg-white hide-scrollbar  lg:p-2 p-6 modal-box">
+        <div class="grid grid-rows-2 justify-items-center mt-8">
+            <img src="assets/images/icons/warning.svg" alt="warning_icon">
+            <h3 class="font-inter font-medium text-xl text-discountBlue mt-8">Save Changes?</h3>
+            <p class="text-center lg:w-96 font-inter font-normal text-sm text-failedNormal mt-8 px-10">
+                Are you sure you want to update your Institution information?
+            </p>
+        </div>
+        <div class="flex justify-center mt-8 mb-8 gap-3">
+            <app-button
+            [overRideButtonClass]="true"
+            [customClass]="'bg-white rounded-lg border border-buttonBlue  hover:bg-buttonBlue hover:text-white text-buttonBlue text-base font-medium font-inter py-2 px-4'"
+            (buttonClick)="cancelConfirmChanges()">
+             No ,Cancel
+            </app-button>
+            <app-button
+            [overRideButtonClass]="true"
+            [customClass]="'bg-buttonBlue rounded-lg  hover:bg-buttonBlue text-white text-base font-medium font-inter py-2 px-4'"
+            (buttonClick)=" saveUpdates()"
+            >
+                Yes, Update
+            </app-button>
+        </div>
+    </div>
+</app-modal>
+
+<app-modal [id]="changesConfirmed">
+    <div class="toast toast-center">
+        <div class="alert alert-success flex justify-between items-center">
+            <div class="font-avenir font-meduim lg:text-lg text-base">
+                <span>Your changes have been saved successfully!</span>
+            </div>
+            <label [for]="changesConfirmed">
+                <img src="assets/images/icons/x.svg" alt="close_toast">
+            </label>
+        </div>
+    </div>
+</app-modal>

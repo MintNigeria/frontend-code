@@ -48,4 +48,7 @@ export interface GraduatesStateInterface {
   graduateRequestDetailsRecord: any;
   graduatewallet: any;
   graduateTransactionHistory: any;
+  registerGraduate: any;
+  validateRegistration: any;
+  fundwallet: any;
   }

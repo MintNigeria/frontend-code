@@ -7,7 +7,7 @@ import { UploadsService } from 'src/app/core/services/uploads/uploads.service';
 import { WalletService } from 'src/app/core/services/wallet/wallet.service';
 import { AppResponseInterface } from 'src/app/types/appState.interface';
 import { setAPIResponseMessage } from '../shared/app.action';
-import { approvePendingGraduate, approveRejectPendingGraduateSuccess, createGraduateRecord, createGraduateRecordSuccess, downloadCSV, downloadCSVSuccess, downloadExcel, downloadExcelSuccess, downloadRecordUploadFormat, downloadRecordUploadFormatSuccess, getAllGraduateRequestDetailForGradaute, getAllGraduateRequestDetailForGradauteSuccess, getAllGraduateRequestForGradaute, getAllGraduateRequestForGradauteSuccess, getAllInstitutionUpload, getAllInstitutionUploadSuccess, getGraduateTransactionHistory, getGraduateTransactionHistorySuccess, getGraduateWalletId, getGraduateWalletIdSuccess, invokeGetAllGraduates, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduates, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, rejectPendingGraduate, uploadGraduateRecord, uploadGraduateRecordSuccess } from './action';
+import { approvePendingGraduate, approveRejectPendingGraduateSuccess, createGraduateRecord, createGraduateRecordSuccess, downloadCSV, downloadCSVSuccess, downloadExcel, downloadExcelSuccess, downloadRecordUploadFormat, downloadRecordUploadFormatSuccess, fundGraduateWallet, fundGraduateWalletSuccess, getAllGraduateRequestDetailForGradaute, getAllGraduateRequestDetailForGradauteSuccess, getAllGraduateRequestForGradaute, getAllGraduateRequestForGradauteSuccess, getAllInstitutionUpload, getAllInstitutionUploadSuccess, getGraduateTransactionHistory, getGraduateTransactionHistorySuccess, getGraduateWalletId, getGraduateWalletIdSuccess, invokeGetAllGraduates, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduates, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, registerNewGraduate, registerNewGraduateSuccess, rejectPendingGraduate, uploadGraduateRecord, uploadGraduateRecordSuccess, validateGraduateRegistration, validateGraduateRegistrationSuccess } from './action';
 
 @Injectable()
 export class GraduatesEffects {
@@ -564,4 +564,120 @@ export class GraduatesEffects {
       })
     );
   });
+
+  registerNewGraduate$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(registerNewGraduate),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.graduateService
+          .registerNewGraduate(action.payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return registerNewGraduateSuccess({
+                payload: data
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  validateGraduateRegistration$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(validateGraduateRegistration),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.graduateService
+          .validateGraduateRegistration(action.payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return validateGraduateRegistrationSuccess({
+                payload: data
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  fundGraduateWallet$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fundGraduateWallet),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.walletService
+          .fundGraduateWallet(action.payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return fundGraduateWalletSuccess({
+                payload: data
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+
 }

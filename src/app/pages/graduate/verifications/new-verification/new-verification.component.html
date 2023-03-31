@@ -1,132 +1,39 @@
 <div class="flex items-center md:gap-4 gap-2 px-5 md:px-8 pt-4">
-    <div>
-      <img [routerLink]="'/graduate/dashboard'" src="assets/images/icons/home.svg" />
-    </div>
-    <div>
-      <img src="assets/images/icons/forward_arrow.svg" />
-    </div>
-  
-    <div>
-      <p
-        class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer"
-      >
-        Dashboard
-      </p>
-    </div>
+  <div>
+    <img [routerLink]="'/graduate/dashboard'" src="assets/images/icons/home.svg" />
+  </div>
+  <div>
+    <img src="assets/images/icons/forward_arrow.svg" />
+  </div>
+
+  <div>
+    <p
+      class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer"
+    >
+      Dashboard
+    </p>
+  </div>
 </div>
 
 <div class="mt-5 px-5 md:px-8">
-    <div (click)="goBack()" class="cursor-pointer flex items-center gap-2">
-        <img src="assets/images/icons/arrow-left.svg" alt="">
-        <span class="text-[#0D47A1] font-inter md:text-base text-sm font-medium">Back to all verifications</span>
-    </div>
+  <div routerLink="/graduate/my-verifications" class="cursor-pointer flex items-center gap-2">
+      <img src="assets/images/icons/arrow-left.svg" alt="">
+      <span class="text-[#0D47A1] font-inter md:text-base text-sm font-medium">Back to all applications</span>
+  </div>
 </div>
 
 <div class="bg-white py-6 px-8 pb-20">
-    <div class="flex flex-wrap gap-4 items-center justify-between">
-      <h4 class="font-medium font-poppins text-4xl text-[#101828]">
-        New Application
-      </h4>
-      <div class="px-4 py-3 flex gap-2 items-center whitespace-nowrap border border-solid border-[#D0D5DD] rounded-lg [box-shadow:0px_1px_2px_rgba(16,_24,_40,_0.05)]">
-        <img src="assets/images/icons/wallet-icon.svg" alt="">
-        <span class="font-medium font-inter text-sm text-[#344054]">Wallet Balance: ₦1,000. 00 </span>
-      </div>
+  <div class="flex flex-wrap gap-4 items-center justify-between">
+    <h4 class="font-medium font-poppins text-4xl text-[#101828]">
+      New Verification
+    </h4>
+    <div class="px-4 py-3 flex gap-2 items-center whitespace-nowrap border border-solid border-[#D0D5DD] rounded-lg [box-shadow:0px_1px_2px_rgba(16,_24,_40,_0.05)]">
+      <img src="assets/images/icons/wallet-icon.svg" alt="">
+      <span class="font-medium font-inter text-sm text-[#344054]">Wallet Balance: ₦1,000. 00 </span>
     </div>
-</div>
+  </div>
 
-<div class="border-t p-6">
-    <div class="flex gap-8 border-b">
-        <div class="w-96">
-            <p class="font-medium font-inter text-base  text-darkGray my-3">Institution Details</p>
-            <p class="font-medium font-inter text-base  text-lightGray my-3">Select the institution you wish to request certificate or transcript from</p>
-        </div>
-        <div class="w-full">
-            <div class="">
-                <label class="flex font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                    Institution <span class="text-danger">*</span>
-                </label>
-                <ng-select class="custom-ng-dropdown" 
-                [selectOnTab]="true" 
-                placeholder="Select Institution"
-                (change)="''"
-                >
-                    <ng-option >yes</ng-option>
-                </ng-select>
-                
-            </div>
-            <div class="mt-3">
-                <label class="flex font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                    Faculty <span class="text-danger">*</span>
-                </label>
-                <ng-select class="custom-ng-dropdown" 
-                [selectOnTab]="true" 
-                placeholder="Select Institution"
-                (change)="''"
-                >
-                    <ng-option >yes</ng-option>
-                </ng-select>
-                
-            </div>
-            <div class="mt-3 mb-6">
-                <label class="flex font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                    Department <span class="text-danger">*</span>
-                </label>
-                <ng-select class="custom-ng-dropdown" 
-                [selectOnTab]="true" 
-                placeholder="Select Institution"
-                (change)="''"
-                >
-                    <ng-option >yes</ng-option>
-                </ng-select>
-                
-            </div>
-        </div>
-    </div>
-     <div class="flex gap-8 border-b mt-6">
-        <div class="w-96">
-            <p class="font-medium font-inter text-base  text-darkGray my-3">Academic Details</p>
-            <p class="font-medium font-inter text-base  text-lightGray my-3">Please fill out your academic details to help us track your available credentials</p>
-        </div>
-        <div class="w-full">
-            <div class="">
-                <label class="flex font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                    Institution <span class="text-danger">*</span>
-                </label>
-                <ng-select class="custom-ng-dropdown" 
-                [selectOnTab]="true" 
-                placeholder="Select Institution"
-                (change)="''"
-                >
-                    <ng-option >yes</ng-option>
-                </ng-select>
-                
-            </div>
-            <div class="mt-3">
-                <label class="flex font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                    Faculty <span class="text-danger">*</span>
-                </label>
-                <ng-select class="custom-ng-dropdown" 
-                [selectOnTab]="true" 
-                placeholder="Select Institution"
-                (change)="''"
-                >
-                    <ng-option >yes</ng-option>
-                </ng-select>
-                
-            </div>
-            <div class="mt-3 mb-6">
-                <label class="flex font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                    Department <span class="text-danger">*</span>
-                </label>
-                <ng-select class="custom-ng-dropdown" 
-                [selectOnTab]="true" 
-                placeholder="Select Institution"
-                (change)="''"
-                >
-                    <ng-option >yes</ng-option>
-                </ng-select>
-                
-            </div>
-        </div>
-    </div>
+ 
+
+  <router-outlet></router-outlet>
 </div>

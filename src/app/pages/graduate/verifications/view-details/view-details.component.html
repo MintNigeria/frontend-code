@@ -2,7 +2,7 @@
     <!--Header-->
     <div class="flex  items-center md:gap-4 gap-2 ">
         <div>
-            <img [routerLink]="'/main/requests'" src="assets/images/icons/home.svg" alt="home-icon">
+            <img routerLink="/main/requests" src="assets/images/icons/home.svg" alt="home-icon">
         </div>
         <div>
             <img src="assets/images/icons/forward_arrow.svg" alt="forward-arrow">
@@ -95,8 +95,7 @@
                 </div>
                 <div class="border-b grid grid-cols-2 items-center gap-10">
                     <p class="font-medium font-inter text-base  text-darkGray my-3">Status</p>
-                    <app-status-tab 
-                    [text]="details.status"></app-status-tab>
+                    
                 </div>
                 <div class="mb-6 grid grid-cols-2 gap-10">
                     <p class="font-medium font-inter text-base  text-darkGray my-3">Verification Code</p>

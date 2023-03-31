@@ -58,22 +58,25 @@ export class LoginComponent implements OnInit {
     this.status = Status.LOADING;
     this.store.dispatch(invokeLoginUser(this.loginAuth.value));
     this.actions$.pipe(ofType(loginSuccess)).subscribe((res: any) => {
-      const helper = new JwtHelperService();
-      this.loggedInUser = helper.decodeToken(res.accessToken);
-      localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
-      this.notificationService.publishMessages('success', 'Login Successful');
-      if (this.loggedInUser.UserType === 'Institution') {
-        this.router.navigateByUrl('/institution/dashboard');
-
-        // this.showOTPPage = true;
-      }
-      if (this.loggedInUser.UserType === 'Graduates') {
-          this.router.navigateByUrl('/graduate/dashboard');
-        // this.showOTPPage = true;
-      }
-      if (this.loggedInUser.UserType === 'Organization') {
-          this.router.navigateByUrl('/organization/dashboard');
-        // this.showOTPPage = true;
+      console.log(res) 
+      if (res.accessToken !== undefined) {
+        const helper = new JwtHelperService();
+        this.loggedInUser = helper.decodeToken(res.accessToken);
+        localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
+        this.notificationService.publishMessages('success', 'Login Successful');
+        if (this.loggedInUser.UserType === 'Institution') {
+          this.router.navigateByUrl('/institution/dashboard');
+  
+          // this.showOTPPage = true;
+        }
+        if (this.loggedInUser.UserType === 'Graduates') {
+            this.router.navigateByUrl('/graduate/dashboard');
+          // this.showOTPPage = true;
+        }
+        if (this.loggedInUser.UserType === 'Organization') {
+            this.router.navigateByUrl('/organization/dashboard');
+          // this.showOTPPage = true;
+        }
       }
     })
     // let auth$ = this.appStore.pipe(select(selectAppAPIResponse));
@@ -97,7 +100,7 @@ export class LoginComponent implements OnInit {
     if (this.currentRoute === 'graduate') {
       this.router.navigateByUrl('/create-account/graduate');
     } else if (this.currentRoute === 'organization') {
-      this.router.navigateByUrl('/create-account/institution');
+      this.router.navigateByUrl('/create-account/organization');
     } else {
       this.router.navigateByUrl('/create-account/institution');
     }

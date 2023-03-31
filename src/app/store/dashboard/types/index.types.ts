@@ -27,5 +27,7 @@ export interface DashboardStateInterface {
   organizationDashboard: { data: Array<any>; totalCount: number };
   organizationBottomDashboard: any;
   organizationVerification: any;
+  graduateTop: any;
+  graduateBottom: any;
   dashboardCardStats: IDashboardCardInfo | null
 }

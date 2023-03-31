@@ -179,6 +179,7 @@ export class SearchResultsComponent implements OnInit {
   openSuccess() {
     document.getElementById('successModal')?.click();
   }
+  
   closeSuccess() {
     if (this.selectedPaymentMethod == 'creditCard') {
       document.getElementById('successModal')?.click();
