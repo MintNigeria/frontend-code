@@ -23,17 +23,13 @@ export class InstitutionDetailsComponent implements OnInit {
       department: ['', Validators.required],
       firstName: ['', Validators.required],
       middleName: ['', Validators.required],
-
       lastName: ['', Validators.required],
-
       gender: ['', Validators.required],
       matricNo: ['', Validators.required],
       degreeType: ['', Validators.required],
       yearOfEntry: ['', Validators.required],
       yearOfGraduation: ['', Validators.required],
-      consent: ['', Validators.required],
-      
-    
+      consent: ['', Validators.required],    
     })
   }
 
