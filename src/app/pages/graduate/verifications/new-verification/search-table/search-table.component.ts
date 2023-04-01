@@ -3,18 +3,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-search-list',
-  templateUrl: './search-list.component.html',
-  styleUrls: ['./search-list.component.scss']
+  selector: 'app-search-table',
+  templateUrl: './search-table.component.html',
+  styleUrls: ['./search-table.component.scss']
 })
-export class SearchListComponent implements OnInit {
+export class SearchTableComponent implements OnInit {
   edit = 'editModal';
+  constructor(private router : Router,
+    private fb: FormBuilder) { }
   consentForm!: FormGroup
-  constructor(
-    private router : Router,
-    private fb: FormBuilder
-  ) { }
 
+ 
   ngOnInit(): void {
     this.consentForm = this.fb.group({
       consent: ['', Validators.required]
@@ -47,7 +46,6 @@ export class SearchListComponent implements OnInit {
     payment: 'Sucess',
     grade:'second class upper'
 
-
   }
 
   viewDetails() {
@@ -59,11 +57,11 @@ export class SearchListComponent implements OnInit {
   }
 
   openEdit() {
-    this.router.navigateByUrl('/graduate/my-applications/new/app-details')
+    this.router.navigateByUrl('/graduate/my-verifications/new/verification-reason')
     document.getElementById('editModal')?.click();
   }
   closeEdit() {
     document.getElementById('editModal')?.click();
   }
-  
+
 }

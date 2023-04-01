@@ -132,7 +132,7 @@
                     <a (click)="status = 'Certificate (Original)'">Pending</a>
                   </li>
                   <li>
-                    <a (click)="status = 'Certificate (Template)'">Processing</a>
+                    <a (click)="status = 'Certificate (Template)'">Processed</a>
                   </li>
                   <li>
                     <a (click)="status = 'Certificate (Certified True Copy)'"
@@ -311,7 +311,7 @@
                             [ngClass]="
                               data.status === 'Completed'
                                 ? 'bg-[#ECFDF3]'
-                                : data.status === 'Processing'
+                                : data.status === 'Processed'
                                 ? 'bg-[#FFF8E9]'
                                 : data.status === 'Paused'
                                 ? 'bg-[#FFF8E9]'

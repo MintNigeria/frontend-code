@@ -10,6 +10,8 @@ import { NewVerificationComponent } from './new-verification/new-verification.co
 import { InstitutionDetailsComponent } from './new-verification/institution-details/institution-details.component';
 import { SharedModule  } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SearchTableComponent } from './new-verification/search-table/search-table.component';
+import { VerificationReasonComponent } from './new-verification/verification-reason/verification-reason.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     VerificationsComponent,
     VerificationDetailsComponent,
     NewVerificationComponent,
-    InstitutionDetailsComponent
+    InstitutionDetailsComponent,
+    SearchTableComponent,
+    VerificationReasonComponent
   ],
   imports: [
     CommonModule,
