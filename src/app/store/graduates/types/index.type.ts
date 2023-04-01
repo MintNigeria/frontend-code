@@ -59,4 +59,5 @@ export interface GraduatesStateInterface {
   graduateInstitutions: any;
   updateInstitutions: any;
   updateprofile: any;
+  gradauteVerifications: any;
   }

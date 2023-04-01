@@ -77,5 +77,25 @@ export const passwordResetSuccess = createAction(
   props<{ message: string }>()
 );
 
+export const activateDeactivate2FA = createAction(
+  '[activateDeactivate2FA] Activate Deactivate 2FA',
+  props<{ payload: any }>()
+);
+
+export const activateDeactivate2FASuccess = createAction(
+  '[activateDeactivate2FA] Activate Deactivate 2FA Success',
+  props<{ message: string }>()
+);
+
+export const confirm2FAction = createAction(
+  '[confirm2FAction] confirm 2FA action',
+  props<{ email: any }>()
+);
+
+export const confirm2FActionSuccess = createAction(
+  '[confirm2FAction] confirm 2FA action Success',
+  props<{ message: string }>()
+);
+
 export const LOGOUT = '[App] Logout';
 export const logoutAction = createAction('[App] Logout');

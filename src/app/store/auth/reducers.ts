@@ -1,6 +1,8 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import {
+  activateDeactivate2FASuccess,
   changePasswordSuccess,
+  confirm2FActionSuccess,
   createPasswordSuccess,
   getUserProfileSuccess,
   loginSuccess,
@@ -61,6 +63,18 @@ export const authReducers = createReducer(
     };
   }),
   on(resendOTPSuccess, (state, { message }) => {
+    return {
+      ...state,
+      message,
+    };
+  }),
+  on(activateDeactivate2FASuccess, (state, { message }) => {
+    return {
+      ...state,
+      message,
+    };
+  }),
+  on(confirm2FActionSuccess, (state, { message }) => {
     return {
       ...state,
       message,

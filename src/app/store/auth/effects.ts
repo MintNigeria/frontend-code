@@ -23,6 +23,10 @@ import {
   createPasswordSuccess,
   resendOTP,
   resendOTPSuccess,
+  confirm2FAction,
+  confirm2FActionSuccess,
+  activateDeactivate2FA,
+  activateDeactivate2FASuccess,
 } from './action';
 
 @Injectable()
@@ -214,6 +218,76 @@ export class AuthEffects {
             );
             // read data and update message
             return resendOTPSuccess({
+              message: data,
+            });
+          })
+        );
+      })
+    );
+  });
+
+  activateDeactivate2FA$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(activateDeactivate2FA),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+
+        return this.authService.activateDeactivate2FA(action.payload).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update message
+            return activateDeactivate2FASuccess({
+              message: data,
+            });
+          })
+        );
+      })
+    );
+  });
+
+  confirm2FAction$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(confirm2FAction),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+
+        return this.authService.confirm2FAction(action.email).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update message
+            return confirm2FActionSuccess({
               message: data,
             });
           })
