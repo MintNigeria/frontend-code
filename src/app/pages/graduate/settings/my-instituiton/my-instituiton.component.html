@@ -1,9 +1,9 @@
 <div class="border-1.5 rounded-t-md">
     <h3 class="py-4  border-b-1.5 px-6 font-sans font-bold text-base text-black">Institutions</h3>
     <div class="p-6 " [formGroup]="profileForm">
-        <div class="border-b">
-            <div class="lg:w-10/12 ">
-                <div class="flex gap-6 mb-9">
+        <div class="border-b" formArrayName="institutions" *ngFor="let item of institutions.controls; let i = index">
+            <div class="lg:w-10/12 " [formGroupName]="i" >
+                <div class="flex gap-6 mb-9" >
                     <div class="w-full md:w-1/4">
                         <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
                             Institution Body
@@ -13,7 +13,7 @@
                         <div class="">
                             <app-input 
                             [readonly]="true"
-                            [formGrp]="profileForm" 
+                            [formGrp]="featureControl(i)" 
                             formCtrlName="body" 
                             [type]="'text'" 
                             [class]="'px-4 h-[52px] w-full bg-grayWhite border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
@@ -32,7 +32,7 @@
                         <div class="">
                             <app-input 
                             [readonly]="true"
-                            [formGrp]="profileForm" 
+                            [formGrp]="featureControl(i)" 
                             formCtrlName="type" 
                             [type]="'text'" 
                             [class]="'px-4 h-[52px] w-full bg-grayWhite border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
@@ -51,7 +51,7 @@
                         <div class="">
                             <app-input 
                             [readonly]="true"
-                            [formGrp]="profileForm" 
+                            [formGrp]="featureControl(i)" 
                             formCtrlName="sector" 
                             [type]="'text'" 
                             [class]="'px-4 h-[52px] w-full bg-grayWhite border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
@@ -70,7 +70,7 @@
                         <div class="">
                             <app-input 
                             [readonly]="true"
-                            [formGrp]="profileForm" 
+                            [formGrp]="featureControl(i)" 
                             formCtrlName="name" 
                             [type]="'text'" 
                             [class]="'px-4 h-[52px] w-full bg-grayWhite border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
@@ -88,12 +88,12 @@
                     <div class="w-full md:w-2/3">
                         <div class="w-full ">
                             <ng-select class="custom-ng-dropdown"
-                            formControlName="state"
+                            formControlName="faculty"
                             [selectOnTab]="true"
-                            placeholder="Select State"
+                            placeholder="Select Faculty"
                             
                             >
-                        <ng-option>Dummy Data</ng-option>
+                            <ng-option *ngFor="let unit of facultyList" [value]="unit">{{unit.name}}</ng-option>
                         </ng-select>
                         </div>
                     </div>
@@ -107,12 +107,12 @@
                     <div class="w-full md:w-2/3">
                         <div class="w-full ">
                             <ng-select class="custom-ng-dropdown"
-                            formControlName="state"
+                            formControlName="department"
                             [selectOnTab]="true"
-                            placeholder="Select State"
+                            placeholder="Select Department"
                             
                             >
-                        <ng-option>Dummy Data</ng-option>
+                            <ng-option *ngFor="let unit of departmentList" [value]="unit">{{unit.departmentName}}</ng-option>
                         </ng-select>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
                     <div class="w-full md:w-2/3">
                         <div class="w-full ">
                             <ng-select class="custom-ng-dropdown"
-                            formControlName="state"
+                            formControlName="yearOfEntry"
                             [selectOnTab]="true"
                             placeholder="Select year of entry"
                             
@@ -146,7 +146,7 @@
                     <div class="w-full md:w-2/3">
                         <div class="w-full ">
                             <ng-select class="custom-ng-dropdown"
-                            formControlName="state"
+                            formControlName="yearOfGraduation"
                             [selectOnTab]="true"
                             placeholder="Select year of graduation"
                             
@@ -164,10 +164,163 @@
             </div>
            
         </div>
+
+
          <div class="flex gap-3 items-center mt-3">
             <img src="assets/images/icons/add.svg" alt="add">
-            <p class="font-inter font-medium text-base text-lightGray">Add another institution</p>
+            <p class="font-inter font-medium text-base text-lightGray" (click)="addNewInstitution()">Add another institution</p>
         </div>
+        
+        <div class="border-b mt-4" [formGroup]="newInstitution" *ngIf="isNewInstitution">
+            <div class="lg:w-10/12 ">
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                            Institution Body
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3" *ngIf="institutionBody$ | async as body">
+                        <div class="">
+                           
+                            <ng-select class="custom-ng-dropdown"  (change)="selectInstitutionBody($event)" formControlName="body" [selectOnTab]="true"
+            placeholder="Select Institution body">
+            <ng-option *ngFor="let unit of body.data" [value]="unit">{{unit.name}}</ng-option>
+          </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                            Institution Type
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3" *ngIf="institutionType$ | async as type">
+                        <div class="">
+                            <ng-select class="custom-ng-dropdown" (change)="selectInstitutionType($event)" formControlName="type" [selectOnTab]="true"
+                            placeholder="Select Institution type">
+                            <ng-option *ngFor="let unit of type.data" [value]="unit">{{unit.name}}</ng-option>
+                          </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                           Institution Sector
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3" *ngIf="institutionSectors$ | async as sector">
+                        <div class="">
+                            <ng-select class="custom-ng-dropdown" (change)="selectInstitutionSector($event)" formControlName="sector" [selectOnTab]="true"
+            placeholder="Select Institution sector">
+            <ng-option *ngFor="let unit of sector.data" [value]="unit">{{unit.name}}</ng-option>
+          </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                           Institution Name
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <div class="">
+                            <ng-select class="custom-ng-dropdown" (change)="selectInstitutionName($event)"   formControlName="name" [selectOnTab]="true"
+                            placeholder="Select Institution Name">
+                            <ng-option *ngFor="let unit of institutionList" [value]="unit?.name">{{unit?.name}}</ng-option>
+                          </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                           Faculty
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <div class="w-full ">
+                            <ng-select class="custom-ng-dropdown"
+                            formControlName="faculty"
+                            [selectOnTab]="true"
+                            placeholder="Select Faculty"
+                            (change)="getDepartmentInFaculty($event)"
+
+                            >
+                            <ng-option *ngFor="let unit of facultyList" [value]="unit">{{unit.name}}</ng-option>
+                        </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                           Department
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <div class="w-full ">
+                            <ng-select class="custom-ng-dropdown"
+                            formControlName="department"
+                            [selectOnTab]="true"
+                            placeholder="Select Department"
+                            
+                            >
+                            <ng-option *ngFor="let unit of departmentList" [value]="unit.name">{{unit.departmentName}}</ng-option>
+                        </ng-select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                           Year of Entry
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <div class="w-full ">
+                            <ng-select class="custom-ng-dropdown"
+                            formControlName="yearOfEntry"
+                            [selectOnTab]="true"
+                            placeholder="Select year of entry"
+                            
+                            >
+                            <ng-option *ngFor="let unit of years" [value]="unit">{{unit}}</ng-option>
+                        </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                           Year of Graduation
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <div class="w-full ">
+                            <ng-select class="custom-ng-dropdown"
+                            formControlName="yearOfGraduation"
+                            [selectOnTab]="true"
+                            placeholder="Select year of graduation"
+                            
+                            >
+                            <ng-option *ngFor="let unit of years" [value]="unit">{{unit}}</ng-option>
+                        </ng-select>
+                        </div>
+                        <div class="flex gap-3 items-center mt-3">
+                            <img src="assets/images/icons/xgray.svg" alt="delete">
+                            <p class="font-inter font-medium text-base text-lightGray">Delete institution</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+           
+        </div>
+
 
         
         <div class="flex justify-end items-center gap-4 mt-4">

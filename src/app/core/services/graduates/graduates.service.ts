@@ -205,6 +205,12 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
     );
   }
 
+  getGraduateCertificateVerifications(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Graduate-Certificate-Verifications`, {params: payload}
+    );
+  }
+
   updateGraduateInstitutions(id: any, payload: any) {
     return this.http.put<any>(
       `${this.baseUrl}mint-auth/api/v1/Graduates/GraduateInstitutions/${id}`, payload

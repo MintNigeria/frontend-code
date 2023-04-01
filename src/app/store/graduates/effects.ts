@@ -7,7 +7,7 @@ import { UploadsService } from 'src/app/core/services/uploads/uploads.service';
 import { WalletService } from 'src/app/core/services/wallet/wallet.service';
 import { AppResponseInterface } from 'src/app/types/appState.interface';
 import { setAPIResponseMessage } from '../shared/app.action';
-import { approvePendingGraduate, approveRejectPendingGraduateSuccess, createGraduateRecord, createGraduateRecordSuccess, downloadCSV, downloadCSVSuccess, downloadExcel, downloadExcelSuccess, downloadRecordUploadFormat, downloadRecordUploadFormatSuccess, fundGraduateWallet, fundGraduateWalletSuccess, getAllGraduateRequestDetailForGradaute, getAllGraduateRequestDetailForGradauteSuccess, getAllGraduateRequestForGradaute, getAllGraduateRequestForGradauteSuccess, getAllHubItem, getAllHubItemSuccess, getAllInstitutionUpload, getAllInstitutionUploadSuccess, getGraduateInstitutions, getGraduateInstitutionsSuccess, getGraduateProfile, getGraduateProfileSuccess, getGraduateTransactionHistory, getGraduateTransactionHistorySuccess, getGraduateWalletId, getGraduateWalletIdSuccess, getMyInstitutionNotified, getMyInstitutionNotifiedSuccess, invokeGetAllGraduates, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduates, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, notifyMyInstitution, notifyMyInstitutionSuccess, registerNewGraduate, registerNewGraduateSuccess, rejectPendingGraduate, updateGraduateInstitutions, updateGraduateProfile, updateGraduateProfileSuccess, uploadGraduateRecord, uploadGraduateRecordSuccess, uploadHubItem, uploadHubItemSuccess, validateGraduateRegistration, validateGraduateRegistrationSuccess } from './action';
+import { approvePendingGraduate, approveRejectPendingGraduateSuccess, createGraduateRecord, createGraduateRecordSuccess, downloadCSV, downloadCSVSuccess, downloadExcel, downloadExcelSuccess, downloadRecordUploadFormat, downloadRecordUploadFormatSuccess, fundGraduateWallet, fundGraduateWalletSuccess, getAllGraduateRequestDetailForGradaute, getAllGraduateRequestDetailForGradauteSuccess, getAllGraduateRequestForGradaute, getAllGraduateRequestForGradauteSuccess, getAllHubItem, getAllHubItemSuccess, getAllInstitutionUpload, getAllInstitutionUploadSuccess, getGraduateCertificateVerifications, getGraduateCertificateVerificationsSuccess, getGraduateInstitutions, getGraduateInstitutionsSuccess, getGraduateProfile, getGraduateProfileSuccess, getGraduateTransactionHistory, getGraduateTransactionHistorySuccess, getGraduateWalletId, getGraduateWalletIdSuccess, getMyInstitutionNotified, getMyInstitutionNotifiedSuccess, invokeGetAllGraduates, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduates, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, notifyMyInstitution, notifyMyInstitutionSuccess, registerNewGraduate, registerNewGraduateSuccess, rejectPendingGraduate, updateGraduateInstitutions, updateGraduateProfile, updateGraduateProfileSuccess, uploadGraduateRecord, uploadGraduateRecordSuccess, uploadHubItem, uploadHubItemSuccess, validateGraduateRegistration, validateGraduateRegistrationSuccess } from './action';
 
 @Injectable()
 export class GraduatesEffects {
@@ -974,6 +974,44 @@ export class GraduatesEffects {
               );
               // read data and update payload
               return updateGraduateProfileSuccess({
+                payload: data
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getGraduateCertificateVerifications$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getGraduateCertificateVerifications),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const {payload} = action
+        return this.graduateService
+          .getGraduateCertificateVerifications(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getGraduateCertificateVerificationsSuccess({
                 payload: data
                   
               });

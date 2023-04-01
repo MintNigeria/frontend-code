@@ -10,7 +10,7 @@
                         </label>
                     </div>
                     <div class="flex items-center gap-3">
-                        <input [(ngModel)]="twoFactorEnabled" (change)="onTwoFactorToggle()" type="checkbox" class="toggle toggle-md" />
+                        <input [(ngModel)]="twoFactorEnabled" (change)="onTwoFactorToggle($event.target)" type="checkbox" class="toggle toggle-md" />
                         <label *ngIf="!twoFactorEnabled" class=" font-inter font-medium text-sm text-failedNormal" for="inline-full-name">
                            Disabled
                         </label>
@@ -26,8 +26,8 @@
                         </label>
                     </div>
                     <div class="w-full p-3 flex items-center justify-between border border-buttonBlue rounded-lg bg-tabBlue">
-                        <p class="font-inter font-medium text-base text-failedNormal">Use registered email address (user@yopmail.com) </p>
-                        <input [(ngModel)]="emailEnabled" (change)="onEmailToggle()" type="checkbox" checked="checked" class="checkbox checkbox-sm" /> 
+                        <p class="font-inter font-medium text-base text-failedNormal">Use registered email address ({{graduateData?.email}}) </p>
+                        <input [(ngModel)]="emailEnabled"  type="checkbox" checked class="checkbox checkbox-sm" /> 
                     </div> 
                 </div>
             </div>
@@ -54,36 +54,12 @@
             <div class="grid grid-rows-2 justify-items-center">
                 <h3 class="font-inter font-medium text-2xl text-discountBlue">One Time Password</h3>
                 <p class="text-center lg:w-96 font-inter font-normal text-sm text-failedNormal">
-                    An OTP has been sent to adebim.....@gmail.com to complete your setup. 
+                    An OTP has been sent to {{graduateData.email}} to complete your setup. 
                 </p>
             </div>
-            <div class="flex items-center justify-center">
-                <div class="flex gap-3 mt-8 mb-4">
-                    <input
-                    class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
-                    type="text"
-                    maxLength="1"
-                    (input)="onOtpChange(0, $event)"
-                    />
-                    <input
-                    class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
-                    type="text"
-                    maxLength="1"
-                    (input)="onOtpChange(1, $event)"
-                    />
-                    <input
-                    class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
-                    type="text"
-                    maxLength="1"
-                    (input)="onOtpChange(2, $event)"
-                    />
-                    <input
-                    class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
-                    type="text"
-                    maxLength="1"
-                    (input)="onOtpChange(3, $event)"
-                    />
-                </div>
+            <div class="flex items-center justify-center mt-8">
+                <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }"></ng-otp-input>
+
             </div>
 
             <div class="text-center mt-4">
@@ -96,7 +72,7 @@
             <div class="flex justify-center mt-16">
                 <button
                     class="bg-buttonBlue rounded-lg  hover:bg-buttonBlue text-white text-base font-medium font-inter py-2 px-4 w-56 disabled:opacity-50"
-                    [disabled]="!otpEntered"
+                    [disabled]="otplength?.length !== 6"
                     (click)="verifyOtp()"
                 >
                     Verify
@@ -105,7 +81,7 @@
 
             <div class="flex justify-center mt-16">
                 <p class="text-center w-96 font-inter font-normal text-sm text-failedNormal">Didn't get the code?
-                    <span class="font-medium text-discountBlue">Resend</span>
+                    <span class="font-medium text-discountBlue cursor-pointer" (click)="resendOTP()">Resend</span>
                 </p>
             </div>
 

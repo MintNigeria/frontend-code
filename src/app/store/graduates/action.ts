@@ -300,3 +300,13 @@ export const invokeGetGraduateDetailsSuccess = createAction(
       '[Graduates] update graduate profile success',
       props<{ payload: any }>()
     );
+      
+      export const getGraduateCertificateVerifications = createAction(
+        '[Graduates] get graduate certificate verifications ',
+        props<{ payload: any }>()
+    );
+    
+    export const getGraduateCertificateVerificationsSuccess = createAction(
+      '[Graduates] get graduate certificate verifications success',
+      props<{ payload: any }>()
+    );

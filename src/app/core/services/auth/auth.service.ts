@@ -75,4 +75,17 @@ export class AuthService extends BaseURI implements AbstractAuthService {
       `${this.baseUrl}mint-auth/api/v1/Authentication/RequestEmailVerification/`, body
     );
   }
+
+  activateDeactivate2FA(payload: any) {
+    return this.http.post<any>(
+      `${this.baseUrl}mint-auth/api/v1/Authentication/EnableTwoFactor/`, payload
+    );
+  }
+
+  confirm2FAction(email: string) {
+    return this.http.post<any>(
+      `${this.baseUrl}mint-auth/api/v1/Authentication/SendTwoFactorCode/${email}`, {}
+    );
+  }
+  
 }
