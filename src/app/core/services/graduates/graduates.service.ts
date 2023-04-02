@@ -175,11 +175,6 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
     );
   }
 
-  getAllHubItem(payload: any) {
-    return this.http.get<any>(
-      `${this.baseUrl}mint-auth/api/v1/Graduates/ViewHubItems`, {params: payload}
-    );
-  }
 
   notifyMyInstitution(payload: any) {
     return this.http.post<any>(
@@ -205,11 +200,6 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
     );
   }
 
-  getGraduateCertificateVerifications(payload: any) {
-    return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Graduate-Certificate-Verifications`, {params: payload}
-    );
-  }
 
   updateGraduateInstitutions(id: any, payload: any) {
     return this.http.put<any>(
@@ -251,6 +241,80 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
     body.append('IpAddress', payload.ipAddress)
     return this.http.post<any>(
       `${this.baseUrl}mint-auth/api/v1/Graduates/UploadHubItem`, body
+    );
+  }
+
+
+  
+  getAllHubItem(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-auth/api/v1/Graduates/ViewHubItems`, {params: payload}
+    );
+  }
+
+  deleteHubItem(payload: any) {
+    return this.http.delete<any>(
+      `${this.baseUrl}mint-auth/api/v1/Graduates/DeleteHubItem`, {params: payload}
+    );
+  }
+  
+  getGraduateCertificateVerifications(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Graduate-Certificate-Verifications`, {params: payload}
+    );
+  }
+  
+  getGraduateCertificateVerificationDetail(id: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Graduate-Verification/${id}`
+    );
+  }
+
+  searchGraduateRecords(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Search-Graduate-Records`, {params: payload}
+    );
+  }
+
+  submitGraduateVerificationRequest(payload: any) {
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Graduate-Certificate-Verification-Request`, payload
+    );
+  }
+
+  exportGraduateApplicationAsExcel(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Export-Graduate-Application-Request-As-Excel`, {params: payload}
+    );
+  }
+
+  exportGraduateApplicationCSV(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Export-Graduate-Application-Request-As-CSV`, {params: payload}
+    );
+  }
+
+  exportGraduateVerificationAsExcel(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Export-Graduate-Verification-Request-As-Excel`, {params: payload}
+    );
+  }
+
+  exportGraduateVerificationCSV(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Export-Graduate-Verification-Request-As-CSV`, {params: payload}
+    );
+  }
+
+  exportGraduateTransactionAsExcel(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Export-Graduate-Transaction-As-Excel`, {params: payload}
+    );
+  }
+
+  exportGraduateTransactionAsCSV(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Export-Graduate-Transaction-As-CSV`, {params: payload}
     );
   }
 

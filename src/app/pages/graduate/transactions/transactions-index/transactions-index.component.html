@@ -182,8 +182,8 @@
                         tabindex="0"
                         class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
                       >
-                        <li><a>Export as CSV</a></li>
-                        <li><a>Export as PDF</a></li>
+                      <li (click)="download('CSV')"><a>Export as CSV</a></li>
+                      <li (click)="download('Excel')"><a>Export as Excel</a></li>
                       </ul>
                     </div>
                   </div>

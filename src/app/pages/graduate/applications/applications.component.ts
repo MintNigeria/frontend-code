@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
-import { getAllGraduateRequestForGradaute, getAllGraduateRequestForGradauteSuccess } from 'src/app/store/graduates/action';
+import { exportGraduateApplicationAsExcel, exportGraduateApplicationAsExcelSuccess, exportGraduateApplicationCSV, exportGraduateApplicationCSVSuccess, getAllGraduateRequestForGradaute, getAllGraduateRequestForGradauteSuccess } from 'src/app/store/graduates/action';
 import { getOrganizationSubscriptionHistory } from 'src/app/store/organization/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
@@ -139,6 +139,36 @@ export class ApplicationsComponent implements OnInit {
       const filter = {...this.filter, ['keyword'] : ''}
       this.store.dispatch(getAllGraduateRequestForGradaute({payload: {...this.filter, GraduateId: this.userData.GraduateId}}))
       }
+  }
+
+  download(type: string) {
+    if (type === 'CSV') {
+      this.downloadCSV()
+    } else {
+      this.downloadExcel()  
+
+    }
+  }
+
+    downloadCSV() {
+    this.store.dispatch(exportGraduateApplicationCSV({payload: {...this.filter, GraduateId: this.userData.GraduateId}}))
+    this.actions$.pipe(ofType(exportGraduateApplicationCSVSuccess)).subscribe((res: any) => {
+       const link = document.createElement('a');
+        link.download = `${res.payload?.fileName}.csv`;
+        link.href = 'data:image/png;base64,' + res.payload?.base64;
+        link.click();
+    })  
+  }
+
+  downloadExcel() {
+    this.store.dispatch(exportGraduateApplicationAsExcel({payload: {...this.filter, GraduateId: this.userData.GraduateId}}))
+    this.actions$.pipe(ofType(exportGraduateApplicationAsExcelSuccess)).subscribe((res: any) => {
+       const link = document.createElement('a');
+
+        link.download = `${res.payload?.fileName}.xlsx`;
+        link.href = 'data:image/png;base64,' + res.payload?.base64;
+        link.click();
+    })
   }
 
   

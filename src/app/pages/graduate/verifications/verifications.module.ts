@@ -12,6 +12,7 @@ import { SharedModule  } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchTableComponent } from './new-verification/search-table/search-table.component';
 import { VerificationReasonComponent } from './new-verification/verification-reason/verification-reason.component';
+import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/request-empty-state.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { VerificationReasonComponent } from './new-verification/verification-rea
   ],
   imports: [
     CommonModule,
+    RequestEmptyStateComponent,
     VerificationsRoutingModule,
     NgxPaginationModule,
     NgSelectModule,

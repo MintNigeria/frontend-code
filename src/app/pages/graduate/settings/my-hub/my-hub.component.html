@@ -12,10 +12,10 @@
         <div class="border-b mb-6" *ngFor="let unit of hubDocuments">
             <div class="flex gap-16 mb-8">
                <div>
-                <img src="assets/images/icons/dcoDummy.svg" alt="Dummy Document">
-               </div>
+                <img src="data:image/png;base64,{{unit.base64}}" class="w-52 h-52 rounded-lg "
+                alt="">               </div>
                <div class="grid grid-cols-2 gap-x-32">
-                <div>
+                <div> 
                     <p class="font-inter font-normal text-base text-grayWhite">Document Name</p>
                     <p class="font-inter font-medium text-base text-darkGray">{{unit.documentName}}</p>
                 </div>
@@ -39,6 +39,7 @@
                     Download
                     </app-button>
                     <app-button
+                    (buttonClick)="deleteFile(unit)"
                     [overRideButtonClass]="true"
                     [customClass]="'p-2 font-inter font-medium text-base text-darkGray border-none  bg-transparent'">
                     Delete

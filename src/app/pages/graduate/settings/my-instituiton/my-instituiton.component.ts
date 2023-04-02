@@ -65,7 +65,7 @@ export class MyInstituitonComponent implements OnInit {
           name: [data.institutionName, Validators.required],
       body: [data.institutionBody, Validators.required],
       sector: [data.institutionSector, Validators.required],
-      type: [data.institutionType, Validators.required],
+      email: [data.institutionType, Validators.required],
       faculty: [data.faculty, Validators.required],
       department: [data.department, Validators.required],
       yearOfEntry: [data.yearOfEntry, Validators.required],
@@ -102,7 +102,7 @@ export class MyInstituitonComponent implements OnInit {
     return control
   }
 
-  get institutions() {
+  get institutions () {
     return this.profileForm.get('institutionVms') as FormArray
   }
 
@@ -139,6 +139,7 @@ export class MyInstituitonComponent implements OnInit {
       body: ['', Validators.required],
       name: ['', Validators.required],
       type: ['', Validators.required],
+      email: ['', Validators.required],
       faculty: ['', Validators.required],
       department: ['', Validators.required],
       yearOfEntry: ['', Validators.required],
