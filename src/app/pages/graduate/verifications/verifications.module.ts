@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchTableComponent } from './new-verification/search-table/search-table.component';
 import { VerificationReasonComponent } from './new-verification/verification-reason/verification-reason.component';
 import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/request-empty-state.component';
+import { MakePaymentComponent } from './new-verification/make-payment/make-payment.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/r
     NewVerificationComponent,
     InstitutionDetailsComponent,
     SearchTableComponent,
+    MakePaymentComponent,
     VerificationReasonComponent
   ],
   imports: [

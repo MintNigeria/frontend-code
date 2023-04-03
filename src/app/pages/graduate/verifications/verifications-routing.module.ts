@@ -8,6 +8,7 @@ import { VerificationReasonComponent } from './new-verification/verification-rea
 import { VerificationDetailsComponent } from './verification-details/verification-details.component';
 import { VerificationsComponent } from './verifications.component';
 import { ViewDetailsComponent } from './view-details/view-details.component';
+import { MakePaymentComponent } from '../applications/new-application/make-payment/make-payment.component';
 
 const routes: Routes = [
   { path: '', component: VerificationsComponent },
@@ -23,7 +24,10 @@ const routes: Routes = [
       {
         path: 'verification-reason',
         component: VerificationReasonComponent
-      }
+      },
+      {
+        path: 'make-payment', component: MakePaymentComponent
+      },
     ]
   },
   {
