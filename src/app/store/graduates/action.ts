@@ -240,6 +240,8 @@ export const invokeGetGraduateDetailsSuccess = createAction(
       '[Graduates] get all hub item success',
       props<{ payload: any }>()
     );
+
+    
       
       export const notifyMyInstitution = createAction(
         '[Graduates] notify my institution ',
@@ -310,3 +312,132 @@ export const invokeGetGraduateDetailsSuccess = createAction(
       '[Graduates] get graduate certificate verifications success',
       props<{ payload: any }>()
     );
+      
+      export const getGraduateCertificateVerificationDetail = createAction(
+        '[Graduates] get graduate certificate verifications details ',
+        props<{ id: any }>()
+    );
+    
+    export const getGraduateCertificateVerificationDetailSuccess = createAction(
+      '[Graduates] get graduate certificate verifications details success',
+      props<{ payload: any }>()
+    );
+
+    export const deleteHubItem = createAction(
+      '[Graduates] delete hub item ',
+      props<{ payload: any }>()
+  );
+  
+  export const deleteHubItemSuccess = createAction(
+    '[Graduates] delete hub item success',
+    props<{ payload: any }>()
+  );
+
+    export const searchGraduateRecords = createAction(
+      '[Graduates] search graduate record ',
+      props<{ payload: any }>()
+  );
+  
+  export const searchGraduateRecordsSuccess = createAction(
+    '[Graduates] search graduate record success',
+    props<{ payload: any }>()
+  );
+
+    export const submitGraduateVerificationRequest = createAction(
+      '[Graduates] submit graduate verification request ',
+      props<{ payload: any }>()
+  );
+  
+  export const submitGraduateVerificationRequestSuccess = createAction(
+    '[Graduates] submit graduate verification request success',
+    props<{ payload: any }>()
+  );
+
+    export const exportGraduateApplicationAsExcel = createAction(
+      '[Graduates] export graduate application as Excel ',
+      props<{ payload: any }>()
+  );
+  
+  export const exportGraduateApplicationAsExcelSuccess = createAction(
+    '[Graduates] export graduate application as Excel success',
+    props<{ payload: any }>()
+  );
+
+    export const exportGraduateApplicationCSV = createAction(
+      '[Graduates] export graduate application as CSV ',
+      props<{ payload: any }>()
+  );
+  
+  export const exportGraduateApplicationCSVSuccess = createAction(
+    '[Graduates] export graduate application as CSV success',
+    props<{ payload: any }>()
+  );
+
+    export const exportGraduateVerificationAsExcel = createAction(
+      '[Graduates] export graduate verification as Excel ',
+      props<{ payload: any }>()
+  );
+  
+  export const exportGraduateVerificationAsExcelSuccess = createAction(
+    '[Graduates] export graduate verification as Excel success',
+    props<{ payload: any }>()
+  );
+
+    export const exportGraduateVerificationCSV = createAction(
+      '[Graduates] export graduate verification as CSV ',
+      props<{ payload: any }>()
+  );
+  
+  export const exportGraduateVerificationCSVSuccess = createAction(
+    '[Graduates] export graduate verification as CSV success',
+    props<{ payload: any }>()
+  );
+
+    export const exportGraduateTransactionAsExcel = createAction(
+      '[Graduates] export graduate Transactions as Excel ',
+      props<{ payload: any }>()
+  );
+  
+  export const exportGraduateTransactionAsExcelSuccess = createAction(
+    '[Graduates] export graduate Transactions as Excel success',
+    props<{ payload: any }>()
+  );
+
+    export const exportGraduateTransactionAsCSV = createAction(
+      '[Graduates] export graduate Transactions as CSV ',
+      props<{ payload: any }>()
+  );
+  
+  export const exportGraduateTransactionAsCSVSuccess = createAction(
+    '[Graduates] export graduate Transactions as CSV success',
+    props<{ payload: any }>()
+  );
+
+    export const graduateTransactionTypeFilter = createAction(
+      '[Graduates] get graduate transaction type filter ',
+  );
+  
+  export const graduateTransactionTypeFilterSuccess = createAction(
+    '[Graduates] get graduate transaction type filter success',
+    props<{ payload: any }>()
+    );
+    
+    export const graduateDocumentTypeFilter = createAction(
+      '[Graduates] get graduate document type filter ',
+      props<{ id: any }>()
+  );
+  
+  export const graduateDocumentTypeFilterSuccess = createAction(
+    '[Graduates] get graduate document type filter success',
+    props<{ payload: any }>()
+  );
+    
+    export const submitVerificationReasonForRequest = createAction(
+      '[Graduates] submit verification request reason ',
+      props<{ payload: any }>()
+  );
+  
+  export const submitVerificationReasonForRequestSuccess = createAction(
+    '[Graduates] submit verification request reason success',
+    props<{ payload: any }>()
+  );

@@ -67,7 +67,7 @@ export class AuthEffects {
               })
             );
             this.storage.setItem('token', data.access_token);
-            return loginSuccess({ accessToken: data.access_token });
+            return loginSuccess({ accessToken: data.access_token, ...data });
           }),
           catchError((res) => {
             if (res.error)

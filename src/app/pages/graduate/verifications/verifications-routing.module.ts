@@ -27,7 +27,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'verification-details', component: VerificationDetailsComponent
+    path: 'verification-details', component: ViewDetailsComponent
   },
   {
     path: 'verification-details/:id', component: VerificationDetailsComponent

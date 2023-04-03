@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
-import { approveRejectPendingGraduateSuccess, createGraduateRecordSuccess, downloadCSVSuccess, downloadExcelSuccess, downloadRecordUploadFormatSuccess, fundGraduateWalletSuccess, getAllGraduateRequestForGradauteSuccess, getAllHubItemSuccess, getAllInstitutionUploadSuccess, getGraduateCertificateVerificationsSuccess, getGraduateInstitutionsSuccess, getGraduateProfileSuccess, getGraduateTransactionHistorySuccess, getGraduateWalletIdSuccess, getMyInstitutionNotifiedSuccess, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, notifyMyInstitutionSuccess, registerNewGraduateSuccess, updateGraduateInstitutionsSuccess, updateGraduateProfileSuccess, uploadGraduateRecordSuccess, uploadHubItemSuccess, validateGraduateRegistrationSuccess } from './action';
+import { approveRejectPendingGraduateSuccess, createGraduateRecordSuccess, deleteHubItemSuccess, downloadCSVSuccess, downloadExcelSuccess, downloadRecordUploadFormatSuccess, exportGraduateApplicationAsExcelSuccess, exportGraduateApplicationCSVSuccess, exportGraduateVerificationAsExcel, exportGraduateVerificationAsExcelSuccess, exportGraduateVerificationCSVSuccess, fundGraduateWalletSuccess, getAllGraduateRequestForGradauteSuccess, getAllHubItemSuccess, getAllInstitutionUploadSuccess, getGraduateCertificateVerificationDetailSuccess, getGraduateCertificateVerificationsSuccess, getGraduateInstitutionsSuccess, getGraduateProfileSuccess, getGraduateTransactionHistorySuccess, getGraduateWalletIdSuccess, getMyInstitutionNotifiedSuccess, graduateDocumentTypeFilterSuccess, graduateTransactionTypeFilterSuccess, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, notifyMyInstitutionSuccess, registerNewGraduateSuccess, searchGraduateRecordsSuccess, submitGraduateVerificationRequestSuccess, submitVerificationReasonForRequestSuccess, updateGraduateInstitutionsSuccess, updateGraduateProfileSuccess, uploadGraduateRecordSuccess, uploadHubItemSuccess, validateGraduateRegistrationSuccess } from './action';
 import {GraduatesStateInterface} from './types/index.type';
+import { exportTransactionCSVSuccess, exportTransactionExcelSuccess } from '../reporting/action';
 
 
 const initialState: GraduatesStateInterface  = {
@@ -50,6 +51,19 @@ const initialState: GraduatesStateInterface  = {
   updateprofile: null,
   updateInstitutions: null,
   gradauteVerifications: null,
+  deleteHubItems: null,
+  verificationDetails: null,
+  searchRecord: null,
+  transactionType: null,
+  documentType: null,
+  submitverificationRequest: null,
+  submitVerificationRequest: null,
+  exportApplicationExcel: null,
+  exportApplicationCSV: null,
+  exportVerificationExcel: null,
+  exportVerificationCSV: null,
+  exportTransactionExcel: null,
+  exportTransactionCSV: null,
 };
 
 export const graduatesReducer = createReducer(
@@ -203,6 +217,96 @@ export const graduatesReducer = createReducer(
     return {
       ...state,
       gradauteVerifications: payload
+    };
+  }),
+  on(deleteHubItemSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      deleteHubItems: payload
+    };
+  }),
+  on(getGraduateCertificateVerificationDetailSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      verificationDetails: payload
+    };
+  }),
+  on(searchGraduateRecordsSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      searchRecord: payload
+    };
+  }),
+  on(submitGraduateVerificationRequestSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      submitVerificationRequest: payload
+    };
+  }),
+  on(getGraduateCertificateVerificationDetailSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      verificationDetails: payload
+    };
+  }),
+  on(exportGraduateApplicationAsExcelSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      exportApplicationExcel: payload
+    };
+  }),
+  on(exportGraduateApplicationCSVSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      exportApplicationCSV: payload
+    };
+  }),
+  on(exportGraduateVerificationAsExcelSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      exportVerificationExcel: payload
+    };
+  }),
+  on(exportGraduateVerificationCSVSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      exportVerificationCSV: payload
+    };
+  }),
+  on(exportTransactionExcelSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      exportVerificationExcel: payload
+    };
+  }),
+  on(exportGraduateVerificationCSVSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      exportTransactionExcel: payload
+    };
+  }),
+  on(exportTransactionCSVSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      exportTransactionCSV: payload
+    };
+  }),
+  on(graduateTransactionTypeFilterSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      transactionType: payload
+    };
+  }),
+  on(graduateDocumentTypeFilterSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      documentType: payload
+    };
+  }),
+  on(submitVerificationReasonForRequestSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      submitVerificationRequest: payload
     };
   }),
 

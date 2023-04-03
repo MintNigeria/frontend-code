@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Actions, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
+import { exportGraduateVerificationAsExcel, exportGraduateVerificationAsExcelSuccess, exportGraduateVerificationCSV, exportGraduateVerificationCSVSuccess, getGraduateCertificateVerifications, getGraduateCertificateVerificationsSuccess } from 'src/app/store/graduates/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
@@ -25,44 +31,7 @@ export class VerificationsComponent implements OnInit {
   array = []
   graduateList: any;
 
-  verificationList = [
-    {
-      applicationNumber: '#3066',
-      createdOn: '12/01/2023',
-      documentType: 'Certificate Verification',
-      gradVerificationCode: '123456789XYZ',
-      status: 'Completed',
-      id: 4,
-    
-    },
-    {
-     applicationNumber: '#3066',
-      createdOn: '12/01/2023',
-      documentType: 'Certificate Verification',
-      gradVerificationCode: '123456789XYZ',
-      status: 'Declined',
-      id: 2,
-    
-    },
-    {
-     applicationNumber: '#3066',
-      createdOn: '12/01/2023',
-      documentType: 'Certificate Verification',
-      gradVerificationCode: '123456789XYZ',
-      status: 'Pending',
-      id: 1,
-    
-    },
-    {
-     applicationNumber: '#3066',
-      createdOn: '12/01/2023',
-      documentType: 'Certificate Verification',
-      gradVerificationCode: '123456789XYZ',
-      status: 'Declined',
-      id: 3
-    
-    }
-  ]
+  verificationList: any
 
   filter= {
     'TimeBoundSearchVm.TimeRange': 0,
@@ -78,21 +47,36 @@ export class VerificationsComponent implements OnInit {
   searchForm = new FormGroup({
     searchPhrase: new FormControl(''),
   });
-  
+  graduateData: any;
+  graduateId: any;
+
   constructor(
   
+    private dialog: MatDialog,
+    private store: Store,
+    private appStore: Store<AppStateInterface>,
+    private actions$: Actions,
     private utilityService: UtilityService,
-    private dialog: MatDialog
+    private notification: NotificationsService
   ){}
 
   ngOnInit(): void {
+    const data: any = localStorage.getItem('userData')
+    this.graduateData = JSON.parse(data)
+    this.graduateId = this.graduateData.GraduateId
+    this.store.dispatch(getGraduateCertificateVerifications({payload: {...this.filter, GraduateId: this.graduateId}}))
+    this.actions$.pipe(ofType(getGraduateCertificateVerificationsSuccess)).subscribe((res: any) => {
+      this.verificationList= res.payload.payload
+      this.total= res.payload.totalCount
+    })
+    this.searchForm.controls.searchPhrase.valueChanges
+    .pipe(debounceTime(400), distinctUntilChanged())
+    .subscribe((term) => {
+      this.search(term as string);
+    });
   }
 
 
-  getPage(currentPage: number) {
-    const filter = {...this.filter, ['pageIndex'] : currentPage}
-    
-  }
 
   clearFilter() {
     this.status = 'All';
@@ -105,26 +89,99 @@ export class VerificationsComponent implements OnInit {
     this.filterInstituition = {selectedInstituition: 'All'};
     this.documentType = 'All'
     this.filterDocument = {documentType: 'All'};
+    const filter= {
+      'TimeBoundSearchVm.TimeRange': 0,
+      keyword: '',
+        filter: '',
+        pageSize: 10,
+        pageIndex: 1,
+     }
+    this.store.dispatch(getGraduateCertificateVerifications({payload: {...filter, GraduateId: this.graduateId}}))
+
   }
 
   addFilter() {
-    if (this.status !== 'All') {
-      this.filterStatus['status'] = this.status;
-    }
-    if (this.selectedOption !== 'All Time') {
-      this.filterOption['selectedOption'] = this.selectedOption;
-    }
-    if (this.selectedSector !== 'All') {
-      this.filterSector['selectedSector'] = this.selectedSector;
-    }
-    if (this.selectedInstituition !== 'All') {
-      this.filterInstituition['selectedInstituition'] = this.selectedInstituition;
-    }
-    if (this.documentType !== 'All') {
-      this.filterDocument['documentType'] = this.documentType;
-    }
+   
     
-    ////console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
+    this.store.dispatch(getGraduateCertificateVerifications({payload: {...this.filter, GraduateId: this.graduateId}}))
   }
+
+  changeRange(range: number, name: string) {
+    this.selectedOption = name
+    if (range === 5) {
+      // launch calender
+      const dialogRef = this.dialog.open(DateRangeComponent, {
+        // width: '600px',
+        height: 'auto',
+        disableClose: true,
+      });
+      dialogRef.afterClosed().subscribe((res: any) => {
+        if (res) {
+              const {start , end} = res; // use this start and end as fromDate and toDate on your filter
+              this.selectedOption = `${start} - ${end}`
+              const filter = {...this.filter, ['TimeBoundSearchVm.FromDate'] : start, ['TimeBoundSearchVm.ToDate'] : end}
+              this.filter = filter;
+        }
+  
+      })
+    } else {
+      const filter = {...this.filter, ['range'] : range};
+      this.filter = filter;
+    }
+  }
+
+  changeStatus(status: number, name: string) {
+    this.status = name
+    const filter = {...this.filter, ['status'] : String(status)};
+    this.filter = filter;
+  }
+
+  search(event: any) {
+    if (event) {
+      const filter = {...this.filter, ['keyword'] : event}
+      this.store.dispatch(getGraduateCertificateVerifications({payload: {...filter, GraduateId: this.graduateId}}))
+    } else {
+        const filter = {...this.filter, ['keyword'] : ''}
+        this.store.dispatch(getGraduateCertificateVerifications({payload: {...this.filter, GraduateId: this.graduateId}}))
+      }
+  }
+
+   download(type: string) {
+    if (type === 'CSV') {
+      this.downloadCSV()
+    } else {
+      this.downloadExcel()  
+
+    }
+  }
+
+  downloadCSV() {
+    this.store.dispatch(exportGraduateVerificationCSV({payload: {...this.filter, GraduateId: this.graduateId}}))
+    this.actions$.pipe(ofType(exportGraduateVerificationCSVSuccess)).subscribe((res: any) => {
+       const link = document.createElement('a');
+       console.log(res)
+        link.download = `${res.payload?.fileName}.csv`;
+        link.href = 'data:image/png;base64,' + res.payload?.base64;
+        link.click();
+    })  
+  }
+
+  downloadExcel() {
+    this.store.dispatch(exportGraduateVerificationAsExcel({payload: {...this.filter, GraduateId: this.graduateId}}))
+    this.actions$.pipe(ofType(exportGraduateVerificationAsExcelSuccess)).subscribe((res: any) => {
+       const link = document.createElement('a');
+
+        link.download = `${res.payload?.fileName}.xlsx`;
+        link.href = 'data:image/png;base64,' + res.payload?.base64;
+        link.click();
+    })
+  }
+
+  getPage(currentPage: number) {
+    const filter = {...this.filter, ['pageIndex'] : currentPage}
+    this.store.dispatch(getGraduateCertificateVerifications({payload: {...filter, GraduateId: this.graduateId}}))
+  }
+
+
 }
 

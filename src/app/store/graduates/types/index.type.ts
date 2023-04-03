@@ -60,4 +60,17 @@ export interface GraduatesStateInterface {
   updateInstitutions: any;
   updateprofile: any;
   gradauteVerifications: any;
+  deleteHubItems: any;
+  verificationDetails: any;
+  searchRecord: any;
+  transactionType: any;
+  documentType: any;
+  submitverificationRequest: any;
+  submitVerificationRequest: any;
+  exportApplicationExcel: any;
+  exportApplicationCSV: any;
+  exportVerificationExcel: any;
+  exportVerificationCSV: any;
+  exportTransactionExcel: any;
+  exportTransactionCSV: any;
   }

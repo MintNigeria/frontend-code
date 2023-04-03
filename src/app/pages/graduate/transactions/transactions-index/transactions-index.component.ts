@@ -6,7 +6,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
-import { getGraduateTransactionHistory, getGraduateTransactionHistorySuccess, getGraduateWalletId, getGraduateWalletIdSuccess } from 'src/app/store/graduates/action';
+import { exportGraduateTransactionAsCSV, exportGraduateTransactionAsCSVSuccess, exportGraduateTransactionAsExcel, exportGraduateTransactionAsExcelSuccess, getGraduateTransactionHistory, getGraduateTransactionHistorySuccess, getGraduateWalletId, getGraduateWalletIdSuccess, graduateTransactionTypeFilter, graduateTransactionTypeFilterSuccess } from 'src/app/store/graduates/action';
 import { getOrganizationSubscriptionHistory } from 'src/app/store/organization/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
@@ -44,6 +44,7 @@ export class TransactionsIndexComponent implements OnInit {
     searchPhrase: new FormControl(''),
   });
   pageIndex = 1
+  transactionType: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -65,6 +66,11 @@ export class TransactionsIndexComponent implements OnInit {
     this.actions$.pipe(ofType(getGraduateTransactionHistorySuccess)).subscribe((res: any) => {
       this.transactionHistory = res.payload.payload;
       this.total = res.payload.totalCount
+    })
+    this.store.dispatch(graduateTransactionTypeFilter())
+    this.actions$.pipe(ofType(graduateTransactionTypeFilterSuccess)).subscribe((res: any) => {
+      console.log(res)
+      this.transactionType = res.payload
     })
     this.searchForm.controls.searchPhrase.valueChanges
     .pipe(debounceTime(400), distinctUntilChanged())
@@ -162,14 +168,34 @@ export class TransactionsIndexComponent implements OnInit {
       }
   }
 
-  // download(type: string) {
-  //   // if (type === 'CSV') {
-  //   //   this.downloadCSV()
-  //   // } else {
-  //   //   this.downloadExcel()  
+  download(type: string) {
+    if (type === 'CSV') {
+      this.downloadCSV()
+    } else {
+      this.downloadExcel()  
 
-  //   // }
-  // }
+    }
+  }
+
+  downloadCSV() {
+    this.store.dispatch(exportGraduateTransactionAsCSV({payload: {...this.filter, GraduateId: this.userData.GraduateId}}))
+    this.actions$.pipe(ofType(exportGraduateTransactionAsCSVSuccess)).subscribe((res: any) => {
+       const link = document.createElement('a');
+        link.download = `${res.payload?.fileName}.csv`;
+        link.href = 'data:image/png;base64,' + res.payload?.base64;
+        link.click();
+    })  
+  }
+
+  downloadExcel() {
+    this.store.dispatch(exportGraduateTransactionAsExcel({payload: {...this.filter, GraduateId: this.userData.GraduateId}}))
+    this.actions$.pipe(ofType(exportGraduateTransactionAsExcelSuccess)).subscribe((res: any) => {
+       const link = document.createElement('a');
+        link.download = `${res.payload?.fileName}.xlsx`;
+        link.href = 'data:image/png;base64,' + res.payload?.base64;
+        link.click();
+    })
+  }
 
   getPage(currentPage: number) {
     const filter = {...this.filter, ['pageIndex'] : currentPage}

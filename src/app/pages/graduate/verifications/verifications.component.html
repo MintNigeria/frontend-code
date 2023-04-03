@@ -39,13 +39,13 @@
                 </p>
                 <img src="assets/images/icons/downward_arrow.svg" />
               </label>
-              <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                <li><a (click)="selectedOption = 'data Time'">All Time</a></li>
-                <li><a (click)="selectedOption = '30 Days'">30 Days</a></li>
-                <li><a (click)="selectedOption = '7 days'">7 Days</a></li>
-                <li><a (click)="selectedOption = '24 Hours'">24 Hours</a></li>
+              <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
+                <li><a (click)="changeRange(0, 'All Time') ">All Time</a></li>
+                <li><a (click)="changeRange(3, '30 Days')">30 Days</a></li>
+                <li><a (click)="changeRange(2, '7 days' )">7 Days</a></li>
+                <li><a (click)="changeRange(1, '24 Hours')">24 Hours</a></li>
                 <li>
-                  <a (click)="selectedOption = 'Custom Period'">Custom Period</a>
+                  <a (click)="changeRange(5, 'Custom Period')">Custom Period</a>
                 </li>
               </ul>
             </div>
@@ -65,18 +65,21 @@
                 </p>
                 <img src="assets/images/icons/downward_arrow.svg" />
               </label>
-              <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72">
-                <li><a (click)="status = 'All'">All</a></li>
-                <li>
-                  <a (click)="status = 'Certificate (Original)'">Pending</a>
-                </li>
-                <li>
-                  <a (click)="status = 'Certificate (Template)'">Processing</a>
-                </li>
-                <li>
-                  <a (click)="status = 'Certificate (Certified True Copy)'">Completed</a>
-                </li>
-              </ul>
+              <ul
+              tabindex="0"
+              class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
+            >
+            <li><a (click)="changeStatus(1, 'Pending')">Pending</a>
+            </li>
+            <li><a (click)="changeStatus(2, 'Processing')">Processing</a>
+            </li>
+            <li>
+              <a (click)="changeStatus(7, 'Approved')">Approved</a>
+            </li>
+            <li>
+              <a (click)="changeStatus(6, 'Decline')">Declined</a>
+            </li>
+            </ul>
             </div>
           </div>
 
@@ -101,14 +104,12 @@
         <form>
           <div class="flex md:flex-row md:justify-between md:items-center flex-col w-full">
             <div class="flex lg:justify-between gap-4">
-              <div class="relative cursor-pointer mr-3">
-                <input type="search" placeholder="Search verification ID or verification code"
-                  class="bg-white rounded-[10px] border border-inputBg w-[400px] py-[14px] px-8 text-black placeholder:text-[#6E7191] text-sm lg:text-base focus:outline-none" />
-                <div class="top-1/2 absolute left-3 custom-translate pr-4">
-                  <img src="assets/images/icons/search.svg" />
-                </div>
-              </div>
-            </div>
+              <app-search 
+              [placeholder]="'Search verification ID or verification code'"
+              (iconSearch)="search($event)"
+  [formGrp]="searchForm" formCtrlName="searchPhrase"  
+  ></app-search>
+          </div>
 
             <div class="flex md:items-center gap-4">
               <div>
@@ -122,8 +123,8 @@
                       <img src="assets/images/icons/downward_arrow_blue.svg" alt="" class="" />
                     </label>
                     <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
-                      <li><a>Export as CSV</a></li>
-                      <li><a>Export as PDF</a></li>
+                      <li (click)="download('CSV')"><a>Export as CSV</a></li>
+                      <li (click)="download('Excel')"><a>Export as Excel</a></li>
                     </ul>
                   </div>
                 </div>
@@ -159,17 +160,17 @@
               </tr>
             </thead>
 
-            <tbody class="">
+            <tbody class="" *ngIf="verificationList?.length >= 1">
               <tr
                 *ngFor="let data of verificationList | paginate: { itemsPerPage: filter.pageSize, currentPage: filter.pageIndex, totalItems: total }"
                 class=" ">
                 <td class="bg-white">
                   <div>
                     <p class="my-0 text-base cursor-pointer font-inter font-medium text-[#101828]">
-                      {{ data?.applicationNumber }}
+                      {{ data?.id }}
                     </p>
                     <p class="text-xs font-normal font-inter my-0 text-[#667085]">
-                      {{ data?.createdOn | date
+                      {{ data?.dateTime | date
                       }}
                     </p>
                   </div>
@@ -186,7 +187,7 @@
                 <td class="bg-white">
                   <div>
                     <p class="my-0 text-base font-inter cursor-pointer font-medium">
-                      {{ data.gradVerificationCode}}
+                      {{ data.verificationNo || 'N/A'}}
                     </p>
                   </div>
                 </td>
@@ -198,7 +199,7 @@
                     <div class="rounded-full text-center w-auto" [ngClass]="
                             data.status === 'Completed'
                               ? 'bg-[#ECFDF3]'
-                              : data.status === 'Declined'
+                              : data.status === 'Processed'
                               ? 'bg-[#FFF8E9]'
                               : data.status === 'Paused'
                               ? 'bg-[#FFF8E9]'
@@ -210,7 +211,7 @@
                         <div class="ml-3 w-2 h-2 rounded-full" [ngClass]="
                                 data.status === 'Completed'
                                   ? 'bg-[#027A48]'
-                                  : data.status === 'Declined'
+                                  : data.status === 'Processed'
                                   ? 'bg-[#f9d1ce]'
                                   : data.status === 'Paused'
                                   ? 'bg-[#EAAC30]'
@@ -221,7 +222,7 @@
                         <p class="my-0 text-sm cursor-pointer font-inter font-medium w-auto" [ngClass]="
                                 data.status === 'Completed'
                                   ? 'text-[#027A48]'
-                                  : data.status === 'Declined'
+                                  : data.status === 'Processed'
                                   ? 'text-[#B42318]'
                                   : data.status === 'Paused'
                                   ? 'text-[#EAAC30]'
@@ -250,7 +251,12 @@
         </div>
       </div>
 
-      <div class="flex items-center justify-end mt-10">
+      <app-request-empty-state
+      *ngIf="verificationList?.length < 1"
+      [dataStatus]="'Searching record..'"
+      ></app-request-empty-state>
+
+      <div class="flex items-center justify-end mt-10" *ngIf="verificationList?.length >= 1">
         <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
                 Showing 1 to 7 of {{ transactionList.length }} entries
             </p> -->

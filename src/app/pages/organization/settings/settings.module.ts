@@ -14,6 +14,9 @@ import { InstitutionEffects } from 'src/app/store/institution/effects';
 import { UsersAndRolesEffects } from 'src/app/store/users-and-roles/effects';
 import { usersAndRolesReducer } from 'src/app/store/users-and-roles/reducer';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { TwoFactorAuthenticationComponent } from './two-factor-authentication/two-factor-authentication.component';
+import { GraduatesEffects } from 'src/app/store/graduates/effects';
+import { NgOtpInputModule } from 'ng-otp-input';
 
 
 @NgModule({
@@ -21,7 +24,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     SettingsComponent,
     MyProfileComponent,
     OrganizationProfileComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    TwoFactorAuthenticationComponent
   ],
   imports: [
     CommonModule,
@@ -30,8 +34,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
+    NgOtpInputModule,
         StoreModule.forFeature('usersAndRoles', usersAndRolesReducer),
-    EffectsModule.forFeature([UsersAndRolesEffects, InstitutionEffects]),
+    EffectsModule.forFeature([UsersAndRolesEffects, InstitutionEffects, GraduatesEffects]),
 
 
   ]

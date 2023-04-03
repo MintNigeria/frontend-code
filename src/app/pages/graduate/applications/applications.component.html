@@ -48,18 +48,13 @@
                   </p>
                   <img src="assets/images/icons/downward_arrow.svg" />
                 </label>
-                <ul
-                  tabindex="0"
-                  class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-                >
-                  <li><a (click)="selectedOption = 'data Time'">All Time</a></li>
-                  <li><a (click)="selectedOption = '30 Days'">30 Days</a></li>
-                  <li><a (click)="selectedOption = '7 days'">7 Days</a></li>
-                  <li><a (click)="selectedOption = '24 Hours'">24 Hours</a></li>
+                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
+                  <li><a (click)="changeRange(0, 'All Time') ">All Time</a></li>
+                  <li><a (click)="changeRange(3, '30 Days')">30 Days</a></li>
+                  <li><a (click)="changeRange(2, '7 days' )">7 Days</a></li>
+                  <li><a (click)="changeRange(1, '24 Hours')">24 Hours</a></li>
                   <li>
-                    <a (click)="selectedOption = 'Custom Period'"
-                      >Custom Period</a
-                    >
+                    <a (click)="changeRange(5, 'Custom Period')">Custom Period</a>
                   </li>
                 </ul>
               </div>
@@ -86,23 +81,9 @@
                   class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
                 >
                   <li><a (click)="documentType = 'All'">All</a></li>
-                  <li>
-                    <a (click)="documentType = 'Certificate (Original)'"
-                      >Certificate (Original)</a
-                    >
+                  <li *ngFor="let unit of documentTypeList">
+                    <a (click)="changeDocumentType(unit.name)">{{unit.documentType}}</a>
                   </li>
-                  <li>
-                    <a (click)="documentType = 'Certificate (Template)'"
-                      >Certificate (Template)</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      (click)="documentType = 'Certificate (Certified True Copy)'"
-                      >Certificate (Certified True Copy)</a
-                    >
-                  </li>
-                  <li><a (click)="documentType = 'Transcript'">Transcript</a></li>
                 </ul>
               </div>
             </div>
@@ -128,17 +109,10 @@
                   class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
                 >
                   <li><a (click)="status = 'All'">All</a></li>
-                  <li>
-                    <a (click)="status = 'Certificate (Original)'">Pending</a>
+                  <li *ngFor="let unit of requestStatus">
+                    <a (click)="changeStatus(unit.value, unit.name)">{{unit.name}}</a>
                   </li>
-                  <li>
-                    <a (click)="status = 'Certificate (Template)'">Processed</a>
-                  </li>
-                  <li>
-                    <a (click)="status = 'Certificate (Certified True Copy)'"
-                      >Completed</a
-                    >
-                  </li>
+                  
                 </ul>
               </div>
             </div>
@@ -171,7 +145,7 @@
             >
             <div class="flex lg:justify-between gap-4">
               <app-search 
-              [placeholder]="'Search...'"
+              [placeholder]="'Search application ID'"
               (iconSearch)="search($event)"
   [formGrp]="searchForm" formCtrlName="searchPhrase"  
   ></app-search>
@@ -200,8 +174,8 @@
                         tabindex="0"
                         class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52"
                       >
-                        <li><a>Export as CSV</a></li>
-                        <li><a>Export as PDF</a></li>
+                      <li (click)="download('CSV')"><a>Export as CSV</a></li>
+                      <li (click)="download('Excel')"><a>Export as Excel</a></li>
                       </ul>
                     </div>
                   </div>

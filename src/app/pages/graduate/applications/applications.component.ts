@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
-import { getAllGraduateRequestForGradaute, getAllGraduateRequestForGradauteSuccess } from 'src/app/store/graduates/action';
+import { exportGraduateApplicationAsExcel, exportGraduateApplicationAsExcelSuccess, exportGraduateApplicationCSV, exportGraduateApplicationCSVSuccess, getAllGraduateRequestForGradaute, getAllGraduateRequestForGradauteSuccess, graduateDocumentTypeFilter, graduateDocumentTypeFilterSuccess } from 'src/app/store/graduates/action';
 import { getOrganizationSubscriptionHistory } from 'src/app/store/organization/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
@@ -45,6 +45,17 @@ export class ApplicationsComponent implements OnInit {
   searchForm = new FormGroup({
     searchPhrase: new FormControl(''),
   });
+
+  requestStatus = [
+    { name: 'PENDING',  value: 1},
+    { name: 'PROCESSING',  value: 2},
+    { name: 'DISPATCHED',  value: 3},
+    { name: 'PAUSED',  value: 4},
+    { name: 'DELIVERED',  value: 5},
+    { name: 'DECLINED',  value: 6},
+    { name: 'COMPLETED',  value: 7},
+  ]
+  documentTypeList: any;
   
   constructor(
     private appStore: Store<AppStateInterface>,
@@ -65,6 +76,11 @@ export class ApplicationsComponent implements OnInit {
       this.graduateList = res.payload.payload
       // this.balance = res.payload;
     })
+    this.store.dispatch(graduateDocumentTypeFilter({id: this.userData.GraduateId}))
+    this.actions$.pipe(ofType(graduateDocumentTypeFilterSuccess)).subscribe((res: any) => {
+      console.log(res)
+      this.documentTypeList = res.payload
+    })
     this.searchForm.controls.searchPhrase.valueChanges
     .pipe(debounceTime(400), distinctUntilChanged())
     .subscribe((term) => {
@@ -72,25 +88,10 @@ export class ApplicationsComponent implements OnInit {
     });
 
   }
-
+  
   addFilter() {
-    // if (this.status !== 'All') {
-    //   this.filterStatus['status'] = this.status;
-    // }
-    // if (this.selectedOption !== 'All Time') {
-    //   this.filterOption['selectedOption'] = this.selectedOption;
-    // }
-    // if (this.selectedSector !== 'All') {
-    //   this.filterSector['selectedSector'] = this.selectedSector;
-    // }
-    // if (this.selectedInstituition !== 'All') {
-    //   this.filterInstituition['selectedInstituition'] = this.selectedInstituition;
-    // }
-    // if (this.documentType !== 'All') {
-    //   this.filterDocument['documentType'] = this.documentType;
-    // }
+    this.store.dispatch(getAllGraduateRequestForGradaute({payload: {...this.filter, GraduateId: this.userData.GraduateId}}))
     
-    ////console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
   }
 
   clearFilter() {
@@ -139,6 +140,43 @@ export class ApplicationsComponent implements OnInit {
       const filter = {...this.filter, ['keyword'] : ''}
       this.store.dispatch(getAllGraduateRequestForGradaute({payload: {...this.filter, GraduateId: this.userData.GraduateId}}))
       }
+  }
+
+  download(type: string) {
+    if (type === 'CSV') {
+      this.downloadCSV()
+    } else {
+      this.downloadExcel()  
+
+    }
+  }
+
+    downloadCSV() {
+    this.store.dispatch(exportGraduateApplicationCSV({payload: {...this.filter, GraduateId: this.userData.GraduateId}}))
+    this.actions$.pipe(ofType(exportGraduateApplicationCSVSuccess)).subscribe((res: any) => {
+       const link = document.createElement('a');
+        link.download = `${res.payload?.fileName}.csv`;
+        link.href = 'data:image/png;base64,' + res.payload?.base64;
+        link.click();
+    })  
+  }
+
+  downloadExcel() {
+    this.store.dispatch(exportGraduateApplicationAsExcel({payload: {...this.filter, GraduateId: this.userData.GraduateId}}))
+    this.actions$.pipe(ofType(exportGraduateApplicationAsExcelSuccess)).subscribe((res: any) => {
+       const link = document.createElement('a');
+
+        link.download = `${res.payload?.fileName}.xlsx`;
+        link.href = 'data:image/png;base64,' + res.payload?.base64;
+        link.click();
+    })
+  }
+
+  
+  changeDocumentType(name: string) {
+    this.documentType = name
+    const filter = {...this.filter, ['documentType'] : status};
+    this.filter = filter;
   }
 
   

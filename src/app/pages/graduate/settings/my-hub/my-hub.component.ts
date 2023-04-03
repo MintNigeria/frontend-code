@@ -5,7 +5,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
-import { getAllHubItem, getAllHubItemSuccess, uploadHubItem, uploadHubItemSuccess } from 'src/app/store/graduates/action';
+import { deleteHubItem, deleteHubItemSuccess, getAllHubItem, getAllHubItemSuccess, uploadHubItem, uploadHubItemSuccess } from 'src/app/store/graduates/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
@@ -57,7 +57,6 @@ filter = {
     this.loadIp();
     this.store.dispatch(getAllHubItem({payload: this.filter}))
     this.actions$.pipe(ofType(getAllHubItemSuccess)).subscribe((res: any) => {
-      console.log(res)
       this.hubDocuments = res.payload.payload
     })
     this.initUploadForm()
@@ -125,11 +124,10 @@ filter = {
     }
     this.store.dispatch(uploadHubItem({payload}))
     this.actions$.pipe(ofType(uploadHubItemSuccess)).subscribe((res: any) => {
-      console.log(res)
       if (res.payload.hasErrors === false) {
         this.notification.publishMessages('success', res.payload.description)
-        document.getElementById('confirmChanges')?.click();
-
+        // document.getElementById('confirmChanges')?.click();
+        this.closeConfirmChanges()
       }
     }) 
   }
@@ -154,6 +152,22 @@ filter = {
     link.download = `${data.documentName}`;
     link.href = 'data:image/png;base64,' + data.base64;
     link.click();
+  }
+
+  deleteFile(data: any) {
+    const payload = {
+      HubItemId: data.hubItemId,
+      // imei: '',
+      // serialNumber: '',
+      // device: this.deviceModel,
+      // ipAddress: this.ipAddress
+    }
+    this.store.dispatch(deleteHubItem({payload}))
+    this.actions$.pipe(ofType(deleteHubItemSuccess)).subscribe((res: any) => {
+      this.notification.publishMessages('success', res.payload.description)
+      this.store.dispatch(getAllHubItem({payload: this.filter}))
+
+    })
   }
 
 }

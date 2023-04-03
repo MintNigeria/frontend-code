@@ -21,6 +21,8 @@ import { UserListComponent } from './admin-users/user-list/user-list.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CreateRoleComponent } from './admin-users/create-role/create-role.component';
+import { TwoFactorAuthenticationComponent } from './admin-users/two-factor-authentication/two-factor-authentication.component';
+import { NgOtpInputModule } from 'ng-otp-input';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { CreateRoleComponent } from './admin-users/create-role/create-role.compo
     UsersComponent,
     RolesAndPermissionComponent,
     UserListComponent,
-    CreateRoleComponent
+    CreateRoleComponent,
+    TwoFactorAuthenticationComponent
   ],
   imports: [
     CommonModule,
@@ -42,6 +45,7 @@ import { CreateRoleComponent } from './admin-users/create-role/create-role.compo
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
+    NgOtpInputModule,
     NgxPaginationModule,
     StoreModule.forFeature('usersAndRoles', usersAndRolesReducer),
     EffectsModule.forFeature([UsersAndRolesEffects, InstitutionEffects]),

@@ -25,6 +25,9 @@ export class LoginComponent implements OnInit {
   status: Status = Status.NORMAL;
   user$ = this.appStore.pipe(select(isUserSelector));
   loggedInUser: any;
+  show2FAOTP: boolean = false;
+  otplength: any;
+  otpValue: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -59,7 +62,8 @@ export class LoginComponent implements OnInit {
     this.store.dispatch(invokeLoginUser(this.loginAuth.value));
     this.actions$.pipe(ofType(loginSuccess)).subscribe((res: any) => {
       console.log(res) 
-      if (res.accessToken !== undefined) {
+      console.log(typeof(res.payload))
+      if (res.accessToken !== undefined && typeof(res.payload) !== 'string') {
         const helper = new JwtHelperService();
         this.loggedInUser = helper.decodeToken(res.accessToken);
         localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
@@ -77,6 +81,8 @@ export class LoginComponent implements OnInit {
             this.router.navigateByUrl('/organization/dashboard');
           // this.showOTPPage = true;
         }
+      } else {
+        this.show2FAOTP = true
       }
     })
     // let auth$ = this.appStore.pipe(select(selectAppAPIResponse));
@@ -104,5 +110,40 @@ export class LoginComponent implements OnInit {
     } else {
       this.router.navigateByUrl('/create-account/institution');
     }
+  }
+
+  verifyOTP() {
+    const {email} = this.loginAuth.value
+    const payload = {
+      userName: email,
+      code: this.otpValue
+    }
+    console.log(payload)
+    
+    // this.store.dispatch(validateGraduateRegistration({payload}))
+    // this.actions$.pipe(ofType(validateGraduateRegistrationSuccess)).subscribe((res: any) => {
+    //   if (res.payload.hasErrors === false) {
+    //     document.getElementById('myModal')?.click()
+    //     this.showOTPPage = true;
+    //     // this.router.navigateByUrl('/')
+    //   }
+    // })
+  }
+  
+  continue() {
+    document.getElementById('myModal')?.click()
+    this.router.navigateByUrl('/auth/organization')
+
+  }
+ 
+  resendOTP() {
+    // const {Email} = this.institutionRegForm.value
+
+    // this.store.dispatch(resendOTP({email: Email}))
+    // this.actions$.pipe(ofType(resendOTPSuccess)).subscribe((res: any) => {
+    //   if (res.message.hasErrors === false) {
+    //     console.log('res', res)
+    //   }
+    // })
   }
 }

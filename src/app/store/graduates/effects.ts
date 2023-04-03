@@ -7,7 +7,7 @@ import { UploadsService } from 'src/app/core/services/uploads/uploads.service';
 import { WalletService } from 'src/app/core/services/wallet/wallet.service';
 import { AppResponseInterface } from 'src/app/types/appState.interface';
 import { setAPIResponseMessage } from '../shared/app.action';
-import { approvePendingGraduate, approveRejectPendingGraduateSuccess, createGraduateRecord, createGraduateRecordSuccess, downloadCSV, downloadCSVSuccess, downloadExcel, downloadExcelSuccess, downloadRecordUploadFormat, downloadRecordUploadFormatSuccess, fundGraduateWallet, fundGraduateWalletSuccess, getAllGraduateRequestDetailForGradaute, getAllGraduateRequestDetailForGradauteSuccess, getAllGraduateRequestForGradaute, getAllGraduateRequestForGradauteSuccess, getAllHubItem, getAllHubItemSuccess, getAllInstitutionUpload, getAllInstitutionUploadSuccess, getGraduateCertificateVerifications, getGraduateCertificateVerificationsSuccess, getGraduateInstitutions, getGraduateInstitutionsSuccess, getGraduateProfile, getGraduateProfileSuccess, getGraduateTransactionHistory, getGraduateTransactionHistorySuccess, getGraduateWalletId, getGraduateWalletIdSuccess, getMyInstitutionNotified, getMyInstitutionNotifiedSuccess, invokeGetAllGraduates, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduates, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, notifyMyInstitution, notifyMyInstitutionSuccess, registerNewGraduate, registerNewGraduateSuccess, rejectPendingGraduate, updateGraduateInstitutions, updateGraduateProfile, updateGraduateProfileSuccess, uploadGraduateRecord, uploadGraduateRecordSuccess, uploadHubItem, uploadHubItemSuccess, validateGraduateRegistration, validateGraduateRegistrationSuccess } from './action';
+import { approvePendingGraduate, approveRejectPendingGraduateSuccess, createGraduateRecord, createGraduateRecordSuccess, deleteHubItem, deleteHubItemSuccess, downloadCSV, downloadCSVSuccess, downloadExcel, downloadExcelSuccess, downloadRecordUploadFormat, downloadRecordUploadFormatSuccess, exportGraduateApplicationAsExcel, exportGraduateApplicationAsExcelSuccess, exportGraduateApplicationCSV, exportGraduateApplicationCSVSuccess, exportGraduateTransactionAsCSV, exportGraduateTransactionAsCSVSuccess, exportGraduateTransactionAsExcel, exportGraduateTransactionAsExcelSuccess, exportGraduateVerificationAsExcel, exportGraduateVerificationAsExcelSuccess, exportGraduateVerificationCSV, exportGraduateVerificationCSVSuccess, fundGraduateWallet, fundGraduateWalletSuccess, getAllGraduateRequestDetailForGradaute, getAllGraduateRequestDetailForGradauteSuccess, getAllGraduateRequestForGradaute, getAllGraduateRequestForGradauteSuccess, getAllHubItem, getAllHubItemSuccess, getAllInstitutionUpload, getAllInstitutionUploadSuccess, getGraduateCertificateVerificationDetail, getGraduateCertificateVerificationDetailSuccess, getGraduateCertificateVerifications, getGraduateCertificateVerificationsSuccess, getGraduateInstitutions, getGraduateInstitutionsSuccess, getGraduateProfile, getGraduateProfileSuccess, getGraduateTransactionHistory, getGraduateTransactionHistorySuccess, getGraduateWalletId, getGraduateWalletIdSuccess, getMyInstitutionNotified, getMyInstitutionNotifiedSuccess, graduateDocumentTypeFilter, graduateDocumentTypeFilterSuccess, graduateTransactionTypeFilter, graduateTransactionTypeFilterSuccess, invokeGetAllGraduates, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduates, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, notifyMyInstitution, notifyMyInstitutionSuccess, registerNewGraduate, registerNewGraduateSuccess, rejectPendingGraduate, searchGraduateRecords, searchGraduateRecordsSuccess, submitGraduateVerificationRequest, submitGraduateVerificationRequestSuccess, submitVerificationReasonForRequest, updateGraduateInstitutions, updateGraduateProfile, updateGraduateProfileSuccess, uploadGraduateRecord, uploadGraduateRecordSuccess, uploadHubItem, uploadHubItemSuccess, validateGraduateRegistration, validateGraduateRegistrationSuccess } from './action';
 
 @Injectable()
 export class GraduatesEffects {
@@ -1012,6 +1012,498 @@ export class GraduatesEffects {
               );
               // read data and update payload
               return getGraduateCertificateVerificationsSuccess({
+                payload: data
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+
+  deleteHubItem$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(deleteHubItem),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const {payload} = action
+        return this.graduateService
+          .deleteHubItem(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return deleteHubItemSuccess({
+                payload: data
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  searchGraduateRecords$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(searchGraduateRecords),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const {payload} = action
+        return this.graduateService
+          .searchGraduateRecords(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return searchGraduateRecordsSuccess({
+                payload: data
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  submitGraduateVerificationRequest$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(submitGraduateVerificationRequest),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const {payload} = action
+        return this.graduateService
+          .submitGraduateVerificationRequest(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return submitGraduateVerificationRequestSuccess({
+                payload: data
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getGraduateCertificateVerificationDetail$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getGraduateCertificateVerificationDetail),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const {id} = action
+        return this.graduateService
+          .getGraduateCertificateVerificationDetail(id)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getGraduateCertificateVerificationDetailSuccess({
+                payload: data
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  exportGraduateApplicationAsExcel$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(exportGraduateApplicationAsExcel),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const {payload} = action
+        return this.graduateService
+          .exportGraduateApplicationAsExcel(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return exportGraduateApplicationAsExcelSuccess({
+                payload: data.payload
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  exportGraduateApplicationCSV$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(exportGraduateApplicationCSV),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const {payload} = action
+        return this.graduateService
+          .exportGraduateApplicationCSV(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return exportGraduateApplicationCSVSuccess({
+                payload: data.payload
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  exportGraduateVerificationAsExcel$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(exportGraduateVerificationAsExcel),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const {payload} = action
+        return this.graduateService
+          .exportGraduateVerificationAsExcel(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return exportGraduateVerificationAsExcelSuccess({
+                payload: data.payload
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  exportGraduateVerificationCSV$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(exportGraduateVerificationCSV),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const {payload} = action
+        return this.graduateService
+          .exportGraduateVerificationCSV(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return exportGraduateVerificationCSVSuccess({
+                payload: data.payload
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  exportGraduateTransactionAsExcel$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(exportGraduateTransactionAsExcel),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const {payload} = action
+        return this.graduateService
+          .exportGraduateTransactionAsExcel(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return exportGraduateTransactionAsExcelSuccess({
+                payload: data.payload
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  exportGraduateTransactionAsCSV$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(exportGraduateTransactionAsCSV),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const {payload} = action
+        return this.graduateService
+          .exportGraduateTransactionAsCSV(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return exportGraduateTransactionAsCSVSuccess({
+                payload: data.payload
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  graduateTransactionTypeFilter$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(graduateTransactionTypeFilter),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        return this.graduateService
+          .graduateTransactionTypeFilter()
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return graduateTransactionTypeFilterSuccess({
+                payload: data.payload
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  graduateDocumentTypeFilter$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(graduateDocumentTypeFilter),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        return this.graduateService
+          .graduateDocumentTypeFilter(action.id)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return graduateDocumentTypeFilterSuccess({
+                payload: data.payload
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  submitVerificationReasonForRequest$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(submitVerificationReasonForRequest),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        return this.graduateService
+          .submitVerificationReasonForRequest(action.payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return submitVerificationReasonForRequest({
                 payload: data
                   
               });
