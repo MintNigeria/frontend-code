@@ -131,7 +131,6 @@ export class InstitutionDetailsComponent implements OnInit {
       middleName, yearOfEntry, yearOfGraduation
 
       }
-    console.log(payload)
     this.store.dispatch(searchGraduateRecords({payload}))
     this.actions$.pipe(ofType(searchGraduateRecordsSuccess)).subscribe((res: any) => {
       console.log(res)

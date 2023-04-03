@@ -11,18 +11,18 @@
         </div>
 
         <div class="grid gap-5">
-          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer"
+          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer" *ngFor="let unit of processingFeeList"
             [ngClass]="certificateOriginal? 'border-[#BDD5FA] bg-[#F5F9FF] text-[#4086EF]' : 'border-[#EAECF0]'"
-            (click)="originalCertificateClicked()">
+            (click)="originalCertificateClicked(unit)">
             <div class="flex gap-4 justify-start items-start w-[92%]">
               <img src="assets/images/graduates/featured-icon.svg" alt="">
               <div>
                 <div class=" text-[#344054]">
-                  Certificate Original
+                  {{unit.documentTypeName}}
                 </div>
 
                 <p *ngIf="certificateOriginal===true">
-                  Certificate would be shared ony to official institution account(s).
+                  {{unit.description}}
                 </p>
 
 
@@ -37,7 +37,7 @@
 
           </div>
 
-          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer"
+          <!-- <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer"
             [ngClass]="certificateTemplate? 'bg-[#F5F9FF] border-[#BDD5FA] text-[#4086EF]' : 'border-[#EAECF0]'"
             (click)="certificateTemplateClicked()">
             <div class="flex gap-4 justify-start items-start w-[92%]">
@@ -98,7 +98,7 @@
               [checked]="transcript" />
 
 
-          </div>
+          </div> -->
         </div>
 
       </div>
@@ -114,14 +114,14 @@
         </div>
 
         <div class="grid gap-5">
-          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer" *ngIf="emailUploadMethod"
+          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer" *ngFor="let option of deliveryType"
             [ngClass]="emailSelect? 'border-[#BDD5FA] bg-[#F5F9FF] text-[#4086EF]' : 'border-[#EAECF0]'"
             (click)="emailClicked()">
             <div class="flex gap-4 justify-start items-start w-[92%]">
               <img src="assets/images/graduates/featured-icon.svg" alt="">
               <div>
                 <div class=" text-[#344054]">
-                  Email Upload - N2,500
+                  {{option.deliveryOptionsType}} - N{{option.fee }}
                 </div>
               </div>
 
@@ -133,7 +133,7 @@
 
 
           </div>
-
+<!-- 
           <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer" *ngIf="fileUploadMethod"
             [ngClass]="fileUpload? 'bg-[#F5F9FF] border-[#BDD5FA] text-[#4086EF]' : 'border-[#EAECF0]'"
             (click)="fileUploadClicked()">
@@ -168,7 +168,7 @@
               [checked]="hardCopy" />
 
 
-          </div>
+          </div> -->
 
         </div>
 

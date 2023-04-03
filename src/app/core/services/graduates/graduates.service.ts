@@ -349,5 +349,13 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
     );
   }
 
+  getActiveDeliveryOptions(processingfeeId: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionConfiguration/ActiveDeliveryOptions/${processingfeeId}`,
+    );
+  }
+
+
+
 
 }

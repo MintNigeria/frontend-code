@@ -73,4 +73,5 @@ export interface GraduatesStateInterface {
   exportVerificationCSV: any;
   exportTransactionExcel: any;
   exportTransactionCSV: any;
+  activeDeliveryoptions: any;
   }

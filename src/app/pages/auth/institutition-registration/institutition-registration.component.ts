@@ -80,7 +80,7 @@ filter: any = {
       EmailAddress: ['', [Validators.required, Validators.email]],
       PhoneNumber : ['', Validators.required],
       Street : ['', Validators.required],
-      recaptchaReactive: [null, Validators.required],
+      recaptchaReactive: [null],
       Title: [''],
       FirstName: [''],
       LastName: [''],

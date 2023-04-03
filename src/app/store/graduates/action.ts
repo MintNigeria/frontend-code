@@ -441,3 +441,13 @@ export const invokeGetGraduateDetailsSuccess = createAction(
     '[Graduates] submit verification request reason success',
     props<{ payload: any }>()
   );
+    
+    export const getActiveDeliveryOptions = createAction(
+      '[Graduates] get configuration active delivery options ',
+      props<{ id: any }>()
+  );
+  
+  export const getActiveDeliveryOptionsSuccess = createAction(
+    '[Graduates] get configuration active delivery options success',
+    props<{ payload: any }>()
+  );
