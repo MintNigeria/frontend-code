@@ -237,4 +237,10 @@ export class InstitutionService
     );
   }
 
+  getDegreeTypeWithInstitutionName(institutionName: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/DegreeType/GetAllDegreeTypesByInstitutionName/${institutionName}`
+    );
+  }
+
 }

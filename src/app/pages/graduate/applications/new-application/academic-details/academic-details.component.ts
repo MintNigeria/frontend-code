@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { getGraduateInstitutions, getGraduateInstitutionsSuccess, searchGraduateRecords, searchGraduateRecordsSuccess } from 'src/app/store/graduates/action';
-import { getAllInstitutionDegreeType, getAllInstitutionDegreeTypeSuccess, getFacultyAndDepartmentByInstitutionName, getFacultyAndDepartmentByInstitutionNameSuccess } from 'src/app/store/institution/action';
+import { getAllInstitutionDegreeType, getAllInstitutionDegreeTypeSuccess, getDegreeTypeWithInstitutionName, getDegreeTypeWithInstitutionNameSuccess, getFacultyAndDepartmentByInstitutionName, getFacultyAndDepartmentByInstitutionNameSuccess } from 'src/app/store/institution/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
@@ -46,6 +46,8 @@ export class AcademicDetailsComponent implements OnInit {
     let currentYear = new Date().getFullYear();
     for (let index = 1920; index <= currentYear; ++index) {
       this.years.push(index)
+      this.years.reverse()
+
 
     }
 
@@ -82,10 +84,13 @@ export class AcademicDetailsComponent implements OnInit {
       this.facultyList = res.payload.payload;
       //console.log(res)
     })
-    this.store.dispatch(getAllInstitutionDegreeType({ payload: { institutionId: event.id } }))
-    this.actions$.pipe(ofType(getAllInstitutionDegreeTypeSuccess)).subscribe((res: any) => {
-      this.degreeType = res.payload.data;
+    this.store.dispatch(getDegreeTypeWithInstitutionName({ name: event.institutionName } ))
+    this.actions$.pipe(ofType(getDegreeTypeWithInstitutionNameSuccess)).subscribe((res: any) => {
+      this.degreeType = res.payload;
+
+      console.log(res.payload)
     })
+   
     this.academicDetailsForm.controls['institutionName'].setValue(event.institutionName)
     this.academicDetailsForm.controls['institutionId'].setValue(event.id)
   }

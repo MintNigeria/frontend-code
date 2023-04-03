@@ -26,7 +26,7 @@ const routes: Routes = [
         component: VerificationReasonComponent
       },
       {
-        path: 'make-payment', component: MakePaymentComponent
+        path: 'make-payment/:id', component: MakePaymentComponent
       },
     ]
   },

@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { resendOTP, resendOTPSuccess } from 'src/app/store/auth/action';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
+import { resendOTP, resendOTPForInstitution, resendOTPForInstitutionSuccess, resendOTPSuccess } from 'src/app/store/auth/action';
 import { invokeGetStateAndLGA } from 'src/app/store/institution copy/action';
 import { stateLgaSelector } from 'src/app/store/institution copy/selector';
 import { createNewInstitution, createNewInstitutionSuccess, getAllInstitutionRecords, getAllInstitutionRecordsSuccess, getInstitutionBody, getInstitutionSector, getInstitutionTypes, ValidateRegistrationCode, ValidateRegistrationCodeSuccess } from 'src/app/store/institution/action';
@@ -45,7 +46,8 @@ filter: any = {
     private appStore: Store<AppStateInterface>,
     private store: Store,
     private router: Router,
-    private actions$  : Actions
+    private actions$  : Actions,
+    private notification: NotificationsService
   ) { }
 
   ngOnInit(): void {
@@ -189,10 +191,10 @@ filter: any = {
   resendOTP() {
     const {EmailAddress} = this.institutionRegForm.value
 
-    this.store.dispatch(resendOTP({email: EmailAddress}))
-    this.actions$.pipe(ofType(resendOTPSuccess)).subscribe((res: any) => {
+    this.store.dispatch(resendOTPForInstitution({email: EmailAddress}))
+    this.actions$.pipe(ofType(resendOTPForInstitutionSuccess)).subscribe((res: any) => {
       if (res.message.hasErrors === false) {
-        console.log('res', res)
+        this.notification.publishMessages('success', res.message.description)
       }
     })
   }

@@ -59,6 +59,8 @@ import {
   getAllInstitutionsDropdownSuccess,
   updatedInstitution,
   updatedInstitutionSuccess,
+  getDegreeTypeWithInstitutionName,
+  getDegreeTypeWithInstitutionNameSuccess,
 } from './action';
 
 @Injectable()
@@ -862,9 +864,9 @@ export class InstitutionEffects {
     );
   });
 
-  getAllInstitutionsDropdown$ = createEffect(() => {
+  getDegreeTypeWithInstitutionName$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(getAllInstitutionsDropdown),
+      ofType(getDegreeTypeWithInstitutionName),
       switchMap((action) => {
         this.appStore.dispatch(
           setAPIResponseMessage({
@@ -876,7 +878,7 @@ export class InstitutionEffects {
           })
         );
         
-        return this.institutionService.getAllInstitutionsDropdown()
+        return this.institutionService.getDegreeTypeWithInstitutionName(action.name)
           .pipe(
             map((data) => {
               this.appStore.dispatch(
@@ -889,8 +891,8 @@ export class InstitutionEffects {
                 })
               );
               // read data and update payload
-              return getAllInstitutionsDropdownSuccess({
-                payload: data
+              return getDegreeTypeWithInstitutionNameSuccess({
+                payload: data.payload
                   
               });
             })

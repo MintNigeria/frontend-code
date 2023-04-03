@@ -61,6 +61,16 @@ export const resendOTPSuccess = createAction(
   props<{ message: string }>()
 );
 
+export const resendOTPForInstitution = createAction(
+  '[requestPasswordReset] Resend Institution OTP',
+  props<{ email: string }>()
+);
+
+export const resendOTPForInstitutionSuccess = createAction(
+  '[requestPasswordReset] Resend Institution OTP Success',
+  props<{ message: string }>()
+);
+
 export const getUserProfile = createAction('[getUserProfile] Get User Profile');
 export const getUserProfileSuccess = createAction(
   '[getUserProfileSuccess] Get User Profile Success',

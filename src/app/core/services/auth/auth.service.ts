@@ -76,6 +76,14 @@ export class AuthService extends BaseURI implements AbstractAuthService {
     );
   }
 
+  resendOTPForInstitution(email: string) {
+    const body = new FormData()
+    body.append('email', email)
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/GenerateCodeForInstitutionRegistration/`, body
+    );
+  }
+
   activateDeactivate2FA(payload: any) {
     return this.http.post<any>(
       `${this.baseUrl}mint-auth/api/v1/Authentication/EnableTwoFactor/`, payload

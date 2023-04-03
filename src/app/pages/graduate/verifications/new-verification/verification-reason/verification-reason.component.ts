@@ -110,8 +110,9 @@ export class VerificationReasonComponent implements OnInit {
     this.store.dispatch(submitVerificationReasonForRequest({payload}))
     this.actions$.pipe(ofType(submitVerificationReasonForRequestSuccess)).subscribe((res: any) => {
       console.log(res)
+      sessionStorage.setItem('ver_pMy', JSON.stringify(res.payload.payload))
       if (res.payload.hasErrors === false) {
-        this.router.navigateByUrl('/graduate/my-verifications/new/make-payment')
+        this.router.navigateByUrl(`/graduate/my-verifications/new/make-payment/${res.payload.payload.transactionId}`)
       }
       
       // routerLink="/graduate/my-verifications/verification-details"
