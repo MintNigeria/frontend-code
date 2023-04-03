@@ -341,3 +341,18 @@ export const downloadOrganizationCSVSuccess = createAction(
     }>()
     );
   
+  export const exportTalentSearchPoolResultsExcel = createAction(
+    '[orgnization] download search pool Excel File ',
+    props<{
+     payload : any
+    }>()
+    );
+  
+  
+  export const exportTalentSearchPoolResultsExcelSucess = createAction(
+    '[orgnization] download search pool Excel File success',
+    props<{
+     payload : any
+    }>()
+    );
+  

@@ -34,6 +34,7 @@ export class ProcessingFeeComponent implements OnInit {
   ipAddress!: any;
   updatedData: any;
   isFeeApproved: any;
+  isFirstFeeApproved: any;
 
   constructor(
      private fb: FormBuilder,
@@ -80,6 +81,7 @@ export class ProcessingFeeComponent implements OnInit {
     this.actions$.pipe(ofType(getInstitutionConfigurationSuccess)).subscribe((res: any) => {
       this.processingFeeList = res.payload.processingFeesVM
       this.isFeeApproved = res.payload.isProcessingFeeApproved
+      this.isFirstFeeApproved = res.payload.isFirstTimeAddingProcessingFee
 
       this.updatedData = this.processingFeeList.map((x: any, index: number) => {
         const a = x.processingFeeConfigVM.map((element: any) => {
