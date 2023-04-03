@@ -55,7 +55,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.store.dispatch(requestPasswordReset(this.loginAuth.value));
     this.actions$.pipe(ofType(requestPasswordResetSuccess)).subscribe((res: any) => {
       if (res.message.hasErrors === false) {
-        this.notificationService.publishMessages('success', res.message.description);
+        this.notificationService.publishMessages('success', 'A password reset link has been sent to your registered email account');
         window.history.back()
       }
     })

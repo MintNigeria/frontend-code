@@ -85,7 +85,7 @@ selectedFileList: any  = []
       FirstName  : ['', Validators.required],
       LastName   : ['', Validators.required],
       Email: ['', [Validators.required, Validators.email]],
-      PhoneNumber : ['', Validators.required],
+      PhoneNumber : ['',[Validators.pattern(/^(\+?234|0)[789]\d{9}$/)]],
       Address : ['', Validators.required],
       Gender: ['', Validators.required],
       City: [null, Validators.required],
@@ -147,6 +147,10 @@ selectedFileList: any  = []
       this.selectedFile = e.target.files[0].name
       this.selectedFileList.push(file)
     }
+  }
+
+  deleteFile(index: number){
+    this.selectedFileList.splice(index, 1);
   }
 
   selectInstitutionBody(event: any) {
