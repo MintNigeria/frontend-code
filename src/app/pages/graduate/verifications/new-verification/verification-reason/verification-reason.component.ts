@@ -1,6 +1,7 @@
 import { LocationStrategy } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
@@ -32,7 +33,8 @@ export class VerificationReasonComponent implements OnInit {
     private store: Store,
     private actions$: Actions,
     private utilityService: UtilityService,
-    private notification: NotificationsService
+    private notification: NotificationsService,
+    private router: Router
 
   ) {
     const userAgent = navigator.userAgent;
@@ -108,6 +110,10 @@ export class VerificationReasonComponent implements OnInit {
     this.store.dispatch(submitVerificationReasonForRequest({payload}))
     this.actions$.pipe(ofType(submitVerificationReasonForRequestSuccess)).subscribe((res: any) => {
       console.log(res)
+      if (res.payload.hasErrors === false) {
+        this.router.navigateByUrl('/graduate/my-verifications/new/make-payment')
+      }
+      
       // routerLink="/graduate/my-verifications/verification-details"
     })
   }

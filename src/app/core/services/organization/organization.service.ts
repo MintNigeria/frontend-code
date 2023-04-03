@@ -238,4 +238,9 @@ export class OrganizationService
       payload
     );
   }
+  exportTalentSearchPoolResults(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-organization/api/v1/OrganizationVerification/Export-Talent-Search-Pool-Result-As-Excel`, {params: payload}
+    );
+  }
 }

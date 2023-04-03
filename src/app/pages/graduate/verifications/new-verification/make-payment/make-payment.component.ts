@@ -223,8 +223,9 @@ openWalletPayment() {
 payWithWallet() {
   const payload = {
     transactionId: Number(this.transactionId),
-    makePaymentType: 4,
+    makePaymentType: 6,
     isCard: false,
+    talentSearchPoolTransactionVM: this.trxData,
     imei: '',
     serialNumber: '',
     device: this.deviceModel,
@@ -251,7 +252,7 @@ selectPaymentMerchant(merchant: string) {
 payWithCard() {
   const payload = {
     transactionId: Number(this.transactionId),
-    makePaymentType: 4,
+    makePaymentType: 5,
     isCard: true,
     imei: '',
     serialNumber: '',
@@ -300,7 +301,7 @@ validatePayment() {
   ////console.log(data)
   const payload = {
     transactionId: Number(this.transactionId),
-    makePaymentType: 4,
+    makePaymentType: 6,
     merchantType: 'PAYSTACK',
     isPaymentSuccessful: this.isTransactionSuccessful === 'success' ? true : false,
     imei: '',
@@ -320,4 +321,5 @@ validatePayment() {
 
   })
 }
+
 }
