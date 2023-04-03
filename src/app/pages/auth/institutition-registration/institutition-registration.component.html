@@ -59,7 +59,7 @@
                   " placeholder="Enter institution name" [name]="'Email'"></app-input> -->
                   <ng-select class="custom-ng-dropdown" (change)="selectInstitutionSector($event)" formControlName="InstitutionName" [selectOnTab]="true"
             placeholder="Select Institution Name">
-            <ng-option *ngFor="let unit of institutionList" [value]="unit?.name">{{unit?.name}}</ng-option>
+            <ng-option *ngFor="let unit of institutionList" [value]="unit?.name">{{unit.name}}</ng-option>
           </ng-select>
         </div>
       </div>
@@ -113,7 +113,7 @@
             <span class="text-danger">*</span> </label>
           <app-input [formGrp]="institutionRegForm" formCtrlName="PhoneNumber" [type]="'number'" [class]="
                     'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " Issuer="Enter phone number" [name]="'Email'"></app-input>
+                  " Issuer="Enter phone number" [name]="'Phone Number'"></app-input>
         </div>
       </div>
       <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
@@ -214,7 +214,7 @@
               id="file1" />
           </div>
         </div>
-        <div *ngFor="let file of selectedFileList"
+        <div *ngFor="let file of selectedFileList; let i = index"
           class="bg-white border rounded-lg p-4 flex justify-between items-center mt-4 mb-3">
           <div class="flex items-center">
             <img src="assets/images/auth/file-pdf.svg" class="mr-4" alt="file ico">
@@ -223,7 +223,9 @@
               <p class="font-inter font-medium text-sm text-lightGray"> {{file.size | filesize}} </p>
             </div>
           </div>
-          <img src="assets/images/auth/del-icon.svg" alt="">
+         <div (click)="deleteFile(i) " class="cursor-pointer">
+          <img src="assets/images/auth/del-icon.svg" alt="" >
+         </div>
           <!-- <div class="">
             </div> -->
         </div>

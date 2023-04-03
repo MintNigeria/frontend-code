@@ -78,7 +78,7 @@ filter: any = {
       LgaId: [null, Validators.required],
       StateId: [null, Validators.required],
       EmailAddress: ['', [Validators.required, Validators.email]],
-      PhoneNumber : ['', Validators.required],
+      PhoneNumber : ['', [Validators.pattern(/^(\+?234|0)[789]\d{9}$/)]],
       Street : ['', Validators.required],
       recaptchaReactive: [null],
       Title: [''],
@@ -98,12 +98,14 @@ filter: any = {
     const filter = {...this.filter, ['InstitutionTypeId'] : event}
     this.filter = filter;
   }
+
   selectInstitutionSector(event: any) {
     const filter = {...this.filter, ['SectorId'] : event}
     this.filter = filter;
     this.store.dispatch(getAllInstitutionRecords({payload: this.filter}))
     this.actions$.pipe(ofType(getAllInstitutionRecordsSuccess)).subscribe((res: any) => {
-        ////console.log(res);
+         // console.log(res);
+
         this.institutionList = res.payload.data
     })
   }
@@ -139,6 +141,10 @@ filter: any = {
       this.selectedFile = e.target.files[0].name
       this.selectedFileList.push(file)
     }
+  }
+
+  deleteFile(index: number){
+    this.selectedFileList.splice(index, 1);
   }
 
   public resolved(captchaResponse: string): void {
