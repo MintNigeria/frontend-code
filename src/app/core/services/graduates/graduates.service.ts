@@ -336,7 +336,7 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
     body.append('InstitutionGraduateId', payload.InstitutionGraduateId )
     body.append('GraduateId', payload.GraduateId )
     body.append('ReasonForRequestType', payload.ReasonForRequestType )
-    body.append('InstitutionId ', payload.InstitutionId  )
+    body.append('InstitutionId', payload.InstitutionId  )
     body.append('IMEI', payload.imei)
     body.append('SerialNumber', payload.serialNumber)
     body.append('Device', payload.device)
