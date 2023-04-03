@@ -15,6 +15,8 @@ import {
   downloadOrganizationCSVSuccess,
   downloadOrganizationExcel,
   downloadOrganizationExcelSuccess,
+  exportTalentSearchPoolResultsExcel,
+  exportTalentSearchPoolResultsExcelSucess,
   fundOrganizationWallet,
   fundOrganizationWalletSuccess,
   getAllOrganization,
@@ -1085,6 +1087,44 @@ export class OrganizationEffects {
               // read data and update payload
               return declineOrganizationRequestSuccess({
                 message: data.description,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  exportTalentSearchPoolResultsExcel$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(exportTalentSearchPoolResultsExcel),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        approveOrganizationRequestSuccess({ message: '' });
+        const { payload } = action;
+        return this.organizationService
+          .exportTalentSearchPoolResults(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return exportTalentSearchPoolResultsExcelSucess({
+                payload: data,
               });
             })
           );

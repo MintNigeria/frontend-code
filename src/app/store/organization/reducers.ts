@@ -3,6 +3,7 @@ import {
   approveOrganizationRequestSuccess,
   downloadOrganizationCSVSuccess,
   downloadOrganizationExcelSuccess,
+  exportTalentSearchPoolResultsExcelSucess,
   fundOrganizationWalletSuccess,
   getAllOrganizationSuccess,
   getAlltalentSearchPoolResultSuccess,
@@ -219,6 +220,15 @@ export const organizationReducer = createReducer(
     };
   }),
   on(downloadOrganizationExcelSuccess, (state, { payload }) => {
+    const link = document.createElement('a');
+    link.download = `${payload.fileName}.csv`;
+    link.href = 'data:image/png;base64,' + payload.base64String;
+    link.click();
+       return {
+      ...state,
+    };
+  }),
+  on(exportTalentSearchPoolResultsExcelSucess, (state, { payload }) => {
     const link = document.createElement('a');
     link.download = `${payload.fileName}.csv`;
     link.href = 'data:image/png;base64,' + payload.base64String;

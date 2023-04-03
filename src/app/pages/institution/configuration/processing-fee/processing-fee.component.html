@@ -332,6 +332,7 @@
                         </app-button>
                         <app-button
                         (buttonClick)="createDocumentType()"
+                        [disabled]="isFirstFeeApproved === true && isFeeApproved === false"
                             [overRideButtonClass]="true" 
                             [customClass]="'w-full h-10 rounded-lg font-normal text-base text-white leading-6 bg-primaryBlue'">Add Document Type
                         </app-button>
