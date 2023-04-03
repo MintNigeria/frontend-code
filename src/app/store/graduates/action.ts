@@ -412,3 +412,32 @@ export const invokeGetGraduateDetailsSuccess = createAction(
     '[Graduates] export graduate Transactions as CSV success',
     props<{ payload: any }>()
   );
+
+    export const graduateTransactionTypeFilter = createAction(
+      '[Graduates] get graduate transaction type filter ',
+  );
+  
+  export const graduateTransactionTypeFilterSuccess = createAction(
+    '[Graduates] get graduate transaction type filter success',
+    props<{ payload: any }>()
+    );
+    
+    export const graduateDocumentTypeFilter = createAction(
+      '[Graduates] get graduate document type filter ',
+      props<{ id: any }>()
+  );
+  
+  export const graduateDocumentTypeFilterSuccess = createAction(
+    '[Graduates] get graduate document type filter success',
+    props<{ payload: any }>()
+  );
+    
+    export const submitVerificationReasonForRequest = createAction(
+      '[Graduates] submit verification request reason ',
+      props<{ payload: any }>()
+  );
+  
+  export const submitVerificationReasonForRequestSuccess = createAction(
+    '[Graduates] submit verification request reason success',
+    props<{ payload: any }>()
+  );

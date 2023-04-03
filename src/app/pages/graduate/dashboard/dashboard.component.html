@@ -1,5 +1,5 @@
 <div class="px-5 md:px-8 pt-9 pb-5">
-    <div class="bg-[#F5F9FF] p-7 rounded-lg flex flex-wrap gap-[14px] items-center">
+    <div class="bg-[#F5F9FF] p-7 rounded-lg flex flex-wrap gap-[14px] items-center" *ngIf="updatedData?.length > 0">
         <img src="assets/images/graduates/exclamation-icon.svg" class="w-12" alt="">
         
         <div class="flex-1">
@@ -7,7 +7,7 @@
             <p class="font-medium font-inter text-[#344054]">Your institution is not registered with NSPMC yet, please notify them so they can register </p>
         </div>
 
-        <app-button [buttonText]="'Notify My Institution'" [overRideButtonClass]="true" [customClass]="'bg-[#4086EF] text-white py-3 px-8 rounded-lg'"></app-button>
+        <app-button (buttonClick)="notifyInstitution()" [buttonText]="'Notify My Institution'" [overRideButtonClass]="true" [customClass]="'bg-[#4086EF] text-white py-3 px-8 rounded-lg'"></app-button>
     </div>
 </div>
 
@@ -23,7 +23,7 @@
             <p class="text-sm font-medium font-inter mt-6">Wallet Balance</p>
             <h3 class="mt-2 text-white font-semibold text-4xl leading-[44px] font-poppins">₦{{cardData?.walletBalance || 0 | commaDelimiter}}</h3>
         </div>
-        <div class="text-right border-t-[#71A5F4] border-t border-solid px-6 py-4 font-medium text-sm font-inter">
+        <div class="text-right border-t-[#71A5F4] border-t border-solid px-6 py-4 font-medium text-sm font-inter" routerLink="/graduate/transactions/fund-wallet">
             Fund Wallet
         </div>
     </div>

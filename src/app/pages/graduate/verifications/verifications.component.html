@@ -65,18 +65,21 @@
                 </p>
                 <img src="assets/images/icons/downward_arrow.svg" />
               </label>
-              <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72">
-                <li><a (click)="status = 'All'">All</a></li>
-                <li>
-                  <a (click)="status = 'Certificate (Original)'">Pending</a>
-                </li>
-                <li>
-                  <a (click)="status = 'Certificate (Template)'">Processing</a>
-                </li>
-                <li>
-                  <a (click)="status = 'Certificate (Certified True Copy)'">Completed</a>
-                </li>
-              </ul>
+              <ul
+              tabindex="0"
+              class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
+            >
+            <li><a (click)="changeStatus(1, 'Pending')">Pending</a>
+            </li>
+            <li><a (click)="changeStatus(2, 'Processing')">Processing</a>
+            </li>
+            <li>
+              <a (click)="changeStatus(7, 'Approved')">Approved</a>
+            </li>
+            <li>
+              <a (click)="changeStatus(6, 'Decline')">Declined</a>
+            </li>
+            </ul>
             </div>
           </div>
 
@@ -236,7 +239,7 @@
 
                 <td class="bg-white">
                   <div class="flex gap-2 items-center"
-                    [routerLink]="'/graduate/my-verifications/verification-details/'+data.graduateVerificationId">
+                    [routerLink]="'/graduate/my-verifications/verification-details/'+data.id">
                     <p class="my-0 text-sm font-inter cursor-pointer font-medium text-[#0D47A1]">
                       View
                     </p>

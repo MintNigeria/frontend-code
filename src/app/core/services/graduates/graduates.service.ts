@@ -254,7 +254,7 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
 
   deleteHubItem(payload: any) {
     return this.http.delete<any>(
-      `${this.baseUrl}mint-auth/api/v1/Graduates/DeleteHubItem`, {params: payload}
+      `${this.baseUrl}mint-auth/api/v1/Graduates/DeletHubItem`, {params: payload}
     );
   }
   
@@ -317,5 +317,37 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
       `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Export-Graduate-Transaction-As-CSV`, {params: payload}
     );
   }
+
+  graduateTransactionTypeFilter() {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/TransactionType-For-Graduate-Filter`,
+    );
+  }
+
+  graduateDocumentTypeFilter(id: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Graduate-DocumentType-For-Filter/${id}`,
+    );
+  }
+
+  submitVerificationReasonForRequest(payload: any) {
+    const {Document} = payload
+    const body = new FormData()
+    body.append('InstitutionGraduateId', payload.InstitutionGraduateId )
+    body.append('GraduateId', payload.GraduateId )
+    body.append('ReasonForRequestType', payload.ReasonForRequestType )
+    body.append('InstitutionId ', payload.InstitutionId  )
+    body.append('IMEI', payload.imei)
+    body.append('SerialNumber', payload.serialNumber)
+    body.append('Device', payload.device)
+    body.append('IpAddress', payload.ipAddress)
+    for (let i = 0; i < Document.length; i++) {
+      body.append('Document[' + i + ']', Document[i]);
+    }
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Graduate-Certificate-Verification-Request`, body
+    );
+  }
+
 
 }

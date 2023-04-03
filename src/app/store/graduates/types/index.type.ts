@@ -63,6 +63,9 @@ export interface GraduatesStateInterface {
   deleteHubItems: any;
   verificationDetails: any;
   searchRecord: any;
+  transactionType: any;
+  documentType: any;
+  submitverificationRequest: any;
   submitVerificationRequest: any;
   exportApplicationExcel: any;
   exportApplicationCSV: any;

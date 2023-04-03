@@ -13,7 +13,7 @@
                         <p class="input_label label_asterisk my-1">Reason for Request</p>
                         <ng-select class="custom-ng-dropdown" (change)="changeReason($event)"
                             formControlName="reasonForRequest" [selectOnTab]="true" placeholder="All">
-                            <ng-option [value]="">All</ng-option>
+                            <ng-option *ngFor="let unit of reasons" [value]="unit.reasonForRequestValue">{{unit.reasonForRequest}}</ng-option>
                         </ng-select>
                     </div>
                   
@@ -34,7 +34,7 @@
                       <label for="file1">
                         <img src="assets/images/auth/upload.svg" alt="uploadIcon"
                           class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
-                        <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> </p>
+                        <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile}} </p>
                         <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
                             class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF
                           or
@@ -45,38 +45,19 @@
                         type="file" id="file1" />
                     </div>
                   </div>
-                  <div class="grid gap-2 md:grid-cols-[auto_auto] justify-between md:w-[80%] w-full mt-8 border border-solid border-[#EAECF0] p-3 rounded-md">
-                    <div class="flex gap-2 items-start">
-                      <img src="assets/images/graduates/valid-id.svg" alt="">
-                      <div class="">
-                        <p class="text-[#344054] text-sm">valid-means-of-id.jpg</p>
-                        <p class="text-[#667085] text-sm font-thin">200 KB – 70% uploaded</p>
-                      </div>
+                  <div *ngFor="let file of selectedFileList"
+                  class="bg-white border rounded-lg p-4 flex justify-between items-center mt-4 mb-3">
+                  <div class="flex items-center">
+                    <img src="assets/images/auth/file-pdf.svg" class="mr-4" alt="file ico">
+                    <div>
+                      <p class="font-inter font-medium text-sm text-failedNormal">{{file.name}}</p>
+                      <p class="font-inter font-medium text-sm text-lightGray"> {{file.size | filesize}} </p>
                     </div>
-                    <img src="assets/images/graduates/loading-circle.svg" alt="">
                   </div>
-                  <div class="grid gap-2 md:grid-cols-[auto_auto] justify-between md:w-[80%] w-full mt-2 border border-solid border-[#EAECF0] p-3 rounded-md">
-                    <div class="flex gap-2 items-start">
-                      <img src="assets/images/graduates/final-clearance.svg" alt="">
-                      <div class="">
-                        <p class="text-[#B42318] text-sm">final-clearance.pdf</p>
-                        <p class="text-[#B42318] text-sm font-thin">16 MB – 70% uploaded</p>
-                        <p class="text-[#B42318] text-sm">Try again</p>
-                      </div>
-                    </div>
-                    <img src="assets/images/graduates/trash.svg" alt="">
-                  </div>
-                  <div class="grid gap-2 md:grid-cols-[auto_auto] justify-between md:w-[80%] w-full mt-2 border border-solid border-[#EAECF0] p-3 rounded-md">
-                    <div class="flex gap-2 items-start">
-                      <img src="assets/images/graduates/notification.svg" alt="">
-                      <div class="">
-                        <p class="text-[#344054] text-sm">notification-of-result.jpg</p>
-                        <p class="text-[#667085] text-sm font-thin">4.2 MB – 100% uploaded</p>
-                      
-                      </div>
-                    </div>
-                    <img src="assets/images/graduates/trashBlue.svg" alt="">
-                  </div>
+                  <img src="assets/images/auth/del-icon.svg" alt="">
+                  <!-- <div class="">
+                    </div> -->
+                </div>
                 <div>
             
                 </div>
@@ -91,5 +72,5 @@
       customClass="w-[80px] h-12 rounded-lg font-inter font-medium text-base leading-6 bg-white border-2 border-solid border-[#EAECF0] text-[#344054]">Back</app-button>
   <app-button [overRideButtonClass]="true"
       customClass="h-12 px-4 rounded-lg hover:bg-primaryBlue font-inter font-medium text-base text-white leading-6 bg-[#4086EF]"
-      routerLink="/graduate/my-verifications/verification-details">Continue</app-button>
+      (buttonClick)="submitRequestReason()">Continue</app-button>
 </div>

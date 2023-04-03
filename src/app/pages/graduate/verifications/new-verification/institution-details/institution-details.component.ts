@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
@@ -29,7 +30,8 @@ export class InstitutionDetailsComponent implements OnInit {
     private appStore: Store<AppStateInterface>,
     private actions$: Actions,
     private utilityService: UtilityService,
-    private notification: NotificationsService
+    private notification: NotificationsService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -125,7 +127,7 @@ export class InstitutionDetailsComponent implements OnInit {
       institutionId,
       institutionName,
       lastName,
-      matricNo,
+      MatriculationNumber: matricNo,
       middleName, yearOfEntry, yearOfGraduation
 
       }
@@ -133,6 +135,10 @@ export class InstitutionDetailsComponent implements OnInit {
     this.store.dispatch(searchGraduateRecords({payload}))
     this.actions$.pipe(ofType(searchGraduateRecordsSuccess)).subscribe((res: any) => {
       console.log(res)
+      if (res.payload.hasErrors === false) {
+        sessionStorage.setItem('ver_Ys', JSON.stringify(res.payload.payload))
+        this.router.navigateByUrl('/graduate/my-verifications/new/search-table')
+      }
     })
   }
 }

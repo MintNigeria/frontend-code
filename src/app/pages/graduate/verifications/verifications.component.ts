@@ -130,6 +130,12 @@ export class VerificationsComponent implements OnInit {
     }
   }
 
+  changeStatus(status: number, name: string) {
+    this.status = name
+    const filter = {...this.filter, ['status'] : String(status)};
+    this.filter = filter;
+  }
+
   search(event: any) {
     if (event) {
       const filter = {...this.filter, ['keyword'] : event}

@@ -124,11 +124,10 @@ filter = {
     }
     this.store.dispatch(uploadHubItem({payload}))
     this.actions$.pipe(ofType(uploadHubItemSuccess)).subscribe((res: any) => {
-      console.log(res)
       if (res.payload.hasErrors === false) {
         this.notification.publishMessages('success', res.payload.description)
-        document.getElementById('confirmChanges')?.click();
-
+        // document.getElementById('confirmChanges')?.click();
+        this.closeConfirmChanges()
       }
     }) 
   }
@@ -158,14 +157,16 @@ filter = {
   deleteFile(data: any) {
     const payload = {
       HubItemId: data.hubItemId,
-      imei: '',
-      serialNumber: '',
-      device: this.deviceModel,
-      ipAddress: this.ipAddress
+      // imei: '',
+      // serialNumber: '',
+      // device: this.deviceModel,
+      // ipAddress: this.ipAddress
     }
     this.store.dispatch(deleteHubItem({payload}))
     this.actions$.pipe(ofType(deleteHubItemSuccess)).subscribe((res: any) => {
-      console.log(res)
+      this.notification.publishMessages('success', res.payload.description)
+      this.store.dispatch(getAllHubItem({payload: this.filter}))
+
     })
   }
 

@@ -81,23 +81,9 @@
                   class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
                 >
                   <li><a (click)="documentType = 'All'">All</a></li>
-                  <li>
-                    <a (click)="documentType = 'Certificate (Original)'"
-                      >Certificate (Original)</a
-                    >
+                  <li *ngFor="let unit of documentTypeList">
+                    <a (click)="changeDocumentType(unit.name)">{{unit.documentType}}</a>
                   </li>
-                  <li>
-                    <a (click)="documentType = 'Certificate (Template)'"
-                      >Certificate (Template)</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      (click)="documentType = 'Certificate (Certified True Copy)'"
-                      >Certificate (Certified True Copy)</a
-                    >
-                  </li>
-                  <li><a (click)="documentType = 'Transcript'">Transcript</a></li>
                 </ul>
               </div>
             </div>
@@ -123,17 +109,10 @@
                   class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
                 >
                   <li><a (click)="status = 'All'">All</a></li>
-                  <li>
-                    <a (click)="status = 'Certificate (Original)'">Pending</a>
+                  <li *ngFor="let unit of requestStatus">
+                    <a (click)="changeStatus(unit.value, unit.name)">{{unit.name}}</a>
                   </li>
-                  <li>
-                    <a (click)="status = 'Certificate (Template)'">Processed</a>
-                  </li>
-                  <li>
-                    <a (click)="status = 'Certificate (Certified True Copy)'"
-                      >Completed</a
-                    >
-                  </li>
+                  
                 </ul>
               </div>
             </div>

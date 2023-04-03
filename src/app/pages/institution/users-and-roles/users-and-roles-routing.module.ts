@@ -9,6 +9,7 @@ import { UserListComponent } from './admin-users/user-list/user-list.component';
 import { UsersComponent } from './admin-users/users/users.component';
 import { OtherUsersComponent } from './other-users/other-users.component';
 import { UsersAndRolesComponent } from './users-and-roles.component';
+import { TwoFactorAuthenticationComponent } from './admin-users/two-factor-authentication/two-factor-authentication.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
           { path: 'users/:id', component: UsersComponent },
           { path: 'roles-and-permission', component: RolesAndPermissionComponent },
           {path: 'roles-and-permission/create-new-role', component: CreateRoleComponent},
+          {path: '2fa', component: TwoFactorAuthenticationComponent},
 
         ]
       },

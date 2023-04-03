@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { getGraduateCertificateVerificationDetail } from 'src/app/store/graduates/action';
+import { getAllGraduateRequestDetailForGradaute, getAllGraduateRequestDetailForGradauteSuccess, getGraduateCertificateVerificationDetail } from 'src/app/store/graduates/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
@@ -27,10 +27,9 @@ export class VerificationDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params['id'];
-    console.log(this.id)
-    this.store.dispatch(getGraduateCertificateVerificationDetail({id: this.id}))
-    this.actions$.pipe(ofType(getGraduateCertificateVerificationDetail)).subscribe((res: any) => {
-      console.log(res)
+    this.store.dispatch(getAllGraduateRequestDetailForGradaute({requestId: this.id}))
+    this.actions$.pipe(ofType(getAllGraduateRequestDetailForGradauteSuccess)).subscribe((res: any) => {
+      this.requestDetail = res.payload.payload
     })
     if (this.id !== undefined){
       this.verificationDetails = true;
