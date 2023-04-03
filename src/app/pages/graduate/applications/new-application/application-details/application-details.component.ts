@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Actions, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { NotificationsService } from 'src/app/core/services/notifications.service';
+import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import { getAllProcessingFee, getAllProcessingFeeSuccess, getInstitutionConfiguration, getInstitutionConfigurationSuccess } from 'src/app/store/configuration/action';
+import { getActiveDeliveryOptions, getActiveDeliveryOptionsSuccess } from 'src/app/store/graduates/action';
+import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
   selector: 'app-application-details',
@@ -24,14 +32,42 @@ export class ApplicationDetailsComponent implements OnInit {
   selectedFile!: null
 allowedFiled = ["image/png", "image/jpeg", "application/pdf"];
 selectedFileList: any  = []
+processingFeeList: any;
+  deliveryType: any;
  
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private store: Store,
+    private appStore: Store<AppStateInterface>,
+    private router: Router,
+    private actions$: Actions,
+    private utilityService: UtilityService,
+    private notification: NotificationsService
   ) { }
 
   ngOnInit(): void {
+     const record: any = sessionStorage.getItem('sel_Ver')
+    const data = JSON.parse(record)
     this.initForm()
+    this.store.dispatch(getInstitutionConfiguration({institutionId: data.institutionId}))
+    this.actions$.pipe(ofType(getInstitutionConfigurationSuccess)).subscribe((res: any) => {
+      console.log(res)
+      this.processingFeeList = res.payload.processingFeesVM
+      // this.isFeeApproved = res.payload.isProcessingFeeApproved
+      // this.isFirstFeeApproved = res.payload.isFirstTimeAddingProcessingFee
+
+      // this.updatedData = this.processingFeeList.map((x: any, index: number) => {
+      //   const a = x.processingFeeConfigVM.map((element: any) => {
+      //     return {
+      //       processingFeeConfigId: element.id,
+      //       fee: element.fee
+      //     }
+      //   });
+       
+      // })
+    })
+
   }
 
   initForm(){
@@ -48,14 +84,19 @@ selectedFileList: any  = []
     })
   }
 
-  originalCertificateClicked(){
-    this.certificateOriginal = true;
-    this.certificateTemplate = false;
-    this.certifiedCopy = false;
-    this.transcript = false;
-    this.hardCopyMethod = true;
-    this.fileUploadMethod = false;
-    this.emailUploadMethod = false;
+  originalCertificateClicked(data: any){
+    this.store.dispatch(getActiveDeliveryOptions({id: data.id}))
+    this.actions$.pipe(ofType(getActiveDeliveryOptionsSuccess)).subscribe((res: any) => {
+      this.deliveryType = res.payload
+      console.log(this.deliveryType)
+    })
+    // this.certificateOriginal = true;
+    // this.certificateTemplate = false;
+    // this.certifiedCopy = false;
+    // this.transcript = false;
+    // this.hardCopyMethod = true;
+    // this.fileUploadMethod = false;
+    // this.emailUploadMethod = false;
   }
 
   certificateTemplateClicked(){
