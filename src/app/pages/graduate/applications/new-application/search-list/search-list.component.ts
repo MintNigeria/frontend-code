@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 export class SearchListComponent implements OnInit {
   edit = 'editModal';
   consentForm!: FormGroup
+  recordList: any
+  data : any
   constructor(
     private router : Router,
     private fb: FormBuilder
@@ -19,38 +21,15 @@ export class SearchListComponent implements OnInit {
     this.consentForm = this.fb.group({
       consent: ['', Validators.required]
     })
-  }
-
-  recordList = [
-    {fullName: 'Chukwuka Chiemelie Esther', matriculationNo: '2014813299', yearOfEntry: '2014', yearOfGraduation: '2019', certificate: 'B.Sc', action: 'View', id: 3},
-    {fullName: 'Chukwuka Chiemelie Esther', matriculationNo: '2014813299', yearOfEntry: '2014', yearOfGraduation: '2019', certificate: 'B.Sc', action: 'View', id: 2},
-    {fullName: 'Chukwuka Chiemelie Esther', matriculationNo: '2014813299', yearOfEntry: '2014', yearOfGraduation: '2019', certificate: 'B.Sc', action: 'View', id: 1},
-   
-  ]
-
-  data = {
-    fullName: 'Adekunle Ciroma',
-    institution: 'University of Lagos',
-    faculty: 'Social Science',
-    department: 'Sociology',
-    degree: 'Bsc',
-    matNumber: '12344',
-    yearOfEntry: '2019',
-    yearOfgrad: '2023',
-    gender: "male",
-    dob: '12/07/1989',
-    docType: 'Certificate(Original)',
-    deliveryOption: 'Email',
-    number: '080912002',
-    reasonForRequest: 'Educational Purpose',
-    state: 'Lagos',
-    payment: 'Sucess',
-    grade:'second class upper'
-
+        const record: any = sessionStorage.getItem('ver_Ys')
+    this.recordList = JSON.parse(record)
 
   }
 
-  viewDetails() {
+
+
+  viewDetails(data: any) {
+    this.data = data;
     document.getElementById('editModal')?.click();
   }
 
@@ -62,6 +41,14 @@ export class SearchListComponent implements OnInit {
     this.router.navigateByUrl('/graduate/my-applications/new/app-details')
     document.getElementById('editModal')?.click();
   }
+
+  proceed() {
+    sessionStorage.setItem('sel_Ver', JSON.stringify(this.data))
+    this.router.navigateByUrl('/graduate/my-applications/new/app-details')
+    document.getElementById('editModal')?.click();
+
+  }
+
   closeEdit() {
     document.getElementById('editModal')?.click();
   }
