@@ -265,7 +265,7 @@ selectedFileList: any = {
     if (this.selectedDestination === 1) {
 
       data = {
-        emailVm: this.emailForm.value,
+        emailOptionVM: this.emailForm.value,
         supportingDocument: this.selectedFileList,
         academicDetails: this.academicDetails,
         paymentDetailsVM: this.paymentDetailsVM
@@ -293,7 +293,7 @@ selectedFileList: any = {
     })
 
     sessionStorage.setItem('appl_Dt', JSON.stringify(data))
-    this.router.navigateByUrl(`/graduate/my-applications/new/review-order`)
+    // this.router.navigateByUrl(`/graduate/my-applications/new/review-order`)
     // this.router.navigateByUrl(`/graduate/my-applications/new/review-order${requestId}`)
   }
 }
