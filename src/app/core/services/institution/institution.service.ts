@@ -53,9 +53,8 @@ export class InstitutionService
     body.append('ApproverVM.FirstName', payload.FirstName)
     body.append('ApproverVM.LastName', payload.LastName)
     body.append('ApproverVM.Designation', payload.Designation)
-    body.append('Documents', payload.Designation)
     for (let i = 0; i < approvalFile.length; i++) {
-      body.append('Document[' + i + ']', approvalFile[i]);
+      body.append('Documents[' + i + ']', approvalFile[i]);
     }
     return this.http.post<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/Institution/RegisterInstitution`, body

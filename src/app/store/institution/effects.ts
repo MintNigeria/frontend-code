@@ -900,4 +900,41 @@ export class InstitutionEffects {
       })
     );
   });
+
+  getAllInstitutionsDropdown$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getAllInstitutionsDropdown),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.institutionService.getAllInstitutionsDropdown()
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getAllInstitutionsDropdownSuccess({
+                payload: data.payload
+                  
+              });
+            })
+          );
+      })
+    );
+  });
 }

@@ -44,10 +44,10 @@ export class NewSearchTalentComponent implements OnInit {
   ngOnInit(): void {
     const data: any = localStorage.getItem('userData')
     this.userData = JSON.parse(data)
-
     this.store.dispatch(getAllInstitutionsDropdown())
     this.actions$.pipe(ofType(getAllInstitutionsDropdownSuccess)).subscribe((res: any) => {
-      this.institutionList = res.payload.payload;
+      this.institutionList = res.payload;
+      console.log(res)
     })
     this.initForm()
     let currentYear = new Date().getFullYear();   
