@@ -15,7 +15,7 @@
                   <div>
                       <p class="input_label label_asterisk my-1">Institution Name <span class="text-danger">*</span></p>
                       <ng-select class="custom-ng-dropdown" (change)="selectInstitutionName($event)"
-                          formControlName="institutionBody" [selectOnTab]="true" placeholder="All">
+                          formControlName="institutionName" [selectOnTab]="true" placeholder="All">
                           <ng-option *ngFor="let unit of institutionList" [value]="unit">{{unit?.institutionName}}</ng-option>
                         </ng-select>
                   </div>
@@ -97,7 +97,7 @@
                       <p class="input_label label_asterisk my-1">Degree Type <span class="text-danger">*</span></p>
                       <ng-select class="custom-ng-dropdown" (change)="changeGender($event)"
                           formControlName="degreeType" [selectOnTab]="true" placeholder="Select degree Type">
-                          <ng-option *ngFor="let unit of degreeType" [value]="unit">{{unit.name}}</ng-option>
+                          <ng-option *ngFor="let unit of degreeType" [value]="unit.name">{{unit.name}}</ng-option>
 
                       </ng-select>
                   </div>
@@ -139,8 +139,8 @@
 
           <app-button (buttonClick)="cancel()" [overRideButtonClass]="true"
               customClass="w-[80px] h-12 rounded-lg font-inter font-medium text-base leading-6 bg-white border-2 border-solid border-[#EAECF0] text-[#344054]">Cancel</app-button>
-          <app-button [overRideButtonClass]="true"
-              customClass="w-[80px] h-12 rounded-lg font-inter font-medium text-base text-white leading-6 bg-[#4086EF]"
+          <app-button [overRideButtonClass]="true" [disabled]="institutionDetailsForm.invalid"
+              customClass="w-[80px] h-12 rounded-lg font-inter font-medium text-base text-white leading-6 bg-primaryBlue"
               (buttonClick)="searchRecord()">Search</app-button>
       </div>
   </form>

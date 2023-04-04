@@ -287,3 +287,15 @@ export const getFacultyAndDepartmentByInstitutionNameSuccess = createAction(
   props<{ payload: any }>()
 );
 
+export const getDegreeTypeWithInstitutionName = createAction(
+  '[institutions] get degree type by institution name ',
+  props<{
+    name: any;
+  }>()
+);
+
+export const getDegreeTypeWithInstitutionNameSuccess = createAction(
+  '[institutions] get degree type by institution name success',
+  props<{ payload: any }>()
+);
+

@@ -7,7 +7,7 @@
         class="pb-4"
         *ngFor="let link of menuLinks"
         routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
+        [routerLinkActiveOptions]="{ exact: false }"
         #rla="routerLinkActive"
         [ngClass]="
           rla.isActive

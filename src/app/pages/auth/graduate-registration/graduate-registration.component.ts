@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 import { Country, State, City }  from 'country-state-city';
 import { registerNewGraduate, registerNewGraduateSuccess, validateGraduateRegistration, validateGraduateRegistrationSuccess } from 'src/app/store/graduates/action';
 import { resendOTP, resendOTPSuccess } from 'src/app/store/auth/action';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 @Component({
   selector: 'app-graduate-registration',
   templateUrl: './graduate-registration.component.html',
@@ -59,7 +60,8 @@ selectedFileList: any  = []
     private appStore: Store<AppStateInterface>,
     private store: Store,
     private router: Router,
-    private actions$  : Actions
+    private actions$  : Actions,
+    private notification: NotificationsService
   ) { }
 
   ngOnInit(): void {
@@ -183,7 +185,6 @@ selectedFileList: any  = []
   }
 
   continueCreation() {
-    console.log('sdsdd')
     const data = {
       approvalFile : this.selectedFileList, ...this.institutionRegForm.value
     }
@@ -206,7 +207,6 @@ selectedFileList: any  = []
       userName: Email,
       code: this.otpValue
     }
-    console.log(payload)
     
     this.store.dispatch(validateGraduateRegistration({payload}))
     this.actions$.pipe(ofType(validateGraduateRegistrationSuccess)).subscribe((res: any) => {
@@ -230,7 +230,7 @@ selectedFileList: any  = []
     this.store.dispatch(resendOTP({email: Email}))
     this.actions$.pipe(ofType(resendOTPSuccess)).subscribe((res: any) => {
       if (res.message.hasErrors === false) {
-        console.log('res', res)
+        this.notification.publishMessages('success', res.message.description)
       }
     })
   }

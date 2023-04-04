@@ -31,7 +31,7 @@
             </div>
             <div>
               <input type="radio" name="certificateType" [value]="4" 
-                class="form-radio h-5 w-5 text-gray-600" [checked]="certificateOriginal" />
+                class="form-radio h-5 w-5 text-gray-600"  />
             </div>
 
 
@@ -116,7 +116,7 @@
         <div class="grid gap-5">
           <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer" *ngFor="let option of deliveryType"
             [ngClass]="emailSelect? 'border-[#BDD5FA] bg-[#F5F9FF] text-[#4086EF]' : 'border-[#EAECF0]'"
-            (click)="emailClicked()">
+            (click)="changeDestination(option)">
             <div class="flex gap-4 justify-start items-start w-[92%]">
               <img src="assets/images/graduates/featured-icon.svg" alt="">
               <div>
@@ -128,7 +128,7 @@
             </div>
             <div>
               <input type="radio" name="deliveryType" [value]="4" class="form-radio h-5 w-5 text-gray-600"
-                [checked]="emailSelect" />
+                 />
             </div>
 
 
@@ -184,58 +184,166 @@
           </p>
         </div>
 
-        <div class="grid gap-5 grid-cols-2">
-          <div class="col-span-2">
-            <p class="input_label label_asterisk my-1">URL</p>
-            <app-input [formGrp]="appDetailsForm" formCtrlName="url" [type]="'text'" [class]="
-                'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-              " placeholder="Enter URL Address" [name]="'urlAddress'"></app-input>
-
+        <ng-container *ngIf="selectedDestination === 1">
+          <div class="grid gap-5 grid-cols-2">
+            <div class="col-span-2">
+              <p class="input_label label_asterisk my-1">Email Address</p>
+              <app-input [formGrp]="emailForm" formCtrlName="email" [type]="'text'" [class]="
+                  'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                " placeholder="Enter email Address" [name]="'urlAddress'"></app-input>
+            </div>
+           
+            <div class="col-span-2">
+              <p class="input_label label_asterisk my-1">Phone Number</p>
+              <app-input [formGrp]="emailForm" formCtrlName="phoneNo" [type]="'number'" [class]="
+                  'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                " placeholder="Enter Phone Number" [name]="'fullName'"></app-input>
+            </div>
+            <!-- <div class="text-sm cursor-pointer flex gap-2" (click)="showAdditionalNumber()">
+              <img src="assets/images/graduates/add.svg" alt="">
+              <p>
+                Add additional Number
+              </p>
+            </div> -->
+            <!-- <div class="col-span-2" *ngIf="additionalNumber">
+              <p class="input_label label_asterisk my-1">Add Phone Number</p>
+              <app-input [formGrp]="appDetailsForm" formCtrlName="additionalPhoneNo" [type]="'number'" [class]="
+                  'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                " placeholder="Enter Phone Number" [name]="'addPhoneNo'"></app-input>
+            </div> -->
+            <div class="col-span-2">
+              <p class="input_label label_asterisk my-1">Reason for request</p>
+              <app-input [formGrp]="emailForm" formCtrlName="reasonForRequest" [type]="'name'" [class]="
+                  'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                " placeholder="Enter reason for Request" [name]="'reasonForRequest'"></app-input>
+            </div>
           </div>
-
-          <div>
-            <p class="input_label label_asterisk my-1">Enter Login Username</p>
-            <app-input [formGrp]="appDetailsForm" formCtrlName="loginUser" [type]="'number'" [class]="
-                'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-              " placeholder="Enter Login Username" [name]="'fullName'"></app-input>
-
+        </ng-container>
+        <ng-container *ngIf="selectedDestination === 2">
+          <div class="grid gap-5 grid-cols-2">
+            <div class="col-span-2">
+              <p class="input_label label_asterisk my-1">URL</p>
+              <app-input [formGrp]="fileUploadForm" formCtrlName="url" [type]="'text'" [class]="
+                  'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                " placeholder="Enter URL Address" [name]="'urlAddress'"></app-input>
+            </div>
+            <div>
+              <p class="input_label label_asterisk my-1">Enter Login Username</p>
+              <app-input [formGrp]="fileUploadForm" formCtrlName="loginUser" [type]="'number'" [class]="
+                  'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                " placeholder="Enter Login Username" [name]="'fullName'"></app-input>
+            </div>
+            <div>
+              <p class="input_label label_asterisk my-1">Enter Login Password</p>
+              <app-input [formGrp]="fileUploadForm" formCtrlName="loginPassword" [type]="'number'" [class]="
+                  'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                " placeholder="Enter Login Password" [name]="'fullName'"></app-input>
+            </div>
+            <div class="col-span-2">
+              <p class="input_label label_asterisk my-1">Phone Number</p>
+              <app-input [formGrp]="fileUploadForm" formCtrlName="phoneNo" [type]="'number'" [class]="
+                  'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                " placeholder="Enter Phone Number" [name]="'fullName'"></app-input>
+            </div>
+            <!-- <div class="text-sm cursor-pointer flex gap-2" (click)="showAdditionalNumber()">
+              <img src="assets/images/graduates/add.svg" alt="">
+              <p>
+                Add additional Number
+              </p>
+            </div> -->
+            <!-- <div class="col-span-2" *ngIf="additionalNumber">
+              <p class="input_label label_asterisk my-1">Add Phone Number</p>
+              <app-input [formGrp]="appDetailsForm" formCtrlName="additionalPhoneNo" [type]="'number'" [class]="
+                  'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                " placeholder="Enter Phone Number" [name]="'addPhoneNo'"></app-input>
+            </div> -->
+            <div class="col-span-2">
+              <p class="input_label label_asterisk my-1">Reason for request</p>
+              <app-input [formGrp]="fileUploadForm" formCtrlName="reasonForRequest" [type]="'name'" [class]="
+                  'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                " placeholder="Enter reason for Request" [name]="'reasonForRequest'"></app-input>
+            </div>
           </div>
-          <div>
-            <p class="input_label label_asterisk my-1">Enter Login Password</p>
-            <app-input [formGrp]="appDetailsForm" formCtrlName="loginPassword" [type]="'number'" [class]="
-                'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-              " placeholder="Enter Login Password" [name]="'fullName'"></app-input>
-
+        </ng-container>
+        <ng-container *ngIf="selectedDestination === 3">
+          <div class="grid gap-5 grid-cols-2" [formGroup]="hardCopyForm">
+            <div class="col-span-2">
+              <p class="input_label label_asterisk my-1">Address</p>
+              <app-input [formGrp]="hardCopyForm" formCtrlName="address" [type]="'text'" [class]="
+                  'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                " placeholder="Enter Address" [name]="'Address'"></app-input>
+            </div>
+            <div>
+              <p class="input_label label_asterisk my-1">Country</p>
+              <ng-select class="custom-ng-dropdown" 
+              formControlName="country" 
+              [selectOnTab]="true" 
+              placeholder="Select Country"
+              (change)="onCountryChange($event)"
+              >
+          <ng-option  *ngFor="let country of countries" [value]="country | json">{{country.name}}</ng-option>
+          </ng-select>
+            </div>
+            <div>
+              <p class="input_label label_asterisk my-1">State</p>
+              <ng-select class="custom-ng-dropdown" 
+              formControlName="state" 
+              [selectOnTab]="true" 
+              placeholder="Select State"
+              (change)="onStateChange($event)"
+              >
+          <ng-option *ngFor="let state of states" [value]="state | json">{{state.name}}</ng-option>
+          </ng-select>
+            </div>
+            <div class="">
+              <p class="input_label label_asterisk my-1">City</p>
+              <ng-select class="custom-ng-dropdown" 
+              formControlName="city" 
+              [selectOnTab]="true" 
+              placeholder="Select City"
+              (change)="onCityChange($event)"
+              >
+          <ng-option *ngFor="let lga of cities" [value]="lga | json">{{lga.name}}</ng-option>
+          </ng-select>
+            </div>
+            <div class="">
+              <p class="input_label label_asterisk my-1">Postal/Zip Code</p>
+              <app-input [formGrp]="hardCopyForm" formCtrlName="zipCode" [type]="'number'" [class]="
+                  'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                " placeholder="Enter Phone Number" [name]="'fullName'"></app-input>
+            </div>
+            <div class="col-span-2">
+              <p class="input_label label_asterisk my-1">Phone Number</p>
+              <app-input [formGrp]="hardCopyForm" formCtrlName="phoneNo" [type]="'number'" [class]="
+                  'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                " placeholder="Enter Phone Number" [name]="'fullName'"></app-input>
+            </div>
+            <!-- <div class="text-sm cursor-pointer flex gap-2" (click)="showAdditionalNumber()">
+              <img src="assets/images/graduates/add.svg" alt="">
+              <p>
+                Add additional Number
+              </p>
+            </div> -->
+            <!-- <div class="col-span-2" *ngIf="additionalNumber">
+              <p class="input_label label_asterisk my-1">Add Phone Number</p>
+              <app-input [formGrp]="appDetailsForm" formCtrlName="additionalPhoneNo" [type]="'number'" [class]="
+                  'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                " placeholder="Enter Phone Number" [name]="'addPhoneNo'"></app-input>
+            </div> -->
+            <div class="col-span-2">
+              <p class="input_label label_asterisk my-1">Reason for request</p>
+              <app-input [formGrp]="appDetailsForm" formCtrlName="reasonForRequest" [type]="'name'" [class]="
+                  'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                " placeholder="Enter reason for Request" [name]="'reasonForRequest'"></app-input>
+            </div>
+            <div class="col-span-2">
+              <p class="input_label label_asterisk my-1">Delivery Method</p>
+              <app-input [formGrp]="hardCopyForm" formCtrlName="deliveryMethod" [type]="'number'" [class]="
+                  'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                " placeholder="Enter Phone Number" [name]="'fullName'"></app-input>
+            </div>
           </div>
-          <div class="col-span-2">
-            <p class="input_label label_asterisk my-1">Phone Number</p>
-            <app-input [formGrp]="appDetailsForm" formCtrlName="phoneNo" [type]="'number'" [class]="
-                'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-              " placeholder="Enter Phone Number" [name]="'fullName'"></app-input>
-
-          </div>
-          <div class="text-sm cursor-pointer flex gap-2" (click)="showAdditionalNumber()">
-            <img src="assets/images/graduates/add.svg" alt="">
-            <p>
-              Add additional Number
-            </p>
-          </div>
-          <div class="col-span-2" *ngIf="additionalNumber">
-            <p class="input_label label_asterisk my-1">Add Phone Number</p>
-            <app-input [formGrp]="appDetailsForm" formCtrlName="additionalPhoneNo" [type]="'number'" [class]="
-                'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-              " placeholder="Enter Phone Number" [name]="'addPhoneNo'"></app-input>
-
-          </div>
-          <div class="col-span-2">
-            <p class="input_label label_asterisk my-1">Reason for request</p>
-            <app-input [formGrp]="appDetailsForm" formCtrlName="reasonForRequest" [type]="'name'" [class]="
-                'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-              " placeholder="Enter reason for Request" [name]="'reasonForRequest'"></app-input>
-
-          </div>
-
-        </div>
+        </ng-container>
 
       </div>
       <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20 my-3 py-5">
@@ -258,125 +366,125 @@
                 <label for="file1">
                   <img src="assets/images/auth/upload.svg" alt="uploadIcon"
                     class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
-                  <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> </p>
+                  <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile}} </p>
                   <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
                       class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF
                     or
                     JPG
                     (max. 5mb) </p>
                 </label>
-                <input (change)="handleFileUpload($event)" class="hidden  file:absolute file:w-full file:h-full"
+                <input (change)="handleFileUpload($event, 1)" class="hidden  file:absolute file:w-full file:h-full"
                   type="file" id="file1" />
               </div>
             </div>
           </div>
           <div>
             <p class="text-black text-base">
-              Valid Means of ID<span class="text-danger">*</span>
+              Valid Means of ID
             </p>
             <div
               class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
               <div>
-                <label for="file1">
+                <label for="file2">
                   <img src="assets/images/auth/upload.svg" alt="uploadIcon"
                     class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
-                  <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> </p>
-                  <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
+                  <p *ngIf="selectedFile2" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile2}} </p>
+                  <p *ngIf="!selectedFile2" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
                       class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF
                     or
                     JPG
                     (max. 5mb) </p>
                 </label>
-                <input (change)="handleFileUpload($event)" class="hidden  file:absolute file:w-full file:h-full"
-                  type="file" id="file1" />
+                <input (change)="handleFileUpload($event, 2)" class="hidden  file:absolute file:w-full file:h-full"
+                  type="file" id="file2" />
               </div>
             </div>
           </div>
           <div>
             <p class="text-black text-base">
-              Student Final Clearance<span class="text-danger">*</span>
+              Student Final Clearance
             </p>
             <div
               class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
               <div>
-                <label for="file1">
+                <label for="file3">
                   <img src="assets/images/auth/upload.svg" alt="uploadIcon"
                     class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
-                  <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> </p>
-                  <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
+                  <p *ngIf="selectedFile3" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile3}} </p>
+                  <p *ngIf="!selectedFile3" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
                       class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF
                     or
                     JPG
                     (max. 5mb) </p>
                 </label>
-                <input (change)="handleFileUpload($event)" class="hidden  file:absolute file:w-full file:h-full"
-                  type="file" id="file1" />
+                <input (change)="handleFileUpload($event, 3)" class="hidden  file:absolute file:w-full file:h-full"
+                  type="file" id="file3" />
               </div>
             </div>
           </div>
           <div>
             <p class="text-black text-base">
-              Notification of Result<span class="text-danger">*</span>
+              Notification of Result
             </p>
             <div
               class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
               <div>
-                <label for="file1">
+                <label for="file4">
                   <img src="assets/images/auth/upload.svg" alt="uploadIcon"
                     class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
-                  <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> </p>
-                  <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
+                  <p *ngIf="selectedFile4" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile4}} </p>
+                  <p *ngIf="!selectedFile4" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
                       class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF
                     or
                     JPG
                     (max. 5mb) </p>
                 </label>
-                <input (change)="handleFileUpload($event)" class="hidden  file:absolute file:w-full file:h-full"
-                  type="file" id="file1" />
+                <input (change)="handleFileUpload($event, 4)" class="hidden  file:absolute file:w-full file:h-full"
+                  type="file" id="file4" />
               </div>
             </div>
           </div>
           <div>
             <p class="text-black text-base">
-              Court Affidavit<span class="text-danger">*</span>
+              Court Affidavit
             </p>
             <div
               class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
               <div>
-                <label for="file1">
+                <label for="file5">
                   <img src="assets/images/auth/upload.svg" alt="uploadIcon"
                     class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
-                  <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> </p>
-                  <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
+                  <p *ngIf="selectedFile5" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile5}} </p>
+                  <p *ngIf="!selectedFile5" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
                       class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF
                     or
                     JPG
                     (max. 5mb) </p>
                 </label>
-                <input (change)="handleFileUpload($event)" class="hidden  file:absolute file:w-full file:h-full"
-                  type="file" id="file1" />
+                <input (change)="handleFileUpload($event, 5)" class="hidden  file:absolute file:w-full file:h-full"
+                  type="file" id="file5" />
               </div>
             </div>
           </div>
           <div>
             <p class="text-black text-base">
-              Police Report<span class="text-danger">*</span>
+              Police Report
             </p>
             <div
               class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
               <div>
-                <label for="file1">
+                <label for="file6">
                   <img src="assets/images/auth/upload.svg" alt="uploadIcon"
                     class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
-                  <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> </p>
-                  <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
+                  <p *ngIf="selectedFile6" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile6}} </p>
+                  <p *ngIf="!selectedFile6" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
                       class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF
                     or
                     JPG
                     (max. 5mb) </p>
                 </label>
-                <input (change)="handleFileUpload($event)" class="hidden  file:absolute file:w-full file:h-full"
-                  type="file" id="file1" />
+                <input (change)="handleFileUpload($event, 6)" class="hidden  file:absolute file:w-full file:h-full"
+                  type="file" id="file6" />
               </div>
             </div>
           </div>
@@ -392,7 +500,7 @@
         customClass="w-[80px] h-12 rounded-lg font-inter font-medium text-base leading-6 bg-white border-2 border-solid border-[#EAECF0] text-[#344054]">Cancel</app-button>
       <app-button [overRideButtonClass]="true"
         customClass="h-12 px-4 rounded-lg hover:bg-primaryBlue font-inter font-medium text-base text-white leading-6 bg-[#4086EF]"
-        routerLink="/graduate/my-applications/new/review-order">Continue</app-button>
+        (buttonClick)="continue()">Continue</app-button>
     </div>
   </form>
 </div>

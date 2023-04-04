@@ -10,6 +10,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ViewReportComponent } from './new-search-talent/make-payment/view-report/view-report.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { institutionReducers } from 'src/app/store/institution/reducers';
+import { InstitutionEffects } from 'src/app/store/institution/effects';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 
 
 @NgModule({
@@ -27,6 +31,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ReactiveFormsModule,
     NgSelectModule,
     NgxPaginationModule,
+    StoreModule.forFeature('institution', institutionReducers),
+    EffectsModule.forFeature([InstitutionEffects]),
+
   ]
 })
 export class TalentSearchPoolModule { }

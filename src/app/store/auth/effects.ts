@@ -27,6 +27,8 @@ import {
   confirm2FActionSuccess,
   activateDeactivate2FA,
   activateDeactivate2FASuccess,
+  resendOTPForInstitution,
+  resendOTPForInstitutionSuccess,
 } from './action';
 
 @Injectable()
@@ -218,6 +220,41 @@ export class AuthEffects {
             );
             // read data and update message
             return resendOTPSuccess({
+              message: data,
+            });
+          })
+        );
+      })
+    );
+  });
+
+  resendOTPForInstitution$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(resendOTPForInstitution),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+
+        return this.authService.resendOTPForInstitution(action.email).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update message
+            return resendOTPForInstitutionSuccess({
               message: data,
             });
           })

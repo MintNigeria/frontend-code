@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { getGraduateWalletId, getGraduateWalletIdSuccess } from 'src/app/store/graduates/action';
 import { getOrganizationWalletId, getOrganizationWalletIdSuccess } from 'src/app/store/organization/action';
 
 @Component({
@@ -20,10 +21,9 @@ export class NewVerificationComponent implements OnInit {
   ngOnInit(): void {
     const data: any = localStorage.getItem('userData')
     this.userData = JSON.parse(data)
-    this.store.dispatch(getOrganizationWalletId({id: this.userData.OrganizationId}))
-    this.actions$.pipe(ofType(getOrganizationWalletIdSuccess)).subscribe((res: any) => {
-      ////console.log(res)
-      this.balance = res.payload.balance;
+    this.store.dispatch(getGraduateWalletId())
+    this.actions$.pipe(ofType(getGraduateWalletIdSuccess)).subscribe((res: any) => {
+      this.balance = res.payload.payload.balance;
     })
   }
 

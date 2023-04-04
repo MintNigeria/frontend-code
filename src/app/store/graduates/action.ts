@@ -451,3 +451,13 @@ export const invokeGetGraduateDetailsSuccess = createAction(
     '[Graduates] get configuration active delivery options success',
     props<{ payload: any }>()
   );
+    
+    export const createGraduateApplication = createAction(
+      '[Graduates] create graduate application ',
+      props<{ payload: any }>()
+  );
+  
+  export const createGraduateApplicationSuccess = createAction(
+    '[Graduates] create graduate application success',
+    props<{ payload: any }>()
+  );
