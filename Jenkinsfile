@@ -2,15 +2,18 @@ pipeline {
     agent any
 
     stages {
-        stage('Build Docker Image ') {
+        stage('Build Docker Image') {
             steps {
-               sh 'cd /var/lib/jenkins/workspace/nspm-client-fe-demo'
-               sh 'sudo docker-compose -f nspm-client-fe.yml build '
+                dir('/var/lib/jenkins/workspace/nspm-client-fe-demo') {
+                    sh 'docker-compose -f nspm-client-fe.yml build'
+                }
             }
-        }   stage('Build Dockeer Container ') {
+        }
+        stage('Build Docker Container') {
             steps {
-               sh 'cd /var/lib/jenkins/workspace/nspm-client-fe-demo'
-               sh 'sudo docker-compose -f nspm-client-fe.yml up -d --force-recreate  '
+                dir('/var/lib/jenkins/workspace/nspm-client-fe-demo') {
+                    sh 'docker-compose -f nspm-client-fe.yml up -d'
+                }
             }
         }
     }
