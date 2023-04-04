@@ -54,11 +54,20 @@ processingFeeList: any;
   city: any;
   countryCode: any;
 selectedFileList: any = {
- 
-
+  whiteBgPassport: null,
+  validIdCard: null,
+  studentFinalClearance: null,
+  notificationOfResult: null,
+  affidavit: null,
+  policceReport: null
 }
   academicDetails: any;
   paymentDetailsVM: any;
+  userData: any;
+  selectedDocumentType: any;
+  selectedDocumentTypeId: any;
+  dispatchFee: any;
+  newDispatchVM: any;
   constructor(
     private fb: FormBuilder,
     private store: Store,
@@ -70,18 +79,21 @@ selectedFileList: any = {
   ) { }
 
   ngOnInit(): void {
+    const data: any = localStorage.getItem('userData')
+    this.userData = JSON.parse(data)
      const record: any = sessionStorage.getItem('sel_Ver')
-    const data = JSON.parse(record)
-    this.academicDetails = data;
+    this.academicDetails = JSON.parse(record);
     this.initForm()
     this.initFileUploadForm()
     this.initEmailForm()
     this.initHardCopyForm()
-    this.store.dispatch(getInstitutionConfiguration({institutionId: data.institutionId}))
+    this.store.dispatch(getInstitutionConfiguration({institutionId: this.academicDetails.institutionId}))
     this.actions$.pipe(ofType(getInstitutionConfigurationSuccess)).subscribe((res: any) => {
-      console.log(res)
       this.processingFeeList = res.payload.processingFeesVM
-      
+      this.dispatchFee = res.payload.dispatchFeeVMs.map((x: any) => {
+        return {fee: x.fee, keyName: x.name.split(' ').join('') , label: x.name}
+      })
+      console.log(this.dispatchFee)
     })
 
   }
@@ -119,19 +131,22 @@ selectedFileList: any = {
       loginPassword: ['', Validators.required],
       phoneNo: ['', Validators.required],
       reasonForRequest: [ '',  Validators.required  ],
-
+      deliveryMethod: 0
     })
   }
   initEmailForm(){
     this.emailForm = this.fb.group ({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       phoneNo: ['', Validators.required],
       reasonForRequest: [ '',  Validators.required  ],
-
+      deliveryMethod: 0
     })
   }
 
   originalCertificateClicked(data: any){
+    console.log(data)
+    this.selectedDocumentType = data.documentTypeName
+    this.selectedDocumentTypeId = data.id
     this.store.dispatch(getActiveDeliveryOptions({id: data.id}))
     this.actions$.pipe(ofType(getActiveDeliveryOptionsSuccess)).subscribe((res: any) => {
       this.deliveryType = res.payload
@@ -158,6 +173,27 @@ selectedFileList: any = {
     this.states = State.getStatesOfCountry(JSON.parse(event).isoCode);
     this.selectedCountry = JSON.parse(event);
     this.hardCopyForm.controls['country'].setValue(this.selectedCountry.name)
+    console.log(this.selectedCountry)
+    if (this.selectedCountry.name === 'Nigeria') {
+      let data  = this.dispatchFee.map((item: any) => {
+        if (item.keyName === "Nipost"  || item.keyName === "WithinState" || item.keyName === "OutsideStateWithinNigeria") {
+          return item
+        }
+      })
+      const a = data.filter(Boolean)
+      this.newDispatchVM = a;
+      console.log(this.newDispatchVM)
+    } else {
+      let newData  = this.dispatchFee.map((item: any) => {
+        if (item.keyName !== "Nipost"  || item.keyName !== "WithinState" || item.keyName !== "OutsideStateWithinNigeria") {
+          return item
+        }
+      })
+      const list = newData.filter(Boolean)
+      this.newDispatchVM = list;
+      console.log(list)
+
+    }
     
     // this.cities = this.selectedState = this.selectedCity = null;
   }
@@ -239,10 +275,10 @@ selectedFileList: any = {
         this.selectedFileList['validIdCard'] = { name: "Copy of Valid Means of Identification", type: 2, File: file }
       } else if (type === 3) {
         this.selectedFile3 = e.target.files[0].name
-        this.selectedFileList['studentFinalClearance'] = { name: "Notification of Result", type: 3, File: file }
+        this.selectedFileList['studentFinalClearance'] = { name: "Student Final Clearance", type: 3, File: file }
       } else if (type === 4) {
         this.selectedFile4 = e.target.files[0].name
-        this.selectedFileList['notificationOfResult'] = { name: "Notification of Result", type: 5, File: file }
+        this.selectedFileList['notificationOfResult'] = { name: "Notification of Result", type: 4, File: file }
       } else if (type === 5) {
         this.selectedFile5 = e.target.files[0].name
         this.selectedFileList['affidavit'] = { name: "Court Affidavit", type: 5, File: file }
@@ -265,35 +301,37 @@ selectedFileList: any = {
     if (this.selectedDestination === 1) {
 
       data = {
-        emailOptionVM: this.emailForm.value,
+        emailOptionVM: [this.emailForm.value],
         supportingDocument: this.selectedFileList,
-        academicDetails: this.academicDetails,
-        paymentDetailsVM: this.paymentDetailsVM
+        academicDetails: {...this.academicDetails, GraduateId : this.userData.GraduateId},
+        paymentDetailsVM: {...this.paymentDetailsVM, documentType: this.selectedDocumentType, documentId: this.selectedDocumentTypeId}
       }
     } else if (this.selectedDestination === 2) {
       data = {
-        fileUploadVm: this.fileUploadForm.value,
+        fileUploadOptionVM: [this.fileUploadForm.value],
         supportingDocument: this.selectedFileList,
-        academicDetails: this.academicDetails,
-        paymentDetailsVM: this.paymentDetailsVM
+        academicDetails: {...this.academicDetails, GraduateId : this.userData.GraduateId},
+        paymentDetailsVM: {...this.paymentDetailsVM, documentType: this.selectedDocumentType, documentId: this.selectedDocumentTypeId}
       }
       
     } else {
       data = {
-        hardCopyVm: this.hardCopyForm.value,
+        hardCopyOptionVM: [this.hardCopyForm.value],
         supportingDocument: this.selectedFileList,
-        academicDetails: this.academicDetails,
-        paymentDetailsVM: this.paymentDetailsVM
+        academicDetails: {...this.academicDetails, GraduateId : this.userData.GraduateId},
+        paymentDetailsVM: {...this.paymentDetailsVM, documentType: this.selectedDocumentType, documentId: this.selectedDocumentTypeId}
       }
 
     }
     this.store.dispatch(createGraduateApplication({payload: data}))
     this.actions$.pipe(ofType(createGraduateApplicationSuccess)).subscribe((res: any) => {
       console.log(res)
+      this.notification.publishMessages('success', res.payload.description)
+      sessionStorage.setItem('app_Data', JSON.stringify(res.payload.payload))
+      this.router.navigateByUrl(`/graduate/my-applications/new/review-order/${res.payload.payload.requestId}`)
+      sessionStorage.setItem('appl_Dt', JSON.stringify(data))
     })
 
-    sessionStorage.setItem('appl_Dt', JSON.stringify(data))
     // this.router.navigateByUrl(`/graduate/my-applications/new/review-order`)
-    // this.router.navigateByUrl(`/graduate/my-applications/new/review-order${requestId}`)
   }
 }
