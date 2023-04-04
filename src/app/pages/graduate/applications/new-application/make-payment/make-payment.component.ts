@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Actions, ofType } from '@ngrx/effects';
@@ -16,7 +16,7 @@ import { getGraduateWalletId, getGraduateWalletIdSuccess } from 'src/app/store/g
   templateUrl: './make-payment.component.html',
   styleUrls: ['./make-payment.component.scss']
 })
-export class MakePaymentComponent implements OnInit {
+export class MakePaymentComponent implements OnInit, OnDestroy {
   pk: string = environment.pkKey
 
   selectedPaymentMethod: string = '';
@@ -36,32 +36,6 @@ export class MakePaymentComponent implements OnInit {
   successModal = "successModal";
 
 
-  searchResults = [
-    {
-      name: 'Adekunle Ciroma',
-      faculty: 'Management Science',
-      department: 'Bank and Finance',
-      matricNo: '123456',
-      gradYear: '2019',
-      action:'Verify'
-    },
-    {
-      name: 'Adekunle Ciroma',
-      faculty: 'Management Science',
-      department: 'Bank and Finance',
-      matricNo: '123456',
-      gradYear: '2019',
-      action:'Verify'
-    },
-    {
-      name: 'Adekunle Ciroma',
-      faculty: 'Management Science',
-      department: 'Bank and Finance',
-      matricNo: '123456',
-      gradYear: '2019',
-      action:'Verify'
-    }
-  ]
   transactionId: any;
   trxData: any;
   userData: any;
@@ -70,6 +44,7 @@ export class MakePaymentComponent implements OnInit {
   ipAddress: any;
   selectedMerchant!: string;
   isTransactionSuccessful: any;
+  applicationData: any;
 
   constructor(
     private fb: FormBuilder,
@@ -97,8 +72,10 @@ export class MakePaymentComponent implements OnInit {
 
   ngOnInit(): void {
     this.transactionId = this.route.snapshot.params['id']
-    const trx : any = sessionStorage.getItem('ver_pMy')
+    const trx : any = sessionStorage.getItem('app_Data')
     this.trxData = JSON.parse(trx)
+    const app_Data : any = sessionStorage.getItem('appl_Dt')
+    this.applicationData = JSON.parse(app_Data)
     const data: any = localStorage.getItem('userData')
     this.userData = JSON.parse(data)
     this.store.dispatch(getGraduateWalletId())
@@ -124,6 +101,20 @@ export class MakePaymentComponent implements OnInit {
     }, 1000);
   }
 
+  get applicationAmount () {
+    console.log(this.applicationData)
+    if (this.applicationData.emailOptionVM !== null) {
+      const amount = this.applicationData.emailOptionVM[0].deliveryMethod + this.applicationData.paymentDetailsVM.fee
+      return amount
+    } else if (this.applicationData.fileUploadOptionVM !== null) {
+      const amount = this.applicationData.fileUploadOptionVM[0].deliveryMethod + this.applicationData.paymentDetailsVM.fee
+      return amount
+    } else {
+      const amount = this.applicationData.hardCopyOptionVM[0].deliveryMethod + this.applicationData.paymentDetailsVM.fee
+      return amount
+      
+    }
+  }
   loadIp() {
     this.utilityService.getuserIP().subscribe((res: any) => {
      this.ipAddress = res.ip
@@ -183,10 +174,10 @@ export class MakePaymentComponent implements OnInit {
     if (this.selectedPaymentMethod == 'creditCard') {
       document.getElementById('successModal')?.click();
       document.getElementById('otpModal')?.click();
-      this.router.navigate(['/graduate/my-verifications']);
+      this.router.navigate(['/graduate/my-applications']);
     } else{
       document.getElementById('successModal')?.click();
-      this.router.navigate(['/graduate/my-verifications']);
+      this.router.navigate(['/graduate/my-applications']);
     }
   }
 
@@ -224,8 +215,8 @@ openWalletPayment() {
 
 payWithWallet() {
   const payload = {
-    transactionId: Number(this.transactionId),
-    makePaymentType: 4,
+    transactionId: Number(this.trxData.transactionId),
+    makePaymentType: 1,
     isCard: false,
     imei: '',
     serialNumber: '',
@@ -252,8 +243,8 @@ selectPaymentMerchant(merchant: string) {
 
 payWithCard() {
   const payload = {
-    transactionId: Number(this.transactionId),
-    makePaymentType: 4,
+    transactionId: Number(this.trxData.transactionId),
+    makePaymentType: 1,
     isCard: true,
     imei: '',
     serialNumber: '',
@@ -301,8 +292,8 @@ onClose() {
 validatePayment(data: any) {
   ////console.log(data)
   const payload = {
-    transactionId: Number(this.transactionId),
-    makePaymentType: 4,
+    transactionId: Number(this.trxData.transactionId),
+    makePaymentType: 1,
     refrenceNumber: data.reference,
     merchantType: 'PAYSTACK',
     isPaymentSuccessful: this.isTransactionSuccessful === 'success' ? true : false,
@@ -317,10 +308,16 @@ validatePayment(data: any) {
     ////console.log(res)
     if (res) {
       this.notification.publishMessages('success', 'successful')
-      this.router.navigate(['/graduate/my-verifications']);      
+      this.router.navigate(['/graduate/my-applications']);      
 
     }
 
   })
 }
+
+ngOnDestroy(): void {
+  sessionStorage.removeItem('app_Data')  
+  sessionStorage.removeItem('appl_Dt')  
+}
+
 }

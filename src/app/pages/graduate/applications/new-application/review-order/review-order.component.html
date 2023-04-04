@@ -11,14 +11,14 @@
         <div class="divide-y divide-[#EAECF0]">
             <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between ">
                 <h5 class="font-medium text-[#344054]">Full Name</h5>
-                <p class="font-medium text-[#667085]">{{data.fullName}}</p>
+                <p class="font-medium text-[#667085]">{{data?.graduteFullName}}</p>
             </div>
             <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
                 <h5 class="font-medium text-[#344054]">
                     Institution Name
                 </h5>
                 <p class="font-medium text-[#667085]">
-                    {{data.institution}}
+                    {{data?.institutionName}}
                 </p>
             </div>
             <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
@@ -27,7 +27,7 @@
                     Faculty
                 </h5>
                 <p class="font-medium text-[#667085]">
-                    {{data.faculty}}
+                    {{data?.facultyName}}
                 </p>
             </div>
             <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
@@ -36,7 +36,7 @@
                     Department
                 </h5>
                 <p class="font-medium text-[#667085]">
-                    {{data.department}}
+                    {{data?.department}}
                 </p>
             </div>
             <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
@@ -45,7 +45,7 @@
                     Degree Type
                 </h5>
                 <p class="font-medium text-[#667085]">
-                    {{data.degree}}
+                    {{data?.degree}}
                 </p>
             </div>
             <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
@@ -54,7 +54,7 @@
                     Matric Number
                 </h5>
                 <p class="font-medium text-[#667085]">
-                    {{data.matNumber}}
+                    {{data?.matriculationNumber}}
                 </p>
             </div>
             <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
@@ -62,7 +62,7 @@
                     Year of Entry
                 </h5>
                 <p class="text-sm text-[#667085]">
-                    {{data.yearOfEntry}}
+                    {{data?.yearOfEntry}}
                 </p>
             </div>
             <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
@@ -70,7 +70,7 @@
                     Year of Graduation
                 </h5>
                 <p class="text-sm text-[#667085]">
-                    {{data.yearOfgrad}}
+                    {{data?.yearOfGraduation}}
                 </p>
             </div>
             <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
@@ -78,7 +78,7 @@
                     Gender
                 </h5>
                 <p class="text-sm text-[#667085]">
-                    {{data.gender}}
+                    {{data?.gender}}
                 </p>
             </div>
 
@@ -101,7 +101,7 @@
                     Document Type
                 </h5>
                 <p class="text-sm text-[#667085]">
-                    {{data.docType}}
+                    {{data?.documentType}}
                 </p>
             </div>
             <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
@@ -110,7 +110,7 @@
                     Delivery Option
                 </h5>
                 <p class="text-sm text-[#667085]">
-                    {{data.deliveryOption}}
+                    {{data?.deliveryOption}}
                 </p>
             </div>
             <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
@@ -119,7 +119,7 @@
                     Destination
                 </h5>
                 <p class="text-sm text-[#667085]">
-                    {{data.state}}
+                    {{data?.state}}
                 </p>
             </div>
             <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
@@ -128,7 +128,7 @@
                     Phone Number
                 </h5>
                 <p class="text-sm text-[#667085]">
-                    {{data.phoneNumber}}
+                    {{data?.phoneNumber}}
                 </p>
             </div>
             <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
@@ -137,7 +137,7 @@
                     Reason for Request
                 </h5>
                 <p class="text-sm text-[#667085]">
-                    {{data.reasonForRequest}}
+                    {{data?.reasonForRequest}}
                 </p>
             </div>
         </div>
@@ -149,10 +149,18 @@
             <p class="text-sm text-[#667085]">Please confirm your supporting document</p>
         </div>
 
-        <div class="grid md:grid-cols-3 grid-cols-2">
-            <img src="assets/images/graduates/sample-document.svg" class="" alt="">
-            <img src="assets/images/graduates/sample-document.svg" class="" alt="">
-            <img src="assets/images/graduates/sample-document.svg" class="" alt="">
+        <div class="flex flex-wrap gap-8">
+            <div *ngFor="let unit of data?.requestSupportingDocumentVM">
+                <div class="relative">
+                    <img src="data:image/png;base64,{{unit.fileUploadVM.path}}" class="w-52 h-52 rounded-lg " alt="">
+                    <div  class="cursor-pointer  absolute top-2 left-2 bg-black px-[6px] rounded-md">
+                        <svg class="h-5 w-5 text-white"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />  <polyline points="7 11 12 16 17 11" />  <line x1="12" y1="4" x2="12" y2="16" /></svg>
+                    </div>
+                    <div  class="cursor-pointer  absolute bottom-2 left-2 bg-lightBlue text-black px-[6px] rounded-md">
+                        <small>{{unit.fileUploadVM.name}}</small>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>

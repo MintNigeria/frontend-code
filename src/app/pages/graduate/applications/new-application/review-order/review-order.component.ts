@@ -1,4 +1,10 @@
+import { LocationStrategy } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Actions, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { getAllGraduateRequestDetailForGradaute, getAllGraduateRequestDetailForGradauteSuccess } from 'src/app/store/graduates/action';
+import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
   selector: 'app-review-order',
@@ -6,104 +12,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./review-order.component.scss']
 })
 export class ReviewOrderComponent implements OnInit {
-   data = {
-    fullName: 'Adekunle Ciroma',
-    institution: 'University of Lagos',
-    faculty: 'Social Science',
-    department: 'Sociology',
-    degree: 'Bsc',
-    matNumber: '12344',
-    yearOfEntry: '2019',
-    yearOfgrad: '2023',
-    gender: "male",
-    dob: '12/07/1989',
-    docType: 'Certificate(Original)',
-    deliveryOption: 'Email',
-    number: '080912002',
-    reasonForRequest: 'Educational Purpose',
-    state: 'Lagos',
-    payment: 'Sucess',
-    grade:'second class upper',
-    phoneNumber: '080748266272'
+   data!: any
 
-
-  }
-
-  graduateList  = [
-  {
-    id: '1',
-    requestID: '#3086',
-    date: '12/01/2023',
-    name: 'AdeKunle Ciroma',
-    number: '080912002',
-    docType: 'Certificate(Original)',
-    institution: 'University of Lagos',
-    status: 'Completed',
-    action: 'view'
-  },
-  {
-    id: '2',
-    requestID: '#3086',
-    date: '12/01/2023',
-    name: 'Phoenix Baker',
-    number: '080912002',
-    docType: 'Certificate(Original)',
-    institution: 'University of Benin',
-    status: 'Pending',
-    action: 'view'
-  },
-  {
-    id: '3',
-    requestID: '#3086',
-    date: '12/01/2023',
-    name: 'Lane Ciroma',
-    number: '080912002',
-    docType: 'Certificate(Original)',
-    institution: 'Lagos State University',
-    status: 'Processing',
-    action: 'view'
-  },
-  {
-    id: '4',
-    requestID: '#3086',
-    date: '12/01/2023',
-    name: 'Demi Wiki',
-    number: '080912002',
-    docType: 'Certificate(Original)',
-    institution: 'Yaba Technology',
-    status: 'Paused',
-    action: 'view'
-  },
-  {
-    id: '5',
-    requestID: '#3086',
-    date: '12/01/2023',
-    name: 'AdeKunle Ciroma',
-    number: '080912002',
-    docType: 'Certificate(Original)',
-    institution: 'University of Lagos',
-    status: 'Completed',
-    action: 'view'
-  },
-  {
-    id: '6',
-    requestID: '#3086',
-    date: '12/01/2023',
-    name: 'AdeKunle Ciroma',
-    number: '080912002',
-    docType: 'Certificate(Original)',
-    institution: 'University of Lagos',
-    status: 'Completed',
-    action: 'view'
-  }
- ]
   graduateId: any;
   institutionData: any;
   institutionId: any;
   record: any;
-  constructor() { }
+  id: any;
+  requestDetail: any;
+  constructor(
+    private route: ActivatedRoute,
+    private location: LocationStrategy,
+    private router: Router,
+    private store: Store,
+    private appStore: Store<AppStateInterface>,
+    private actions$: Actions,
+
+  ) { }
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.params['id'];
+    console.log(this.id)
+    this.store.dispatch(getAllGraduateRequestDetailForGradaute({requestId: this.id}))
+    this.actions$.pipe(ofType(getAllGraduateRequestDetailForGradauteSuccess)).subscribe((res: any) => {
+      this.data = res.payload.payload
+    })
+
   }
 
 
