@@ -1,11 +1,11 @@
-FROM node:18.10 as build-step1
+FROM node:14.20 as build-step1
 
 
 
 RUN mkdir -p /mint_client
 WORKDIR /mint_client
 
-COPY package.json package-lock.json ./mint_client/
+COPY package.json package-lock.json ./
 
 RUN npm install -g @angular/cli
 #RUN npm install nodejs
@@ -25,5 +25,5 @@ FROM nginx:1.17.1-alpine
 
 
 
-COPY --from=build-step1 /mint_client/dist  /usr/share/nginx/html
+COPY --from=build-step1 /mint_client/dist/mint-client  /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
