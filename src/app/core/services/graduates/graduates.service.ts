@@ -350,10 +350,11 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
   }
 
   createGraduateApplication(payload: any) {
+    console.log(payload)
     const { hardCopyOptionVM, emailOptionVM, fileUploadOptionVM } = payload;
 
 	const body = new FormData();
-	for (let i = 0; i < emailOptionVM.length; i++) {
+	for (let i = 0; i < emailOptionVM?.length; i++) {
 		if (payload.emailOptionVM.length !== 0) {
 			body.append(
 				'model.CreateApplicationVM[' + i + '].DeliveryOption',
@@ -361,7 +362,7 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].GraduateId',
-				payload.academicDetails.id,
+				payload.academicDetails.GraduateId,
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].InstitutionId',
@@ -369,11 +370,11 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].PhoneNumber',
-				payload.academicDetails.id,
+				payload.emailOptionVM[i].phoneNo,
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].DocumentType',
-				payload.documentType,
+				payload.paymentDetailsVM.documentType,
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].MatriculationNumber',
@@ -385,42 +386,47 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].ReasonForRequest',
-				payload.emailOptionVM[i].reason,
+				payload.emailOptionVM[i].reasonForRequest,
 			);
+			body.append(
+				'model.CreateApplicationVM[' + i + '].InstitutionGraduateId',
+				payload.academicDetails.id,
+			);
+			body.append(
+				'model.CreateApplicationVM[' + i + '].DocumentId',
+				payload.paymentDetailsVM.documentId,
+			);
+      
 			body.append(
 				'model.CreateApplicationVM[' +
 					i +
 					'].PaymentDetailsVM.ProcessingFeeAmount',
-				payload.paymentDetailsVM.processingFeeAmount,
-			);
-			body.append(
-				'model.CreateApplicationVM[' + i + '].PaymentDetailsVM.DispatchAmount',
-				payload.paymentDetailsVM.dispatchAmount,
+				payload.paymentDetailsVM.fee,
 			);
 			body.append(
 				'model.CreateApplicationVM[' +
 					i +
 					'].SupportingDocuments[0].SupportingDocumentType',
-				payload.supportingDocument[0].type,
+				payload.supportingDocument.whiteBgPassport.type,
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].SupportingDocuments[0].File',
-				payload.supportingDocument[0].File,
+				payload.supportingDocument.whiteBgPassport.File,
 			);
 			body.append(
 				'model.CreateApplicationVM[' +
 					i +
 					'].SupportingDocuments[1].SupportingDocumentType',
-				payload.supportingDocument[1].type,
+				payload.supportingDocument.validIdCard.type,
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].SupportingDocuments[1].File',
-				payload.supportingDocument[1].File,
+				payload.supportingDocument.validIdCard.File,
 			);
 		}
 	}
 
-	for (let i = 0; i < fileUploadOptionVM.length; i++) {
+	for (let i = 0; i < fileUploadOptionVM?.length; i++) {
 		if (payload.fileUploadOptionVM.length !== 0) {
 			body.append(
 				'model.CreateApplicationVM[' + i + '].DeliveryOption',
@@ -436,7 +442,7 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].PhoneNumber',
-				payload.academicDetails.id,
+				payload.fileUploadOptionVM.phoneNo,
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].MatriculationNumber',
@@ -444,15 +450,15 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].DocumentType',
-				payload.documentType,
+				payload.paymentDetailsVM.documentType,
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].FileUploadOptionVM.UrlAddress',
-				payload.fileUploadOptionVM[i].urlAddress,
+				payload.fileUploadOptionVM[i].url,
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].FileUploadOptionVM.LoginUserName',
-				payload.fileUploadOptionVM[i].loginUserName,
+				payload.fileUploadOptionVM[i].loginUser,
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].FileUploadOptionVM.LoginPassword',
@@ -460,178 +466,195 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].ReasonForRequest',
-				payload.fileUploadOptionVM[i].reason,
+				payload.fileUploadOptionVM[i].reasonForRequest,
+			);
+      body.append(
+				'model.CreateApplicationVM[' + i + '].InstitutionGraduateId',
+				payload.academicDetails.id,
+			);
+			body.append(
+				'model.CreateApplicationVM[' + i + '].DocumentId',
+				payload.paymentDetailsVM.documentId,
 			);
 			body.append(
 				'model.CreateApplicationVM[' +
 					i +
 					'].PaymentDetailsVM.ProcessingFeeAmount',
-				payload.paymentDetailsVM.processingFeeAmount,
-			);
-			body.append(
-				'model.CreateApplicationVM[' + i + '].PaymentDetailsVM.PaymentType',
-				payload.paymentDetailsVM.paymentType,
+				payload.paymentDetailsVM.fee,
 			);
 			body.append(
 				'model.CreateApplicationVM[' +
 					i +
 					'].SupportingDocuments[0].SupportingDocumentType',
-				payload.supportingDocument[0].type,
+				payload.supportingDocument.whiteBgPassport.type,
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].SupportingDocuments[0].File',
-				payload.supportingDocument[0].File,
+				payload.supportingDocument.whiteBgPassport.File,
 			);
 			body.append(
 				'model.CreateApplicationVM[' +
 					i +
 					'].SupportingDocuments[1].SupportingDocumentType',
-				payload.supportingDocument[1].type,
+				payload.supportingDocument.validIdCard.type,
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].SupportingDocuments[1].File',
-				payload.supportingDocument[1].File,
+				payload.supportingDocument.validIdCard.File,
 			);
 		}
 	}
-	if (payload.hardCopyOptionVM.length !== 0) {
-		for (let i = 0; i < hardCopyOptionVM.length; i++) {
-			body.append(
-				'model.CreateApplicationVM[' + i + '].DeliveryOption',
-				payload.paymentDetailsVM.deliveryOption,
-			);
-			body.append(
-				'model.CreateApplicationVM[' + i + '].GraduateId',
-				payload.academicDetails.id,
-			);
-			body.append(
-				'model.CreateApplicationVM[' + i + '].PhoneNumber',
-				payload.academicDetails.id,
-			);
-			body.append(
-				'model.CreateApplicationVM[' + i + '].InstitutionId',
-				payload.academicDetails.institutionId,
-			);
-			body.append(
+  for (let i = 0; i < hardCopyOptionVM?.length; i++) {
+
+    if (payload.hardCopyOptionVM.length !== 0) {
+      for (let i = 0; i < hardCopyOptionVM.length; i++) {
+        body.append(
+          'model.CreateApplicationVM[' + i + '].DeliveryOption',
+          payload.paymentDetailsVM.deliveryOption,
+        );
+        body.append(
+          'model.CreateApplicationVM[' + i + '].GraduateId',
+          payload.academicDetails.GraduateId,
+        );
+        body.append(
+          'model.CreateApplicationVM[' + i + '].InstitutionId',
+          payload.academicDetails.institutionId,
+        );
+        			body.append(
 				'model.CreateApplicationVM[' + i + '].DocumentType',
-				payload.documentType,
-			);
-			body.append(
-				'model.CreateApplicationVM[' + i + '].ReasonForRequest',
-				payload.hardCopyOptionVM[i].reason,
+				payload.paymentDetailsVM.documentType,
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].MatriculationNumber',
 				payload.academicDetails.matriculationNumber,
 			);
-			body.append(
-				'model.CreateApplicationVM[' + i + '].HardCopyOptionVM.Country',
-				payload.hardCopyOptionVM[i].country,
-			);
-			body.append(
-				'model.CreateApplicationVM[' + i + '].HardCopyOptionVM.State',
-				payload.hardCopyOptionVM[i].state,
-			);
-			body.append(
-				'model.CreateApplicationVM[' + i + '].HardCopyOptionVM.City',
-				payload.hardCopyOptionVM[i].city,
-			);
-			body.append(
-				'model.CreateApplicationVM[' + i + '].HardCopyOptionVM.postalOrZipCode',
-				payload.hardCopyOptionVM[i].postalOrZipCode,
-			);
-			body.append(
-				'model.CreateApplicationVM[' + i + '].HardCopyOptionVM.Destination',
-				payload.hardCopyOptionVM[i].destinationAddress,
-			);
-			body.append(
-				'model.CreateApplicationVM[' + i + '].HardCopyOptionVM.DispatchMethod',
-				payload.hardCopyOptionVM[i].dispatchMethod,
-			);
-			body.append(
-				'model.CreateApplicationVM[' +
-					i +
-					'].PaymentDetailsVM.ProcessingFeeAmount',
-				payload.paymentDetailsVM.processingFeeAmount,
-			);
-			body.append(
-				'model.CreateApplicationVM[' + i + '].PaymentDetailsVM.PaymentType',
-				payload.paymentDetailsVM.paymentType,
-			);
-			body.append(
-				'model.CreateApplicationVM[' + i + '].PaymentDetailsVM.DispatchAmount',
-				payload.hardCopyOptionVM[i].dispatchAmount,
-			);
-			body.append(
-				'model.CreateApplicationVM[' +
-					i +
-					'].SupportingDocuments[0].SupportingDocumentType',
-				payload.supportingDocument[0].type,
-			);
-			body.append(
-				'model.CreateApplicationVM[' + i + '].SupportingDocuments[0].File',
-				payload.supportingDocument[0].File,
-			);
-			body.append(
-				'model.CreateApplicationVM[' +
-					i +
-					'].SupportingDocuments[1].SupportingDocumentType',
-				payload.supportingDocument[1].type,
-			);
-			body.append(
-				'model.CreateApplicationVM[' + i + '].SupportingDocuments[1].File',
-				payload.supportingDocument[1].File,
-			);
-			if (payload.supportingDocument[2].File.length !== 0) {
-				body.append(
-					'model.CreateApplicationVM[' +
-						i +
-						'].SupportingDocuments[2].SupportingDocumentType',
-					payload.supportingDocument[2].type,
-				);
-				body.append(
-					'model.CreateApplicationVM[' + i + '].SupportingDocuments[2].File',
-					payload.supportingDocument[2].File,
-				);
-			}
-			if (payload.supportingDocument[3].File.length !== 0) {
-				body.append(
-					'model.CreateApplicationVM[' +
-						i +
-						'].SupportingDocuments[3].SupportingDocumentType',
-					payload.supportingDocument[3].type,
-				);
-				body.append(
-					'model.CreateApplicationVM[' + i + '].SupportingDocuments[3].File',
-					payload.supportingDocument[3].File,
-				);
-			}
-			if (payload.supportingDocument[4].File.length !== 0) {
-				body.append(
-					'model.CreateApplicationVM[' +
-						i +
-						'].SupportingDocuments[4].SupportingDocumentType',
-					payload.supportingDocument[4].type,
-				);
-				body.append(
-					'model.CreateApplicationVM[' + i + '].SupportingDocuments[4].File',
-					payload.supportingDocument[4].File,
-				);
-			}
-			if (payload.supportingDocument[5].File.length !== 0) {
-				body.append(
-					'model.CreateApplicationVM[' +
-						i +
-						'].SupportingDocuments[5].SupportingDocumentType',
-					payload.supportingDocument[5].type,
-				);
-				body.append(
-					'model.CreateApplicationVM[' + i + '].SupportingDocuments[5].File',
-					payload.supportingDocument[5].File,
-				);
-			}
-		}
-	}
+        body.append(
+          'model.CreateApplicationVM[' + i + '].PhoneNumber',
+          payload.hardCopyOptionVM[i].phoneNo,
+        );
+       
+        body.append(
+          'model.CreateApplicationVM[' + i + '].ReasonForRequest',
+          payload.hardCopyOptionVM[i].reason,
+        );
+        body.append(
+          'model.CreateApplicationVM[' + i + '].MatriculationNumber',
+          payload.academicDetails.matriculationNumber,
+        );
+        body.append(
+          'model.CreateApplicationVM[' + i + '].HardCopyOptionVM.Country',
+          payload.hardCopyOptionVM[i].country,
+        );
+        body.append(
+          'model.CreateApplicationVM[' + i + '].HardCopyOptionVM.State',
+          payload.hardCopyOptionVM[i].state,
+        );
+        body.append(
+          'model.CreateApplicationVM[' + i + '].HardCopyOptionVM.City',
+          payload.hardCopyOptionVM[i].city,
+        );
+        body.append(
+          'model.CreateApplicationVM[' + i + '].HardCopyOptionVM.postalOrZipCode',
+          payload.hardCopyOptionVM[i].zipCode,
+        );
+        body.append(
+          'model.CreateApplicationVM[' + i + '].HardCopyOptionVM.Destination',
+          payload.hardCopyOptionVM[i].address,
+        );
+        body.append(
+          'model.CreateApplicationVM[' + i + '].HardCopyOptionVM.DispatchMethod',
+          payload.hardCopyOptionVM[i].dispatchMethod,
+        );
+        body.append(
+          'model.CreateApplicationVM[' +
+            i +
+            '].PaymentDetailsVM.ProcessingFeeAmount',
+          payload.paymentDetailsVM.fee,
+        );
+        body.append(
+          'model.CreateApplicationVM[' + i + '].PaymentDetailsVM.DispatchAmount',
+          payload.hardCopyOptionVM[i].deliveryMethod,
+        );
+        body.append(
+          'model.CreateApplicationVM[' + i + '].InstitutionGraduateId',
+          payload.academicDetails.id,
+        );
+        body.append(
+          'model.CreateApplicationVM[' + i + '].DocumentId',
+          payload.paymentDetailsVM.documentId,
+        );
+        body.append(
+          'model.CreateApplicationVM[' +
+            i +
+            '].SupportingDocuments[0].SupportingDocumentType',
+          payload.supportingDocument.whiteBgPassport.type,
+        );
+        body.append(
+          'model.CreateApplicationVM[' + i + '].SupportingDocuments[0].File',
+          payload.supportingDocument.whiteBgPassport.File,
+        );
+        body.append(
+          'model.CreateApplicationVM[' +
+            i +
+            '].SupportingDocuments[1].SupportingDocumentType',
+          payload.supportingDocument.validIdCard.type,
+        );
+        body.append(
+          'model.CreateApplicationVM[' + i + '].SupportingDocuments[1].File',
+          payload.supportingDocument.validIdCard.File,
+        );
+        if (payload.supportingDocument?.studentFinalClearance?.File.length !== 0) {
+          body.append(
+            'model.CreateApplicationVM[' +
+              i +
+              '].SupportingDocuments[2].SupportingDocumentType',
+            payload.supportingDocument.studentFinalClearance?.type,
+          );
+          body.append(
+            'model.CreateApplicationVM[' + i + '].SupportingDocuments[2].File',
+            payload.supportingDocument.studentFinalClearance?.File,
+          );
+        }
+        if (payload.supportingDocument?.notificationOfResult?.File.length !== 0) {
+          body.append(
+            'model.CreateApplicationVM[' +
+              i +
+              '].SupportingDocuments[3].SupportingDocumentType',
+            payload.supportingDocument?.notificationOfResult?.type,
+          );
+          body.append(
+            'model.CreateApplicationVM[' + i + '].SupportingDocuments[3].File',
+            payload.supportingDocument.notificationOfResult.File,
+          );
+        }
+        if (payload.supportingDocument?.affidavit?.File.length !== 0) {
+          body.append(
+            'model.CreateApplicationVM[' +
+              i +
+              '].SupportingDocuments[4].SupportingDocumentType',
+            payload.supportingDocument?.affidavit?.type,
+          );
+          body.append(
+            'model.CreateApplicationVM[' + i + '].SupportingDocuments[4].File',
+            payload.supportingDocument?.affidavit?.File,
+          );
+        }
+        if (payload.supportingDocument?.policceReport?.File.length !== 0) {
+          body.append(
+            'model.CreateApplicationVM[' +
+              i +
+              '].SupportingDocuments[5].SupportingDocumentType',
+            payload.supportingDocument?.policceReport?.type,
+          );
+          body.append(
+            'model.CreateApplicationVM[' + i + '].SupportingDocuments[5].File',
+            payload.supportingDocument?.policceReport?.File,
+          );
+        }
+      }
+    }
+   }
+
     return this.http.post<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/ApplicationRequest`, body
     );

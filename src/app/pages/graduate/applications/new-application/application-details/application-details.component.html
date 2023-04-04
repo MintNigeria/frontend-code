@@ -338,9 +338,13 @@
             </div>
             <div class="col-span-2">
               <p class="input_label label_asterisk my-1">Delivery Method</p>
-              <app-input [formGrp]="hardCopyForm" formCtrlName="deliveryMethod" [type]="'number'" [class]="
-                  'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                " placeholder="Enter Phone Number" [name]="'fullName'"></app-input>
+              <ng-select class="custom-ng-dropdown" 
+              formControlName="deliveryMethod" 
+              [selectOnTab]="true" 
+              placeholder="Select method"
+              >
+          <ng-option *ngFor="let type of newDispatchVM" [value]="type.fee">{{type.label}}</ng-option>
+          </ng-select>
             </div>
           </div>
         </ng-container>
@@ -380,7 +384,7 @@
           </div>
           <div>
             <p class="text-black text-base">
-              Valid Means of ID
+              Valid Means of ID <span class="text-danger">*</span>
             </p>
             <div
               class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
