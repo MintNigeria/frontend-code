@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { createPassword, createPasswordSuccess, invokeLoginUser, loginSuccess } from 'src/app/store/auth/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { Status } from 'src/app/types/shared.types';
@@ -30,7 +31,8 @@ export class CreatePasswordComponent implements OnInit {
     private router: Router,
     private store: Store,
     private appStore: Store<AppStateInterface>,
-    private actions$: Actions
+    private actions$: Actions,
+    private notification: NotificationsService
 
   ) { }
 
@@ -89,8 +91,9 @@ export class CreatePasswordComponent implements OnInit {
     }
     this.store.dispatch(createPassword({...payload }))
     this.actions$.pipe(ofType(createPasswordSuccess)).subscribe((res: any) => {
-     ////console.log(res)
-     if (res.hasErrors === false) {
+     console.log(res)
+     if (res.payload.hasErrors === false) {
+      this.notification.publishMessages('success', res.payload.description)
       this.router.navigateByUrl('/')
      }
    }) 

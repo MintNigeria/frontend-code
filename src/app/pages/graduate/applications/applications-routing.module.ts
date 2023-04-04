@@ -28,7 +28,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'review-order',
+        path: 'review-order/:id',
         component: ReviewOrderComponent
       },
       {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Actions, ofType } from '@ngrx/effects';
@@ -9,13 +9,14 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 declare var PaystackPop: any;
 import { environment } from 'src/environments/environment';
+import { getGraduateWalletId, getGraduateWalletIdSuccess } from 'src/app/store/graduates/action';
 
 @Component({
   selector: 'app-make-payment',
   templateUrl: './make-payment.component.html',
   styleUrls: ['./make-payment.component.scss']
 })
-export class MakePaymentComponent implements OnInit {
+export class MakePaymentComponent implements OnInit, OnDestroy {
   pk: string = environment.pkKey
 
   selectedPaymentMethod: string = '';
@@ -96,20 +97,20 @@ export class MakePaymentComponent implements OnInit {
 
   ngOnInit(): void {
     this.transactionId = this.route.snapshot.params['id']
-    const trx : any = sessionStorage.getItem('telx_pl')
+    const trx : any = sessionStorage.getItem('ver_pMy')
     this.trxData = JSON.parse(trx)
     const data: any = localStorage.getItem('userData')
     this.userData = JSON.parse(data)
-    this.store.dispatch(getOrganizationWalletId({id: this.userData.OrganizationId}))
-    this.actions$.pipe(ofType(getOrganizationWalletIdSuccess)).subscribe((res: any) => {
-      this.balance = res.payload.balance;
+    this.store.dispatch(getGraduateWalletId())
+    this.actions$.pipe(ofType(getGraduateWalletIdSuccess)).subscribe((res: any) => {
+      this.balance = res.payload.payload.balance;
+
     })
     this.loadIp();
 
 
     this.initPaymentForm()
     setTimeout(() => {
-      this.populateForm()
     }, 2000);
 
     const interval = setInterval(() => {
@@ -137,15 +138,7 @@ export class MakePaymentComponent implements OnInit {
     })
   }
 
-  populateForm() {
-    this.paymentForm.patchValue({
-      cardNumber: '1234 1234 1234 2123',
-      expiryMonth: '11',
-      expiryYear: '27',
-      cvc: '789',
-      cardholderName: 'Chiemela Esther',
-    })
-  }
+
 
   openOtpModal(){
     document.getElementById('otpModal')?.click();
@@ -181,10 +174,10 @@ export class MakePaymentComponent implements OnInit {
     if (this.selectedPaymentMethod == 'creditCard') {
       document.getElementById('successModal')?.click();
       document.getElementById('otpModal')?.click();
-      this.router.navigate(['organization/talent-search-pool/view-report/2']);
+      this.router.navigate(['/graduate/my-verifications']);
     } else{
       document.getElementById('successModal')?.click();
-      this.router.navigate(['organization/talent-search-pool/view-report/2']);
+      this.router.navigate(['/graduate/my-verifications']);
     }
   }
 
@@ -223,9 +216,8 @@ openWalletPayment() {
 payWithWallet() {
   const payload = {
     transactionId: Number(this.transactionId),
-    makePaymentType: 6,
+    makePaymentType: 4,
     isCard: false,
-    talentSearchPoolTransactionVM: this.trxData,
     imei: '',
     serialNumber: '',
     device: this.deviceModel,
@@ -252,7 +244,7 @@ selectPaymentMerchant(merchant: string) {
 payWithCard() {
   const payload = {
     transactionId: Number(this.transactionId),
-    makePaymentType: 5,
+    makePaymentType: 4,
     isCard: true,
     imei: '',
     serialNumber: '',
@@ -291,17 +283,18 @@ launchPaystack() {
 onSuccess(trx: any) {
   ////console.log(trx)
   this.isTransactionSuccessful = trx.status
-    this.validatePayment()
+    this.validatePayment(trx)
 }
 onClose() {
   ////console.log('trx')
 }
 
-validatePayment() {
+validatePayment(data: any) {
   ////console.log(data)
   const payload = {
     transactionId: Number(this.transactionId),
-    makePaymentType: 6,
+    makePaymentType: 4,
+    refrenceNumber: data.reference,
     merchantType: 'PAYSTACK',
     isPaymentSuccessful: this.isTransactionSuccessful === 'success' ? true : false,
     imei: '',
@@ -315,11 +308,16 @@ validatePayment() {
     ////console.log(res)
     if (res) {
       this.notification.publishMessages('success', 'successful')
-      this.router.navigate(['organization/verifications']);      
+      this.router.navigate(['/graduate/my-verifications']);      
 
     }
 
   })
+}
+
+ngOnDestroy(): void {
+  sessionStorage.removeItem('ver_pMy')
+  sessionStorage.removeItem('sel_Ver')
 }
 
 }
