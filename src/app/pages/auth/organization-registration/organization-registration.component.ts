@@ -12,8 +12,6 @@ import { registerOrganization, registerOrganizationSuccess, validateOrganization
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { environment } from 'src/environments/environment';
 import { Country, State, City }  from 'country-state-city';
-import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
-import { resendOTP, resendOTPSuccess } from 'src/app/store/auth/action';
 
 @Component({
   selector: 'app-organization-registration',
@@ -56,8 +54,7 @@ selectedFileList: any  = []
     private appStore: Store<AppStateInterface>,
     private store: Store,
     private router: Router,
-    private actions$  : Actions,
-    private notification: NotificationsService
+    private actions$  : Actions
   ) { }
 
   ngOnInit(): void {
@@ -211,14 +208,7 @@ selectedFileList: any  = []
   }
  
   resendOTP() {
-    const {EmailAddress} = this.institutionRegForm.value
 
-    this.store.dispatch(resendOTP({email: EmailAddress}))
-    this.actions$.pipe(ofType(resendOTPSuccess)).subscribe((res: any) => {
-      if (res.message.hasErrors === false) {
-        this.notification.publishMessages('success', res.message.description)
-      }
-    })
   }
 
 }

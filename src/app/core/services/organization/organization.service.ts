@@ -41,7 +41,7 @@ export class OrganizationService
     body.append('RegisteringBody', payload.RegisteringBody)
     body.append('Name', payload.Name)
     body.append('DateOfIncorporation', payload.DateOfIncorporation)
-    body.append('CAC', payload.CAC)
+    body.append('RegistrationNumber', payload.CAC)
     body.append('State', payload.State)
     body.append('City', payload.City)
     body.append('Country', payload.Country)
@@ -52,9 +52,8 @@ export class OrganizationService
     body.append('ApproverVM.FirstName', payload.FirstName)
     body.append('ApproverVM.LastName', payload.LastName)
     body.append('ApproverVM.Designation', payload.Designation)
-    body.append('Documents', payload.Designation)
     for (let i = 0; i < approvalFile.length; i++) {
-      body.append('Document[' + i + ']', approvalFile[i]);
+      body.append('Documents[' + i + ']', approvalFile[i]);
     }
     return this.http.post<any>(
       `${this.baseUrl}mint-organization/api/v1/Organization/CreateOrganization`, body
@@ -82,7 +81,7 @@ export class OrganizationService
 
   validateOrganizationCode(payload: any) {
     return this.http.post<any>(
-      `${this.baseUrl}mint-organization/api/v1/OrganizationUser/EmailVerification`, payload
+      `${this.baseUrl}mint-auth/api/v1/OrganizationUser/EmailVerification`, payload
     );
   }
 
