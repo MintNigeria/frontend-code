@@ -29,6 +29,8 @@ import {
   activateDeactivate2FASuccess,
   resendOTPForInstitution,
   resendOTPForInstitutionSuccess,
+  resetPassword,
+  resetPasswordSuccess,
 } from './action';
 
 @Injectable()
@@ -150,6 +152,43 @@ export class AuthEffects {
               );
               // read data and update message
               return createPasswordSuccess({
+                payload: data,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  resetPassword$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(resetPassword),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const { payload } = action;
+        return this.authService
+          .resetPassword(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update message
+              return resetPasswordSuccess({
                 payload: data,
               });
             })

@@ -72,13 +72,11 @@ export class ApplicationsComponent implements OnInit {
     this.userData = JSON.parse(data)
     this.store.dispatch(getAllGraduateRequestForGradaute({payload: {...this.filter, GraduateId: this.userData.GraduateId}}))
     this.actions$.pipe(ofType(getAllGraduateRequestForGradauteSuccess)).subscribe((res: any) => {
-      console.log(res)
       this.graduateList = res.payload.payload
       // this.balance = res.payload;
     })
     this.store.dispatch(graduateDocumentTypeFilter({id: this.userData.GraduateId}))
     this.actions$.pipe(ofType(graduateDocumentTypeFilterSuccess)).subscribe((res: any) => {
-      console.log(res)
       this.documentTypeList = res.payload
     })
     this.searchForm.controls.searchPhrase.valueChanges

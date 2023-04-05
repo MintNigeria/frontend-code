@@ -27,17 +27,23 @@ export class ViewApplicationComponent implements OnInit {
     this.requestId = this.route.snapshot.params['id']
     this.store.dispatch(getAllGraduateRequestDetailForGradaute({requestId: this.requestId}))
     this.actions$.pipe(ofType(getAllGraduateRequestDetailForGradauteSuccess)).subscribe((res: any) => {
-      console.log(res)
       this.requestDetail = res.payload.payload
     })
   }
 
-  download(file: any) {
-    console.log(file)
-       const link = document.createElement('a');
-        link.download = `${file.fileUploadVM.name}`;
-        link.href = 'data:image/png;base64,' + file.fileUploadVM.path;
-        link.click();
+  download(data: any) {
+    if (data.contentType === 'application/pdf') {
+      const link = document.createElement('a');
+      link.download = `${data.fileUploadVM.name}`;
+      link.href = 'data:application/pdf;base64,' + data.fileUploadVM.path;
+      link.click();
+    } else {
+      const link = document.createElement('a');
+      link.download = `${data.fileUploadVM.name}`;
+      link.href = 'data:image/png;base64,' + data.fileUploadVM.path;
+      link.click();
+
+    }
   }
 
 }

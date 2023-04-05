@@ -10,6 +10,7 @@ import {
   requestPasswordResetSuccess,
   resendOTPForInstitutionSuccess,
   resendOTPSuccess,
+  resetPasswordSuccess,
 } from './action';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -67,6 +68,12 @@ export const authReducers = createReducer(
     return {
       ...state,
       message,
+    };
+  }),
+  on(resetPasswordSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      payload,
     };
   }),
   on(resendOTPForInstitutionSuccess, (state, { message }) => {

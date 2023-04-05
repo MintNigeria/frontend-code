@@ -128,6 +128,8 @@ filter = {
         this.notification.publishMessages('success', res.payload.description)
         // document.getElementById('confirmChanges')?.click();
         this.closeConfirmChanges()
+        this.store.dispatch(getAllHubItem({payload: this.filter}))
+
       }
     }) 
   }
@@ -148,11 +150,22 @@ filter = {
   }
 
   downloadFile(data: any) {
-    const link = document.createElement('a');
-    link.download = `${data.documentName}`;
-    link.href = 'data:image/png;base64,' + data.base64;
-    link.click();
+    console.log(data)
+    if (data.fileType === 'application/pdf') {
+      const link = document.createElement('a');
+      link.download = `${data.documentName}`;
+      link.href = 'data:application/pdf;base64,' + data.base64;
+      link.click();
+    } else {
+      const link = document.createElement('a');
+      link.download = `${data.documentName}`;
+      link.href = 'data:image/png;base64,' + data.base64;
+      link.click();
+
+    }
   }
+
+
 
   deleteFile(data: any) {
     const payload = {

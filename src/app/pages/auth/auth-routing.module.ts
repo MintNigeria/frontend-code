@@ -7,6 +7,7 @@ import { GraduateRegistrationComponent } from './graduate-registration/graduate-
 import { InstitutitionRegistrationComponent } from './institutition-registration/institutition-registration.component';
 import { LoginComponent } from './login/login.component';
 import { OrganizationRegistrationComponent } from './organization-registration/organization-registration.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'create-account/organization', component: OrganizationRegistrationComponent },
       { path: 'create-account/graduate', component: GraduateRegistrationComponent  },
       { path: 'create-password/:email', component: CreatePasswordComponent },
+      { path: 'reset-password', component: ResetPasswordComponent },
       { path: '',   redirectTo: '/auth/login', pathMatch: 'full' },
     ],
   },
