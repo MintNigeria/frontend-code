@@ -47,6 +47,13 @@ export class AuthService extends BaseURI implements AbstractAuthService {
     );
   }
 
+  resetPassword(payload: any) {
+    return this.http.post(
+      `${this.baseUrl}mint-auth/api/v1/Authentication/PasswordReset`,
+      payload
+    );
+  }
+
   createPassword(payload: ICreatePassword) {
     return this.http.post(
       `${this.baseUrl}mint-auth/api/v1/Authentication/CreatePassword`,

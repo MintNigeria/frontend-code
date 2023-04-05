@@ -74,5 +74,10 @@ export class CreateRoleComponent implements OnInit {
      
   }
 
+
+  cancel() {
+    window.history.back()
+  }
+
   
 }

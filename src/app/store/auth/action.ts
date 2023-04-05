@@ -61,6 +61,16 @@ export const resendOTPSuccess = createAction(
   props<{ message: string }>()
 );
 
+export const resetPassword = createAction(
+  '[requestPasswordReset] Resend OTP',
+  props<{ payload: IResetPassword }>()
+);
+
+export const resetPasswordSuccess = createAction(
+  '[requestPasswordReset] Resend OTP Success',
+  props<{ payload: any }>()
+);
+
 export const resendOTPForInstitution = createAction(
   '[requestPasswordReset] Resend Institution OTP',
   props<{ email: string }>()

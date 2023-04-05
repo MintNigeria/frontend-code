@@ -20,6 +20,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LogoutModalComponent } from './components/logout-modal/logout-modal.component';
 import { RequestEmptyStateComponent } from './request-empty-state/request-empty-state.component';
+import { TrustedURLPipe } from '../core/pipe/trustedURLPipe.pipe';
 
 const components: any[] = [
   InputComponent,
@@ -32,6 +33,7 @@ const components: any[] = [
   StatusTabComponent,
   ModalComponent,
   FilesizePipe,
+  TrustedURLPipe,
   CommaDelimiterPipe,
   CheckMarkComponent,
   DateRangeComponent,

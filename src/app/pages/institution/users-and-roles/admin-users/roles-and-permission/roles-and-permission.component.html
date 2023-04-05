@@ -31,7 +31,7 @@
                             <p class="font-inter font-medium text-base text-darkGray mb-4">Custom Roles</p>
                             <div class="bg-[#F9FAFB] p-[6px]">
                                 <div *ngFor="let role of customeRoleList" (click)="changeRole(role)"
-                                    class="flex items-center gap-2  pl-[14px] py-[10px]">
+                                    class="flex items-center justify-between gap-2  pl-[14px] py-[10px]">
                                     <p class="font-inter cursor-pointer font-medium text-base text-failedNormal">
                                         {{role.name}}</p> <span
                                         class="flex px-[10px] py-[2px] rounded-lg bg-[#F2F4F7] font-medium text-sm font-inter text-failedNormal">{{role.usersCount}}</span>

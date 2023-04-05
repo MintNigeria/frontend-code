@@ -1,8 +1,8 @@
 <div class="border-1.5 rounded-t-md">
     <h3 class="py-4  border-b-1.5 px-6 font-sans font-bold text-base text-black">Institutions</h3>
     <div class="p-6 " [formGroup]="profileForm">
-        <div class="border-b" formArrayName="institutions" *ngFor="let item of institutions.controls; let i = index">
-            <div class="lg:w-10/12 " [formGroupName]="i" >
+        <div class="border-b" >
+            <div class="lg:w-10/12 " >
                 <div class="flex gap-6 mb-9" >
                     <div class="w-full md:w-1/4">
                         <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
@@ -11,14 +11,14 @@
                     </div>
                     <div class="w-full md:w-2/3">
                         <div class="">
-                            <!-- <app-input 
+                            <app-input 
                             [readonly]="true"
                             [formGrp]="profileForm" 
                             formCtrlName="body" 
                             [type]="'text'" 
                             [class]="'px-4 h-[52px] w-full bg-grayWhite border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                             Issuer="Enter your Institution"
-                            [name]="'name'"></app-input> -->
+                            [name]="'name'"></app-input>
                         </div>
                     </div>
                 </div>
@@ -30,14 +30,14 @@
                     </div>
                     <div class="w-full md:w-2/3">
                         <div class="">
-                            <!-- <app-input 
+                            <app-input 
                             [readonly]="true"
                             [formGrp]="profileForm" 
                             formCtrlName="type" 
                             [type]="'text'" 
                             [class]="'px-4 h-[52px] w-full bg-grayWhite border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                             Issuer="Enter your Institution"
-                            [name]="'name'"></app-input> -->
+                            [name]="'name'"></app-input>
                         </div>
                     </div>
                 </div>
@@ -49,14 +49,14 @@
                     </div>
                     <div class="w-full md:w-2/3">
                         <div class="">
-                            <!-- <app-input 
+                            <app-input 
                             [readonly]="true"
                             [formGrp]="profileForm" 
                             formCtrlName="sector" 
                             [type]="'text'" 
                             [class]="'px-4 h-[52px] w-full bg-grayWhite border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                             Issuer="Enter your Institution"
-                            [name]="'name'"></app-input> -->
+                            [name]="'name'"></app-input>
                         </div>
                     </div>
                 </div>
@@ -68,14 +68,14 @@
                     </div>
                     <div class="w-full md:w-2/3">
                         <div class="">
-                            <!-- <app-input 
+                            <app-input 
                             [readonly]="true"
                             [formGrp]="profileForm" 
                             formCtrlName="name" 
                             [type]="'text'" 
                             [class]="'px-4 h-[52px] w-full bg-grayWhite border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                             Issuer="Enter your Institution"
-                            [name]="'name'"></app-input> -->
+                            [name]="'name'"></app-input>
                         </div>
                     </div>
                 </div>
@@ -268,7 +268,7 @@
                             placeholder="Select Department"
                             
                             >
-                            <ng-option *ngFor="let unit of departmentList" [value]="unit.name">{{unit.departmentName}}</ng-option>
+                            <ng-option *ngFor="let unit of departmentList" [value]="unit.departmentName">{{unit.departmentName}}</ng-option>
                         </ng-select>
                         </div>
                     </div>

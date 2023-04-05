@@ -79,9 +79,9 @@ export class MyProfileComponent implements OnInit {
     this.institutionId = this.institutionData.GraduateId
     this.store.dispatch(getGraduateProfile({id: this.institutionId}))
     this.actions$.pipe(ofType(getGraduateProfileSuccess)).subscribe((res: any) => {
-      console.log(res)
       this.populateForm(res.payload.payload)
-      this.profileImage = res.payload.logo;
+      this.profileImage = res.payload.payload.profileImagePath;
+      // console.
 
     })
     this.store.dispatch(
@@ -176,7 +176,7 @@ export class MyProfileComponent implements OnInit {
 		  return;
 		} else {
       this.selectedFile = e.target.files[0].name
-      this.profileForm.controls['ProfileImage'].setValue(file)
+      this.profileForm.controls['profileImage'].setValue(file)
 
     }
   }
@@ -197,7 +197,7 @@ export class MyProfileComponent implements OnInit {
 
 
   saveUpdates() {
-    const {firstName, lastName, email, phone, state, country, dateOfBirth, city, address, zipCode, twitter, facebook, linkedIn, profileImage } = this.profileForm.value;
+    const {firstName, lastName, email,  phone, state, country, dateOfBirth, city, address, zipCode, twitter, facebook, linkedIn, profileImage } = this.profileForm.value;
     const payload = {
       imei: '',
       serialNumber: '',

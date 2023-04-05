@@ -30,6 +30,7 @@ import { VerifyPasswordComponent } from './verify-password/verify-password.compo
 import { ConfigurationEffects } from 'src/app/store/configuration/effects';
 import { OrganizationEffects } from 'src/app/store/organization/effects';
 import { GraduatesEffects } from 'src/app/store/graduates/effects';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { GraduatesEffects } from 'src/app/store/graduates/effects';
     CreatePasswordComponent,
     ForgotPasswordComponent,
     VerifyPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     CommonModule,
