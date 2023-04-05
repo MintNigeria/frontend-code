@@ -178,7 +178,7 @@
                     </thead>
 
                     <tbody>
-                        <tr *ngFor="let data of UploadedList | paginate: { itemsPerPage: 10, currentPage: page }">
+                        <tr *ngFor="let data of UploadedList | paginate: { itemsPerPage: 50, currentPage: page }">
                             <td class="bg-white font-inter font-medium text-base text-primaryBlue">
                                 {{data.firstName + ' ' + data.lastName}}
                             </td>

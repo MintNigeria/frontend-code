@@ -48,7 +48,7 @@
                             </div>
                             <div class="items-center gap-4">
                                 <ng-select class="custom-ng-dropdown" (change)="changeFaculty($event)" formControlName="faculty" [selectOnTab]="true"
-                                placeholder="Select Institution Name">
+                                placeholder="Select Faculty">
                                 <ng-option *ngFor="let unit of facultyList" [value]="unit?.id">{{unit?.name}}</ng-option>
                               </ng-select>
                             </div>
@@ -62,7 +62,7 @@
                             </div>
                             <div class="items-center gap-4">
                                 <ng-select class="custom-ng-dropdown"  formControlName="department" [selectOnTab]="true"
-                                placeholder="Select Institution Name">
+                                placeholder="Select Department">
                                 <ng-option *ngFor="let unit of departmentList" [value]="unit?.id">{{unit?.departmentName}}</ng-option>
                               </ng-select>
                             </div>
@@ -76,7 +76,7 @@
                             </div>
                             <div class="items-center gap-4">
                                 <ng-select class="custom-ng-dropdown" (change)="changeFaculty($event)" formControlName="degreeType" [selectOnTab]="true"
-                                placeholder="Select Institution Name">
+                                placeholder="Select Degree">
                                 <ng-option *ngFor="let unit of degreeTypeList" [value]="unit?.id">{{unit?.name}}</ng-option>
                               </ng-select>
                             </div>
@@ -108,11 +108,11 @@
                             class="font-inter font-semibold text-uploadtxt text-base text-center mb-3">
                             Click the ‘download template’ link below to download an Excel spreadsheet. Fill the excel template and upload it.
                             </p>
-                            <p class="font-nunito font-normal text-base text-uploadtxt text-center mb-3">
+                            <!-- <p class="font-nunito font-normal text-base text-uploadtxt text-center mb-3">
                                 <span class="text-danger">Please Note: </span>
                                 You are only allowed to upload 50 documents at a time.
-                            </p>
-                            <p (click)="downloadFormat()" class="font-nunito font-semibold text-base text-primaryBlue text-center underline mb-3">
+                            </p> -->
+                            <p (click)="downloadFormat()" class="cursor-pointer font-nunito font-semibold text-base text-primaryBlue text-center underline mb-3">
                                 Download Template
                             </p>
                         </div>

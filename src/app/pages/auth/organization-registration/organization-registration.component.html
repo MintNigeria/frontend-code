@@ -221,7 +221,7 @@
                 id="file1" />
             </div>
           </div>
-          <div *ngFor="let file of selectedFileList"
+          <div *ngFor="let file of selectedFileList; let i = index"
             class="bg-white border rounded-lg p-4 flex justify-between items-center mt-4 mb-3">
             <div class="flex items-center">
               <img src="assets/images/auth/file-pdf.svg" class="mr-4" alt="file ico">
@@ -230,7 +230,9 @@
                 <p class="font-inter font-medium text-sm text-lightGray"> {{file.size | filesize}} </p>
               </div>
             </div>
-            <img src="assets/images/auth/del-icon.svg" alt="">
+            <div (click)="deleteFile(i) " class="cursor-pointer">
+              <img src="assets/images/auth/del-icon.svg" alt="" >
+             </div>
             <!-- <div class="">
               </div> -->
           </div>

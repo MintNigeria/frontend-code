@@ -53,7 +53,8 @@ export class OrganizationService
     body.append('ApproverVM.LastName', payload.LastName)
     body.append('ApproverVM.Designation', payload.Designation)
     for (let i = 0; i < approvalFile.length; i++) {
-      body.append('Documents[' + i + ']', approvalFile[i]);
+      body.append('DocumentVM[' + i + '].FileNo', '');
+      body.append('DocumentVM[' + i + '].File', approvalFile[i]);
     }
     return this.http.post<any>(
       `${this.baseUrl}mint-organization/api/v1/Organization/CreateOrganization`, body

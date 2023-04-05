@@ -85,7 +85,7 @@ selectedFileList: any  = []
       // institutionBody: ['', Validators.required],
       Name : ['', Validators.required],
       EmailAddress: ['', [Validators.required, Validators.email]],
-      PhoneNumber : ['', Validators.required],
+      PhoneNumber : ['', [Validators.pattern(/^(\+?234|0)[789]\d{9}$/)]],
       City: [null, Validators.required],
       Country: [null, Validators.required],
       State: [null, Validators.required],
@@ -127,6 +127,12 @@ selectedFileList: any  = []
     this.institutionRegForm.controls['City'].setValue(this.selectedCity.name)
 
   }
+
+  
+  deleteFile(index: number){
+    this.selectedFileList.splice(index, 1);
+  }
+
 
   changeRegistrationType(event: any) {
     if (event.target.value === 'CAC' ) {
