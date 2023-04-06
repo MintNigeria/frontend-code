@@ -17,16 +17,18 @@ import { AuthInterceptor } from './core/interceptors/http.interceptor';
 import { appReducer } from './store/shared/app.reducer';
 import { metaReducers, reducers } from './types/appState.interface';
 import { customNotifierOptions } from './types/index.types';
+import { LoaderComponent } from './shared/components/loader/loader.component';
 
 
 
 @NgModule({
-  declarations: [AppComponent,  ],
+  declarations: [AppComponent, LoaderComponent, ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     RecaptchaModule,
     AppRoutingModule,
+    
     NotifierModule,
     HttpClientModule,
     StoreModule.forRoot({}),

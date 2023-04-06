@@ -24,7 +24,7 @@
       <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
         <div class="w-full md:w-1/2 px-3  md:mb-0" *ngIf="institutionBody$ | async as body">
           <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Institution
-            Body
+            Type
             <span class="text-danger">*</span> </label>
           <ng-select class="custom-ng-dropdown"  (change)="selectInstitutionBody($event)" formControlName="institutionBodyId" [selectOnTab]="true"
             placeholder="Select Institution body">
@@ -33,7 +33,7 @@
         </div>
         <div class="w-full md:w-1/2 px-3  md:mb-0" *ngIf="institutionType$ | async as type">
           <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Institution
-            Type
+            Body
             <span class="text-danger">*</span> </label>
           <ng-select class="custom-ng-dropdown" (change)="selectInstitutionType($event)" formControlName="institutionTypeId" [selectOnTab]="true"
             placeholder="Select Institution type">

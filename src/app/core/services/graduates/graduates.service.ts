@@ -42,7 +42,8 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
     body.append('InstitutionAttendedVMs[0].InstitutionName', payload.InstitutionName)
     body.append('Documents', payload.Designation)
     for (let i = 0; i < approvalFile.length; i++) {
-      body.append('DocumentVM[' + i + '].FileNo', approvalFile[i]);
+      body.append('DocumentVM[' + i + '].FileNo', '');
+      body.append('DocumentVM[' + i + '].File', approvalFile[i]);
     }
     return this.http.post<any>(
       `${this.baseUrl}mint-auth/api/v1/Graduates/CreateGraduate`, body

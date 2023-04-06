@@ -86,24 +86,8 @@ filter = {
   }
 
   addFilter() {
-    // if (this.status !== 'All') {
-    //   this.filterStatus['status'] = this.status;
-    // }
-    // if (this.selectedOption !== 'All Time') {
-    //   this.filterOption['selectedOption'] = this.selectedOption;
-    // }
-    // if (this.gradYear !== 'All') {
-    //   this.filterSector['gradYear'] = this.gradYear;
-    // }
-    // if (this.selectedInstitution !== 'All') {
-    //   this.filterInstituition['selectedInstituition'] = this.selectedInstitution;
-    // }
-    // if (this.department !== 'All') {
-    //   this.filterDocument['department'] = this.department;
-    // }
     this.store.dispatch(invokeGetAllGraduates({institutionId: this.institutionId, payload: this.filter}))
 
-    // ////console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
   }
 
   clearFilter() {
@@ -116,6 +100,18 @@ filter = {
     this.filterInstituition = {selectedInstituition: 'All'};
     this.department = 'All'
     this.filterDocument = {department: 'All'};
+    const filter = {
+      keyword: '',
+        filter: '',
+        pageSize: 10,
+        pageIndex: 1,
+        facultyId: '',
+        departmentId: '',
+        yearOFGraduation: ''
+        
+    }
+    this.store.dispatch(invokeGetAllGraduates({institutionId: this.institutionId, payload: filter}))
+
   }
 
   changeFaculty(id: any, name: string) {

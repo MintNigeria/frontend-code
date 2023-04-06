@@ -1,11 +1,11 @@
-<div class="p-6">
+<div class="p-6" *ngIf="user$ | async as user">
   <div class="flex justify-between">
     <div>
         <h4 class="font-poppins font-medium text-3xl headerGray capitalize pb-1">
             Welcome back, 
         </h4>
         <p class="font-nunito font-normal text-base text-lightGray mb-6">
-            Last login date: Mon 9, 2023 12:21PM
+          Last login date: {{ user.lastLogin }}
         </p>
     </div>
     <div class="items-center mt-6 mb-3">
@@ -56,7 +56,7 @@
                         </div>
                         <p class="border-b border-dashed font-inter font-semibold lg:text-base text-xs text-failedNormal">Account Balance</p>
                     </div>
-                    <p class="text-successNormal font-bold text-3xl font-poppins">₦{{cardInfo?.walletBalance || 0}}</p>
+                    <p class="text-successNormal font-bold text-3xl font-poppins">₦{{cardInfo?.walletBalance || 0 | commaDelimiter }}</p>
                 </div>
                 <div>
                     <app-button

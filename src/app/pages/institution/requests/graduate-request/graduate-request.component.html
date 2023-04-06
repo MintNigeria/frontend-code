@@ -267,7 +267,7 @@
               </thead>
   
               <tbody class="" *ngIf="request.data.graduatesRequests.length >=  1">
-                <tr *ngFor="let data of request?.data?.graduatesRequests | paginate: { itemsPerPage: filterParams.pageSize, currentPage: pageIndex, totalItems: request?.data?.graduatesRequests.totalCount }" class=" ">
+                <tr *ngFor="let data of request?.data?.graduatesRequests | paginate: { itemsPerPage: filterParams.pageSize, currentPage: pageIndex, totalItems: request?.data?.totalGraduateRequests }" class=" ">
                   <td class="bg-white">
                     <div>
                       <p
