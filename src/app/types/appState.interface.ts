@@ -11,6 +11,7 @@ import * as fromConfiguration from '../store/configuration/reducers'
 import * as fromUsersAndRoles from '../store/users-and-roles/reducer'
 import * as fromDashboard from '../store/dashboard/reducer'
 import * as fromOrganization from '../store/organization/reducers'
+import * as fromNotification from '../store/notification/reducer'
 
 
 import {
@@ -30,6 +31,7 @@ import { ConfigurationStateInterface } from '../store/configuration/types/index.
 import { UsersAndRolesStateInterface } from '../store/users-and-roles/types/index.types';
 import { DashboardStateInterface } from '../store/dashboard/types/index.types';
 import { OrganizationStateInterface } from '../store/organization/types/index.types';
+import { NotificationStateInterface } from '../store/notification/index.types';
 
 
 // all module state should be imported here
@@ -46,6 +48,8 @@ export interface AppStateInterface {
   // auditLog : AuditLogStateInterface
   institutions: IInstitutionStateInterface;
   utility: IUtilityStateInterface;
+    notification : NotificationStateInterface
+
 }
 
 export interface AppLoadingStateInterface {
@@ -69,12 +73,14 @@ export const reducers: ActionReducerMap<AppStateInterface> = {
   configuration: fromConfiguration.configurationReducer,
   usersAndRoles: fromUsersAndRoles.usersAndRolesReducer,
   dashboard: fromDashboard.dashboardReducer,
+  notification : fromNotification.notificationReducers
+
 
 
 
 };
 
-const reducerKeys = ['auth', 'requests', 'institutions', 'utility', 'dashboard', 'reporting', 'graduates', 'configuration', 'usersAndRoles', 'dashboard', 'organizations' ];
+const reducerKeys = ['auth', 'requests', 'institutions', 'utility', 'dashboard', 'reporting', 'graduates', 'configuration', 'usersAndRoles', 'dashboard', 'organizations', 'notification' ];
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
