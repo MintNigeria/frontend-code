@@ -127,24 +127,7 @@ filter = {
   }
 
   addFilter() {
-    // if (this.status !== 'All') {
-    //   this.filterStatus['status'] = this.status;
-    // }
-    // if (this.selectedOption !== 'All Time') {
-    //   this.filterOption['selectedOption'] = this.selectedOption;
-    // }
-    // if (this.selectedSector !== 'All') {
-    //   this.filterSector['selectedSector'] = this.selectedSector;
-    // }
-    // if (this.selectedInstituition !== 'All') {
-    //   this.filterInstituition['selectedInstituition'] = this.selectedInstituition;
-    // }
-    // if (this.documentType !== 'All') {
-    //   this.filterDocument['documentType'] = this.documentType;
-    // }
-
     this.store.dispatch(invokeGetTransactions({institutionId: this.institutionId, payload: this.filter}))
-
     
   }
 
@@ -159,6 +142,20 @@ filter = {
     this.filterInstituition = {selectedInstituition: 'All'};
     this.documentType = 'All'
     this.filterDocument = {documentType: 'All'};
+   const  filter = {
+      keyword: '',
+        filter: '',
+        pageSize: 10,
+        pageIndex: 1,
+        requestor: 1,
+        range: 0,
+        fromDate: '',
+        toDate: '',
+        status: 0,
+        transactionType: '',
+    }
+    this.store.dispatch(invokeGetTransactions({institutionId: this.institutionId, payload: filter}))
+
   }
 
   changeInitiator(status: number, name: string) {
