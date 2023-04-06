@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UtilityService } from 'src/app/core/services/utility/utility.service';
 
 @Component({
   selector: 'app-institution',
@@ -92,9 +93,41 @@ export class InstitutionComponent implements OnInit {
       inactive: 'assets/images/role-inactive.svg',
     },
   ];
-  constructor() { }
+  deviceModel: string;
+  ipAddress: any;
+
+  constructor(
+    private utilityService: UtilityService,
+
+  ) {
+    const userAgent = navigator.userAgent;
+
+    if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
+      this.deviceModel = 'iPad or iPhone';
+    } else if (userAgent.match(/Android/i)) {
+      this.deviceModel = 'Android';
+    } else if (userAgent.match(/Window/i)) {
+      this.deviceModel = 'Window';
+    } else {
+      this.deviceModel = 'Other';
+    }
+    this.loadIp();
+   }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      const extra = {
+        device: this.deviceModel,
+    ipAddress: this.ipAddress
+      }
+      sessionStorage.setItem('extras', JSON.stringify(extra))
+    }, 2000);
+  }
+
+  loadIp() {
+    this.utilityService.getuserIP().subscribe((res: any) => {
+     this.ipAddress = res.ip
+    })
   }
 
 }
