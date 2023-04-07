@@ -86,7 +86,7 @@
                     </label>
                     <ul
                         tabindex="0"
-                        class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
+                        class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72"
                     >
                         <li><a (click)="changeInitiator(1,  'Graduates') ">Graduates</a></li>
                         <li>
@@ -114,28 +114,9 @@
                         </p>
                         <img src="assets/images/icons/downward_arrow.svg" />
                     </label>
-                    <ul
-                        tabindex="0"
-                        class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
-                    >
-                        <li><a (click)="documentType = 'All'">All</a></li>
-                        <li>
-                        <a (click)="documentType = 'Certificate (Original)'"
-                            >Certificate (Original)</a
-                        >
-                        </li>
-                        <li>
-                        <a (click)="documentType = 'Certificate (Template)'"
-                            >Certificate (Template)</a
-                        >
-                        </li>
-                        <li>
-                        <a
-                            (click)="documentType = 'Certificate (Certified True Copy)'"
-                            >Certificate (Certified True Copy)</a
-                        >
-                        </li>
-                        <li><a (click)="documentType = 'Transcript'">Transcript</a></li>
+                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72">
+                        <li><a (click)="documentType='All'">All</a></li>
+                        <li><a (click)="changeDocumentType(unit.documentTypeName)" *ngFor="let unit of processingFeeList">{{unit.documentTypeName}}</a></li>
                     </ul>
                     </div>
                 </div>
@@ -158,7 +139,7 @@
                     </label>
                     <ul
                         tabindex="0"
-                        class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
+                        class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72"
                     >
                        
                         <li><a (click)="changeStatus(0, 'Pending')">Pending</a>
@@ -205,7 +186,7 @@
                     <div class=" flex p-1 rounded mr-2  bg-[#12B76A]"><img src="assets/images/main/Number.svg" alt=""></div>
                     <p class="border-b border-dashed font-inter font-semibold text-base text-failedNormal"> Total revenue generated</p>
                 </div>
-                <p class="text-successNormal font-bold text-3xl font-poppins">₦{{transactionDetails?.totalRevenueGeneratedVM?.total}}</p>
+                <p class="text-successNormal font-bold text-3xl font-poppins">₦{{transactionDetails?.totalRevenueGeneratedVM?.total | commaDelimiter}}</p>
                </div> 
             </div>
             <div class=" bg-white">
@@ -213,11 +194,11 @@
                 <div class="grid grid-cols-2 divide-x">
                     <div class="text-left">
                         <p class="font-normal text-sm font-inter text-lightGray pb-[2px]">From graduate requests</p>
-                        <p class="mb-4 font-medium text-sm font-inter text-failedNormal">₦{{transactionDetails?.totalRevenueGeneratedVM?.graduate}}</p>
+                        <p class="mb-4 font-medium text-sm font-inter text-failedNormal">₦{{transactionDetails?.totalRevenueGeneratedVM?.graduate | commaDelimiter}}</p>
                     </div>
                     <div class="text-right">
                         <p class="font-normal text-sm font-inter text-lightGray pb-[2px]">From organization requests</p>
-                        <p class=" font-medium text-sm font-inter text-failedNormal">₦{{transactionDetails?.totalRevenueGeneratedVM?.organization}}</p>
+                        <p class=" font-medium text-sm font-inter text-failedNormal">₦{{transactionDetails?.totalRevenueGeneratedVM?.organization | commaDelimiter}}</p>
                     </div>
                 </div>
                </div> 
@@ -521,10 +502,10 @@
             
 
             <!--Pagination-->
-            <div class="flex items-center justify-between mt-10">
-                <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
+            <div class="flex items-center justify-end mt-10">
+                <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
                     Showing 1 to 7 of {{ transactionList.length }} entries
-                </p>
+                </p> -->
                 <div class="flex item gap-3">
                     <pagination-controls (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next"></pagination-controls>
           

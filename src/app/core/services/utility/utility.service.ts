@@ -22,4 +22,13 @@ export class UtilityService
       `${this.baseUrl}mint-higherinstitution/api/v1/Utility/StatesAndLocalGovts`
     )
   }
+
+  getNotification(entityId : number, userType : number){
+    return this.http.get<any>(
+      `${this.baseUrl}mint-messaging/api/Notification/GetAllNotifications?EntityId=${entityId}&UserType=${userType}`
+    );  }
+
+  getuserIP() {
+    return this.http.get<any>('https://jsonip.com')
+  }
 }

@@ -24,6 +24,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { InstitutionEffects } from 'src/app/store/institution/effects';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { UtilityEffects } from 'src/app/store/institution copy/effects';
+import { CreatePasswordComponent } from './create-password/create-password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { VerifyPasswordComponent } from './verify-password/verify-password.component';
+import { ConfigurationEffects } from 'src/app/store/configuration/effects';
+import { OrganizationEffects } from 'src/app/store/organization/effects';
+import { GraduatesEffects } from 'src/app/store/graduates/effects';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +40,10 @@ import { UtilityEffects } from 'src/app/store/institution copy/effects';
     InstitutitionRegistrationComponent,
     OrganizationRegistrationComponent,
     GraduateRegistrationComponent,
+    CreatePasswordComponent,
+    ForgotPasswordComponent,
+    VerifyPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     CommonModule,
@@ -45,7 +56,7 @@ import { UtilityEffects } from 'src/app/store/institution copy/effects';
     NgSelectModule,
     AuthRoutingModule,
     StoreModule.forFeature('auth', authReducers),
-    EffectsModule.forFeature([AuthEffects, InstitutionEffects, UtilityEffects]),
+    EffectsModule.forFeature([AuthEffects, UtilityEffects, ConfigurationEffects, OrganizationEffects, InstitutionEffects, GraduatesEffects]),
   ],
   // providers: [{ provide: RECAPTCHA_V3_SITE_KEY, useValue: environment.recaptchaKey }],
 })

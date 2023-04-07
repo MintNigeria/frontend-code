@@ -6,6 +6,10 @@ import { ReportingService } from 'src/app/core/services/reporting/reporting.serv
 import { AppResponseInterface } from 'src/app/types/appState.interface';
 import { setAPIResponseMessage } from '../shared/app.action';
 import {
+  exportReportCSV,
+  exportReportCSVSuccess,
+  exportReportExcel,
+  exportReportExcelSuccess,
   exportTransactionCSV,
   exportTransactionCSVSuccess,
   exportTransactionExcel,
@@ -37,9 +41,9 @@ export class ReportingEffects {
             },
           })
         );
-        const { keyword, filter, pageIndex, pageSize } = action;
+        const { payload } = action;
         return this.reportingService
-          .getAllReports(keyword, filter, pageSize, pageIndex)
+          .getAllReports(payload)
           .pipe(
             map((data) => {
               this.appStore.dispatch(
@@ -164,6 +168,81 @@ export class ReportingEffects {
               );
               // read data and update payload
               return exportTransactionExcelSuccess({
+                payload: data.payload,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  
+  exportReportCSV$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(exportReportCSV),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.reportingService
+          .exportReportCSV(action.institutionId)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return exportReportCSVSuccess({
+                payload: data.payload,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  exportReportExcel$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(exportReportExcel),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.reportingService
+          .exportReportExcel(action.institutionId)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return exportReportExcelSuccess ({
                 payload: data.payload,
               });
             })

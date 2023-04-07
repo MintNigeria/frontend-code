@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { getAllOrganisationRequestSuccess, getAllRequestSuccess, invokeGetRequestDetailsSuccess } from './action';
+import { getAllInstitutionGraduateRequestSuccess, getAllInstitutionOrganizationRequestSuccess, getAllOrganisationRequestSuccess, getAllRequestSuccess, invokeGetRequestDetailsSuccess, updateInstitutionRequestSuccess } from './action';
 import { RequestStateInterface } from './types/index.types';
 
 
@@ -80,7 +80,8 @@ const initialState: RequestStateInterface = {
     }
   ],
   reasonForRequest: '',
-  }
+  },
+  updateRequest: null
 
   
 
@@ -88,6 +89,18 @@ const initialState: RequestStateInterface = {
 
 export const requestReducer = createReducer(
   initialState,
+  on(getAllInstitutionGraduateRequestSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      request: payload
+    }
+  }),
+  on(getAllInstitutionOrganizationRequestSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      organisationRequest: payload
+    }
+  }),
   on(getAllRequestSuccess, (state, { payload }) => {
     return {
       ...state,
@@ -101,6 +114,12 @@ export const requestReducer = createReducer(
     }
   }),
   on(invokeGetRequestDetailsSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      requestDetails: payload
+    }
+  }),
+  on(updateInstitutionRequestSuccess, (state, { payload }) => {
     return {
       ...state,
       requestDetails: payload

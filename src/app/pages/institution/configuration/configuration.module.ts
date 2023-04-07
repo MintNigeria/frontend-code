@@ -14,6 +14,15 @@ import { AwaitingApprovalFeeComponent } from './verification-fee/awaiting-approv
 import { FacultyComponent } from './institution-setup/faculty/faculty.component';
 import { DepartmentComponent } from './institution-setup/department/department.component';
 import { DegreeTypeComponent } from './institution-setup/degree-type/degree-type.component';
+import { ConfigurationEffects } from 'src/app/store/configuration/effects';
+import { configurationReducer } from 'src/app/store/configuration/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { InstitutionEffects } from 'src/app/store/institution/effects';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { CreateDegreeTypeComponent } from './create-degree-type/create-degree-type.component';
+import { CreateDepartmentComponent } from './create-department/create-department.component';
+import { CreateFacultyComponent } from './create-faculty/create-faculty.component';
 
 
 @NgModule({
@@ -27,7 +36,10 @@ import { DegreeTypeComponent } from './institution-setup/degree-type/degree-type
     AwaitingApprovalFeeComponent,
     FacultyComponent,
     DepartmentComponent,
-    DegreeTypeComponent
+    DegreeTypeComponent,
+    CreateDegreeTypeComponent,
+    CreateDepartmentComponent,
+    CreateFacultyComponent
   ],
   imports: [
     CommonModule,
@@ -35,6 +47,10 @@ import { DegreeTypeComponent } from './institution-setup/degree-type/degree-type
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    NgSelectModule,
+    StoreModule.forFeature('configuration', configurationReducer),
+    EffectsModule.forFeature([ConfigurationEffects, InstitutionEffects]),
+
 
   ]
 })

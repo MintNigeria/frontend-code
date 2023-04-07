@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewReportsComponent implements OnInit {
 
-    selectedOption: string = "All Time";
+  selectedOption: string = "All Time";
   selectedInstitution : string = "All";
   selectedSector : string = "All";
   documentType: string = "All";
@@ -101,7 +101,7 @@ export class ViewReportsComponent implements OnInit {
       this.filterDocument['documentType'] = this.documentType;
     }
     
-    console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
+    ////console.log(this.filterStatus,this.filterOption,this.filterSector,this.filterInstituition,this.filterDocument);
   }
 
   clearFilter() {

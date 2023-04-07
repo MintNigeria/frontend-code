@@ -1,21 +1,68 @@
-<aside class="p-6 relative bg-primaryBlue h-screen flex flex-col justify-between  ">
+<aside class="p-6 w-[20rem] relative bg-primaryBlue h-screen flex flex-col justify-between  " *ngIf="user$ | async as user">
   <div>
     <img class=" " src="assets/images/main/logo.png" class=" w-fit pt-6 pb-8" alt="">
  
     <div class=" ">
-      <div class="pb-4" *ngFor="let link of menuLinks"  routerLinkActive="active"
-        #rla="routerLinkActive" 
-        [ngClass]="rla.isActive ? 'bg-[#4086EF] rounded-xl py-3 px-2  text-bg-primaryBlue font-medium text-base font-inter' : 'font-medium text-base text-[#EBF3FF] py-3 px-2'">
-        <div class=" relative flex items-center justify-between cursor-pointer text-[#EBF3FF]">
-          <div class="flex" (click)="goToPath(link.path)" routerLink={{link.path}}>
-            <span><img [src]='rla.isActive ? link.active : link.inactive' alt="" class="mr-3"></span>
-            <p>{{link.title}}</p>
+      <div
+        class="pb-4"
+        *ngFor="let link of menuLinks"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: false }"
+        #rla="routerLinkActive"
+        [ngClass]="
+          rla.isActive
+            ? 'bg-[#4086EF] rounded-xl py-3 px-2  text-bg-primaryBlue font-medium text-base font-inter'
+            : 'font-medium text-base text-[#EBF3FF] py-3 px-2'
+        "
+      >
+        <div
+        
+          class="relative flex items-center justify-between cursor-pointer text-[#EBF3FF]"
+          (click)="goToPath(link.path, link.hasChild)"
+        >
+          <div class="flex">
+            <span
+              ><img
+                [src]="rla.isActive ? link.active : link.inactive"
+                alt=""
+                class="mr-3"
+            /></span>
+            <!-- {{ rla.isActive }} -->
+            
+            <a [routerLink]="link?.path">{{ link.title }}</a>
           </div>
-          <span class="relative" *ngIf="link.hasChild === true" >
-            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7.5 15.752L12.5 10.752L7.5 5.75195" stroke="#BDD5FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <span class="relative" *ngIf="link.hasChild === true">
+            <div class="dropdown dropdown-right dropdown-hover">
+              <svg
+                tabindex="0"
+                width="20"
+                height="21"
+                viewBox="0 0 20 21"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.5 15.752L12.5 10.752L7.5 5.75195"
+                  stroke="#BDD5FA"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
+              <!-- <l abel tabindex="0" >Click</l> -->
+              <ul
+                tabindex="0"
+                class="main dropdown-content menu p-2 shadow bg-primaryBlue md:z-50 w-52"
+              >
+                <li *ngFor="let item of link?.childRoute">
+                  <a [routerLink]="item?.route">{{ item.name }}</a>
+                </li>
+                <!-- <li><a>Item 2</a></li> -->
+              </ul>
+            </div>
+            <ng-container class="">
               <!-- <app-sidebar-dropdown [childrenLinks]="link.childRoute"></app-sidebar-dropdown> -->
+            </ng-container>
           </span>
         </div>
       </div>
@@ -24,10 +71,14 @@
 
   <div class="mt-5  flex items-center justify-between">
     <div class="">
-      <p class="font-inter font-medium text-sm text-white">Olivia Rhye</p>
-      <p class="font-inter font-normal text-sm text-[#D7E7FE]">olivia@untitledui.com</p>
+      <p class="font-inter capitalize font-medium text-sm text-white">
+        {{ user?.firstName }} {{ user?.lastName }}
+      </p>
+      <p class="font-inter font-normal text-sm text-[#D7E7FE]">
+        {{ user?.email }}
+      </p>
     </div>
-    <img src="assets/images/log-out.svg"
+    <img src="assets/images/log-out.svg" (click)="openLogoutModal()"
           alt="logout icons" class=" cursor-pointer">
   </div>
 

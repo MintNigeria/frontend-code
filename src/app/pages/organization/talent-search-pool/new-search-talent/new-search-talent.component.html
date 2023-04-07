@@ -1,0 +1,213 @@
+<div class="bg-white p-6">
+    <!--Header-->
+    <div class="flex  items-center md:gap-4 gap-2 ">
+        <div>
+            <img [routerLink]="'/organization/transaction'" src="assets/images/icons/home.svg" alt="home-icon">
+        </div>
+        <div>
+            <img src="assets/images/icons/forward_arrow.svg" alt="forward-arrow">
+        </div>
+
+        <div>
+            <p class="text-primaryBlue font-inter md:text-base text-sm font-medium cursor-pointer">
+                Talent Search Pool
+            </p>
+
+        </div>
+
+    </div>
+    <div class="px-5">
+        <div class="items-center my-2 lg:flex lg:justify-between">
+            <h4 class="font-medium font-poppins lg:text-4xl text-xl  text-darkGray my-3">
+                Talent Search Pool
+            </h4>
+        </div>
+    </div>
+
+    <div class="border-1.5 rounded-t-md mt-8" [formGroup]="newTalentsearchForm">
+        <h3 class="py-4  border-b-1.5 px-6 font-inter font-semibold text-lg text-darkGray">Filter Reports by</h3>
+        <div class="p-6 ">
+            <div class="border-b">
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                            Institution
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <ng-select class="custom-ng-dropdown" 
+                        [selectOnTab]="true" 
+                        placeholder="Select Institution"
+                        (change)="getInstitutionFaculty($event)"
+                        >
+                            <ng-option *ngFor="let unit of institutionList" [value]="unit">{{unit.institutionName}}</ng-option>
+                        </ng-select>
+                      
+                    </div>
+                </div>
+
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                            Faculty
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3"> 
+                         <ng-select class="custom-ng-dropdown" 
+              [selectOnTab]="true" 
+              placeholder="Select faculty"
+              (change)="getDepartmentInFaculty($event)"
+              >
+          <ng-option *ngFor="let unit of facultyList" [value]="unit">{{unit.name}}</ng-option>
+          </ng-select>
+                       
+                    </div>
+                </div>
+
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                            Department
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <ng-select class="custom-ng-dropdown" 
+                        [selectOnTab]="true" 
+                        placeholder="Select department"
+                        (change)="getDegree($event)"
+                        >
+                    <ng-option *ngFor="let unit of departmentList" [value]="unit">{{unit.departmentName}}</ng-option>
+                    </ng-select>
+                    </div>
+                </div>
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                            Grade
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <ng-select class="custom-ng-dropdown" 
+                        [selectOnTab]="true" 
+                        placeholder="Select grade"
+                        formControlName="Grade"
+                        >
+                    <ng-option *ngFor="let unit of grades" [value]="unit.grade">{{unit.grade}}</ng-option>
+                    </ng-select>
+                    </div>
+                </div>
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                            Degree
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <ng-select class="custom-ng-dropdown" 
+                        [selectOnTab]="true" 
+                        placeholder="Select degree"
+                        formControlName="Degree"
+                        >
+                    <ng-option *ngFor="let unit of degreeType" [value]="unit.name">{{unit.name}}</ng-option>
+                    </ng-select>
+                    </div>
+                </div>
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                            Gender
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <select  formControlName="Gender"
+                        name="" 
+                        id=""
+                        class="select h-[52px] w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
+                        <option value="">Select gender</option>
+                        <option value="0">Unknown</option>
+                        <option value="1">Male</option>
+                        <option value="2">Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex gap-6 mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                            Year of graduation
+                        </label>
+                        <p class="font-inter font-normal text-xs text-lightGray">Please select a range of graduation years.</p>
+                    </div>
+                    <div class="w-full md:w-2/3 grid grid-cols-2 gap-6">
+                        <div>
+                            <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                                From
+                            </label>
+                            <ng-select class="custom-ng-dropdown" 
+                        [selectOnTab]="true" 
+                        placeholder="Select year"
+                        formControlName="FromYearOfGraduation"
+                        >
+                    <ng-option *ngFor="let unit of years" [value]="unit">{{unit}}</ng-option>
+                    </ng-select>
+                        </div>
+                        <div>
+                            <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                                To
+                            </label>
+                            <ng-select class="custom-ng-dropdown" 
+                            [selectOnTab]="true" 
+                            placeholder="Select year"
+                            formControlName="ToYearOfGraduation"
+                            >
+                        <ng-option *ngFor="let unit of years" [value]="unit">{{unit}}</ng-option>
+                        </ng-select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="flex justify-end items-center gap-4 mt-4">
+                <app-button
+                
+                [overRideButtonClass]="true"
+                customClass="p-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
+                >Cancel</app-button>
+                <app-button
+                (buttonClick)="generateReport()"
+                [overRideButtonClass]="true"
+                customClass="p-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+                >Search</app-button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<app-modal [id]="confirmChanges">
+    <div class="lg:rounded-xl bg-white hide-scrollbar  lg:p-2 p-6 modal-box">
+        <div class="grid grid-rows-2 justify-items-center mt-8">
+            <img src="assets/images/icons/search_blue.svg" alt="search_icon">
+            <h3 class="font-inter font-medium text-xl text-discountBlue mt-8">{{listCount}} Reports found!</h3>
+            <p class="text-center lg:w-96 font-inter font-normal text-sm text-failedNormal mt-8 px-10">
+                {{listCount}} reports have been found in relation to your search. Please kindly make payment to view reports.
+            </p>
+        </div>
+        <div class="flex justify-center mt-8 mb-8 gap-3">
+            <app-button
+            [overRideButtonClass]="true"
+            [customClass]="'bg-white rounded-lg border border-buttonBlue  hover:bg-buttonBlue hover:text-white text-buttonBlue text-base font-medium font-inter py-2 px-4'"
+            (buttonClick)="cancelConfirmChanges()">
+             No ,Cancel
+            </app-button>
+            <app-button
+            [overRideButtonClass]="true"
+            [customClass]="'bg-buttonBlue rounded-lg  hover:bg-buttonBlue text-white text-base font-medium font-inter py-2 px-4'"
+            (buttonClick)="makePayment()"
+            >
+                Make Payment
+            </app-button>
+        </div>
+    </div>
+</app-modal>
+

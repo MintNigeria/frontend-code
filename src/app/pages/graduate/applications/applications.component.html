@@ -48,18 +48,13 @@
                   </p>
                   <img src="assets/images/icons/downward_arrow.svg" />
                 </label>
-                <ul
-                  tabindex="0"
-                  class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-                >
-                  <li><a (click)="selectedOption = 'data Time'">All Time</a></li>
-                  <li><a (click)="selectedOption = '30 Days'">30 Days</a></li>
-                  <li><a (click)="selectedOption = '7 days'">7 Days</a></li>
-                  <li><a (click)="selectedOption = '24 Hours'">24 Hours</a></li>
+                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
+                  <li><a (click)="changeRange(0, 'All Time') ">All Time</a></li>
+                  <li><a (click)="changeRange(3, '30 Days')">30 Days</a></li>
+                  <li><a (click)="changeRange(2, '7 days' )">7 Days</a></li>
+                  <li><a (click)="changeRange(1, '24 Hours')">24 Hours</a></li>
                   <li>
-                    <a (click)="selectedOption = 'Custom Period'"
-                      >Custom Period</a
-                    >
+                    <a (click)="changeRange(5, 'Custom Period')">Custom Period</a>
                   </li>
                 </ul>
               </div>
@@ -86,23 +81,9 @@
                   class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
                 >
                   <li><a (click)="documentType = 'All'">All</a></li>
-                  <li>
-                    <a (click)="documentType = 'Certificate (Original)'"
-                      >Certificate (Original)</a
-                    >
+                  <li *ngFor="let unit of documentTypeList">
+                    <a (click)="changeDocumentType(unit.name)">{{unit.documentType}}</a>
                   </li>
-                  <li>
-                    <a (click)="documentType = 'Certificate (Template)'"
-                      >Certificate (Template)</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      (click)="documentType = 'Certificate (Certified True Copy)'"
-                      >Certificate (Certified True Copy)</a
-                    >
-                  </li>
-                  <li><a (click)="documentType = 'Transcript'">Transcript</a></li>
                 </ul>
               </div>
             </div>
@@ -128,17 +109,10 @@
                   class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
                 >
                   <li><a (click)="status = 'All'">All</a></li>
-                  <li>
-                    <a (click)="status = 'Certificate (Original)'">Pending</a>
+                  <li *ngFor="let unit of requestStatus">
+                    <a (click)="changeStatus(unit.value, unit.name)">{{unit.name}}</a>
                   </li>
-                  <li>
-                    <a (click)="status = 'Certificate (Template)'">Processing</a>
-                  </li>
-                  <li>
-                    <a (click)="status = 'Certificate (Certified True Copy)'"
-                      >Completed</a
-                    >
-                  </li>
+                  
                 </ul>
               </div>
             </div>
@@ -169,18 +143,13 @@
             <div
               class="flex md:flex-row md:justify-between md:items-center flex-col w-full"
             >
-              <div class="flex lg:justify-between gap-4">
-                <div class="relative cursor-pointer mr-3">
-                  <input
-                    type="search"
-                    placeholder="Search application ID"
-                    class="bg-white rounded-[10px] border border-inputBg w-[400px] py-[14px] px-8 text-black placeholder:text-[#6E7191] text-sm lg:text-base focus:outline-none"
-                  />
-                  <div class="top-1/2 absolute left-3 custom-translate pr-4">
-                    <img src="assets/images/icons/search.svg" />
-                  </div>
-                </div>
-              </div>
+            <div class="flex lg:justify-between gap-4">
+              <app-search 
+              [placeholder]="'Search application ID'"
+              (iconSearch)="search($event)"
+  [formGrp]="searchForm" formCtrlName="searchPhrase"  
+  ></app-search>
+          </div>
   
               <div class="flex md:items-center gap-4">
                 <div>
@@ -205,8 +174,8 @@
                         tabindex="0"
                         class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52"
                       >
-                        <li><a>Export as CSV</a></li>
-                        <li><a>Export as PDF</a></li>
+                      <li (click)="download('CSV')"><a>Export as CSV</a></li>
+                      <li (click)="download('Excel')"><a>Export as Excel</a></li>
                       </ul>
                     </div>
                   </div>
@@ -262,18 +231,19 @@
                   </thead>
       
                   <tbody class="">
-                    <tr *ngFor="let data of graduateList" class=" ">
+                    <tr *ngFor="let data of graduateList | paginate: { itemsPerPage: filter.pageSize, currentPage: filter.pageIndex, totalItems: total }" class=" ">
                       <td class="bg-white">
                         <div>
                           <p
                             class="my-0 text-base cursor-pointer font-inter font-medium text-[#101828]"
                           >
-                            {{ data.requestID }}
+                            {{ data?.applicationNumber }}
                           </p>
                           <p
                             class="text-xs font-normal font-inter my-0 text-[#667085]"
                           >
-                            {{ data?.date }}
+                            {{ data?.createdOn | date
+                            }}
                           </p>
                         </div>
                       </td>
@@ -283,7 +253,7 @@
                           <p
                             class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]"
                           >
-                            {{ data.docType }}
+                            {{ data.documentType }}
                           </p>
                         </div>
                       </td>
@@ -293,7 +263,7 @@
                           <p
                             class="my-0 text-base font-inter cursor-pointer font-medium text-[#0D47A1]"
                           >
-                            {{ data.deliveryOption }}
+                            {{ data.deliveryOption || 'N/A' }}
                           </p>
                         </div>
                       </td>
@@ -303,38 +273,38 @@
                           <p
                             class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]"
                           >
-                            {{ data.destination }}
+                            {{ data.destination || 'N/A' }}
                           </p>
                         </div>
                       </td>
       
                       <td class="bg-white">
-                        <div class="rounded text-center">
+                        <div class="rounded text-center w-fit px-2 py-[2px] flex items-center">
                           <div
                             class="rounded-full text-center w-auto"
                             [ngClass]="
-                              data.status.toLowerCase() === 'completed'
+                              data.status === 'Completed'
                                 ? 'bg-[#ECFDF3]'
-                                : data.status.toLowerCase() === 'processing'
+                                : data.status === 'Processed'
                                 ? 'bg-[#FFF8E9]'
-                                : data.status.toLowerCase() === 'paused'
+                                : data.status === 'Paused'
                                 ? 'bg-[#FFF8E9]'
-                                : data.status.toLowerCase() === 'pending'
+                                : data.status === 'Pending'
                                 ? 'bg-[#F2F4F7]'
                                 : ''
                             "
                           >
                             <div class="flex items-center gap-2 w-auto">
                               <div
-                                class="ml-3 w-2 h-2 rounded-full"
+                                class="mx-3 w-2 h-2 rounded-full"
                                 [ngClass]="
-                                  data.status.toLowerCase() === 'completed'
+                                  data.status === 'Completed'
                                     ? 'bg-[#027A48]'
-                                    : data.status.toLowerCase() === 'processing'
+                                    : data.status === 'Processing'
                                     ? 'bg-[#EAAC30]'
-                                    : data.status.toLowerCase() === 'paused'
+                                    : data.status === 'Paused'
                                     ? 'bg-[#EAAC30]'
-                                    : data.status.toLowerCase() === 'pending'
+                                    : data.status === 'Pending'
                                     ? 'bg-[#344054]'
                                     : ''
                                 "
@@ -342,13 +312,13 @@
                               <p
                                 class="my-0 text-sm cursor-pointer font-inter font-medium w-auto"
                                 [ngClass]="
-                                  data.status.toLowerCase() === 'completed'
+                                  data.status === 'Completed'
                                     ? 'text-[#027A48]'
-                                    : data.status.toLowerCase() === 'processing'
+                                    : data.status === 'Processing'
                                     ? 'text-[#EAAC30]'
-                                    : data.status.toLowerCase() === 'paused'
+                                    : data.status === 'Paused'
                                     ? 'text-[#EAAC30]'
-                                    : data.status.toLowerCase() === 'pending'
+                                    : data.status === 'Pending'
                                     ? 'text-[#344054]'
                                     : ''
                                 "
@@ -363,12 +333,12 @@
                       <td class="bg-white">
                         <div
                           class="flex gap-2 items-center"
-                          [routerLink]="'/graduate/my-applications/' + data.id"
+                          [routerLink]="'/graduate/my-applications/view-application/' + data.id"
                         >
                           <p
                             class="my-0 text-sm font-inter cursor-pointer font-medium text-[#0D47A1]"
                           >
-                            {{ data.action }}
+                            View
                           </p>
                         </div>
                       </td>
@@ -377,29 +347,21 @@
                 </table>
               </div>
         </div>
+
+        <app-request-empty-state
+        *ngIf="graduateList?.length < 1"
+        [dataStatus]="'Searching record..'"
+        ></app-request-empty-state>
+
   
-        <div class="flex items-center justify-between mt-10">
-          <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
-            Showing 1 to 7 of {{ graduateList.length }} entries
-          </p>
+        <div class="flex items-center justify-end mt-10" *ngIf="graduateList?.length >= 1">
+          <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
+                  Showing 1 to 7 of {{ transactionList.length }} entries
+              </p> -->
           <div class="flex item gap-3">
-            <div
-              class="text-[10px] md:text-xs text-[#6E7191] bg-[#FCFCFC] rounded border border-solid border-[#EFF0F7] p-2 flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <img src="assets/images/icons/prev.svg" alt="" />
-              <span>Prev</span>
-            </div>
-            <div
-              class="text-sm md:text-sm text-[#1D2B4F] bg-[#D9DBE9] rounded border border-solid border-[#D9DBE9] p-2"
-            >
-              1
-            </div>
-            <div
-              class="text-[10px] md:text-xs text-[#262338] bg-[#FCFCFC] rounded border border-solid border-[#0C3146] p-2 flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <span>Next</span>
-              <img src="assets/images/icons/next.svg" alt="" />
-            </div>
+            <pagination-controls (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next">
+            </pagination-controls>
+  
           </div>
         </div>
       </div>

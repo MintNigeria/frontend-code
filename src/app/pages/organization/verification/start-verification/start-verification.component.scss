@@ -42,3 +42,16 @@ tbody>tr>td {
     top: 50% !important;
     transform: translateY(-50%) !important;
 }
+
+.is-valid {
+      border-color: green !important;
+}
+.is-invalid {
+    border-color: red !important;
+}
+.valid-feedback {
+    color: green;
+}
+.invalid-feedback {
+    color: red;
+}

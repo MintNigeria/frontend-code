@@ -20,7 +20,7 @@ export class NotificationsService {
    * @param {string} message Notification message
    */
   publishMessages(type: NotificationType, message: string): void {
-    console.log(message);
+    ////console.log(message);
     this._notifier.notify(type, message);
   }
 

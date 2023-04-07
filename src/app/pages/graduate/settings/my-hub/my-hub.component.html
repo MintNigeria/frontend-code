@@ -1,0 +1,173 @@
+<div class="border-1.5 rounded-lg">
+    <div class="py-4 flex justify-between items-center border-b-1.5 px-6">
+        <h3 class=" font-sans font-bold text-base text-black">My Hub</h3>
+        <app-button
+        (buttonClick)="openChangesConfirmed()"
+        [overRideButtonClass]="true"
+        [customClass]="'p-2 font-medium font-inter text-base text-white bg-buttonBlue rounded-lg'">
+        Upload Document
+        </app-button>
+    </div>
+    <div class="p-6 ">
+        <div class="border-b mb-6" *ngFor="let unit of hubDocuments">
+            <div class="flex gap-16 mb-8">
+            
+                <div *ngIf="unit.fileType === 'application/pdf' " class="w-52 h-52">
+                    <iframe [src]="'data:application/pdf;base64,' + unit.base64 | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>  
+                </div>
+                <div *ngIf="unit.fileType === 'image/png' " class="w-52 h-52">
+                    <iframe [src]="'data:image/png;base64,' + unit.base64 | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>  
+                </div>
+                <div *ngIf="unit.fileType === 'image/jpeg' " class="w-52 h-52">
+                    <iframe [src]="'data:image/png;base64,' + unit.base64 | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>  
+                </div>
+                <div *ngIf="unit.fileType === 'image/jpg' " class="w-52 h-52">
+                    <iframe [src]="'data:image/png;base64,' + unit.base64 | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>  
+                </div>
+               <div class="grid grid-cols-2 gap-x-32">
+                <div> 
+                    <p class="font-inter font-normal text-base text-grayWhite">Document Name</p>
+                    <p class="font-inter font-medium text-base text-darkGray">{{unit.documentName}}</p>
+                </div>
+                <div>
+                    <p class="font-inter font-normal text-base text-grayWhite">Date Uploaded</p>
+                    <p class="font-inter font-medium text-base text-darkGray">{{unit.dateUploaded | date: 'mediumDate'}}3</p>
+                </div>
+                <div>
+                    <p class="font-inter font-normal text-base text-grayWhite">Issued By</p>
+                    <p class="font-inter font-medium text-base text-darkGray">{{unit.issuerName}}</p>
+                </div>
+                <div>
+                    <p class="font-inter font-normal text-base text-grayWhite">Date Issued</p>
+                    <p class="font-inter font-medium text-base text-darkGray">{{unit.dateIssued | date: 'mediumDate'}}</p>
+                </div>
+                <div class="flex gap-8">
+                    <app-button
+                    (buttonClick)="downloadFile(unit)"
+                    [overRideButtonClass]="true"
+                    [customClass]="'p-2 font-inter font-medium text-base text-darkGray border rounded-lg bg-transparent'">
+                    Download
+                    </app-button>
+                    <app-button
+                    (buttonClick)="deleteFile(unit)"
+                    [overRideButtonClass]="true"
+                    [customClass]="'p-2 font-inter font-medium text-base text-darkGray border-none  bg-transparent'">
+                    Delete
+                    </app-button>
+                </div>
+               </div>
+
+            </div>
+           
+        </div>
+       
+    </div>
+</div>
+
+<app-modal [id]="confirmChanges">
+    <div class="lg:rounded-xl bg-white hide-scrollbar p-6 modal-box">
+        <div class="border-b-1.5">
+            <p class="mb-4 font-sans font-semibold text-base text-darkGray">Upload Digital Document</p>
+        </div>
+        <div class="mt-8">
+            <p class="mb-4 font-sans font-semibold text-base text-darkGray">Document</p>
+            <div class="relative  border rounded-lg">
+                <label for="file1">
+                    <div class="">
+                        <div class="flex justify-center mt-3 ">
+                            <img src="assets/images/icons/upload_icon.svg" alt="upload_icon">
+                        </div>
+                        <div *ngIf="!selectedFile">
+                            <p class="font-nunito font-medium text-base text-lightGray text-center">
+                                <span class="text-primaryBlue font-semibold">Click to upload </span>
+                                or drag and drop the document here
+                            </p>
+                            <p class="font-nunito font-normal text-xs text-lightGray text-center mb-3">
+                                (max. 5 mb)
+                            </p>
+                        </div>
+                        <div *ngIf="selectedFile">
+                            <p>{{selectedFile?.name}}</p>
+                        </div>
+                    </div>
+                </label>
+                <input 
+                (change)="handleFileUpload($event)" 
+                class="hidden  file:absolute file:w-full file:h-full" 
+                type="file"
+                id="file1" />
+            </div>
+        </div>
+        <div>
+            <div class="mt-8">
+                <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                    Document Name
+                </label>
+                <div class="w-full ">
+                    <app-input 
+                    [formGrp]="uploadForm" 
+                    formCtrlName="documentName" 
+                    [type]="'text'" 
+                    [class]="'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                    Issuer="Enter Document Name" 
+                    [name]="'documentName'"></app-input>
+                </div>
+            </div>
+            <div class="mt-3">
+                <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                    Issuer Name
+                </label>
+                <div class="w-full ">
+                    <app-input 
+                    [formGrp]="uploadForm" 
+                    formCtrlName="Issuer" 
+                    [type]="'text'" 
+                    [class]="'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                    Issuer="Enter Issuer Name" 
+                    [name]="'Issuer'"></app-input>
+                </div>
+            </div>
+            <div class="mt-3 mb-6">
+                <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                    Date Issued 
+                </label>
+                <div class="w-1/2 ">
+                    <app-input 
+                    [formGrp]="uploadForm" 
+                    formCtrlName="date" 
+                    [type]="'date'" 
+                    [class]="'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                    Issuer="Select Date" 
+                    [name]="'date'"></app-input>
+                </div>
+            </div>
+            <div class="flex items-center justify-end gap-3">
+                <app-button
+                (buttonClick)="closeConfirmChanges()"
+                [overRideButtonClass]="true"
+                [customClass]="'font-inter font-normal text-base text-darkgray p-2 rounded-lg border border-whiteGray bg-transparent'">
+                    Cancel 
+                </app-button>
+                <app-button
+                (buttonClick)="uploadItem()"
+                [overRideButtonClass]="true"
+                [customClass]="'font-inter font-normal text-base text-white p-2 rounded-lg bg-buttonBlue'">
+                    Upload 
+                </app-button>
+            </div>
+        </div>
+    </div>
+</app-modal>
+
+<app-modal [id]="changesConfirmed">
+    <div class="toast toast-center">
+        <div class="alert alert-success flex justify-between items-center">
+            <div class="font-avenir font-meduim lg:text-lg text-base">
+                <span>Your document have been uploaded successfully!</span>
+            </div>
+            <label [for]="changesConfirmed">
+                <img src="assets/images/icons/x.svg" alt="close_toast">
+            </label>
+        </div>
+    </div>
+</app-modal>

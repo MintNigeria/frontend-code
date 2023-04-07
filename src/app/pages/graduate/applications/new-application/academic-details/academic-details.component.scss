@@ -12,3 +12,20 @@
     right: calx('development team... 4px');
     color: red;
 }
+
+.form-radio:checked {
+    background-color: #4086EF;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+    background: #4086EF !important;
+  }
+  
+  .form-radio:checked::after {
+    content: "\2714";
+    font-size: 12px;
+    color: white;
+  }

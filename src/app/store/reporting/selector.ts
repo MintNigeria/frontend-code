@@ -22,3 +22,13 @@ export const csvExportSelector = createSelector(
   selectFeature,
   (state) => state.csvExport
 );
+
+export const ReportexcelExportSelector = createSelector(
+  selectFeature,
+  (state) => state.excelExportReport
+);
+
+export const ReportcsvExportSelector = createSelector(
+  selectFeature,
+  (state) => state.csvExportReport
+);

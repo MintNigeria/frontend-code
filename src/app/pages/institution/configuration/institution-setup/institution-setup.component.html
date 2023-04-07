@@ -12,41 +12,41 @@
                     <div class="p-6 ">
                         <div class="lg:flex gap-10">
                             <div class="bg-tableHeader border border-borderGray rounded-md shadow-md w-52 align-middle">
-                                <div class="flex items-center shadow-md justify-between w-48 cursor-pointer h-10 p-2 m-2 rounded-md"  routerLink="/institution/configuration/institution-setup/faculty"  [routerLinkActiveOptions]="{ exact: true}"  routerLinkActive="bg-fadedBlue">
-                                    <p class="font-medium font-inter text-base text-[#344054]">
-                                        Degree Type
+                                <div class="flex items-center justify-between h-10 p-2 m-2 bg-fadedBlue rounded-md shadow-md w-48" (click)="activateFaculty()">
+                                    <p class="text-base font-medium font-inter text-[#344054]">
+                                        Faculty
                                     </p>
-                                    <div class="w-6 bg-[#F2F4F7] shadow-md rounded-full text-center">
-                                        <div class="flex items-center justify-center h-full rounded-full">
-                                        <p class="font-medium font-inter text-sm text-[#344054] cursor-pointer m-0.5">
-                                            2
-                                        </p>
+                                    <div class="w-6 h-6 rounded-full bg-none shadow-md">
+                                        <div class="flex items-center justify-center h-full">
+                                            <p class="m-0.5 text-sm font-medium font-inter text-[#344054] cursor-pointer">
+                                                {{facultyList?.length}}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="flex items-center shadow-md justify-between w-48 cursor-pointer h-10 p-2 m-2 rounded-md"  routerLink="/institution/configuration/institution-setup/faculty"  [routerLinkActiveOptions]="{ exact: true}"  routerLinkActive="bg-fadedBlue">
+                                <div class="flex items-center justify-between w-48 h-10 p-2 m-2 rounded-md" (click)="activateDepartment()">
                                     <p class="font-medium font-inter text-base text-[#344054]">
                                         Department
                                     </p>
-                                    <div class="w-6 bg-[#F2F4F7] shadow-md rounded-full text-center">
+                                    <div class="w-6 bg-[#F2F4F7] rounded-full text-center">
                                         <div class="flex items-center justify-center h-full rounded-full">
-                                        <p class="font-medium font-inter text-sm text-[#344054] cursor-pointer m-0.5">
-                                            2
-                                        </p>
+                                            <p class="font-medium font-inter text-sm text-[#344054] cursor-pointer m-0.5">
+                                               {{departmentList?.length}}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="flex items-center shadow-md justify-between w-48 cursor-pointer h-10 p-2 m-2 rounded-md"  routerLink="/institution/configuration/institution-setup/faculty"  [routerLinkActiveOptions]="{ exact: true}"  routerLinkActive="bg-fadedBlue">
+                                <div class="flex items-center justify-between w-48 h-10 p-2 m-2 rounded-md" (click)="activatedegreeType()">
                                     <p class="font-medium font-inter text-base text-[#344054]">
                                         Degree Type
                                     </p>
                                     <div class="w-6 bg-[#F2F4F7] shadow-md rounded-full text-center">
                                         <div class="flex items-center justify-center h-full rounded-full">
-                                        <p class="font-medium font-inter text-sm text-[#344054] cursor-pointer m-0.5">
-                                            2
-                                        </p>
+                                            <p class="font-medium font-inter text-sm text-[#344054] cursor-pointer m-0.5">
+                                                {{degreeTypeTotalCount}}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -54,7 +54,118 @@
                             </div>
 
                             <div class="lg:w-2/3 mt-3">
-                                <router-outlet></router-outlet>
+                                <div *ngIf="faculty">
+                                    <div class="overflow-x-auto mt-3 hide-scrollbar border rounded-xl shadow-sm">
+                                        <table class="table w-full">
+                                            <thead>
+                                                <tr>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl">Title</th>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl">Department Count</th>
+                                                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of facultyList">
+                                                    <td class="font-inter font-medium text-base text-darkGray bg-white">{{data.name}}</td>
+                                                    <td class="bg-white font-inter font-normal text-base text-lightGray">{{data.departmentCount}}</td>
+                                                    <td class="bg-white font-inter font-medium text-base text-primaryBlue" (click)="activateEditFaculty()">Edit</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <app-button 
+                                        [overRideButtonClass]="true" 
+                                        [customClass]="'w-full h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'"
+                                        (buttonClick)="activateEditFaculty()">
+                                        Add New Faculty
+                                        </app-button>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="department">
+                                    <div class="flex items-center gap-3">
+                                        <div class="lg:justify-between gap-4">
+                                            <p class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2">
+                                                Department
+                                            </p>
+                                            <div class="dropdown dropdown-bottom">
+                                                <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg w-[160px] h-[40px] py-[14px] px-3 cursor-pointer">
+                                                <p class="my-0 text-[#667085] font-inter font-medium text-sm">{{ facultyFilter }}</p>
+                                                <img src="assets/images/icons/downward_arrow.svg">
+                                                </label>
+                                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72">
+                                                    <li><a (click)="facultyFilter='All'">All</a></li>
+                                                    <li><a (click)="facultyFilter='Science'">Science</a></li>
+                                                    <li><a (click)="facultyFilter='Art'">Art</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <app-button
+                                        [overRideButtonClass]="true"
+                                        [customClass]="'bg-[#4086EF] text-white font-medium font-inter text-xs w-[80px] h-[40px] rounded-xl mt-7'"
+                                        (buttonClick)="addFilter()"
+                                        >
+                                        Add Filter
+                                        </app-button>
+                                    </div>
+                                    <div class="overflow-x-auto mt-3 hide-scrollbar border rounded-xl shadow-sm">
+                                        <table class="table w-full">
+                                            <thead>
+                                                <tr>
+                                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader">Department</th>
+                                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader"></th>
+                                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader">Faculty</th>
+                                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader"></th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody class="bg-white">
+                                                <tr *ngFor="let data of departmentList" class="bg-white">
+                                                    <td class="bg-white">
+                                                        <p class="font-inter font-medium text-base text-darkGray">{{data.departmentName}}</p>
+                                                    </td>
+                                                    <td class="bg-white"></td>
+                                                    <td class="bg-white">
+                                                        <p class="font-inter font-normal text-base text-lightGray">{{data.facultyName}}</p>
+                                                    </td>
+                                                    <td class="bg-white">
+                                                        <p class="font-inter font-medium text-base text-primaryBlue" (click)="editDepartment(data)">Edit</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <app-button
+                                        (buttonClick)="activateEditDepartment()"
+                                        [overRideButtonClass]="true"
+                                        [customClass]="'w-full h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'"
+                                        >Add New Department
+                                        </app-button>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="degreeType">
+                                    <div class="border-1.5 rounded-xl shadow-md">
+                                        <h3 class="py-2 border-b-1.5 rounded-t-xl px-6 font-sans font-medium text-lg text-[#667085] bg-tabBlue">Degree</h3>
+                                        <div class="border-b-1.5" *ngFor="let unit of degreeTypeList">
+                                            <div class="p-6 flex justify-between">
+                                                <p class="font-inter font-medium text-base text-darkGray">{{unit.name}}</p>
+                                                <p class="font-inter font-medium text-base text-primaryBlue" (click)="editDegreeType(unit)">Edit</p>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <app-button 
+                                        (buttonClick)="activateEditInstSector()"
+                                        [overRideButtonClass]="true" 
+                                        [customClass]="'w-full h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'">
+                                            Add New Degree Type
+                                        </app-button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -65,6 +176,7 @@
         </div>
     </ng-container>
    
+    
             
     <ng-container *ngIf="editToggle">
         <div >
@@ -74,9 +186,9 @@
                     <div class="p-6 grid grid-cols-3 items-center">
                         <p class="font-inter font-medium text-sm text-darkGray">Faculty Name</p>
                         <app-input 
-                            [formGrp]="editForm" 
+                            [formGrp]="newFacultyForm" 
                             formCtrlName="facultyName" 
-                            [placeholder]="'Enter faculty name'"
+                            [Issuer]="'Enter faculty name'"
                             [type]="'text'"
                             [class]="' bg-white w-full h-10 mt-2 border border-[#D0D5DD] rounded-md placeholder:text-base placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
                         </app-input>
@@ -88,7 +200,7 @@
                         [customClass]="'w-20 h-10 rounded-lg font-normal border border-buttonBlue text-buttonBlue leading-6 bg-none p-2 mt-6'">Cancel
                     </app-button>
                     <app-button
-                        (buttonClick)="openChangesConfirmed()"
+                        (buttonClick)="createFaculty()"
                         [overRideButtonClass]="true" 
                         [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'">Create
                     </app-button>
@@ -100,15 +212,15 @@
 
     <ng-container *ngIf="editToggleType">
         <div >
-            <div class="border-1.5 rounded-xl shadow-md">
+            <div class="border-1.5 rounded-xl shadow-md" [formGroup]="createDepartmentForm">
                 <h3 class="py-2  border-b-1.5 rounded-t-xl px-6 font-sans font-medium text-lg text-darkGray bg-white">Department</h3>
                 <div class="border-b-1.5">
                     <div class="p-6 grid grid-cols-3 items-center">
                         <p class="font-inter font-medium text-sm text-darkGray">Department Name</p>
                         <app-input 
-                            [formGrp]="editForm" 
+                            [formGrp]="createDepartmentForm" 
                             formCtrlName="departmentName" 
-                            [placeholder]="'Enter Department Name'"
+                            [Issuer]="'Enter Department Name'"
                             [type]="'text'"
                             [class]="' bg-white w-full h-10 mt-2 border border-[#D0D5DD] rounded-md placeholder:text-sm placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
                         </app-input>
@@ -116,15 +228,10 @@
 
                     <div class="p-6 grid grid-cols-3 items-center">
                         <label for="faculty" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Faculty</label>
-                        <select 
-                            name="faculty" 
-                            id="faculty"
-                            class="mt-2 select h-[52px] w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] font-inter font-medium text-sm text-lightGray placeholder:font-inter placeholder:leading-6 placeholder:text-sm placeholder:text-lightGray placeholder:font-medium focus:border-[D0D5DD] outline-none">
-                            <option value="Select Faculty" 
-                            [disabled]="true">Select Faculty</option>
-                            <option value="Art" >Art</option>
-                            <option value="Science" >Science</option>
-                        </select>
+                        <ng-select class="custom-ng-dropdown" formControlName="faculty" [selectOnTab]="true"
+                                placeholder="Select Institution Name">
+                                <ng-option *ngFor="let unit of facultyList" [value]="unit?.id">{{unit?.name}}</ng-option>
+                              </ng-select>
                     </div>
                 </div>
                 <div class="flex justify-end mb-6 mr-6 gap-3">
@@ -133,9 +240,10 @@
                         [customClass]="'w-20 h-10 rounded-lg font-normal border border-buttonBlue text-buttonBlue leading-6 bg-none p-2 mt-6'">Cancel
                     </app-button>
                     <app-button
-                        (buttonClick)="openChangesConfirmed()"
+                        (buttonClick)="createDepartment()"
+                        [disabled]="createDepartmentForm.invalid"
                         [overRideButtonClass]="true" 
-                        [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'">Create
+                        [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-primaryBlue p-2 mt-6'">Create
                     </app-button>
                 </div>
             </div>
@@ -145,15 +253,15 @@
 
     <ng-container *ngIf="editToggleSector">
         <div >
-            <div class="border-1.5 rounded-xl shadow-md">
+            <div class="border-1.5 rounded-xl shadow-md" [formGroup]="newDegreeForm">
                 <h3 class="py-2  border-b-1.5 rounded-t-xl px-6 font-sans font-medium text-lg text-darkGray bg-white">Degree</h3>
                 <div class="border-b-1.5">
                     <div class="p-6 grid grid-cols-3 items-center">
                         <p class="font-inter font-medium text-sm text-darkGray">Faculty</p>
                         <app-input 
-                            [formGrp]="editForm" 
-                            formCtrlName="facultyName" 
-                            [placeholder]="'Enter faculty'"
+                            [formGrp]="newDegreeForm" 
+                            formCtrlName="degree" 
+                            [Issuer]="'Enter Degree type'"
                             [type]="'text'"
                             [class]="' bg-white w-full h-10 mt-2 border border-[#D0D5DD] rounded-md placeholder:text-base placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
                         </app-input>
@@ -165,7 +273,8 @@
                         [customClass]="'w-20 h-10 rounded-lg font-normal border border-buttonBlue text-buttonBlue leading-6 bg-none p-2 mt-6'">Cancel
                     </app-button>
                     <app-button
-                        (buttonClick)="openChangesConfirmed()"
+                        (buttonClick)="createDegreeType()"
+                        [disabled]="newDegreeForm.invalid"
                         [overRideButtonClass]="true" 
                         [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'">Create
                     </app-button>

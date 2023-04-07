@@ -29,7 +29,7 @@
       </h4>
       <div class="px-4 py-3 flex gap-2 items-center whitespace-nowrap border border-solid border-[#D0D5DD] rounded-lg [box-shadow:0px_1px_2px_rgba(16,_24,_40,_0.05)]">
         <img src="assets/images/icons/wallet-icon.svg" alt="">
-        <span class="font-medium font-inter text-sm text-[#344054]">Wallet Balance: ₦1,000. 00 </span>
+        <span class="font-medium font-inter text-sm text-[#344054]">Wallet Balance: ₦{{balance || 0 | commaDelimiter}} </span>
       </div>
     </div>
 
@@ -38,7 +38,10 @@
             <img src="assets/images/graduates/notes.svg" alt="">
             <div>Academic Details</div>
         </div>
-        <div class="flex flex-col items-center text-center gap-5 shrink-0">
+        <div class="flex flex-col items-center text-center gap-5 shrink-0" 
+        routerLink="/graduates/applications/new/app-details"
+        [routerLinkActiveOptions]="{exact : true}" routerLinkActive #requestTransaction="routerLinkActive"  
+        [ngClass]="requestTransaction.isActive? 'border-primaryBlue': 'border-[#D9DFE9]'">
             <img src="assets/images/graduates/details.svg" alt="">
             <div>Application Details</div>
         </div>

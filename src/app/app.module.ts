@@ -8,6 +8,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NotifierModule } from 'angular-notifier';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { environment } from 'src/environments/environment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,13 +17,18 @@ import { AuthInterceptor } from './core/interceptors/http.interceptor';
 import { appReducer } from './store/shared/app.reducer';
 import { metaReducers, reducers } from './types/appState.interface';
 import { customNotifierOptions } from './types/index.types';
+import { LoaderComponent } from './shared/components/loader/loader.component';
+
+
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoaderComponent, ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     RecaptchaModule,
     AppRoutingModule,
+    
     NotifierModule,
     HttpClientModule,
     StoreModule.forRoot({}),

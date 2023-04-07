@@ -42,8 +42,8 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log(req);
-    // console.log(this.token);
+    ////console.log(req);
+    // ////console.log(this.token);
     if (req.headers.get('skip')) {
       req = req.clone({
         headers: req.headers.delete('skip'),
@@ -78,7 +78,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       }),
       catchError((_error: HttpErrorResponse) => {
-        // console.log(_error.status);
+        // ////console.log(_error.status);
         if (_error) {
           if (_error.status === 401) {
             localStorage.clear();
@@ -104,16 +104,16 @@ export class AuthInterceptor implements HttpInterceptor {
             this.router.navigate(['/']);
           }
           if (_error.status === 400) {
-            // console.log(_error);
+            // ////console.log(_error);
             const {
               error,
               errorMessages,
               error_description,
               errorDescription,
             } = _error.error;
-            console.log(_error.error);
-            // console.log(error);
-            // console.log(error_description);
+            ////console.log(_error.error);
+            // ////console.log(error);
+            // ////console.log(error_description);
             if (typeof error === 'object') {
               let value = Object.values(error);
               this._notificationService.publishMessages(
@@ -165,7 +165,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return of(this.storageService.getItem('refreshToken'));
   }
   private addAuthenticationToken(request: HttpRequest<any>): HttpRequest<any> {
-    // console.log(this.token);
+    // ////console.log(this.token);
     if (!this.token) return request;
     if (!request.url.match(/www.example.com\//)) return request;
     return request.clone({

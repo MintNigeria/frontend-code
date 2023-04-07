@@ -14,7 +14,8 @@
                      <div class="flex items-center gap-2 w-fit p-2">
                         <div class="ml-3 w-2 h-2 rounded-full bg-[#027A48]"></div>
                         <p class="my-0 text-sm cursor-pointer font-inter font-medium w-auto text-[#027A48]">
-                            Approved
+                            {{isFeeApproved ? 'Approved': 'Awaiting approval'}}
+
                         </p>
                      </div>
                 </div>
@@ -23,36 +24,43 @@
 
     </div>
     
-    <div class="p-3 border-b">
+    <div class="p-3 border-b" *ngFor="let type of processingFeeList; let parent = index">
         <div class="w-10/12 ">
             <div class="lg:flex gap-6 mb-6">
                 <div class="w-full md:w-2/4">
                     <p class=" font-inter font-medium text-base text-failedNormal">
-                        Certificate (Original)
+                       {{type.documentTypeName}}
                     </p>
                     <p class="font-inter font-normal text-sm text-lightGray">
-                    Academic Document signed by the Vice Chancellor and the Registrar confirming the completion of an academic programme. It can only be sent to a physical address.
+                    {{type.description}}
                     </p>
                 </div>
 
                 <div class="w-full md:w-2/3  gap-6">
-                    <div class="w-full md:w-2/3 flex gap-6">
-                        <div>
-                            <div class=" mb-6 mt-3">
+                    <div class="w-full  flex gap-6">
+                        <div class="lg:flex gap-3 items-center">
+                            <div class=" mb-6 mt-3" *ngFor="let unit of type.processingFeeConfigVM; let child = index">
                                 <div class="w-full ">
                                     <label class=" font-inter font-medium text-sm text-failedNormal " for="inline-full-name">
-                                        Hard Copy
+                                        {{unit.deliveryOptionsType || 'N/A'}}
                                     </label>
                                 </div>
                                 <div class="w-full  mt-2">
-                                    <app-input 
+                                    <input type="text"
+                                    (input)="getFee(unit, $event.target, parent, child)"
+                                    [value]="unit.fee"
+                                    placeholder="N 5000"
+                                    [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-tableHeader rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                                    [name]="'fee'">
+                                    <!-- <app-input 
                                     [formGrp]="feeForm" 
                                     formCtrlName="fee" 
                                     [type]="'text'" 
                                     [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-tableHeader rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                                     placeholder="N 5000" 
                                     [name]="'fee'"
-                                    ></app-input>
+                                    
+                                    ></app-input> -->
                                 </div>
                             </div>
                         </div>
@@ -62,7 +70,7 @@
         </div>
     </div>
 
-    <div class="p-3 border-b">
+    <!-- <div class="p-3 border-b">
         <div class="w-10/12 ">
             <div class="lg:flex gap-6 mb-6">
                 <div class="w-full md:w-2/4">
@@ -245,10 +253,10 @@
                 </div>    
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="mt-6"
         (click)="openEdit()">
-        <p class="font-inter font-normal text-sm text-lightGray">+ Add academic document</p>
+        <p class="font-inter font-normal text-sm text-lightGray cursor-pointer">+ Add academic document</p>
     </div>
     <div class="flex justify-end items-center gap-4 mt-4 mb-6">
         <app-button
@@ -259,7 +267,7 @@
         <app-button
         [overRideButtonClass]="true"
         customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
-        [routerLink]="'/institution/configuration/awaiting-approval'"
+        (buttonClick)="sendForApproval()"
             >Send for Approval
         </app-button>
     </div>
@@ -270,42 +278,36 @@
         <div class="">
             <h3 class="font-medium text-lg font-inter text-darkGray">Document Type</h3>
             <div>
-                <form>
+                <form [formGroup]="processingFeesForm">
                     <div>
                         <p class="mb-2 mt-6 font-inter font-normal text-base text-lightGray">
                         Document Type
                         </p>
                         <div class="flex items-center gap-4">
-                            <select
-                                name=""
-                                id=""
-                                class="select w-full h-[52px] bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none"
+                            <ng-select class="w-full custom-ng-dropdown" 
+                            [selectOnTab]="true"
+                            (change)="getDocumentTypeName($event)" 
+                            formControlName="feeType"
+                            placeholder="Select type"
                             >
-                                <option value="" disabled>Select Document Type</option>
-                                <option value="">Certificate (Original)</option>
-                                <option value="">Certificate (Template)</option>
-                                <option value="">Certificate (Certified True Copy)</option>
-                                <option value="">Transcript</option>
-                                <option value="">Notification of Result</option>
-                                <option value="">English as a Medium</option>
-                                <option value="">Transcript (Student Copy)</option>
-                            </select>
+                        <ng-option *ngFor="let unit of processingFees" [value]="unit.id">{{unit.documentName}}</ng-option>
+                        </ng-select>
                         </div>
                     </div>
                     <div class="mt-3 mb-3">
                         <div class="mt-3">
                             <p class="font-medium text-sm font-inter text-darkGray">Delivery Options</p>
-                            <p class="font-normal text-sm font-inter text-[#D0D5DD]">Select up to three (3) delivery options that will be available to this document type.</p>
+                            <p class="font-normal text-sm font-inter text-[#D0D5DD]">Select  delivery options that will be available to this document type.</p>
                         </div>
-                        <div class="flex gap-3 mt-3">
-                             <input type="checkbox" checked="checked" class="checkbox checkbg"  />
+                        <div class="flex gap-3 mt-3" *ngFor="let unit of deliveryOption">
+                             <input type="checkbox" [value]="unit.id" (change)="getCheckedValue(unit.deliveryTypeName, $event.target)" checked="checked" class="checkbox checkbg"  />
                              <div>
-                                <p class="font-medium text-sm font-inter text-darkGray">Email</p>
-                                <p class="font-normal text-sm font-inter text-lightGray">This document type can be sent to an electronic address.</p>
+                                <p class="font-medium text-sm font-inter text-darkGray">{{unit.deliveryTypeName}}</p>
+                                <p class="font-normal text-sm font-inter text-lightGray">{{unit?.description}}</p>
                              </div>
                         </div>
 
-                        <div class="flex gap-3 mt-3">
+                        <!-- <div class="flex gap-3 mt-3">
                              <input type="checkbox" checked="checked" class="checkbox checkbg"  />
                              <div>
                                 <p class="font-medium text-sm font-inter text-darkGray">File Upload</p>
@@ -319,19 +321,20 @@
                                 <p class="font-medium text-sm font-inter text-darkGray">Hard Copy</p>
                                 <p class="font-normal text-sm font-inter text-lightGray">This document type can be sent to a physical address.</p>
                              </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="grid grid-cols-2 gap-3 mt-6 mb-3">
                         <app-button
                             (buttonClick)="closeEdit()"
-                            [overRideButtonClass]="true" 
+                            [overRideButtonClass]="true"
                             [customClass]="'w-full h-10 rounded-lg font-normal border border-buttonBlue text-base text-primaryBlue leading-6 bg-white'">Cancel
                         </app-button>
                         <app-button
-                            (buttonClick)="closeEdit()"
+                        (buttonClick)="createDocumentType()"
+                        [disabled]="isFirstFeeApproved === true && isFeeApproved === false"
                             [overRideButtonClass]="true" 
-                            [customClass]="'w-full h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue'">Add Document Type
+                            [customClass]="'w-full h-10 rounded-lg font-normal text-base text-white leading-6 bg-primaryBlue'">Add Document Type
                         </app-button>
                     </div>
                 </form>

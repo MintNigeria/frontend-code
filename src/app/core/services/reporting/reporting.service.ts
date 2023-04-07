@@ -5,10 +5,7 @@ import { BaseURI } from '../shared/baseURI.shared';
 
 abstract class AbstractReportingService {
   abstract getAllReports(
-    keyword: string,
-    filter: string,
-    pageSize: number,
-    pageIndex: number
+   payload: any
   ): Observable<any>;
   abstract getTransactionsReports(
     keyword: string,
@@ -30,13 +27,10 @@ export class ReportingService
   }
 
   getAllReports(
-    keyword: string,
-    filter: string,
-    pageSize: number,
-    pageIndex: number
+    filter: any
   ) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionRequest/AllRequestsReport?Keyword=${keyword}&Filter=${filter}&PageIndex=${pageIndex}&PageSize=${pageSize}`
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionRequest/AllRequestsReport`, {params: filter}
     );
   }
 
@@ -72,6 +66,22 @@ export class ReportingService
   ) {
     return this.http.get<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/Transaction/ExportAsExcel?institutionId=${institutionId}`
+    );
+  }
+
+  exportReportCSV(
+    institutionId: any,
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionRequest/ExportRequestsAsCSV/ExportAsCSV?institutionId=${institutionId}`
+    );
+  }
+  
+  exportReportExcel(
+    institutionId: any,
+  ) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionRequest/ExportRequestsAsExcel/ExportAsExcel?institutionId=${institutionId}`
     );
   }
 }

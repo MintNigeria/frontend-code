@@ -1,519 +1,452 @@
-<div class="flex items-center md:gap-4 gap-2 p-6">
-  <div>
-    <img [routerLink]="'/main/requests'" src="assets/images/icons/home.svg" />
-  </div>
-  <div>
-    <img src="assets/images/icons/forward_arrow.svg" />
-  </div>
-
-  <div>
-    <p
-      class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer"
-    >
-      Organization Requests
-    </p>
-  </div>
-</div>
-<div class="bg-white py-6 px-8">
-  <div class="px-5">
-    <div class="items-center my-2">
-      <h4 class="font-medium font-poppins text-4xl text-[#101828] my-3">
-        Organization Requests
-      </h4>
+<div *ngIf="organizationRequest$ | async as request">
+  <div class="flex items-center md:gap-4 gap-2 p-6">
+    <div>
+      <img [routerLink]="'/main/requests'" src="assets/images/icons/home.svg" />
+    </div>
+    <div>
+      <img src="assets/images/icons/forward_arrow.svg" />
+    </div>
+  
+    <div>
       <p
-        class="text-[#667085] font-nunito text-base font-normal cursor-pointer"
+        class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer"
       >
-        Requests from Organization can be managed here.
+        Organization Requests
       </p>
     </div>
   </div>
-  <div class="w-full rounded-xl shadow-sm p-6 border-none bg-[#F5F9FF]">
-    <form>
-      <div
-        class="flex md:flex-row md:justify-between md:items-center flex-col w-full"
-      >
-        <div class="lg:flex lg:justify-between grid grid-cols-2 gap-4">
-          <div class="lg:justify-between gap-4">
-            <p
-              class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2"
-            >
-              Date
-            </p>
-            <div class="dropdown dropdown-bottom">
-              <label
-                tabindex="0"
-                class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-[160px] h-[40px] py-[14px] px-3 cursor-pointer"
-              >
-                <p class="my-0 text-[#667085] font-inter font-medium text-sm">
-                  {{ selectedOption }}
-                </p>
-                <img src="assets/images/icons/downward_arrow.svg" />
-              </label>
-              <ul
-                tabindex="0"
-                class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-              >
-                <li><a (click)="selectedOption = 'data Time'">All Time</a></li>
-                <li><a (click)="selectedOption = '30 Days'">30 Days</a></li>
-                <li><a (click)="selectedOption = '7 days'">7 Days</a></li>
-                <li><a (click)="selectedOption = '24 Hours'">24 Hours</a></li>
-                <li>
-                  <a (click)="selectedOption = 'Custom Period'"
-                    >Custom Period</a
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="lg:justify-between gap-4">
-            <p
-              class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2"
-            >
-              Organization Industry
-            </p>
-            <div class="dropdown dropdown-bottom">
-              <label
-                tabindex="0"
-                class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-[160px] h-[40px] py-[14px] px-3 cursor-pointer"
-              >
-                <p class="my-0 text-[#667085] font-inter font-medium text-sm">
-                  {{ selectedInstituition }}
-                </p>
-                <img src="assets/images/icons/downward_arrow.svg" />
-              </label>
-              <ul
-                tabindex="0"
-                class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-56"
-              >
-                <li><a (click)="selectedInstituition = 'All'">All</a></li>
-                <li>
-                  <a (click)="selectedInstituition = 'University'"
-                    >University</a
-                  >
-                </li>
-                <li>
-                  <a (click)="selectedInstituition = 'Polytechnic'"
-                    >Polytechnic</a
-                  >
-                </li>
-                <li>
-                  <a (click)="selectedInstituition = 'College of Education'"
-                    >College of Education</a
-                  >
-                </li>
-                <li>
-                  <a (click)="selectedInstituition = 'Nursing School'"
-                    >Nursing School</a
-                  >
-                </li>
-                <li>
-                  <a (click)="selectedInstituition = 'Professional Institution'"
-                    >Professional Institution</a
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="lg:justify-between gap-4">
-            <p
-              class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2"
-            >
-              Organization Sector
-            </p>
-            <div class="dropdown dropdown-bottom">
-              <label
-                tabindex="0"
-                class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-[160px] h-[40px] py-[14px] px-3 cursor-pointer"
-              >
-                <p class="my-0 text-[#667085] font-inter font-medium text-sm">
-                  {{ selectedSector }}
-                </p>
-                <img src="assets/images/icons/downward_arrow.svg" />
-              </label>
-              <ul
-                tabindex="0"
-                class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-56"
-              >
-                <li><a (click)="selectedSector = 'All'">All</a></li>
-                <li><a (click)="selectedSector = 'Federal'">Federal</a></li>
-                <li><a (click)="selectedSector = 'State'">State</a></li>
-                <li><a (click)="selectedSector = 'Private'">Private</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="lg:justify-between gap-4">
-            <p
-              class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2"
-            >
-              Document Type
-            </p>
-            <div class="dropdown dropdown-bottom">
-              <label
-                tabindex="0"
-                class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-[160px] h-[40px] py-[14px] px-3 cursor-pointer"
-              >
-                <p class="my-0 text-[#667085] font-inter font-medium text-sm">
-                  {{ documentType }}
-                </p>
-                <img src="assets/images/icons/downward_arrow.svg" />
-              </label>
-              <ul
-                tabindex="0"
-                class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
-              >
-                <li><a (click)="documentType = 'All'">All</a></li>
-                <li>
-                  <a (click)="documentType = 'Certificate (Original)'"
-                    >Certificate (Original)</a
-                  >
-                </li>
-                <li>
-                  <a (click)="documentType = 'Certificate (Template)'"
-                    >Certificate (Template)</a
-                  >
-                </li>
-                <li>
-                  <a
-                    (click)="documentType = 'Certificate (Certified True Copy)'"
-                    >Certificate (Certified True Copy)</a
-                  >
-                </li>
-                <li><a (click)="documentType = 'Transcript'">Transcript</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="lg:justify-between gap-4">
-            <p
-              class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2"
-            >
-              Status
-            </p>
-            <div class="dropdown dropdown-bottom">
-              <label
-                tabindex="0"
-                class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-[160px] h-[40px] py-[14px] px-3 cursor-pointer"
-              >
-                <p class="my-0 text-[#667085] font-inter font-medium text-sm">
-                  {{ status }}
-                </p>
-                <img src="assets/images/icons/downward_arrow.svg" />
-              </label>
-              <ul
-                tabindex="0"
-                class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
-              >
-                <li><a (click)="status = 'All'">All</a></li>
-                <li>
-                  <a (click)="status = 'Certificate (Original)'">Pending</a>
-                </li>
-                <li>
-                  <a (click)="status = 'Certificate (Template)'">Processing</a>
-                </li>
-                <li>
-                  <a (click)="status = 'Certificate (Certified True Copy)'"
-                    >Completed</a
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="flex items-center mt-6">
-            <button
-              class="bg-[#4086EF] text-white font-medium font-inter text-xs w-[80px] h-[40px] rounded-xl"
-              (click)="addFilter()"
-            >
-              Add Filter
-            </button>
-            <button
-              class="bg-none text-[#4086EF] font-medium font-inter text-xs w-[80px] h-[40px] rounded"
-              (click)="clearFilter()"
-            >
-              Clear Filter
-            </button>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-
-  <div class="w-full rounded-xl shadow-sm border-none mt-6">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-[#EBF3FF] text-white rounded-md p-4">
-        <h3 class="text-[#344054] text-base font-inter font-medium mb-2">
-          Total Organization Requests
-        </h3>
-        <p class="text-3xl font-nunito text-[#0D47A1] font-bold">
-          {{ graduateList.length }}
-        </p>
-      </div>
-      <div class="bg-[#F6FEF9] text-white rounded-md p-4">
-        <h3 class="text-[#344054] text-base font-inter font-medium mb-2">
-          Successful Requests
-        </h3>
-        <p class="text-3xl font-nunito text-[#027A48] font-bold">
-          {{ array.length }}
-        </p>
-      </div>
-      <div class="bg-failedLight text-white rounded-md p-4">
-        <h3 class="text-[#344054] text-base font-inter font-medium mb-2">
-          Failed Requests
-        </h3>
-        <p class="text-3xl font-nunito text-failedDark font-bold">
-          {{ array.length }}
+  <div class="bg-white py-6 px-8">
+    <div class="px-5">
+      <div class="items-center my-2">
+        <h4 class="font-medium font-poppins text-4xl text-[#101828] my-3">
+          Organization Requests
+        </h4>
+        <p
+          class="text-[#667085] font-nunito text-base font-normal cursor-pointer"
+        >
+          Requests from Organization can be managed here.
         </p>
       </div>
     </div>
-  </div>
-
-  <div class="border border-[#EFF0F7] bg-white rounded-xl p-6 mt-4">
-    <div class="mt-0 bg-white">
-      <div class="md:block hidden">
-        <form>
-          <div
-            class="flex md:flex-row md:justify-between md:items-center flex-col w-full"
-          >
-            <div class="flex lg:justify-between gap-4">
-              <div class="relative cursor-pointer mr-3">
-                <input
-                  type="search"
-                  placeholder="Search name, request ID or institution"
-                  class="bg-white rounded-[10px] border border-inputBg w-[400px] py-[14px] px-8 placeholder:text-[#6E7191] text-sm lg:text-base focus:outline-none"
-                />
-                <div class="top-1/2 absolute left-3 custom-translate pr-4">
-                  <img src="assets/images/icons/search.svg" />
-                </div>
+    <div class="w-full rounded-xl shadow-sm p-6 border-none bg-[#F5F9FF]">
+      <div>
+        <div
+          class="flex md:flex-row md:justify-between md:items-center flex-col w-full"
+        >
+          <div class="lg:flex lg:justify-between grid grid-cols-2 gap-4">
+            <div class="lg:justify-between gap-4">
+              <p
+                class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2"
+              >
+                Date
+              </p>
+              <div class="dropdown dropdown-bottom">
+                <label
+                  tabindex="0"
+                  class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-[160px] h-[40px] py-[14px] px-3 cursor-pointer"
+                >
+                  <p class="my-0 text-[#667085] font-inter font-medium text-sm">
+                    {{ selectedOption }}
+                  </p>
+                  <img src="assets/images/icons/downward_arrow.svg" />
+                </label>
+                <ul
+                        tabindex="0"
+                        class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52"
+                    >
+                        <li><a (click)="changeRange(0, 'All Time') ">All Time</a></li>
+                        <li><a (click)="changeRange(3, '30 Days')">30 Days</a></li>
+                        <li><a (click)="changeRange(2, '7 days' )">7 Days</a></li>
+                        <li><a (click)="changeRange(1, '24 Hours')">24 Hours</a></li>
+                        <li>
+                        <a (click)="changeRange(5, 'Custom Period')"
+                            >Custom Period</a
+                        >
+                        </li>
+                    </ul>
               </div>
             </div>
-
-            <div class="flex md:items-center gap-4">
-              <div>
-                <div class="lg:justify-between gap-4">
-                  <div class="dropdown dropdown-end">
-                    <label
-                      tabindex="0"
-                      class="flex justify-between bg-[#F5F9FF] rounded-[10px] items-center border border-none min-w-[101px] py-[8px] px-4 text-sm cursor-pointer"
-                    >
-                      <p
-                        class="my-0 text-[#0D47A1] font-inter font-medium text-sm"
-                      >
-                        Export
-                      </p>
-                      <img
-                        src="assets/images/icons/downward_arrow_blue.svg"
-                        alt=""
-                        class=""
-                      />
-                    </label>
-                    <ul
-                      tabindex="0"
-                      class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-                    >
-                      <li><a>Export as CSV</a></li>
-                      <li><a>Export as PDF</a></li>
-                    </ul>
-                  </div>
-                </div>
+  
+            <div class="lg:justify-between gap-4">
+              <p
+                class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2"
+              >
+                Organization Industry
+              </p>
+              <div class="dropdown dropdown-bottom">
+                <label
+                  tabindex="0"
+                  class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-[160px] h-[40px] py-[14px] px-3 cursor-pointer"
+                >
+                  <p class="my-0 text-[#667085] font-inter font-medium text-sm">
+                    {{ selectedInstituition }}
+                  </p>
+                  <img src="assets/images/icons/downward_arrow.svg" />
+                </label>
+                <ul
+                  tabindex="0"
+                  class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-56"
+                >
+                  <li><a (click)="selectedInstituition = 'All'">All</a></li>
+                  <li><a (click)="changeIndustryType(unit.name)" *ngFor="let unit of industrtList">{{unit.name}}</a></li>
+                 
+                </ul>
               </div>
+            </div>
+  
+            <div class="lg:justify-between gap-4">
+              <p
+                class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2"
+              >
+                Organization Sector
+              </p>
+              <div class="dropdown dropdown-bottom">
+                <label
+                  tabindex="0"
+                  class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-[160px] h-[40px] py-[14px] px-3 cursor-pointer"
+                >
+                  <p class="my-0 text-[#667085] font-inter font-medium text-sm">
+                    {{ selectedSector }}
+                  </p>
+                  <img src="assets/images/icons/downward_arrow.svg" />
+                </label>
+                <ul
+                  tabindex="0"
+                  class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-56"
+                >
+                  <li><a (click)="selectedSector = 'All'">All</a></li>
+                  <li><a (click)="changeSectorType(unit.name)" *ngFor="let unit of sectorList">{{unit.name}}</a></li>
+
+                </ul>
+              </div>
+            </div>
+  
+            <div class="lg:justify-between gap-4">
+              <p
+                class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2"
+              >
+                Document Type
+              </p>
+              <div class="dropdown dropdown-bottom">
+                <label
+                  tabindex="0"
+                  class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-[160px] h-[40px] py-[14px] px-3 cursor-pointer"
+                >
+                  <p class="my-0 text-[#667085] font-inter font-medium text-sm">
+                    {{ documentType }}
+                  </p>
+                  <img src="assets/images/icons/downward_arrow.svg" />
+                </label>
+                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72">
+                  <li><a (click)="documentType='All'">All</a></li>
+                  <li><a (click)="changeDocumentType(unit.documentTypeName)" *ngFor="let unit of processingFeeList">{{unit.documentTypeName}}</a></li>
+              </ul>
+              </div>
+            </div>
+  
+            <div class="lg:justify-between gap-4">
+              <p
+                class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2"
+              >
+                Status
+              </p>
+              <div class="dropdown dropdown-bottom">
+                <label
+                  tabindex="0"
+                  class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-[160px] h-[40px] py-[14px] px-3 cursor-pointer"
+                >
+                  <p class="my-0 text-[#667085] font-inter font-medium text-sm">
+                    {{ status }}
+                  </p>
+                  <img src="assets/images/icons/downward_arrow.svg" />
+                </label>
+                <ul
+                        tabindex="0"
+                        class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72"
+                    >
+                       
+                        <li><a (click)="changeStatus(0, 'Pending')">Pending</a>
+                        </li>
+                        <li>
+                        <a (click)="changeStatus(1, 'Approved')">Processing</a>
+                        </li>
+                        <li>
+                        <a (click)="changeStatus(2, 'Decline')"
+                            >Completed</a
+                        >
+                        </li>
+                    </ul>
+              </div>
+            </div>
+  
+            <div class="flex items-center mt-6">
+              <button
+                class="bg-primaryBlue text-white font-medium font-inter text-xs w-[80px] h-[40px] rounded-xl"
+                (click)="addFilter()"
+              >
+                Add Filter
+              </button>
+              <button
+                class="bg-none text-[#4086EF] font-medium font-inter text-xs w-[80px] h-[40px] rounded"
+                (click)="clearFilter()"
+              >
+                Clear Filter
+              </button>
             </div>
           </div>
-        </form>
-      </div>
-
-      <div>
-        <div class="overflow-x-auto mt-8 hide-scrollbar">
-          <table class="table w-full">
-            <thead>
-              <tr>
-                <th
-                  class="flex gap-1 text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
-                >
-                  Request ID
-                  <span
-                    ><img
-                      src="/assets/images/icons/arrow_down.svg"
-                      alt=""
-                      class="mt-0.5"
-                  /></span>
-                </th>
-                <th
-                  class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
-                >
-                  Name
-                </th>
-                <th
-                  class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
-                >
-                  Document Type
-                </th>
-                <th
-                  class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
-                >
-                  Organization
-                </th>
-                <th
-                  class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
-                >
-                  Reason for Request
-                </th>
-
-                <th
-                  class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
-                >
-                  Status
-                </th>
-                <th
-                  class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
-                >
-                  Action
-                </th>
-              </tr>
-            </thead>
-
-            <tbody class="">
-              <tr *ngFor="let data of graduateList" class=" ">
-                <td class="bg-white">
-                  <div>
-                    <p
-                      class="my-0 text-base cursor-pointer font-inter font-medium text-[#101828]"
-                    >
-                      {{ data.requestID }}
-                    </p>
-                    <p
-                      class="text-xs font-normal font-inter my-0 text-[#667085]"
-                    >
-                      {{ data?.date }}
-                    </p>
-                  </div>
-                </td>
-
-                <td class="bg-white">
-                  <div>
-                    <p
-                      class="my-0 text-base font-inter cursor-pointer font-medium text-[#0D47A1]"
-                    >
-                      {{ data.name }}
-                    </p>
-                    <p
-                      class="text-xs font-normal font-inter my-0 text-[#667085]"
-                    >
-                      {{ data?.number }}
-                    </p>
-                  </div>
-                </td>
-
-                <td class="bg-white">
-                  <div>
-                    <p
-                      class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]"
-                    >
-                      {{ data.docType }}
-                    </p>
-                  </div>
-                </td>
-                <td class="bg-white">
-                  <div>
-                    <p
-                      class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]"
-                    >
-                      {{ data.institution }}
-                    </p>
-                  </div>
-                </td>
-                <td class="bg-white">
-                  <div>
-                    <p
-                      class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]"
-                    >
-                      {{ data.reasonForRequest }}
-                    </p>
-                  </div>
-                </td>
-
-                <td class="bg-white">
-                  <div class="rounded text-center">
-                    <div
-                      class="rounded-full text-center w-auto"
-                      [ngClass]="
-                        data.status.toLowerCase() === 'successful'
-                          ? 'bg-[#ECFDF3]'
-                          : data.status.toLowerCase() === 'failed'
-                          ? 'bg-[#FEF3F2]'
-                          : ''
-                      "
-                    >
-                      <div class="flex items-center gap-2 w-auto">
-                        <div
-                          class="ml-3 w-2 h-2 rounded-full"
-                          [ngClass]="
-                            data.status.toLowerCase() === 'successful'
-                              ? 'bg-[#027A48]'
-                              : data.status.toLowerCase() === 'failed'
-                              ? 'bg-[#B42318]'
-                              : ''
-                          "
-                        ></div>
-                        <p
-                          class="my-0 text-sm cursor-pointer font-inter font-medium w-auto"
-                          [ngClass]="
-                            data.status.toLowerCase() === 'successful'
-                              ? 'text-[#027A48]'
-                              : data.status.toLowerCase() === 'failed'
-                              ? 'text-[#B42318]'
-                              : ''
-                          "
-                        >
-                          {{ data.status | titlecase }}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-
-                <td class="bg-white">
-                  <div
-                    class="flex gap-2 items-center"
-                    [routerLink]="'/institution/requests/organization/2'"
-                  >
-                    <p
-                      class="my-0 text-sm font-inter cursor-pointer font-medium text-[#0D47A1]"
-                    >
-                      {{ data.action }}
-                    </p>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </div>
+    </div>
+  
+    <div class="w-full rounded-xl shadow-sm border-none mt-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-[#EBF3FF] text-white rounded-md p-4">
+          <h3 class="text-[#344054] text-base font-inter font-medium mb-2">
+            Total Organization Requests
+          </h3>
+          <p class="text-3xl font-nunito text-[#0D47A1] font-bold">
+            {{ request?.data?.totalOrganisationRequests }}
+          </p>
+        </div>
+        <div class="bg-[#F6FEF9] text-white rounded-md p-4">
+          <h3 class="text-[#344054] text-base font-inter font-medium mb-2">
+            Successful Requests
+          </h3>
+          <p class="text-3xl font-nunito text-[#027A48] font-bold">
+            {{ request?.data?.successfulRequests }}
+          </p>
+        </div>
+        <div class="bg-failedLight text-white rounded-md p-4">
+          <h3 class="text-[#344054] text-base font-inter font-medium mb-2">
+            Failed Requests
+          </h3>
+          <p class="text-3xl font-nunito text-failedDark font-bold">
+            {{ request?.data?.failedRequests }}
+          </p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="border border-[#EFF0F7] bg-white rounded-xl p-6 mt-4">
+      <div class="mt-0 bg-white">
+        <div class="md:block hidden">
+          <form>
+            <div class="flex md:flex-row md:justify-between md:items-center flex-col w-full">
+                <div class="flex lg:justify-between gap-4">
+                    <app-search 
+                    (iconSearch)="search($event)"
+    [formGrp]="searchForm" formCtrlName="searchPhrase"  
+    [placeholder]="'Search name, request ID or institution'"></app-search>
+                </div>
 
-      <div class="flex items-center justify-between mt-10">
-        <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
-          Showing 1 to 7 of {{ graduateList.length }} entries
-        </p>
-        <div class="flex item gap-3">
-          <div
-            class="text-[10px] md:text-xs text-[#6E7191] bg-[#FCFCFC] rounded border border-solid border-[#EFF0F7] p-2 flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <img src="assets/images/icons/prev.svg" alt="" />
-            <span>Prev</span>
+                <div class="flex md:items-center gap-4 ">
+                    <div>
+                        <div class="lg:justify-between gap-4">
+                            <div class="dropdown dropdown-end">
+                                <label tabindex="0" class="flex justify-between bg-[#F5F9FF] rounded-[10px] items-center  border border-none min-w-[101px] py-[8px] px-4 text-sm cursor-pointer">
+                                <p class="my-0 text-[#0D47A1] font-inter font-medium text-sm">Export</p>
+                                <img src="assets/images/icons/downward_arrow_blue.svg" alt="" class="">
+                                </label>
+                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
+                                    <li><a>Export as CSV</a></li>
+                                    <li><a >Export as PDF</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+        </div>
+  
+        <div>
+          <div class="overflow-x-auto mt-8 hide-scrollbar">
+            <table class="table w-full">
+              <thead>
+                <tr>
+                  <th
+                    class="flex gap-1 text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+                  >
+                    Request ID
+                    <span
+                      ><img
+                        src="/assets/images/icons/arrow_down.svg"
+                        alt=""
+                        class="mt-0.5"
+                    /></span>
+                  </th>
+                  <th
+                    class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+                  >
+                    Name
+                  </th>
+                  <th
+                    class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+                  >
+                    Document Type
+                  </th>
+                  <th
+                    class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+                  >
+                    Organization
+                  </th>
+                  <th
+                    class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+                  >
+                    Reason for Request
+                  </th>
+  
+                  <th
+                    class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+                  >
+                    Status
+                  </th>
+                  <th
+                    class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+                  >
+                    Action
+                  </th>
+                </tr>
+              </thead>
+  
+              <tbody class="" *ngIf="request.data.organisationRequests.length >=  1">
+                <tr *ngFor="let data of request?.data?.organisationRequests | paginate: { itemsPerPage: filterParams.pageSize, currentPage: pageIndex, totalItems: request?.data?.totalOrganisationRequests }" class=" ">
+                  <td class="bg-white">
+                    <div>
+                      <p
+                        class="my-0 text-base cursor-pointer font-inter font-medium text-[#101828]"
+                      >
+                        {{ data.requestId }}
+                      </p>
+                      <p
+                        class="text-xs font-normal font-inter my-0 text-[#667085]"
+                      >
+                      {{data?.dateRequested | date }}
+                      </p>
+                    </div>
+                  </td>
+  
+                  <td class="bg-white">
+                    <div>
+                      <p
+                        class="my-0 text-base font-inter cursor-pointer font-medium text-[#0D47A1]"
+                      >
+                      {{data.graduteFullName}}
+                      </p>
+                      <p
+                        class="text-xs font-normal font-inter my-0 text-[#667085]"
+                      >
+                      {{data?.matricNo}}
+                      </p>
+                    </div>
+                  </td>
+  
+                  <td class="bg-white">
+                    <div>
+                      <p
+                        class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]"
+                      >
+                        {{ data.documentType }}
+                      </p>
+                    </div>
+                  </td>
+                  <td class="bg-white">
+                    <div>
+                      <p
+                        class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]"
+                      >
+                        {{ data.organisationName }}
+                      </p>
+                    </div>
+                  </td>
+                  <td class="bg-white">
+                    <div>
+                      <p
+                        class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]"
+                      >
+                        {{ data.reasonForRequest }}
+                      </p>
+                    </div>
+                  </td>
+  
+                  <td class="bg-white">
+                    <div class="rounded text-center">
+                      <div
+                        class="rounded-full text-center w-fit px-2 py-[2px] flex items-center"
+                        
+                      >
+                      <div
+                        class="mr-3 w-2 h-2 rounded-full"
+                        [ngClass]="
+                        data.status === 1
+                        ? 'bg-[#A0A3BD]'
+                        : data.status === 2
+                        ? 'bg-[#FDCC62]'
+                        : data.status === 3
+                        ? 'bg-[#E61B00]'
+                        : data.status === 4
+                        ? 'bg-[#008400]'
+                        : data.status === 5
+                        ? 'bg-[#EE6D00]'
+                        : data.status === 6
+                        ? 'bg-[#E61B00]'
+                        : 'bg-[#008400]'
+                        "
+                      ></div>
+                      <p
+                        class="my-0 text-sm cursor-pointer font-inter font-medium w-auto"
+                        [ngClass]="
+                          data.status === 1
+                            ? 'text-[#A0A3BD]'
+                            : data.status === 2
+                            ? 'text-[#FDCC62]'
+                            : data.status === 3
+                            ? 'text-[#E61B00]'
+                            : data.status === 4
+                            ? 'text-[#008400]'
+                            : data.status === 5
+                            ? 'text-[#EE6D00]'
+                            : data.status === 6
+                            ? 'text-[#E61B00]'
+                            : 'text-[#008400]'
+                        "
+                      >
+                        {{ data.status === 1 ? 'Pending' : data.status === 2 ? 'Processing' : data.status === 3 ? 'Dispatched' : data.status === 4 ? 'Paused' : data.status === 5 ? 'Delivered' : data.status === 6 ? 'Declined' : 'Completed' }}
+                      </p>
+                        
+                      </div>
+                    </div>
+                  </td>
+                <td class="bg-white">
+                    <div class="flex  gap-2 items-center" 
+                    (click)="viewRequest(data.requestId)">
+                        
+                        <p 
+                        class="my-0 text-sm font-inter cursor-pointer font-medium text-[#0D47A1] ">View</p>
+
+                    </div>
+
+                </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div
-            class="text-sm md:text-sm text-[#1D2B4F] bg-[#D9DBE9] rounded border border-solid border-[#D9DBE9] p-2"
-          >
-            1
-          </div>
-          <div
-            class="text-[10px] md:text-xs text-[#262338] bg-[#FCFCFC] rounded border border-solid border-[#0C3146] p-2 flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <span>Next</span>
-            <img src="assets/images/icons/next.svg" alt="" />
-          </div>
+        </div>
+  
+        <app-request-empty-state
+        *ngIf="request.data.organisationRequests.length < 1"
+        [dataStatus]="'No Request'"
+        ></app-request-empty-state>
+        <div class="flex items-center justify-end mt-10" *ngIf="request.data.organisationRequests.length >=  1">
+          <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
+            Showing 1 to 7 of {{ graduateList.length }} entries
+          </p> -->
+          <div class="flex item gap-3">
+            <pagination-controls (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next"></pagination-controls>
+
+        </div>
         </div>
       </div>
     </div>
