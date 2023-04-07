@@ -53,7 +53,6 @@ export class VerificationReasonComponent implements OnInit {
   ngOnInit(): void {
     const data: any = localStorage.getItem('userData')
     this.userData = JSON.parse(data)
-    console.log(this.userData)
     this.loadIp();
 
     this.reasonForm = this.fb.group({
@@ -63,7 +62,6 @@ export class VerificationReasonComponent implements OnInit {
     this.selectedVerificationUser = JSON.parse(record)
     this.store.dispatch(reasonForRequest())
     this.actions$.pipe(ofType(reasonForRequestSuccess)).subscribe((res: any) => {
-      console.log(res)
       this.reasons = res.payload
     })
   }
@@ -109,7 +107,6 @@ export class VerificationReasonComponent implements OnInit {
     }
     this.store.dispatch(submitVerificationReasonForRequest({payload}))
     this.actions$.pipe(ofType(submitVerificationReasonForRequestSuccess)).subscribe((res: any) => {
-      console.log(res)
       sessionStorage.setItem('ver_pMy', JSON.stringify(res.payload.payload))
       if (res.payload.hasErrors === false) {
         this.router.navigateByUrl(`/graduate/my-verifications/new/make-payment/${res.payload.payload.transactionId}`)
