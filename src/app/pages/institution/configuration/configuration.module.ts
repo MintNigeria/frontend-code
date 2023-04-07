@@ -23,6 +23,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { CreateDegreeTypeComponent } from './create-degree-type/create-degree-type.component';
 import { CreateDepartmentComponent } from './create-department/create-department.component';
 import { CreateFacultyComponent } from './create-faculty/create-faculty.component';
+import { InstitutionIndexComponent } from './institution-setup/institution-index/institution-index.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { CreateFacultyComponent } from './create-faculty/create-faculty.componen
     DegreeTypeComponent,
     CreateDegreeTypeComponent,
     CreateDepartmentComponent,
-    CreateFacultyComponent
+    CreateFacultyComponent,
+    InstitutionIndexComponent
   ],
   imports: [
     CommonModule,

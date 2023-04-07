@@ -10,9 +10,9 @@
             </thead>
             <tbody>
                 <tr *ngFor="let data of facultyList">
-                    <td class="font-inter font-medium text-base text-darkGray bg-white">{{data.faculty}}</td>
+                    <td class="font-inter font-medium text-base text-darkGray bg-white">{{data.name}}</td>
                     <td class="bg-white font-inter font-normal text-base text-lightGray">{{data.departmentCount}}</td>
-                    <td class="bg-white font-inter font-medium text-base text-primaryBlue" (click)="activateEditFaculty()">Edit</td>
+                    <td class="bg-white font-inter font-medium text-base text-primaryBlue" (click)="activateEditFaculty(data)">Edit</td>
                 </tr>
             </tbody>
         </table>
@@ -21,7 +21,7 @@
         <app-button 
         [overRideButtonClass]="true" 
         [customClass]="'w-full h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'"
-        (buttonClick)="activateEditFaculty()">
+        (buttonClick)="addFaculty()">
         Add New Faculty
         </app-button>
     </div>
