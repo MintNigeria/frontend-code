@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { downloadCSV, downloadCSVSuccess, downloadExcel, downloadExcelSuccess, invokeGetAllGraduates, invokeGetAllGraduatesSuccess } from 'src/app/store/graduates/action';
 import { getALlDepartmentInInstitution, getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess } from 'src/app/store/institution/action';
 import { departmentSelector } from 'src/app/store/institution/selector';
@@ -47,7 +48,9 @@ filter = {
     pageIndex: 1,
     facultyId: '',
     departmentId: '',
-    yearOFGraduation: ''
+    yearOFGraduation: '',
+    imei: '',
+    serialNumber: '',
     
 }
   transactionDetails: any;
@@ -55,20 +58,39 @@ filter = {
   recordList: any;
   facultyList: any;
   departmentList: any;
+  deviceModel: string;
+  ipAddress: any;
+  extra: any;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private store: Store,
     private appStore: Store<AppStateInterface>,
-    private actions$: Actions
-  ) { }
+    private actions$: Actions,
+        private utilityService: UtilityService,
+
+  ) {
+    const userAgent = navigator.userAgent;
+
+    if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
+      this.deviceModel = 'iPad or iPhone';
+    } else if (userAgent.match(/Android/i)) {
+      this.deviceModel = 'Android';
+    } else if (userAgent.match(/Window/i)) {
+      this.deviceModel = 'Window';
+    } else {
+      this.deviceModel = 'Other';
+    }
+    const data: any = sessionStorage.getItem('extras')
+    this.extra = JSON.parse(data)
+   }
 
   ngOnInit(): void {
     const data: any = localStorage.getItem('userData')
     this.institutionData = JSON.parse(data)
     this.institutionId = this.institutionData.InstitutionId
-    this.store.dispatch(invokeGetAllGraduates({institutionId: this.institutionId, payload: this.filter}))
+    this.store.dispatch(invokeGetAllGraduates({institutionId: this.institutionId, payload: {...this.filter, ...this.extra}}))
     this.actions$.pipe(ofType(invokeGetAllGraduatesSuccess)).subscribe((res: any) => {
       this.recordList = res.payload.data;
       this.totalCount = res.payload.totalCount
