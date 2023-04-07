@@ -11,6 +11,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AwaitingApprovalComponent } from './processing-fee/awaiting-approval/awaiting-approval.component';
 import { AwaitingApprovalFeeComponent } from './verification-fee/awaiting-approval-fee/awaiting-approval-fee.component';
+import { FacultyComponent } from './institution-setup/faculty/faculty.component';
+import { DepartmentComponent } from './institution-setup/department/department.component';
+import { DegreeTypeComponent } from './institution-setup/degree-type/degree-type.component';
 
 
 @NgModule({
@@ -21,7 +24,10 @@ import { AwaitingApprovalFeeComponent } from './verification-fee/awaiting-approv
     DispatchFeeComponent,
     InstitutionSetupComponent,
     AwaitingApprovalComponent,
-    AwaitingApprovalFeeComponent
+    AwaitingApprovalFeeComponent,
+    FacultyComponent,
+    DepartmentComponent,
+    DegreeTypeComponent
   ],
   imports: [
     CommonModule,

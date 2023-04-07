@@ -1,0 +1,28 @@
+<div>
+    <div class="overflow-x-auto mt-3 hide-scrollbar border rounded-xl shadow-sm">
+        <table class="table w-full">
+            <thead>
+                <tr>
+                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl">Title</th>
+                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl">Department Count</th>
+                    <th class=" font-sans font-medium text-xs text-[#667085] bg-tabBlue border-b-1.5 rounded-t-xl"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of facultyList">
+                    <td class="font-inter font-medium text-base text-darkGray bg-white">{{data.faculty}}</td>
+                    <td class="bg-white font-inter font-normal text-base text-lightGray">{{data.departmentCount}}</td>
+                    <td class="bg-white font-inter font-medium text-base text-primaryBlue" (click)="activateEditFaculty()">Edit</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="flex justify-end">
+        <app-button 
+        [overRideButtonClass]="true" 
+        [customClass]="'w-full h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'"
+        (buttonClick)="activateEditFaculty()">
+        Add New Faculty
+        </app-button>
+    </div>
+</div>
