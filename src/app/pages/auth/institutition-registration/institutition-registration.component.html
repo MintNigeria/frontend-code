@@ -1,279 +1,326 @@
 <div class="py-28 px-8 w-11/12 mx-auto" *ngIf="!showOTPPage">
 
-  <div >
-      <h4 class='font-semibold font-poppins text-3xl pb-3'>
-        Register As an Institution
-      </h4>
-      <p class='leading-6 text-base pb-8 text-lightGray font-nunito'>
-        It takes less than 10 minutes to register
-      </p>
-      <div class='flex flex-wrap  items-center pb-10 cursor-pointer  '>
-        <span class='rounded mr-3 px-3 py-1 bg-[#E7F6F7]'>
-          <p class='text-sm font-semibold text-[#2F4662]'>
-            1 of 2
-          </p>
-        </span>
-        <p class='font-bold text-base  text-[#2F4662] '>
-          All fields with '<span class="text-danger">*</span>' are mandatory.
+  <div>
+    <h4 class='font-semibold font-poppins text-3xl pb-3'>
+      Register As an Institution
+    </h4>
+    <p class='leading-6 text-base pb-8 text-lightGray font-nunito'>
+      It takes less than 10 minutes to register
+    </p>
+    <div class='flex flex-wrap  items-center pb-10 cursor-pointer  '>
+      <span class='rounded mr-3 px-3 py-1 bg-[#E7F6F7]'>
+        <p class='text-sm font-semibold text-[#2F4662]'>
+          1 of 2
         </p>
-      </div>
+      </span>
+      <p class='font-bold text-base  text-[#2F4662] '>
+        All fields with '<span class="text-danger">*</span>' are mandatory.
+      </p>
+    </div>
   </div>
 
   <form [formGroup]="institutionRegForm" class="w-full">
-    <ng-container >
-        <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
-          <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Institution Body
-              <span class="text-danger">*</span> </label>
-            <select name="" id=""
-              class="mt-2 select h-[52px] w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
-              <option value="">Body</option>
-            </select>
-          </div>
-          <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Institution Type
-              <span class="text-danger">*</span> </label>
-            <select name="" id=""
-              class="mt-2 select h-[52px] w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6  placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
-              <option value="">Select</option>
-              <option value="">University</option>
-              <option value="">Polytechnic</option>
-              <option value="">College of Education</option>
-            </select>
-          </div>
+    <ng-container>
+      <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
+        <div class="w-full md:w-1/2 px-3  md:mb-0" *ngIf="institutionBody$ | async as body">
+          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Institution
+            Type
+            <span class="text-danger">*</span> </label>
+          <ng-select class="custom-ng-dropdown"  (change)="selectInstitutionBody($event)" formControlName="institutionBodyId" [selectOnTab]="true"
+            placeholder="Select Institution body">
+            <ng-option *ngFor="let unit of body.data" [value]="unit.id">{{unit.name}}</ng-option>
+          </ng-select>
         </div>
-        <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
-          <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Institution
-              Sector <span class="text-danger">*</span> </label>
-            <select name="" id=""
-              class="mt-2 select h-[52px] w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6  placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
-              <option value="">Select</option>
-              <option value="">University</option>
-              <option value="">Polytechnic</option>
-              <option value="">College of Education</option>
-            </select>
-          </div>
-          <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Institution Name
-              <span class="text-danger">*</span> </label>
-            <app-input [formGrp]="institutionRegForm" formCtrlName="institutionBody" [type]="'text'" [class]="
-                    'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Enter institution name" [name]="'Email'"></app-input>
-          </div>
+        <div class="w-full md:w-1/2 px-3  md:mb-0" *ngIf="institutionType$ | async as type">
+          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Institution
+            Body
+            <span class="text-danger">*</span> </label>
+          <ng-select class="custom-ng-dropdown" (change)="selectInstitutionType($event)" formControlName="institutionTypeId" [selectOnTab]="true"
+            placeholder="Select Institution type">
+            <ng-option *ngFor="let unit of type.data" [value]="unit.id">{{unit.name}}</ng-option>
+          </ng-select>
         </div>
-        <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
-          <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Date of
-              Incoporation <span class="text-danger">*</span> </label>
-            <app-input [formGrp]="institutionRegForm" formCtrlName="institutionBody" [type]="'date'" [class]="
-                    'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Enter institution name" [name]="'Email'"></app-input>
-          </div>
-          <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Registration Type
-              <span class="text-danger">*</span> </label>
-            <select name="" id=""
-              class="mt-2 select h-[52px] w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6  placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
-              <option value="">Select</option>
-              <option value="">University</option>
-              <option value="">Polytechnic</option>
-              <option value="">College of Education</option>
-            </select>
-          </div>
+      </div>
+      <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
+        <div class="w-full md:w-1/2 px-3  md:mb-0" *ngIf="institutionSectors$ | async as sector">
+          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Institution
+            Sector <span class="text-danger">*</span> </label>
+          <ng-select class="custom-ng-dropdown" (change)="selectInstitutionSector($event)" formControlName="institutionSectorId" [selectOnTab]="true"
+            placeholder="Select Institution sector">
+            <ng-option *ngFor="let unit of sector.data" [value]="unit.id">{{unit.name}}</ng-option>
+          </ng-select>
         </div>
-        <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
-          <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Registration Body
-              <span class="text-danger">*</span> </label>
-            <app-input [formGrp]="institutionRegForm" formCtrlName="institutionBody" [type]="'date'" [class]="
+        <div class="w-full md:w-1/2 px-3  md:mb-0" >
+          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Institution
+            Name
+            <span class="text-danger">*</span> </label>
+          <!-- <app-input [formGrp]="institutionRegForm" formCtrlName="InstitutionName" [type]="'text'" [class]="
                     'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Enter institution name" [name]="'Email'"></app-input>
-          </div>
-          <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Registration
-              Number <span class="text-danger">*</span> </label>
-            <app-input [formGrp]="institutionRegForm" formCtrlName="institutionBody" [type]="'number'" [class]="
-                    'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Enter institution name" [name]="'Email'"></app-input>
-          </div>
+                  " placeholder="Enter institution name" [name]="'Email'"></app-input> -->
+                  <ng-select class="custom-ng-dropdown" (change)="selectInstitutionSector($event)" formControlName="InstitutionName" [selectOnTab]="true"
+            placeholder="Select Institution Name">
+            <ng-option *ngFor="let unit of institutionList" [value]="unit?.name">{{unit.name}}</ng-option>
+          </ng-select>
         </div>
-        <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
-          <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Email <span
-                class="text-danger">*</span> </label>
-            <app-input [formGrp]="institutionRegForm" formCtrlName="institutionBody" [type]="'email'" [class]="
+      </div>
+      <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
+        <div class="w-full md:w-1/2 px-3  md:mb-0">
+          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Date of
+            Incoporation <span class="text-danger">*</span> </label>
+          <app-input [formGrp]="institutionRegForm" formCtrlName="DateOfIncorporation" [type]="'date'" [class]="
                     'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Enter a valid email" [name]="'Email'"></app-input>
-          </div>
-          <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Phone Number
-              <span class="text-danger">*</span> </label>
-            <app-input [formGrp]="institutionRegForm" formCtrlName="institutionBody" [type]="'number'" [class]="
+                  " Issuer="Enter institution name" [name]="'Email'"></app-input>
+        </div>
+        <div class="w-full md:w-1/2 px-3  md:mb-0">
+          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Registration
+            Type
+            <span class="text-danger">*</span> </label>
+          <select name="" id="" (change)="changeRegistrationType($event)"
+            class="mt-2 select h-[52px] w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6  placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
+            <option value="">Select</option>
+            <option value="CAC">CAC</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
+        <div class="w-full md:w-1/2 px-3  md:mb-0">
+          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Registration
+            Body
+            <span class="text-danger">*</span> </label>
+          <app-input [formGrp]="institutionRegForm" formCtrlName="RegisteringBody" [type]="'text'" [class]="
                     'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Enter phone number" [name]="'Email'"></app-input>
-          </div>
+                  " Issuer="Enter registration body" [name]="'Email'"></app-input>
         </div>
-        <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
-          <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">State <span
-                class="text-danger">*</span> </label>
-            <select name="" id=""
-              class="mt-2 select h-[52px] w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
-              <option value="">Body</option>
-            </select>
-          </div>
-          <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Local Government
-              <span class="text-danger">*</span> </label>
-            <select name="" id=""
-              class="mt-2 select h-[52px] w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6  placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
-              <option value="">Select</option>
-              <option value="">University</option>
-              <option value="">Polytechnic</option>
-              <option value="">College of Education</option>
-            </select>
-          </div>
-        </div>
-        <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
-          <div class="w-full px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Address <span
-                class="text-danger">*</span> </label>
-            <app-input [formGrp]="institutionRegForm" formCtrlName="institutionBody" [type]="'text'" [class]="
+        <div class="w-full md:w-1/2 px-3  md:mb-0">
+          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Registration
+            Number <span class="text-danger">*</span> </label>
+          <app-input [formGrp]="institutionRegForm" formCtrlName="RegistrationNumber" [type]="'number'" [class]="
                     'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Enter phone number" [name]="'Email'"></app-input>
-          </div>
+                  " Issuer="Enter registration number" [name]="'Registration Number'"></app-input>
         </div>
-        <p class='font-bold text-base mb-3 text-[#2F4662] '>
-          Approver
+      </div>
+      <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
+        <div class="w-full md:w-1/2 px-3  md:mb-0">
+          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Email <span
+              class="text-danger">*</span> </label>
+          <app-input [formGrp]="institutionRegForm" formCtrlName="EmailAddress" [type]="'email'" [class]="
+                    'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                  " Issuer="Enter a valid email" [name]="'Email'"></app-input>
+        </div>
+        <div class="w-full md:w-1/2 px-3  md:mb-0">
+          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Phone Number
+            <span class="text-danger">*</span> </label>
+          <app-input [formGrp]="institutionRegForm" formCtrlName="PhoneNumber" [type]="'number'" [class]="
+                    'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                  " Issuer="Enter phone number" [name]="'Phone Number'"></app-input>
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
+        <div class="w-full md:w-1/2 px-3  md:mb-0" *ngIf="stateLGA$ | async as states">
+          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">State <span
+              class="text-danger">*</span> </label>
+              <ng-select class="custom-ng-dropdown" 
+              formControlName="StateId" 
+              [selectOnTab]="true" 
+              placeholder="Select State"
+              (change)="selectLocalGovt($event)"
+              >
+          <ng-option *ngFor="let state of states" [value]="state.id">{{state.name}}</ng-option>
+          </ng-select>
+        </div>
+        <div class="w-full md:w-1/2 px-3  md:mb-0">
+          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Local
+            Government
+            <span class="text-danger">*</span> </label>
+            <ng-select class="custom-ng-dropdown" 
+            formControlName="LgaId" 
+            [selectOnTab]="true" 
+            placeholder="Select LGA"
+            >
+        <ng-option *ngFor="let lga of lga" [value]="lga.id">{{lga.name}}</ng-option>
+        </ng-select>
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
+        <div class="w-full px-3  md:mb-0">
+          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Address <span
+              class="text-danger">*</span> </label>
+          <app-input [formGrp]="institutionRegForm" formCtrlName="Street" [type]="'text'" [class]="
+                    'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                  " Issuer="Enter address" [name]="'Email'"></app-input>
+        </div>
+      </div>
+      <p class='font-bold text-base mb-3 text-[#2F4662] '>
+        Approver
+      </p>
+      <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
+        <div class="w-full md:w-1/2 px-3  md:mb-0">
+          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Title <span
+              class="text-danger">*</span> </label>
+          <select name="" id="" formControlName="Title"
+            class="mt-2 select h-[52px] w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
+            <option value="">select title</option>
+            <option value="Mr">Mr</option>
+            <option value="Mrs">Mrs</option>
+            <option value="Miss">Miss</option>
+            <option value="Dr">Dr</option>
+            <option value="Prof">Prof</option>
+          </select>
+        </div>
+        <div class="w-full md:w-1/2 px-3  md:mb-0">
+          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">First Name
+            <span class="text-danger">*</span> </label>
+          <app-input [formGrp]="institutionRegForm" formCtrlName="FirstName" [type]="'text'" [class]="
+                    'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                  " Issuer="Enter first name" [name]="'Email'"></app-input>
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
+        <div class="w-full md:w-1/2 px-3  md:mb-0">
+          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Last Name <span
+              class="text-danger">*</span> </label>
+          <app-input [formGrp]="institutionRegForm" formCtrlName="LastName" [type]="'text'" [class]="
+                    'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                  " Issuer="Enter last name" [name]="'Email'"></app-input>
+        </div>
+        <div class="w-full md:w-1/2 px-3  md:mb-0">
+          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Designation
+            <span class="text-danger">*</span> </label>
+          <app-input [formGrp]="institutionRegForm" formCtrlName="Designation" [type]="'text'" [class]="
+                    'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                  " Issuer="Enter designation" [name]="'Email'"></app-input>
+        </div>
+      </div>
+      <div>
+        <p class="font-medium mb-1 mt-2  text-sm text-failedNormal ">
+          Supporting Document <span class="text-danger">*</span>
         </p>
-        <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
-          <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Title <span
-                class="text-danger">*</span> </label>
-            <select name="" id=""
-              class="mt-2 select h-[52px] w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
-              <option value="">Body</option>
-            </select>
-          </div>
-          <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">First Name <span
-                class="text-danger">*</span> </label>
-            <app-input [formGrp]="institutionRegForm" formCtrlName="institutionBody" [type]="'text'" [class]="
-                    'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Enter first name" [name]="'Email'"></app-input>
-          </div>
-        </div>
-        <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
-          <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Last Name <span
-                class="text-danger">*</span> </label>
-            <app-input [formGrp]="institutionRegForm" formCtrlName="institutionBody" [type]="'text'" [class]="
-                    'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Enter last name" [name]="'Email'"></app-input>
-          </div>
-          <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Designation <span
-                class="text-danger">*</span> </label>
-            <app-input [formGrp]="institutionRegForm" formCtrlName="institutionBody" [type]="'text'" [class]="
-                    'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Enter designation" [name]="'Email'"></app-input>
+        <p class="font-nunito font-normal text-xs text-failedNormal mb-[6px]">Document such as business registration,
+          institution’s letter of approval</p>
+        <div
+          class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
+          <div>
+            <label for="file1">
+              <img src="assets/images/auth/upload.svg" alt="uploadIcon"
+                class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
+              <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile}} </p>
+              <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
+                  class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF or
+                JPG
+                (max. 5mb) </p>
+            </label>
+            <input (change)="handleFileUpload($event)" class="hidden  file:absolute file:w-full file:h-full" type="file"
+              id="file1" />
           </div>
         </div>
-        <div>
-          <p class="font-medium mb-1 mt-2  text-sm text-failedNormal ">
-            Supporting Document <span class="text-danger">*</span>
-          </p>
-          <p class="font-nunito font-normal text-xs text-failedNormal mb-[6px]">Document such as business registration,
-            institution’s letter of approval</p>
-          <div
-            class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
+        <div *ngFor="let file of selectedFileList; let i = index"
+          class="bg-white border rounded-lg p-4 flex justify-between items-center mt-4 mb-3">
+          <div class="flex items-center">
+            <img src="assets/images/auth/file-pdf.svg" class="mr-4" alt="file ico">
             <div>
-              <label for="file1">
-                <img src="assets/images/auth/upload.svg" alt="uploadIcon"
-                  class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
-                <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile}} </p>
-                <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
-                    class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF or JPG
-                  (max. 5mb) </p>
-              </label>
-              <input (change)="handleFileUpload($event)" class="hidden  file:absolute file:w-full file:h-full" type="file"
-                id="file1" />
+              <p class="font-inter font-medium text-sm text-failedNormal">{{file.name}}</p>
+              <p class="font-inter font-medium text-sm text-lightGray"> {{file.size | filesize}} </p>
             </div>
           </div>
-          <div *ngFor="let file of selectedFileList" class="bg-white border rounded-lg p-4 flex justify-between items-center mt-4 mb-3">
-              <div class="flex items-center">
-                  <img src="assets/images/auth/file-pdf.svg" class="mr-4" alt="file ico">
-                  <div>
-                      <p class="font-inter font-medium text-sm text-failedNormal">{{file.name}}</p>
-                      <p class="font-inter font-medium text-sm text-lightGray"> {{file.size | filesize}} </p>
-                  </div>
-              </div>
-              <img src="assets/images/auth/del-icon.svg" alt="">
-            <!-- <div class="">
+         <div (click)="deleteFile(i) " class="cursor-pointer">
+          <img src="assets/images/auth/del-icon.svg" alt="" >
+         </div>
+          <!-- <div class="">
             </div> -->
-          </div>
-          <div class="flex items-center mt-10 mb-4">
-            <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="default-checkbox" class="ml-2 text-sm font-medium text-failedNormal dark:text-gray-300 font-inter">I consent that the information provided above is true and correct.</label>
-          </div>
-          <div class="flex items-center mb-4">
-            <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="default-checkbox" class="ml-2 text-sm font-medium text-failedNormal dark:text-gray-300 font-inter">I agree to NSPM terms and conditions.</label>
-          </div>
-          <div class="mb-6">
-            <re-captcha formControlName="recaptchaReactive" (resolved)="resolved($event)" [siteKey]="siteKey"></re-captcha>
-          </div>
-          <div class="mb-6">
-            <app-button
-                
-                (buttonClick)="continueCreation()"
-                [overRideButtonClass]="true"
-                customClass="w-40 h-12 rounded-lg font-inter font-medium text-base text-white leading-6 bg-primaryBlue"
-                >Continue</app-button
-              >
-          </div>
-          <div class="mb-8">
-            <p class="font-nunito font-normal text-sm text-lightGray">Already a registered academic institution? <span class="cursor-pointer text-primaryBlue font-medium" routerLink="/auth">Sign In</span> </p>
-          </div>
         </div>
+        <div class="flex items-center mt-10 mb-4">
+          <input id="default-checkbox" type="checkbox" value="" formControlName="consent"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <label for="default-checkbox"
+            class="ml-2 text-sm font-medium text-failedNormal dark:text-gray-300 font-inter">I consent that the
+            information provided above is true and correct.</label>
+        </div>
+        <div class="flex items-center mb-4">
+          <input id="default-checkbox" type="checkbox" value="" formControlName="nspm"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <label for="default-checkbox"
+            class="ml-2 text-sm font-medium text-failedNormal dark:text-gray-300 font-inter">I agree to NSPM terms and
+            conditions.</label>
+        </div>
+        <div class="mb-6">
+          <re-captcha formControlName="recaptchaReactive" (resolved)="resolved($event)" [siteKey]="siteKey">
+          </re-captcha>
+        </div>
+        <div class="mb-6">
+          <app-button (buttonClick)="continueCreation()"  [disabled]="institutionRegForm.invalid" [overRideButtonClass]="true"
+            customClass="w-40 h-12 rounded-lg font-inter font-medium text-base text-white leading-6 bg-primaryBlue">
+            Continue</app-button>
+        </div>
+        <div class="mb-8">
+          <p class="font-nunito font-normal text-sm text-lightGray">Already a registered academic institution? <span
+              class="cursor-pointer text-primaryBlue font-medium" routerLink="/">Sign In</span> </p>
+        </div>
+      </div>
     </ng-container>
 
-    
-    
-</form>
+
+
+  </form>
 </div>
 <ng-container *ngIf="showOTPPage">
-    <div class="bg-white w-full h-screen  flex justify-center items-center">
-        <div class="w-fill md:w-3/5 mx-auto">
-            <h4 class="font-semibold font-poppins text-3xl pb-3 text-darkGray">Email verification</h4>
-            <p class="leading-6 text-base pb-8 text-lightGray font-nunito mb-8">We’ve sent a unique code to test@yopmail.com in order to verify your email address. Please enter the code below.</p>
-            <div class="mb-8">
-                <ng-otp-input
-                  (onInputChange)="onOtpChange($event)"
-                  [config]="{ length: 4 }"
-                ></ng-otp-input>
-              </div>
-              <div class="flex justify-start items-center my-6">
-                <p class="font-sans font-semibold text-sm text-[#2F4662]">
-                  Code will expire in
-                </p>
-                <div class="mx-2">
-                  <i class="fa fa-clock text-placeholderText"></i>
-                </div>
-                <div class="text-asteriskRed bg-[#E7F6F7] font-semibold font-sans text-danger px-3 py-1 rouded">15:00</div>
-              </div>
-              <div class="mb-6">
-                <app-button
-                    (buttonClick)="verifyOTP()"
-                    [overRideButtonClass]="true"
-                    customClass="w-40 h-12 rounded-lg font-inter font-medium text-base text-white leading-6 bg-primaryBlue"
-                    >Verify</app-button
-                  >
-              </div>
-              <div class="mb-8">
-                <p class="font-nunito font-normal text-sm text-lightGray">Didnt get the code? <span (click)="resendOTP()" class="cursor-pointer text-primaryBlue font-medium" >Resend</span> </p>
-              </div>
+  <div class="bg-white w-full h-screen  flex justify-center items-center">
+    <div class="w-fill md:w-3/5 mx-auto">
+      <h4 class="font-semibold font-poppins text-3xl pb-3 text-darkGray">Email verification</h4>
+      <p class="leading-6 text-base pb-8 text-lightGray font-nunito mb-8">We’ve sent a unique code to {{institutionRegForm.get("EmailAddress")?.value}}
+        in order to verify your email address. Please enter the code below.</p>
+      <div class="mb-8">
+        <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{ length: 4 }"></ng-otp-input>
+      </div>
+      <div class="flex justify-start items-center my-6">
+        <p class="font-sans font-semibold text-sm text-[#2F4662]">
+          Code will expire in
+        </p>
+        <div class="mx-2">
+          <i class="fa fa-clock text-placeholderText"></i>
         </div>
+        <div class="text-asteriskRed bg-[#E7F6F7] font-semibold font-sans text-danger px-3 py-1 rouded">15:00</div>
+      </div>
+      <div class="mb-6">
+        <app-button (buttonClick)="verifyOTP()" [overRideButtonClass]="true" [disabled]="otplength?.length !== 4"
+          customClass="w-40 h-12 rounded-lg font-inter font-medium text-base text-white leading-6 bg-primaryBlue">Verify
+        </app-button>
+      </div>
+      <div class="mb-8">
+        <p class="font-nunito font-normal text-sm text-lightGray">Didnt get the code? <span (click)="resendOTP()"
+            class="cursor-pointer text-primaryBlue font-medium">Resend</span> </p>
+      </div>
     </div>
+  </div>
 </ng-container>
+
+<label id="myModal" for="messageModal" class="hidden "></label>
+
+<app-modal [id]="modalId">
+  <div class="modal-box bg-white  p-8 w-fit   max-w-5xl">
+   
+    <div class=" mt-5   w-full" >
+      <div class="rounded-lg mb-4">
+        <div class="flex flex-col items-center gap-5">
+          <img src="assets/images/approval-modal.svg" class="mb-5" alt="">
+          <p class="font-medium font-inter text-base text-headerGray">
+              Email Verified
+          </p>            
+          <p class="font-normal font-inter text-base text-lightGray">
+              Your email address verification was successful
+          </p>
+
+        </div>
+      </div>
+
+      <div class="flex justify-center items-center">
+
+        <app-button (buttonClick)="continue()"  [overRideButtonClass]="true"
+          customClass="w-32 h-12 rounded-lg font-normal text-base text-white leading-6 bg-primaryBlue">Continue
+        </app-button>
+      </div>
+
+    </div>
+   
+  </div>
+</app-modal>

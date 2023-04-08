@@ -1,0 +1,496 @@
+<div class="border-b-1.5 rounded">
+    <div class="items-start">
+        <div class="py-4 px-3 w-3/4" >
+            <h3 class="font-inter font-medium text-base text-black">Dispatch Fee</h3>
+            <p class="font-inter font-normal text-base text-lightGray">
+              View and set the fee to deliver academic documents to physical addresses, to be paid by graduates.
+            </p>
+            <hr class="w-32  h-1 my-4 border-0 bg-[#EAECF0]">
+        </div>
+    </div>
+    
+    <div class="p-3 border-b" *ngFor="let unit of dispatchFee; let parent = index">
+        <div class="w-10/12 ">
+            <div class="flex gap-6 mb-6">
+                <div class="w-full md:w-2/4">
+                    <p class=" font-inter font-medium text-base text-failedNormal">
+                        {{unit.name | uppercase}}
+                    </p>
+                    <p class="font-inter font-normal text-sm text-lightGray">
+                   {{unit.description}}
+                    </p>
+                </div>
+
+                <div class="w-full md:w-2/3  gap-6">
+                    <div class="w-full md:w-2/3 flex gap-6">
+                        <div>
+                            <div class=" mb-6">
+                                <div class="w-full ">
+                                    <label class=" font-inter font-medium text-sm text-failedNormal " for="inline-full-name">
+                                        
+                                    </label>
+                                </div>
+                                <div class="w-full  mt-2">
+                                    <input type="text"
+                                    (input)="getFee(unit, $event.target, parent)"
+                                    [value]="unit.fee"
+                                    placeholder="N 5000"
+                                    [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-tableHeader rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                                    [name]="'fee'">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="p-3 border-b">
+        <div class="w-10/12 ">
+             <p class=" font-inter font-medium text-base text-failedNormal mb-6">
+                Private Courier
+            </p>
+            <div class="flex gap-6 mb-6">
+                <div class="w-full md:w-2/4">
+                    <p class=" font-inter font-medium text-base text-failedNormal">
+                        Within State
+                    </p>
+                    <p class="font-inter font-normal text-sm text-lightGray">
+                    Delivery of documents to the same state as the institution.
+                    </p>
+                </div>
+
+                <div class="w-full md:w-2/3  gap-6">
+                    <div class="w-full md:w-2/3 flex gap-6">
+                        <div>
+                            <div class=" mb-6">
+                                <div class="w-full ">
+                                    <label class=" font-inter font-medium text-sm text-failedNormal " for="inline-full-name">
+                                        Verification Fee
+                                    </label>
+                                </div>
+                                <div class="w-full  mt-2">
+                                    <app-input 
+                                    [formGrp]="feeForm" 
+                                    formCtrlName="fee" 
+                                    [type]="'text'" 
+                                    [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-tableHeader rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                                    placeholder="N 5000" 
+                                    [name]="'fee'"
+                                    ></app-input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+
+    <div class="p-3 border-b">
+        <div class="w-10/12 ">
+            <div class="flex gap-6 mb-6">
+                <div class="w-full md:w-2/4">
+                    <p class=" font-inter font-medium text-base text-failedNormal">
+                     Outside State, Within Nigeria
+                    </p>
+                    <p class="font-inter font-normal text-sm text-lightGray">
+                    Delivery of documents within Nigeria but outside the state of the institution.
+                    </p>
+                </div>
+
+                <div class="w-full md:w-2/3  gap-6">
+                    <div class="w-full md:w-2/3 flex gap-6">
+                        <div>
+                            <div class=" mb-6">
+                                <div class="w-full ">
+                                    <label class=" font-inter font-medium text-sm text-failedNormal " for="inline-full-name">
+                                        Verification Fee
+                                    </label>
+                                </div>
+                                <div class="w-full  mt-2">
+                                    <app-input 
+                                    [formGrp]="feeForm" 
+                                    formCtrlName="fee" 
+                                    [type]="'text'" 
+                                    [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-tableHeader rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                                    placeholder="N 5000" 
+                                    [name]="'fee'"
+                                    ></app-input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+
+    <div class="p-3 border-b">
+        <div class="w-10/12 ">
+            <div class="flex gap-6 mb-6">
+                <div class="w-full md:w-2/4">
+                    <p class=" font-inter font-medium text-base text-failedNormal">
+                    West Africa
+                    </p>
+                    <p class="font-inter font-normal text-sm text-lightGray">
+                    Delivery of documents to West African countries.
+                    </p>
+                </div>
+
+                <div class="w-full md:w-2/3  gap-6">
+                    <div class="w-full md:w-2/3 flex gap-6">
+                        <div>
+                            <div class=" mb-6">
+                                <div class="w-full ">
+                                    <label class=" font-inter font-medium text-sm text-failedNormal " for="inline-full-name">
+                                        Verification Fee
+                                    </label>
+                                </div>
+                                <div class="w-full  mt-2">
+                                    <app-input 
+                                    [formGrp]="feeForm" 
+                                    formCtrlName="fee" 
+                                    [type]="'text'" 
+                                    [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-tableHeader rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                                    placeholder="N 5000" 
+                                    [name]="'fee'"
+                                    ></app-input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+
+    <div class="p-3 border-b">
+        <div class="w-10/12 ">
+            <div class="flex gap-6 mb-6">
+                <div class="w-full md:w-2/4">
+                    <p class=" font-inter font-medium text-base text-failedNormal">
+                    East Africa
+                    </p>
+                    <p class="font-inter font-normal text-sm text-lightGray">
+                    Delivery of documents to East African countries.
+                    </p>
+                </div>
+
+                <div class="w-full md:w-2/3  gap-6">
+                    <div class="w-full md:w-2/3 flex gap-6">
+                        <div>
+                            <div class=" mb-6">
+                                <div class="w-full ">
+                                    <label class=" font-inter font-medium text-sm text-failedNormal " for="inline-full-name">
+                                        Verification Fee
+                                    </label>
+                                </div>
+                                <div class="w-full  mt-2">
+                                    <app-input 
+                                    [formGrp]="feeForm" 
+                                    formCtrlName="fee" 
+                                    [type]="'text'" 
+                                    [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-tableHeader rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                                    placeholder="N 5000" 
+                                    [name]="'fee'"
+                                    ></app-input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+
+
+    <div class="p-3 border-b">
+        <div class="w-10/12 ">
+            <div class="flex gap-6 mb-6">
+                <div class="w-full md:w-2/4">
+                    <p class=" font-inter font-medium text-base text-failedNormal">
+                    North Africa
+                    </p>
+                    <p class="font-inter font-normal text-sm text-lightGray">
+                    Delivery of documents to North African countries.
+                    </p>
+                </div>
+
+                <div class="w-full md:w-2/3  gap-6">
+                    <div class="w-full md:w-2/3 flex gap-6">
+                        <div>
+                            <div class=" mb-6">
+                                <div class="w-full ">
+                                    <label class=" font-inter font-medium text-sm text-failedNormal " for="inline-full-name">
+                                        Verification Fee
+                                    </label>
+                                </div>
+                                <div class="w-full  mt-2">
+                                    <app-input 
+                                    [formGrp]="feeForm" 
+                                    formCtrlName="fee" 
+                                    [type]="'text'" 
+                                    [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-tableHeader rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                                    placeholder="N 5000" 
+                                    [name]="'fee'"
+                                    ></app-input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+
+    <div class="p-3 border-b">
+        <div class="w-10/12 ">
+            <div class="flex gap-6 mb-6">
+                <div class="w-full md:w-2/4">
+                    <p class=" font-inter font-medium text-base text-failedNormal">
+                    South Africa
+                    </p>
+                    <p class="font-inter font-normal text-sm text-lightGray">
+                    Delivery of documents to South African countries.
+                    </p>
+                </div>
+
+                <div class="w-full md:w-2/3  gap-6">
+                    <div class="w-full md:w-2/3 flex gap-6">
+                        <div>
+                            <div class=" mb-6">
+                                <div class="w-full ">
+                                    <label class=" font-inter font-medium text-sm text-failedNormal " for="inline-full-name">
+                                        Verification Fee
+                                    </label>
+                                </div>
+                                <div class="w-full  mt-2">
+                                    <app-input 
+                                    [formGrp]="feeForm" 
+                                    formCtrlName="fee" 
+                                    [type]="'text'" 
+                                    [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-tableHeader rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                                    placeholder="N 5000" 
+                                    [name]="'fee'"
+                                    ></app-input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+
+    <div class="p-3 border-b">
+        <div class="w-10/12 ">
+            <div class="flex gap-6 mb-6">
+                <div class="w-full md:w-2/4">
+                    <p class=" font-inter font-medium text-base text-failedNormal">
+                    European Countries
+                    </p>
+                    <p class="font-inter font-normal text-sm text-lightGray">
+                    Delivery of documents to European countries.
+                    </p>
+                </div>
+
+                <div class="w-full md:w-2/3  gap-6">
+                    <div class="w-full md:w-2/3 flex gap-6">
+                        <div>
+                            <div class=" mb-6">
+                                <div class="w-full ">
+                                    <label class=" font-inter font-medium text-sm text-failedNormal " for="inline-full-name">
+                                        Verification Fee
+                                    </label>
+                                </div>
+                                <div class="w-full  mt-2">
+                                    <app-input 
+                                    [formGrp]="feeForm" 
+                                    formCtrlName="fee" 
+                                    [type]="'text'" 
+                                    [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-tableHeader rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                                    placeholder="N 5000" 
+                                    [name]="'fee'"
+                                    ></app-input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+
+    <div class="p-3 border-b">
+        <div class="w-10/12 ">
+            <div class="flex gap-6 mb-6">
+                <div class="w-full md:w-2/4">
+                    <p class=" font-inter font-medium text-base text-failedNormal">
+                    Asian Countries
+                    </p>
+                    <p class="font-inter font-normal text-sm text-lightGray">
+                    Delivery of documents to Asian countries.
+                    </p>
+                </div>
+
+                <div class="w-full md:w-2/3  gap-6">
+                    <div class="w-full md:w-2/3 flex gap-6">
+                        <div>
+                            <div class=" mb-6">
+                                <div class="w-full ">
+                                    <label class=" font-inter font-medium text-sm text-failedNormal " for="inline-full-name">
+                                        Verification Fee
+                                    </label>
+                                </div>
+                                <div class="w-full  mt-2">
+                                    <app-input 
+                                    [formGrp]="feeForm" 
+                                    formCtrlName="fee" 
+                                    [type]="'text'" 
+                                    [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-tableHeader rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                                    placeholder="N 5000" 
+                                    [name]="'fee'"
+                                    ></app-input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+
+    <div class="p-3 border-b">
+        <div class="w-10/12 ">
+            <div class="flex gap-6 mb-6">
+                <div class="w-full md:w-2/4">
+                    <p class=" font-inter font-medium text-base text-failedNormal">
+                    North American Countries
+                    </p>
+                    <p class="font-inter font-normal text-sm text-lightGray">
+                    Delivery of documents to North American countries.
+                    </p>
+                </div>
+
+                <div class="w-full md:w-2/3  gap-6">
+                    <div class="w-full md:w-2/3 flex gap-6">
+                        <div>
+                            <div class=" mb-6">
+                                <div class="w-full ">
+                                    <label class=" font-inter font-medium text-sm text-failedNormal " for="inline-full-name">
+                                        Verification Fee
+                                    </label>
+                                </div>
+                                <div class="w-full  mt-2">
+                                    <app-input 
+                                    [formGrp]="feeForm" 
+                                    formCtrlName="fee" 
+                                    [type]="'text'" 
+                                    [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-tableHeader rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                                    placeholder="N 5000" 
+                                    [name]="'fee'"
+                                    ></app-input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+
+    <div class="p-3 border-b">
+        <div class="w-10/12 ">
+            <div class="flex gap-6 mb-6">
+                <div class="w-full md:w-2/4">
+                    <p class=" font-inter font-medium text-base text-failedNormal">
+                    South American Countries
+                    </p>
+                    <p class="font-inter font-normal text-sm text-lightGray">
+                    Delivery of documents to South American countries.
+                    </p>
+                </div>
+
+                <div class="w-full md:w-2/3  gap-6">
+                    <div class="w-full md:w-2/3 flex gap-6">
+                        <div>
+                            <div class=" mb-6">
+                                <div class="w-full ">
+                                    <label class=" font-inter font-medium text-sm text-failedNormal " for="inline-full-name">
+                                        Verification Fee
+                                    </label>
+                                </div>
+                                <div class="w-full  mt-2">
+                                    <app-input 
+                                    [formGrp]="feeForm" 
+                                    formCtrlName="fee" 
+                                    [type]="'text'" 
+                                    [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-tableHeader rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                                    placeholder="N 5000" 
+                                    [name]="'fee'"
+                                    ></app-input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+
+     <div class="p-3 border-b">
+        <div class="w-10/12 ">
+            <div class="flex gap-6 mb-6">
+                <div class="w-full md:w-2/4">
+                    <p class=" font-inter font-medium text-base text-failedNormal">
+                    Australia/Oceania Countries
+                    </p>
+                    <p class="font-inter font-normal text-sm text-lightGray">
+                    Delivery of documents to Australia/Oceania countries.
+                    </p>
+                </div>
+
+                <div class="w-full md:w-2/3  gap-6">
+                    <div class="w-full md:w-2/3 flex gap-6">
+                        <div>
+                            <div class=" mb-6">
+                                <div class="w-full ">
+                                    <label class=" font-inter font-medium text-sm text-failedNormal " for="inline-full-name">
+                                        Verification Fee
+                                    </label>
+                                </div>
+                                <div class="w-full  mt-2">
+                                    <app-input 
+                                    [formGrp]="feeForm" 
+                                    formCtrlName="fee" 
+                                    [type]="'text'" 
+                                    [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-tableHeader rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                                    placeholder="N 5000" 
+                                    [name]="'fee'"
+                                    ></app-input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div> -->
+
+
+    <div class="flex justify-end items-center gap-4 mt-4 mb-6">
+        <app-button
+            [overRideButtonClass]="true"
+            customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
+            >Cancel
+        </app-button>
+        <app-button
+        [overRideButtonClass]="true"
+        (buttonClick)="saveDispatch()"
+        customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+            >Save Changes
+        </app-button>
+    </div>
+</div>

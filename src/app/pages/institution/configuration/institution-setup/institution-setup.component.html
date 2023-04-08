@@ -1,0 +1,190 @@
+<div>
+    <ng-container *ngIf="setupToggle">
+        <div class="">
+            <div class="items-center">
+                <div class="w-3/4 py-2 px-4">
+                    <h3 class="text-black font-medium font-inter text-lg">Institution Setup</h3>
+                    <p class="text-lightGray font-normal font-inter text-base">Manage institution settings here. Create and manage faculties, departments and degree types.</p>
+                </div>
+
+                <div class="border-1.5 rounded shadow-md">
+                    <h3 class="py-4  border-b-1.5 px-6 font-sans font-medium text-lg text-darkGray">Select option to view</h3>
+                    <div class="p-6 ">
+                        <div class="lg:flex gap-10">
+                            <div class="bg-tableHeader border border-borderGray rounded-md shadow-md w-52 align-middle">
+                                
+                                <div class="flex items-center justify-between shadow-md cursor-pointer w-48 h-10 p-2 m-2 rounded-md"  routerLink="/institution/configuration/institution-setup/faculty" [routerLinkActiveOptions]="{ exact: true}"  routerLinkActive="bg-[#92BAF6]">
+                                    <p class="font-medium font-inter text-base text-[#344054]">
+                                        Faculty
+                                    <div class="w-6 bg-[#F2F4F7] shadow-md rounded-full text-center">
+                                        <div class="flex items-center justify-center h-full rounded-full">
+                                            <p class="font-medium font-inter text-sm text-[#344054] cursor-pointer m-0.5">
+                                                {{facultyList?.length}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between shadow-md cursor-pointer w-48 h-10 p-2 m-2 rounded-md"  routerLink="/institution/configuration/institution-setup/department" [routerLinkActiveOptions]="{ exact: true}"  routerLinkActive="bg-[#92BAF6]">
+                                    <p class="font-medium font-inter text-base text-[#344054]">
+                                        Department                                    </p>
+                                    <div class="w-6 bg-[#F2F4F7] shadow-md rounded-full text-center">
+                                        <div class="flex items-center justify-center h-full rounded-full">
+                                            <p class="font-medium font-inter text-sm text-[#344054] cursor-pointer m-0.5">
+                                                {{departmentList?.length}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+   
+                                <div class="flex items-center justify-between shadow-md cursor-pointer w-48 h-10 p-2 m-2 rounded-md"  routerLink="/institution/configuration/institution-setup/degree-type" [routerLinkActiveOptions]="{ exact: true}"  routerLinkActive="bg-[#92BAF6]">
+                                    <p class="font-medium font-inter text-base text-[#344054]">
+                                        Degree Type
+                                    <div class="w-6 bg-[#F2F4F7] shadow-md rounded-full text-center">
+                                        <div class="flex items-center justify-center h-full rounded-full">
+                                            <p class="font-medium font-inter text-sm text-[#344054] cursor-pointer m-0.5">
+                                                {{degreeTypeTotalCount}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="lg:w-2/3 mt-3">
+                               <router-outlet></router-outlet>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+   
+    
+            
+    <ng-container *ngIf="editToggle">
+        <div >
+            <div class="border-1.5 rounded-xl shadow-md">
+                <h3 class="py-2  border-b-1.5 rounded-t-xl px-6 font-sans font-medium text-lg text-darkGray bg-white">Faculty</h3>
+                <div class="border-b-1.5">
+                    <div class="p-6 grid grid-cols-3 items-center">
+                        <p class="font-inter font-medium text-sm text-darkGray">Faculty Name</p>
+                        <app-input 
+                            [formGrp]="newFacultyForm" 
+                            formCtrlName="facultyName" 
+                            [Issuer]="'Enter faculty name'"
+                            [type]="'text'"
+                            [class]="' bg-white w-full h-10 mt-2 border border-[#D0D5DD] rounded-md placeholder:text-base placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
+                        </app-input>
+                    </div>
+                </div>
+                <div class="flex justify-end mb-6 mr-6 gap-3">
+                    <app-button
+                        [overRideButtonClass]="true" 
+                        [customClass]="'w-20 h-10 rounded-lg font-normal border border-buttonBlue text-buttonBlue leading-6 bg-none p-2 mt-6'">Cancel
+                    </app-button>
+                    <app-button
+                        (buttonClick)="createFaculty()"
+                        [overRideButtonClass]="true" 
+                        [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'">Create
+                    </app-button>
+                </div>
+            </div>
+            
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="editToggleType">
+        <div >
+            <div class="border-1.5 rounded-xl shadow-md" [formGroup]="createDepartmentForm">
+                <h3 class="py-2  border-b-1.5 rounded-t-xl px-6 font-sans font-medium text-lg text-darkGray bg-white">Department</h3>
+                <div class="border-b-1.5">
+                    <div class="p-6 grid grid-cols-3 items-center">
+                        <p class="font-inter font-medium text-sm text-darkGray">Department Name</p>
+                        <app-input 
+                            [formGrp]="createDepartmentForm" 
+                            formCtrlName="departmentName" 
+                            [Issuer]="'Enter Department Name'"
+                            [type]="'text'"
+                            [class]="' bg-white w-full h-10 mt-2 border border-[#D0D5DD] rounded-md placeholder:text-sm placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
+                        </app-input>
+                    </div>
+
+                    <div class="p-6 grid grid-cols-3 items-center">
+                        <label for="faculty" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Faculty</label>
+                        <ng-select class="custom-ng-dropdown" formControlName="faculty" [selectOnTab]="true"
+                                placeholder="Select Institution Name">
+                                <ng-option *ngFor="let unit of facultyList" [value]="unit?.id">{{unit?.name}}</ng-option>
+                              </ng-select>
+                    </div>
+                </div>
+                <div class="flex justify-end mb-6 mr-6 gap-3">
+                    <app-button
+                        [overRideButtonClass]="true" 
+                        [customClass]="'w-20 h-10 rounded-lg font-normal border border-buttonBlue text-buttonBlue leading-6 bg-none p-2 mt-6'">Cancel
+                    </app-button>
+                    <app-button
+                        (buttonClick)="createDepartment()"
+                        [disabled]="createDepartmentForm.invalid"
+                        [overRideButtonClass]="true" 
+                        [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-primaryBlue p-2 mt-6'">Create
+                    </app-button>
+                </div>
+            </div>
+            
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="editToggleSector">
+        <div >
+            <div class="border-1.5 rounded-xl shadow-md" [formGroup]="newDegreeForm">
+                <h3 class="py-2  border-b-1.5 rounded-t-xl px-6 font-sans font-medium text-lg text-darkGray bg-white">Degree</h3>
+                <div class="border-b-1.5">
+                    <div class="p-6 grid grid-cols-3 items-center">
+                        <p class="font-inter font-medium text-sm text-darkGray">Faculty</p>
+                        <app-input 
+                            [formGrp]="newDegreeForm" 
+                            formCtrlName="degree" 
+                            [Issuer]="'Enter Degree type'"
+                            [type]="'text'"
+                            [class]="' bg-white w-full h-10 mt-2 border border-[#D0D5DD] rounded-md placeholder:text-base placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
+                        </app-input>
+                    </div>
+                </div>
+                <div class="flex justify-end mb-6 mr-6 gap-3">
+                    <app-button
+                        [overRideButtonClass]="true" 
+                        [customClass]="'w-20 h-10 rounded-lg font-normal border border-buttonBlue text-buttonBlue leading-6 bg-none p-2 mt-6'">Cancel
+                    </app-button>
+                    <app-button
+                        (buttonClick)="createDegreeType()"
+                        [disabled]="newDegreeForm.invalid"
+                        [overRideButtonClass]="true" 
+                        [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'">Create
+                    </app-button>
+                </div>
+            </div>
+            
+        </div>
+    </ng-container>
+
+</div>
+
+
+
+<app-modal [id]="changesConfirmed">
+    <div class="toast toast-top">
+        <div class="alert alert-success flex justify-between items-center">
+            <div class="font-avenir font-meduim lg:text-lg text-base">
+                <img src="assets/images/icons/confirmed_icon.svg" alt="close_toast">
+                <span class="text-successNormal">Created successfully.</span>
+            </div>
+            <label [for]="changesConfirmed">
+                <img src="assets/images/icons/green_x.svg" alt="close_toast">
+            </label>
+        </div>
+    </div>
+</app-modal>

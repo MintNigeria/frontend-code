@@ -21,6 +21,16 @@ import { StoreModule } from '@ngrx/store';
 import { authReducers } from 'src/app/store/auth/reducers';
 import { AuthEffects } from 'src/app/store/auth/effects';
 import { EffectsModule } from '@ngrx/effects';
+import { InstitutionEffects } from 'src/app/store/institution/effects';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { UtilityEffects } from 'src/app/store/institution copy/effects';
+import { CreatePasswordComponent } from './create-password/create-password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { VerifyPasswordComponent } from './verify-password/verify-password.component';
+import { ConfigurationEffects } from 'src/app/store/configuration/effects';
+import { OrganizationEffects } from 'src/app/store/organization/effects';
+import { GraduatesEffects } from 'src/app/store/graduates/effects';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +40,10 @@ import { EffectsModule } from '@ngrx/effects';
     InstitutitionRegistrationComponent,
     OrganizationRegistrationComponent,
     GraduateRegistrationComponent,
+    CreatePasswordComponent,
+    ForgotPasswordComponent,
+    VerifyPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     CommonModule,
@@ -39,9 +53,10 @@ import { EffectsModule } from '@ngrx/effects';
     RecaptchaModule,
     RecaptchaFormsModule,
     NgOtpInputModule,
+    NgSelectModule,
     AuthRoutingModule,
     StoreModule.forFeature('auth', authReducers),
-    EffectsModule.forFeature([AuthEffects]),
+    EffectsModule.forFeature([AuthEffects, UtilityEffects, ConfigurationEffects, OrganizationEffects, InstitutionEffects, GraduatesEffects]),
   ],
   // providers: [{ provide: RECAPTCHA_V3_SITE_KEY, useValue: environment.recaptchaKey }],
 })

@@ -1,0 +1,60 @@
+<div class="flex items-center md:gap-4 gap-2 px-5 md:px-8 pt-4">
+    <div>
+      <img [routerLink]="'/graduate/dashboard'" src="assets/images/icons/home.svg" />
+    </div>
+    <div>
+      <img src="assets/images/icons/forward_arrow.svg" />
+    </div>
+  
+    <div>
+      <p
+        class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer"
+      >
+        Dashboard
+      </p>
+    </div>
+</div>
+
+<div class="mt-5 px-5 md:px-8">
+    <div routerLink="/graduate/my-applications" class="cursor-pointer flex items-center gap-2">
+        <img src="assets/images/icons/arrow-left.svg" alt="">
+        <span class="text-[#0D47A1] font-inter md:text-base text-sm font-medium">Back to all applications</span>
+    </div>
+</div>
+
+<div class="bg-white py-6 px-8 pb-20">
+    <div class="flex flex-wrap gap-4 items-center justify-between">
+      <h4 class="font-medium font-poppins text-4xl text-[#101828]">
+        New Application
+      </h4>
+      <div class="px-4 py-3 flex gap-2 items-center whitespace-nowrap border border-solid border-[#D0D5DD] rounded-lg [box-shadow:0px_1px_2px_rgba(16,_24,_40,_0.05)]">
+        <img src="assets/images/icons/wallet-icon.svg" alt="">
+        <span class="font-medium font-inter text-sm text-[#344054]">Wallet Balance: ₦{{balance || 0 | commaDelimiter}} </span>
+      </div>
+    </div>
+
+    <div class="flex mt-10 justify-between gap-10 px-[5%]">
+        <div class="flex flex-col items-center text-center gap-5 shrink-0">
+            <img src="assets/images/graduates/notes.svg" alt="">
+            <div>Academic Details</div>
+        </div>
+        <div class="flex flex-col items-center text-center gap-5 shrink-0" 
+        routerLink="/graduates/applications/new/app-details"
+        [routerLinkActiveOptions]="{exact : true}" routerLinkActive #requestTransaction="routerLinkActive"  
+        [ngClass]="requestTransaction.isActive? 'border-primaryBlue': 'border-[#D9DFE9]'">
+            <img src="assets/images/graduates/details.svg" alt="">
+            <div>Application Details</div>
+        </div>
+        <div class="flex flex-col items-center text-center gap-5 shrink-0">
+            <img src="assets/images/graduates/back-arrow.svg" alt="">
+            <div>Review Order</div>
+        </div>
+        <div class="flex flex-col items-center text-center gap-5 shrink-0">
+            <img src="assets/images/graduates/wallet-grey.svg" alt="">
+            <div>Make Payment</div>
+        </div>
+
+    </div>
+
+    <router-outlet></router-outlet>
+</div>

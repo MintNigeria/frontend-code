@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
@@ -6,14 +7,32 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+@Input() placeholder!: string
+@Output() keyupEnter = new EventEmitter<any>();
+@Input() formCtrlName!: any;
+@Input() formGrp!: FormGroup;
 
-  @Output() searchValue = new EventEmitter()
-  constructor() { }
+@Output() iconSearch = new EventEmitter<any>();
 
-  ngOnInit(): void {
+constructor() { }
+
+ngOnInit(): void {
+}
+
+sendInput(input: any) {
+  if (input.target.value) {
+    this.keyupEnter.emit(input.target.value);
+    // return (this.value = null);
   }
 
-  getValue(value: string) {
-    this.searchValue.emit(value)
-  }
+}
+
+
+iconClick(key: any) {
+  this.iconSearch.emit(key);
+
+}
+
+
+
 }

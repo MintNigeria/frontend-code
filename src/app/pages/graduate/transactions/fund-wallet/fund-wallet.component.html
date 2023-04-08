@@ -1,0 +1,67 @@
+<div class="flex items-center md:gap-4 gap-2 px-5 md:px-8 pt-4">
+    <div>
+      <img [routerLink]="'/graduate/dashboard'" src="assets/images/icons/home.svg" />
+    </div>
+    <div>
+      <img src="assets/images/icons/forward_arrow.svg" />
+    </div>
+  
+    <div>
+      <p
+        class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer"
+      >
+        Dashboard
+      </p>
+    </div>
+</div>
+
+<div class="mt-5 px-5 md:px-8">
+    <div routerLink="/graduate/my-applications" class="cursor-pointer flex items-center gap-2">
+        <img src="assets/images/icons/arrow-left.svg" alt="">
+        <span class="text-[#0D47A1] font-inter md:text-base text-sm font-medium">Back to all applications</span>
+    </div>
+</div>
+
+<div class="bg-white py-6 px-8 pb-20">
+    <div class="flex flex-wrap gap-4 items-center justify-between">
+      <h4 class="font-medium font-poppins text-4xl text-[#101828]">
+        Fund Wallet
+      </h4>
+      <div class="px-4 py-3 flex gap-2 items-center whitespace-nowrap border border-solid border-[#D0D5DD] rounded-lg [box-shadow:0px_1px_2px_rgba(16,_24,_40,_0.05)]">
+        <img src="assets/images/icons/wallet-icon.svg" alt="">
+        <span class="font-medium font-inter text-sm text-[#344054]">Wallet Balance: ₦{{walletData?.balance || 0 | commaDelimiter  }} </span>
+      </div>
+    </div>
+</div>
+
+<div class="border-t">
+  <div class="bg-white rounded-lg">
+    <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] p-3 items-center gap-3">
+        <div class="flex gap-2">
+            <img src="assets/images/icons/wallerSide.svg" alt="walletBlue">
+            <div>
+                <p class="font-nunito font-medium text-sm text-darkGray">Pay with Wallet</p>
+                <p class="text-lightGray font-normal text-sm font-avenir">Fund your wallet and pay seamlessly.</p>
+            </div>
+        </div>
+        <div>
+          <app-input [formGrp]="walletForm" formCtrlName="amount" [type]="'number'" [class]="
+          'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+        " placeholder="Enter amount" [name]="'Amount'"></app-input>        </div>
+    </div> 
+</div>
+
+  <div class="flex justify-end items-center gap-4 mt-6 mb-6 mr-8">
+    <app-button
+    [overRideButtonClass]="true"
+    customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
+    >Cancel</app-button>
+
+    <app-button
+    [overRideButtonClass]="true"
+    [disabled]="walletForm.invalid"
+    customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+    (buttonClick)="proceedToPayment()"
+    >Proceed to Payment</app-button>
+</div>
+</div>

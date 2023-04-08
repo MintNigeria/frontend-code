@@ -35,19 +35,32 @@
             <div>
                 <div class="flex items-center gap-3">
                     <h4 class="font-medium font-poppins lg:text-4xl text-lg  text-[#101828] my-3">
-                        Request ID: 3066
+                        Request ID: {{requestDetail?.requestId}}
                     </h4>
-                    <div class=" mt-2 rounded-full text-center w-[98px] bg-[#ECFDF3]">
-                        <div class="ml-4 flex items-center gap-2 w-[98px]">
-                            <p class="mtext-base font-inter md:text-base text-[#027A48]"
-                                >
-                                Complete
-                            </p>
-                        </div>
+                    <div class=" mt-2 rounded-full text-center w-fit " [ngClass]="
+                    requestDetail.status === 1
+                      ? 'bg-[#A0A3BD]'
+                      : requestDetail?.status === 2
+                      ? 'bg-[#FDCC62]'
+                      : requestDetail?.status === 3
+                      ? 'bg-[#E61B00]'
+                      : requestDetail?.status === 4
+                      ? 'bg-[#008400]'
+                      : requestDetail?.status === 5
+                      ? 'bg-[#EE6D00]'
+                      : requestDetail?.status === 6
+                      ? 'bg-[#E61B00]'
+                      : 'bg-[#008400]'
+                  ">
+                        <p class=" my-0 text-sm cursor-pointer font-inter font-medium w-fit px-2 text-darkGray " 
+                            >
+                            {{ requestDetail?.status === 1 ? 'Pending' : requestDetail?.status === 2 ? 'Processing' : requestDetail?.status === 3 ? 'Dispatched' : requestDetail?.status === 4 ? 'Paused' : requestDetail?.status === 5 ? 'Delivered' : requestDetail?.status === 6 ? 'Declined' : 'Delivered' }}
+                         </p>
+                       
                     </div>
                 </div>
                 <p class="text-[#667085] font-nunito text-base font-normal cursor-pointer">
-                    Request made on January 25, 2023, 9:40 AM
+                    Request made on {{requestDetail?.dateRequested | date: 'medium'}}
                 </p>
             </div>
         </div>
@@ -58,21 +71,19 @@
                 Update Request Approval
                 </p>
                 <div class="flex items-center gap-4">
-                <select
+                <select (change)="selectOption($event.target)"
                     name=""
                     id=""
                     class="select lg:w-52 w-auto h-[52px] bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none"
                 >
-                    <option value="">Pending</option>
-                    <option value="">Processing</option>
-                    <option value="">Paused</option>
-                    <option value="">Dispatched</option>
-                    <option value="">Completed</option>
-                    <option value="">Declined</option>
+                <option selected>Select</option>
+                <option [value]="i" *ngFor="let unit of requestStatus; let i = index">{{unit.name}}</option>
+
                 </select>
                 <app-button
+                    [disabled]="requestDetail?.paymentStatus !== 1"
                     [overRideButtonClass]="true"
-                    customClass="h-[52px] w-32 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+                    customClass="h-[52px] w-32 rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
                     (buttonClick)="openConfirmation()"
                     >Update</app-button
                 >
@@ -99,7 +110,7 @@
                                 Full Name
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                               {{data.fullName}}
+                                {{requestDetail?.graduteFullName}}
                             </p>
                         </div>
                        
@@ -108,7 +119,7 @@
                                Faculty
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                                {{data.faculty}}
+                                {{requestDetail?.facultyName}}
                             </p>
                         </div>
 
@@ -117,7 +128,7 @@
                                 Department
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                                {{data.department}}
+                                {{requestDetail?.department}}
                             </p>
                         </div>
 
@@ -135,7 +146,7 @@
                                 Matriculation Number
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                                {{data.matNumber}}
+                                {{requestDetail?.matricNo}}
                             </p>
                         </div>
 
@@ -144,7 +155,7 @@
                                 Year of Entry
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                                {{data.yearOfEntry}}
+                                {{requestDetail?.yearOfEntry}}
                             </p>
                         </div>
 
@@ -153,7 +164,7 @@
                                 Year of Graduation
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                                {{data.yearOfgrad}}
+                                {{requestDetail?.yearOfGraduation}}
                             </p>
                         </div>
 
@@ -162,7 +173,7 @@
                                 Gender
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                                {{data.gender}}
+                                {{requestDetail?.gender || 'N/A'}}
                             </p>
                         </div>
                     </div>
@@ -184,7 +195,7 @@
                                 Document Type
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                               {{data.docType}}
+                                {{requestDetail?.documentType}}
                             </p>
                         </div>
                        
@@ -195,7 +206,7 @@
                                 Delivery Option
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                                {{data.deliveryOption}}
+                                {{requestDetail?.deliveryOption}}
                             </p>
                         </div>
                         
@@ -213,7 +224,7 @@
                                 Reason for Request
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                                {{data.reasonForRequest}}
+                                {{requestDetail?.reasonForRequest}}
                             </p>
                         </div>
                         <div>
@@ -221,7 +232,7 @@
                                 Destination
                             </h5>
                             <p class="text-base font-inter md:text-base text-[#101828]">
-                                {{data.destination}}
+                                {{requestDetail?.destination}}
                             </p>
                         </div>
                         <div>
@@ -232,7 +243,7 @@
                                 <div class="ml-4 flex items-center gap-2 w-[98px]">
                                     <p class="mtext-base font-inter md:text-base text-[#027A48]"
                                         >
-                                        {{data.payment}}
+                                        {{requestDetail?.paymentStatus === 1 ? 'Paid' : 'Unpaid'}}
                                     </p>
                                 </div>
                             </div>
@@ -279,7 +290,7 @@
                 Cancel
         </label>
             <button
-                (click)="openChangesConfirmed()"
+                (click)="actionRequest()"
                 class="bg-buttonBlue rounded-lg  hover:bg-buttonBlue  text-white text-base font-medium font-inter py-2 px-4 w-36 "
             >
                 Yes, Update

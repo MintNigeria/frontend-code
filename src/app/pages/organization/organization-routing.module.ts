@@ -21,9 +21,9 @@ const routes: Routes = [
         import('../organization/transactions/transactions.module').then((m) => m.TransactionsModule),
     },
     {
-      path: 'value-added-services',
+      path: 'talent-search-pool',
       loadChildren: () =>
-        import('../organization/value-added-services/value-added-services.module').then((m) => m.ValueAddedServicesModule),
+        import('../organization/talent-search-pool/talent-search-pool.module').then((m) => m.TalentSearchPoolModule),
     },
     {
       path: 'settings',

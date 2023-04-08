@@ -11,6 +11,12 @@ export interface IChangePassword {
   newPassword: string;
 }
 
+export interface ICreatePassword {
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 export interface IUser {
   firstName: string | null | undefined;
   lastName: string | null | undefined;

@@ -4,6 +4,7 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   Router,
+  UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -12,17 +13,24 @@ import { StorageService } from '../../services/shared/storage.service';
 @Injectable({
   providedIn: 'root',
 })
-export class CanActivateGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
   constructor(private router: Router, private storageService: StorageService) {}
-  canActivate(): Observable<boolean> | Promise<boolean> | boolean {
+  canActivate():
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
     const authenticationToken: string | undefined =
       this.storageService.getItem('token');
     const helper = new JwtHelperService();
-    const expirationDate = helper.isTokenExpired(authenticationToken);
+    if (!authenticationToken) {
+      this.router.navigate(['/']);
+      return false;
+    }
+
+    const expirationDate = helper.isTokenExpired(String(authenticationToken));
     if (expirationDate || !authenticationToken) {
       this.storageService.removeItem('token');
-      this.router.navigate(['auth']);
-      return false;
     }
     return true;
   }

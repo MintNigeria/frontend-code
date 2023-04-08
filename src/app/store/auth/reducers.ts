@@ -1,10 +1,16 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import {
+  activateDeactivate2FASuccess,
   changePasswordSuccess,
+  confirm2FActionSuccess,
+  createPasswordSuccess,
   getUserProfileSuccess,
   loginSuccess,
   LOGOUT,
   requestPasswordResetSuccess,
+  resendOTPForInstitutionSuccess,
+  resendOTPSuccess,
+  resetPasswordSuccess,
 } from './action';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -40,6 +46,12 @@ export const authReducers = createReducer(
       message,
     };
   }),
+  on(createPasswordSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      payload,
+    };
+  }),
   on(getUserProfileSuccess, (state, { user }) => {
     return {
       ...state,
@@ -47,6 +59,36 @@ export const authReducers = createReducer(
     };
   }),
   on(requestPasswordResetSuccess, (state, { message }) => {
+    return {
+      ...state,
+      message,
+    };
+  }),
+  on(resendOTPSuccess, (state, { message }) => {
+    return {
+      ...state,
+      message,
+    };
+  }),
+  on(resetPasswordSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      payload,
+    };
+  }),
+  on(resendOTPForInstitutionSuccess, (state, { message }) => {
+    return {
+      ...state,
+      message,
+    };
+  }),
+  on(activateDeactivate2FASuccess, (state, { message }) => {
+    return {
+      ...state,
+      message,
+    };
+  }),
+  on(confirm2FActionSuccess, (state, { message }) => {
     return {
       ...state,
       message,
@@ -64,7 +106,7 @@ export function clearStateMetaReducer<State extends {}>(
 ): ActionReducer<State> {
   return function clearStateFn(state: any, action: Action) {
     if (action.type === LOGOUT) {
-      console.log('here');
+      ////console.log('here');
       state = {} as State; // ==> Emptying state here
     }
     return reducer(state, action);

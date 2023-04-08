@@ -1,0 +1,323 @@
+<section class="p-5 ms:px-8 md:py-6">
+    <h3 class="text-[#101828] font-medium font-poppins text-[30px] leading-10">My Wallet</h3>
+
+    <div class="bg-[#4086EF] text-white flex-wrap justify-between px-6 py-8 flex items-center  rounded-[7px]">
+        <div class=""> 
+            <p class="text-sm font-medium font-inter">Wallet Balance</p>
+            <h3 class="mt-2 font-semibold text-4xl leading-[44px] font-poppins">₦{{walletData?.balance || 0 | commaDelimiter  }}</h3>
+        </div>
+        <button routerLink="/graduate/transactions/fund-wallet" class="[box-shadow:_0px_1px_2px_rgba(16,_24,_40,_0.05)] rounded-lg bg-white text-[#4086EF]  border-white border border-solid px-5 py-3 font-medium text-sm font-inter">
+            Fund Wallet
+        </button>
+    </div>
+
+    <div class="mt-6 rounded-xl p-6 border-none bg-[#F5F9FF]">
+        <div>
+          <div
+            class="flex md:flex-row md:justify-between md:items-center flex-col w-full"
+          >
+            <div class="flex lg:justify-between gap-4">
+              <div class="lg:justify-between gap-4">
+                <p
+                  class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2"
+                >
+                  Date
+                </p>
+                <div class="dropdown dropdown-bottom">
+                  <label
+                    tabindex="0"
+                    class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg w-[160px] h-[40px] py-[14px] px-3 cursor-pointer"
+                  >
+                    <p class="my-0 text-[#667085] font-inter font-medium text-sm">
+                      {{ selectedOption }}
+                    </p>
+                    <img src="assets/images/icons/downward_arrow.svg" />
+                  </label>
+                  <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
+                    <li><a (click)="changeRange(0, 'All Time') ">All Time</a></li>
+                    <li><a (click)="changeRange(3, '30 Days')">30 Days</a></li>
+                    <li><a (click)="changeRange(2, '7 days' )">7 Days</a></li>
+                    <li><a (click)="changeRange(1, '24 Hours')">24 Hours</a></li>
+                    <li>
+                      <a (click)="changeRange(5, 'Custom Period')">Custom Period</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+    
+              <div class="lg:justify-between gap-4">
+                <p
+                  class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2"
+                >
+                  Payment Type
+                </p>
+                <div class="dropdown dropdown-bottom">
+                  <label
+                    tabindex="0"
+                    class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg w-[160px] h-[40px] py-[14px] px-3 cursor-pointer"
+                  >
+                    <p class="my-0 text-[#667085] font-inter font-medium text-sm">
+                      {{ documentType }}
+                    </p>
+                    <img src="assets/images/icons/downward_arrow.svg" />
+                  </label>
+                  <ul
+                    tabindex="0"
+                    class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
+                  >
+                    <li><a (click)="documentType = 'All'">All</a></li>
+                    <li *ngFor="let unit of transactionType">
+                      <a (click)="changeType(unit.transactionType)"
+                        >{{unit.transactionType}}</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+    
+              <div class="lg:justify-between gap-4">
+                <p
+                  class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2"
+                >
+                  Status
+                </p>
+                <div class="dropdown dropdown-bottom">
+                  <label
+                    tabindex="0"
+                    class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg w-[160px] h-[40px] py-[14px] px-3 cursor-pointer"
+                  >
+                    <p class="my-0 text-[#667085] font-inter font-medium text-sm">
+                      {{ status }}
+                    </p>
+                    <img src="assets/images/icons/downward_arrow.svg" />
+                  </label>
+                  <ul
+                    tabindex="0"
+                    class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
+                  >
+                  <li><a (click)="changeStatus(0, 'Pending')">Pending</a>
+                  </li>
+                  <li>
+                    <a (click)="changeStatus(1, 'Approved')">Approved</a>
+                  </li>
+                  <li>
+                    <a (click)="changeStatus(2, 'Decline')">Declined</a>
+                  </li>
+                  </ul>
+                </div>
+              </div>
+    
+              <div class="flex items-center mt-6">
+                <button
+                  class="bg-[#4086EF] text-white font-medium font-inter text-xs w-[80px] h-[40px] rounded-lg"
+                  (click)="addFilter()"
+                >
+                  Add Filter
+                </button>
+                <button
+                  class="bg-none text-[#4086EF] font-medium font-inter text-xs w-[80px] h-[40px] rounded"
+                  (click)="clearFilter()"
+                >
+                  Clear Filter
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="border border-[#EFF0F7] bg-white rounded-xl p-6 mt-4">
+        <div class="flex items-center gap-2 border-b border-b-[#EAECF0] pb-5">
+            <h3 class="font-medium text-lg text-[#101828]">Transaction History</h3>
+            <span class="text-[#0D47A1] text-xs bg-[#F5F9FF] px-2 py-[2px] rounded-2xl">{{total}}</span>
+        </div>
+        <div class="md:block hidden mt-5">
+          <form>
+            <div
+              class="flex md:flex-row md:justify-between md:items-center flex-col w-full"
+            >
+              <div class="flex lg:justify-between gap-4">
+                <div class="flex lg:justify-between gap-4">
+                  <app-search 
+                  [placeholder]="'Search...'"
+                  (iconSearch)="search($event)"
+      [formGrp]="searchForm" formCtrlName="searchPhrase"  
+      ></app-search>
+              </div>
+
+              </div>
+  
+              <div class="flex md:items-center gap-4">
+                <div>
+                  <div class="lg:justify-between gap-4">
+                    <div class="dropdown dropdown-end">
+                      <label
+                        tabindex="0"
+                        class="flex justify-between bg-[#1368EC] text-white rounded-[10px] items-center border border-none min-w-[101px] py-[8px] px-4 text-sm cursor-pointer"
+                      >
+                        <p
+                          class="my-0 font-inter font-medium text-sm"
+                        >
+                          Export
+                        </p>
+                        <img
+                          src="assets/images/icons/downward_arrow_white.svg"
+                          alt=""
+                          class=""
+                        />
+                      </label>
+                      <ul
+                        tabindex="0"
+                        class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                      >
+                      <li (click)="download('CSV')"><a>Export as CSV</a></li>
+                      <li (click)="download('Excel')"><a>Export as Excel</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+  
+        <div class="overflow-x-auto mt-8 hide-scrollbar">
+            <table class="table w-full">
+                <thead>
+                  <tr>
+                    <th
+                      class="flex gap-1 text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+                    >
+                      Date
+                      <span
+                        ><img
+                          src="assets/images/icons/arrow_down.svg"
+                          alt=""
+                          class="mt-0.5"
+                      /></span>
+                    </th>
+                    <th
+                      class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+                    >
+                      Amount
+                    </th>
+                    <th
+                      class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+                    >
+                      Payment Method
+                    </th>
+                    <th
+                      class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+                    >
+                      Transaction Description
+                    </th>
+    
+                    <th
+                      class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
+                    >
+                      Status
+                    </th>
+                  </tr>
+                </thead>
+    
+                <tbody class="">
+                  <tr *ngFor="let data of transactionHistory | paginate: { itemsPerPage: filter.pageSize, currentPage: filter.pageIndex, totalItems: total } " class=" ">
+                    <td class="bg-white">
+                      <div>
+                        <p
+                          class="text-xs font-normal font-inter my-0 text-[#667085]"
+                        >
+                          {{ data?.transactionDate | date }}
+                        </p>
+                      </div>
+                    </td>
+    
+                    <td class="bg-white">
+                      <div>
+                        <p
+                          class="my-0 text-base font-inter font-normal text-[#667085]"
+                        >
+                          {{ data.amountPaid | commaDelimiter }}
+                        </p>
+                      </div>
+                    </td>
+    
+                    <td class="bg-white">
+                      <div>
+                        <p
+                          class="my-0 text-base font-inter font-medium text-[#667085]"
+                        >
+                          {{ data.paymentType }}
+                        </p>
+                      </div>
+                    </td>
+    
+                    <td class="bg-white">
+                      <div>
+                        <p
+                          class="my-0 text-base font-inter font-normal text-[#667085]"
+                        >
+                          {{ data.description }}
+                        </p>
+                      </div>
+                    </td>
+    
+                    <td class="bg-white">
+                      <div class="rounded text-center">
+                          <div
+                            class="rounded-full text-center w-fit px-2 py-[2px] flex items-center"
+                            
+                          >
+                          <div
+                            class="mr-3 w-2 h-2 rounded-full"
+                            [ngClass]="
+                            data.paymentStatus === 2
+                                ? 'bg-[#E61B00]'
+                                : data.paymentStatus === 1
+                                ? 'bg-[#008400]'
+                                : 'bg-[#EE6D00]'
+                                "
+                          ></div>
+                          <p
+                            class="my-0 text-sm cursor-pointer font-inter font-medium w-auto"
+                            [ngClass]="
+                              data.paymentStatus === 2
+                                ? 'text-[#E61B00]'
+                                : data.paymentStatus === 1
+                                ? 'text-[#008400]'
+                                : 'text-[#EE6D00]'
+                                
+                            "
+                          >
+                            {{ data.paymentStatus === 1? 'Approved' : data.paymentStatus === 2 ? 'Declined' : 'Pending' }}
+                          </p>
+                            
+                          </div>
+                        </div>
+                   
+  
+                  </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+
+        <app-request-empty-state
+        *ngIf="transactionHistory?.length < 1"
+        [dataStatus]="'Searching record..'"
+        ></app-request-empty-state>
+
+  
+       <!--Pagination-->
+      <div class="flex items-center justify-end mt-10"  *ngIf="transactionHistory?.length >= 1">
+        <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
+                Showing 1 to 7 of {{ transactionList.length }} entries
+            </p> -->
+        <div class="flex item gap-3">
+          <pagination-controls (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next">
+          </pagination-controls>
+
+        </div>
+      </div>
+    </div>
+</section>

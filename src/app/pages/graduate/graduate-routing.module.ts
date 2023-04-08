@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: GraduateComponent,
     children: [
-      { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+      // { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
       {
         path: 'dashboard',
         loadChildren: () =>
@@ -20,11 +20,27 @@ const routes: Routes = [
             (m) => m.ApplicationsModule
           ),
       },
+      {
+        path: 'my-verifications',
+        loadChildren: () =>
+          import('./verifications/verifications.module').then(
+            (m) => m.VerificationsModule
+          ),
+      },
+      {
+        path: 'settings',
+        loadChildren: () =>
+          import('./settings/settings.module').then((m) => m.SettingsModule),
+      },
+      {
+        path: 'transactions',
+        loadChildren: () =>
+          import('./transactions/transactions.module').then(
+            (m) => m.TransactionsModule
+          ),
+      },
     ],
   },
-  {
-    path: '**', redirectTo: ''
-  }
 ];
 
 @NgModule({

@@ -1,0 +1,22 @@
+.loader-bg {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(125, 125, 125, 0.6))
+  }
+  
+  .wheelUp {
+    animation: wheelUp 2s;
+    animation-iteration-count: infinite;
+  }
+  
+  @keyframes wheelUp {
+    0% {
+      transform: translateY(0);
+    }
+  
+    50% {
+      transform: translateY(-50px);
+    }
+  
+    100% {
+      transform: translateY(0);
+    }
+  }

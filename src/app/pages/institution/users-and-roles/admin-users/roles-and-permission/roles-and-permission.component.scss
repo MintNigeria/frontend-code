@@ -1,0 +1,25 @@
+
+.custom-translate {
+    transform: translateY(-50%);
+}
+
+
+thead>tr>th {
+    white-space: nowrap;
+}
+
+tbody>tr>td {
+    @apply py-4 pl-6 border-b border-solid border-[#F7F7FC];
+    white-space: nowrap;
+
+}
+.alert-success {
+    --tw-bg-opacity: 1;
+    background-color: #F6FEF9;
+    --tw-text-opacity: 1;
+    color: #F6FEF9;
+    border: 2px;
+    border-color: #6CE9A6;
+
+}
+
