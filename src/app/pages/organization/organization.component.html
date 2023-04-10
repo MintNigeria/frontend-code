@@ -20,9 +20,106 @@
         </div>
       </div> -->
       
+      <div class="w-full fixed z-20 top-0 left-0">
+        <nav class="bg-primaryBlue  ">
+          <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+          <a href="" class="flex items-center">
+              <img src="/assets/images/main/new-logo.svg" class="h-8 mr-3" alt="VAC Logo">
+          </a>
+          <div class="flex md:order-2">
+            <div class="flex items-center">
+            
+              <div class="mx-9  hidden md:block">
+                  <div class="dropdown dropdown-end z-[999999]">
+                      <label
+                        tabindex="0"
+                        class="flex justify-between rounded-[10px] items-center border border-none  text-sm cursor-pointer"
+                      >
+                        <p
+                          class="my-0 text-[#0D47A1] font-inter font-medium text-sm"
+                          >
+                          <img src="assets/images/main/bell.svg" class="" alt="notification">
+                        </p>
+                      </label>
+                      <ul
+                        tabindex="0"
+                        class="dropdown-content overflow-hidden menu py-2 shadow bg-white z-[99999999999] text-black rounded-box w-[400px]"
+                      >
+                       <div class="border-b border-[#F5F9FF] mb-2 py-2" >
+                          <p class="text-[#101828] font-medium text-[22px] px-4">Notifications</p>
+                       </div>
+                       <div class="px-6 h-64 overflow-y-scroll" *ngIf="notification$ | async as notifications">
+                          <div class="border-b border-[#F5F9FF ]" *ngFor="let notification of notifications?.slice(0,5)">
+                              <span class="flex space-x-4 my-2 w-auto rounded bg-[#F5F9FF] items-center">
+                                  <div class="bg-[#4086EF] font-medium text-[12px] p-1 rounded-md text-white">New </div>
+                                  <div class="text-[#0D47A1] font-medium text-[12px] ">{{notification.title}}</div>
+                              </span>
+                              <p [innerHTML]="notification.description" class="text-[#667085] py-3 text-sm">
+                              </p>
+                           </div>
+                           <div class="flex justify-center items-center h-11" *ngIf="notifications?.length === 0">
+                              <p>No notifications found</p>
+                           </div>
+                       </div>
+                      </ul>
+                    </div>
+              </div>
+              <div  *ngIf="user$ | async as user">
+                  <div class="flex items-center gap-2">
+                    <img  class="cursor-pointer"  src="assets/images/main/dummy.png " class="w-8 h-8 rounded-full" alt="logged user avatar">
+                    <div class="flex items-center gap-2">
+                      <p class="font-inter text-white text-base font-medium ">{{ user.firstName }}
+                      </p>
+                      <div class="dropdown dropdown-bottom dropdown-end">
+                        <svg tabindex="0" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M5 7.5L10 12.5L15 7.5" stroke="#BDD5FA" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                          
+                        <ul
+                          tabindex="0"
+                          class="main mt-3 dropdown-content menu p-2 shadow bg-primaryBlue md:z-50 w-52"
+                        >
+                        <!-- <li >
+                          <a class="flex items-center text-white " routerLink="/institution/users-and-roles">  <img (click)="openLogoutModal()"
+                           src="assets/images/main/settings.svg"
+                           alt="logout icons"
+                           class="cursor-pointer"> Profile </a></li> -->
+                       
+                       <li (click)="openLogoutModal()" >
+                          <a class="flex items-center text-white ">  <img
+                           src="assets/images/main/log-out.svg"
+                           alt="logout icons"
+                           class="cursor-pointer"> Log out</a></li>
+                        </ul>
+                      </div>
+                      
+                    </div>
+                  </div>
+              </div>
+          </div>        <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+              </button>
+          </div>
+          <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+           
+          </div>
+          </div>
+        </nav>
+        <div>
+          <!-- <app-sidebar></app-sidebar> -->
+          <app-sidebar [menuLinks]="menuLinks" ></app-sidebar>
+        </div>
+        
+      </div>
+      <div class="mt-28 md:mt-40">
+        <div class="max-w-screen-xl px-4 mx-auto md:px-6 ">
+          <router-outlet></router-outlet>
+        
+        </div>
+      </div>
 
-      <div class="drawer drawer-mobile flex h-screen overflow-hidden">
-        <!-- <input id="my-drawer-2" type="checkbox" class="drawer-toggle z-0" /> -->
+      <!-- <div class="drawer drawer-mobile flex h-screen overflow-hidden">
         <div class="drawer-side ">
           <div class="bg-gray-900 opacity-50 hidden fixed inset-0 z-10" id="sidebarBackdrop"></div>
           <div class="w-[20rem] z-50 hidden md:flex ">
@@ -37,4 +134,4 @@
             <router-outlet></router-outlet>
           </main>
         </div>
-      </div>
+      </div> -->

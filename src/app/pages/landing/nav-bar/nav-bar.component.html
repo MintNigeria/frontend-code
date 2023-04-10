@@ -1,4 +1,4 @@
-<header class="bg-white shadow-md p-2">
+<header class="bg-white  p-2">
   <div class="container mx-auto px-4 py-2 flex items-center justify-between">
     <!-- Logo -->
     <div class="text-2xl font-semibold">
@@ -69,6 +69,7 @@
 
     <!-- Sign in button -->
     <app-button
+    (buttonClick)="openLogin()"
     [overRideButtonClass]="true"
     [customClass]="'font-inter font-medium text-base rounded-md bg-buttonBlue text-white p-2'">
         Sign In

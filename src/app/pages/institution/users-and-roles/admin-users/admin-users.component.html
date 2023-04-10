@@ -1,4 +1,4 @@
-<div class="px-8  py-6 bg-white ">
+<div class="md:px-8  px-0 py-6 bg-white ">
     <div [routerLink]="'/institution/configuration'" class="flex  items-center md:gap-4 gap-2 ">
         <div>
             <img  src="assets/images/icons/home.svg">
@@ -16,7 +16,7 @@
 
     </div>
 
-    <div class="px-5">
+    <div class="md:px-5 px-0">
         <div class="items-center my-2">
             <h4 class="font-medium font-poppins text-4xl  text-headerGray my-3">
                 Settings
@@ -35,12 +35,12 @@
             [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
             Change Password
         </div>
-        <div routerLink="/institution//users-and-roles/users" #rlaRoles="routerLinkActive"
+        <div routerLink="/institution//users-and-roles/users" #rlaRoles="routerLinkActive" *ngIf="permissionList?.includes('INSTITUTION_USERS_AND_ROLES')"
             class="textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px]"
             routerLinkActive="activeLink">
             Users
         </div>
-        <div routerLink="/institution/users-and-roles/roles-and-permission" #rlaRoles="routerLinkActive"
+        <div routerLink="/institution/users-and-roles/roles-and-permission" #rlaRoles="routerLinkActive" *ngIf="permissionList?.includes('INSTITUTION_USERS_AND_ROLES')"
             class="textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px]"
             routerLinkActive="activeLink">
             Roles and Permissions
