@@ -12,6 +12,7 @@ import { WhyUseVacComponent } from './why-use-vac/why-use-vac.component';
 import { TestimonialsComponent } from './testimonials/testimonials.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { FooterComponent } from './footer/footer.component';
+import { LoginModalComponent } from './modals/login-modal/login-modal.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { FooterComponent } from './footer/footer.component';
     WhyUseVacComponent,
     TestimonialsComponent,
     AnalyticsComponent,
-    FooterComponent
+    FooterComponent,
+    LoginModalComponent
   ],
   imports: [
     CommonModule,

@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.currentRoute = this.route.snapshot.url[1].path;
+    this.currentRoute = this.route.snapshot.url[0].path;
     this.initLoginForm();
   }
 
@@ -102,11 +102,11 @@ export class LoginComponent implements OnInit {
 
   createAccount() {
     if (this.currentRoute === 'graduate') {
-      this.router.navigateByUrl('/create-account/graduate');
+      this.router.navigateByUrl('/auth/create-account/graduate');
     } else if (this.currentRoute === 'organization') {
-      this.router.navigateByUrl('/create-account/organization');
+      this.router.navigateByUrl('/auth/create-account/organization');
     } else {
-      this.router.navigateByUrl('/create-account/institution');
+      this.router.navigateByUrl('/auth/create-account/institution');
     }
   }
 
@@ -116,7 +116,6 @@ export class LoginComponent implements OnInit {
       userName: email,
       code: this.otpValue
     }
-    console.log(payload)
     
     // this.store.dispatch(validateGraduateRegistration({payload}))
     // this.actions$.pipe(ofType(validateGraduateRegistrationSuccess)).subscribe((res: any) => {

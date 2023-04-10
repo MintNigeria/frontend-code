@@ -1,26 +1,24 @@
-<div class="swiper-container">
-  <!-- Slides -->
-  <div class="swiper-wrapper">
-    <div class="swiper-slide" *ngFor="let item of carouselItems">
-      <div class="h-96 w-full flex items-center" 
-      [style.background-image]="'url(' + item.imagePath + ')'" 
-      style="background-size: cover; background-position: center;">
-        <div class="w-1/2 ml-8">
-          <div class="bg-white p-8 rounded-md shadow-md">
-            <h3 class="text-2xl font-semibold mb-4">{{item.title}}</h3>
-            <p>{{item.description}}</p>
+<div>
+  <div class="carousel w-full">
+    <div class="carousel-item w-full" *ngFor="let item of carouselItems" [id]="item.id">
+      <div class="justify-center  bg-white rounded-md w-full  !h-[50%]  "  >
+        <img [src]="item.image" class="w-full relative" />
+        <div class="flex gap-8 pr-6 pl-8 pt-5 items-center absolute bottom-5 left-5">
+          <div class="bg-white">
+            <div class="">
+              <p class="w-64 font-inter font-medium text-base text-darkGray">{{ item.text }}</p>
+              <p class="font-inter font-normal text-base text-darkGray mt-3"><span class="font-semibold font-inter text-base text-darkGray">{{ item.author }} - </span>{{ item.position }}</p>
+            </div>
+            <div class="flex justify-center w-56 py-2 gap-3 items-center mt-3">
+              <button class="btn btn-circle align-middle" (click)="prevSlide()"><img src="assets/images/main/previous_arrow.svg" alt="previous_arrow"></button>
+              <button *ngFor="let item of carouselItems; let i = index;" [class.btn-active]="i === carouselIndex" (click)="setCarouselIndex(i)" class="btn-dot"></button>
+              <button class="btn btn-circle align-middle" (click)="nextSlide()"><img src="assets/images/main/forward_arrow.svg" alt="forward_arrow"></button>
+            </div>
           </div>
         </div>
+  
       </div>
     </div>
-  </div>
-
-  <!-- Controls -->
-  <div class="absolute left-0 bottom-0 mb-4 ml-8">
-    <div class="swiper-pagination"></div>
-    <div class="flex items-center mt-2">
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
-    </div>
+  
   </div>
 </div>
