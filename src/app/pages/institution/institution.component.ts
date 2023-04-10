@@ -68,7 +68,7 @@ export class InstitutionComponent implements OnInit {
     {
       id: 3,
       title: 'Uploads',
-      label: 'Uploads',
+      label: 'Graduate Uploads',
       hasChild: false,
       path: 'uploads',
       active: 'assets/images/institution-inactive.svg',
@@ -152,6 +152,7 @@ export class InstitutionComponent implements OnInit {
       }
       sessionStorage.setItem('extras', JSON.stringify(extra))
     }, 2000);
+    this.permissions()
   }
 
   loadIp() {
@@ -161,8 +162,8 @@ export class InstitutionComponent implements OnInit {
   }
 
   permissions() {
-    this.permission$.subscribe((res: any) => {
-      this.permissionList = res;
+    this.user$.subscribe((res: any) => {
+      console.log(res)
     })
   }
 

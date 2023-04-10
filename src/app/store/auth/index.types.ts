@@ -39,7 +39,7 @@ export interface IAuthStateInterface {
   user?: {
     firstName: string | null;
     lastName: string | null;
-    // role: string | null;
+    role?: string | null;
     lastLogin: string | null;
     id?: string | null;
     email: string | null;

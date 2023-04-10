@@ -39,7 +39,7 @@ export const authReducers = createReducer(
         lastLogin: decodedToken.last_login_time,
         name: decodedToken.name,
         userType: decodedToken.UserType,
-        role: decodedToken.role,
+        role: decodedToken?.role || 'undefined',
       },
       permissions: decodedToken.Permission
 

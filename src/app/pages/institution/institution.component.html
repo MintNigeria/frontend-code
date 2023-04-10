@@ -87,7 +87,7 @@
                      src="assets/images/main/settings.svg"
                      alt="logout icons"
                      class="cursor-pointer"> Profile </a></li>
-                 <li *ngIf="permissionList?.includes('INSTITUTION_USERS_AND_ROLES') || adminUser?.userType === 'Institution'" >
+                 <li *ngIf="user?.role === 'undefined'" >
                     <a class="flex items-center text-white " routerLink="/institution/users-and-roles/users">  <img (click)="openLogoutModal()"
                      src="assets/images/main/settings.svg"
                      alt="logout icons"
