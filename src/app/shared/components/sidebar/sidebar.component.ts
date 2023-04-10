@@ -23,6 +23,7 @@ permission$ = this.appStore.pipe(select(permissionsSelector));
   currentRoute!: any;
   permissionList: any;
   adminUser: any;
+  superAdminRole: any;
 
   constructor(
     private router: Router,
@@ -48,7 +49,7 @@ permission$ = this.appStore.pipe(select(permissionsSelector));
   getUser() {
     this.user$.subscribe((res: any) => {
       this.adminUser = res;
-      console.log(res.role)
+      console.log(this.adminUser.role.split('|')[0])
     })
   }
   permissions() {
@@ -86,12 +87,12 @@ permission$ = this.appStore.pipe(select(permissionsSelector));
   activeLink() {
     this.menuLinks.filter((link) => {
       const title = link.label.replace(' ', '_').toUpperCase()
-      const newTitle = `${title}`
+      const newTitle = `INSTITUTION_${title}`
       if (this.permissionList?.includes(newTitle)) {
         link.show = true;
       } else if (this.adminUser.userType === 'Graduates' || this.adminUser.userType === 'Organization') {
         link.show = true;
-      } else if (this.adminUser.role === undefined) { //admin has no role
+      } else if (this.adminUser.role.split('|')[0] === 'Super Admin') { //admin has no role
         link.show = true;
 
       }

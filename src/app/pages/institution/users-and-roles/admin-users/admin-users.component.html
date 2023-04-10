@@ -35,17 +35,17 @@
             [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
             Change Password
         </div>
-        <div routerLink="/institution//users-and-roles/users" #rlaRoles="routerLinkActive" *ngIf="permissionList?.includes('INSTITUTION_USERS_AND_ROLES')"
+        <div routerLink="/institution//users-and-roles/users" #rlaRoles="routerLinkActive" *ngIf="permissionList?.includes('INSTITUTION_USERS_ROLES') || superAdminRole === 'Super Admin'"
             class="textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px]"
             routerLinkActive="activeLink">
             Users
         </div>
-        <div routerLink="/institution/users-and-roles/roles-and-permission" #rlaRoles="routerLinkActive" *ngIf="permissionList?.includes('INSTITUTION_USERS_AND_ROLES')"
+        <div routerLink="/institution/users-and-roles/roles-and-permission" #rlaRoles="routerLinkActive" *ngIf="permissionList?.includes('INSTITUTION_USERS_ROLES') || superAdminRole === 'Super Admin'"
             class="textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px]"
             routerLinkActive="activeLink">
             Roles and Permissions
         </div>
-        <div routerLink="/institution/users-and-roles/2fa" #rlaRoles="routerLinkActive"
+        <div routerLink="/institution/users-and-roles/2fa" #rlaRoles="routerLinkActive" *ngIf="permissionList?.includes('INSTITUTION_USERS_ROLES') || superAdminRole === 'Super Admin'"
             class="textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px]"
             routerLinkActive="activeLink">
             Two Factor Authentication

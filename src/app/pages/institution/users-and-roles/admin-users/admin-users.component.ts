@@ -14,6 +14,7 @@ export class AdminUsersComponent implements OnInit {
   user$ = this.appStore.pipe(select(isUserSelector));
 
   adminUser: any;
+  superAdminRole: any;
 
   constructor(
     private appStore: Store<AppStateInterface>,
@@ -21,12 +22,20 @@ export class AdminUsersComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.permissions()
+    this.users()
 
   }
 
   permissions() {
     this.permission$.subscribe((res: any) => {
       this.permissionList = res;  
+    })
+  }
+
+  users() {
+    this.user$.subscribe((res: any) => {
+      this.superAdminRole = res.role.split('|')[0]
+
     })
   }
 

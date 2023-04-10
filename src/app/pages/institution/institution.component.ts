@@ -121,6 +121,7 @@ export class InstitutionComponent implements OnInit {
   permission$ = this.appStore.pipe(select(permissionsSelector));
   user$ = this.appStore.pipe(select(isUserSelector));
   notification$ = this.appStore.pipe(select(notificationSelector))
+  superAdminRole: any;
 
   constructor(
     private utilityService: UtilityService,
@@ -152,6 +153,7 @@ export class InstitutionComponent implements OnInit {
       }
       sessionStorage.setItem('extras', JSON.stringify(extra))
     }, 2000);
+    this.users()
     this.permissions()
   }
 
@@ -161,9 +163,16 @@ export class InstitutionComponent implements OnInit {
     })
   }
 
-  permissions() {
+  users() {
     this.user$.subscribe((res: any) => {
-      console.log(res)
+      this.superAdminRole = res.role.split('|')[0]
+
+    })
+  }
+  permissions() {
+    this.permission$.subscribe((res: any) => {
+      this.permissionList = res
+
     })
   }
 
