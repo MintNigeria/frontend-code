@@ -92,22 +92,6 @@ export class GraduateRequestComponent implements OnInit {
 
 
   addFilter() {
-    // if (this.status !== 'All') {
-    //   this.filterStatus['status'] = this.status;
-    // }
-    // if (this.selectedOption !== 'All Time') {
-    //   this.filterOption['selectedOption'] = this.selectedOption;
-    // }
-    // if (this.selectedSector !== 'All') {
-    //   this.filterSector['selectedSector'] = this.selectedSector;
-    // }
-    // if (this.selectedInstituition !== 'All') {
-    //   this.filterInstituition['selectedInstituition'] = this.selectedInstituition;
-    // }
-    // if (this.documentType !== 'All') {
-    //   this.filterDocument['documentType'] = this.documentType;
-    // }
-    
     this.store.dispatch(getAllInstitutionGraduateRequest({payload: {...this.filterParams, institutionId: this.institutionId}}))
   }
 
@@ -122,6 +106,20 @@ export class GraduateRequestComponent implements OnInit {
     this.filterInstituition = {selectedInstituition: 'All'};
     this.documentType = 'All'
     this.filterDocument = {documentType: 'All'};
+   const filterParams = {
+      institutionId: '',
+      DocumentType: '',
+      status: '',
+      keyword: '',
+        filter: '',
+        pageSize: 10,
+        pageIndex: 1,
+        range: '',
+        fromDate: '',
+        toDate: '',
+    }
+    this.store.dispatch(getAllInstitutionGraduateRequest({payload: {...filterParams, institutionId: this.institutionId}}))
+
   }
 
 

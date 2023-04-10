@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { DashboardService } from 'src/app/core/services/dashboard/dashboard.service';
 import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
 import { getAllDashboardInfoData, getOrganizationDashboardBottomInfo, getOrganizationDashboardBottomInfoSuccess, getOrganizationDashboardInfo, getOrganizationDashboardInfoSuccess, getOrganizationVeficiationAnalysis, getOrganizationVeficiationAnalysisSuccess } from 'src/app/store/dashboard/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import {Chart} from 'chart.js/auto'
+import { isUserSelector } from 'src/app/store/auth/selector';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +16,7 @@ import {Chart} from 'chart.js/auto'
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  user$ = this.appStore.pipe(select(isUserSelector));
 
   verificationHistory: any
  filter = {

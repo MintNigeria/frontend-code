@@ -42,7 +42,8 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
     body.append('InstitutionAttendedVMs[0].InstitutionName', payload.InstitutionName)
     body.append('Documents', payload.Designation)
     for (let i = 0; i < approvalFile.length; i++) {
-      body.append('DocumentVM[' + i + '].FileNo', approvalFile[i]);
+      body.append('DocumentVM[' + i + '].FileNo', '');
+      body.append('DocumentVM[' + i + '].File', approvalFile[i]);
     }
     return this.http.post<any>(
       `${this.baseUrl}mint-auth/api/v1/Graduates/CreateGraduate`, body
@@ -343,7 +344,8 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
     body.append('Device', payload.device)
     body.append('IpAddress', payload.ipAddress)
     for (let i = 0; i < Document.length; i++) {
-      body.append('Document[' + i + ']', Document[i]);
+      body.append('GraduateVerificationDocumentVM[' + i + '].FileNo', '');
+      body.append('GraduateVerificationDocumentVM[' + i + '].File', Document[i]);
     }
     return this.http.post<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Graduate-Certificate-Verification-Request`, body
@@ -351,7 +353,6 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
   }
 
   createGraduateApplication(payload: any) {
-    console.log(payload)
     const { hardCopyOptionVM, emailOptionVM, fileUploadOptionVM } = payload;
 
 	const body = new FormData();

@@ -94,23 +94,32 @@ export class ReportsComponent implements OnInit {
   }
 
   addFilter() {
-    if (this.status !== 'All') {
-      this.filterStatus['status'] = this.status;
-    }
-    if (this.selectedOption !== 'All Time') {
-      this.filterOption['selectedOption'] = this.selectedOption;
-    }
-    if (this.selectedSector !== 'All') {
-      this.filterSector['selectedSector'] = this.selectedSector;
-    }
-    if (this.selectedInstitution !== 'All') {
-      this.filterInstituition['selectedInstituition'] = this.selectedInstitution;
-    }
-    if (this.documentType !== 'All') {
-      this.filterDocument['documentType'] = this.documentType;
-    }
+
     
     this.store.dispatch(invokeGetAllReport({payload: {...this.filterParams, institutionId: this.institutionId}}))
+  }
+  
+  clearFilter() {
+    this.selectedOption = "All Time";
+  this.selectedInstitution  = "All";
+  this.selectedSector  = "All";
+  this.documentType = "All";
+  this.status = "All";
+   const  filterParams = {
+      institutionId: '',
+      InstitutionType: '',
+      DocumentType: '',
+      Sector: '',
+      keyword: '',
+        filter: '',
+        pageSize: 10,
+        pageIndex: 1,
+        range: '',
+        fromDate: '',
+        toDate: '',
+    }
+    this.store.dispatch(invokeGetAllReport({payload: {...filterParams, institutionId: this.institutionId}}))
+
   }
 
   changeRange(range: number, name: string) {
