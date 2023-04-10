@@ -19,6 +19,7 @@ import { IAuthStateInterface } from './index.types';
 const initialState: IAuthStateInterface = {
   isAuthenticated: false,
   user: storage.getItem('auth') ? storage.getItem('auth').user : null,
+  permissions: storage.getItem('auth') ? storage.getItem('auth').permissions : null,
   message: '',
   basicProfile: null,
 };
@@ -37,7 +38,11 @@ export const authReducers = createReducer(
         id: decodedToken.id,
         lastLogin: decodedToken.last_login_time,
         name: decodedToken.name,
+        userType: decodedToken.UserType,
+        role: decodedToken.role,
       },
+      permissions: decodedToken.Permission
+
     };
   }),
   on(changePasswordSuccess, (state, { message }) => {

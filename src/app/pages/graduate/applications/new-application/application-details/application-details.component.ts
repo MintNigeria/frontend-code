@@ -68,6 +68,7 @@ selectedFileList: any = {
   selectedDocumentTypeId: any;
   dispatchFee: any;
   newDispatchVM: any;
+  showDescription: boolean = false;
   constructor(
     private fb: FormBuilder,
     private store: Store,
@@ -145,6 +146,7 @@ selectedFileList: any = {
 
   originalCertificateClicked(data: any){
     console.log(data)
+    this.showDescription = true
     this.selectedDocumentType = data.documentTypeName
     this.selectedDocumentTypeId = data.id
     this.store.dispatch(getActiveDeliveryOptions({id: data.id}))
@@ -288,7 +290,7 @@ selectedFileList: any = {
       }
     }
 
-    console.log(this.selectedFileList)
+    // console.log(this.selectedFileList)
   }
 
   cancel(){
@@ -325,7 +327,7 @@ selectedFileList: any = {
     }
     this.store.dispatch(createGraduateApplication({payload: data}))
     this.actions$.pipe(ofType(createGraduateApplicationSuccess)).subscribe((res: any) => {
-      console.log(res)
+      // console.log(res)
       this.notification.publishMessages('success', res.payload.description)
       sessionStorage.setItem('app_Data', JSON.stringify(res.payload.payload))
       this.router.navigateByUrl(`/graduate/my-applications/new/review-order/${res.payload.payload.requestId}`)

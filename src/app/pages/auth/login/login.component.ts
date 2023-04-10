@@ -61,8 +61,6 @@ export class LoginComponent implements OnInit {
     this.status = Status.LOADING;
     this.store.dispatch(invokeLoginUser(this.loginAuth.value));
     this.actions$.pipe(ofType(loginSuccess)).subscribe((res: any) => {
-      console.log(res) 
-      console.log(typeof(res.payload))
       if (res.accessToken !== undefined && typeof(res.payload) !== 'string') {
         const helper = new JwtHelperService();
         this.loggedInUser = helper.decodeToken(res.accessToken);

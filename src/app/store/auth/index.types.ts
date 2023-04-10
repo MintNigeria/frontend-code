@@ -45,5 +45,8 @@ export interface IAuthStateInterface {
     email: string | null;
   };
   message?: string | null;
+
+  permissions?: string | null;
+
   basicProfile?: IUser | null;
 }
