@@ -95,12 +95,12 @@
                     </div>
                  </li>
                   <li >
-                    <a class="flex items-center text-black " routerLink="/institution/users-and-roles">  <img (click)="openLogoutModal()"
+                    <a class="flex items-center text-black " routerLink="/institution/users-and-roles">  <img 
                      src="assets/images/main/settings.svg"
                      alt="logout icons"
                      class="cursor-pointer"> Profile </a></li>
-                 <li *ngIf="superAdminRole === 'Super Admin' || permissionList.includes('INSTITUTION_USERS_ROLES')" >
-                    <a class="flex items-center text-black " routerLink="/institution/users-and-roles/users">  <img (click)="openLogoutModal()"
+                 <li *ngIf="superAdminRole === 'Super Admin' || superAdminRole === 'undefined' || permissionList.includes('INSTITUTION_USERS_ROLES')" >
+                    <a class="flex items-center text-black " routerLink="/institution/users-and-roles/users">  <img 
                      src="assets/images/main/settings.svg"
                      alt="logout icons"
                      class="cursor-pointer"> Users & Roles </a></li>
