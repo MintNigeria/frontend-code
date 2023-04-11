@@ -13,6 +13,11 @@ export const isUserSelector = createSelector(
   (state) => state.user
 );
 
+export const permissionsSelector = createSelector(
+  selectFeature,
+  (state) => state.permissions
+);
+
 export const messageNotification = createSelector(
   selectFeature,
   (state) => state.message

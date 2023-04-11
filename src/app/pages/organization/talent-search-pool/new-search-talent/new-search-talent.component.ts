@@ -47,7 +47,6 @@ export class NewSearchTalentComponent implements OnInit {
     this.store.dispatch(getAllInstitutionsDropdown())
     this.actions$.pipe(ofType(getAllInstitutionsDropdownSuccess)).subscribe((res: any) => {
       this.institutionList = res.payload;
-      console.log(res)
     })
     this.initForm()
     let currentYear = new Date().getFullYear();   

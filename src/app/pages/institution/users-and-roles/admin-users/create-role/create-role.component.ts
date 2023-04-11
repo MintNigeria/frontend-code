@@ -51,16 +51,16 @@ export class CreateRoleComponent implements OnInit {
   initRoleForm() {
     this.roleForm = this.fb.group({
       name: ['', Validators.required],
-      permissions: ['', Validators.required],
+      permissionIds: ['', Validators.required],
     })
   }
 
   createRole(){
-    const {name, permissions} = this.roleForm.value
+    const {name, permissionIds} = this.roleForm.value
     const payload = {
       institutionId: Number(this.institutionId),
       name,
-      permissions
+      permissionIds
     }
     this.userAndRolesService.createAdminRole(payload).subscribe((res) => {
       if (!res.hasErrors){

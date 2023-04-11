@@ -32,7 +32,7 @@
                     <option value="" *ngFor="let permission of permissions" [value]="permission.id">{{permission.name}}</option>
                   </select> -->
                   <ng-select class="custom-ng-dropdown" 
-                      formControlName="permissions" 
+                      formControlName="permissionIds" 
                       [selectOnTab]="true" 
                       placeholder="Select Permissions"
                       [multiple]="true"

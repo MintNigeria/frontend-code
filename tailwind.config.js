@@ -31,6 +31,9 @@ module.exports = {
         discountBg: "#D7E7FE",
         failedDark: "#D92D20",
         uploadtxt: "#2F4662",
+        testimonialtxt: "#475467",
+        footerbg: "#1D2939",
+        footergray: "#EAECF0",
 
       },
       fontFamily: {

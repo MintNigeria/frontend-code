@@ -1,0 +1,73 @@
+<header class=" w-full fixed z-20 top-0 left-0 ">
+  <div class="bg-white p-2">
+    <div class="max-w-screen-xl   mx-auto px-4 py-2 flex items-center justify-between">
+      <!-- Logo -->
+      <div class="text-2xl font-semibold">
+        <a href="/"><img src="assets/images/icons/logo.svg" alt="logo"></a>
+      </div>
+      <!-- Navigation links -->
+      <nav class="hidden md:flex items-center space-x-6">
+        <div class="relative group">
+          <button class="inline-flex items-center space-x-2">
+            <span class="font-inter font-medium text-base text-lightGray">Verification Services</span>
+            <img src="assets/images/icons/dropdown.svg" alt="dropdown">
+          </button>
+          <!-- Dropdown menu -->
+          <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block">
+            <div class="py-1">
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 1</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 2</a>
+            </div>
+          </div>
+        </div>
+        <div class="relative group">
+          <button class="inline-flex items-center space-x-2">
+            <span class="font-inter font-medium text-base text-lightGray">Transcript Services</span>
+            <img src="assets/images/icons/dropdown.svg" alt="dropdown">
+          </button>
+          <!-- Dropdown menu -->
+          <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block">
+            <div class="py-1">
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 1</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 2</a>
+            </div>
+          </div>
+        </div>
+        <div class="relative group">
+          <button class="inline-flex items-center space-x-2">
+            <span class="font-inter font-medium text-base text-lightGray">Partners & Programs</span>
+            <img src="assets/images/icons/dropdown.svg" alt="dropdown">
+          </button>
+          <!-- Dropdown menu -->
+          <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block">
+            <div class="py-1">
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 1</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 2</a>
+            </div>
+          </div>
+        </div>
+        <div class="relative group">
+          <button class="inline-flex items-center space-x-2">
+            <span class="font-inter font-medium text-base text-lightGray">Company</span>
+            <img src="assets/images/icons/dropdown.svg" alt="dropdown">
+          </button>
+          <!-- Dropdown menu -->
+          <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block">
+            <div class="py-1">
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 1</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 2</a>
+            </div>
+          </div>
+        </div>
+         <img src="assets/images/icons/questionMark.svg" alt="help">
+      </nav>
+      <!-- Sign in button -->
+      <app-button
+      (buttonClick)="openLogin()"
+      [overRideButtonClass]="true"
+      [customClass]="'font-inter font-medium text-base rounded-md bg-buttonBlue text-white p-2'">
+          Sign In
+      </app-button>
+    </div>
+  </div>
+</header>
