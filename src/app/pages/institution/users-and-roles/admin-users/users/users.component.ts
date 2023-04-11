@@ -5,7 +5,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { take } from 'rxjs';
 import { UsersAndRolesService } from 'src/app/core/services/users-and-roles/users-and-roles.service';
-import { messageNotification } from 'src/app/store/auth/selector';
+import { messageNotification, permissionsSelector } from 'src/app/store/auth/selector';
 import { invokeGetStateAndLGA } from 'src/app/store/institution copy/action';
 import { stateLgaSelector } from 'src/app/store/institution copy/selector';
 import { getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess, getInstitutionUserInfo, getInstitutionUserInfoSuccess } from 'src/app/store/institution/action';
@@ -23,6 +23,10 @@ import { NotificationsService } from 'src/app/core/services/notifications.servic
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
+  permission$ = this.appStore.pipe(select(permissionsSelector));
+
+  permissionList: any;
+
   stateLGA$ = this.appStore.pipe(select(stateLgaSelector));
   buttonText: string = 'Create User';
   enableToggleButton: string = 'Enable User';
@@ -90,9 +94,18 @@ export class UsersComponent implements OnInit {
         });
       })
     }
+
+    this.permissions()
+
    
   }
 
+  permissions() {
+    this.permission$.subscribe((res: any) => {
+      this.permissionList = res
+
+    })
+  }
   initUserForm() {
     this.userForm = this.fb.group({
       title: ['', Validators.required],
