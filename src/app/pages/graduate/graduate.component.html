@@ -18,7 +18,7 @@
     </div> -->
 
 
-    <div class="w-full fixed z-20 top-0 left-0">
+    <div class="w-full fixed z-20 top-0 left-0 bg-white">
       <nav class="bg-primaryBlue  ">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="" class="flex items-center">
@@ -64,9 +64,9 @@
             </div>
             <div  *ngIf="user$ | async as user">
                 <div class="flex items-center gap-2">
-                  <img  class="cursor-pointer"  src="assets/images/main/dummy.png " class="w-8 h-8 rounded-full" alt="logged user avatar">
+                  <img  class="cursor-pointer"  src="assets/images/main/account.svg " class="" alt="logged user avatar">
                   <div class="flex items-center gap-2">
-                    <p class="font-inter text-white text-base font-medium ">{{ user.firstName }}
+                    <p class="font-inter text-white text-base font-medium ">Account
                     </p>
                     <div class="dropdown dropdown-bottom dropdown-end">
                       <svg tabindex="0" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -75,16 +75,27 @@
                         
                       <ul
                         tabindex="0"
-                        class="main mt-3 dropdown-content menu p-2 shadow bg-primaryBlue md:z-50 w-52"
+                        class="main mt-3 dropdown-content menu p-2 shadow bg-white text-black md:z-50 w-60"
                       >
-                      <!-- <li >
-                        <a class="flex items-center text-white " routerLink="/graduate/settings">  <img (click)="openLogoutModal()"
+                      <li >
+                        <div class=" text-sm text-black ">
+                          <div class="flex">
+                            <img  class="cursor-pointer"  src="assets/images/main/dummy.png " class="w-8 h-8 mr-2 rounded-full" alt="logged user avatar">
+
+                            <div>
+                              <div>{{user.firstName}}</div>
+                              <div class="font-medium text-sm truncate">{{user.email}}</div>
+                            </div>
+                          </div>
+                        </div>
+                     </li>
+                     <li  >
+                        <a class="flex items-center text-black " routerLink="/graduate/settings">  <img
                          src="assets/images/main/settings.svg"
                          alt="logout icons"
-                         class="cursor-pointer"> Profile </a></li> -->
-                     
+                         class="cursor-pointer"> Settings</a></li>
                      <li (click)="openLogoutModal()" >
-                        <a class="flex items-center text-white ">  <img
+                        <a class="flex items-center text-black ">  <img
                          src="assets/images/main/log-out.svg"
                          alt="logout icons"
                          class="cursor-pointer"> Log out</a></li>
@@ -104,13 +115,13 @@
         </div>
         </div>
       </nav>
-      <div>
+      <div class="bg-white">
         <!-- <app-sidebar></app-sidebar> -->
         <app-sidebar [menuLinks]="menuLinks" ></app-sidebar>
       </div>
       
     </div>
-    <div class="mt-28 md:mt-40">
+    <div class="pt-28 md:pt-40 bg-white">
       <div class="max-w-screen-xl px-4 mx-auto md:px-6 ">
         <router-outlet></router-outlet>
       
