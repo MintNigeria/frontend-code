@@ -76,7 +76,7 @@ export class ProcessingFeeComponent implements OnInit {
       this.processingFees = res.payload
     })
     this.loadIp();
-
+    this.initFeeForm()
     this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
     this.actions$.pipe(ofType(getInstitutionConfigurationSuccess)).subscribe((res: any) => {
       this.processingFeeList = res.payload.processingFeesVM
@@ -115,11 +115,11 @@ export class ProcessingFeeComponent implements OnInit {
     })
   }
 
-  // initFeeForm() {
-  //   this.feeForm = this.fb.group({
-  //     fee: [''],
-  //   })
-  // }
+  initFeeForm() {
+    this.processingFeesForm = this.fb.group({
+      feeType: ['', Validators.required],
+    })
+  }
 
   //  populateForm() {
   //   this.feeForm.patchValue({
@@ -163,8 +163,12 @@ export class ProcessingFeeComponent implements OnInit {
     }
     this.store.dispatch(createProcessingFeeDocumentType({institutionId: this.institutionId ,payload: [payload]}))
     this.actions$.pipe(ofType(createProcessingFeeDocumentTypeSuccess)).subscribe((res: any) => {
-      ////console.log(res)
+      if (res.payload.hasErrors === false) {
+        this.notification.publishMessages('success', res.payload.description)
+        this.closeEdit()
+        this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
 
+      }
     })
   }
 

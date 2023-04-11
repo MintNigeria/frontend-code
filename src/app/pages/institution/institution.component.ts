@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import { LogoutModalComponent } from 'src/app/shared/components/logout-modal/logout-modal.component';
+import { isUserSelector, permissionsSelector } from 'src/app/store/auth/selector';
+import { notificationSelector } from 'src/app/store/notification/selector';
+import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
   selector: 'app-institution',
@@ -11,18 +18,22 @@ export class InstitutionComponent implements OnInit {
     {
       id: 1,
       title: 'Dashboard',
+      label: 'Dashboard',
       hasChild: false,
       path: 'dashboard',
       active: 'assets/images/dashboard-inactive.svg',
       inactive: 'assets/images/dashboard-inactive.svg',
+      show: false,
     },
     {
       id: 2,
       title: 'Requests',
+      label: 'Requests',
       hasChild: true,
       path: 'requests',
       active: 'assets/images/request-active.svg',
       inactive: 'assets/images/request-active.svg',
+      show: false,
       childRoute:  [
         {
           route: '/institution/requests',
@@ -37,10 +48,12 @@ export class InstitutionComponent implements OnInit {
     {
       id: 2,
       title: 'Records',
+      label: 'Graduate Records',
       hasChild: false,
       path: 'records',
       active: 'assets/images/gradaute-active.svg',
       inactive: 'assets/images/graduate-active.svg',
+      show: false,
       childRoute:  [
         {
           route: 'approved',
@@ -55,49 +68,67 @@ export class InstitutionComponent implements OnInit {
     {
       id: 3,
       title: 'Uploads',
+      label: 'Graduate Uploads',
       hasChild: false,
       path: 'uploads',
       active: 'assets/images/institution-inactive.svg',
       inactive: 'assets/images/institution-inactive.svg',
+      show: false,
     },
     {
       id: 4,
       title: 'Reports',
+      label: 'Reports',
       hasChild: false,
       path: 'reports',
       active: 'assets/images/reports.svg',
       inactive: 'assets/images/reports.svg',
+      show: false,
     },
     {
       id: 5,
       title: 'Transactions',
+      label: 'Transactions',
       hasChild: false,
       path: 'transactions',
       active: 'assets/images/organization-inactive.svg',
       inactive: 'assets/images/organization-inactive.svg',
+      show: false,
     },
     {
       id: 6,
       title: 'Configuration',
+      label: 'Configuration',
       hasChild: false,
       path: 'configuration',
       active: 'assets/images/config-inactive.svg',
       inactive: 'assets/images/config-inactive.svg',
+      show: false,
     },
-    {
-      id: 7,
-      title: 'Users and Roles',
-      hasChild: false,
-      path: 'users-and-roles',
-      active: 'assets/images/role-inactive.svg',
-      inactive: 'assets/images/role-inactive.svg',
-    },
+    // {
+    //   id: 7,
+    //   title: 'Users and Roles',
+    //   hasChild: false,
+    //   path: 'users-and-roles',
+    //   active: 'assets/images/role-inactive.svg',
+    //   inactive: 'assets/images/role-inactive.svg',
+    // },
   ];
   deviceModel: string;
   ipAddress: any;
+  permissionList: any;
+  adminUser: any;
+  permission$ = this.appStore.pipe(select(permissionsSelector));
+  user$ = this.appStore.pipe(select(isUserSelector));
+  notification$ = this.appStore.pipe(select(notificationSelector))
+  superAdminRole: any;
 
   constructor(
     private utilityService: UtilityService,
+    private route: ActivatedRoute,
+    private appStore: Store<AppStateInterface>,
+    private dialog: MatDialog,
+
 
   ) {
     const userAgent = navigator.userAgent;
@@ -122,12 +153,34 @@ export class InstitutionComponent implements OnInit {
       }
       sessionStorage.setItem('extras', JSON.stringify(extra))
     }, 2000);
+    this.users()
+    this.permissions()
   }
 
   loadIp() {
     this.utilityService.getuserIP().subscribe((res: any) => {
      this.ipAddress = res.ip
     })
+  }
+
+  users() {
+    this.user$.subscribe((res: any) => {
+      this.superAdminRole = res.role.split('|')[0]
+
+    })
+  }
+  permissions() {
+    this.permission$.subscribe((res: any) => {
+      this.permissionList = res
+
+    })
+  }
+
+  openLogoutModal() {
+    const dialogRef = this.dialog.open(LogoutModalComponent, {
+      // width: '600px',
+      // height: '600px'
+    });
   }
 
 }
