@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { DashboardService } from 'src/app/core/services/dashboard/dashboard.service';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import { isUserSelector } from 'src/app/store/auth/selector';
 import { getGraduateDashboardBottomData, getGraduateDashboardBottomDataSuccess, getGraduateDashboardTopData, getGraduateDashboardTopDataSuccess } from 'src/app/store/dashboard/action';
 import { getMyInstitutionNotified, getMyInstitutionNotifiedSuccess, notifyMyInstitution, notifyMyInstitutionSuccess } from 'src/app/store/graduates/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
@@ -18,6 +19,7 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 export class DashboardComponent implements OnInit {
   deviceModel: string;
   ipAddress: any;
+  user$ = this.appStore.pipe(select(isUserSelector));
 
   filter = {
     range: 0,
