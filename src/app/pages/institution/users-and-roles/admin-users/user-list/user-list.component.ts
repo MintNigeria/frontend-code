@@ -8,13 +8,16 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { getALlFacultiesInInstitutionSuccess, getAllInstitutionUsers, getAllInstitutionUsersSuccess } from 'src/app/store/institution/action';
 import { Actions, ofType } from '@ngrx/effects';
+import { permissionsSelector } from 'src/app/store/auth/selector';
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
+  permission$ = this.appStore.pipe(select(permissionsSelector));
 
+  permissionList: any;
 
   userAndRoles$ = this.appStore.pipe(select(globalUsersAndRolesSelector))
   keyword: string = '';
@@ -48,6 +51,7 @@ export class UserListComponent implements OnInit {
     const data: any = localStorage.getItem('userData')
     this.institutionData = JSON.parse(data)
     this.institutionId = this.institutionData.InstitutionId
+    this.permissions()
 
    this.store.dispatch(getAllInstitutionUsers({payload: {...this.filter, institutionId: this.institutionId}}))
    this.actions$.pipe(ofType(getAllInstitutionUsersSuccess)).subscribe((res: any) => {
@@ -61,6 +65,13 @@ export class UserListComponent implements OnInit {
         this.search(term as string);
       });
 
+  }
+
+  permissions() {
+    this.permission$.subscribe((res: any) => {
+      this.permissionList = res
+
+    })
   }
 
   // getUsers(){

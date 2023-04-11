@@ -130,10 +130,12 @@
             </div>
             <div class="flex justify-end mb-6 mr-6 gap-3">
                 <app-button
+                    (buttonClick)="goBack()"
                     [overRideButtonClass]="true"
                     [customClass]="'w-20 h-10 rounded-lg font-normal border border-buttonBlue text-buttonBlue leading-6 bg-none p-2 mt-6'">Cancel
                 </app-button>
                 <app-button
+                *ngIf="permissionList.includes('USER_UPDATE')"
                     (buttonClick)="updateUserData()"
                     [overRideButtonClass]="true"
                     [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'">Update user
