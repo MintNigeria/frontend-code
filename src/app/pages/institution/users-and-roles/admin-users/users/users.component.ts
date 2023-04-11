@@ -152,7 +152,9 @@ enableDisableUser(event: any) {
   //   });
 }
 
-
+goBack() {
+  window.history.back()
+}
 
 selectLocalGovt(stateId: any) {
   this.stateLGA$.subscribe((x) => {
