@@ -156,13 +156,11 @@ selectedFileList: any  = []
   }
 
   selectInstitutionBody(event: any) {
-    console.log(event)
     const filter = {...this.filter, ['InstitutionBodyId'] : event.id}
     this.filter = filter;
     this.institutionRegForm.controls['institutionBodyId'].setValue(event.name)
   }
   selectInstitutionType(event: any) {
-    console.log(event)
     const filter = {...this.filter, ['InstitutionTypeId'] : event.id}
     this.filter = filter;
     this.institutionRegForm.controls['institutionTypeId'].setValue(event.name)
@@ -188,7 +186,6 @@ selectedFileList: any  = []
     const data = {
       approvalFile : this.selectedFileList, ...this.institutionRegForm.value
     }
-    console.log(data)
     this.store.dispatch(registerNewGraduate({payload: data}))
     this.actions$.pipe(ofType(registerNewGraduateSuccess)).subscribe((res: any) => {
       if (res.payload.hasErrors === false) {

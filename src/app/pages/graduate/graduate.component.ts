@@ -54,16 +54,16 @@ export class GraduateComponent implements OnInit {
       inactive: 'assets/images/organization-inactive.svg',
       show: false
     },
-    {
-      id: 5,
-      title: 'Settings',
-      label: 'Settings',
-      hasChild: false,
-      path: 'settings',
-      active: 'assets/images/config-inactive.svg',
-      inactive: 'assets/images/config-inactive.svg',
-      show: false
-    },
+    // {
+    //   id: 5,
+    //   title: 'Settings',
+    //   label: 'Settings',
+    //   hasChild: false,
+    //   path: 'settings',
+    //   active: 'assets/images/config-inactive.svg',
+    //   inactive: 'assets/images/config-inactive.svg',
+    //   show: false
+    // },
   ];
   user$ = this.appStore.pipe(select(isUserSelector));
   notification$ = this.appStore.pipe(select(notificationSelector))

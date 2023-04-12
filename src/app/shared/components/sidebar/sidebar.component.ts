@@ -92,7 +92,7 @@ permission$ = this.appStore.pipe(select(permissionsSelector));
         link.show = true;
       } else if (this.adminUser.userType === 'Graduates' || this.adminUser.userType === 'Organization') {
         link.show = true;
-      } else if (this.adminUser.role.split('|')[0] === 'Super Admin') { //admin has no role
+      } else if (this.adminUser.role.split('|')[0] === 'Super Admin' || this.adminUser.role === 'undefined') { //admin has no role
         link.show = true;
 
       }

@@ -18,6 +18,8 @@ import { UsersAndRolesEffects } from 'src/app/store/users-and-roles/effects';
 import { InstitutionEffects } from 'src/app/store/institution/effects';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/request-empty-state.component';
+import { GraduatesEffects } from 'src/app/store/graduates/effects';
 
 
 @NgModule({
@@ -35,11 +37,12 @@ import { NgOtpInputModule } from 'ng-otp-input';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    RequestEmptyStateComponent,
     NgSelectModule,
     NgxPaginationModule,
     NgOtpInputModule,
     StoreModule.forFeature('usersAndRoles', usersAndRolesReducer),
-    EffectsModule.forFeature([UsersAndRolesEffects, InstitutionEffects]),
+    EffectsModule.forFeature([UsersAndRolesEffects, InstitutionEffects, GraduatesEffects]),
   ]
 })
 export class SettingsModule { }
