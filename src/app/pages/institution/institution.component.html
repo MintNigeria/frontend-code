@@ -80,7 +80,7 @@
                     
                   <ul
                     tabindex="0"
-                    class="main mt-3 dropdown-content menu p-2 shadow bg-white text-black md:z-50 w-52"
+                    class="main mt-3 dropdown-content menu p-2 shadow bg-white text-black md:z-50 w-[280px]"
                   >
                   <li >
                     <div class=" text-sm text-black ">
@@ -95,12 +95,12 @@
                     </div>
                  </li>
                   <li >
-                    <a class="flex items-center text-black " routerLink="/institution/users-and-roles">  <img (click)="openLogoutModal()"
+                    <a class="flex items-center text-black " routerLink="/institution/users-and-roles">  <img 
                      src="assets/images/main/settings.svg"
                      alt="logout icons"
                      class="cursor-pointer"> Profile </a></li>
-                 <li *ngIf="superAdminRole === 'Super Admin' || permissionList.includes('INSTITUTION_USERS_ROLES')" >
-                    <a class="flex items-center text-black " routerLink="/institution/users-and-roles/users">  <img (click)="openLogoutModal()"
+                 <li *ngIf="superAdminRole === 'Super Admin' || superAdminRole === 'undefined' || permissionList.includes('INSTITUTION_USERS_ROLES')" >
+                    <a class="flex items-center text-black " routerLink="/institution/users-and-roles/users">  <img 
                      src="assets/images/main/settings.svg"
                      alt="logout icons"
                      class="cursor-pointer"> Users & Roles </a></li>
