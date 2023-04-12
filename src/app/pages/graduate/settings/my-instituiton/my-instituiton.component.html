@@ -196,6 +196,7 @@
                 >Cancel</app-button>
                 <app-button *ngIf="isNewInstitution && institutionAction === 'Save'"
                 (buttonClick)="openChangesConfirmed()"
+                [disabled]="newInstitution.invalid"
                 [overRideButtonClass]="true"
                 customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
                 >Save</app-button>

@@ -131,7 +131,6 @@ export class MyInstituitonComponent implements OnInit {
       body: ['', Validators.required],
       name: ['', Validators.required],
       type: ['', Validators.required],
-      email: ['', Validators.required],
       faculty: ['', Validators.required],
       department: ['', Validators.required],
       yearOfEntry: ['', Validators.required],
