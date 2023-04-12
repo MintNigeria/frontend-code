@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
     range: 0,
   }
   userData: any;
-  cardData: any;
+  cardData!: any;
   recentApplications: any;
   recentTransactions: any;
   updatedData: any;
@@ -64,9 +64,10 @@ export class DashboardComponent implements OnInit {
     // })
     this.dashboardService.getGraduateDashboardTopData({...this.filter, GraduateId: this.userData.GraduateId}).subscribe((res: any) => {
       this.cardData = res.payload;
+      // console.log(res.payload)
     })
     this.dashboardService.getGraduateDashboardBottomData({...this.filter, GraduateId: this.userData.GraduateId}).subscribe((res: any) => {
-      this.cardData = res.payload;
+      // this.cardData = res.payload;
 
       this.recentApplications = res.payload.recentApplicationVMs;
       this.recentTransactions = res.payload.paymentHistoryVMs;
