@@ -2,6 +2,13 @@ pipeline {
     agent any
 
     stages {
+       stage('Clear System') {
+            steps {
+                dir('/var/lib/jenkins/workspace/ngmintclient') {
+                    sh 'sudo docker system prune -f -a --volumes'
+                }
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 dir('/var/lib/jenkins/workspace/ngmintclient') {
