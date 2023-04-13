@@ -19,7 +19,7 @@ pipeline {
         stage('Build Docker Container') {
             steps {
                 dir('/var/lib/jenkins/workspace/ngmintclient') {
-                    sh 'sudo docker-compose -f nspm-client-fe.yml up -d'
+                    sh 'sudo docker-compose -f nspm-client-fe.yml up -d --force-recreate'
                 }
             }
         }
