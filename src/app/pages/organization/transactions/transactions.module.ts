@@ -8,6 +8,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaymentPlanComponent } from './payment-plan/payment-plan.component';
 import { MakePaymentComponent } from './payment-plan/make-payment/make-payment.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { OrganizationEffects } from 'src/app/store/organization/effects';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { organizationReducer } from 'src/app/store/organization/reducers';
 
 
 @NgModule({
@@ -22,7 +26,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    StoreModule.forFeature('organization', organizationReducer),
+    EffectsModule.forFeature([OrganizationEffects]),
+
   ]
 })
 export class TransactionsModule { }

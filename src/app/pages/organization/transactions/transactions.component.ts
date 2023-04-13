@@ -80,7 +80,7 @@ searchForm = new FormGroup({
     
     this.store.dispatch(getOrganizationSubscriptionHistory({payload: {...this.filter, OrganizationId: this.userData.OrganizationId}}))
   }
-
+  
   clearFilter() {
     this.status = 'All';
     this.filterStatus = { status: 'All' };
@@ -92,6 +92,14 @@ searchForm = new FormGroup({
     this.filterInstituition = {selectedInstituition: 'All'};
     this.documentType = 'All'
     this.filterDocument = {documentType: 'All'};
+    const filter= {
+      'TimeBoundSearchVm.TimeRange': 0,
+      keyword: '',
+        filter: '',
+        pageSize: 10,
+        pageIndex: 1,
+     }
+    this.store.dispatch(getOrganizationSubscriptionHistory({payload: {...filter, OrganizationId: this.userData.OrganizationId}}))
   }
 
   changeRange(range: number, name: string) {
@@ -107,7 +115,7 @@ searchForm = new FormGroup({
         if (res) {
               const {start , end} = res; // use this start and end as fromDate and toDate on your filter
               this.selectedOption = `${start} - ${end}`
-              const filter = {...this.filter, ['TimeBoundSearchVm.FromDate'] : start, ['TimeBoundSearchVm.ToDate'] : end}
+              const filter = {...this.filter, ['TimeBoundSearchVm.FromDate'] : start, ['TimeBoundSearchVm.ToDate'] : end, 'TimeBoundSearchVm.TimeRange': 5}
               this.filter = filter;
         }
   

@@ -68,6 +68,7 @@ export class TwoFactorAuthenticationComponent implements OnInit {
   }
 
   openOtpModal(){
+    console.log('dsdsdsd')
     const payload = {
       enable2FA: this.twoFactorEnabled ,
       code: ''

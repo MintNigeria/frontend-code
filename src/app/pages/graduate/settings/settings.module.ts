@@ -20,6 +20,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/request-empty-state.component';
 import { GraduatesEffects } from 'src/app/store/graduates/effects';
+import { AuthEffects } from 'src/app/store/auth/effects';
 
 
 @NgModule({
@@ -42,7 +43,7 @@ import { GraduatesEffects } from 'src/app/store/graduates/effects';
     NgxPaginationModule,
     NgOtpInputModule,
     StoreModule.forFeature('usersAndRoles', usersAndRolesReducer),
-    EffectsModule.forFeature([UsersAndRolesEffects, InstitutionEffects, GraduatesEffects]),
+    EffectsModule.forFeature([UsersAndRolesEffects, InstitutionEffects, GraduatesEffects, AuthEffects]),
   ]
 })
 export class SettingsModule { }

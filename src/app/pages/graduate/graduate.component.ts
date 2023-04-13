@@ -35,8 +35,8 @@ export class GraduateComponent implements OnInit {
     },
     {
       id: 3,
-      title: 'My Verifcations',
-      label: 'My Verifcations',
+      title: 'My Verifications',
+      label: 'My Verifications',
       hasChild: false,
       path: 'my-verifications',
       active: 'assets/images/dashboard-inactive.svg',
