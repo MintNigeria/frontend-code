@@ -179,9 +179,9 @@ export class ApplicationsComponent implements OnInit {
   }
 
   
-  changeDocumentType(name: string) {
-    this.documentType = name
-    const filter = {...this.filter, ['documentType'] : status};
+  changeDocumentType(name: string, type: any) {
+    this.documentType = type
+    const filter = {...this.filter, ['documentType'] : type};
     this.filter = filter;
   }
 
