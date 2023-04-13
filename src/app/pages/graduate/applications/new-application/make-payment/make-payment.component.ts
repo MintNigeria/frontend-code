@@ -42,7 +42,7 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
   deviceModel: string;
   balance: any;
   ipAddress: any;
-  selectedMerchant!: string;
+  selectedMerchant: string = '';
   isTransactionSuccessful: any;
   applicationData: any;
 
@@ -102,7 +102,7 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
   }
 
   get applicationAmount () {
-    console.log(this.applicationData)
+    // console.log(this.applicationData)
     if (this.applicationData.emailOptionVM !== null) {
       const amount = this.applicationData.emailOptionVM[0].deliveryMethod + this.applicationData.paymentDetailsVM.fee
       return amount
@@ -227,10 +227,8 @@ payWithWallet() {
   this.store.dispatch(makePayment({payload}))
   this.actions$.pipe(ofType(makePaymentSuccess)).subscribe((res: any) => {
     if (res.payload.hasErrors === false) {
-
       this.notification.publishMessages('success', 'successful')
       document.getElementById('successModal')?.click();
-
       // this.router.navigate(['organization/verifications/view-verified-documents/2']);      
     }
   })
@@ -270,7 +268,7 @@ launchPaystack() {
     key: this.pk, // Replace with your public key
     reference: new Date().getTime().toString(),
     email: this.userData?.email,
-    amount: this.trxData?.amount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    amount: this.applicationAmount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
     onCancel: () => {
       this.onClose();
     },
