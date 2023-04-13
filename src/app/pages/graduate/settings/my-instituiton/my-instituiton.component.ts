@@ -62,7 +62,6 @@ export class MyInstituitonComponent implements OnInit {
     this.graduateId = this.graduateData.GraduateId
     this.store.dispatch(getGraduateInstitutions({id: this.graduateId}))
     this.actions$.pipe(ofType(getGraduateInstitutionsSuccess)).subscribe((res: any) => {
-      this.populateForm(res.payload.payload[0])
       
       this.updatedList = res.payload.payload.map((x: any) => {
         return {
@@ -103,28 +102,7 @@ export class MyInstituitonComponent implements OnInit {
     })
   }
 
-  featureControl(id: number) {
-    let control = this.institutions.controls[id] as FormGroup
-    return control
-  }
 
-  get institutions () {
-    return this.profileForm.get('institutionVms') as FormArray
-  }
-
-  createItem(): FormGroup {
-    return this.fb.group({
-      body: '',
-      name: '',
-      type: '',
-      sector: '',
-      email: '',
-      faculty: '',
-      department: '',
-      yearOfEntry: '',
-      yearOfGraduation: '',
-    });
-  }
 
   initNewInstitutionForm() {
     this.newInstitution = this.fb.group({
@@ -202,20 +180,7 @@ export class MyInstituitonComponent implements OnInit {
 
   }
 
-  populateForm(data: any) {
-    this.profileForm.patchValue({
-      name: data.institutionName,
-      body: data.institutionBody,
-      sector: data.institutionSector,
-      type: data.institutionType,
-      faculty: data.faculty,
-      department: data.department,
-      yearOfEntry: data.yearOfEntry,
-      yearOfGraduation: data.yearOfGraduation,
-      
-      
-    })
-  }
+
   
   
   cancelCreate() {
@@ -319,9 +284,10 @@ export class MyInstituitonComponent implements OnInit {
     
     const payload = {
       id: data.id,
-      name: data.institutionName,
-      body: data.institutionBody,
-      type: data.institutionType,
+      institutionName: data.institutionName,
+      institutionBody: data.institutionBody,
+      institutionType: data.institutionType,
+      institutionSector: data.institutionSector,
       faculty: data.faculty,
       department: data.department,
       yearOfEntry: data.yearOfEntry,

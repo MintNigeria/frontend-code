@@ -82,7 +82,7 @@
                 >
                   <li><a (click)="documentType = 'All'">All</a></li>
                   <li *ngFor="let unit of documentTypeList">
-                    <a (click)="changeDocumentType(unit.name)">{{unit.documentType}}</a>
+                    <a (click)="changeDocumentType(unit.name, unit.documentType)">{{unit.documentType}}</a>
                   </li>
                 </ul>
               </div>
