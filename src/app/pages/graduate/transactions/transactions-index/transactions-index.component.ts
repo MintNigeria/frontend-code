@@ -153,7 +153,7 @@ export class TransactionsIndexComponent implements OnInit {
     this.filter = filter;
   }
   changeType(name: string) {
-    // this.selectedType = name
+    this.documentType = name
     const filter = {...this.filter, ['TransactionType'] : name};
     this.filter = filter;
   }

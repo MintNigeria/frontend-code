@@ -103,6 +103,14 @@ export class ApplicationsComponent implements OnInit {
     this.filterInstituition = {selectedInstituition: 'All'};
     this.documentType = 'All'
     this.filterDocument = {documentType: 'All'};
+    const filter= {
+      'TimeBoundSearchVm.TimeRange': 0,
+      keyword: '',
+        filter: '',
+        pageSize: 10,
+        pageIndex: 1,
+     }
+    this.store.dispatch(getAllGraduateRequestForGradaute({payload: {...filter, GraduateId: this.userData.GraduateId}}))
   }
 
   changeRange(range: number, name: string) {
@@ -171,9 +179,9 @@ export class ApplicationsComponent implements OnInit {
   }
 
   
-  changeDocumentType(name: string) {
-    this.documentType = name
-    const filter = {...this.filter, ['documentType'] : status};
+  changeDocumentType(name: string, type: any) {
+    this.documentType = type
+    const filter = {...this.filter, ['documentType'] : type};
     this.filter = filter;
   }
 

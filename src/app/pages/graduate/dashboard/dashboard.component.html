@@ -11,8 +11,15 @@
     </div>
 </div>
 
-<div class="px-5 md:px-8">
-    <h3 class="text-[#101828] font-medium font-poppins text-[30px] leading-10">Welcome onboard, Olivia</h3>
+
+  
+  <div class="px-5 md:px-8 flex justify-between" *ngIf="user$ | async as user">
+    <h3 class="text-[#101828] font-medium font-poppins text-[30px] leading-10">Welcome onboard, {{ user.firstName }}</h3>
+    <div class="flex gap-2">
+      <app-button routerLink="/graduate/my-verifications/new/institution-details" buttonText="New Verification" customClass="text-sm text-[#0D47A1] font-inter rounded-lg font-medium px-4 py-2.5 bg-[#F5F9FF]" [overRideButtonClass]="true"></app-button>
+      <app-button routerLink="/graduate/my-applications/new/academic-details" buttonText="New Application" customClass="text-sm text-white font-inter rounded-lg font-medium px-4 py-2.5 bg-primaryBlue" [overRideButtonClass]="true"></app-button>
+  
+    </div>
 </div>
 
 <div class="px-5 md:px-8 mt-6 grid [grid-template-columns:repeat(auto-fit,minmax(250px,1fr))] gap-6">
@@ -146,7 +153,7 @@
                     <p
                       class="my-0 text-base font-inter cursor-pointer font-medium text-[#0D47A1]"
                     >
-                      {{ data.deliveryOption || 'N/A' }}
+                      {{ data.deliveryOptions || 'N/A' }}
                     </p>
                   </div>
                 </td>

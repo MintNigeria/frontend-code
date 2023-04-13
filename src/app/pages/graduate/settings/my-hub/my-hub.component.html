@@ -60,6 +60,11 @@
             </div>
            
         </div>
+
+        <app-request-empty-state
+        *ngIf="hubDocuments?.length < 1"
+        [dataStatus]="'Searching documents..'"
+        ></app-request-empty-state>
        
     </div>
 </div>

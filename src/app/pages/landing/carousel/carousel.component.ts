@@ -15,24 +15,27 @@ export class CarouselComponent implements OnInit {
     {
       id: 'slide1',
       image: 'assets/images/main/carousel-1.jpg',
-      text: '“VAC Solution provided me with a seamless and faster way to get my BSc transcript across to my current institution.”',
-      author: 'Damilare Lawson',
-      position: 'Msc Student'
+      header: 'Transcript requests and certificate verification just got better.',
+      text: 'VAC is an innovative and user-friendly digital solution that simplifies the process of academic transcript and certificate verification requests as well as facilitating and tracking academic assessment. Our platform ensures a fast and secure end-to-end verification process.',
+      buttonOne: 'Apply Now',
+      buttonTwo: 'See how it works'
     },
     {
       id: 'slide2',
-      image: 'assets/images/main/Avatar.svg',
-      text: '“VAC Solution provided me with a seamless and faster way to get my BSc transcript across to my current institution.”',
-      author: 'Damilare Lawson',
-      position: 'Msc Student'
+      image: 'assets/images/main/carousel2.svg',
+      header: 'Improving College Readiness  ',
+      text: 'With the ease of requesting Transcripts and Certificates, our solution reduces missed opportunities for students and enables end-to-end tracking.',
+      buttonOne: 'Get Started',
+      buttonTwo: 'Learn more'
     },
-    // {
-    //   id: 'item3',
-    //   image: 'assets/images/main/Avatar.svg',
-    //   text: '“VAC Solution provided me with a seamless and faster way to get my BSc transcript across to my current institution.”',
-    //   author: 'Damilare Lawson',
-    //   position: 'Msc Student'
-    // },
+    {
+      id: 'slide3',
+      image: 'assets/images/main/carousel3.svg',
+      header: 'Connecting Industry and Organization',
+      text: 'Our solution removes the uncertainty from confirming academic credentials. We provide a secure end-to-end verification process and leverage unique data resources.',
+      buttonOne: 'Get Started',
+      buttonTwo: 'Learn more'
+    },
   ];
   selectedCarousel: any;
 

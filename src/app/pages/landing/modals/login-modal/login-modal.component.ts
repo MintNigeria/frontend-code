@@ -19,7 +19,6 @@ export class LoginModalComponent implements OnInit {
   }
 
   gotoLogin(route: string) {
-    console.log(route)
     this.dialogRef.close();
     this.router.navigateByUrl(`/auth/${route}`)
     
