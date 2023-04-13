@@ -73,6 +73,7 @@ export class ApplicationsComponent implements OnInit {
     this.store.dispatch(getAllGraduateRequestForGradaute({payload: {...this.filter, GraduateId: this.userData.GraduateId}}))
     this.actions$.pipe(ofType(getAllGraduateRequestForGradauteSuccess)).subscribe((res: any) => {
       this.graduateList = res.payload.payload
+      this.total = res.payload.totalCount
       // this.balance = res.payload;
     })
     this.store.dispatch(graduateDocumentTypeFilter({id: this.userData.GraduateId}))
@@ -126,7 +127,7 @@ export class ApplicationsComponent implements OnInit {
         if (res) {
               const {start , end} = res; // use this start and end as fromDate and toDate on your filter
               this.selectedOption = `${start} - ${end}`
-              const filter = {...this.filter, ['TimeBoundSearchVm.FromDate'] : start, ['TimeBoundSearchVm.ToDate'] : end}
+              const filter = {...this.filter, ['TimeBoundSearchVm.FromDate'] : start, ['TimeBoundSearchVm.ToDate'] : end, 'TimeBoundSearchVm.TimeRange': 5}
               this.filter = filter;
         }
   

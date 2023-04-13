@@ -36,9 +36,9 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
     body.append('ZipCode', payload.ZipCode)
     body.append('IdType', payload.IdType)
     body.append('IdNumber', payload.IdNumber)
-    body.append('InstitutionAttendedVMs[0].InstitutionTypeId', payload.institutionTypeId)
-    body.append('InstitutionAttendedVMs[0].InstitutionSectorId', payload.institutionSectorId)
-    body.append('InstitutionAttendedVMs[0].InstitutionBodyId', payload.institutionBodyId)
+    body.append('InstitutionAttendedVMs[0].InstitutionType', payload.institutionTypeId)
+    body.append('InstitutionAttendedVMs[0].InstitutionSector', payload.institutionSectorId)
+    body.append('InstitutionAttendedVMs[0].InstitutionBody', payload.institutionBodyId)
     body.append('InstitutionAttendedVMs[0].InstitutionName', payload.InstitutionName)
     body.append('Documents', payload.Designation)
     for (let i = 0; i < approvalFile.length; i++) {
