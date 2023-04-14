@@ -212,15 +212,7 @@ exportFilterParam = {
   }
 
   downloadExcel() {
-    // this.store.dispatch(exportTransactionExcel({institutionId: this.institutionId}))
-    // this.actions$.pipe(ofType(exportTransactionExcelSuccess)).subscribe((res: any) => {
-    //    const link = document.createElement('a');
-    //     link.download = `${res.payload?.fileName}.xlsx`;
-    //     link.href = 'data:image/png;base64,' + res.payload?.base64String;
-    //     link.click();
-    // })
     this.store.dispatch(exportInstitutionGraduateRequestExcel({payload : { InstitutionId : this.institutionId}}))
-
   }
 
   getPage(currentPage: number) {
