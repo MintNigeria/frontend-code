@@ -14,6 +14,8 @@ import { institutionReducers } from 'src/app/store/institution/reducers';
 import { InstitutionEffects } from 'src/app/store/institution/effects';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { OrganizationEffects } from 'src/app/store/organization/effects';
+import { organizationReducer } from 'src/app/store/organization/reducers';
 
 
 @NgModule({
@@ -33,6 +35,9 @@ import { StoreModule } from '@ngrx/store';
     NgxPaginationModule,
     StoreModule.forFeature('institution', institutionReducers),
     EffectsModule.forFeature([InstitutionEffects]),
+    StoreModule.forFeature('organization', organizationReducer),
+    EffectsModule.forFeature([OrganizationEffects]),
+
 
   ]
 })

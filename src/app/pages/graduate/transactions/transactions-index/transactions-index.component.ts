@@ -80,21 +80,7 @@ export class TransactionsIndexComponent implements OnInit {
   }
 
   addFilter() {
-    // if (this.status !== 'All') {
-    //   this.filterStatus['status'] = this.status;
-    // }
-    // if (this.selectedOption !== 'All Time') {
-    //   this.filterOption['selectedOption'] = this.selectedOption;
-    // }
-    // if (this.selectedSector !== 'All') {
-    //   this.filterSector['selectedSector'] = this.selectedSector;
-    // }
-    // if (this.selectedInstituition !== 'All') {
-    //   this.filterInstituition['selectedInstituition'] = this.selectedInstituition;
-    // }
-    // if (this.documentType !== 'All') {
-    //   this.filterDocument['documentType'] = this.documentType;
-    // }
+   
     this.store.dispatch(getGraduateTransactionHistory({payload:{...this.filter, GraduateId: this.userData.GraduateId}}))
 
   }
@@ -135,7 +121,7 @@ export class TransactionsIndexComponent implements OnInit {
         if (res) {
               const {start , end} = res; // use this start and end as fromDate and toDate on your filter
               this.selectedOption = `${start} - ${end}`
-              const filter = {...this.filter, ['TimeBoundSearchVm.FromDate'] : start, ['TimeBoundSearchVm.ToDate'] : end}
+              const filter = {...this.filter, ['TimeBoundSearchVm.FromDate'] : start, ['TimeBoundSearchVm.ToDate'] : end, 'TimeBoundSearchVm.TimeRange': 5}
               this.filter = filter;
         }
   
@@ -198,6 +184,7 @@ export class TransactionsIndexComponent implements OnInit {
   }
 
   getPage(currentPage: number) {
+    this.pageIndex = currentPage
     const filter = {...this.filter, ['pageIndex'] : currentPage}
     this.store.dispatch(getGraduateTransactionHistory({payload:{...filter, GraduateId: this.userData.GraduateId}}))
   }

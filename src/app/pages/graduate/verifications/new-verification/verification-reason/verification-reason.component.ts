@@ -87,9 +87,17 @@ export class VerificationReasonComponent implements OnInit {
       this.selectedFileList.push(file)
     }
   }
+
+  deleteFile(index: number){
+    this.selectedFileList.splice(index, 1);
+  }
+
+  
   back() {
     this.location.back();
   }
+
+
 
   submitRequestReason() {
     const {reasonForRequest} = this.reasonForm.value

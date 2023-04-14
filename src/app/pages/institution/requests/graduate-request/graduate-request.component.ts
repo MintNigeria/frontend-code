@@ -151,7 +151,7 @@ exportFilterParam = {
               ////console.log(res)
               const {start , end} = res; // use this start and end as fromDate and toDate on your filter
               this.selectedOption = `${start} - ${end}`
-              const filter = {...this.filterParams, ['fromDate'] : start, ['toDate'] : end}
+              const filter = {...this.filterParams, ['fromDate'] : start, ['toDate'] : end, range: String(5)}
               this.filterParams = filter;
               const filterExport = {...this.exportFilterParam, ['fromDate'] : start, ['toDate'] : end}
 
@@ -225,7 +225,7 @@ exportFilterParam = {
 
   getPage(currentPage: number) {
     const filter = {...this.filterParams, ['pageIndex'] : currentPage}
-    this.store.dispatch(getAllInstitutionGraduateRequest({payload: {...this.filterParams, institutionId: this.institutionId}}))
+    this.store.dispatch(getAllInstitutionGraduateRequest({payload: {...filter, institutionId: this.institutionId}}))
   }
 
 

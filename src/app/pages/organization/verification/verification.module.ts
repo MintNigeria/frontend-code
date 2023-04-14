@@ -11,6 +11,11 @@ import { VerifyDocumentsComponent } from './start-verification/search-results/ve
 import { NewVerificationComponent } from './new-verification/new-verification.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { GraduatesEffects } from 'src/app/store/graduates/effects';
+import { graduatesReducer } from 'src/app/store/graduates/reducers';
+import { OrganizationEffects } from 'src/app/store/organization/effects';
 
 
 @NgModule({
@@ -28,7 +33,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    NgSelectModule
+    NgSelectModule,
+    StoreModule.forFeature('graduates', graduatesReducer),
+    EffectsModule.forFeature([GraduatesEffects, OrganizationEffects]),
   ]
 })
 export class VerificationModule { }
