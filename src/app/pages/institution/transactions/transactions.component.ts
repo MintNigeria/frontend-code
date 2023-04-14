@@ -23,6 +23,10 @@ export class TransactionsComponent implements OnInit {
   documentType: string = "All";
   transactionType: string = "Graduates";
   status: string = "All";
+  showDate : boolean = false;
+  showInitiator : boolean = false;
+  showTransaction : boolean = false;
+  showStatus : boolean = false;
 
   filterStatus = { status: 'All'};
   filterOption = {selectedOption : 'All Time'};
@@ -159,12 +163,14 @@ filter = {
   }
 
   changeInitiator(status: number, name: string) {
+    this.showInitiator = true;
     this.transactionType = name
     const filter = {...this.filter, ['requestor'] : status}
     this.filter = filter;
   }
 
   changeRange(range: number, name: string) {
+    this.showDate = true;
     this.selectedOption = name
     if (range === 5) {
       // launch calender
@@ -189,6 +195,7 @@ filter = {
   }
 
   changeDocumentType(name: string) {
+    this.showTransaction = true;
     this.documentType = name;
     const filter = {...this.filter, ['transactionType'] : name}
     this.filter = filter;
@@ -196,6 +203,7 @@ filter = {
   }
 
   changeStatus(status: number, name: string) {
+    this.showStatus = true;
     this.status = name
     const filter = {...this.filter, ['status'] : status};
     this.filter = filter;
