@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { getAllInstitutionGraduateRequestSuccess, getAllInstitutionOrganizationRequestSuccess, getAllOrganisationRequestSuccess, getAllRequestSuccess, invokeGetRequestDetailsSuccess, updateInstitutionRequestSuccess } from './action';
+import { exportInstitutionGraduateRequestCSVSuccess, exportInstitutionGraduateRequestExcelSuccess, exportInstitutionOrganizationRequestCSVSuccess, exportInstitutionOrganizationRequestExcelSuccess, getAllInstitutionGraduateRequestSuccess, getAllInstitutionOrganizationRequestSuccess, getAllOrganisationRequestSuccess, getAllRequestSuccess, invokeGetRequestDetailsSuccess, updateInstitutionRequestSuccess } from './action';
 import { RequestStateInterface } from './types/index.types';
 
 
@@ -124,6 +124,41 @@ export const requestReducer = createReducer(
       ...state,
       requestDetails: payload
     }
+  }),
+  on(exportInstitutionGraduateRequestCSVSuccess, (state, { payload }) => {
+    const link = document.createElement('a');
+    link.download = `${payload.fileName}.csv`;
+    link.href = 'data:image/png;base64,' + payload.base64String;
+    link.click();
+    return {
+      ...state,
+    };
+  }),
+  on(exportInstitutionOrganizationRequestCSVSuccess, (state, { payload }) => {
+    const link = document.createElement('a');
+    link.download = `${payload.fileName}.csv`;
+    link.href = 'data:image/png;base64,' + payload.base64String;
+    link.click();
+    return {
+      ...state,
+    };
+  }),
+  on(exportInstitutionOrganizationRequestExcelSuccess, (state, { payload }) => {
+    const link = document.createElement('a');
+    link.download = `${payload.fileName}.xlsx`;
+    link.href = 'data:image/png;base64,' + payload.base64String;
+    link.click();
+    return {
+      ...state,
+    };
+  }),
+  on(exportInstitutionGraduateRequestExcelSuccess, (state, { payload }) => {
+    const link = document.createElement('a');
+    link.download = `${payload.fileName}.xlsx`;
+    link.href = 'data:image/png;base64,' + payload.base64String;
+    link.click();
+    return {
+      ...state,
+    };
   })
-
 )

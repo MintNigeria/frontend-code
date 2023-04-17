@@ -3,7 +3,65 @@
         <h3 class=" font-sans font-bold text-base text-black">Role</h3>
        
      </div>   
-    <div class="py-6 px-6 ">
+    <div class="py-6 px-6 " *ngIf="roleId">
+        <div class="w-10/12  " [formGroup]="roleForm">
+         
+            <div class="flex gap-6 mb-9">
+                <div class="w-full md:w-1/4">
+                    <label class=" font-inter font-medium text-sm text-failedNormal" for="inline-full-name">
+                         Title
+                      </label>
+                </div>
+                <div class="w-full md:w-2/3">
+                    <app-input [formGrp]="roleForm" [readonly]="true" formCtrlName="name" [type]="'text'" [class]="
+                'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+              " Issuer="Enter role title" [name]="'Title'"></app-input>
+                </div>
+            </div>
+          
+            <div class="flex gap-6 mb-9" *ngIf="getRolePermission$ | async as permissions">
+                <div class="w-full md:w-1/4">
+                    <label class=" font-inter font-medium text-sm text-failedNormal" for="inline-full-name">
+                        Permissions
+                      </label>
+                </div>
+                <div class="w-full md:w-2/3">
+                    <!-- <select name="" id="" formControlName="permissions" (selectedValue)="onSelectOption($event)"
+                    class="select h-[52px] w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
+                    <option value="">Select Permission</option>
+                    <option value="" *ngFor="let permission of permissions" [value]="permission.id">{{permission.name}}</option>
+                  </select> -->
+                  <ng-select class="custom-ng-dropdown" 
+                      formControlName="permissionIds" 
+                      [selectOnTab]="true" 
+                      placeholder="Select Permissions"
+                      [multiple]="true"
+                      >
+                  <ng-option *ngFor="let permission of permissions" [value]="permission.id">{{permission.description}}</ng-option>
+                  </ng-select>
+                  
+                </div>
+            </div>
+           
+        
+        </div>
+       
+
+        <div class="flex justify-end items-center gap-4 mt-4">
+            <app-button
+            (buttonClick)="cancel()"
+            [overRideButtonClass]="true"
+            customClass="px-4 py-[10px] rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
+            >Cancel</app-button>
+
+            <app-button
+            [overRideButtonClass]="true"
+            (buttonClick)="updateRole()"
+            customClass="px-4 py-[10px] rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
+            >Update</app-button>
+        </div>
+    </div>
+    <div class="py-6 px-6 " *ngIf="!roleId">
         <div class="w-10/12  " [formGroup]="roleForm">
          
             <div class="flex gap-6 mb-9">

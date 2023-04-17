@@ -6,7 +6,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
-import { getAllInstitutionGraduateRequest } from 'src/app/store/request/action';
+import { exportInstitutionGraduateRequestCSV, exportInstitutionGraduateRequestExcel, getAllInstitutionGraduateRequest } from 'src/app/store/request/action';
 import { requestSelector } from 'src/app/store/request/selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { getInstitutionConfiguration, getInstitutionConfigurationSuccess } from 'src/app/store/configuration/action';
@@ -25,22 +25,24 @@ export class GraduateRequestComponent implements OnInit {
   selectedSector : string = "All";
   documentType: string = "All";
   status: string = "All";
-
+  showDocType : boolean = false;
   filterStatus = { status: 'All'};
   filterOption = {selectedOption : 'All Time'};
   filterSector = { selectedSector: 'All'};
   filterInstituition = {selectedInstituition: 'All'};
   filterDocument = {documentType: 'All'};
-
   array = []
+  showStatus : boolean = false;
+  showDate : boolean = false;
 
  
  searchForm = new FormGroup({
   searchPhrase: new FormControl(''),
 });
- institutionId: any;
+ institutionId: any = '';
  institutionData: any;
  pageIndex = 1;
+
   filterParams = {
   institutionId: '',
   DocumentType: '',
@@ -50,11 +52,31 @@ export class GraduateRequestComponent implements OnInit {
     pageSize: 10,
     pageIndex: 1,
     range: '',
+    startDate: '',
+    endDate: '',
+}
+
+exportFilterParam = {
+  InstitutionId: '',
+  DocumentType: '',
+  status: '',
+  keyword: '',
+    filter: '',
+    range: '',
     fromDate: '',
     toDate: '',
 }
   processingFeeList: any;
 
+  requestStatus = [
+    { name: 'PENDING',  value: 1},
+    { name: 'PROCESSING',  value: 2},
+    { name: 'DISPATCHED',  value: 3},
+    { name: 'PAUSED',  value: 4},
+    { name: 'DELIVERED',  value: 5},
+    { name: 'DECLINED',  value: 6},
+    { name: 'COMPLETED',  value: 7},
+  ]
 
  constructor(
   private route: ActivatedRoute,
@@ -125,6 +147,7 @@ export class GraduateRequestComponent implements OnInit {
 
   changeRange(range: number, name: string) {
     this.selectedOption = name
+    this.showDate = true;
     if (range === 5) {
       // launch calender
       const dialogRef = this.dialog.open(DateRangeComponent, {
@@ -137,14 +160,19 @@ export class GraduateRequestComponent implements OnInit {
               ////console.log(res)
               const {start , end} = res; // use this start and end as fromDate and toDate on your filter
               this.selectedOption = `${start} - ${end}`
-              const filter = {...this.filterParams, ['fromDate'] : start, ['toDate'] : end, range: String(5)}
+              const filter = {...this.filterParams, ['startDate'] : start, ['endDate'] : end, range: String(5)}
               this.filterParams = filter;
+              const filterExport = {...this.exportFilterParam, ['fromDate'] : start, ['toDate'] : end}
+
+              this.exportFilterParam = filterExport
         }
   
       })
     } else {
       const filter = {...this.filterParams, ['range'] : String(range)};
+      const filterExport = {...this.exportFilterParam, ['range'] : String(range)};
       this.filterParams = filter;
+      this.exportFilterParam = filterExport
     }
   }
 
@@ -152,12 +180,19 @@ export class GraduateRequestComponent implements OnInit {
     this.documentType = name;
     const filter = {...this.filterParams, ['DocumentType'] : name}
     this.filterParams = filter;
+    const filterExport = {...this.exportFilterParam, ['DocumentType'] : name}
+    this.exportFilterParam = filterExport
+    this.showDocType = true;
 
   }
   changeStatus(status: number, name: string) {
     this.status = name
     const filter = {...this.filterParams, ['status'] : String(status)};
     this.filterParams = filter;
+    const filterExport = {...this.exportFilterParam, ['status'] : String(status)};
+
+    this.showStatus = true;
+    this.exportFilterParam = filterExport
   }
 
   search(event: any) {
@@ -170,33 +205,23 @@ export class GraduateRequestComponent implements OnInit {
       }
   }
 
-  download(type: string) {
-    if (type === 'CSV') {
-      this.downloadCSV()
-    } else {
-      this.downloadExcel()
+  // download(type: string) {
+  //   if (type === 'CSV') {
+  //     this.downloadCSV()
+  //   } else {
+  //     this.downloadExcel()
 
-    }
-  }
+  //   }
+  // }
+
 
   downloadCSV() {
-    // this.store.dispatch(exportTransactionCSV({institutionId: this.institutionId}))
-    // this.actions$.pipe(ofType(exportTransactionCSVSuccess)).subscribe((res: any) => {
-    //    const link = document.createElement('a');
-    //     link.download = `${res.payload?.fileName}.csv`;
-    //     link.href = 'data:image/png;base64,' + res.payload?.base64String;
-    //     link.click();
-    // })  
+
+   this.store.dispatch(exportInstitutionGraduateRequestCSV({payload : { ...this.exportFilterParam, InstitutionId: this.institutionId}}))
   }
 
   downloadExcel() {
-    // this.store.dispatch(exportTransactionExcel({institutionId: this.institutionId}))
-    // this.actions$.pipe(ofType(exportTransactionExcelSuccess)).subscribe((res: any) => {
-    //    const link = document.createElement('a');
-    //     link.download = `${res.payload?.fileName}.xlsx`;
-    //     link.href = 'data:image/png;base64,' + res.payload?.base64String;
-    //     link.click();
-    // })
+    this.store.dispatch(exportInstitutionGraduateRequestExcel({payload : { InstitutionId : this.institutionId}}))
   }
 
   getPage(currentPage: number) {

@@ -25,6 +25,7 @@ const routes: Routes = [
           { path: 'users/:id', component: UsersComponent },
           { path: 'roles-and-permission', component: RolesAndPermissionComponent },
           {path: 'roles-and-permission/create-new-role', component: CreateRoleComponent},
+          {path: 'roles-and-permission/edit-permission/:id', component: CreateRoleComponent},
           {path: '2fa', component: TwoFactorAuthenticationComponent},
 
         ]

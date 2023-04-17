@@ -5,7 +5,7 @@
             <span class="px-2 bg-tabBlue font-inter font-medium rounded-full text-primaryBlue">{{totalCount}} users</span>
         </div>
         <app-button
-            *ngIf="permissionList.includes('USER_CREATE')"
+            *ngIf="permissionList?.includes('USER_CREATE') || superAdminRole === 'Super Admin' || superAdminRole === 'undefined'"
             [overRideButtonClass]="true"
             routerLink="/institution/users-and-roles/users/create-new-user"
             customClass="px-4 py-[10px] rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"

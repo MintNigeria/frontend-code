@@ -67,7 +67,8 @@ export class ChangePasswordComponent implements OnInit {
     let message$ = this.appStore.pipe(select(messageNotification), take(2));
     this.actions$.pipe(ofType(changePasswordUserRoleSuccess)).subscribe((res: any) => {
       if (res.message.hasErrors === false) {
-        document.getElementById('confirmChanges')?.click();
+        // document.getElementById('confirmChanges')?.click();
+        this.cancelConfirmChanges()
         this.notification.publishMessages('success', res.message.description)
         this.passwordForm.reset()
       }

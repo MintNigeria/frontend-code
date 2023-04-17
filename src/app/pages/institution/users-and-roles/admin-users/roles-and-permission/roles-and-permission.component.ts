@@ -64,6 +64,7 @@ customeRoleList: any
   roleTitle: any;
   currentUser: any;
   selectedRoleList: any;
+  selectedRoledId: any;
   constructor(
     private readonly formBuilder: FormBuilder,
     private actions$: Actions,
@@ -95,6 +96,7 @@ customeRoleList: any
   }
 
   changeRole(role: any) {
+    this.selectedRoledId = role.id;
     this.store.dispatch(invokeAdminUsersInRole({
       roleId: role.id,
       institutionId: this.institutionId,

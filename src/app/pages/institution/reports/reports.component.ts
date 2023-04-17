@@ -28,6 +28,9 @@ export class ReportsComponent implements OnInit {
   filterSector = { selectedSector: 'All'};
   filterInstituition = {selectedInstituition: 'All'};
   filterDocument = {documentType: 'All'};
+  showDate : boolean = false;
+  showDocType : boolean = false;
+  showIndustry : boolean = false;
 
  filterParams = {
   institutionId: '',
@@ -39,8 +42,8 @@ export class ReportsComponent implements OnInit {
     pageSize: 10,
     pageIndex: 1,
     range: '',
-    fromDate: '',
-    toDate: '',
+    startDate: '',
+    endDate: '',
 }
   institutionData: any;
   institutionId: any;
@@ -115,8 +118,8 @@ export class ReportsComponent implements OnInit {
         pageSize: 10,
         pageIndex: 1,
         range: '',
-        fromDate: '',
-        toDate: '',
+        startDate: '',
+        endDate: '',
     }
     this.store.dispatch(invokeGetAllReport({payload: {...filterParams, institutionId: this.institutionId}}))
 
@@ -124,6 +127,7 @@ export class ReportsComponent implements OnInit {
 
   changeRange(range: number, name: string) {
     this.selectedOption = name
+    this.showDate = true;
     if (range === 5) {
       const dialogRef = this.dialog.open(DateRangeComponent, {
         height: 'auto',
@@ -132,9 +136,9 @@ export class ReportsComponent implements OnInit {
       dialogRef.afterClosed().subscribe((res: any) => {
         if (res) {
               ////console.log(res)
-              const {start , end} = res; // use this start and end as fromDate and toDate on your filter
+              const {start , end} = res; // use this start and end as startDate and endDate on your filter
               this.selectedOption = `${start} - ${end}`
-              const filter = {...this.filterParams, ['fromDate'] : start, ['toDate'] : end}
+              const filter = {...this.filterParams, ['startDate'] : start, ['endDate'] : end, range: String(5)}
               this.filterParams = filter;
         }
   
@@ -146,6 +150,7 @@ export class ReportsComponent implements OnInit {
   }
 
   changeIndustryType(name: string) {
+    this.showIndustry  = true;
     this.selectedSector = name;
     const filter = {...this.filterParams, ['Sector'] : name}
     this.filterParams = filter;
@@ -153,6 +158,7 @@ export class ReportsComponent implements OnInit {
   }
 
   changeDocumentType(name: string) {
+    this.showDocType = true;
     this.documentType = name;
     const filter = {...this.filterParams, ['DocumentType'] : name}
     this.filterParams = filter;
@@ -162,10 +168,10 @@ export class ReportsComponent implements OnInit {
   search(event: any) {
     if (event) {
       const filter = {...this.filterParams, ['keyword'] : event}
-      this.store.dispatch(invokeGetAllReport({payload: {...filter, institutionId: 13}}))
+      this.store.dispatch(invokeGetAllReport({payload: {...filter, institutionId: this.institutionId}}))
     } else {
         const filter = {...this.filterParams, ['keyword'] : ''}
-        this.store.dispatch(invokeGetAllReport({payload: {...filter, institutionId: 13}}))
+        this.store.dispatch(invokeGetAllReport({payload: {...this.filterParams, institutionId: this.institutionId}}))
       }
   }
 

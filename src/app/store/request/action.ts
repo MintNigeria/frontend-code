@@ -89,6 +89,61 @@ export const updateInstitutionRequestSuccess = createAction(
    payload : any
   }>()
   ); 
+
+  export const exportInstitutionGraduateRequestCSV = createAction(
+    '[request] export institution graduate request',
+    props<{
+      payload : any
+    }>()
+  )
+  
+  export const exportInstitutionGraduateRequestCSVSuccess = createAction(
+    '[request] export institution graduate request success',
+    props<{
+      payload : any
+    }>()
+  )
+
+  export const exportInstitutionGraduateRequestExcel = createAction(
+    '[request] export institution graduate request Excel',
+    props<{
+      payload : any
+    }>()
+  )
+  
+  export const exportInstitutionGraduateRequestExcelSuccess = createAction(
+    '[request] export institution graduate request success Excel',
+    props<{
+      payload : any
+    }>()
+  )
+    export const exportInstitutionOrganizationRequestCSV = createAction(
+      '[request] export institution organization request',
+      props<{
+        payload : any
+      }>()
+    )
+    
+    export const exportInstitutionOrganizationRequestCSVSuccess = createAction(
+      '[request] export institution organization request success',
+      props<{
+        payload : any
+      }>()
+  )
+
+  export const exportInstitutionOrganizationRequestExcel = createAction(
+    '[request] export institution organization request excel',
+    props<{
+      payload : any
+    }>()
+  )
+  
+  export const exportInstitutionOrganizationRequestExcelSuccess = createAction(
+    '[request] export institution organization request success excel',
+    props<{
+      payload : any
+    }>()
+)
   
 
 

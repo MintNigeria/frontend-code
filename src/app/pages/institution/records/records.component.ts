@@ -23,6 +23,8 @@ export class RecordsComponent implements OnInit {
   gradYear : string = "All";
   department: string = "All";
   status: string = "All";
+  showFaculty : boolean = false;
+  showDepartment : boolean = false;
 
   filterStatus = { status: 'All'};
   filterOption = {selectedOption : 'All'};
@@ -138,14 +140,17 @@ filter = {
 
   changeFaculty(id: any, name: string) {
     this.selectedOption = name
+    this.showFaculty = true;
     const filter = {...this.filter, ['facultyId'] : id}
     const data = this.facultyList.find((value: any) => value.id == Number(id));
 
     this.departmentList = data.departmentVMs;
     this.filter = filter;
+    console.log(filter)
   }
 
   changeDepartment(id: any, name: string) {
+    this.showDepartment = true;
     const filter = {...this.filter, ['departmentId'] : id}
     this.department = name
     this.filter = filter;

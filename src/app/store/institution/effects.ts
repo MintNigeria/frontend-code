@@ -61,6 +61,8 @@ import {
   updatedInstitutionSuccess,
   getDegreeTypeWithInstitutionName,
   getDegreeTypeWithInstitutionNameSuccess,
+  getInstitutionTransactionTypeFilter,
+  getInstitutionTransactionTypeFilterSuccess,
 } from './action';
 
 @Injectable()
@@ -929,6 +931,43 @@ export class InstitutionEffects {
               );
               // read data and update payload
               return getAllInstitutionsDropdownSuccess({
+                payload: data.payload
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getInstitutionTransactionTypeFilter$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getInstitutionTransactionTypeFilter),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.institutionService.getInstitutionTransactionTypeFilter()
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getInstitutionTransactionTypeFilterSuccess({
                 payload: data.payload
                   
               });

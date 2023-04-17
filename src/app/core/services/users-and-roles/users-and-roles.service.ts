@@ -108,6 +108,14 @@ export class UsersAndRolesService
   }
 
 
+  updatePermissionsInRole(payload: any){
+    
+    return this.http.put<any>(
+      `${this.baseUrl}mint-auth/api/v1/Role/UpdatePermissionsToRole`, payload
+    )
+  }
+
+
   getInstitutionUsersInRole( 
     roleId: string,
     institutionId: string,
