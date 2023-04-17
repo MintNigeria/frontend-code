@@ -70,7 +70,7 @@ export class TalentSearchPoolComponent implements OnInit {
     })
     this.store.dispatch(getAllInstitutionsDropdown())
     this.actions$.pipe(ofType(getAllInstitutionsDropdownSuccess)).subscribe((res: any) => {
-      this.institutionList = res.payload.payload;
+      this.institutionList = res.payload;
     })
     
   
@@ -145,17 +145,18 @@ export class TalentSearchPoolComponent implements OnInit {
     const filter = {...this.filter, ['Degree'] : name};
     this.filter = filter;
   }
-  changeInstitution(name: string, id: number) {
-    this.selectedInstitution = name
-    const filter = {...this.filter, ['InstitutionName'] : status};
+  changeInstitution(data: any) {
+    console.log(data)
+    this.selectedInstitution = data.institutionName
+    const filter = {...this.filter, ['InstitutionName'] : data.institutionName};
     this.filter = filter;
-    this.store.dispatch(getFacultyAndDepartmentByInstitutionName({payload: {institutionName: name}}))
+    this.store.dispatch(getFacultyAndDepartmentByInstitutionName({payload: {institutionName: data.institutionName}}))
     this.actions$.pipe(ofType(getFacultyAndDepartmentByInstitutionNameSuccess)).subscribe((res: any) => {
       this.facultyList = res.payload.payload;
 
     })
 
-    this.store.dispatch(getAllInstitutionDegreeType({payload: {institutionId: id}}))
+    this.store.dispatch(getAllInstitutionDegreeType({payload: {institutionId: data.id}}))
     this.actions$.pipe(ofType(getAllInstitutionDegreeTypeSuccess)).subscribe((res: any) => {
       this.degreeType = res.payload.data;
     })

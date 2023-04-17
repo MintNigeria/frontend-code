@@ -146,6 +146,7 @@ filter = {
 
     this.departmentList = data.departmentVMs;
     this.filter = filter;
+    console.log(filter)
   }
 
   changeDepartment(id: any, name: string) {

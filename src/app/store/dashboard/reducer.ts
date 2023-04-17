@@ -8,6 +8,8 @@ const initialState: DashboardStateInterface = {
   organizationDashboard: { data: [], totalCount: 0 },
   organizationBottomDashboard: null,
   organizationVerification: null,
+  institutionRevenueAnalysis: null,
+  institutionTopInstitution: null,
   graduateTop: null,
   graduateBottom: null,
   dashboardCardStats: {
@@ -46,13 +48,13 @@ export const dashboardReducer = createReducer (
   on(getDashboardRevenueAnalysisSuccess, (state, {payload})=> {
     return {
       ...state,
-      dashBoard: payload
+      institutionRevenueAnalysis: payload
     }
   }),
   on(getDashboardTopInstitutionsSuccess, (state, {payload})=> {
     return {
       ...state,
-      dashBoard: payload
+      institutionTopInstitution: payload
     }
   }),
   on(getOrganizationDashboardInfoSuccess, (state, {payload})=> {

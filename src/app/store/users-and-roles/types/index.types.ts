@@ -92,4 +92,5 @@ export interface UsersAndRolesStateInterface {
   institutionRole: any;
   newInstitutionuser: ICreateInstitutionUser | null;
   updateInstitutionuser:  any;
+  updatedRolePermissions:  any;
 }

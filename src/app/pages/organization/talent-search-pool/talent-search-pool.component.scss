@@ -14,11 +14,12 @@ tbody>tr>td {
 
 }
 
+
 ::ng-deep .searchSelect.ng-select.ng-select-single .ng-select-container::before {
     content: '';
     width: 19px;
     height: 19px;
-    background-image: url(../../../../assets/images/icons/search.svg);
+    // background-image: url(../../../../../assets/images/icons/Search.svg);
     background-size: cover;
     position: absolute;
     left: 22px;
@@ -41,4 +42,9 @@ tbody>tr>td {
 ::ng-deep .searchSelect.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
     top: 50% !important;
     transform: translateY(-50%) !important;
+}
+
+::ng-deep .ng-select.ng-select-single .ng-select-container, .ng-select.ng-select-multiple .ng-select-container {
+    height: 36px !important;
+    color: lightgray !important;
 }

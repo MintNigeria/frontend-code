@@ -24,4 +24,5 @@ export interface IInstitutionStateInterface {
   faultyAndDepartmentName: any;
   dropdown: any;
   degreeTypeByName: any;
+  transactionTypeFilter: any;
 }

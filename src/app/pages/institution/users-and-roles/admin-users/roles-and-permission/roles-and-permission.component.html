@@ -13,7 +13,7 @@
                         </app-button>
                     </div>
                    <div class="p-6 " *ngIf="userRolesAndPermission$ | async as userRoles">
-        <div class="w-10/12  ">
+        <div class="w-full  ">
 
             <div class="flex gap-6">
                 <div class="w-full md:w-1/4">
@@ -40,8 +40,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="w-full   md:w-9/12">
-                    <p class="font-inter font-medium text-base text-darkGray mb-4">{{roleTitle + ' ' + 'Users' }}</p>
+                <!-- <div class="w-full   md:w-9/12"> -->
+                <div class="w-full   md:full">
+                    <div class="flex justify-between items-center">
+                        <p class="font-inter font-medium text-base text-darkGray mb-4">{{roleTitle + ' ' + 'Users' }}</p>
+                        <app-button
+                        *ngIf="roleTitle !== undefined"
+                            routerLink="/institution/users-and-roles/roles-and-permission/edit-permission/{{selectedRoledId}}"
+                            [overRideButtonClass]="true" 
+                            [customClass]="'w-fit h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2'">
+                            Edit role
+                        </app-button>
+                    </div>
 
                     <div class="mb-10 overflow-x-auto mt-8 hide-scrollbar shadow rounded"
                         >

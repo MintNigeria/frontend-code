@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
 import { isUserSelector } from 'src/app/store/auth/selector';
 import { getAllDashboardInfoData, getDashboardRevenueAnalysis, getDashboardTopInstitutions } from 'src/app/store/dashboard/action';
-import { dashboardCardSelector, dashboardRevenueSelector, dashboardSelector, dashboardTopInstitutionSelector } from 'src/app/store/dashboard/selector';
+import { dashboardCardSelector, dashboardRevenueSelector, dashboardTopInstitutionSelector } from 'src/app/store/dashboard/selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import {Chart} from 'chart.js/auto'
 

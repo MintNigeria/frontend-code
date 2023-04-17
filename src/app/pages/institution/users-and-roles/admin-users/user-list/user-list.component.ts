@@ -8,7 +8,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { getALlFacultiesInInstitutionSuccess, getAllInstitutionUsers, getAllInstitutionUsersSuccess } from 'src/app/store/institution/action';
 import { Actions, ofType } from '@ngrx/effects';
-import { permissionsSelector } from 'src/app/store/auth/selector';
+import { isUserSelector, permissionsSelector } from 'src/app/store/auth/selector';
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -16,6 +16,7 @@ import { permissionsSelector } from 'src/app/store/auth/selector';
 })
 export class UserListComponent implements OnInit {
   permission$ = this.appStore.pipe(select(permissionsSelector));
+  user$ = this.appStore.pipe(select(isUserSelector));
 
   permissionList: any;
 
@@ -38,6 +39,7 @@ export class UserListComponent implements OnInit {
     pageSize: 10,
     pageIndex: 1
   }
+  superAdminRole: any;
 
   constructor(
     private store: Store,
@@ -52,6 +54,7 @@ export class UserListComponent implements OnInit {
     this.institutionData = JSON.parse(data)
     this.institutionId = this.institutionData.InstitutionId
     this.permissions()
+    this.users()
 
    this.store.dispatch(getAllInstitutionUsers({payload: {...this.filter, institutionId: this.institutionId}}))
    this.actions$.pipe(ofType(getAllInstitutionUsersSuccess)).subscribe((res: any) => {
@@ -70,6 +73,13 @@ export class UserListComponent implements OnInit {
   permissions() {
     this.permission$.subscribe((res: any) => {
       this.permissionList = res
+      console.log(res)
+    })
+  }
+
+  users() {
+    this.user$.subscribe((res: any) => {
+      this.superAdminRole = res.role.split('|')[0]
 
     })
   }

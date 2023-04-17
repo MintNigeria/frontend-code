@@ -30,4 +30,6 @@ export interface DashboardStateInterface {
   dashboardCardStats: IDashboardCardInfo | null,
   graduateTop: any;
   graduateBottom: any;
+  institutionRevenueAnalysis: any;
+  institutionTopInstitution: any;
 }

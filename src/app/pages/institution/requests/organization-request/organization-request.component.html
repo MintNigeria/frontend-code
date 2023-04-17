@@ -127,7 +127,7 @@
               </div>
             </div>
   
-            <div class="lg:justify-between gap-4">
+            <!-- <div class="lg:justify-between gap-4">
               <p
                 class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2"
               >
@@ -152,7 +152,7 @@
                   <li><a (click)="changeDocumentType(unit.documentTypeName)" *ngFor="let unit of processingFeeList">{{unit.documentTypeName}}</a></li>
               </ul>
               </div>
-            </div>
+            </div> -->
   
             <div class="lg:justify-between gap-4">
               <p
@@ -177,13 +177,13 @@
                         class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72"
                     >
                        
-                        <li><a (click)="changeStatus(0, 'Pending')">Pending</a>
+                        <li><a (click)="changeStatus(1, 'Pending')">Pending</a>
                         </li>
                         <li>
-                        <a (click)="changeStatus(1, 'Approved')">Approved</a>
+                        <a (click)="changeStatus(7, 'Completed')">Completed</a>
                         </li>
                         <li>
-                        <a (click)="changeStatus(2, 'Decline')"
+                        <a (click)="changeStatus(6, 'Decline')"
                             >Declined</a
                         >
                         </li>
@@ -248,7 +248,7 @@
                     <app-search 
                     (iconSearch)="search($event)"
     [formGrp]="searchForm" formCtrlName="searchPhrase"  
-    [placeholder]="'Search name, request ID or institution'"></app-search>
+    [placeholder]="'Search by name'"></app-search>
                 </div>
 
                 <div class="flex md:items-center gap-4 ">

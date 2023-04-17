@@ -244,4 +244,10 @@ export class InstitutionService
     );
   }
 
+  getInstitutionTransactionTypeFilter() {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Transaction/TransactionType-Filter-For-Institutions`
+    );
+  }
+
 }

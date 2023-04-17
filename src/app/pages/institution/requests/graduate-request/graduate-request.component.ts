@@ -52,8 +52,8 @@ export class GraduateRequestComponent implements OnInit {
     pageSize: 10,
     pageIndex: 1,
     range: '',
-    fromDate: '',
-    toDate: '',
+    startDate: '',
+    endDate: '',
 }
 
 exportFilterParam = {
@@ -68,6 +68,15 @@ exportFilterParam = {
 }
   processingFeeList: any;
 
+  requestStatus = [
+    { name: 'PENDING',  value: 1},
+    { name: 'PROCESSING',  value: 2},
+    { name: 'DISPATCHED',  value: 3},
+    { name: 'PAUSED',  value: 4},
+    { name: 'DELIVERED',  value: 5},
+    { name: 'DECLINED',  value: 6},
+    { name: 'COMPLETED',  value: 7},
+  ]
 
  constructor(
   private route: ActivatedRoute,
@@ -151,7 +160,7 @@ exportFilterParam = {
               ////console.log(res)
               const {start , end} = res; // use this start and end as fromDate and toDate on your filter
               this.selectedOption = `${start} - ${end}`
-              const filter = {...this.filterParams, ['fromDate'] : start, ['toDate'] : end, range: String(5)}
+              const filter = {...this.filterParams, ['startDate'] : start, ['endDate'] : end, range: String(5)}
               this.filterParams = filter;
               const filterExport = {...this.exportFilterParam, ['fromDate'] : start, ['toDate'] : end}
 

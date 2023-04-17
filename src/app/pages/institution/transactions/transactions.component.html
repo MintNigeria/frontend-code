@@ -124,7 +124,7 @@
                     [ngClass]="showTransaction? 'hidden' : 'block'"
                     class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72">
                         <li><a (click)="documentType='All'">All</a></li>
-                        <li><a (click)="changeDocumentType(unit.documentTypeName)" *ngFor="let unit of processingFeeList">{{unit.documentTypeName}}</a></li>
+                        <li><a (click)="changeDocumentType(unit.transactionType)" *ngFor="let unit of transactionTypeList">{{unit.transactionType}}</a></li>
                     </ul>
                     </div>
                 </div>

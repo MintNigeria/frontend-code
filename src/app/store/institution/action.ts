@@ -299,3 +299,13 @@ export const getDegreeTypeWithInstitutionNameSuccess = createAction(
   props<{ payload: any }>()
 );
 
+export const getInstitutionTransactionTypeFilter = createAction(
+  '[institutions] get Institution transaction type filter ',
+  
+);
+
+export const getInstitutionTransactionTypeFilterSuccess = createAction(
+  '[institutions] get Institution transaction type filter success',
+  props<{ payload: any }>()
+);
+

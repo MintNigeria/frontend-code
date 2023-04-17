@@ -20,6 +20,7 @@ import {
   getInstitutionBodySuccess,
   getInstitutionConfigurationSuccess,
   getInstitutionSectorSuccess,
+  getInstitutionTransactionTypeFilterSuccess,
   getInstitutionTypeSuccess,
   getInstitutionUserInfoSuccess,
   invokeGetInstitutionsSuccess,
@@ -59,6 +60,7 @@ const initialState: IInstitutionStateInterface = {
   faultyAndDepartmentName: null,
   dropdown: null,
   degreeTypeByName: null,
+  transactionTypeFilter: null,
 };
 
 export const institutionReducers = createReducer(
@@ -239,6 +241,13 @@ export const institutionReducers = createReducer(
     return {
       ...state,
       degreeTypeByName : payload
+    };
+  }),
+  
+  on(getInstitutionTransactionTypeFilterSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      transactionTypeFilter : payload
     };
   }),
 

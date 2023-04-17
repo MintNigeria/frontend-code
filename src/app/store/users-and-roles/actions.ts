@@ -163,6 +163,20 @@ export const invokeGlobalAdminRoleSuccess = createAction(
 );
 
 
+
+export const updatePermissionsInRole = createAction (
+  '[Users and Roles] update permissions in a role',
+  props<{
+    payload : any
+   }>()
+)
+
+export const updatePermissionsInRoleSuccess = createAction(
+  '[Users and Roles] update permissions in a role Success',
+  props<{ payload: any }>()
+);
+
+
 export const invokePermissionAndRoles = createAction (
   '[Users and Roles] get Permissions and Roles',
 )
