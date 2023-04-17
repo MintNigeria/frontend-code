@@ -14,25 +14,25 @@ export class CarouselComponent implements OnInit {
   carouselItems = [
     {
       id: 'slide1',
-      image: 'assets/images/main/carousel-1.jpg',
+      image: 'assets/images/main/carousel-1.svg',
       header: 'Transcript requests and certificate verification just got better.',
-      text: 'VAC is an innovative and user-friendly digital solution that simplifies the process of academic transcript and certificate verification requests as well as facilitating and tracking academic assessment. Our platform ensures a fast and secure end-to-end verification process.',
+      text: 'VAC is your one-stop solution for all your academic verification needs.With VAC, you can easily request for your academic transcripts and have them verified with just a few clicks. Our platform provides fast and secure verification services, making the process of job applications, further education and other verification needs hassle-free.',
       buttonOne: 'Apply Now',
       buttonTwo: 'See how it works'
     },
     {
       id: 'slide2',
       image: 'assets/images/main/carousel2.svg',
-      header: 'Improving College Readiness  ',
-      text: 'With the ease of requesting Transcripts and Certificates, our solution reduces missed opportunities for students and enables end-to-end tracking.',
+      header: 'Say Goodbye to the Hassle of Manual Certificate Verification Processes.',
+      text: 'VAC provides a simple and efficient solution for verifying your academic certificates. Our system is designed to ensure accuracy, speed, and security, making it the go-to platform for certificate verification. Join the VAC community today and elevate your certificate verification experience.',
       buttonOne: 'Get Started',
       buttonTwo: 'Learn more'
     },
     {
       id: 'slide3',
       image: 'assets/images/main/carousel3.svg',
-      header: 'Connecting Industry and Organization',
-      text: 'Our solution removes the uncertainty from confirming academic credentials. We provide a secure end-to-end verification process and leverage unique data resources.',
+      header: 'Elevate Your Transcript Request Experience with VAC',
+      text: 'Gone are the days of lengthy transcript request processes and manual verification methods. Experience the convenience of VAC for all your transcript needs.',
       buttonOne: 'Get Started',
       buttonTwo: 'Learn more'
     },
