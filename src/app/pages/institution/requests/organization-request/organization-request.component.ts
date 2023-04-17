@@ -50,8 +50,8 @@ selectedOption: string = 'All Time';
       pageSize: 10,
       pageIndex: 1,
       range: '',
-      fromDate: '',
-      toDate: '',
+      startDate: '',
+      endDate: '',
   }
   processingFeeList: any;
   industrtList: any;
@@ -144,7 +144,7 @@ selectedOption: string = 'All Time';
               ////console.log(res)
               const {start , end} = res; // use this start and end as fromDate and toDate on your filter
               this.selectedOption = `${start} - ${end}`
-              const filter = {...this.filterParams, ['fromDate'] : start, ['toDate'] : end}
+              const filter = {...this.filterParams, ['startDate'] : start, ['endDate'] : end, range: String(5)}
               this.filterParams = filter;
         }
   
@@ -155,12 +155,12 @@ selectedOption: string = 'All Time';
     }
   }
 
-  changeDocumentType(name: string) {
-    this.documentType = name;
-    const filter = {...this.filterParams, ['DocumentType'] : name}
-    this.filterParams = filter;
+  // changeDocumentType(name: string) {
+  //   this.documentType = name;
+  //   const filter = {...this.filterParams, ['DocumentType'] : name}
+  //   this.filterParams = filter;
 
-  }
+  // }
   changeIndustryType(name: string) {
     this.selectedInstituition = name;
     const filter = {...this.filterParams, ['OrganisationIndustry'] : name}

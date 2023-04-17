@@ -39,8 +39,8 @@ export class ReportsComponent implements OnInit {
     pageSize: 10,
     pageIndex: 1,
     range: '',
-    fromDate: '',
-    toDate: '',
+    startDate: '',
+    endDate: '',
 }
   institutionData: any;
   institutionId: any;
@@ -115,8 +115,8 @@ export class ReportsComponent implements OnInit {
         pageSize: 10,
         pageIndex: 1,
         range: '',
-        fromDate: '',
-        toDate: '',
+        startDate: '',
+        endDate: '',
     }
     this.store.dispatch(invokeGetAllReport({payload: {...filterParams, institutionId: this.institutionId}}))
 
@@ -132,9 +132,9 @@ export class ReportsComponent implements OnInit {
       dialogRef.afterClosed().subscribe((res: any) => {
         if (res) {
               ////console.log(res)
-              const {start , end} = res; // use this start and end as fromDate and toDate on your filter
+              const {start , end} = res; // use this start and end as startDate and endDate on your filter
               this.selectedOption = `${start} - ${end}`
-              const filter = {...this.filterParams, ['fromDate'] : start, ['toDate'] : end}
+              const filter = {...this.filterParams, ['startDate'] : start, ['endDate'] : end, range: String(5)}
               this.filterParams = filter;
         }
   
@@ -162,10 +162,10 @@ export class ReportsComponent implements OnInit {
   search(event: any) {
     if (event) {
       const filter = {...this.filterParams, ['keyword'] : event}
-      this.store.dispatch(invokeGetAllReport({payload: {...filter, institutionId: 13}}))
+      this.store.dispatch(invokeGetAllReport({payload: {...filter, institutionId: this.institutionId}}))
     } else {
         const filter = {...this.filterParams, ['keyword'] : ''}
-        this.store.dispatch(invokeGetAllReport({payload: {...filter, institutionId: 13}}))
+        this.store.dispatch(invokeGetAllReport({payload: {...this.filterParams, institutionId: this.institutionId}}))
       }
   }
 

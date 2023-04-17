@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess, getAllInstitutionDegreeType, getAllInstitutionDegreeTypeSuccess, getAllInstitutionsDropdown, getAllInstitutionsDropdownSuccess, getFacultyAndDepartmentByInstitutionName, getFacultyAndDepartmentByInstitutionNameSuccess } from 'src/app/store/institution/action';
 import { getDepartmentGrades, getDepartmentGradesSuccess, newTalentPoolSearch, newTalentPoolSearchSuccess, verifyHistoryInstitutionDropdown } from 'src/app/store/organization/action';
@@ -37,7 +38,8 @@ export class NewSearchTalentComponent implements OnInit {
     private actions$: Actions,
     private utilityService: UtilityService,
     private fb:FormBuilder,
-    private router: Router
+    private router: Router,
+    private notification: NotificationsService
 
   ) { }
 
@@ -113,13 +115,15 @@ export class NewSearchTalentComponent implements OnInit {
     this.store.dispatch(newTalentPoolSearch({payload}))
     this.actions$.pipe(ofType(newTalentPoolSearchSuccess)).subscribe((res: any) => {
       //console.log(res)
-      if (res.payload.hasErrors === false) {
+      if (res.payload.hasErrors === false && res.payload?.payload  !== null) {
         document.getElementById('confirmChanges')?.click();
         //console.log(res)
           this.transactionId = res.payload?.payload?.transactionId
           sessionStorage.setItem('telx_pl', JSON.stringify(res.payload.payload))
           this.listCount = res.payload?.payload?.institutionGraduateIds?.length
           //console.log(this.listCount)
+      } else {
+        this.notification.publishMessages('warning', 'No record(s) found')
       }
     })
   }

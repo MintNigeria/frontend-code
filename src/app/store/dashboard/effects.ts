@@ -146,37 +146,55 @@ export class DashboardEffects {
                 let vlthr = 0;
                 let vlfri = 0;
                 let vlsat = 0;
+
+                let orgvlsun = 0;
+                let orgvlmon = 0;
+                let orgvltue = 0;
+                let orgvlwed = 0;
+                let orgvlthr = 0;
+                let orgvlfri = 0;
+                let orgvlsat = 0;
               
                 const completedRequest = [];
-                const completedValue = [];
+                const completedGradValue = [];
+                const completedOrgValue = [];
                 data.forEach((x: any) => {
                   if (x.dayOfTheWeek === 'Monday') {
-                    vlmon += x.requests || x.requests;
+                    vlmon += x.graduate || x.graduate;
+                    orgvlmon += x.organization || x.organization;
                   }
                   if (x.dayOfTheWeek === 'Tuesday') {
-                    vltue += x.requests || x.requests;
+                    vltue += x.graduate || x.graduate;
+                    orgvltue += x.organization || x.organization;
                   }
                   if (x.dayOfTheWeek === 'Wednesday') {
-                    vlwed += x.requests || x.requests;
+                    vlwed += x.graduate || x.graduate;
+                    orgvlwed += x.organization || x.organization;
                   }
                   if (x.dayOfTheWeek === 'Thursday') {
-                    vlthr += x.requests || x.requests;
+                    vlthr += x.graduate || x.graduate;
+                    orgvlthr += x.organization || x.organization;
                   }
                   if (x.dayOfTheWeek === 'Friday') {
-                    vlfri += x.requests || x.requests;
+                    vlfri += x.graduate || x.graduate;
+                    orgvlfri += x.organization || x.organization;
                   }
                   if (x.dayOfTheWeek === 'Saturday') {
-                    vlsat += x.requests || x.requests;
+                    vlsat += x.graduate || x.graduate;
+                    orgvlsat += x.organization || x.organization;
                   }
                   if (x.dayOfTheWeek === 'Sunday') {
-                    vlsun += x.requests || x.requests;
+                    vlsun += x.graduate || x.graduate;
+                    orgvlsun += x.organization || x.organization;
                   }
                 });
                 completedRequest.push(CMsun, CMmon, CMtue, CMwed, CMthr, CMfri, CMsat);
-                completedValue.push(vlsun, vlmon, vltue, vlwed, vlthr, vlfri, vlsat);
+                completedGradValue.push(vlsun, vlmon, vltue, vlwed, vlthr, vlfri, vlsat);
+                completedOrgValue.push(orgvlsun, orgvlmon, orgvltue, orgvlwed, orgvlthr, orgvlfri, orgvlsat);
                 return {
                   completedRequest,
-                  completedValue,
+                  completedGradValue,
+                  completedOrgValue,
                 };
               };
               
@@ -206,45 +224,71 @@ export class DashboardEffects {
                 let vlOct = 0;
                 let vlNov = 0;
                 let vlDec = 0;
+                
+                let orgvlJan = 0;
+                let orgvlFeb = 0;
+                let orgvlMar = 0;
+                let orgvlApr = 0;
+                let orgvlMay = 0;
+                let orgvlJun = 0;
+                let orgvlJul = 0;
+                let orgvlAug = 0;
+                let orgvlSep = 0;
+                let orgvlOct = 0;
+                let orgvlNov = 0;
+                let orgvlDec = 0;
               
                 const completedRequest = [];
-                const completedValue = [];
+                const completedOrgValue = [];
+                const completedGradValue = [];
                 data.forEach((x: any) => {
                   if (x.month === 'Feb') {
-                    vlFeb += x.requests || x.requests;
+                    vlFeb += x.graduate || x.graduate;
+                    orgvlFeb += x.organization || x.organization;
                   }
                   if (x.month === 'Mar') {
-                    vlMar += x.requests || x.requests;
+                    vlMar += x.graduate || x.graduate;
+                    orgvlMar += x.organization || x.organization;
                   }
                   if (x.month === 'Apr') {
-                    vlApr += x.requests || x.requests;
+                    vlApr += x.graduate || x.graduate;
+                    orgvlApr += x.organization || x.organization;
                   }
                   if (x.month === 'May') {
-                    vlMay += x.requests || x.requests;
+                    vlMay += x.graduate || x.graduate;
+                    orgvlMay += x.organization || x.organization;
                   }
                   if (x.month === 'Jun') {
-                    vlJun += x.requests || x.requests;
+                    vlJun += x.graduate || x.graduate;
+                    orgvlJun += x.organization || x.organization;
                   }
                   if (x.month === 'Jul') {
-                    vlJul += x.requests || x.requests;
+                    vlJul += x.graduate || x.graduate;
+                    orgvlJul += x.organization || x.organization;
                   }
                   if (x.month === 'Aug') {
-                    vlAug += x.requests || x.requests;
+                    vlAug += x.graduate || x.graduate;
+                    orgvlAug += x.organization || x.organization;
                   }
                   if (x.month === 'Sep') {
-                    vlSep += x.requests || x.requests;
+                    vlSep += x.graduate || x.graduate;
+                    orgvlSep += x.organization || x.organization;
                   }
                   if (x.month === 'Oct') {
-                    vlOct += x.requests || x.requests;
+                    vlOct += x.graduate || x.graduate;
+                    orgvlOct += x.organization || x.organization;
                   }
                   if (x.month === 'Nov') {
-                    vlNov += x.requests || x.requests;
+                    vlNov += x.graduate || x.graduate;
+                    orgvlNov += x.organization || x.organization;
                   }
                   if (x.month === 'Dec') {
-                    vlDec += x.requests || x.requests;
+                    vlDec += x.graduate || x.graduate;
+                    orgvlDec += x.organization || x.organization;
                   }
                   if (x.month === 'Jan') {
-                    vlJan += x.requests || x.requests;
+                    vlJan += x.graduate || x.graduate;
+                    orgvlJan += x.organization || x.organization;
                   }
                 });
                 completedRequest.push(
@@ -261,7 +305,7 @@ export class DashboardEffects {
                   CMnov,
                   CMdec,
                 );
-                completedValue.push(
+                completedGradValue.push(
                   vlJan,
                   vlFeb,
                   vlMar,
@@ -275,17 +319,38 @@ export class DashboardEffects {
                   vlNov,
                   vlDec,
                 );
+                completedOrgValue.push(
+                  orgvlJan,
+                  orgvlFeb,
+                  orgvlMar,
+                  orgvlApr,
+                  orgvlMay,
+                  orgvlJun,
+                  orgvlJul,
+                  orgvlAug,
+                  orgvlSep,
+                  orgvlOct,
+                  orgvlNov,
+                  orgvlDec,
+                );
                 return {
                   completedRequest,
-                  completedValue,
+                  completedGradValue,
+                  completedOrgValue,
                 };
               };
 
               let revenueStatisticsBar = {};
-		if (action.payload === 1) {
+		if (action.payload.range === 2) {
 			revenueStatisticsBar = formatDaily(data.payload.requestStatisticsVms);
 		}
-		if (action.payload === 0) {
+		if (action.payload.range === 0) {
+			revenueStatisticsBar = formatMonth(data.payload.requestStatisticsVms);
+		}
+		if (action.payload.range === 5) {
+			revenueStatisticsBar = formatMonth(data.payload.requestStatisticsVms);
+		}
+		if (action.payload.range === 3) {
 			revenueStatisticsBar = formatMonth(data.payload.requestStatisticsVms);
 		}
         

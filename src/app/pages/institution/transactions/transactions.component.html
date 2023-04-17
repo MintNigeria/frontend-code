@@ -116,7 +116,7 @@
                     </label>
                     <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72">
                         <li><a (click)="documentType='All'">All</a></li>
-                        <li><a (click)="changeDocumentType(unit.documentTypeName)" *ngFor="let unit of processingFeeList">{{unit.documentTypeName}}</a></li>
+                        <li><a (click)="changeDocumentType(unit.transactionType)" *ngFor="let unit of transactionTypeList">{{unit.transactionType}}</a></li>
                     </ul>
                     </div>
                 </div>
@@ -145,11 +145,11 @@
                         <li><a (click)="changeStatus(0, 'Pending')">Pending</a>
                         </li>
                         <li>
-                        <a (click)="changeStatus(1, 'Approved')">Processing</a>
+                        <a (click)="changeStatus(1, 'Approved')">Approved</a>
                         </li>
                         <li>
                         <a (click)="changeStatus(2, 'Decline')"
-                            >Completed</a
+                            >Declined</a
                         >
                         </li>
                     </ul>

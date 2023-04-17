@@ -74,7 +74,7 @@ export class DashboardComponent implements OnInit {
       dialogRef.afterClosed().subscribe((res: any) => {
         if (res) {
               const {start , end} = res; // use this start and end as fromDate and toDate on your filter
-              const filter = {...this.filter, ['startDate'] : start, ['endDate'] : end}
+              const filter = {...this.filter, ['startDate'] : start, ['endDate'] : end, range: 5}
               this.filter = filter;
               this.store.dispatch(getAllDashboardInfoData({payload: this.filter}))
               
