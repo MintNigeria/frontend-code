@@ -8,11 +8,17 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { DashboardEffects } from 'src/app/store/dashboard/effects';
 import { dashboardReducer } from 'src/app/store/dashboard/reducer';
+import { RevenueChartComponent } from './revenue-chart/revenue-chart.component';
+import { TopInstitutionChartComponent } from './top-institution-chart/top-institution-chart.component';
+import { RevenuePieChartComponent } from './revenue-pie-chart/revenue-pie-chart.component';
 
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    RevenueChartComponent,
+    TopInstitutionChartComponent,
+    RevenuePieChartComponent
   ],
   imports: [
     CommonModule,
