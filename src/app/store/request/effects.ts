@@ -5,7 +5,7 @@ import { catchError, from, map, mergeMap, switchMap, take } from 'rxjs';
 import { RequestService } from 'src/app/core/services/request/request.service';
 import { AppResponseInterface } from 'src/app/types/appState.interface';
 import { setAPIResponseMessage } from '../shared/app.action';
-import { getAllInstitutionGraduateRequest, getAllInstitutionGraduateRequestSuccess, getAllInstitutionOrganizationRequest, getAllInstitutionOrganizationRequestSuccess, getAllOrganisationRequest, getAllOrganisationRequestSuccess, getAllRequest, getAllRequestSuccess, invokeGetRequestDetails, invokeGetRequestDetailsSuccess, updateInstitutionRequest, updateInstitutionRequestSuccess } from './action';
+import { exportInstitutionGraduateRequestCSV, exportInstitutionGraduateRequestCSVSuccess, exportInstitutionGraduateRequestExcel, exportInstitutionGraduateRequestExcelSuccess, exportInstitutionOrganizationRequestCSV, exportInstitutionOrganizationRequestCSVSuccess, exportInstitutionOrganizationRequestExcel, exportInstitutionOrganizationRequestExcelSuccess, getAllInstitutionGraduateRequest, getAllInstitutionGraduateRequestSuccess, getAllInstitutionOrganizationRequest, getAllInstitutionOrganizationRequestSuccess, getAllOrganisationRequest, getAllOrganisationRequestSuccess, getAllRequest, getAllRequestSuccess, invokeGetRequestDetails, invokeGetRequestDetailsSuccess, updateInstitutionRequest, updateInstitutionRequestSuccess } from './action';
 
 @Injectable()
 export class RequestEffects {
@@ -285,6 +285,157 @@ export class RequestEffects {
               );
               // read data and update payload
               return invokeGetRequestDetailsSuccess({
+                payload: data.payload
+              });
+            })
+          );
+      })
+    );
+  });
+
+  exportInstitutioGraduateRequestCSV$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(exportInstitutionGraduateRequestCSV),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const { 
+          payload } = action;
+        return this.requestService
+          .exportInstitutionGraduateRequestCSV(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return exportInstitutionGraduateRequestCSVSuccess ({
+                payload: data.payload
+              });
+            })
+          );
+      })
+    );
+  });
+
+  exportInstitutioGraduateRequestExcel$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(exportInstitutionGraduateRequestExcel),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const { 
+          payload } = action;
+        return this.requestService
+          .exportInstitutionGraduateRequestExcel(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return exportInstitutionGraduateRequestExcelSuccess ({
+                payload: data.payload
+              });
+            })
+          );
+      })
+    );
+  });
+  exportInstitutioOrganizationRequestCSV$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(exportInstitutionOrganizationRequestCSV),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const { 
+          payload } = action;
+        return this.requestService
+          .exportInstitutionOrganizatonRequestCSV(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return exportInstitutionOrganizationRequestCSVSuccess ({
+                payload: data.payload
+              });
+            })
+          );
+      })
+    );
+  });
+
+  exportInstitutioOrganizationRequestExcel$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(exportInstitutionOrganizationRequestExcel),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const { 
+          payload } = action;
+        return this.requestService
+          .exportInstitutionOrganizatonRequestExcel(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return exportInstitutionOrganizationRequestExcelSuccess ({
                 payload: data.payload
               });
             })
