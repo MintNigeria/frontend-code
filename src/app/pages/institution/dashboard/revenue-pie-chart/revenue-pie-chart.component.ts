@@ -28,6 +28,7 @@ revenueAnalysis$ = this.appStore.pipe(select(dashboardRevenueSelector));
   getRevenueAnalysis() {
     this.revenueAnalysis$.subscribe((res: any) => {
       this.revenueAnalysisData = res
+      // console.log(res)
       setTimeout(() => {
         this.createDistributionChart3()
       }, 2000);

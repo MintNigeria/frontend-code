@@ -76,7 +76,11 @@ export class DashboardComponent implements OnInit {
               const {start , end} = res; // use this start and end as fromDate and toDate on your filter
               const filter = {...this.filter, ['startDate'] : start, ['endDate'] : end, range: 5}
               this.filter = filter;
-              this.store.dispatch(getAllDashboardInfoData({payload: this.filter}))
+              // this.store.dispatch(getAllDashboardInfoData({payload: this.filter}))
+              // called directly as a temporaty fix. 
+    this.dashboardService.getOrganizationVerificationAnalysis({...this.filter, organizationId: this.userData.OrganizationId}).subscribe((res: any) => {
+      console.log(res)
+    })
               
             }
             
@@ -84,7 +88,10 @@ export class DashboardComponent implements OnInit {
         } else {
           const filter = {...this.filter, ['range'] : range};
           this.filter = filter;
-          this.store.dispatch(getOrganizationDashboardInfo({payload: this.filter}))
+          // called directly as a temporaty fix. 
+    this.dashboardService.getOrganizationVerificationAnalysis({...this.filter, organizationId: this.userData.OrganizationId}).subscribe((res: any) => {
+      console.log(res)
+    })
         }
   }
 
