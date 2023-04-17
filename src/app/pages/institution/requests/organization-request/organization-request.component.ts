@@ -6,7 +6,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
-import { getAllInstitutionOrganizationRequest } from 'src/app/store/request/action';
+import { exportInstitutionOrganizationRequestCSV, exportInstitutionOrganizationRequestExcel, getAllInstitutionOrganizationRequest } from 'src/app/store/request/action';
 import { organisationRequestSelector } from 'src/app/store/request/selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { getInstitutionConfiguration, getInstitutionConfigurationSuccess, getOrganisationIndustry, getOrganisationIndustrySuccess, getOrganisationSector, getOrganisationSectorSuccess } from 'src/app/store/configuration/action';
@@ -56,6 +56,11 @@ selectedOption: string = 'All Time';
   processingFeeList: any;
   industrtList: any;
   sectorList: any;
+  showDate : boolean = false;
+  showOrganizationIndustry : boolean = false;
+  showOrganizationSector : boolean = false;
+  showStatus : boolean = false;
+  showDocType : boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -131,6 +136,7 @@ selectedOption: string = 'All Time';
   }
 
   changeRange(range: number, name: string) {
+    this.showDate = true;
     this.selectedOption = name
     if (range === 5) {
       // launch calender
@@ -165,18 +171,20 @@ selectedOption: string = 'All Time';
     this.selectedInstituition = name;
     const filter = {...this.filterParams, ['OrganisationIndustry'] : name}
     this.filterParams = filter;
+    this.showOrganizationIndustry = true;
 
   }
   changeSectorType(name: string) {
     this.selectedSector = name;
     const filter = {...this.filterParams, ['OrganisationSector'] : name}
     this.filterParams = filter;
-
+    this.showOrganizationSector = true;
   }
   changeStatus(status: number, name: string) {
     this.status = name
     const filter = {...this.filterParams, ['status'] : String(status)};
     this.filterParams = filter;
+    this.showStatus = true;
   }
 
   search(event: any) {
@@ -200,23 +208,14 @@ selectedOption: string = 'All Time';
   }
 
   downloadCSV() {
-    // this.store.dispatch(exportTransactionCSV({institutionId: this.institutionId}))
-    // this.actions$.pipe(ofType(exportTransactionCSVSuccess)).subscribe((res: any) => {
-    //    const link = document.createElement('a');
-    //     link.download = `${res.payload?.fileName}.csv`;
-    //     link.href = 'data:image/png;base64,' + res.payload?.base64String;
-    //     link.click();
-    // })  
+   this.store.dispatch(exportInstitutionOrganizationRequestCSV({payload : {...this.filterParams, institutionId : this.institutionId}}))
   }
 
   downloadExcel() {
-    // this.store.dispatch(exportTransactionExcel({institutionId: this.institutionId}))
-    // this.actions$.pipe(ofType(exportTransactionExcelSuccess)).subscribe((res: any) => {
-    //    const link = document.createElement('a');
-    //     link.download = `${res.payload?.fileName}.xlsx`;
-    //     link.href = 'data:image/png;base64,' + res.payload?.base64String;
-    //     link.click();
-    // })
+
+    
+    this.store.dispatch(exportInstitutionOrganizationRequestExcel({payload : {...this.filterParams, institutionId : this.institutionId}}))
+
   }
 
   getPage(currentPage: number) {

@@ -33,17 +33,19 @@
                 <div class="flex md:flex-row md:justify-between md:items-center  flex-col w-full">
                     <div class="lg:flex lg:justify-between gap-4">
                         <div class="lg:justify-between gap-4">
-                            <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
+                            <p  class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
                                 Date
                             </p>
                             <div class="dropdown dropdown-bottom">
-                                <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg w-[160px] h-[40px] py-[14px] px-3 cursor-pointer">
+                                <label tabindex="0" (click)="showDate = false;" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg w-[160px] h-[40px] py-[14px] px-3 cursor-pointer">
                                 <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedOption }}</p>
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
                                 </label>
                                 <ul
                         tabindex="0"
                         class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52"
+                        [ngClass]="showDate? 'hidden' : 'block'"
+
                     >
                         <li><a (click)="changeRange(0, 'All Time') ">All Time</a></li>
                         <li><a (click)="changeRange(3, '30 Days')">30 Days</a></li>
@@ -63,11 +65,12 @@
                                 Document Type
                             </p>
                             <div class="dropdown dropdown-bottom">
-                                <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg w-[160px] h-[40px] py-[14px] px-3 cursor-pointer">
+                                <label tabindex="0" (click)="showDocType" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg w-[160px] h-[40px] py-[14px] px-3 cursor-pointer">
                                 <p class="my-0 text-[#667085] font-inter font-medium text-sm">{{ documentType }}</p>
                                 <img src="assets/images/icons/downward_arrow.svg">
                                 </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72">
+                                <ul tabindex="0"                         [ngClass]="showDocType? 'hidden' : 'block'"
+                                class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72">
                                     <li><a (click)="documentType='All'">All</a></li>
                                     <li><a (click)="changeDocumentType(unit.documentTypeName)" *ngFor="let unit of processingFeeList">{{unit.documentTypeName}}</a></li>
                                 </ul>
@@ -79,7 +82,7 @@
                                 Industry
                             </p>
                             <div class="dropdown dropdown-bottom">
-                                <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg w-[160px] h-[40px] py-[14px] px-3 cursor-pointer">
+                                <label tabindex="0" (click)="showIndustry = false;" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg w-[160px] h-[40px] py-[14px] px-3 cursor-pointer">
                                 <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedSector }}</p>
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
                                 </label>

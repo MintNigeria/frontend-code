@@ -28,6 +28,9 @@ export class ReportsComponent implements OnInit {
   filterSector = { selectedSector: 'All'};
   filterInstituition = {selectedInstituition: 'All'};
   filterDocument = {documentType: 'All'};
+  showDate : boolean = false;
+  showDocType : boolean = false;
+  showIndustry : boolean = false;
 
  filterParams = {
   institutionId: '',
@@ -124,6 +127,7 @@ export class ReportsComponent implements OnInit {
 
   changeRange(range: number, name: string) {
     this.selectedOption = name
+    this.showDate = true;
     if (range === 5) {
       const dialogRef = this.dialog.open(DateRangeComponent, {
         height: 'auto',
@@ -146,6 +150,7 @@ export class ReportsComponent implements OnInit {
   }
 
   changeIndustryType(name: string) {
+    this.showIndustry  = true;
     this.selectedSector = name;
     const filter = {...this.filterParams, ['Sector'] : name}
     this.filterParams = filter;
@@ -153,6 +158,7 @@ export class ReportsComponent implements OnInit {
   }
 
   changeDocumentType(name: string) {
+    this.showDocType = true;
     this.documentType = name;
     const filter = {...this.filterParams, ['DocumentType'] : name}
     this.filterParams = filter;
