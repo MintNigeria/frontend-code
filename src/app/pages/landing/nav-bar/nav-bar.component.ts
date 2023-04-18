@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class NavBarComponent implements OnInit {
 
+  mobileMenuOpen = false;
+
   constructor(
     private dialog: MatDialog,
 
