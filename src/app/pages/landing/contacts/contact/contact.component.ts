@@ -268,9 +268,7 @@ export class ContactComponent implements OnInit {
 
   ngOnInit(): void {
     this.initContactForm()
-    setTimeout(() => {
-      this.populateForm()
-    }, 2000);
+  
   }
 
   initContactForm() {
@@ -283,14 +281,12 @@ export class ContactComponent implements OnInit {
     })
   }
 
-  populateForm() {
-    this.contactForm.patchValue({
-      firstName: 'Rodney',
-      lastName: 'Guy',
-      email: 'rodneyguy@guy.com',
-      tel: '28374892023',
-      text: 'I cant access my account '
-    })
+  submit() {
+    console.log(this.contactForm.value)
   }
+
+
+
+  
 
 }

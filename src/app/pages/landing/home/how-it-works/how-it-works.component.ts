@@ -9,9 +9,9 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./how-it-works.component.scss']
 })
 export class HowItWorksComponent implements OnInit {
-
   constructor(
     private dialog: MatDialog,
+
   ) { }
 
   ngOnInit(): void {

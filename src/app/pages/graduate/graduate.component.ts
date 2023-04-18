@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { select, Store } from '@ngrx/store';
 import { LogoutModalComponent } from 'src/app/shared/components/logout-modal/logout-modal.component';
 import { isUserSelector } from 'src/app/store/auth/selector';
+import { getNotification } from 'src/app/store/notification/action';
 import { notificationSelector } from 'src/app/store/notification/selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
@@ -68,15 +69,26 @@ export class GraduateComponent implements OnInit {
   user$ = this.appStore.pipe(select(isUserSelector));
   notification$ = this.appStore.pipe(select(notificationSelector))
 
+  userData: any;
+  userId!: number;
 
   constructor(
     private appStore: Store<AppStateInterface>,
     private dialog: MatDialog,
+    private store : Store,
+
   )
  
 { }
 
   ngOnInit(): void {
+    const data: any = localStorage.getItem('userData')
+    this.userData = JSON.parse(data)
+    this.appStore.pipe(select(isUserSelector)).subscribe((res)=> {
+      this.userId = Number(res?.id)
+    })
+    this.store.dispatch(getNotification({entityId: this.userData.GraduateId, userType: 3}))
+
   }
 
   openLogoutModal() {

@@ -37,6 +37,7 @@ export class ApplicationsComponent implements OnInit {
       filter: '',
       pageSize: 10,
       pageIndex: 1,
+      documentType: ''
    }
    userData: any;
     applicationList: any;
@@ -110,6 +111,7 @@ export class ApplicationsComponent implements OnInit {
         filter: '',
         pageSize: 10,
         pageIndex: 1,
+        documentType: ''
      }
     this.store.dispatch(getAllGraduateRequestForGradaute({payload: {...filter, GraduateId: this.userData.GraduateId}}))
   }

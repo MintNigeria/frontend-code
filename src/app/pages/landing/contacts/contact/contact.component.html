@@ -67,7 +67,7 @@
               Issuer=""
               [name]="'name'"></app-input>
           </div>
-          <div class="">
+          <div class="mb-2">
               <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
                   Last Name
               </label>
@@ -80,7 +80,7 @@
               [name]="'name'"></app-input>
           </div>
         </div>
-        <div class="">
+        <div class="mb-2">
               <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
                   Email
               </label>
@@ -127,15 +127,17 @@
         <div class="mb-4">
           <label for="message" 
           class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">Message</label>
-          <app-textarea
+          <textarea name="" formControlName="text" id="" class="w-full h-32 rounded border bg-white"></textarea>
+          <!-- <app-textarea
           [formGrp]="contactForm"
           formCtrlName="text"
           [type]="'text'"
           id="message" 
-          class="w-full h-32 rounded border"></app-textarea>
+          class="w-full h-32 rounded border bg-white"></app-textarea> -->
         </div>
         <app-button 
         type="submit" 
+        (buttonClick)="submit()"
         class="bg-buttonBlue text-white font-inter font-medium text-xl  rounded-lg px-4 py-2">
           Send message
         </app-button>
