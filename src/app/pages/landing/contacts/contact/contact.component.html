@@ -1,13 +1,15 @@
-<main class="py-20">
-  <div class="mb-10">
-    <p class="font-jost text-center text-[#253858] font-semibold text-3xl">Get in Touch</p>
-    <p class="text-center font-nunito text-[#667085] my-5">
+
+
+<main class="py-8 md:py-20">
+  <div class="mb-4 md:mb-10">
+    <p class="font-jost text-center text-[#253858] font-semibold text-2xl md:text-3xl">Get in Touch</p>
+    <p class="text-center font-nunito text-[#667085] my-3 md:my-5">
       We’d love to talk about how we can help you.
     </p>
   </div>
 
-  <div class="flex px-52">
-    <div class="w-1/2">
+  <div class="flex flex-col md:flex-row px-4 md:px-52">
+    <div class="w-full md:w-1/2">
       <div class="p-4">
         <div class="flex items-start gap-3">
           <img src="assets/images/icons/location.svg" alt="">
@@ -50,9 +52,9 @@
         </div>
       </div>
     </div>
-    <div class="w-1/2 border rounded-lg p-12">
-      <form >
-        <div class="flex gap-3 w-auto">
+    <div class="w-full md:w-1/2 mt-8 md:mt-0 border rounded-lg p-4 md:p-12">
+      <form>
+         <div class="flex gap-3 w-auto">
           <div class="">
               <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
                   First Name
@@ -94,10 +96,10 @@
           <label for="phone-number" 
           class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">Phone Number</label>
           <div class="flex border rounded-lg">
-            <select id="country-code" class="rounded-l-lg bg-white border w-auto">
-              <option value="+1">+1</option>
-              <option value="+44">+44</option>
-              <!-- Add more country codes as needed -->
+            <select id="country-code" class="rounded-l-lg bg-white border w-32">
+              <option *ngFor="let countryCode of countryCodes" [value]="countryCode.code" [selected]="countryCode.default">
+                {{ countryCode.code }} {{ countryCode.name }}
+              </option>
             </select>
             <app-input
             [formGrp]="contactForm" 
@@ -113,8 +115,12 @@
           <label for="subject" 
           class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">Subject</label>
           <select id="subject" class="px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
-            <option value="Option1">Graduate Verification</option>
-            <option value="Option2">Option 2</option>
+          
+            <option value="General Enquiry">General Enquiry</option>
+            <option value="Institution Enquiry">Institution Enquiry</option>
+            <option value="Organization Enquiry">Organization Enquiry</option>
+            <option value="Graduate Enquiry">Graduate Enquiry</option>
+            <option value="Other Enquiry">Other Enquiry</option>
             <!-- Add more subject options as needed -->
           </select>
         </div>
@@ -136,6 +142,4 @@
       </form>
     </div>
   </div>
-
-  
 </main>
