@@ -340,6 +340,34 @@ export class DashboardEffects {
                 };
               };
 
+              const formatYear = (data = []) => {
+                
+                let gradValue = 0
+                let orgValue = 0
+                let value = ''
+                
+              
+                const completedRequest = [];
+                const completedGradValue = [];
+                const completedOrgValue = [];
+                data.forEach((x: any) => {
+                  if (x.year) {
+                    gradValue += x.graduate || x.graduate;
+                    orgValue += x.organization || x.organization;
+                    value += x.year || x.year;
+                  }
+                  
+                });
+                completedRequest.push(value);
+                completedGradValue.push(gradValue);
+                completedOrgValue.push(orgValue);
+                return {
+                  completedRequest,
+                  completedGradValue,
+                  completedOrgValue,
+                };
+              };
+
               let revenueStatisticsBar = {};
 		if (action.payload.range === 2) {
 			revenueStatisticsBar = formatDaily(data.payload.requestStatisticsVms);
@@ -352,6 +380,9 @@ export class DashboardEffects {
 		}
 		if (action.payload.range === 3) {
 			revenueStatisticsBar = formatMonth(data.payload.requestStatisticsVms);
+		}
+    if (action.payload.range === 4) {
+			revenueStatisticsBar = formatYear(data.payload.requestStatisticsVms);
 		}
         
 		data.payload.revenueStatisticsBar = revenueStatisticsBar;

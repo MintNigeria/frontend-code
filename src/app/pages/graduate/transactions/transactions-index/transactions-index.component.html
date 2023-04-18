@@ -63,7 +63,7 @@
                   </label>
                   <ul
                     tabindex="0"
-                    class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
+                    class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72"
                   >
                     <li><a (click)="documentType = 'All'">All</a></li>
                     <li *ngFor="let unit of transactionType">
@@ -93,7 +93,7 @@
                   </label>
                   <ul
                     tabindex="0"
-                    class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
+                    class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72"
                   >
                   <li><a (click)="changeStatus(0, 'Pending')">Pending</a>
                   </li>
@@ -139,7 +139,7 @@
               <div class="flex lg:justify-between gap-4">
                 <div class="flex lg:justify-between gap-4">
                   <app-search 
-                  [placeholder]="'Search...'"
+                  [placeholder]="'Search by payment method or description'"
                   (iconSearch)="search($event)"
       [formGrp]="searchForm" formCtrlName="searchPhrase"  
       ></app-search>

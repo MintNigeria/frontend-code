@@ -30,4 +30,9 @@ export class PasswordComponent implements OnInit {
     this.type === 'password' ? (this.type = 'text') : (this.type = 'password');
   }
 
+  displayErrors() {
+    const { dirty, touched, errors } = this.control;
+    return dirty && touched && errors;
+  }
+
 }

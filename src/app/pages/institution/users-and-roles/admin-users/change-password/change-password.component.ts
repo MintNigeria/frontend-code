@@ -46,6 +46,8 @@ export class ChangePasswordComponent implements OnInit {
       currentPassword: ['', Validators.required],
       newPassword: ['', Validators.required],
       confirmNewPassword: ['', Validators.required],
+    }, {
+      validator: this.MustMatch('newPassword', 'confirmNewPassword')
     })
   }
 
@@ -74,6 +76,23 @@ export class ChangePasswordComponent implements OnInit {
 
     })
 
+  }
+
+  MustMatch(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+  
+      if (matchingControl.errors && !matchingControl.errors['mustMatch']) {
+        return;
+      }
+  
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ mustMatch: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
+    };
   }
 
 
