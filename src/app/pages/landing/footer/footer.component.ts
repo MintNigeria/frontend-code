@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateAccountModalComponent } from '../modals/create-account-modal/create-account-modal.component';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private dialog: MatDialog,
+
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  createAccount() {
+    const dialogRef = this.dialog.open(CreateAccountModalComponent, {
+      width: '800px',
+      // height: '600px'
+    });
   }
 
 }

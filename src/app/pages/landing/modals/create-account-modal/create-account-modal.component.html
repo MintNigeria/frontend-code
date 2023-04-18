@@ -1,0 +1,47 @@
+
+
+<div class='md:p-10 p-2'>
+    <div class='mb-10'>
+        <img src={Logo} alt='' />
+        
+    </div>
+    <div class='md:flex block'>
+        <div class='md:w-2/5 w-full mt-10'>
+            <p class='text-lg font-normal'>Register in few steps</p>
+            <p class='font-bold lg:text-3xl md:text-xl text-normal leading-10 mb-5 mt-5'>Create an <br/> account</p>
+        </div>
+        <div class='md:w-3/5 w-full'>
+            <div class='flex justify-between cursor-pointer border-l-2 border-[#005BD4]' (click)="createAccount('graduate')">
+                <div class='pl-10 py-5'>
+                    <p class='text-[#2F4662] font-bold'>Individual</p>
+                    <p class='text-[#7A7A7A]'>Continue as a graduate</p>
+                </div>
+                <svg class='my-auto' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 5L16.9632 11.9632L10 18.9263" stroke="#14142B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+         
+
+            <div class='mt-5 flex justify-between cursor-pointer border-l-2 border-[#005BD4]' (click)="createAccount('organization')">
+                <div class='pl-10 py-5'>
+                    <p class='text-[#2F4662] font-bold'>Organization</p>
+                    <p class='text-[#7A7A7A]'>Continue as a corporate entity</p>
+                </div>
+                <svg class='my-auto' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 5L16.9632 11.9632L10 18.9263" stroke="#14142B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+           
+            <div class='mt-5 flex justify-between cursor-pointer border-l-2 border-[#005BD4]' (click)="createAccount('institution')">
+                <div class='pl-10 py-5'>
+                    <p class='text-[#2F4662] font-bold'>Tertiary Institution</p>
+                    <p class='text-[#7A7A7A]'>Continue as an institution</p>
+                </div>
+                <svg class='my-auto' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 5L16.9632 11.9632L10 18.9263" stroke="#14142B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+           
+        </div>
+    </div>
+</div>

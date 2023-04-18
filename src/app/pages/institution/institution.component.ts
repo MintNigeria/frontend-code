@@ -5,6 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { LogoutModalComponent } from 'src/app/shared/components/logout-modal/logout-modal.component';
 import { isUserSelector, permissionsSelector } from 'src/app/store/auth/selector';
+import { getNotification } from 'src/app/store/notification/action';
 import { notificationSelector } from 'src/app/store/notification/selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
@@ -122,12 +123,15 @@ export class InstitutionComponent implements OnInit {
   user$ = this.appStore.pipe(select(isUserSelector));
   notification$ = this.appStore.pipe(select(notificationSelector))
   superAdminRole: any;
+  userData: any;
+  userId!: number;
 
   constructor(
     private utilityService: UtilityService,
     private route: ActivatedRoute,
     private appStore: Store<AppStateInterface>,
     private dialog: MatDialog,
+    private store: Store
 
 
   ) {
@@ -155,6 +159,13 @@ export class InstitutionComponent implements OnInit {
     }, 2000);
     this.users()
     this.permissions()
+    const data: any = localStorage.getItem('userData')
+    this.userData = JSON.parse(data)
+    this.appStore.pipe(select(isUserSelector)).subscribe((res)=> {
+      this.userId = Number(res?.id)
+    })
+    this.store.dispatch(getNotification({entityId: this.userData.InstitutionId, userType: 2}))
+
   }
 
   loadIp() {

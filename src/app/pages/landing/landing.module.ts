@@ -26,6 +26,8 @@ import { VerificationServicesComponent } from './verification-services/verificat
 import { VerificationServiceComponent } from './verification-services/verification-service/verification-service.component';
 import { TranscriptServicesComponent } from './transcript-services/transcript-services.component';
 import { TranscriptServiceComponent } from './transcript-services/transcript-service/transcript-service.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CreateAccountModalComponent } from './modals/create-account-modal/create-account-modal.component';
 
 
 @NgModule({
@@ -53,10 +55,13 @@ import { TranscriptServiceComponent } from './transcript-services/transcript-ser
     VerificationServiceComponent,
     TranscriptServicesComponent,
     TranscriptServiceComponent,
+    CreateAccountModalComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
+    ReactiveFormsModule,
+    FormsModule,
     LandingRoutingModule
   ]
 })
