@@ -89,6 +89,8 @@ export class DashboardComponent implements OnInit {
   }
 
 
+  
+
   viewVerification(id: any) {
     this.router.navigateByUrl(`/organization/verifications/view-verified-documents/${id}`)
   }
