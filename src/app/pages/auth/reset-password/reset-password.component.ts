@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { createPassword, createPasswordSuccess, invokeLoginUser, loginSuccess, resetPassword, resetPasswordSuccess } from 'src/app/store/auth/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
@@ -32,7 +33,9 @@ export class ResetPasswordComponent implements OnInit {
     private store: Store,
     private appStore: Store<AppStateInterface>,
     private actions$: Actions,
-    private notification: NotificationsService
+    private notification: NotificationsService,
+    private fb: FormBuilder,
+    private auth: AuthService
 
   ) { }
 
@@ -63,16 +66,11 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   initLoginForm() {
-    this.createAccountForm = new FormGroup({ 
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
-      confirmPassword: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
-      
+    this.createAccountForm = this.fb.group({ 
+      password: [ '', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [  Validators.required, Validators.minLength(6)]],     
+    }, {
+      validator: this.MustMatch('password', 'confirmPassword')
     });
   }
 
@@ -89,13 +87,38 @@ export class ResetPasswordComponent implements OnInit {
       token: this.param.code,
       newPassword: password
     }
-    this.store.dispatch(resetPassword({payload}))
-    this.actions$.pipe(ofType(resetPasswordSuccess)).subscribe((res: any) => {
-     if (res.payload.hasErrors === false) {
-      this.notification.publishMessages('success', res.payload.description)
-      this.router.navigateByUrl('/')
-     }
-   }) 
+    // temporary fix
+    this.auth.resetPassword(payload).subscribe((res: any) => {
+      if (res.hasErrors === false) {
+            this.notification.publishMessages('success', res.payload.description)
+            this.router.navigateByUrl('/')
+
+      }
+    })
+  //   this.store.dispatch(resetPassword({payload}))
+  //   this.actions$.pipe(ofType(resetPasswordSuccess)).subscribe((res: any) => {
+  //    if (res.payload.hasErrors === false) {
+  //     this.notification.publishMessages('success', res.payload.description)
+  //     this.router.navigateByUrl('/')
+  //    }
+  //  }) 
   
+  }
+
+  MustMatch(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+  
+      if (matchingControl.errors && !matchingControl.errors['mustMatch']) {
+        return;
+      }
+  
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ mustMatch: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
+    };
   }
 }

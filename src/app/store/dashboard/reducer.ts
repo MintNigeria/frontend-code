@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { getAllDashboardInfoData, getAllDashboardInfoSuccess, getAllDashboardSuccess, getDashboardRevenueAnalysisSuccess, getDashboardTopInstitutionsSuccess, getGraduateDashboardBottomDataSuccess, getGraduateDashboardTopDataSuccess, getOrganizationDashboardBottomInfoSuccess, getOrganizationDashboardInfoSuccess, getOrganizationVeficiationAnalysisSuccess } from './action';
+import { getAllDashboardInfoData, getAllDashboardInfoSuccess, getAllDashboardSuccess, getDashboardRevenueAnalysisSuccess, getDashboardTopInstitutionsSuccess, getGraduateDashboardBottomDataSuccess, getGraduateDashboardTopDataSuccess, getOrganizationDashboardBottomInfoSuccess, getOrganizationDashboardInfoSuccess, getOrganizationVerificationAnalysisDataSuccess, } from './action';
 import { DashboardStateInterface } from './types/index.types';
 
 
@@ -51,6 +51,12 @@ export const dashboardReducer = createReducer (
       institutionRevenueAnalysis: payload
     }
   }),
+  on(getOrganizationVerificationAnalysisDataSuccess, (state, {payload})=> {
+    return {
+      ...state,
+      organizationVerification: payload
+    }
+  }),
   on(getDashboardTopInstitutionsSuccess, (state, {payload})=> {
     return {
       ...state,
@@ -75,12 +81,7 @@ export const dashboardReducer = createReducer (
   //     organizationVerification: payload
   //   }
   // }),
-  // on(getOrganizationVeficiationAnalysisSuccess, (state, {payload})=> {
-  //   return {
-  //     ...state,
-  //     organizationVerification: payload
-  //   }
-  // }),
+ 
   on(getGraduateDashboardTopDataSuccess, (state, {payload})=> {
     return {
       ...state,
