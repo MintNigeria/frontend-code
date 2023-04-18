@@ -1,38 +1,39 @@
 <div class="pt-20 md:pt-20 bg-white">
   <div class="carousel w-full">
-    <div class="carousel-item w-full"  [id]="selectedCarousel.id">
-      <div class="justify-center relative  bg-white rounded-md w-full max-h-[600px]   "  >
+    <div class="carousel-item w-full" [id]="selectedCarousel.id">
+      <div class="justify-center relative bg-white rounded-md w-full max-h-[600px]">
         <img [src]="selectedCarousel.image" class="w-full h-full object-cover relative" />
-        <div class="flex gap-8 pr-6 pl-8 pt-5 items-center absolute bottom-10 left-20 w-1/2">
-          <div>
-            <div class="bg-white p-8 rounded-lg mb-20">
+        <div class="flex gap-8 px-6 md:pl-8 md:pr-6 pt-5 items-center absolute lg:bottom-10 top-1 left-0 md:left-20 w-full md:w-1/2">
+          <div class="mx-auto md:mx-0">
+            <div class="bg-white p-4 md:p-8 rounded-lg lg:mb-20">
               <div class="">
-                <p class="font-poppins font-bold text-4xl text-discountBlue mb-4">{{ selectedCarousel.header }}</p>
-                <p class="font-nunito font-normal text-base text-footerbg">{{ selectedCarousel.text }}</p>
-                <div class="flex gap-3 mt-6">
+                <p class="font-poppins font-bold text-xl md:text-4xl text-discountBlue lg:mb-4">{{ selectedCarousel.header }}</p>
+                <p class="font-nunito font-normal text-sm md:text-base text-footerbg">{{ selectedCarousel.text }}</p>
+                <div class="flex gap-3 lg:mt-6 mt-3">
                   <app-button
+                  (buttonClick)="onButtonClick(selectedCarousel.buttonOneRoute)"
                   [overRideButtonClass]="true"
-                  [customClass]="'font-inter font-medium text-lg rounded-lg bg-buttonBlue text-white p-2'">
+                  [customClass]="'font-inter font-medium lg:text-lg text-sm rounded-lg bg-buttonBlue text-white p-2'">
                   {{ selectedCarousel.buttonOne }}
                   </app-button>
                   <app-button
+                  (buttonClick)="onButtonClick(selectedCarousel.buttonTwoRoute)"
                   [overRideButtonClass]="true"
-                  [customClass]="'font-inter font-medium text-lg rounded-lg bg-white border text-failedNormal p-2 flex gap-2 items-center'">
+                  [customClass]="'font-inter font-medium lg:text-lg text-sm rounded-lg bg-white border text-failedNormal p-2 flex gap-2 items-center'">
                   <p>{{ selectedCarousel.buttonTwo }}</p>
                   <img src="assets/images/icons/buttonarrow.svg" alt="forward_arrow"/>
                   </app-button>
                 </div>
               </div>
             </div>
-            <div class="flex justify-center w-56 py-2 gap-3 items-center">
+            <div class="absolute left-2 lg:left-auto lg:relative bottom-1/2 transform -translate-y-1/2 lg:bottom-auto w-full lg:w-auto flex justify-between lg:justify-center items-center lg:py-2 pt-1 gap-3">
               <button class="btn btn-circle align-middle" (click)="prevSlide()"><img src="assets/images/main/previous_arrow.svg" alt="previous_arrow"></button>
-              <button *ngFor="let item of carouselItems; let i = index;" [class.btn-active]="i === carouselIndex" (click)="setCarouselIndex(i)" class="btn-dot"></button>
+              <button *ngFor="let item of carouselItems; let i = index;" [class.btn-active]="i === carouselIndex" (click)="setCarouselIndex(i)" class="btn-dot hidden lg:inline-block"></button>
               <button class="btn btn-circle align-middle" (click)="nextSlide()"><img src="assets/images/main/forward_arrow.svg" alt="forward_arrow"></button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  
   </div>
 </div>
