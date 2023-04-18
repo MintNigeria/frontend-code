@@ -7,57 +7,29 @@
       </div>
       <!-- Navigation links -->
       <nav class="hidden md:flex items-center space-x-6">
-        <div class="relative group">
-          <button class="inline-flex items-center space-x-2">
-            <span class="font-inter font-medium text-base text-lightGray">Verification Services</span>
-            <img src="assets/images/icons/dropdown.svg" alt="dropdown">
-          </button>
-          <!-- Dropdown menu -->
-          <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block">
-            <div class="py-1">
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 1</a>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 2</a>
-            </div>
-          </div>
+        <div class="flex space-x-4">
+          <a routerLink="/verification-services" class="font-inter font-medium text-base text-lightGray">
+            Verification Services
+          </a>
+          <a routerLink="/transcript-services" class="font-inter font-medium text-base text-lightGray">
+            Transcript Services
+          </a>
+          <a href="#" class="font-inter font-medium text-base text-lightGray">
+            Partners & Programs
+          </a>
         </div>
-        <div class="relative group">
-          <button class="inline-flex items-center space-x-2">
-            <span class="font-inter font-medium text-base text-lightGray">Transcript Services</span>
+
+        <div class="dropdown">
+          <label tabindex="0" class="font-inter font-medium text-base text-lightGray inline-flex items-center space-x-2">
+            <p>Company</p>
             <img src="assets/images/icons/dropdown.svg" alt="dropdown">
-          </button>
-          <!-- Dropdown menu -->
-          <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block">
-            <div class="py-1">
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 1</a>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 2</a>
-            </div>
-          </div>
-        </div>
-        <div class="relative group">
-          <button class="inline-flex items-center space-x-2">
-            <span class="font-inter font-medium text-base text-lightGray">Partners & Programs</span>
-            <img src="assets/images/icons/dropdown.svg" alt="dropdown">
-          </button>
-          <!-- Dropdown menu -->
-          <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block">
-            <div class="py-1">
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 1</a>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 2</a>
-            </div>
-          </div>
-        </div>
-        <div class="relative group">
-          <button class="inline-flex items-center space-x-2">
-            <span class="font-inter font-medium text-base text-lightGray">Company</span>
-            <img src="assets/images/icons/dropdown.svg" alt="dropdown">
-          </button>
-          <!-- Dropdown menu -->
-          <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block">
-            <div class="py-1">
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 1</a>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 2</a>
-            </div>
-          </div>
+          </label>
+          <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
+            <li><a routerLink="/about">About</a></li>
+            <li><a routerLink="/career">Career</a></li>
+            <li><a routerLink="/contacts">Contacts</a></li>
+            <li><a routerLink="/faqs">FAQs</a></li>
+          </ul>
         </div>
          <img src="assets/images/icons/questionMark.svg" alt="help">
       </nav>

@@ -22,6 +22,8 @@ import { LogoutModalComponent } from './components/logout-modal/logout-modal.com
 import { RequestEmptyStateComponent } from './request-empty-state/request-empty-state.component';
 import { TrustedURLPipe } from '../core/pipe/trustedURLPipe.pipe';
 import { LoaderComponent } from './components/loader/loader.component';
+import { CollapseComponent } from './components/collapse/collapse.component';
+import { TextareaComponent } from './components/textarea/textarea.component';
 
 const components: any[] = [
   InputComponent,
@@ -40,6 +42,8 @@ const components: any[] = [
   DateRangeComponent,
   LogoutModalComponent,
   ModalComponent,
+  CollapseComponent,
+  TextareaComponent,
 
 ]
 
