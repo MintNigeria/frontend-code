@@ -52,14 +52,6 @@ export class OrganizationVerificationChartComponent implements OnInit {
               this.filter = filter;
 
               this.store.dispatch(getOrganizationVerificationAnalysisData({payload: {...this.filter, organizationId: this.userData.OrganizationId}}))
-
-              // this.store.dispatch(getAllDashboardInfoData({payload: this.filter}))
-              // called directly as a temporaty fix. 
-    // this.dashboardService.getOrganizationVerificationAnalysis({...this.filter, organizationId: this.userData.OrganizationId}).subscribe((res: any) => {
-    //   console.log(res)
-    // })
-
-              
             }
             
           })
@@ -68,12 +60,6 @@ export class OrganizationVerificationChartComponent implements OnInit {
           this.filter = filter;
 
           this.store.dispatch(getOrganizationVerificationAnalysisData({payload: {...this.filter, organizationId: this.userData.OrganizationId}}))
-
-          // called directly as a temporaty fix. 
-    // this.dashboardService.getOrganizationVerificationAnalysis({...this.filter, organizationId: this.userData.OrganizationId}).subscribe((res: any) => {
-    //   console.log(res)
-    // })
-
         }
   }
 
