@@ -8,11 +8,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { DashboardEffects } from 'src/app/store/dashboard/effects';
 import { dashboardReducer } from 'src/app/store/dashboard/reducer';
+import { OrganizationVerificationChartComponent } from './organization-verification-chart/organization-verification-chart.component';
 
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    OrganizationVerificationChartComponent
   ],
   imports: [
     CommonModule,

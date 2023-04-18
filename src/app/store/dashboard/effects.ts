@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { catchError, from, map, mergeMap, switchMap, take } from 'rxjs';
 import { AppResponseInterface } from 'src/app/types/appState.interface';
 import { setAPIResponseMessage } from '../shared/app.action';
-import { getAllDashboard, getAllDashboardInfoData, getAllDashboardInfoSuccess, getAllDashboardSuccess, getDashboardRevenueAnalysis, getDashboardRevenueAnalysisSuccess, getDashboardTopInstitutions, getDashboardTopInstitutionsSuccess, getGraduateDashboardBottomData, getGraduateDashboardBottomDataSuccess, getGraduateDashboardTopData, getGraduateDashboardTopDataSuccess, getOrganizationDashboardBottomInfo, getOrganizationDashboardBottomInfoSuccess, getOrganizationDashboardInfo, getOrganizationDashboardInfoSuccess, getOrganizationVeficiationAnalysis, getOrganizationVeficiationAnalysisSuccess } from './action';
+import { getAllDashboard, getAllDashboardInfoData, getAllDashboardInfoSuccess, getAllDashboardSuccess, getDashboardRevenueAnalysis, getDashboardRevenueAnalysisSuccess, getDashboardTopInstitutions, getDashboardTopInstitutionsSuccess, getGraduateDashboardBottomData, getGraduateDashboardBottomDataSuccess, getGraduateDashboardTopData, getGraduateDashboardTopDataSuccess, getOrganizationDashboardBottomInfo, getOrganizationDashboardBottomInfoSuccess, getOrganizationDashboardInfo, getOrganizationDashboardInfoSuccess, getOrganizationVerificationAnalysisData, getOrganizationVerificationAnalysisDataSuccess, } from './action';
 import { DashboardService } from 'src/app/core/services/dashboard/dashboard.service';
 
 @Injectable()
@@ -347,9 +347,9 @@ export class DashboardEffects {
                 let value = ''
                 
               
-                const completedRequest = [];
-                const completedGradValue = [];
-                const completedOrgValue = [];
+                let completedRequest: any = [];
+                let completedGradValue: any = [];
+                let completedOrgValue: any = [];
                 data.forEach((x: any) => {
                   if (x.year) {
                     gradValue += x.graduate || x.graduate;
@@ -357,10 +357,10 @@ export class DashboardEffects {
                     value += x.year || x.year;
                   }
                   
+                  completedRequest.push(value);
+                  completedGradValue.push(gradValue);
+                  completedOrgValue.push(orgValue);
                 });
-                completedRequest.push(value);
-                completedGradValue.push(gradValue);
-                completedOrgValue.push(orgValue);
                 return {
                   completedRequest,
                   completedGradValue,
@@ -596,10 +596,10 @@ export class DashboardEffects {
       })
     );
   });
-
-  getOrganizationVeficiationAnalysis$ = createEffect(() => {
+ 
+  getOrganizationVerificationAnalysisData$ = createEffect(() => {
     return this.action$.pipe(
-      ofType(getOrganizationVeficiationAnalysis),
+      ofType(getOrganizationVerificationAnalysisData),
       switchMap((action) => {
         this.appStore.dispatch(
           setAPIResponseMessage({
@@ -626,8 +626,207 @@ export class DashboardEffects {
                   },
                 })
               );
+              const formatDaily = (data = []) => {
+                const CMsun = 'SUN';
+                const CMmon = 'MON';
+                const CMtue = 'TUE';
+                const CMwed = 'WED';
+                const CMthr = 'THUR';
+                const CMfri = 'FRI';
+                const CMsat = 'SAT';
+              
+                let vlsun = 0;
+                let vlmon = 0;
+                let vltue = 0;
+                let vlwed = 0;
+                let vlthr = 0;
+                let vlfri = 0;
+                let vlsat = 0;
+
+                
+              
+                const completedRequest = [];
+                const completedVerValue = [];
+                data.forEach((x: any) => {
+                  if (x.dayOfTheWeek === 'Monday') {
+                    vlmon += x.verificationCount || x.verificationCount;
+                  }
+                  if (x.dayOfTheWeek === 'Tuesday') {
+                    vltue += x.verificationCount || x.verificationCount;
+                  }
+                  if (x.dayOfTheWeek === 'Wednesday') {
+                    vlwed += x.verificationCount || x.verificationCount;
+                  }
+                  if (x.dayOfTheWeek === 'Thursday') {
+                    vlthr += x.verificationCount || x.verificationCount;
+                  }
+                  if (x.dayOfTheWeek === 'Friday') {
+                    vlfri += x.verificationCount || x.verificationCount;
+                  }
+                  if (x.dayOfTheWeek === 'Saturday') {
+                    vlsat += x.verificationCount || x.verificationCount;
+                  }
+                  if (x.dayOfTheWeek === 'Sunday') {
+                    vlsun += x.verificationCount || x.verificationCount;
+                  }
+                });
+                completedRequest.push(CMsun, CMmon, CMtue, CMwed, CMthr, CMfri, CMsat);
+                completedVerValue.push(vlsun, vlmon, vltue, vlwed, vlthr, vlfri, vlsat);
+                return {
+                  completedRequest,
+                  completedVerValue,
+                };
+              };
+              
+              const formatMonth = (data = []) => {
+                const CMjan = 'JAN';
+                const CMfeb = 'FEB';
+                const CMmar = 'MAR';
+                const CMapr = 'APR';
+                const CMmay = 'MAY';
+                const CMjun = 'JUN';
+                const CMjul = 'JUL';
+                const CMaug = 'AUG';
+                const CMsep = 'SEP';
+                const CMoct = 'OCT';
+                const CMnov = 'NOV';
+                const CMdec = 'DEC';
+              
+                let vlJan = 0;
+                let vlFeb = 0;
+                let vlMar = 0;
+                let vlApr = 0;
+                let vlMay = 0;
+                let vlJun = 0;
+                let vlJul = 0;
+                let vlAug = 0;
+                let vlSep = 0;
+                let vlOct = 0;
+                let vlNov = 0;
+                let vlDec = 0;
+                
+               
+              
+                const completedRequest = [];
+                const completedVerValue = [];
+                data.forEach((x: any) => {
+                  if (x.month === 'Feb') {
+                    vlFeb += x.verificationCount || x.verificationCount;
+                  }
+                  if (x.month === 'Mar') {
+                    vlMar += x.verificationCount || x.verificationCount;
+                  }
+                  if (x.month === 'Apr') {
+                    vlApr += x.verificationCount || x.verificationCount;
+                  }
+                  if (x.month === 'May') {
+                    vlMay += x.verificationCount || x.verificationCount;
+                  }
+                  if (x.month === 'Jun') {
+                    vlJun += x.verificationCount || x.verificationCount;
+                  }
+                  if (x.month === 'Jul') {
+                    vlJul += x.verificationCount || x.verificationCount;
+                  }
+                  if (x.month === 'Aug') {
+                    vlAug += x.verificationCount || x.verificationCount;
+                  }
+                  if (x.month === 'Sep') {
+                    vlSep += x.verificationCount || x.verificationCount;
+                  }
+                  if (x.month === 'Oct') {
+                    vlOct += x.verificationCount || x.verificationCount;
+                  }
+                  if (x.month === 'Nov') {
+                    vlNov += x.verificationCount || x.verificationCount;
+                  }
+                  if (x.month === 'Dec') {
+                    vlDec += x.verificationCount || x.verificationCount;
+                  }
+                  if (x.month === 'Jan') {
+                    vlJan += x.verificationCount || x.verificationCount;
+                  }
+                });
+                completedRequest.push(
+                  CMjan,
+                  CMfeb,
+                  CMmar,
+                  CMapr,
+                  CMmay,
+                  CMjun,
+                  CMjul,
+                  CMaug,
+                  CMsep,
+                  CMoct,
+                  CMnov,
+                  CMdec,
+                );
+                completedVerValue.push(
+                  vlJan,
+                  vlFeb,
+                  vlMar,
+                  vlApr,
+                  vlMay,
+                  vlJun,
+                  vlJul,
+                  vlAug,
+                  vlSep,
+                  vlOct,
+                  vlNov,
+                  vlDec,
+                );
+                
+                return {
+                  completedRequest,
+                  completedVerValue,
+                };
+              };
+
+              const formatYear = (data = []) => {
+                
+                let verValue = 0
+                let orgValue = 0
+                let value = ''
+                
+              
+                let completedRequest: any = [];
+                let completedVerValue: any = [];
+                data.forEach((x: any) => {
+                  if (x.year) {
+                    verValue = x.verificationCount || x.verificationCount;
+                    value = x.year || x.year;
+                  }
+                  
+                  completedRequest.push(value);
+                  completedVerValue.push(verValue);
+                });
+                
+                return {
+                  completedRequest,
+                  completedVerValue,
+                };
+              };
+
+              let revenueStatisticsBar = {};
+		if (action.payload.range === 2) {
+			revenueStatisticsBar = formatDaily(data.payload.verificationAnalyticsVMs);
+		}
+		if (action.payload.range === 0) {
+			revenueStatisticsBar = formatMonth(data.payload.verificationAnalyticsVMs);
+		}
+		if (action.payload.range === 5) {
+			revenueStatisticsBar = formatMonth(data.payload.verificationAnalyticsVMs);
+		}
+		if (action.payload.range === 3) {
+			revenueStatisticsBar = formatMonth(data.payload.verificationAnalyticsVMs);
+		}
+    if (action.payload.range === 4) {
+			revenueStatisticsBar = formatYear(data.payload.verificationAnalyticsVMs);
+		}
+        
+		data.payload.verificationAnalyticsVMs = revenueStatisticsBar;
               // read data and update payload
-              return getOrganizationVeficiationAnalysisSuccess({
+              return getOrganizationVerificationAnalysisDataSuccess({
                 payload: data.payload
                  
               });
@@ -637,6 +836,7 @@ export class DashboardEffects {
     );
   });
 
+ 
  
 
   

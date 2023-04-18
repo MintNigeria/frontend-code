@@ -5,7 +5,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import { DashboardService } from 'src/app/core/services/dashboard/dashboard.service';
 import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
-import { getAllDashboardInfoData, getOrganizationDashboardBottomInfo, getOrganizationDashboardBottomInfoSuccess, getOrganizationDashboardInfo, getOrganizationDashboardInfoSuccess, getOrganizationVeficiationAnalysis, getOrganizationVeficiationAnalysisSuccess } from 'src/app/store/dashboard/action';
+import { getAllDashboardInfoData, getOrganizationDashboardBottomInfo, getOrganizationDashboardBottomInfoSuccess, getOrganizationDashboardInfo, getOrganizationDashboardInfoSuccess, getOrganizationVerificationAnalysisData, getOrganizationVerificationAnalysisDataSuccess } from 'src/app/store/dashboard/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import {Chart} from 'chart.js/auto'
 import { isUserSelector } from 'src/app/store/auth/selector';
@@ -26,6 +26,7 @@ export class DashboardComponent implements OnInit {
   userData: any;
   verificationData: any;
   topVerification: any;
+  selectedDateType!: string;
   constructor(
     private appStore: Store<AppStateInterface>,
     private store: Store,
@@ -52,15 +53,6 @@ export class DashboardComponent implements OnInit {
       }, 3000);
     })
 
-    // called directly as a temporaty fix. 
-    this.dashboardService.getOrganizationVerificationAnalysis({...this.filter, organizationId: this.userData.OrganizationId}).subscribe((res: any) => {
-      console.log(res)
-    })
-
-    // this.store.dispatch(getOrganizationVeficiationAnalysis({payload: {...this.filter, organizationId: this.userData.OrganizationId}}))
-    // this.actions$.pipe(ofType(getOrganizationVeficiationAnalysisSuccess)).subscribe((res: any) => {
-    //   //console.log(res)
-    // })
   }
 
   changeRange(range: number) {
@@ -79,12 +71,6 @@ export class DashboardComponent implements OnInit {
 
               this.store.dispatch(getOrganizationDashboardInfo({payload: {...this.filter, organizationId: this.userData.OrganizationId}}))
 
-              // this.store.dispatch(getAllDashboardInfoData({payload: this.filter}))
-              // called directly as a temporaty fix. 
-    this.dashboardService.getOrganizationVerificationAnalysis({...this.filter, organizationId: this.userData.OrganizationId}).subscribe((res: any) => {
-      console.log(res)
-    })
-
               
             }
             
@@ -95,10 +81,34 @@ export class DashboardComponent implements OnInit {
 
           this.store.dispatch(getOrganizationDashboardInfo({payload: {...this.filter, organizationId: this.userData.OrganizationId}}))
 
-          // called directly as a temporaty fix. 
-    this.dashboardService.getOrganizationVerificationAnalysis({...this.filter, organizationId: this.userData.OrganizationId}).subscribe((res: any) => {
-      console.log(res)
-    })
+        }
+  }
+  changeTopListRange(range: number, name: string) {
+    this.selectedDateType = name
+    if (range === 5) {
+      // launch calender
+      const dialogRef = this.dialog.open(DateRangeComponent, {
+        // width: '600px',
+        height: 'auto',
+        disableClose: true,
+      });
+      dialogRef.afterClosed().subscribe((res: any) => {
+        if (res) {
+              const {start , end} = res; // use this start and end as fromDate and toDate on your filter
+              const filter = {...this.filter, ['startDate'] : start, ['endDate'] : end, range: 5}
+              this.filter = filter;
+
+              this.store.dispatch(getOrganizationDashboardBottomInfo({payload: {...this.filter, organizationId: this.userData.OrganizationId}}))
+
+              
+            }
+            
+          })
+        } else {
+          const filter = {...this.filter, ['range'] : range};
+          this.filter = filter;
+
+          this.store.dispatch(getOrganizationDashboardBottomInfo({payload: {...this.filter, organizationId: this.userData.OrganizationId}}))
 
         }
   }
@@ -119,7 +129,10 @@ export class DashboardComponent implements OnInit {
     })
     const t_ctx = document.getElementById('consentData') as unknown as any;
     const ctx = t_ctx.getContext('2d')
-  
+    const chartExist = Chart.getChart('consentData')
+    if(chartExist != undefined) {
+      chartExist.destroy(); 
+    }
     const myChart = new Chart(ctx, {
       type: 'bar',
       data: {
