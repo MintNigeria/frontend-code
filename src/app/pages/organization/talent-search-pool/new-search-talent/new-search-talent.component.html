@@ -2,13 +2,13 @@
     <!--Header-->
     <div class="flex  items-center md:gap-4 gap-2 ">
         <div>
-            <img [routerLink]="'/organization/transaction'" src="assets/images/icons/home.svg" alt="home-icon">
+            <img [routerLink]="'/organization/talent-search-pool'" src="assets/images/icons/home.svg" alt="home-icon">
         </div>
         <div>
             <img src="assets/images/icons/forward_arrow.svg" alt="forward-arrow">
         </div>
 
-        <div>
+        <div [routerLink]="'/organization/talent-search-pool'">
             <p class="text-primaryBlue font-inter md:text-base text-sm font-medium cursor-pointer">
                 Talent Search Pool
             </p>
@@ -168,11 +168,11 @@
             </div>
 
             <div class="flex justify-end items-center gap-4 mt-4">
-                <app-button
+                <!-- <app-button
                 
                 [overRideButtonClass]="true"
                 customClass="p-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
-                >Cancel</app-button>
+                >Cancel</app-button> -->
                 <app-button
                 (buttonClick)="generateReport()"
                 [overRideButtonClass]="true"

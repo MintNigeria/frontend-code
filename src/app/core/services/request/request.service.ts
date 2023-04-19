@@ -111,4 +111,28 @@ export class RequestService
       `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionRequest/InstitutionRequest/${requestId}`
     );
   }
+
+  exportInstitutionGraduateRequestCSV(payload : any){
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionRequest/ExportRequestsAsCSV/ExportAsCSV`, {params: payload}
+    );
+  }
+  exportInstitutionGraduateRequestExcel(payload : any){
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionRequest/ExportRequestsAsExcel/ExportAsExcel`, {params: payload}
+    );
+  }
+
+  exportInstitutionOrganizatonRequestCSV(payload : any){
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionRequest/ExportVerificationsAsCSV/ExportVerifcationsAsCSV`, {params: payload}
+    );
+  }
+
+  exportInstitutionOrganizatonRequestExcel(payload : any){
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionRequest/ExportVerificationsAsExcel/ExportVerifcationsAsExcel`, {params: payload}
+    );
+  }
+  
 }

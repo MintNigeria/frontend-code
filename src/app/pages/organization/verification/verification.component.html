@@ -36,7 +36,7 @@
     <!--Filters-->
 
     <div class="w-full  rounded-xl shadow-sm p-6 border-none  bg-tabBlue">
-            <form>
+            <div>
                 <div class="flex md:flex-row md:justify-between md:items-center  flex-col w-full">
                     <div class="lg:flex lg:justify-between gap-4 grid grid-cols-2 ">
                         <div class="lg:justify-between gap-4">
@@ -69,7 +69,7 @@
                                 <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedInstitution }}</p>
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
                                 </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-56">
+                                <ul tabindex="0" class="dropdown-content  menu p-2 shadow bg-white text-black rounded-box w-56">
                                     <li><a (click)="selectedInstitution='All'">All</a></li>
                                     <li *ngFor="let unit of institutionList"> <a  (click)="changeInstitution(unit.institutionName)">{{unit?.institutionName}}</a></li>
                                 </ul>
@@ -82,12 +82,12 @@
                             </p>
                             <div class="dropdown dropdown-bottom">
                                 <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
-                                <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedSector }}</p>
+                                <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedFaculty }}</p>
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
                                 </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-56">
+                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-56">
                                     <li><a (click)="selectedFaculty='All'">All</a></li>
-                                    <li *ngFor="let unit of facultyList"> <a #faculty (click)="changeFaculty(unit.id, unit.name)">{{unit?.name}}</a></li>
+                                    <li *ngFor="let unit of facultyList"> <a  (click)="changeFaculty(unit.id, unit.name)">{{unit?.name}}</a></li>
                                     
                                 </ul>
                             </div>
@@ -101,7 +101,7 @@
                                     <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedSector }}</p>
                                     <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
                                 </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-56">
+                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-56">
                                     <li><a (click)="selectedSector='All'">All</a></li>
                                     <li *ngFor="let unit of departmentList"> <a  (click)="changeDepartment(unit.id, unit.departmentName)">{{unit?.departmentName}}</a></li>
                                 </ul>
@@ -116,7 +116,7 @@
                     </div>
                     
                 </div>
-            </form>
+            </div>
     </div>
 
     <!---->
@@ -131,7 +131,7 @@
                     <div class="flex md:flex-row md:justify-between md:items-center flex-col w-full">
                         <div class="flex lg:justify-between gap-4">
                             <app-search 
-                            [placeholder]="'Search...'"
+                            [placeholder]="'Search by name, Verification Id'"
                             (iconSearch)="search($event)"
                             [formGrp]="searchForm" formCtrlName="searchPhrase"  
                             ></app-search>
@@ -266,7 +266,7 @@
                 Showing 1 to 7 of {{ transactionList.length }} entries
             </p> -->
         <div class="flex item gap-3">
-          <pagination-controls (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next">
+          <pagination-controls (pageChange)="getPage(filter.pageIndex = $event)" previousLabel="Prev" nextLabel="Next">
           </pagination-controls>
 
         </div>

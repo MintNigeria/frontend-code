@@ -1,0 +1,11 @@
+.menu-item {
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: #4b5563; /* gray-700 */
+  font-size: 0.875rem; /* text-sm */
+}
+
+.menu-item:hover {
+  background-color: #f3f4f6; /* gray-100 */
+}

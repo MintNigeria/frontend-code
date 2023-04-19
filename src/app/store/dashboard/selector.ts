@@ -7,6 +7,14 @@ export const dashboardSelector = createSelector(
   selectFeature,
   (state) => state.dashBoard
 )
+export const dashboardRevenueSelector = createSelector(
+  selectFeature,
+  (state) => state.institutionRevenueAnalysis
+)
+export const dashboardTopInstitutionSelector = createSelector(
+  selectFeature,
+  (state) => state.institutionTopInstitution
+)
 
 export const dashboardCardSelector = createSelector(
   selectFeature,

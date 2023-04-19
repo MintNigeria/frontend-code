@@ -215,35 +215,35 @@
             <button
             routerLink="/institution/transactions"
             type="button"
-            class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+            class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700"
             >
             View report
             </button>
         </div>
     </div>
     <div class="inline-flex rounded-md shadow-sm mb-6 bg-white" role="group">
-      <button (click)="changeRange(0)" type="button"
+      <button (click)="changeRevenueRange(0)" type="button"
         class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
         All Time
       </button>
   
-      <button (click)="changeRange(4)" type="button"
+      <button (click)="changeRevenueRange(4)" type="button"
         class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
         12 month
       </button>
-      <button (click)="changeRange(3)" type="button"
+      <button (click)="changeRevenueRange(3)" type="button"
         class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
         30 days
       </button>
-      <button (click)="changeRange(2)" type="button"
+      <button (click)="changeRevenueRange(2)" type="button"
         class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
         7 days
       </button>
-      <button (click)="changeRange(1)" type="button"
+      <button (click)="changeRevenueRange(1)" type="button"
         class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
         24 hours
       </button>
-      <button (click)="changeRange(5)" type="button"
+      <button (click)="changeRevenueRange(5)" type="button"
         class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
         Custom date
       </button>
@@ -267,8 +267,8 @@
       </div> -->
     </div>
     <div>
-      <canvas id="request"></canvas>
-
+      <!-- <canvas id="request"></canvas> -->
+      <app-revenue-chart [revenueChartData]="revenueAnalysisData"></app-revenue-chart>
     </div>
   </div>
 
@@ -287,7 +287,8 @@
           </p>
         </div>
         <div class=" w-8/12 h-8/12">
-          <canvas id="pieData"></canvas>
+          <!-- <canvas id="pieData"></canvas> -->
+          <app-revenue-pie-chart [revenueAnalysisData]="revenueAnalysisData"></app-revenue-pie-chart>
         </div>
       </div>
       <div>
@@ -348,7 +349,7 @@
           <button
           routerLink="/institution/requests/organization"
             type="button"
-            class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+            class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 "
           >
             View Details
           </button>
@@ -359,7 +360,8 @@
         <!-- <canvas role="img" #distributionChart style="height: 500px; width: 100%; " >
           {{ distributionChart }}
         </canvas> -->
-        <canvas id="consentData"></canvas>
+        <!-- <canvas id="consentData"></canvas> -->
+        <app-top-institution-chart [topInstitutionRequests]="topInstitutionRequestData"></app-top-institution-chart>
       </div>
     </div>
   </div>

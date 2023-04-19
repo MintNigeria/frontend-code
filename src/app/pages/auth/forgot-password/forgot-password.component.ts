@@ -36,7 +36,6 @@ export class ForgotPasswordComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.currentRoute = this.route.snapshot.url[1].path;
     this.initLoginForm();
   }
 

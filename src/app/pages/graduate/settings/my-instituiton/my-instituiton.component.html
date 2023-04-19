@@ -1,177 +1,49 @@
 <div class="border-1.5 rounded-t-md">
-    <h3 class="py-4  border-b-1.5 px-6 font-sans font-bold text-base text-black">Institutions</h3>
-    <div class="p-6 " [formGroup]="profileForm">
-        <div class="border-b" >
-            <div class="lg:w-10/12 " >
-                <div class="flex gap-6 mb-9" >
-                    <div class="w-full md:w-1/4">
-                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                            Institution Body
-                        </label>
+    <div class="flex justify-between items-center border-b-1.5 py-4   px-6">
+        <h3 class=" font-sans font-bold text-base text-black">Institutions</h3>
+        <app-button (buttonClick)="addNewInstitution()" buttonText="Add institution" customClass="text-sm text-white font-inter rounded-lg font-medium px-4 py-2.5 bg-primaryBlue" [overRideButtonClass]="true"></app-button>
+    </div>
+    <div class="p-6" *ngIf="!isNewInstitution">
+        <div class="overflow-x-auto mt-3 hide-scrollbar border rounded-xl shadow-sm" >
+            <table class="table w-full">
+            <thead>
+                <tr>
+                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader">Institution Name</th>
+                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader"> Institution Type</th>
+                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader"> Institution Sector</th>
+                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader">Institution Body</th>
+                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader"> </th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                <tr *ngFor="let data of updatedList; let i = index">
+                <td class="bg-white"> 
+                    <p class="font-inter font-medium text-base text-darkGray">{{data.institutionName}}</p>
+                </td>
+                <td class="bg-white">
+                    <p class="font-inter font-normal text-base text-lightGray">{{data.institutionType}}</p>
+                </td>
+                <td class="bg-white">
+                    <p class="font-inter font-normal text-base text-lightGray">{{data.institutionSector}}</p>
+                </td>
+                <td class="bg-white"> {{data.institutionBody}}</td>
+                <td class="bg-white">
+                    <div class="flex gap-3">
+                        <p class="font-inter font-medium text-base text-primaryBlue cursor-pointer" (click)="editInstitution(data, i, 'update')">Edit</p>
+                        <p class="font-inter font-medium text-base text-primaryBlue cursor-pointer" (click)="deleteInstitution(data, i)">Delete</p>
                     </div>
-                    <div class="w-full md:w-2/3">
-                        <div class="">
-                            <app-input 
-                            [readonly]="true"
-                            [formGrp]="profileForm" 
-                            formCtrlName="body" 
-                            [type]="'text'" 
-                            [class]="'px-4 h-[52px] w-full bg-grayWhite border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
-                            Issuer="Enter your Institution"
-                            [name]="'name'"></app-input>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex gap-6 mb-9">
-                    <div class="w-full md:w-1/4">
-                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                            Institution Type
-                        </label>
-                    </div>
-                    <div class="w-full md:w-2/3">
-                        <div class="">
-                            <app-input 
-                            [readonly]="true"
-                            [formGrp]="profileForm" 
-                            formCtrlName="type" 
-                            [type]="'text'" 
-                            [class]="'px-4 h-[52px] w-full bg-grayWhite border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
-                            Issuer="Enter your Institution"
-                            [name]="'name'"></app-input>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex gap-6 mb-9">
-                    <div class="w-full md:w-1/4">
-                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                           Institution Sector
-                        </label>
-                    </div>
-                    <div class="w-full md:w-2/3">
-                        <div class="">
-                            <app-input 
-                            [readonly]="true"
-                            [formGrp]="profileForm" 
-                            formCtrlName="sector" 
-                            [type]="'text'" 
-                            [class]="'px-4 h-[52px] w-full bg-grayWhite border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
-                            Issuer="Enter your Institution"
-                            [name]="'name'"></app-input>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex gap-6 mb-9">
-                    <div class="w-full md:w-1/4">
-                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                           Institution Name
-                        </label>
-                    </div>
-                    <div class="w-full md:w-2/3">
-                        <div class="">
-                            <app-input 
-                            [readonly]="true"
-                            [formGrp]="profileForm" 
-                            formCtrlName="name" 
-                            [type]="'text'" 
-                            [class]="'px-4 h-[52px] w-full bg-grayWhite border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
-                            Issuer="Enter your Institution"
-                            [name]="'name'"></app-input>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex gap-6 mb-9">
-                    <div class="w-full md:w-1/4">
-                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                           Faculty
-                        </label>
-                    </div>
-                    <div class="w-full md:w-2/3">
-                        <div class="w-full ">
-                            <ng-select class="custom-ng-dropdown"
-                            formControlName="faculty"
-                            [selectOnTab]="true"
-                            placeholder="Select Faculty"
-                            
-                            >
-                            <ng-option *ngFor="let unit of facultyList" [value]="unit">{{unit.name}}</ng-option>
-                        </ng-select>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex gap-6 mb-9">
-                    <div class="w-full md:w-1/4">
-                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                           Department
-                        </label>
-                    </div>
-                    <div class="w-full md:w-2/3">
-                        <div class="w-full ">
-                            <ng-select class="custom-ng-dropdown"
-                            formControlName="department"
-                            [selectOnTab]="true"
-                            placeholder="Select Department"
-                            
-                            >
-                            <ng-option *ngFor="let unit of departmentList" [value]="unit">{{unit.departmentName}}</ng-option>
-                        </ng-select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex gap-6 mb-9">
-                    <div class="w-full md:w-1/4">
-                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                           Year of Entry
-                        </label>
-                    </div>
-                    <div class="w-full md:w-2/3">
-                        <div class="w-full ">
-                            <ng-select class="custom-ng-dropdown"
-                            formControlName="yearOfEntry"
-                            [selectOnTab]="true"
-                            placeholder="Select year of entry"
-                            
-                            >
-                            <ng-option *ngFor="let unit of years" [value]="unit">{{unit}}</ng-option>
-                        </ng-select>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex gap-6 mb-9">
-                    <div class="w-full md:w-1/4">
-                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                           Year of Graduation
-                        </label>
-                    </div>
-                    <div class="w-full md:w-2/3">
-                        <div class="w-full ">
-                            <ng-select class="custom-ng-dropdown"
-                            formControlName="yearOfGraduation"
-                            [selectOnTab]="true"
-                            placeholder="Select year of graduation"
-                            
-                            >
-                            <ng-option *ngFor="let unit of years" [value]="unit">{{unit}}</ng-option>
-                        </ng-select>
-                        </div>
-                        <div class="flex gap-3 items-center mt-3">
-                            <img src="assets/images/icons/xgray.svg" alt="delete">
-                            <p class="font-inter font-medium text-base text-lightGray">Delete institution</p>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-           
-        </div>
-
-
-         <div class="flex gap-3 items-center mt-3">
-            <img src="assets/images/icons/add.svg" alt="add">
-            <p class="font-inter font-medium text-base text-lightGray" (click)="addNewInstitution()">Add another institution</p>
+                </td>
+                </tr>
+            </tbody>
+            </table>
         </div>
         
-        <div class="border-b mt-4" [formGroup]="newInstitution" *ngIf="isNewInstitution">
+    </div>
+    <div class="p-6 " >
+ 
+        
+        <div class=" mt-4" [formGroup]="newInstitution" *ngIf="isNewInstitution">
             <div class="lg:w-10/12 ">
                 <div class="flex gap-6 mb-9">
                     <div class="w-full md:w-1/4">
@@ -310,31 +182,34 @@
                             <ng-option *ngFor="let unit of years" [value]="unit">{{unit}}</ng-option>
                         </ng-select>
                         </div>
-                        <div class="flex gap-3 items-center mt-3">
-                            <img src="assets/images/icons/xgray.svg" alt="delete">
-                            <p class="font-inter font-medium text-base text-lightGray">Delete institution</p>
-                        </div>
+                       
                     </div>
                 </div>
                 
             </div>
            
+            <div class="flex justify-end items-center border-t pt-4 gap-4 mt-4">
+                <app-button
+                (buttonClick)="cancelCreate()"
+                [overRideButtonClass]="true"
+                customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
+                >Cancel</app-button>
+                <app-button *ngIf="isNewInstitution && institutionAction === 'Save'"
+                (buttonClick)="openChangesConfirmed()"
+                [disabled]="newInstitution.invalid"
+                [overRideButtonClass]="true"
+                customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
+                >Save</app-button>
+                <app-button *ngIf="institutionAction !== 'Save'"
+                (buttonClick)="updatedInstitutionList()"
+                [overRideButtonClass]="true"
+                customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
+                >Update</app-button>
+            </div>
         </div>
 
 
         
-        <div class="flex justify-end items-center gap-4 mt-4">
-            <app-button
-            
-            [overRideButtonClass]="true"
-            customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
-            >Cancel</app-button>
-            <app-button
-            (buttonClick)="openChangesConfirmed()"
-            [overRideButtonClass]="true"
-            customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
-            >Save</app-button>
-        </div>
     </div>
 </div>
 

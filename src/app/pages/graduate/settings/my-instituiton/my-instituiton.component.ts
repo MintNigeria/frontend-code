@@ -41,7 +41,10 @@ export class MyInstituitonComponent implements OnInit {
     SectorId: '',
   }
   institutionList: any;
-  updatedList: any;
+  updatedList: any = [];
+  institutionAction: string = 'Save';
+  newUpdatedList: any;
+  selectedInstitutionId: any;
   constructor(
     private fb: FormBuilder,
     private store: Store,
@@ -59,29 +62,22 @@ export class MyInstituitonComponent implements OnInit {
     this.graduateId = this.graduateData.GraduateId
     this.store.dispatch(getGraduateInstitutions({id: this.graduateId}))
     this.actions$.pipe(ofType(getGraduateInstitutionsSuccess)).subscribe((res: any) => {
-      this.populateForm(res.payload.payload[0])
-      // res.payload.payload.forEach((data: any, index: number) => {
-      //   (<FormArray>this.profileForm.get('institutionVms')).push(this.fb.group({
-      //     name: [data.institutionName, Validators.required],
-      // body: [data.institutionBody, Validators.required],
-      // sector: [data.institutionSector, Validators.required],
-      // email: [data.institutionType, Validators.required],
-      // faculty: [data.faculty, Validators.required],
-      // department: [data.department, Validators.required],
-      // yearOfEntry: [data.yearOfEntry, Validators.required],
-      // yearOfGraduation: [data.yearOfGraduation, Validators.required],
-      //   }))
-      // });
-      this.updatedList = res.payload.payload
-      res.payload.payload.forEach((data: any, index: number) => {
-
-        const name = res.payload.payload[0].institutionName
-        this.store.dispatch(getFacultyAndDepartmentByInstitutionName({payload: {institutionName: name}}))
-        this.actions$.pipe(ofType(getFacultyAndDepartmentByInstitutionNameSuccess)).subscribe((res: any) => {
-          this.facultyList = res.payload.payload;
-          //console.log(res)
-        })
+      
+      this.updatedList = res.payload.payload.map((x: any) => {
+        return {
+            id: x.id,
+            institutionName: x.institutionName,
+            institutionBody: x.institutionBody,
+            institutionType: x.institutionType,
+            institutionSector: x.institutionSector,
+            faculty: x.faculty,
+            department: x.department,
+            yearOfEntry: x.yearOfEntry,
+            yearOfGraduation: x.yearOfGraduation,
+            isRemoved: false
+        }
       })
+      
     })
     let currentYear = new Date().getFullYear();   
     for (let index = 1920; index <= currentYear; ++index) {
@@ -106,35 +102,13 @@ export class MyInstituitonComponent implements OnInit {
     })
   }
 
-  featureControl(id: number) {
-    let control = this.institutions.controls[id] as FormGroup
-    return control
-  }
 
-  get institutions () {
-    return this.profileForm.get('institutionVms') as FormArray
-  }
-
-  createItem(): FormGroup {
-    return this.fb.group({
-      body: '',
-      name: '',
-      type: '',
-      sector: '',
-      email: '',
-      faculty: '',
-      department: '',
-      yearOfEntry: '',
-      yearOfGraduation: '',
-    });
-  }
 
   initNewInstitutionForm() {
     this.newInstitution = this.fb.group({
       body: ['', Validators.required],
       name: ['', Validators.required],
       type: ['', Validators.required],
-      email: ['', Validators.required],
       faculty: ['', Validators.required],
       department: ['', Validators.required],
       yearOfEntry: ['', Validators.required],
@@ -206,8 +180,22 @@ export class MyInstituitonComponent implements OnInit {
 
   }
 
-  populateForm(data: any) {
-    this.profileForm.patchValue({
+
+  
+  
+  cancelCreate() {
+    this.isNewInstitution = false;
+  }
+  
+  editInstitution(data: any, index: number, action: string) {
+    this.institutionAction = action
+    this.isNewInstitution = true
+    this.selectedInstitutionId = data.id
+    this.newUpdatedList= this.updatedList.filter((element: any) => element.id !== data.id)
+
+    this.addNewInstitution()
+    this.newInstitution.patchValue({
+
       name: data.institutionName,
       body: data.institutionBody,
       sector: data.institutionSector,
@@ -216,11 +204,10 @@ export class MyInstituitonComponent implements OnInit {
       department: data.department,
       yearOfEntry: data.yearOfEntry,
       yearOfGraduation: data.yearOfGraduation,
-      
-      
     })
-  }
 
+    // this
+  }
 
   
 
@@ -239,31 +226,88 @@ export class MyInstituitonComponent implements OnInit {
   }
 
   saveUpdates() {
-    if (this.isNewInstitution === true) {
       // use this for new institution submission 
       const {name, body, type, sector, faculty, department, yearOfEntry, yearOfGraduation} = this.newInstitution.value;
       const payload = {
-        isRemoved: false,
-        name, body, type, sector, faculty, department, yearOfEntry: String(yearOfEntry), yearOfGraduation: String(yearOfGraduation)
+        institutionName: name, 
+        institutionBody: body, 
+        institutionType: type, 
+        institutionSector: sector, faculty, department, yearOfEntry: String(yearOfEntry), yearOfGraduation: String(yearOfGraduation)
 
       }
       // console.log(payload, this.upd)
       const data = [payload, ...this.updatedList]
-      console.log(data)
       this.store.dispatch(updateGraduateInstitutions({payload: data, id: this.graduateId}))
       this.actions$.pipe(ofType(updateGraduateInstitutionsSuccess)).subscribe((res: any) => {
         // console.log(res)
         if (res.payload.hasErrors === false) {
           this.notification.publishMessages('success', res.payload.description)
+          this.isNewInstitution = false
           document.getElementById('confirmChanges')?.click();
           this.store.dispatch(getGraduateInstitutions({id: this.graduateId}))
-
         }
       })
-    }
     // console.log(this.profileForm.value)
     
   }
+  
+  updatedInstitutionList() {
+    // use edit here
+    const {name, body, type, sector, faculty, department, yearOfEntry, yearOfGraduation} = this.newInstitution.value;
+    console.log(this.newInstitution.value)
+    const payload = {
+      id: this.selectedInstitutionId,
+      isRemoved: false,
+      institutionName: name, 
+      institutionBody: body, 
+      institutionType: type, 
+      institutionSector: sector, faculty, department, yearOfEntry: String(yearOfEntry), yearOfGraduation: String(yearOfGraduation)
+  
+    }
+    // console.log(payload, this.upd)
+    const data = [payload, ...this.newUpdatedList]
+    console.log(data)
+    this.store.dispatch(updateGraduateInstitutions({payload: data, id: this.graduateId}))
+    this.actions$.pipe(ofType(updateGraduateInstitutionsSuccess)).subscribe((res: any) => {
+      // console.log(res)
+      if (res.payload.hasErrors === false) {
+        this.notification.publishMessages('success', res.payload.description)
+        this.isNewInstitution = false
+        this.store.dispatch(getGraduateInstitutions({id: this.graduateId}))
+      }
+    })
+
+  }
+
+  deleteInstitution(data: any, index: number) {
+    let prev = this.updatedList.filter((element: any) => element.id !== data.id)
+    
+    const payload = {
+      id: data.id,
+      institutionName: data.institutionName,
+      institutionBody: data.institutionBody,
+      institutionType: data.institutionType,
+      institutionSector: data.institutionSector,
+      faculty: data.faculty,
+      department: data.department,
+      yearOfEntry: data.yearOfEntry,
+      yearOfGraduation: data.yearOfGraduation,
+      isRemoved: true
+    }
+    const result = [payload, ...prev]
+    this.store.dispatch(updateGraduateInstitutions({payload: result, id: this.graduateId}))
+    this.actions$.pipe(ofType(updateGraduateInstitutionsSuccess)).subscribe((res: any) => {
+      if (res.payload.hasErrors === false) {
+        this.notification.publishMessages('success', res.payload.description)
+        this.store.dispatch(getGraduateInstitutions({id: this.graduateId}))
+
+      }
+    })
+
+
+  }
+
+
 
 
 }

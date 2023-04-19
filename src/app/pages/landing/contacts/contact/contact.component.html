@@ -1,0 +1,147 @@
+
+
+<main class="py-8 md:py-20">
+  <div class="mb-4 md:mb-10">
+    <p class="font-jost text-center text-[#253858] font-semibold text-2xl md:text-3xl">Get in Touch</p>
+    <p class="text-center font-nunito text-[#667085] my-3 md:my-5">
+      We’d love to talk about how we can help you.
+    </p>
+  </div>
+
+  <div class="flex flex-col md:flex-row px-4 md:px-52">
+    <div class="w-full md:w-1/2">
+      <div class="p-4">
+        <div class="flex items-start gap-3">
+          <img src="assets/images/icons/location.svg" alt="">
+          <div>
+            <div class="">
+              <h2 class="text-xl font-inter text-headerGray font-semibold mb-2">Corporate Headquarters</h2>
+              <p class="font-inter font-normal text-base text-lightGray w-56">Plot 167 Ladoke Akintola Boulevard, Garki, F.C.T Abuja</p>
+            </div>
+            <div class="mt-6">
+              <h2 class="text-2xl font-inter text-headerGray font-semibold mb-2">Lagos</h2>
+              <p class="font-inter font-normal text-base text-lightGray w-56">26, Ahmadu Bello Way, Victoria Island, Lagos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4">
+        <div class="flex items-start gap-3">
+          <img src="assets/images/icons/cell.svg" alt="">
+          <div>
+            <div class="">
+              <h2 class="text-xl font-inter text-headerGray font-semibold mb-2">Phone</h2>
+              <p class="font-inter font-medium text-base text-primaryBlue underline w-56">+234 906 227 4656</p>
+              <p class="font-inter font-medium text-base text-primaryBlue underline w-56">+234 909 669 7082</p>
+              <p class="font-inter font-medium text-base text-primaryBlue underline w-56">+234 1 463 7369</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4">
+        <div class="flex items-start gap-3">
+          <img src="assets/images/icons/email.svg" alt="">
+          <div>
+            <div class="">
+              <h2 class="text-xl font-inter text-headerGray font-semibold mb-2">Email</h2>
+              <p class="font-inter font-medium text-base text-primaryBlue  w-56">vacproject@mintnigeria.com</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-full md:w-1/2 mt-8 md:mt-0 border rounded-lg p-4 md:p-12">
+      <form [formGroup]="contactForm">
+         <div class="flex gap-3 w-auto">
+          <div class="">
+              <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                  First Name
+              </label>
+              <app-input 
+              [formGrp]="contactForm" 
+              formCtrlName="firstName" 
+              [type]="'text'" 
+              [class]="'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+              Issuer=""
+              [name]="'name'"></app-input>
+          </div>
+          <div class="mb-2">
+              <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                  Last Name
+              </label>
+              <app-input 
+              [formGrp]="contactForm" 
+              formCtrlName="lastName" 
+              [type]="'text'" 
+              [class]="'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+              Issuer=""
+              [name]="'name'"></app-input>
+          </div>
+        </div>
+        <div class="mb-2">
+              <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                  Email
+              </label>
+              <app-input 
+              [formGrp]="contactForm" 
+              formCtrlName="email" 
+              [type]="'text'" 
+              [class]="'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+              Issuer=""
+              [name]="'name'"></app-input>
+          </div>
+        <div class="mb-4">
+          <label for="phone-number" 
+          class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">Phone Number</label>
+          <div class="flex border rounded-lg">
+            <select id="country-code" class="rounded-l-lg bg-white border w-32">
+              <option *ngFor="let countryCode of countryCodes" [value]="countryCode.code" [selected]="countryCode.default">
+                {{ countryCode.code }}
+              </option>
+            </select>
+            <app-input
+            [formGrp]="contactForm" 
+            formCtrlName="tel" 
+            [type]="'tel'" 
+            id="phone-number" 
+            class="px-4 h-[52px] w-full bg-white border-none focus:bg-white  rounded-r-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
+            </app-input>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="subject" 
+          class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">Subject</label>
+          <select id="subject" class="px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
+          
+            <option value="General Enquiry">General Enquiry</option>
+            <option value="Institution Enquiry">Institution Enquiry</option>
+            <option value="Organization Enquiry">Organization Enquiry</option>
+            <option value="Graduate Enquiry">Graduate Enquiry</option>
+            <option value="Other Enquiry">Other Enquiry</option>
+            <!-- Add more subject options as needed -->
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="message" 
+          class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">Message</label>
+          <textarea name="" formControlName="text" id="" class="w-full h-32 rounded border bg-white"></textarea>
+          <!-- <app-textarea
+          [formGrp]="contactForm"
+          formCtrlName="text"
+          [type]="'text'"
+          id="message" 
+          class="w-full h-32 rounded border bg-white"></app-textarea> -->
+        </div>
+        <app-button 
+        type="submit" 
+        (buttonClick)="submit()"
+        class="bg-buttonBlue text-white font-inter font-medium text-xl  rounded-lg px-4 py-2">
+          Send message
+        </app-button>
+      </form>
+    </div>
+  </div>
+</main>

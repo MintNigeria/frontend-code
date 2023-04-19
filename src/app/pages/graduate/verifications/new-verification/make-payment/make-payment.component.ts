@@ -68,7 +68,7 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
   deviceModel: string;
   balance: any;
   ipAddress: any;
-  selectedMerchant!: string;
+  selectedMerchant: string = '';
   isTransactionSuccessful: any;
 
   constructor(

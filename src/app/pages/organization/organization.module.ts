@@ -7,6 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { NotificationEffects } from 'src/app/store/notification/effect';
 import { notificationReducers } from 'src/app/store/notification/reducer';
+import { InstitutionEffects } from 'src/app/store/institution/effects';
 
 
 
@@ -19,7 +20,7 @@ import { notificationReducers } from 'src/app/store/notification/reducer';
     OrganizationRoutingModule,
     SharedModule,
     StoreModule.forFeature('notification', notificationReducers),
-    EffectsModule.forFeature([NotificationEffects])
+    EffectsModule.forFeature([NotificationEffects, InstitutionEffects])
 
   ]
 })

@@ -37,6 +37,7 @@ export class ApplicationsComponent implements OnInit {
       filter: '',
       pageSize: 10,
       pageIndex: 1,
+      documentType: ''
    }
    userData: any;
     applicationList: any;
@@ -73,6 +74,7 @@ export class ApplicationsComponent implements OnInit {
     this.store.dispatch(getAllGraduateRequestForGradaute({payload: {...this.filter, GraduateId: this.userData.GraduateId}}))
     this.actions$.pipe(ofType(getAllGraduateRequestForGradauteSuccess)).subscribe((res: any) => {
       this.graduateList = res.payload.payload
+      this.total = res.payload.totalCount
       // this.balance = res.payload;
     })
     this.store.dispatch(graduateDocumentTypeFilter({id: this.userData.GraduateId}))
@@ -103,6 +105,15 @@ export class ApplicationsComponent implements OnInit {
     this.filterInstituition = {selectedInstituition: 'All'};
     this.documentType = 'All'
     this.filterDocument = {documentType: 'All'};
+    const filter= {
+      'TimeBoundSearchVm.TimeRange': 0,
+      keyword: '',
+        filter: '',
+        pageSize: 10,
+        pageIndex: 1,
+        documentType: ''
+     }
+    this.store.dispatch(getAllGraduateRequestForGradaute({payload: {...filter, GraduateId: this.userData.GraduateId}}))
   }
 
   changeRange(range: number, name: string) {
@@ -118,7 +129,7 @@ export class ApplicationsComponent implements OnInit {
         if (res) {
               const {start , end} = res; // use this start and end as fromDate and toDate on your filter
               this.selectedOption = `${start} - ${end}`
-              const filter = {...this.filter, ['TimeBoundSearchVm.FromDate'] : start, ['TimeBoundSearchVm.ToDate'] : end}
+              const filter = {...this.filter, ['TimeBoundSearchVm.FromDate'] : start, ['TimeBoundSearchVm.ToDate'] : end, 'TimeBoundSearchVm.TimeRange': 5}
               this.filter = filter;
         }
   
@@ -171,9 +182,9 @@ export class ApplicationsComponent implements OnInit {
   }
 
   
-  changeDocumentType(name: string) {
-    this.documentType = name
-    const filter = {...this.filter, ['documentType'] : status};
+  changeDocumentType(name: string, type: any) {
+    this.documentType = type
+    const filter = {...this.filter, ['documentType'] : type};
     this.filter = filter;
   }
 

@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { getAllDashboardInfoData, getAllDashboardInfoSuccess, getAllDashboardSuccess, getDashboardRevenueAnalysisSuccess, getDashboardTopInstitutionsSuccess, getGraduateDashboardBottomDataSuccess, getGraduateDashboardTopDataSuccess, getOrganizationDashboardBottomInfoSuccess, getOrganizationDashboardInfoSuccess, getOrganizationVeficiationAnalysisSuccess } from './action';
+import { getAllDashboardInfoData, getAllDashboardInfoSuccess, getAllDashboardSuccess, getDashboardRevenueAnalysisSuccess, getDashboardTopInstitutionsSuccess, getGraduateDashboardBottomDataSuccess, getGraduateDashboardTopDataSuccess, getOrganizationDashboardBottomInfoSuccess, getOrganizationDashboardInfoSuccess, getOrganizationVerificationAnalysisDataSuccess, } from './action';
 import { DashboardStateInterface } from './types/index.types';
 
 
@@ -8,6 +8,8 @@ const initialState: DashboardStateInterface = {
   organizationDashboard: { data: [], totalCount: 0 },
   organizationBottomDashboard: null,
   organizationVerification: null,
+  institutionRevenueAnalysis: null,
+  institutionTopInstitution: null,
   graduateTop: null,
   graduateBottom: null,
   dashboardCardStats: {
@@ -46,13 +48,19 @@ export const dashboardReducer = createReducer (
   on(getDashboardRevenueAnalysisSuccess, (state, {payload})=> {
     return {
       ...state,
-      dashBoard: payload
+      institutionRevenueAnalysis: payload
+    }
+  }),
+  on(getOrganizationVerificationAnalysisDataSuccess, (state, {payload})=> {
+    return {
+      ...state,
+      organizationVerification: payload
     }
   }),
   on(getDashboardTopInstitutionsSuccess, (state, {payload})=> {
     return {
       ...state,
-      dashBoard: payload
+      institutionTopInstitution: payload
     }
   }),
   on(getOrganizationDashboardInfoSuccess, (state, {payload})=> {
@@ -73,12 +81,7 @@ export const dashboardReducer = createReducer (
   //     organizationVerification: payload
   //   }
   // }),
-  // on(getOrganizationVeficiationAnalysisSuccess, (state, {payload})=> {
-  //   return {
-  //     ...state,
-  //     organizationVerification: payload
-  //   }
-  // }),
+ 
   on(getGraduateDashboardTopDataSuccess, (state, {payload})=> {
     return {
       ...state,

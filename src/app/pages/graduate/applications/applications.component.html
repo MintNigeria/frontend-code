@@ -27,7 +27,7 @@
       </button>
     </div>
     <div class="w-full rounded-xl p-6 border-none bg-[#F5F9FF]">
-      <form>
+      <div>
         <div
           class="flex md:flex-row md:justify-between md:items-center flex-col w-full"
         >
@@ -78,11 +78,11 @@
                 </label>
                 <ul
                   tabindex="0"
-                  class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
+                  class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72"
                 >
                   <li><a (click)="documentType = 'All'">All</a></li>
                   <li *ngFor="let unit of documentTypeList">
-                    <a (click)="changeDocumentType(unit.name)">{{unit.documentType}}</a>
+                    <a (click)="changeDocumentType(unit.name, unit.documentType)">{{unit.documentType}}</a>
                   </li>
                 </ul>
               </div>
@@ -106,7 +106,7 @@
                 </label>
                 <ul
                   tabindex="0"
-                  class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
+                  class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72"
                 >
                   <li><a (click)="status = 'All'">All</a></li>
                   <li *ngFor="let unit of requestStatus">
@@ -133,7 +133,7 @@
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   
     <div class="border border-[#EFF0F7] bg-white rounded-xl p-6 mt-4">
@@ -359,7 +359,7 @@
                   Showing 1 to 7 of {{ transactionList.length }} entries
               </p> -->
           <div class="flex item gap-3">
-            <pagination-controls (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next">
+            <pagination-controls (pageChange)="getPage(filter.pageIndex = $event)" previousLabel="Prev" nextLabel="Next">
             </pagination-controls>
   
           </div>

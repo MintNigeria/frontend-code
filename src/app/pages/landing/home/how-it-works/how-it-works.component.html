@@ -1,0 +1,40 @@
+<div class="bg-[#F9FAFB] py-16">
+  <div class="container mx-auto text-center px-4 sm:px-6">
+    <h2 class="font-inter font-semibold text-base text-[#1368EC] mb-3">Basic Steps</h2>
+    <h3 class="font-poppins text-3xl text-headerGray font-semibold mb-8">How it Works</h3>
+
+    <div class="flex justify-center">
+      <img src="assets/images/icons/stepper.svg" alt="stepper">
+    </div>
+    <div class="mx-auto flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-8 mb-16 max-w-5xl">
+      <div>
+        <div>
+          <p class="mt-4 font-inter font-medium text-base text-failedNormal mb-2">Sign Up</p>
+          <p class="font-inter font-normal text-base text-lightGray w-full md:w-80">Setting up your account is easy. Access to your user friendly portal is seamless.</p>
+        </div>
+      </div>
+      <div>
+        <p class="mt-4 font-inter font-medium text-base text-failedNormal mb-2">Select a Request</p>
+        <p class="font-inter font-normal text-base text-lightGray w-full md:w-80">Fill in the details and a consent form if needed, then pay service fee.</p>
+      </div>
+      <div>
+        <p class="mt-4 font-inter font-medium text-base text-failedNormal mb-2">Receive your Result</p>
+        <p class="font-inter font-normal text-base text-lightGray w-full md:w-80">We process your request and share outcome 72 hours after confirmation.</p>
+      </div>
+    </div>
+
+    <div class="space-x-6">
+      <app-button
+      [overRideButtonClass]="true"
+      [customClass]="'border bg-white text-failedNormal font-inter font-medium text-lg p-2 rounded-md'">
+        Learn More
+      </app-button>
+      <app-button
+      (buttonClick)="openLogin()"
+      [overRideButtonClass]="true"
+      [customClass]="'bg-buttonBlue text-white font-inter font-medium text-lg p-2 rounded-md'">
+        Get Started
+      </app-button>
+    </div>
+  </div>
+</div>

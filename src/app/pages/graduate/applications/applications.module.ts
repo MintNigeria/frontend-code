@@ -22,6 +22,8 @@ import { MakePaymentComponent } from './new-application/make-payment/make-paymen
 import { organizationReducer } from 'src/app/store/organization/reducers';
 import { OrganizationEffects } from 'src/app/store/organization/effects';
 import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/request-empty-state.component';
+import { InstitutionEffects } from 'src/app/store/institution/effects';
+import { ConfigurationEffects } from 'src/app/store/configuration/effects';
 
 
 @NgModule({
@@ -46,7 +48,7 @@ import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/r
     NgxPaginationModule,
     StoreModule.forFeature('graduates', graduatesReducer),
     StoreModule.forFeature('organization', organizationReducer),
-    EffectsModule.forFeature([GraduatesEffects, OrganizationEffects]),
+    EffectsModule.forFeature([GraduatesEffects, OrganizationEffects, InstitutionEffects, ConfigurationEffects]),
   ]
 })
 export class ApplicationsModule { }

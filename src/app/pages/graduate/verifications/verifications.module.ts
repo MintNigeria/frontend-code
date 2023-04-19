@@ -14,6 +14,12 @@ import { SearchTableComponent } from './new-verification/search-table/search-tab
 import { VerificationReasonComponent } from './new-verification/verification-reason/verification-reason.component';
 import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/request-empty-state.component';
 import { MakePaymentComponent } from './new-verification/make-payment/make-payment.component';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { GraduatesEffects } from 'src/app/store/graduates/effects';
+import { graduatesReducer } from 'src/app/store/graduates/reducers';
+import { OrganizationEffects } from 'src/app/store/organization/effects';
+import { InstitutionEffects } from 'src/app/store/institution/effects';
 
 
 @NgModule({
@@ -34,7 +40,10 @@ import { MakePaymentComponent } from './new-verification/make-payment/make-payme
     NgSelectModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+        StoreModule.forFeature('graduates', graduatesReducer),
+    EffectsModule.forFeature([GraduatesEffects, OrganizationEffects, InstitutionEffects]),
+
   ]
 })
 export class VerificationsModule { }

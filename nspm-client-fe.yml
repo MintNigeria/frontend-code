@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.3'
 services:
   myapp:
     build:
@@ -7,5 +7,6 @@ services:
     restart: always 
     image: ${DOCKER_REGISTRY}nspm-client-fe:latest
     container_name: nspm-client-fe
+    restart: always
     ports:
       - "5000:80"

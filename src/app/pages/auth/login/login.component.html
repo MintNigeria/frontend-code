@@ -1,6 +1,6 @@
 <div class="bg-white w-full h-screen  flex justify-center items-center">
   <div class="w-fill md:w-3/5 mx-auto ">
-    <h4 class="font-semibold font-poppins text-3xl pb-3 text-darkGray">Login as an {{currentRoute === 'login' ? 'Institution' : currentRoute === 'graduate' ? 'Graduate' : 'Organization'}}</h4>
+    <h4 class="font-semibold font-poppins text-3xl pb-3 text-darkGray">Login as {{currentRoute === 'institution' ? 'an Institution' : currentRoute === 'graduate' ? 'a Graduate' : ' an Organization'}}</h4>
     <p class="font-nunito font-normal text-base text-ligthGray mb-8">Enter your details to login to your dashboard</p>
     <form [formGroup]="loginAuth" class="w-full">
       <ng-container *ngIf="!show2FAOTP">

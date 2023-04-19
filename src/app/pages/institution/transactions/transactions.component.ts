@@ -9,6 +9,7 @@ import { exportTransactionCSV, exportTransactionCSVSuccess, exportTransactionExc
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { getInstitutionConfiguration, getInstitutionConfigurationSuccess } from 'src/app/store/configuration/action';
+import { getInstitutionTransactionTypeFilter, getInstitutionTransactionTypeFilterSuccess } from 'src/app/store/institution/action';
 
 @Component({
   selector: 'app-transactions',
@@ -23,6 +24,10 @@ export class TransactionsComponent implements OnInit {
   documentType: string = "All";
   transactionType: string = "Graduates";
   status: string = "All";
+  showDate : boolean = false;
+  showInitiator : boolean = false;
+  showTransaction : boolean = false;
+  showStatus : boolean = false;
 
   filterStatus = { status: 'All'};
   filterOption = {selectedOption : 'All Time'};
@@ -72,15 +77,14 @@ filter = {
     pageSize: 10,
     pageIndex: 1,
     requestor: 1,
-    range: 0,
-    fromDate: '',
-    toDate: '',
-    status: 0,
+    'TimeBoundSearchVm.TimeRange': 0,
+    status: '',
     transactionType: '',
 }
   transactionDetails: any;
   totalCount: any;
   processingFeeList: any;
+  transactionTypeList: any;
 
 
   constructor(
@@ -106,6 +110,10 @@ filter = {
     this.actions$.pipe(ofType(getInstitutionConfigurationSuccess)).subscribe((res: any) => {
       this.processingFeeList = res.payload.processingFeesVM
       // this.processingFees = res.payload
+    })
+    this.store.dispatch(getInstitutionTransactionTypeFilter())
+    this.actions$.pipe(ofType(getInstitutionTransactionTypeFilterSuccess)).subscribe((res: any) => {
+      this.transactionTypeList = res.payload
     })
     this.searchForm.controls.searchPhrase.valueChanges
     .pipe(debounceTime(400), distinctUntilChanged())
@@ -148,10 +156,8 @@ filter = {
         pageSize: 10,
         pageIndex: 1,
         requestor: 1,
-        range: 0,
-        fromDate: '',
-        toDate: '',
-        status: 0,
+        'TimeBoundSearchVm.TimeRange': 0,
+        status: '',
         transactionType: '',
     }
     this.store.dispatch(invokeGetTransactions({institutionId: this.institutionId, payload: filter}))
@@ -159,12 +165,14 @@ filter = {
   }
 
   changeInitiator(status: number, name: string) {
+    this.showInitiator = true;
     this.transactionType = name
     const filter = {...this.filter, ['requestor'] : status}
     this.filter = filter;
   }
 
   changeRange(range: number, name: string) {
+    this.showDate = true;
     this.selectedOption = name
     if (range === 5) {
       // launch calender
@@ -177,18 +185,20 @@ filter = {
         if (res) {
               const {start , end} = res; // use this start and end as fromDate and toDate on your filter
               this.selectedOption = `${start} - ${end}`
-              const filter = {...this.filter, ['fromDate'] : start, ['toDate'] : end}
+              const filter = {...this.filter, ['TimeBoundSearchVm.FromDate'] : start, ['TimeBoundSearchVm.ToDate'] : end, 'TimeBoundSearchVm.TimeRange': 5}
               this.filter = filter;
         }
   
       })
     } else {
-      const filter = {...this.filter, ['range'] : range};
+      const filter = {...this.filter, ['TimeBoundSearchVm.TimeRange'] : range};
+      console.log(filter)
       this.filter = filter;
     }
   }
 
   changeDocumentType(name: string) {
+    this.showTransaction = true;
     this.documentType = name;
     const filter = {...this.filter, ['transactionType'] : name}
     this.filter = filter;
@@ -196,8 +206,9 @@ filter = {
   }
 
   changeStatus(status: number, name: string) {
+    this.showStatus = true;
     this.status = name
-    const filter = {...this.filter, ['status'] : status};
+    const filter = {...this.filter, ['status'] : String(status)};
     this.filter = filter;
   }
 

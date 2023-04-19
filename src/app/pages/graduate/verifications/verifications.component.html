@@ -24,7 +24,7 @@
     </button>
   </div>
   <div class="w-full rounded-xl p-6 border-none bg-[#F5F9FF]">
-    <form>
+    <div>
       <div class="flex md:flex-row md:justify-between md:items-center flex-col w-full">
         <div class="flex lg:justify-between gap-4">
           <div class="lg:justify-between gap-4">
@@ -67,7 +67,7 @@
               </label>
               <ul
               tabindex="0"
-              class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72"
+              class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72"
             >
             <li><a (click)="changeStatus(1, 'Pending')">Pending</a>
             </li>
@@ -95,7 +95,7 @@
           </div>
         </div>
       </div>
-    </form>
+    </div>
   </div>
 
   <div class="border border-[#EFF0F7] bg-white rounded-xl p-6 mt-4">
@@ -261,7 +261,7 @@
                 Showing 1 to 7 of {{ transactionList.length }} entries
             </p> -->
         <div class="flex item gap-3">
-          <pagination-controls (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next">
+          <pagination-controls (pageChange)="getPage(filter.pageIndex = $event)" previousLabel="Prev" nextLabel="Next">
           </pagination-controls>
 
         </div>
