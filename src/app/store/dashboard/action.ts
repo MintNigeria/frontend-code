@@ -46,6 +46,15 @@ export const getOrganizationVerificationAnalysisDataSuccess = createAction (
   props<{payload: any}>()
 )
 
+export const getGraduateDashboardBottomData = createAction (
+  '[dashboard] get graduate dashboard bottom information',
+  props<{payload: any}>()
+)
+export const getGraduateDashboardBottomDataSuccess = createAction (
+  '[dashboard] get graduate dashboard bottom information Success',
+  props<{payload: any}>()
+)
+
 export const getDashboardTopInstitutions = createAction (
   '[dashboard] get dashboard top institution request',
   props<{payload: any}>()
@@ -81,11 +90,4 @@ export const getGraduateDashboardTopDataSuccess = createAction (
   '[dashboard] get graduate dashboard top info',
   props<{payload: any}>()
 )
-export const getGraduateDashboardBottomData = createAction (
-  '[dashboard] get graduate dashboard bottom info',
-  props<{payload: any}>()
-)
-export const getGraduateDashboardBottomDataSuccess = createAction (
-  '[dashboard] get graduate dashboard bottom info',
-  props<{payload: any}>()
-)
+
