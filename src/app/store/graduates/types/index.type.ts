@@ -55,6 +55,7 @@ export interface GraduatesStateInterface {
   uploadHubItems: any;
   notifyInstitutition: any;
   institutionNotified: any;
+  institutionNotifiedStatus: any;
   graduateProfile: any;
   graduateInstitutions: any;
   updateInstitutions: any;

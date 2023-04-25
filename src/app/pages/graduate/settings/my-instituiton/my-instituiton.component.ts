@@ -109,26 +109,26 @@ export class MyInstituitonComponent implements OnInit {
       body: ['', Validators.required],
       name: ['', Validators.required],
       type: ['', Validators.required],
-      faculty: ['', Validators.required],
-      department: ['', Validators.required],
-      yearOfEntry: ['', Validators.required],
-      yearOfGraduation: ['', Validators.required],
+      faculty: [''],
+      department: [''],
+      yearOfEntry: [''],
+      yearOfGraduation: [''],
       sector: ['', Validators.required],
     })
   }
 
   addNewInstitution( ) {
-    const newInstitutionForm = this.fb.group({
-      body: ['', Validators.required],
-      name: ['', Validators.required],
-      type: ['', Validators.required],
-      email: ['', Validators.required],
-      faculty: ['', Validators.required],
-      department: ['', Validators.required],
-      yearOfEntry: ['', Validators.required],
-      yearOfGraduation: ['', Validators.required],
-      sector: ['', Validators.required],
-    })
+    // const newInstitutionForm = this.fb.group({
+    //   body: ['', Validators.required],
+    //   name: ['', Validators.required],
+    //   type: ['', Validators.required],
+    //   email: ['', Validators.required],
+    //   faculty: ['', Validators.required],
+    //   department: ['', Validators.required],
+    //   yearOfEntry: ['', Validators.required],
+    //   yearOfGraduation: ['', Validators.required],
+    //   sector: ['', Validators.required],
+    // })
     // this.institutions.push(newInstitutionForm)
     this.isNewInstitution = true 
     this.store.dispatch(

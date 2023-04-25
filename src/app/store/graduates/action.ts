@@ -263,6 +263,16 @@ export const invokeGetGraduateDetailsSuccess = createAction(
       props<{ payload: any }>()
     );
       
+      export const getMyInstitutionsNotifiedStatus = createAction(
+        '[Graduates] get status of my notifications to my institution ',
+        props<{ id: any }>()
+    );
+    
+    export const getMyInstitutionsNotifiedStatusSuccess = createAction(
+      '[Graduates] get status of my notifications to my institution success',
+      props<{ payload: any }>()
+    );
+      
       export const getGraduateInstitutions = createAction(
         '[Graduates] get graduate institutions ',
         props<{ id: any }>()

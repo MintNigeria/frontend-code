@@ -188,6 +188,11 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
       `${this.baseUrl}mint-auth/api/v1/Graduates/MyInstitutionToNotify/${id}`
     );
   }
+  getMyInstitutionsNotifiedStatus(id: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-auth/api/v1/Graduates/NotifyMyInstitutionStatus/${id}`
+    );
+  }
 
   getGraduateProfile(id: any) {
     return this.http.get<any>(

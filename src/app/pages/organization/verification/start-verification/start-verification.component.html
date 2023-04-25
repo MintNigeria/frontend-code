@@ -33,9 +33,12 @@
     <div class="px-5">
         <div class="my-2">
             <div class="flex justify-between items-center">
-                <h4 class="font-medium font-poppins lg:text-4xl text-xl  text-darkGray my-3">
-                    New Verification
-                </h4>
+                <div>
+                    <h4 class="font-medium font-poppins lg:text-4xl text-xl  text-darkGray my-3">
+                        New Verification
+                    </h4>
+                    <p></p>
+                </div>
                 <div class="border rounded-lg flex gap-1 items-center h-8 p-2">
                     <img src="assets/images/icons/walletIcon.svg" alt="walletIcon" >
                     <p class="font-inter font-medium text-sm text-failedNormal">Wallet Balance: ₦{{balance || 0 | commaDelimiter}}</p>
@@ -100,7 +103,7 @@
                     </div>
 
                     <div class="flex justify-end items-center gap-4 mt-4 mb-4">
-                        <app-button
+                        <app-button routerLink="/organization/verifications"
                         [overRideButtonClass]="true"
                         customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
                         >Cancel</app-button>

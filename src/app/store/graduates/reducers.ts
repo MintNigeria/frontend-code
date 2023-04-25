@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { approveRejectPendingGraduateSuccess, createGraduateApplicationSuccess, createGraduateRecordSuccess, deleteHubItemSuccess, downloadCSVSuccess, downloadExcelSuccess, downloadRecordUploadFormatSuccess, exportGraduateApplicationAsExcelSuccess, exportGraduateApplicationCSVSuccess, exportGraduateVerificationAsExcel, exportGraduateVerificationAsExcelSuccess, exportGraduateVerificationCSVSuccess, fundGraduateWalletSuccess, getActiveDeliveryOptionsSuccess, getAllGraduateRequestForGradauteSuccess, getAllHubItemSuccess, getAllInstitutionUploadSuccess, getGraduateCertificateVerificationDetailSuccess, getGraduateCertificateVerificationsSuccess, getGraduateInstitutionsSuccess, getGraduateProfileSuccess, getGraduateTransactionHistorySuccess, getGraduateWalletIdSuccess, getMyInstitutionNotifiedSuccess, graduateDocumentTypeFilterSuccess, graduateTransactionTypeFilterSuccess, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, notifyMyInstitutionSuccess, registerNewGraduateSuccess, searchGraduateRecordsSuccess, submitGraduateVerificationRequestSuccess, submitVerificationReasonForRequestSuccess, updateGraduateInstitutionsSuccess, updateGraduateProfileSuccess, uploadGraduateRecordSuccess, uploadHubItemSuccess, validateGraduateRegistrationSuccess } from './action';
+import { approveRejectPendingGraduateSuccess, createGraduateApplicationSuccess, createGraduateRecordSuccess, deleteHubItemSuccess, downloadCSVSuccess, downloadExcelSuccess, downloadRecordUploadFormatSuccess, exportGraduateApplicationAsExcelSuccess, exportGraduateApplicationCSVSuccess, exportGraduateVerificationAsExcel, exportGraduateVerificationAsExcelSuccess, exportGraduateVerificationCSVSuccess, fundGraduateWalletSuccess, getActiveDeliveryOptionsSuccess, getAllGraduateRequestForGradauteSuccess, getAllHubItemSuccess, getAllInstitutionUploadSuccess, getGraduateCertificateVerificationDetailSuccess, getGraduateCertificateVerificationsSuccess, getGraduateInstitutionsSuccess, getGraduateProfileSuccess, getGraduateTransactionHistorySuccess, getGraduateWalletIdSuccess, getMyInstitutionNotifiedSuccess, getMyInstitutionsNotifiedStatusSuccess, graduateDocumentTypeFilterSuccess, graduateTransactionTypeFilterSuccess, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, notifyMyInstitutionSuccess, registerNewGraduateSuccess, searchGraduateRecordsSuccess, submitGraduateVerificationRequestSuccess, submitVerificationReasonForRequestSuccess, updateGraduateInstitutionsSuccess, updateGraduateProfileSuccess, uploadGraduateRecordSuccess, uploadHubItemSuccess, validateGraduateRegistrationSuccess } from './action';
 import {GraduatesStateInterface} from './types/index.type';
 import { exportTransactionCSVSuccess, exportTransactionExcelSuccess } from '../reporting/action';
 
@@ -46,6 +46,7 @@ const initialState: GraduatesStateInterface  = {
   uploadHubItems: null,
   notifyInstitutition: null,
   institutionNotified: null,
+  institutionNotifiedStatus: null,
   graduateInstitutions: null,
   graduateProfile: null,
   updateprofile: null,
@@ -189,6 +190,12 @@ export const graduatesReducer = createReducer(
     return {
       ...state,
       institutionNotified: payload
+    };
+  }),
+  on(getMyInstitutionsNotifiedStatusSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      institutionNotifiedStatus: payload
     };
   }),
   on(getGraduateInstitutionsSuccess, (state, { payload }) => {
