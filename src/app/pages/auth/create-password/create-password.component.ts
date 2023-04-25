@@ -41,7 +41,6 @@ export class CreatePasswordComponent implements OnInit {
   ngOnInit(): void {
     this.param = this.route.snapshot.params['email']
     this.userType = this.route.snapshot.queryParams['userType']
-    console.log(this.userType)
     this.initLoginForm();
     // if (!this.requestToken) return window.history.back();
     this.createAccountForm.valueChanges.subscribe((val) => {
