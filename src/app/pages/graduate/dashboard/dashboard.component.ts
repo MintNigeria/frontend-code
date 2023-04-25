@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
@@ -8,7 +8,7 @@ import { NotificationsService } from 'src/app/core/services/notifications.servic
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { isUserSelector } from 'src/app/store/auth/selector';
 import { getGraduateDashboardBottomData, getGraduateDashboardBottomDataSuccess, getGraduateDashboardTopData, getGraduateDashboardTopDataSuccess } from 'src/app/store/dashboard/action';
-import { getMyInstitutionNotified, getMyInstitutionNotifiedSuccess, notifyMyInstitution, notifyMyInstitutionSuccess } from 'src/app/store/graduates/action';
+import { getMyInstitutionNotified, getMyInstitutionNotifiedSuccess, getMyInstitutionsNotifiedStatus, getMyInstitutionsNotifiedStatusSuccess, notifyMyInstitution, notifyMyInstitutionSuccess } from 'src/app/store/graduates/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import {Chart} from 'chart.js/auto'
 import { MatDialog } from '@angular/material/dialog';
@@ -32,6 +32,9 @@ export class DashboardComponent implements OnInit {
   recentApplications: any;
   recentTransactions: any;
   updatedData: any;
+  showNotifyButton: any;
+  modalId = 'messageModal'
+  notifyInstitutionForm!: FormGroup
   constructor(
     private router: Router,
     private store: Store,
@@ -58,9 +61,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadIp();
+    this.initForm()
     const data: any = localStorage.getItem('userData')
     this.userData = JSON.parse(data)
-        this.loadIp();
 
     // this.store.dispatch(getGraduateDashboardTopData({payload: {...this.filter, GraduateId: this.userData.GraduateId}}))
     // this.actions$.pipe(ofType(getGraduateDashboardTopDataSuccess)).subscribe((res: any) => {
@@ -81,39 +85,100 @@ export class DashboardComponent implements OnInit {
     })
 
     this.checkInstitutionOnboarded()
+    this.checkInstitutionOnboardedStatus()
   }
+
+initForm() {
+  this.notifyInstitutionForm = this.fb.group({
+    institutionName: [''],
+    institutionBody: [''],
+    institutionType: [''],
+    institutionSector: [''],
+    faculty: ['', Validators.required],
+    department: ['', Validators.required],
+    matriculationNumber: [''],
+    graduateId: ['', Validators.required],
+    imei: '',
+      serialNumber: '',
+      device: '',
+      ipAddress: ''
+  })
+}
   
   loadIp() {
     this.utilityService.getuserIP().subscribe((res: any) => {
      this.ipAddress = res.ip
     })
   }
+  checkInstitutionOnboardedStatus() {
+    this.store.dispatch(getMyInstitutionsNotifiedStatus({id: this.userData.GraduateId}))
+    this.actions$.pipe(ofType(getMyInstitutionsNotifiedStatusSuccess)).subscribe((res: any) => {
+     console.log(res)
+     this.showNotifyButton = res.payload.showNotifyMe
+
+    })
+   
+  }
   checkInstitutionOnboarded() {
+    this.store.dispatch(getMyInstitutionsNotifiedStatus({id: this.userData.GraduateId}))
     this.store.dispatch(getMyInstitutionNotified({id: this.userData.GraduateId}))
     this.actions$.pipe(ofType(getMyInstitutionNotifiedSuccess)).subscribe((res: any) => {
-     this.updatedData = res.payload.payload.map((x: any) => {
-        if (x.hasInstitutionOnboarded === false) {
-          return {
-            institutionName: x.institutionName,
-            imei: '',
+     this.updatedData = res.payload.payload
+     this.notifyInstitutionForm.patchValue({
+      graduateId: Number(this.userData.GraduateId),
+      imei: '',
       serialNumber: '',
       device: this.deviceModel,
       ipAddress: this.ipAddress
-          }
-        } else {
-          return x
-        }
-      })
+     })
+    //  .map((x: any) => {
+    //     if (x.hasInstitutionOnboarded === false) {
+    //       return {
+    //         institutionName: x.institutionName,
+    //         imei: '',
+    //   serialNumber: '',
+    //   device: this.deviceModel,
+    //   ipAddress: this.ipAddress
+    //       }
+    //     } else {
+    //       return x
+    //     }
+    //   })
 
     })
    
   }
 
-  notifyInstitution() {
-    this.store.dispatch(notifyMyInstitution({payload: this.updatedData}))
-    this.actions$.pipe(ofType(notifyMyInstitutionSuccess)).subscribe((res: any) => {
-      this.notification.publishMessages('success', res.payload.description)
+  selectInstitution(event: any) {
+    console.log(event)
+    this.notifyInstitutionForm.patchValue({
+      institutionName : event.institutionName,
+      institutionBody: event.institutionBody,
+      institutionType : event.institutionType,
+      institutionSector : event.institutionSector
     })
+  }
+
+  notifyInstitution() {
+    document.getElementById('myModal')?.click()
+    
+  }
+  
+  cancel() {
+    this.notifyInstitutionForm.reset();
+    document.getElementById('myModal')?.click()
+
+  }
+  actionNotification() {
+    console.log(this.notifyInstitutionForm.value)
+    this.store.dispatch(notifyMyInstitution({payload: this.notifyInstitutionForm.value}))
+    this.actions$.pipe(ofType(notifyMyInstitutionSuccess)).subscribe((res: any) => {
+      console.log(res)
+      this.notification.publishMessages('success', res.payload.description)
+      // document.getElementById('myModal')?.click()
+      this.cancel()
+    })
+
   }
 
   changeRange(range: number) {

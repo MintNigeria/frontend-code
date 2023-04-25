@@ -1,5 +1,5 @@
 <div class="px-5 md:px-8 pt-9 pb-5">
-    <div class="bg-[#F5F9FF] p-7 rounded-lg flex flex-wrap gap-[14px] items-center" *ngIf="updatedData?.length > 0">
+    <div class="bg-[#F5F9FF] p-7 rounded-lg flex flex-wrap gap-[14px] items-center" *ngIf="showNotifyButton === true">
         <img src="assets/images/graduates/exclamation-icon.svg" class="w-12" alt="">
         
         <div class="flex-1">
@@ -43,7 +43,7 @@
             <h3 class="mt-2 text-[#101828] font-semibold text-4xl leading-[44px] font-poppins">{{cardData?.noOfApplicationRequests || 0}}</h3>
         </div>
         <div class="text-right text-[#0D47A1] border-t-[#EAECF0] border-t border-solid px-6 py-4 font-medium text-sm font-inter">
-            <button routerLink="/graduate/my-applications">View Report</button>
+            <button routerLink="/graduate/my-applications">View All</button>
         </div>
     </div>
     
@@ -55,7 +55,7 @@
             <h3 class="mt-2 text-[#101828] font-semibold text-4xl leading-[44px] font-poppins">{{cardData?.noOfVerificationRequests || 0}}</h3>
         </div>
         <div class="text-right text-[#0D47A1] border-t-[#EAECF0] border-t border-solid px-6 py-4 font-medium text-sm font-inter">
-            <button routerLink="/graduate/my-verifications">View Report</button>
+            <button routerLink="/graduate/my-verifications">View All</button>
         </div>
     </div>
 </div>
@@ -410,4 +410,93 @@
           </table>
         </div>
     </div>
+
+
+    <label id="myModal" for="messageModal" class="hidden "></label>
+
+    <app-modal [id]="modalId">
+      <div class="modal-box bg-white  p-8 w-fit   max-w-5xl">
+       
+        <div class=" mt-5   w-full" >
+          <div class="rounded-lg mb-4">
+            <div class="flex flex-col items-center gap-5">
+              
+              <form class="w-full mb-4 ">
+                <div class="mb-5">
+                  <label for="email" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Institution <span
+                      class="text-danger">*</span></label>
+                      <ng-select class="custom-ng-dropdown" 
+                      formControlName="reasonForRequest" 
+                      [selectOnTab]="true" 
+                      placeholder="Select reason"
+                      (change)="selectInstitution($event)"
+                      >
+                  <ng-option *ngFor="let unit of updatedData" [value]="unit">{{unit.institutionName}}</ng-option>
+                  </ng-select>
+                </div>
+                <div class="mb-5">
+                  <label for="password" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Faculty <span
+                      class="text-danger">*</span></label>
+                  <app-input [formGrp]="notifyInstitutionForm" formCtrlName="faculty" [type]="'text'" [class]="
+                          'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                        " placeholder="***********" [name]="'Faculty'"></app-input>
+                </div>
+                <div class="mb-5">
+                  <label for="password" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Department <span
+                      class="text-danger">*</span></label>
+                  <app-input [formGrp]="notifyInstitutionForm" formCtrlName="department" [type]="'text'" [class]="
+                          'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                        " placeholder="***********" [name]="'Department'"></app-input>
+                </div>
+                <div class="mb-5">
+                  <label for="password" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Matriculation Number </label>
+                  <app-input [formGrp]="notifyInstitutionForm" formCtrlName="matriculationNumber" [type]="'text'" [class]="
+                          'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                        " placeholder="***********" [name]="'Matriculation'"></app-input>
+                </div>
+              </form>
+            </div>
+          </div>
+  
+          <div class="flex justify-center gap-5">
+  
+            <app-button [overRideButtonClass]="true" (buttonClick)="cancel()"
+              customClass=" w-32 h-12 rounded-lg font-normal text-base  leading-6 bg-[#F5F9FF]  text-primaryBlue">
+              Cancel</app-button>
+            <app-button (buttonClick)="actionNotification()" [disabled]="notifyInstitutionForm.invalid" [overRideButtonClass]="true"
+              customClass="w-32 h-12 rounded-lg font-normal text-base text-white leading-6 bg-primaryBlue">Notify
+            </app-button>
+          </div>
+  
+        </div>
+        <!-- <div class=" mt-5   w-full" *ngIf="approvalRejectSuccess">
+          <div class="rounded-lg mb-4">
+            <div class="flex flex-col items-center gap-5">
+              <img src="assets/images/approval-modal.svg" class="mb-5" alt="">
+              <p class="font-medium font-inter text-base text-headerGray">
+                  Organization {{selectedOption === 'Approve' ? 'Approved' : 'Rejected' | titlecase}}
+              </p>
+              <p class="font-normal font-inter text-base text-lightGray">
+                  Organization was successfully {{selectedOption === 'Approve' ? 'Approved' : 'Rejected'}}
+              </p>
+  
+             
+            </div>
+          </div>
+  
+          <div class="flex justify-center gap-5">
+  
+  
+            <app-button (buttonClick)="closeApprovalSuccess()"  [overRideButtonClass]="true"
+              customClass="w-32 h-12 rounded-lg font-normal text-base text-white leading-6 bg-primaryBlue">Continue
+            </app-button>
+  
+          </div>
+  
+        </div> -->
+      </div>
+    </app-modal>
+
+
+
 </div>
