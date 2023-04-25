@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Actions, ofType } from '@ngrx/effects';
@@ -26,18 +26,21 @@ export class CreatePasswordComponent implements OnInit {
   modalId = 'messageModal';
   requestToken: string = '';
   param!: string;
+  userType: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private store: Store,
     private appStore: Store<AppStateInterface>,
     private actions$: Actions,
-    private notification: NotificationsService
+    private notification: NotificationsService,
+    private fb: FormBuilder
 
   ) { }
 
   ngOnInit(): void {
     this.param = this.route.snapshot.params['email']
+    this.userType = this.route.snapshot.queryParams['userType']
     this.initLoginForm();
     // if (!this.requestToken) return window.history.back();
     this.createAccountForm.valueChanges.subscribe((val) => {
@@ -62,16 +65,11 @@ export class CreatePasswordComponent implements OnInit {
   }
 
   initLoginForm() {
-    this.createAccountForm = new FormGroup({ 
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
-      confirmPassword: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
-      
+    this.createAccountForm = this.fb.group({ 
+      password: ['',  [Validators.required, Validators.minLength(6) ]],
+      confirmPassword: ['',  [Validators.required, Validators.minLength(6) ]]
+    }, {
+      validator: this.MustMatch('password', 'confirmPassword')
     });
   }
 
@@ -91,10 +89,17 @@ export class CreatePasswordComponent implements OnInit {
     }
     this.store.dispatch(createPassword({...payload }))
     this.actions$.pipe(ofType(createPasswordSuccess)).subscribe((res: any) => {
-     console.log(res)
      if (res.payload.hasErrors === false) {
       this.notification.publishMessages('success', res.payload.description)
-      this.router.navigateByUrl('/')
+      if (this.userType === '2') {
+        this.router.navigateByUrl('/auth/institution')
+      }
+       if (this.userType === '3') {
+        this.router.navigateByUrl('/auth/graduate')
+      }
+       if (this.userType === '4') {
+        this.router.navigateByUrl('/auth/organization')
+      }
      }
    }) 
     // this.status = Status.LOADING;
@@ -116,6 +121,23 @@ export class CreatePasswordComponent implements OnInit {
     // this.user$.subscribe((x) => {
     //   if(x)
     // });
+  }
+
+  MustMatch(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+  
+      if (matchingControl.errors && !matchingControl.errors['mustMatch']) {
+        return;
+      }
+  
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ mustMatch: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
+    };
   }
 
 }
