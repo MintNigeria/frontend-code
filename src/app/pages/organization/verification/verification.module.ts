@@ -17,6 +17,8 @@ import { GraduatesEffects } from 'src/app/store/graduates/effects';
 import { graduatesReducer } from 'src/app/store/graduates/reducers';
 import { OrganizationEffects } from 'src/app/store/organization/effects';
 import { GraduateVerificationDetailsComponent } from './start-verification/graduate-verification-details/graduate-verification-details.component';
+import { GraduateVerificationDetailsSearchResultComponent } from './start-verification/graduate-verification-details-search-result/graduate-verification-details-search-result.component';
+import { GraduateVerificationPaymentComponent } from './start-verification/graduate-verification-payment/graduate-verification-payment.component';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { GraduateVerificationDetailsComponent } from './start-verification/gradu
     SearchResultsComponent,
     VerifyDocumentsComponent,
     NewVerificationComponent,
-    GraduateVerificationDetailsComponent
+    GraduateVerificationDetailsComponent,
+    GraduateVerificationDetailsSearchResultComponent,
+    GraduateVerificationPaymentComponent
   ],
   imports: [
     CommonModule,

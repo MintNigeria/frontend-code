@@ -28,6 +28,12 @@ export class UtilityService
       `${this.baseUrl}mint-messaging/api/Notification/GetAllNotifications?EntityId=${entityId}&UserType=${userType}`
     );  }
 
+  contactUs(payload: any){
+    return this.http.get<any>(
+      `${this.baseUrl}/mint-messaging/api/Notification/SendInquiryEmail`, payload
+    );  
+  }
+
   getuserIP() {
     return this.http.get<any>('https://jsonip.com')
   }

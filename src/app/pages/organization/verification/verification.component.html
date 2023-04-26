@@ -21,14 +21,39 @@
             <h4 class="font-medium font-poppins lg:text-4xl text-xl  text-darkGray my-3">
                 Verification History
             </h4>
-            <div class="items-center mt-6 mb-3">
+            <!-- <div class="items-center mt-6 mb-3">
                 <app-button
                 [customClass]="'bg-buttonBlue text-white font-medium font-inter text-xs whitespace-nowrap h-10 rounded-xl'"
                 [overRideButtonClass]="true"
                 [buttonText]="'Start Verification'"
                 [routerLink]="'/organization/verifications/verify-documents'">
                 </app-button>
-            </div>
+            </div> -->
+            <div class="mt-6 mb-3 flex items-center px-2 bg-buttonBlue text-white font-medium font-inter  text-xs h-10  whitespace-nowrap rounded-xl   dropdown dropdown-bottom dropdown-end">
+
+                <p class=" ">
+                  Start New Verification
+        
+                  
+                </p>
+                <div class="">
+                    <svg tabindex="0" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 7.5L10 12.5L15 7.5" stroke="#BDD5FA" stroke-width="1.66667" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    </svg>
+        
+                    <ul tabindex="0" class="main mt-3 dropdown-content menu p-2 shadow bg-white text-black md:z-50 w-[280px]">
+        
+        
+                      <li>
+                        <a class="flex items-center text-black " routerLink="/organization/verifications/verify-documents">
+                          Verification by Code</a></li>
+                      <li>
+                        <a class="flex items-center text-black "
+                          routerLink="/organization/verifications/verify-graduate-details"> Verification by Details</a></li>
+                    </ul>
+                  </div>
+              </div>
         </div>
     </div>
     <!---->

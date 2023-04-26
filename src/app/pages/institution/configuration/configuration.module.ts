@@ -24,6 +24,8 @@ import { CreateDegreeTypeComponent } from './create-degree-type/create-degree-ty
 import { CreateDepartmentComponent } from './create-department/create-department.component';
 import { CreateFacultyComponent } from './create-faculty/create-faculty.component';
 import { InstitutionIndexComponent } from './institution-setup/institution-index/institution-index.component';
+import { InstitutionGradeComponent } from './institution-setup/institution-grade/institution-grade.component';
+import { CreateGradeComponent } from './create-grade/create-grade.component';
 
 
 @NgModule({
@@ -41,7 +43,9 @@ import { InstitutionIndexComponent } from './institution-setup/institution-index
     CreateDegreeTypeComponent,
     CreateDepartmentComponent,
     CreateFacultyComponent,
-    InstitutionIndexComponent
+    InstitutionIndexComponent,
+    InstitutionGradeComponent,
+    CreateGradeComponent
   ],
   imports: [
     CommonModule,

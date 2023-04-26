@@ -157,7 +157,18 @@ export const organizationSectorAndIndustry = createAction(
 export const organizationSectorAndIndustrySuccess = createAction(
   '[organization] get organization industry and sector name for verification purpose success',
   props<{ payload: any }>()
+  );
+  
+  export const organizationVerificationByGraduateDetails = createAction(
+    '[organization] organization verification by graduate details',
+    props<{ payload: any }>()
+ 
 );
+
+export const organizationVerificationByGraduateDetailsSuccess = createAction(
+  '[organization] organization verification by graduate details success',
+  props<{ payload: any }>()
+  );
 
 export const reasonForRequest = createAction(
   '[organization] reason for request',

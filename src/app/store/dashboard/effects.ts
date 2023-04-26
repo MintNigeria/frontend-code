@@ -368,12 +368,40 @@ export class DashboardEffects {
                 };
               };
 
+              const formatAllTime = (data = []) => {
+                
+                let gradValue = 0
+                let orgValue = 0
+                let value = ''
+                
+              
+                let completedRequest: any = [];
+                let completedGradValue: any = [];
+                let completedOrgValue: any = [];
+                data.forEach((x: any) => {
+                  if (x.year) {
+                    gradValue = x.graduate || x.graduate;
+                    orgValue = x.organization || x.organization;
+                    value = `${x.month + ' ' + x.year} `;
+                  }
+                  
+                  completedRequest.push(value);
+                  completedGradValue.push(gradValue);
+                  completedOrgValue.push(orgValue);
+                });
+                return {
+                  completedRequest,
+                  completedGradValue,
+                  completedOrgValue,
+                };
+              };
+
               let revenueStatisticsBar = {};
 		if (action.payload.range === 2) {
 			revenueStatisticsBar = formatDaily(data.payload.requestStatisticsVms);
 		}
 		if (action.payload.range === 0) {
-			revenueStatisticsBar = formatYear(data.payload.requestStatisticsVms);
+			revenueStatisticsBar = formatAllTime(data.payload.requestStatisticsVms);
 		}
 		if (action.payload.range === 5) {
 			revenueStatisticsBar = formatMonth(data.payload.requestStatisticsVms);
@@ -825,13 +853,40 @@ export class DashboardEffects {
                   completedApplicationValue,
                 };
               };
+              const formatAllTime = (data = []) => {
+                
+                let gradValue = 0
+                let orgValue = 0
+                let value = ''
+                
+              
+                let completedRequest: any = [];
+                let completedGradValue: any = [];
+                let completedOrgValue: any = [];
+                data.forEach((x: any) => {
+                  if (x.year) {
+                    gradValue = x.graduate || x.graduate;
+                    orgValue = x.organization || x.organization;
+                    value = `${x.month + ' ' + x.year} `;
+                  }
+                  
+                  completedRequest.push(value);
+                  completedGradValue.push(gradValue);
+                  completedOrgValue.push(orgValue);
+                });
+                return {
+                  completedRequest,
+                  completedGradValue,
+                  completedOrgValue,
+                };
+              };
 
               let revenueStatisticsBar = {};
 		if (action.payload.range === 2) {
 			revenueStatisticsBar = formatDaily(data.payload.applicationAndVerificationAnalyticsVMs);
 		}
 		if (action.payload.range === 0) {
-			revenueStatisticsBar = formatYear(data.payload.applicationAndVerificationAnalyticsVMs);
+			revenueStatisticsBar = formatAllTime(data.payload.applicationAndVerificationAnalyticsVMs);
 		}
 		if (action.payload.range === 5) {
 			revenueStatisticsBar = formatMonth(data.payload.applicationAndVerificationAnalyticsVMs);
@@ -1065,13 +1120,40 @@ export class DashboardEffects {
                   completedVerValue,
                 };
               };
+              const formatAllTime = (data = []) => {
+                
+                let gradValue = 0
+                let orgValue = 0
+                let value = ''
+                
+              
+                let completedRequest: any = [];
+                let completedGradValue: any = [];
+                let completedOrgValue: any = [];
+                data.forEach((x: any) => {
+                  if (x.year) {
+                    gradValue = x.graduate || x.graduate;
+                    orgValue = x.organization || x.organization;
+                    value = `${x.month + ' ' + x.year} `;
+                  }
+                  
+                  completedRequest.push(value);
+                  completedGradValue.push(gradValue);
+                  completedOrgValue.push(orgValue);
+                });
+                return {
+                  completedRequest,
+                  completedGradValue,
+                  completedOrgValue,
+                };
+              };
 
               let revenueStatisticsBar = {};
 		if (action.payload.range === 2) {
 			revenueStatisticsBar = formatDaily(data.payload.verificationAnalyticsVMs);
 		}
 		if (action.payload.range === 0) {
-			revenueStatisticsBar = formatYear(data.payload.verificationAnalyticsVMs);
+			revenueStatisticsBar = formatAllTime(data.payload.verificationAnalyticsVMs);
 		}
 		if (action.payload.range === 5) {
 			revenueStatisticsBar = formatMonth(data.payload.verificationAnalyticsVMs);

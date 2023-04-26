@@ -12,11 +12,11 @@ import { environment } from 'src/environments/environment';
 declare var PaystackPop: any;
 
 @Component({
-  selector: 'app-search-results',
-  templateUrl: './search-results.component.html',
-  styleUrls: ['./search-results.component.scss']
+  selector: 'app-graduate-verification-payment',
+  templateUrl: './graduate-verification-payment.component.html',
+  styleUrls: ['./graduate-verification-payment.component.scss']
 })
-export class SearchResultsComponent implements OnInit, OnDestroy {
+export class GraduateVerificationPaymentComponent implements OnInit {
   pk: string = environment.pkKey
 
   selectedPaymentMethod: string = '';
@@ -168,7 +168,7 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   payWithWallet() {
     const payload = {
       transactionId: Number(this.transactionId),
-      makePaymentType: 5,
+      makePaymentType: 7,
       isCard: false,
       imei: '',
       serialNumber: '',
@@ -193,7 +193,7 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   payWithCard() {
     const payload = {
       transactionId: Number(this.transactionId),
-      makePaymentType: 5,
+      makePaymentType: 7,
       isCard: true,
       imei: '',
       serialNumber: '',
@@ -242,7 +242,7 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
     ////console.log(data)
     const payload = {
       transactionId: Number(this.transactionId),
-      makePaymentType: 5,
+      makePaymentType: 7,
       refrenceNumber: data.reference,
       merchantType: 'PAYSTACK',
       isPaymentSuccessful: this.isTransactionSuccessful === 'success' ? true : false,
@@ -307,6 +307,3 @@ ngOnDestroy(): void {
 
 }
 
-
-
-  
