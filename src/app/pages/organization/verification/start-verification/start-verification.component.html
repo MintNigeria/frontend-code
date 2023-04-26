@@ -110,10 +110,10 @@
 
                         <app-button
                         
-                        [overRideButtonClass]="true"
+                        [overRideButtonClass]="true" [disabled]="referenceForm.invalid"
                         customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
                         (buttonClick)="verifyData()"
-                        >Verify</app-button>
+                        >Proceed to payment</app-button>
                     </div>
                     
                 </div>

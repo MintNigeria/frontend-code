@@ -78,7 +78,7 @@ export class GraduateVerificationDetailsComponent implements OnInit {
       middleName: ['', Validators.required],
       lastName: ['', Validators.required],
       gender: ['', Validators.required],
-      matricNo: ['', Validators.required],
+      matricNo: [''],
       degreeType: ['', Validators.required],
       yearOfEntry: ['', Validators.required],
       yearOfGraduation: ['', Validators.required],
@@ -145,9 +145,9 @@ export class GraduateVerificationDetailsComponent implements OnInit {
     this.store.dispatch(searchGraduateRecords({payload}))
     this.actions$.pipe(ofType(searchGraduateRecordsSuccess)).subscribe((res: any) => {
       console.log(res)
-      if (res.payload.hasErrors === false) {
+      if (res.payload.hasErrors === false && res.payload.payload.length !== 0) {
         sessionStorage.setItem('ver_Ys', JSON.stringify(res.payload.payload))
-        this.router.navigateByUrl('/organization/my-verifications/new/search-table')
+        this.router.navigateByUrl('/organization/verifications/graduate-details-search-result')
       }
     })
   }

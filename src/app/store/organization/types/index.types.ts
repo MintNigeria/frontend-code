@@ -22,6 +22,7 @@ export interface OrganizationStateInterface {
   subscriptionHistory: any;
   verificationHistory: any;
   verificationHistoryData: any;
+  verifyRecordByGraduateDetails: any;
   verifyRecord: any;
   organization: any;
   requestReason: any;

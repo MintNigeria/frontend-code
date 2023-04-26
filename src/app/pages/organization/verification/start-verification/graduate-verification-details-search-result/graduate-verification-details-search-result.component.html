@@ -1,0 +1,117 @@
+<div [formGroup]="reasonForm">
+
+    <div class="overflow-x-auto mt-8 hide-scrollbar">
+      <table class="table w-full">
+        <thead>
+          <tr>
+            <th class="flex gap-1 text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]">
+              Full Name
+              <span><img src="assets/images/icons/arrow_down.svg" alt="" class="mt-0.5" /></span>
+            </th>
+            <th class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]">
+              Gender
+            </th>
+            <th class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]">
+              Year of Entry
+            </th>
+            <th class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]">
+              Year of graduation
+            </th>
+  
+          
+            <th class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]">
+              Action
+            </th>
+          </tr>
+        </thead>
+  
+        <tbody class="">
+          <tr *ngFor="let res of recordList" class=" ">
+            <td class="bg-white">
+              <div>
+                <p class="my-0 text-base cursor-pointer font-inter font-medium text-[#101828]">
+                  {{ res.fullName }}
+                </p>
+  
+              </div>
+            </td>
+  
+            <td class="bg-white">
+              <div>
+                <p class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]">
+                  {{ res.gender }}
+                </p>
+              </div>
+            </td>
+  
+            <td class="bg-white">
+              <div>
+                <p class="my-0 text-base font-inter cursor-pointer font-medium text-[#0D47A1]">
+                  {{ res.yearOfEntry}}
+                </p>
+              </div>
+            </td>
+  
+            <td class="bg-white">
+              <div>
+                <p class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]">
+                  {{ res.graduationYear }}
+                </p>
+              </div>
+            </td>
+           
+  
+            <td class="bg-white">
+              <div class="flex gap-2 items-center" >
+                <input type="radio" name="radio-1" class="radio" (change)="viewDetails(res)" />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div
+                class=" border border-solid border-[#EAECF0] border-t-2 border-b-2 border-r-0 border-l-0 rounded-sm p-4 md:p-6 divide-y divide-[#EAECF0]">
+                <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
+                    <div>
+                        <h3 class="font-medium text-sm text-[#344054]">Reason for Request</h3>
+                        <p class="text-sm text-[#667085]">
+                            Please select a reason for requesting verification
+                        </p>
+                    </div>
+    
+                    <div class="grid gap-5">
+                       
+                        <div>
+                            <p class="input_label label_asterisk my-1">Faculty <span class="text-danger">*</span></p>
+                            <ng-select class="custom-ng-dropdown" 
+                            formControlName="selectedReason"
+              [selectOnTab]="true" 
+              placeholder="Select reason"
+              >
+          <ng-option *ngFor="let unit of requestReason" [value]="unit.reasonForRequestValue">{{unit.reasonForRequest}}</ng-option>
+          </ng-select>
+                        </div>
+                        
+    
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end items-center gap-4 mt-4 pb-10">
+                <app-button (buttonClick)="goBack()"
+                [overRideButtonClass]="true"
+                customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
+                >Back</app-button>
+
+                <app-button
+                
+                [overRideButtonClass]="true"  [disabled]="reasonForm.invalid"
+                customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
+                (buttonClick)="verifyData()"
+                >Proceed to payment</app-button>
+            </div>
+            
+  
+  </div>

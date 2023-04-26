@@ -76,7 +76,7 @@ filter = {
     filter: '',
     pageSize: 10,
     pageIndex: 1,
-    requestor: 1,
+    // requestor: 1,
     'TimeBoundSearchVm.TimeRange': 0,
     status: '',
     transactionType: '',
@@ -192,7 +192,6 @@ filter = {
       })
     } else {
       const filter = {...this.filter, ['TimeBoundSearchVm.TimeRange'] : range};
-      console.log(filter)
       this.filter = filter;
     }
   }

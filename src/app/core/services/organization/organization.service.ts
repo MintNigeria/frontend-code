@@ -160,6 +160,14 @@ export class OrganizationService
     );
   }
 
+  organizationVerificationByGraduateDetails(
+    payload: any
+  ) {
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Verify-By-Graduate-Details`, payload, 
+    );
+  }
+
 
   getDepartmentGrades(
     institutionId: any,
