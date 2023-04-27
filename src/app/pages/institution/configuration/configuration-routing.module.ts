@@ -15,6 +15,8 @@ import { AwaitingApprovalComponent } from './processing-fee/awaiting-approval/aw
 import { ProcessingFeeComponent } from './processing-fee/processing-fee.component';
 import { AwaitingApprovalFeeComponent } from './verification-fee/awaiting-approval-fee/awaiting-approval-fee.component';
 import { VerificationFeeComponent } from './verification-fee/verification-fee.component';
+import { InstitutionGradeComponent } from './institution-setup/institution-grade/institution-grade.component';
+import { CreateGradeComponent } from './create-grade/create-grade.component';
 
 const routes: Routes = [
   {path: '', component:ConfigurationComponent,
@@ -27,14 +29,17 @@ const routes: Routes = [
         {path : '',  component : FacultyComponent},
       {path : 'faculty',  component : FacultyComponent},
       {path : 'department', component: DepartmentComponent},
-      { path : 'degree-type', component : DegreeTypeComponent}
+      { path : 'degree-type', component : DegreeTypeComponent},
+      { path : 'grade', component : InstitutionGradeComponent}
       ]},
       {path: 'create-faculty', component: CreateFacultyComponent},
+      {path: 'create-grade', component: CreateGradeComponent},
       {path: 'edit-faculty/:id/:name', component: CreateFacultyComponent},
       {path: 'create-department', component: CreateDepartmentComponent},
       {path: 'edit-department/:id/:name/:faculty', component: CreateDepartmentComponent},
       {path: 'create-degree-type', component: CreateDegreeTypeComponent},
       {path: 'edit-degree-type/:id/:name', component: CreateDegreeTypeComponent},
+      {path: 'edit-grade/:id/:name', component: CreateGradeComponent},
 
     ]},
     {path: 'awaiting-approval', component: AwaitingApprovalComponent},

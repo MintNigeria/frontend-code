@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Actions, ofType } from '@ngrx/effects';
@@ -16,7 +16,7 @@ declare var PaystackPop: any;
   templateUrl: './search-results.component.html',
   styleUrls: ['./search-results.component.scss']
 })
-export class SearchResultsComponent implements OnInit {
+export class SearchResultsComponent implements OnInit, OnDestroy {
   pk: string = environment.pkKey
 
   selectedPaymentMethod: string = '';
@@ -36,32 +36,6 @@ export class SearchResultsComponent implements OnInit {
   successModal = "successModal";
 
 
-  searchResults = [
-    {
-      name: 'Adekunle Ciroma',
-      faculty: 'Management Science',
-      department: 'Bank and Finance',
-      matricNo: '123456',
-      gradYear: '2019',
-      action:'Verify'
-    },
-    {
-      name: 'Adekunle Ciroma',
-      faculty: 'Management Science',
-      department: 'Bank and Finance',
-      matricNo: '123456',
-      gradYear: '2019',
-      action:'Verify'
-    },
-    {
-      name: 'Adekunle Ciroma',
-      faculty: 'Management Science',
-      department: 'Bank and Finance',
-      matricNo: '123456',
-      gradYear: '2019',
-      action:'Verify'
-    }
-  ]
   trxData: any;
   userData: any;
   balance: any;
@@ -258,17 +232,18 @@ export class SearchResultsComponent implements OnInit {
   onSuccess(trx: any) {
     ////console.log(trx)
     this.isTransactionSuccessful = trx.status
-      this.validatePayment()
+      this.validatePayment(trx)
   }
   onClose() {
     ////console.log('trx')
   }
 
-  validatePayment() {
+  validatePayment(data: any) {
     ////console.log(data)
     const payload = {
       transactionId: Number(this.transactionId),
       makePaymentType: 5,
+      refrenceNumber: data.reference,
       merchantType: 'PAYSTACK',
       isPaymentSuccessful: this.isTransactionSuccessful === 'success' ? true : false,
       imei: '',
@@ -279,10 +254,11 @@ export class SearchResultsComponent implements OnInit {
     }
     this.store.dispatch(validateOrganizationFundWallet({payload}))
     this.actions$.pipe(ofType(validateOrganizationFundWalletSuccess)).subscribe((res: any) => {
-      ////console.log(res)
+      console.log(res)
       if (res) {
         this.notification.publishMessages('success', 'successful')
-        this.router.navigate(['organization/verifications']);      
+        // this.router.navigate(['organization/verifications']); 
+        this.router.navigateByUrl(`/organization/verifications/view-verified-documents/${res.payload.payload.institutionGraduateId}`)     
 
       }
 
@@ -320,6 +296,12 @@ openWalletPayment() {
   this.main= false;
   //console.log('Wallet payment initiated');
 }
+
+ngOnDestroy(): void {
+  sessionStorage.removeItem('dx_l')
+}
+
+
 
 
 

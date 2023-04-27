@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginModalComponent } from '../modals/login-modal/login-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CreateAccountModalComponent } from '../modals/create-account-modal/create-account-modal.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -24,6 +25,14 @@ export class NavBarComponent implements OnInit {
       // width: '600px',
       // height: '600px'
     });
+  }
+  
+  openCreateAccount() {
+    const dialogRef = this.dialog.open(CreateAccountModalComponent, {
+      width: '700px'
+      // height: '600px'
+    });
+
   }
 
 }

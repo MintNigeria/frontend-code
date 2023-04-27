@@ -28,6 +28,10 @@ import { TranscriptServicesComponent } from './transcript-services/transcript-se
 import { TranscriptServiceComponent } from './transcript-services/transcript-service/transcript-service.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateAccountModalComponent } from './modals/create-account-modal/create-account-modal.component';
+import { utilityReducers } from 'src/app/store/institution copy/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { UtilityEffects } from 'src/app/store/institution copy/effects';
 
 
 @NgModule({
@@ -62,7 +66,10 @@ import { CreateAccountModalComponent } from './modals/create-account-modal/creat
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
-    LandingRoutingModule
+    LandingRoutingModule,
+    StoreModule.forFeature('utility', utilityReducers),
+    EffectsModule.forFeature([UtilityEffects]),
+
   ]
 })
 export class LandingModule { }

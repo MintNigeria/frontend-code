@@ -21,14 +21,39 @@
             <h4 class="font-medium font-poppins lg:text-4xl text-xl  text-darkGray my-3">
                 Verification History
             </h4>
-            <div class="items-center mt-6 mb-3">
+            <!-- <div class="items-center mt-6 mb-3">
                 <app-button
                 [customClass]="'bg-buttonBlue text-white font-medium font-inter text-xs whitespace-nowrap h-10 rounded-xl'"
                 [overRideButtonClass]="true"
                 [buttonText]="'Start Verification'"
                 [routerLink]="'/organization/verifications/verify-documents'">
                 </app-button>
-            </div>
+            </div> -->
+            <div class="mt-6 mb-3 flex items-center px-2 bg-buttonBlue text-white font-medium font-inter  text-xs h-10  whitespace-nowrap rounded-xl   dropdown dropdown-bottom dropdown-end">
+
+                <p class=" ">
+                  Start New Verification
+        
+                  
+                </p>
+                <div class="">
+                    <svg tabindex="0" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 7.5L10 12.5L15 7.5" stroke="#BDD5FA" stroke-width="1.66667" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    </svg>
+        
+                    <ul tabindex="0" class="main mt-3 dropdown-content menu p-2 shadow bg-white text-black md:z-50 w-[280px]">
+        
+        
+                      <li>
+                        <a class="flex items-center text-black " routerLink="/organization/verifications/verify-documents">
+                          Verification by Code</a></li>
+                      <li>
+                        <a class="flex items-center text-black "
+                          routerLink="/organization/verifications/verify-graduate-details"> Verification by Details</a></li>
+                    </ul>
+                  </div>
+              </div>
         </div>
     </div>
     <!---->
@@ -64,7 +89,11 @@
                             <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
                                 Institution
                             </p>
-                            <div class="dropdown dropdown-bottom">
+                            <ng-select class=" !w-40 !h-10" (change)="changeInstitution($event)" [selectOnTab]="true"
+            [placeholder]="selectedInstitution">
+            <ng-option  *ngFor="let unit of institutionList; let i = index" [value]="unit.institutionName">{{unit?.institutionName}}</ng-option>
+          </ng-select>
+                            <!-- <div class="dropdown dropdown-bottom">
                                 <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
                                 <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedInstitution }}</p>
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
@@ -73,14 +102,18 @@
                                     <li><a (click)="selectedInstitution='All'">All</a></li>
                                     <li *ngFor="let unit of institutionList"> <a  (click)="changeInstitution(unit.institutionName)">{{unit?.institutionName}}</a></li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="lg:justify-between gap-4">
                             <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
                                 Faculty
                             </p>
-                            <div class="dropdown dropdown-bottom">
+                            <ng-select class=" !w-40 !h-10"  [selectOnTab]="true" (change)="changeFaculty($event)"
+                [placeholder]="selectedFaculty">
+                <ng-option  *ngFor="let unit of facultyList; let i = index" [value]="unit">{{unit?.name}}</ng-option>
+              </ng-select>
+                            <!-- <div class="dropdown dropdown-bottom">
                                 <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
                                 <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedFaculty }}</p>
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
@@ -90,13 +123,17 @@
                                     <li *ngFor="let unit of facultyList"> <a  (click)="changeFaculty(unit.id, unit.name)">{{unit?.name}}</a></li>
                                     
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="lg:justify-between gap-4">
                             <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
                                 Department
                             </p>
-                            <div class="dropdown dropdown-bottom">
+                            <ng-select class=" !w-40 !h-10" (change)="changeDepartment($event)" [selectOnTab]="true"
+            [placeholder]="selectedSector">
+            <ng-option  *ngFor="let unit of departmentList; let i = index" [value]="unit">{{unit?.departmentName}}</ng-option>
+          </ng-select>
+                            <!-- <div class="dropdown dropdown-bottom">
                                 <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
                                     <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedSector }}</p>
                                     <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
@@ -105,7 +142,7 @@
                                     <li><a (click)="selectedSector='All'">All</a></li>
                                     <li *ngFor="let unit of departmentList"> <a  (click)="changeDepartment(unit.id, unit.departmentName)">{{unit?.departmentName}}</a></li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="flex items-center mt-6">

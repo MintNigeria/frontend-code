@@ -8,6 +8,8 @@ import { dashboardReducer } from 'src/app/store/dashboard/reducer';
 import { DashboardEffects } from 'src/app/store/dashboard/effects';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { GraduatesEffects } from 'src/app/store/graduates/effects';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -18,8 +20,9 @@ import { StoreModule } from '@ngrx/store';
     CommonModule,
     DashboardRoutingModule,
     SharedModule,
+    NgSelectModule,
     StoreModule.forFeature('dashboard', dashboardReducer),
-    EffectsModule.forFeature([DashboardEffects]),
+    EffectsModule.forFeature([DashboardEffects, GraduatesEffects]),
 
   ]
 })

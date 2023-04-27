@@ -50,6 +50,8 @@ import {
   organizationProfileSuccess,
   organizationSectorAndIndustry,
   organizationSectorAndIndustrySuccess,
+  organizationVerificationByGraduateDetails,
+  organizationVerificationByGraduateDetailsSuccess,
   reasonForRequest,
   reasonForRequestSuccess,
   registerOrganization,
@@ -419,6 +421,45 @@ export class OrganizationEffects {
               // read data and update payload
 
               return getOrganizationVerificationHistoryDataSuccess({
+                payload: data,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  organizationVerificationByGraduateDetails$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(organizationVerificationByGraduateDetails),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        const { payload } = action;
+        return this.organizationService
+          .organizationVerificationByGraduateDetails(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+
+              return organizationVerificationByGraduateDetailsSuccess({
                 payload: data,
               });
             })

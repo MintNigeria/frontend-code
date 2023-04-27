@@ -20,6 +20,7 @@ import {
   newTalentPoolSearchSuccess,
   organizationProfileSuccess,
   organizationSectorAndIndustrySuccess,
+  organizationVerificationByGraduateDetailsSuccess,
   reasonForRequestSuccess,
   registerOrganizationSuccess,
   updateOrganizationSuccess,
@@ -41,6 +42,7 @@ const initialState: OrganizationStateInterface = {
   subscriptionHistory: null,
   verificationHistory: null,
   verificationHistoryData: null,
+  verifyRecordByGraduateDetails: null,
   verifyRecord: null,
   historyInstitution: null,
   profile: null,
@@ -112,6 +114,12 @@ export const organizationReducer = createReducer(
     return {
       ...state,
       verificationHistoryData: payload,
+    };
+  }),
+  on(organizationVerificationByGraduateDetailsSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      verifyRecordByGraduateDetails: payload,
     };
   }),
   on(verifyGraduateRecordSuccess, (state, { payload }) => {

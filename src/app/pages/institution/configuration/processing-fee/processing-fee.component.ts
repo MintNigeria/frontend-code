@@ -139,12 +139,33 @@ export class ProcessingFeeComponent implements OnInit {
   }
 
   getCheckedValue(name: string, event: any) {
-    if (event.checked === true) {
+    switch (name) {
+      case 'Email':
+        if (event.checked === true) {
+          this.deliveryOptionIds.push(1)
+        } else {
+          this.deliveryOptionIds =  this.deliveryOptionIds.filter((element: any) => element !== 1)
+        }
+        break;
+        case 'File Upload':
+        if (event.checked === true) {
+          this.deliveryOptionIds.push(2)
+        } else {
+          this.deliveryOptionIds = this.deliveryOptionIds.filter((element: any) => element !== 2)
 
-      ////console.log(name, event.value)
-      // const a = this.selectedDocumentType.processingFeeDeliveryTypeVMs.map((x: any) => {
-      //   if (x.id ===)
-      // })
+        }
+        break;
+        case 'Hard Copy':
+        if (event.checked === true) {
+          this.deliveryOptionIds.push(3)
+        } else {
+          this.deliveryOptionIds =  this.deliveryOptionIds.filter((element: any) => element !== 3)
+
+        }
+        break;
+
+      default:
+        break;
     }
   }
 

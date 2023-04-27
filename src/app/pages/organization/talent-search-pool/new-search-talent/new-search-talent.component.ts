@@ -5,7 +5,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
-import { getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess, getAllInstitutionDegreeType, getAllInstitutionDegreeTypeSuccess, getAllInstitutionsDropdown, getAllInstitutionsDropdownSuccess, getFacultyAndDepartmentByInstitutionName, getFacultyAndDepartmentByInstitutionNameSuccess } from 'src/app/store/institution/action';
+import { getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess, getAllInstitutionDegreeType, getAllInstitutionDegreeTypeSuccess, getAllInstitutionGrade, getAllInstitutionGradeSuccess, getAllInstitutionsDropdown, getAllInstitutionsDropdownSuccess, getFacultyAndDepartmentByInstitutionName, getFacultyAndDepartmentByInstitutionNameSuccess } from 'src/app/store/institution/action';
 import { getDepartmentGrades, getDepartmentGradesSuccess, newTalentPoolSearch, newTalentPoolSearchSuccess, verifyHistoryInstitutionDropdown } from 'src/app/store/organization/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
@@ -65,9 +65,9 @@ export class NewSearchTalentComponent implements OnInit {
       Department   : ['', Validators.required],
       Degree: ['', Validators.required],
       Grade : ['', Validators.required],
-      Gender : [''],
-      FromYearOfGraduation : [''],
-      ToYearOfGraduation : [''],
+      Gender : ['', Validators.required],
+      FromYearOfGraduation : ['', Validators.required],
+      ToYearOfGraduation : ['', Validators.required],
       YearOfGraduation : [''],
     })
   }
@@ -85,6 +85,11 @@ export class NewSearchTalentComponent implements OnInit {
     this.actions$.pipe(ofType(getAllInstitutionDegreeTypeSuccess)).subscribe((res: any) => {
       this.degreeType = res.payload.data;
     })
+    // this.generateReport()
+    this.store.dispatch(getAllInstitutionGrade({payload: {institutionId: this.institutionId}}))
+    this.actions$.pipe(ofType(getAllInstitutionGradeSuccess)).subscribe((res: any) => {
+      this.grades = res.payload.data;
+    })
   }
   
   getDepartmentInFaculty(event: any) {
@@ -96,11 +101,7 @@ export class NewSearchTalentComponent implements OnInit {
   }
   
   getDegree(event: any) {
-    this.store.dispatch(getDepartmentGrades({institutionId: this.institutionId, departmentId: event.departmentName}))
-    this.actions$.pipe(ofType(getDepartmentGradesSuccess)).subscribe((res: any) => {
-      this.grades = res.payload.payload;
-      //console.log(res)
-    })
+   
     this.newTalentsearchForm.controls['Department'].setValue(event.departmentName)
   }
 

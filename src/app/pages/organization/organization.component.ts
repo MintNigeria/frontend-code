@@ -29,11 +29,26 @@ export class OrganizationComponent implements OnInit {
       id: 2,
       title: 'Verifications',
       label: 'Verifications',
-      hasChild: false,
+      hasChild: true,
       path: 'verifications',
       active: 'assets/images/verification_inactive.svg',
       inactive: 'assets/images/verification_inactive.svg',
-      show: true
+      show: true,
+      childRoute:  [
+        {
+          route: '/organization/verifications',
+          name: 'Verification List'
+        },
+        {
+          route: '/organization/verifications/verify-documents',
+          name: 'Verify By Code'
+        },
+        {
+          route: '/organization/verifications/verify-graduate-details',
+          name: 'Verify By Graduate Details'
+        }
+      ]
+      
     },
     {
       id: 3,

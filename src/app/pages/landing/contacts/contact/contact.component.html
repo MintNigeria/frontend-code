@@ -114,7 +114,7 @@
         <div class="mb-4">
           <label for="subject" 
           class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">Subject</label>
-          <select id="subject" class="px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
+          <select id="subject" class="px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none" formControlName="subject">
           
             <option value="General Enquiry">General Enquiry</option>
             <option value="Institution Enquiry">Institution Enquiry</option>
@@ -127,7 +127,7 @@
         <div class="mb-4">
           <label for="message" 
           class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">Message</label>
-          <textarea name="" formControlName="text" id="" class="w-full h-32 rounded border bg-white"></textarea>
+          <textarea name="" formControlName="message" id="" class="w-full h-32 rounded border bg-white"></textarea>
           <!-- <app-textarea
           [formGrp]="contactForm"
           formCtrlName="text"
@@ -136,7 +136,7 @@
           class="w-full h-32 rounded border bg-white"></app-textarea> -->
         </div>
         <app-button 
-        type="submit" 
+        type="submit" [disabled]="contactForm.invalid"
         (buttonClick)="submit()"
         class="bg-buttonBlue text-white font-inter font-medium text-xl  rounded-lg px-4 py-2">
           Send message
