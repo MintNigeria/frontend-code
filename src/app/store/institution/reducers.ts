@@ -7,11 +7,13 @@ import {
   createDegreeTypeInInstitutionSuccess,
   createDepartmentInInstitutionSuccess,
   createFacultyInInstitutionSuccess,
+  createGradeInInstitutionSuccess,
   createNewInstitutionSuccess,
   getAllAdminInstitutionTransactionSuccess,
   getALlDepartmentInInstitutionSuccess,
   getALlFacultiesInInstitutionSuccess,
   getAllInstitutionDegreeTypeSuccess,
+  getAllInstitutionGradeSuccess,
   getAllInstitutionRecordsSuccess,
   getAllInstitutionsDropdownSuccess,
   getAllInstitutionUsersSuccess,
@@ -29,6 +31,7 @@ import {
   updateDepartmentInInstitutionSuccess,
   updatedInstitutionSuccess,
   updateFacultyInInstitutionSuccess,
+  updateGradeInInstitutionSuccess,
   ValidateRegistrationCodeSuccess,
 } from './action';
 
@@ -50,10 +53,13 @@ const initialState: IInstitutionStateInterface = {
   institutionDepartment: null,
   institutionRecord: null,
   institutionDegreeType: null,
+  institutiongrade: null,
   newDegreeType: null,
+  newgrade: null,
   newDepartment: null,
   newFaculty: null,
   updateDegreeType: null,
+  updategrade: null,
   updateRegistration: null,
   updateDepartment: null,
   updateFaculty: null,
@@ -192,6 +198,27 @@ export const institutionReducers = createReducer(
     return {
       ...state,
       updateDegreeType: payload
+    };
+  }),
+  
+  on(getAllInstitutionGradeSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      institutiongrade: payload
+    };
+  }),
+  
+  on(createGradeInInstitutionSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      newgrade: payload
+    };
+  }),
+
+  on(updateGradeInInstitutionSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      updategrade: payload
     };
   }),
   

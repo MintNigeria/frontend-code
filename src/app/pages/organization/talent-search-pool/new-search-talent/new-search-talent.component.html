@@ -92,7 +92,7 @@
                         placeholder="Select grade"
                         formControlName="Grade"
                         >
-                    <ng-option *ngFor="let unit of grades" [value]="unit.grade">{{unit.grade}}</ng-option>
+                    <ng-option *ngFor="let unit of grades" [value]="unit.name">{{unit.name}}</ng-option>
                     </ng-select>
                     </div>
                 </div>
@@ -174,9 +174,10 @@
                 customClass="p-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
                 >Cancel</app-button> -->
                 <app-button
+                [disabled]="newTalentsearchForm.invalid"
                 (buttonClick)="generateReport()"
                 [overRideButtonClass]="true"
-                customClass="p-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+                customClass="p-2 rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
                 >Search</app-button>
             </div>
         </div>

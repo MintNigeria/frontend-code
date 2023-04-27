@@ -1,12 +1,13 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 
 import * as storage from '../storage';
-import { invokeGetStateAndLGASuccess } from './action';
+import { contactUsSuccess, invokeGetStateAndLGASuccess } from './action';
 import { IUtilityStateInterface } from './types/index.type';
 
 
 const initialState: IUtilityStateInterface = {
-  getStateAndLGA: {data: []}
+  getStateAndLGA: {data: []},
+  contact: null
 
 };
 
@@ -16,6 +17,12 @@ export const utilityReducers = createReducer(
     return {
       ...state,
       getStateAndLGA: payload,
+    };
+  }),
+  on(contactUsSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      contact: payload,
     };
   }),
   

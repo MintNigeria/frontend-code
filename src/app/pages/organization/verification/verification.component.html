@@ -89,7 +89,11 @@
                             <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
                                 Institution
                             </p>
-                            <div class="dropdown dropdown-bottom">
+                            <ng-select class=" !w-40 !h-10" (change)="changeInstitution($event)" [selectOnTab]="true"
+            [placeholder]="selectedInstitution">
+            <ng-option  *ngFor="let unit of institutionList; let i = index" [value]="unit.institutionName">{{unit?.institutionName}}</ng-option>
+          </ng-select>
+                            <!-- <div class="dropdown dropdown-bottom">
                                 <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
                                 <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedInstitution }}</p>
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
@@ -98,14 +102,18 @@
                                     <li><a (click)="selectedInstitution='All'">All</a></li>
                                     <li *ngFor="let unit of institutionList"> <a  (click)="changeInstitution(unit.institutionName)">{{unit?.institutionName}}</a></li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="lg:justify-between gap-4">
                             <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
                                 Faculty
                             </p>
-                            <div class="dropdown dropdown-bottom">
+                            <ng-select class=" !w-40 !h-10"  [selectOnTab]="true" (change)="changeFaculty($event)"
+                [placeholder]="selectedFaculty">
+                <ng-option  *ngFor="let unit of facultyList; let i = index" [value]="unit">{{unit?.name}}</ng-option>
+              </ng-select>
+                            <!-- <div class="dropdown dropdown-bottom">
                                 <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
                                 <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedFaculty }}</p>
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
@@ -115,13 +123,17 @@
                                     <li *ngFor="let unit of facultyList"> <a  (click)="changeFaculty(unit.id, unit.name)">{{unit?.name}}</a></li>
                                     
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="lg:justify-between gap-4">
                             <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
                                 Department
                             </p>
-                            <div class="dropdown dropdown-bottom">
+                            <ng-select class=" !w-40 !h-10" (change)="changeDepartment($event)" [selectOnTab]="true"
+            [placeholder]="selectedSector">
+            <ng-option  *ngFor="let unit of departmentList; let i = index" [value]="unit">{{unit?.departmentName}}</ng-option>
+          </ng-select>
+                            <!-- <div class="dropdown dropdown-bottom">
                                 <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
                                     <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedSector }}</p>
                                     <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
@@ -130,7 +142,7 @@
                                     <li><a (click)="selectedSector='All'">All</a></li>
                                     <li *ngFor="let unit of departmentList"> <a  (click)="changeDepartment(unit.id, unit.departmentName)">{{unit?.departmentName}}</a></li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="flex items-center mt-6">

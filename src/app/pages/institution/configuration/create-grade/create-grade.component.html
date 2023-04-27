@@ -1,1 +1,39 @@
-<p>create-grade works!</p>
+<div >
+    <div class="border-1.5 rounded-xl shadow-md" [formGroup]="newDegreeForm">
+        <h3 class="py-2  border-b-1.5 rounded-t-xl px-6 font-sans font-medium text-lg text-darkGray bg-white">Degree</h3>
+        <div class="border-b-1.5">
+            <div class="p-6 grid grid-cols-3 items-center">
+                <p class="font-inter font-medium text-sm text-darkGray">Degree</p>
+                <app-input 
+                    [formGrp]="newDegreeForm" 
+                    formCtrlName="degree" 
+                    [Issuer]="'Enter Degree type'"
+                    [type]="'text'"
+                    [class]="' bg-white w-full h-10 mt-2 border border-[#D0D5DD] rounded-md placeholder:text-base placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
+                </app-input>
+            </div>
+        </div>
+        <div class="flex justify-end mb-6 mr-6 gap-3">
+            <app-button
+                [overRideButtonClass]="true" 
+                (buttonClick)="back()"
+                [customClass]="'w-20 h-10 rounded-lg font-normal border border-buttonBlue text-buttonBlue leading-6 bg-none p-2 mt-6'">Cancel
+            </app-button>
+            <app-button
+                *ngIf="isCreateForm"
+                (buttonClick)="createDegreeType()"
+                [disabled]="newDegreeForm.invalid"
+                [overRideButtonClass]="true" 
+                [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'">Create
+            </app-button>
+            <app-button
+                *ngIf="isEditForm"
+                (buttonClick)="updateDegreeType()"
+                [disabled]="newDegreeForm.invalid"
+                [overRideButtonClass]="true" 
+                [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'">Save
+            </app-button>
+        </div>
+    </div>
+    
+</div>

@@ -110,6 +110,12 @@ export class InstitutionService
     );
   }
 
+  getAllInstitutionGrade(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Grades/GetAllIGrades`, {params: payload}
+    );
+  }
+
   getAllInstitutionDegreeType(payload: any) {
     return this.http.get<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/DegreeType/GetAllIDegreeTypes`, {params: payload}
@@ -130,6 +136,18 @@ export class InstitutionService
   updateDegreeType(payload: any) {
     return this.http.put<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/DegreeType/UpdateDegreeType`, payload
+    );
+  }
+
+  createGrade(payload: any) {
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Grades/CreateGrade`, payload
+    );
+  }
+
+  updateGrades(payload: any) {
+    return this.http.put<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Grades/UpdateGrade`, payload
     );
   }
 

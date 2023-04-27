@@ -149,16 +149,16 @@ export class VerificationComponent implements OnInit {
     })
   }
 
-  changeFaculty(id: any, name: string) {
-    this.selectedFaculty = name
-    const data = this.facultyList.find((value: any) => value.id == Number(id));
+  changeFaculty(event: any) {
+    this.selectedFaculty = event.name
+    const data = this.facultyList.find((value: any) => value.id == Number(event.id));
     this.departmentList = data.departmentVMs;
 
   }
 
-  changeDepartment(id: any, name: string) {
-    this.selectedSector = name
-    const filter = {...this.filter, ['Department'] : name};
+  changeDepartment(event: any) {
+    this.selectedSector = event.departmentName
+    const filter = {...this.filter, ['Department'] : event.departmentName};
     this.filter = filter;
 
   }

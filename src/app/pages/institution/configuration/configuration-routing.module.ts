@@ -39,6 +39,7 @@ const routes: Routes = [
       {path: 'edit-department/:id/:name/:faculty', component: CreateDepartmentComponent},
       {path: 'create-degree-type', component: CreateDegreeTypeComponent},
       {path: 'edit-degree-type/:id/:name', component: CreateDegreeTypeComponent},
+      {path: 'edit-grade/:id/:name', component: CreateGradeComponent},
 
     ]},
     {path: 'awaiting-approval', component: AwaitingApprovalComponent},
