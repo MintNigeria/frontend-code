@@ -201,7 +201,7 @@ filter: any = {
   
   continue() {
     document.getElementById('myModal')?.click()
-    this.router.navigateByUrl('/')
+    this.router.navigateByUrl('/auth/institution')
 
   }
  

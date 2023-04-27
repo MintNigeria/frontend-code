@@ -6,7 +6,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { RecaptchaErrorParameters } from 'ng-recaptcha';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
-import { invokeLoginUser, loginSuccess } from 'src/app/store/auth/action';
+import { confirm2FAction, confirm2FActionSuccess, invokeLoginUser, loginSuccess } from 'src/app/store/auth/action';
 import { isUserSelector } from 'src/app/store/auth/selector';
 import { selectAppAPIResponse } from 'src/app/store/shared/app.selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
@@ -59,12 +59,28 @@ export class LoginComponent implements OnInit {
 
   accessAccount() {
     this.status = Status.LOADING;
-    this.store.dispatch(invokeLoginUser(this.loginAuth.value));
+    this.store.dispatch(invokeLoginUser({payload: this.loginAuth.value}));
     this.actions$.pipe(ofType(loginSuccess)).subscribe((res: any) => {
       if (res.accessToken !== undefined && typeof(res.payload) !== 'string') {
         const helper = new JwtHelperService();
         this.loggedInUser = helper.decodeToken(res.accessToken);
+        const data =  {
+          isAuthenticated: true,
+          user: {
+            firstName: this.loggedInUser.given_name,
+            lastName: this.loggedInUser.family_name,
+            email: this.loggedInUser.email,
+            id: this.loggedInUser.id,
+            lastLogin: this.loggedInUser.last_login_time,
+            name: this.loggedInUser.name,
+            userType: this.loggedInUser.UserType,
+            role: this.loggedInUser?.role || 'undefined',
+          },
+          permissions: this.loggedInUser.Permission
+    
+        };
         localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
+        localStorage.setItem('authData', JSON.stringify(data));
         this.notificationService.publishMessages('success', 'Login Successful');
         if (this.loggedInUser.UserType === 'Institution') {
           this.router.navigateByUrl('/institution/dashboard');
@@ -111,11 +127,50 @@ export class LoginComponent implements OnInit {
   }
 
   verifyOTP() {
-    const {email} = this.loginAuth.value
+    const {email, password} = this.loginAuth.value
     const payload = {
-      userName: email,
-      code: this.otpValue
+      email,
+      password,
+      code: this.otpValue,
+      twoFA: true
     }
+    this.store.dispatch(invokeLoginUser({payload}));
+    this.actions$.pipe(ofType(loginSuccess)).subscribe((res: any) => {
+      const helper = new JwtHelperService();
+      this.loggedInUser = helper.decodeToken(res.accessToken);
+      const data =  {
+        isAuthenticated: true,
+        user: {
+          firstName: this.loggedInUser.given_name,
+          lastName: this.loggedInUser.family_name,
+          email: this.loggedInUser.email,
+          id: this.loggedInUser.id,
+          lastLogin: this.loggedInUser.last_login_time,
+          name: this.loggedInUser.name,
+          userType: this.loggedInUser.UserType,
+          role: this.loggedInUser?.role || 'undefined',
+        },
+        permissions: this.loggedInUser.Permission
+  
+      };
+      localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
+      localStorage.setItem('authData', JSON.stringify(data));
+      this.notificationService.publishMessages('success', 'Login Successful');
+      if (this.loggedInUser.UserType === 'Institution') {
+        this.router.navigateByUrl('/institution/dashboard');
+
+        // this.showOTPPage = true;
+      }
+      if (this.loggedInUser.UserType === 'Graduates') {
+          this.router.navigateByUrl('/graduate/dashboard');
+        // this.showOTPPage = true;
+      }
+      if (this.loggedInUser.UserType === 'Organization') {
+          this.router.navigateByUrl('/organization/dashboard');
+        // this.showOTPPage = true;
+      }
+    
+    })
     
     // this.store.dispatch(validateGraduateRegistration({payload}))
     // this.actions$.pipe(ofType(validateGraduateRegistrationSuccess)).subscribe((res: any) => {
@@ -126,6 +181,11 @@ export class LoginComponent implements OnInit {
     //   }
     // })
   }
+
+   onOtpChange(event: any) {
+    this.otplength = event
+    this.otpValue = event;
+  }
   
   continue() {
     document.getElementById('myModal')?.click()
@@ -134,13 +194,13 @@ export class LoginComponent implements OnInit {
   }
  
   resendOTP() {
-    // const {Email} = this.institutionRegForm.value
+    const {email} = this.loginAuth.value
 
-    // this.store.dispatch(resendOTP({email: Email}))
-    // this.actions$.pipe(ofType(resendOTPSuccess)).subscribe((res: any) => {
-    //   if (res.message.hasErrors === false) {
-    //     console.log('res', res)
-    //   }
-    // })
+    this.store.dispatch(confirm2FAction({email}))
+    this.actions$.pipe(ofType(confirm2FActionSuccess)).subscribe((res: any) => {
+      if (res.message.hasErrors === false) {
+        console.log('res', res)
+      }
+    })
   }
 }

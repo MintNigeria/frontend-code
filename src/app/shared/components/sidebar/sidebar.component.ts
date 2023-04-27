@@ -33,11 +33,12 @@ permission$ = this.appStore.pipe(select(permissionsSelector));
   ) {
 
     this.permissions()
+    const data: any = localStorage.getItem('authData')
+    this.adminUser = JSON.parse(data)
   }
 
   ngOnInit(): void {
     this.currentRoute = this.router.url.split('/')[1]
-
     this.getUser()
     this.activeLink();
 
@@ -48,8 +49,7 @@ permission$ = this.appStore.pipe(select(permissionsSelector));
 
   getUser() {
     this.user$.subscribe((res: any) => {
-      this.adminUser = res;
-      console.log(this.adminUser.role.split('|')[0])
+      // this.adminUser = res;
     })
   }
   permissions() {
@@ -90,9 +90,9 @@ permission$ = this.appStore.pipe(select(permissionsSelector));
       const newTitle = `INSTITUTION_${title}`
       if (this.permissionList?.includes(newTitle)) {
         link.show = true;
-      } else if (this.adminUser.userType === 'Graduates' || this.adminUser.userType === 'Organization') {
+      } else if (this.adminUser.user?.userType === 'Graduates' || this.adminUser.user?.userType === 'Organization') {
         link.show = true;
-      } else if (this.adminUser.role.split('|')[0] === 'Super Admin' || this.adminUser.role === 'undefined') { //admin has no role
+      } else if (this.adminUser.user.role.split('|')[0] === 'Super Admin' || this.adminUser?.user.role === 'undefined') { //admin has no role
         link.show = true;
 
       }

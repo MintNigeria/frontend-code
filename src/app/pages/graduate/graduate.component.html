@@ -62,7 +62,7 @@
                     </ul>
                   </div>
             </div>
-            <div  *ngIf="user$ | async as user">
+            <div  >
                 <div class="flex items-center gap-2">
                   <img  class="cursor-pointer"  src="assets/images/main/account.svg " class="" alt="logged user avatar">
                   <div class="flex items-center gap-2">
@@ -83,8 +83,8 @@
                             <img  class="cursor-pointer"  src="assets/images/main/dummy.png " class="w-8 h-8 mr-2 rounded-full" alt="logged user avatar">
 
                             <div>
-                              <div>{{user.firstName}}</div>
-                              <div class="font-medium text-sm truncate">{{user.email}}</div>
+                              <div>{{user?.user?.firstName}}</div>
+                              <div class="font-medium text-sm truncate">{{user?.user?.email}}</div>
                             </div>
                           </div>
                         </div>

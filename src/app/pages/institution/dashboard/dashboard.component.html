@@ -2,10 +2,10 @@
   <div class="flex justify-between">
     <div>
         <h4 class="font-poppins font-medium text-3xl headerGray capitalize pb-1">
-            Welcome back, {{ user.firstName }}
+            Welcome back, {{ adminUser?.user.firstName }}
         </h4>
         <p class="font-nunito font-normal text-base text-lightGray mb-6">
-            Last login date: {{ user.lastLogin }}
+            Last login date: {{ adminUser?.user.lastLogin }}
         </p>
     </div>
     <app-button

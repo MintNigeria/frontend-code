@@ -120,12 +120,12 @@ export class InstitutionComponent implements OnInit {
   permissionList: any;
   adminUser: any;
   permission$ = this.appStore.pipe(select(permissionsSelector));
-  user$ = this.appStore.pipe(select(isUserSelector));
+  // user$ = this.appStore.pipe(select(isUserSelector));
   notification$ = this.appStore.pipe(select(notificationSelector))
   superAdminRole: any;
   userData: any;
   userId!: number;
-
+user: any
   constructor(
     private utilityService: UtilityService,
     private route: ActivatedRoute,
@@ -147,6 +147,10 @@ export class InstitutionComponent implements OnInit {
       this.deviceModel = 'Other';
     }
     this.loadIp();
+    const data: any = localStorage.getItem('authData')
+    this.user = JSON.parse(data)
+  
+        this.superAdminRole = this.user.user.role.split('|')[0]
    }
 
   ngOnInit(): void {
@@ -157,7 +161,7 @@ export class InstitutionComponent implements OnInit {
       }
       sessionStorage.setItem('extras', JSON.stringify(extra))
     }, 2000);
-    this.users()
+    // this.users()
     this.permissions()
     const data: any = localStorage.getItem('userData')
     this.userData = JSON.parse(data)
@@ -174,12 +178,11 @@ export class InstitutionComponent implements OnInit {
     })
   }
 
-  users() {
-    this.user$.subscribe((res: any) => {
-      this.superAdminRole = res.role.split('|')[0]
+  // users() {
+  //   this.user$.subscribe((res: any) => {
 
-    })
-  }
+  //   })
+  // }
   permissions() {
     this.permission$.subscribe((res: any) => {
       this.permissionList = res

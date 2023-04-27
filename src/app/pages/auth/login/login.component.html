@@ -1,9 +1,9 @@
 <div class="bg-white w-full h-screen  flex justify-center items-center">
-  <div class="w-fill md:w-3/5 mx-auto ">
+  <div class="w-fill md:w-3/5 mx-auto " *ngIf="!show2FAOTP">
     <h4 class="font-semibold font-poppins text-3xl pb-3 text-darkGray">Login as {{currentRoute === 'institution' ? 'an Institution' : currentRoute === 'graduate' ? 'a Graduate' : ' an Organization'}}</h4>
     <p class="font-nunito font-normal text-base text-ligthGray mb-8">Enter your details to login to your dashboard</p>
     <form [formGroup]="loginAuth" class="w-full">
-      <ng-container *ngIf="!show2FAOTP">
+      <ng-container >
         <div class="mb-5">
           <label for="email" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Email <span
               class="text-danger">*</span></label>
@@ -43,14 +43,21 @@
           <p class="font-nunito font-normal text-sm text-lightGray">Dont have an account? <span class="cursor-pointer text-primaryBlue font-medium" (click)="createAccount()">Register</span> </p>
         </div>
       </ng-container>
-      <ng-container *ngIf="show2FAOTP">
+    
+    </form>
+  </div>
+  <div class="w-fill md:w-3/5 mx-auto " *ngIf="show2FAOTP">
+   
+    <form [formGroup]="loginAuth" class="w-full">
+     
+      <ng-container >
         <div class="bg-white w-full h-screen  flex justify-center items-center">
-          <div class="w-fill md:w-3/5 mx-auto">
+          <div class="w-fill  mx-auto">
             <h4 class="font-semibold font-poppins text-3xl pb-3 text-darkGray">Email verification</h4>
             <p class="leading-6 text-base pb-8 text-lightGray font-nunito mb-8">We’ve sent a unique code to {{loginAuth.get("email")?.value}}
               in order to verify your email address. Please enter the code below.</p>
             <div class="mb-8">
-              <!-- <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{ length: 4 }"></ng-otp-input> -->
+              <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }"></ng-otp-input>
             </div>
             <div class="flex justify-start items-center my-6">
               <p class="font-sans font-semibold text-sm text-[#2F4662]">
@@ -62,7 +69,7 @@
               <div class="text-asteriskRed bg-[#E7F6F7] font-semibold font-sans text-danger px-3 py-1 rouded">15:00</div>
             </div>
             <div class="mb-6">
-              <app-button (buttonClick)="verifyOTP()" [disabled]="otplength?.length !== 4" [overRideButtonClass]="true"
+              <app-button (buttonClick)="verifyOTP()" [disabled]="otplength?.length !== 6" [overRideButtonClass]="true"
                 customClass="w-40 h-12 rounded-lg font-inter font-medium text-base text-white leading-6 bg-primaryBlue">Verify
               </app-button>
             </div>
