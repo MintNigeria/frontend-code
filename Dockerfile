@@ -17,7 +17,7 @@ COPY . /mint_client/
 
 RUN npm install --save-dev @angular-devkit/build-angular
 #RUN  ng build --prod
-RUN ng build --configuration=development
+RUN ng build --configuration=production
 #COPY --from=build-step1 web.config /home/ebills-admin/current-frontend/Ebills-Frontend/ebills-admin-app /nibss-admin/dist/ebills-admin
 #
 
