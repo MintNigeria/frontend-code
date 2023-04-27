@@ -56,7 +56,7 @@ export class GraduateVerificationDetailsComponent implements OnInit {
     let currentYear = new Date().getFullYear();
     for (let index = 1920; index <= currentYear; ++index) {
       this.years.push(index)
-      this.years.reverse()
+      // this.years.reverse()
 
     }
 
