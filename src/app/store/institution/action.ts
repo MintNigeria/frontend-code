@@ -275,6 +275,40 @@ export const updateDegreeTypeInInstitutionSuccess = createAction(
   props<{ payload: any }>()
 );
 
+export const getAllInstitutionGrade = createAction(
+  '[institutions] get institution grade ',
+  props<{
+    payload: any;
+  }>()
+);
+
+export const getAllInstitutionGradeSuccess = createAction(
+  '[institutions] get institution grade success',
+  props<{ payload: any }>()
+);
+export const createGradeInInstitution = createAction(
+  '[institutions] create institution grade ',
+  props<{
+    payload: any;
+  }>()
+);
+
+export const createGradeInInstitutionSuccess = createAction(
+  '[institutions] create institution grade success',
+  props<{ payload: any }>()
+);
+export const updateGradeInInstitution = createAction(
+  '[institutions] update institution grade ',
+  props<{
+    payload: any;
+  }>()
+);
+
+export const updateGradeInInstitutionSuccess = createAction(
+  '[institutions] update institution grade success',
+  props<{ payload: any }>()
+);
+
 export const getFacultyAndDepartmentByInstitutionName = createAction(
   '[institutions] get faculty and department by institution name ',
   props<{

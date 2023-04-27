@@ -7,7 +7,7 @@ import { StorageService } from 'src/app/core/services/shared/storage.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { AppResponseInterface } from 'src/app/types/appState.interface';
 import { setAPIResponseMessage } from '../shared/app.action';
-import { invokeGetStateAndLGA, invokeGetStateAndLGASuccess } from './action';
+import { contactUs, contactUsSuccess, invokeGetStateAndLGA, invokeGetStateAndLGASuccess } from './action';
 
 
 @Injectable()
@@ -19,6 +19,7 @@ export class UtilityEffects {
     private notification: NotificationsService,
     private utilityService: UtilityService
   ) {}
+
   getStateAndLGA$ = createEffect(() => {
     return this.action$.pipe(
       ofType(invokeGetStateAndLGA),
@@ -49,6 +50,43 @@ export class UtilityEffects {
               // read data and update payload
               return invokeGetStateAndLGASuccess({
                payload: data.payload
+              });
+            })
+          );
+      })
+    );
+  });
+
+  contactUs$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(contactUs),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const { payload } =
+          action;
+        return this.utilityService.contactUs(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return contactUsSuccess({
+               payload: data
               });
             })
           );

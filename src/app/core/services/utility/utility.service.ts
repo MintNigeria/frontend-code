@@ -29,8 +29,8 @@ export class UtilityService
     );  }
 
   contactUs(payload: any){
-    return this.http.get<any>(
-      `${this.baseUrl}/mint-messaging/api/Notification/SendInquiryEmail`, payload
+    return this.http.post<any>(
+      `${this.baseUrl}mint-messaging/api/Notification/SendInquiryEmail`, payload
     );  
   }
 

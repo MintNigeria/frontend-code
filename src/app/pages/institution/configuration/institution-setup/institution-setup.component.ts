@@ -5,7 +5,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
-import { createDegreeTypeInInstitution, createDegreeTypeInInstitutionSuccess, createDepartmentInInstitution, createDepartmentInInstitutionSuccess, createFacultyInInstitution, createFacultyInInstitutionSuccess, getALlDepartmentInInstitution, getALlDepartmentInInstitutionSuccess, getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess, getAllInstitutionDegreeType, getAllInstitutionDegreeTypeSuccess } from 'src/app/store/institution/action';
+import { createDegreeTypeInInstitution, createDegreeTypeInInstitutionSuccess, createDepartmentInInstitution, createDepartmentInInstitutionSuccess, createFacultyInInstitution, createFacultyInInstitutionSuccess, getALlDepartmentInInstitution, getALlDepartmentInInstitutionSuccess, getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess, getAllInstitutionDegreeType, getAllInstitutionDegreeTypeSuccess, getAllInstitutionGrade, getAllInstitutionGradeSuccess } from 'src/app/store/institution/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
@@ -47,23 +47,7 @@ export class InstitutionSetupComponent implements OnInit {
   editToggleName: boolean = false;
   editToggleSector: boolean = false;
   
-  institutionNameList = [
-    {
-      type: 'University',
-      body: 'Academic Institution',
-      name: 'University of Lagos'
-    },
-    {
-      type: 'Polytechnic',
-      body: 'Academic Institution',
-      name: 'Yaba College of Technology'
-    },
-    {
-      type: 'Others',
-      body: 'Professional Institution',
-      name: 'Adeniran Ogunsanya College of Education'
-    },
-  ]
+
 
 
   institutionData: any;
@@ -83,6 +67,8 @@ export class InstitutionSetupComponent implements OnInit {
   degreeTypeTotalCount: any;
   ipAddress: any;
   deviceModel: string;
+  gradeList: any;
+  gradeTotalCount: any;
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -142,6 +128,11 @@ export class InstitutionSetupComponent implements OnInit {
       this.degreeTypeList = res.payload.data;
       this.degreeTypeTotalCount = res.payload.totalCount;
     })
+    this.store.dispatch(getAllInstitutionGrade({payload: {...this.degreeFilter, institutionId: this.institutionId}}))
+   this.actions$.pipe(ofType(getAllInstitutionGradeSuccess)).subscribe((res: any) => {
+     this.gradeList = res.payload.data;
+     this.gradeTotalCount = res.payload.totalCount;
+   })
     this.loadIp();
 
   }

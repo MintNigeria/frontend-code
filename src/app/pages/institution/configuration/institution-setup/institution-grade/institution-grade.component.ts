@@ -5,7 +5,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
-import { getAllInstitutionDegreeType, getAllInstitutionDegreeTypeSuccess } from 'src/app/store/institution/action';
+import { getAllInstitutionDegreeType, getAllInstitutionDegreeTypeSuccess, getAllInstitutionGrade, getAllInstitutionGradeSuccess } from 'src/app/store/institution/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
@@ -45,19 +45,19 @@ export class InstitutionGradeComponent implements OnInit {
    this.institutionData = JSON.parse(data)
    this.institutionId = this.institutionData.InstitutionId
 
-   this.store.dispatch(getAllInstitutionDegreeType({payload: {...this.degreeFilter, institutionId: this.institutionId}}))
-   this.actions$.pipe(ofType(getAllInstitutionDegreeTypeSuccess)).subscribe((res: any) => {
+   this.store.dispatch(getAllInstitutionGrade({payload: {...this.degreeFilter, institutionId: this.institutionId}}))
+   this.actions$.pipe(ofType(getAllInstitutionGradeSuccess)).subscribe((res: any) => {
      this.degreeTypeList = res.payload.data;
      // this.degreeTypeTotalCount = res.payload.totalCount;
    })
  }
 
  activateEditInstSector(){
-   this.router.navigateByUrl('/institution/configuration/institution-setup/create-degree-type')
+   this.router.navigateByUrl('/institution/configuration/institution-setup/create-grade')
  }
 
  editDegreeType(data: any) {
-   this.router.navigateByUrl(`/institution/configuration/institution-setup/edit-degree-type/${data.id}/${data.name}`)
+   this.router.navigateByUrl(`/institution/configuration/institution-setup/edit-grade/${data.id}/${data.name}`)
 
    
  }

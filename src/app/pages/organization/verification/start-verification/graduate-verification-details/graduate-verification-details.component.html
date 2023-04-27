@@ -115,7 +115,7 @@
     
                         </div>
                         <div>
-                          <p class="input_label label_asterisk my-1">Middle Name <span class="text-danger">*</span></p>
+                          <p class="input_label label_asterisk my-1">Middle Name </p>
                           <app-input [formGrp]="institutionDetailsForm" formCtrlName="middleName" [type]="'text'" [class]="
                   'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
                 " placeholder="Enter full name" [name]="'Middle Name'"></app-input>
@@ -152,15 +152,15 @@
                             </ng-select>
                         </div>
                         <div>
-                            <p class="input_label label_asterisk my-1">Grade <span class="text-danger">*</span></p>
+                            <p class="input_label label_asterisk my-1">Grade </p>
                             <ng-select class="custom-ng-dropdown" (change)="changeGender($event)"
-                                formControlName="degreeType" [selectOnTab]="true" placeholder="Select degree Type">
-                                <ng-option *ngFor="let unit of degreeType" [value]="unit.name">{{unit.name}}</ng-option>
+                                formControlName="grade" [selectOnTab]="true" placeholder="Select degree Type">
+                                <ng-option *ngFor="let unit of degreeTypeList" [value]="unit.name">{{unit.name}}</ng-option>
     
                             </ng-select>
                         </div>
                         <div>
-                            <p class="input_label label_asterisk my-1">Year of Entry <span class="text-danger">*</span></p>
+                            <p class="input_label label_asterisk my-1">Year of Entry </p>
                             <ng-select class="custom-ng-dropdown"
                             formControlName="yearOfEntry"
                             [selectOnTab]="true"

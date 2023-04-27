@@ -63,6 +63,12 @@ import {
   getDegreeTypeWithInstitutionNameSuccess,
   getInstitutionTransactionTypeFilter,
   getInstitutionTransactionTypeFilterSuccess,
+  getAllInstitutionGrade,
+  getAllInstitutionGradeSuccess,
+  createGradeInInstitution,
+  createGradeInInstitutionSuccess,
+  updateGradeInInstitution,
+  updateGradeInInstitutionSuccess,
 } from './action';
 
 @Injectable()
@@ -709,6 +715,119 @@ export class InstitutionEffects {
               );
               // read data and update payload
               return updateDegreeTypeInInstitutionSuccess({
+                payload: data
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getAllInstitutionGrade$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getAllInstitutionGrade),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.institutionService
+          .getAllInstitutionGrade(action.payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getAllInstitutionGradeSuccess({
+                payload: {data: data.payload, totalCount: data.totalCount}
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  createGradeInInstitution$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(createGradeInInstitution),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.institutionService
+          .createGrade(action.payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return createGradeInInstitutionSuccess({
+                payload: data
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+  updateGradeInInstitution$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(updateGradeInInstitution),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.institutionService
+          .updateGrades(action.payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return updateGradeInInstitutionSuccess({
                 payload: data
                   
               });
