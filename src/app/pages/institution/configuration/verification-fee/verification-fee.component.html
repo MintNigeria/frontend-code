@@ -75,8 +75,7 @@
             >Cancel
         </app-button> -->
         <app-button
-        [disabled]="isFirstFeeApproved === true && isFeeApproved === false"
-
+        [disabled]="isFirstFeeApproved === false && isFeeApproved === false"
         (buttonClick)="sendForApproval()"
         [overRideButtonClass]="true"
         customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"

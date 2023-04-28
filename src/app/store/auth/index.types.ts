@@ -3,6 +3,8 @@ import { userType } from 'src/app/types/index.types';
 export interface ILogin {
   email: string;
   password: string;
+  twoFA?: any;
+  code?: any
 }
 
 export interface IChangePassword {

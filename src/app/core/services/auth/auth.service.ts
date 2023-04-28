@@ -19,15 +19,31 @@ export class AuthService extends BaseURI implements AbstractAuthService {
     super();
   }
 
-  login(payload: ILogin) {
-    const httpParams = new HttpParams({
-      fromObject: {
-        username: payload.email,
+  login(payload: any) {
+    let httpParams = new HttpParams({
+        fromObject: {
+            username: payload.email,
         password: payload.password,
         grant_type: 'password',
         scope: 'offline_access openid',
       },
     });
+    // let body = new HttpParams()
+    // .set('grant_type', 'password')
+    // .set('username', payload.email)
+    // .set('password', payload.password);
+    if (payload.twoFA === true) {
+      // httpParams.code = payload.code;
+      httpParams = new HttpParams({
+        fromObject: {
+            username: payload.email,
+        password: payload.password,
+        code: payload.code,
+        grant_type: 'password',
+        scope: 'offline_access openid',
+      },
+    });
+    }
 
     return this.http
       .post<any>(
@@ -84,10 +100,10 @@ export class AuthService extends BaseURI implements AbstractAuthService {
   }
 
   resendOTPForInstitution(email: string) {
-    const body = new FormData()
-    body.append('email', email)
+    // const body = new FormData()
+    // body.append('email', email)
     return this.http.post<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/GenerateCodeForInstitutionRegistration/`, body
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/GenerateCodeForInstitutionRegistration/`, email
     );
   }
 

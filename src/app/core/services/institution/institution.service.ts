@@ -54,7 +54,7 @@ export class InstitutionService
     body.append('ApproverVM.LastName', payload.LastName)
     body.append('ApproverVM.Designation', payload.Designation)
     // body.append('Documents[' + i + ']', approvalFile[i]);
-    for (let i = 0; i < approvalFile.length; i++) {
+    for (let i = 0; i < approvalFile?.length; i++) {
       body.append('DocumentVM[' + i + '].FileNo', '');
       body.append('DocumentVM[' + i + '].File', approvalFile[i]);
     }

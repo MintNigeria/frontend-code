@@ -16,7 +16,7 @@ import { isUserSelector } from 'src/app/store/auth/selector';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  user$ = this.appStore.pipe(select(isUserSelector));
+  // user$ = this.appStore.pipe(select(isUserSelector));
 
   verificationHistory: any
  filter = {
@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
   verificationData: any;
   topVerification: any;
   selectedDateType!: string;
+  user: any
   constructor(
     private appStore: Store<AppStateInterface>,
     private store: Store,
@@ -34,7 +35,11 @@ export class DashboardComponent implements OnInit {
     private dialog : MatDialog,
     private dashboardService: DashboardService,
     private router: Router
-  ) { }
+  ) { 
+    const data: any = localStorage.getItem('authData')
+    this.user = JSON.parse(data)
+
+  }
 
   ngOnInit(): void {
     const data: any = localStorage.getItem('userData')

@@ -66,12 +66,12 @@ export class GraduateComponent implements OnInit {
     //   show: false
     // },
   ];
-  user$ = this.appStore.pipe(select(isUserSelector));
+  // user$ = this.appStore.pipe(select(isUserSelector));
   notification$ = this.appStore.pipe(select(notificationSelector))
 
   userData: any;
   userId!: number;
-
+user: any
   constructor(
     private appStore: Store<AppStateInterface>,
     private dialog: MatDialog,
@@ -79,7 +79,11 @@ export class GraduateComponent implements OnInit {
 
   )
  
-{ }
+{
+  const data: any = localStorage.getItem('authData')
+  this.user = JSON.parse(data)
+
+ }
 
   ngOnInit(): void {
     const data: any = localStorage.getItem('userData')

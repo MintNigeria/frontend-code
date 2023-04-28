@@ -27,6 +27,7 @@ const initialState: IAuthStateInterface = {
 export const authReducers = createReducer(
   initialState,
   on(loginSuccess, (state, { accessToken }) => {
+    
     const helper = new JwtHelperService();
     const decodedToken = helper.decodeToken(accessToken);
     return {

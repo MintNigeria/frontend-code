@@ -217,7 +217,7 @@ selectedFileList: any  = []
   
   continue() {
     document.getElementById('myModal')?.click()
-    this.router.navigateByUrl('/auth/organization')
+    this.router.navigateByUrl('/auth/graduate')
 
   }
  

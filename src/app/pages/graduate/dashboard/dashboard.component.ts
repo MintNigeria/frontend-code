@@ -22,7 +22,7 @@ import { DateRangeComponent } from 'src/app/shared/date-range/date-range.compone
 export class DashboardComponent implements OnInit {
   deviceModel: string;
   ipAddress: any;
-  user$ = this.appStore.pipe(select(isUserSelector));
+  // user$ = this.appStore.pipe(select(isUserSelector));
 
   filter = {
     range: 0,
@@ -35,6 +35,7 @@ export class DashboardComponent implements OnInit {
   showNotifyButton: any;
   modalId = 'messageModal'
   notifyInstitutionForm!: FormGroup
+  user: any;
   constructor(
     private router: Router,
     private store: Store,
@@ -58,6 +59,9 @@ export class DashboardComponent implements OnInit {
     } else {
       this.deviceModel = 'Other';
     }
+    const data: any = localStorage.getItem('authData')
+    this.user = JSON.parse(data)
+
   }
 
   ngOnInit(): void {
@@ -78,7 +82,6 @@ export class DashboardComponent implements OnInit {
     
     this.store.dispatch(getGraduateDashboardBottomData({payload: {...this.filter, GraduateId: this.userData.GraduateId}}))
     this.actions$.pipe(ofType(getGraduateDashboardBottomDataSuccess)).subscribe((res: any) => {
-      console.log(res)
       this.recentApplications = res.payload.recentApplicationVMs;
       this.recentTransactions = res.payload.paymentHistoryVMs;
       this.createDistributionChart2(res.payload.applicationAndVerificationAnalyticsVMs)
@@ -113,7 +116,6 @@ initForm() {
   checkInstitutionOnboardedStatus() {
     this.store.dispatch(getMyInstitutionsNotifiedStatus({id: this.userData.GraduateId}))
     this.actions$.pipe(ofType(getMyInstitutionsNotifiedStatusSuccess)).subscribe((res: any) => {
-     console.log(res)
      this.showNotifyButton = res.payload.showNotifyMe
 
     })

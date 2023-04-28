@@ -34,13 +34,18 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   topInstitutionRequests: any;
   revenueLabel  = ['MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT', 'SUN'];
   topInstitutionRequestData: any;
+  adminUser: any;
 
   constructor(
     private appStore: Store<AppStateInterface>,
     private store: Store,
     private actions$: Actions,
     private dialog : MatDialog
-  ) { }
+  ) { 
+    const data: any = localStorage.getItem('authData')
+    this.adminUser = JSON.parse(data)
+  
+  }
 
   ngOnInit(): void {
     const data: any = localStorage.getItem('userData')

@@ -266,7 +266,7 @@
         </app-button> -->
         <app-button
         [overRideButtonClass]="true" 
-        [disabled]="(isFeeApproved === false && isFirstFeeApproved !== false) || (isFeeApproved === false && isFirstFeeApproved === false)"        customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
+        [disabled]="(isFeeApproved === false && isFirstFeeApproved === false) "        customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
         (buttonClick)="sendForApproval()"
             >Send for Approval
         </app-button>

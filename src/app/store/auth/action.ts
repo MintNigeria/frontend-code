@@ -1,9 +1,9 @@
 import { createAction, props } from '@ngrx/store';
-import { IResetPassword, IUser } from './index.types';
+import { IResetPassword, IUser, ILogin } from './index.types';
 
 export const invokeLoginUser = createAction(
   '[Login User] Invoke',
-  props<{ email: string; password: string }>()
+  props<{ payload: any }>()
 );
 
 export const loginSuccess = createAction(
