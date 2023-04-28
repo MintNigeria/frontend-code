@@ -57,7 +57,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.store.dispatch(getDashboardTopInstitutions({payload: {...this.cardFilter, institutionId: this.institutionId}}))
     this.getDashboardCardInfo()
     this.getRevenueAnalysis()
-    // this.getTopInstitutions()
     
 
   }
@@ -74,9 +73,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // this.createDistributionChart()
-    // this.createDistributionChart2()
-    // this.createDistributionChart3()
 
   }
 
@@ -99,55 +95,6 @@ getRevenueAnalysis() {
 }
 
 
-// createDistributionChart( ) {
-//   const data = this.topInstitutionRequests?.topRequestsVMs;
-//   const a = this.topInstitutionRequests?.topRequestsVMs?.map((x: any) => {
-//     return x.institutionName
-//   })
-//   const b = this.topInstitutionRequests?.topRequestsVMs?.map((x: any) => {
-//     return x.noOfRequests
-//   })
-//   const t_ctx = document.getElementById('consentData') as unknown as any;
-//   const ctx = t_ctx.getContext('2d')
-
-//   const myChart = new Chart(ctx, {
-//     type: 'bar',
-//     data: {
-//       labels: a,
-//       datasets: [
-//         {
-//         // label: 'Revenue',
-//         data: b,
-//         backgroundColor: '#4086EF'
-//       }
-//     ]
-//     },
-//     options: {
-//       indexAxis: 'y',
-//       interaction: {},
-//       scales: {
-//         x: {
-//           display: true,
-//         },
-//         y: {
-//           display: true,
-//         },
-//       },
-//       plugins: {
-//         legend: {
-//           display: false,
-//           position: 'right',
-//         },
-//       },
-//     },
-    
-  
-
-//   }
-  
-//   );
-//   myChart.update();
-// }
 
 changeRange(range: number) {
   if (range === 5) {
@@ -203,105 +150,5 @@ changeRevenueRange(range: number) {
       }
 }
 
-// createDistributionChart3( ) {
-//   const {completedRequests, processingRequests, pendingRequests} = this.revenueAnalysisData
-//   const label = ['Completed', 'Processing','Pending'];
-//   const bar = [completedRequests, processingRequests, pendingRequests];
-//   ////console.log(bar)
-//   const t_ctx = document.getElementById('pieData') as unknown as any;
-//   const ctx = t_ctx.getContext('2d')
-
-//   const myChart = new Chart(ctx, {
-//     type: 'doughnut',
-//     data: {
-//       labels: label,
-//       datasets: [
-//         {
-//         // label: 'Revenue',
-//         data: bar,
-//         backgroundColor: ['#2ED3B7', '#FEC84B', '#4086EF']
-//       }
-//     ]
-//     },
-//     options: {
-//       // indexAxis: 'y',
-//       interaction: {},
-//       scales: {
-//         x: {
-//           display: false,
-//         },
-//         y: {
-//           display: false,
-//         },
-//       },
-//       plugins: {
-//         legend: {
-//           display: false,
-//           position: 'right',
-//         },
-//       },
-//     },
-    
-  
-
-//   }
-  
-//   );
-//   myChart.update();
-// }
-
-
-  // createDistributionChart2(data: any) {
-  //   // const bar = [100, 80, 25, 50, 400, 150, 200, 250, 300, 350];
-  //   // const line = [0, 50, 75, 50, 100, 150, 60, 35, 200, 150];
-  //   const t_ctx = document.getElementById('request') as unknown as any;
-  //   const ctx = t_ctx.getContext('2d')
-    
-    
-  //   const grad = data?.completedGradValue
-  //   const org = data?.completedOrgValue
-  //   this.revenueLabel = data?.completedRequest
-   
-    
-  //   const chart = new Chart(ctx, {
-  //     data: {
-  //       labels: this.revenueLabel,
-  //       datasets: [
-  //         {
-  //           type: 'bar',
-  //           label: 'Graduate',
-  //           data: grad,
-  //           // fill: false,
-  //           backgroundColor: '#0D47A1'
-  //         }, {
-  //           type: 'line',
-  //           label: 'Organization',
-  //           data: org,
-  //           // fill: false,
-  //           borderColor: '#92BAF6'
-  //         }]
-  //     },
-  //     options: {
-  //       interaction: {},
-  //       scales: {
-  //         x: {
-  //           display: true,
-  //         },
-  //         y: {
-  //           display: true,
-  //         },
-  //       },
-  //       plugins: {
-  //         legend: {
-  //           display: false,
-  //           position: 'right',
-  //         },
-  //       },
-  //     },
-  //   }
-
-  //   );
-  //   chart.update()
-  // }
 
 }

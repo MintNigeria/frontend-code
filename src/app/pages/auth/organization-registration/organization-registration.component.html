@@ -86,7 +86,7 @@
           <div class="w-full md:w-1/2 px-3  md:mb-0">
             <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Registration
               Number <span class="text-danger">*</span> </label>
-            <app-input [formGrp]="institutionRegForm" formCtrlName="CAC" [type]="'number'" [class]="
+            <app-input [formGrp]="institutionRegForm" formCtrlName="CAC" [type]="'text'" [class]="
                       'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
                     " Issuer="Enter registration number" [name]="'Registration Number'"></app-input>
           </div>
@@ -286,7 +286,7 @@
           <div class="mx-2">
             <i class="fa fa-clock text-placeholderText"></i>
           </div>
-          <div class="text-asteriskRed bg-[#E7F6F7] font-semibold font-sans text-danger px-3 py-1 rouded">15:00</div>
+          <div class="text-asteriskRed bg-[#E7F6F7] font-semibold font-sans text-danger px-3 py-1 rouded">{{timeDisplay}}</div>
         </div>
         <div class="mb-6">
           <app-button (buttonClick)="verifyOTP()" [disabled]="otplength?.length !== 4" [overRideButtonClass]="true"
@@ -294,7 +294,7 @@
           </app-button>
         </div>
         <div class="mb-8">
-          <p class="font-nunito font-normal text-sm text-lightGray">Didnt get the code? <span (click)="resendOTP()"
+          <p *ngIf="hideResend === true" class="font-nunito font-normal text-sm text-lightGray">Didnt get the code? <span (click)="resendOTP()"
               class="cursor-pointer text-primaryBlue font-medium">Resend</span> </p>
         </div>
       </div>

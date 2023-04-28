@@ -163,6 +163,8 @@ filter: any = {
     this.actions$.pipe(ofType(createNewInstitutionSuccess)).subscribe((res: any) => {
       if (res.payload.hasErrors === false) {
         this.showOTPPage = true;
+        this.timer(10)
+
       }
     })
   }
@@ -187,14 +189,15 @@ filter: any = {
       }
     })
   }
-
+  
   resendOTP() {
     const {EmailAddress} = this.institutionRegForm.value
-
+    
     this.store.dispatch(resendOTPForInstitution({email: EmailAddress}))
     this.actions$.pipe(ofType(resendOTPForInstitutionSuccess)).subscribe((res: any) => {
       if (res.message.hasErrors === false) {
         this.notification.publishMessages('success', res.message.description)
+        this.timer(10)
       }
     })
   }
@@ -203,6 +206,38 @@ filter: any = {
     document.getElementById('myModal')?.click()
     this.router.navigateByUrl('/auth/institution')
 
+  }
+
+  timeDisplay!: string;
+  hideResend: boolean = false;
+
+  timer(minute: any) {
+    // let min = minute;
+    let seconds: number = minute * 60;
+    let textSec: any = "0";
+    let statSec: number = 60;
+
+    const prefix = minute < 10 ? "0" : "";
+
+    const timer = setInterval(() => {
+      seconds--;
+      if (statSec != 0) statSec--;
+      else statSec = 59;  
+
+      if (statSec < 10) {
+        textSec = "0" + statSec;
+      } else textSec = statSec;
+
+      this.timeDisplay = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
+      console.log(this.timeDisplay)
+      if (seconds == 0 ) {
+        clearInterval(timer);
+        this.hideResend = true;
+      } else {
+        this.hideResend = false;
+
+      }
+    }, 1000);
   }
  
 
