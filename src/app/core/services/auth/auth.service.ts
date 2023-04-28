@@ -100,10 +100,10 @@ export class AuthService extends BaseURI implements AbstractAuthService {
   }
 
   resendOTPForInstitution(email: string) {
-    const body = new FormData()
-    body.append('email', email)
+    // const body = new FormData()
+    // body.append('email', email)
     return this.http.post<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/GenerateCodeForInstitutionRegistration/`, body
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/GenerateCodeForInstitutionRegistration/`, email
     );
   }
 
