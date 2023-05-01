@@ -77,7 +77,6 @@ export class CreateDegreeTypeComponent implements OnInit {
         degree : this.degreeName,
       })
     }
-    console.log(this.isEditForm)
     this.loadIp()
 
   }
