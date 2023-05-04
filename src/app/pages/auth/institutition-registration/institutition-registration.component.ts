@@ -162,6 +162,7 @@ filter: any = {
     this.store.dispatch(createNewInstitution({payload: data}))
     this.actions$.pipe(ofType(createNewInstitutionSuccess)).subscribe((res: any) => {
       if (res.payload.hasErrors === false) {
+        this.notification.publishMessages('success', 'Registration successful')
         this.showOTPPage = true;
         this.timer(10)
 

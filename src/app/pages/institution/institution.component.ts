@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { LogoutModalComponent } from 'src/app/shared/components/logout-modal/logout-modal.component';
+import { TimerService } from 'src/app/shared/util/timer.service';
 import { isUserSelector, permissionsSelector } from 'src/app/store/auth/selector';
 import { getNotification } from 'src/app/store/notification/action';
 import { notificationSelector } from 'src/app/store/notification/selector';
@@ -131,7 +132,9 @@ user: any
     private route: ActivatedRoute,
     private appStore: Store<AppStateInterface>,
     private dialog: MatDialog,
-    private store: Store
+    private store: Store,
+    private timer: TimerService
+
 
 
   ) {
