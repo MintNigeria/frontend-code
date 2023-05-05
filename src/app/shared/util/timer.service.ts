@@ -27,7 +27,7 @@ export class TimerService {
     router.events
   .pipe(filter(event => event instanceof NavigationEnd))
   .subscribe((event: any) => {
-    console.log('prev:', event.url);
+    // console.log('prev:', event.url);
     // this.previousUrl = event.url;
   });
 }
@@ -44,7 +44,7 @@ export class TimerService {
 }
 
   reset() {
-console.log( this.route.snapshot.queryParams['returnUrl'])
+// console.log( this.route.snapshot.queryParams['returnUrl'])
 
     this.setLastAction(Date.now());
 
