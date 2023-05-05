@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { select, Store } from '@ngrx/store';
 import { LogoutModalComponent } from 'src/app/shared/components/logout-modal/logout-modal.component';
+import { TimerService } from 'src/app/shared/util/timer.service';
 import { isUserSelector } from 'src/app/store/auth/selector';
 import { getNotification } from 'src/app/store/notification/action';
 import { notificationSelector } from 'src/app/store/notification/selector';
@@ -76,6 +77,8 @@ user: any
     private appStore: Store<AppStateInterface>,
     private dialog: MatDialog,
     private store : Store,
+    private timer: TimerService
+
 
   )
  

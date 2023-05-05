@@ -189,6 +189,7 @@ selectedFileList: any  = []
     this.store.dispatch(registerNewGraduate({payload: data}))
     this.actions$.pipe(ofType(registerNewGraduateSuccess)).subscribe((res: any) => {
       if (res.payload.hasErrors === false) {
+        this.notification.publishMessages('success', 'Registration successful')
         this.showOTPPage = true;
         this.timer(10)
 

@@ -14,6 +14,7 @@ export class ButtonComponent implements OnInit {
   @Input() overRideButtonClass!: boolean;
   @Input() customClass!: string;
   @Input() status!: Status;
+  @Input() type?: string;
 
   @Input() buttonImage2!: string;
   @Output() buttonClick = new EventEmitter<boolean>();

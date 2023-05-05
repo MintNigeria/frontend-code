@@ -12,6 +12,7 @@ import { registerOrganization, registerOrganizationSuccess, validateOrganization
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { environment } from 'src/environments/environment';
 import { Country, State, City }  from 'country-state-city';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 
 @Component({
   selector: 'app-organization-registration',
@@ -54,7 +55,8 @@ selectedFileList: any  = []
     private appStore: Store<AppStateInterface>,
     private store: Store,
     private router: Router,
-    private actions$  : Actions
+    private actions$  : Actions,
+    private notification: NotificationsService
   ) { }
 
   ngOnInit(): void {
@@ -181,6 +183,7 @@ selectedFileList: any  = []
     this.store.dispatch(registerOrganization({payload: data}))
     this.actions$.pipe(ofType(registerOrganizationSuccess)).subscribe((res: any) => {
       if (res.payload.hasErrors === false) {
+        this.notification.publishMessages('success', 'Registration successful')
         this.showOTPPage = true;
         this.timer(10)
 

@@ -2,7 +2,7 @@
   <div class="w-fill md:w-3/5 mx-auto " *ngIf="!show2FAOTP">
     <h4 class="font-semibold font-poppins text-3xl pb-3 text-darkGray">Login as {{currentRoute === 'institution' ? 'an Institution' : currentRoute === 'graduate' ? 'a Graduate' : ' an Organization'}}</h4>
     <p class="font-nunito font-normal text-base text-ligthGray mb-8">Enter your details to login to your dashboard</p>
-    <form [formGroup]="loginAuth" class="w-full">
+    <form [formGroup]="loginAuth" (ngSubmit)="accessAccount()" class="w-full">
       <ng-container >
         <div class="mb-5">
           <label for="email" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Email <span
@@ -32,6 +32,7 @@
         </div>
         <div class="mb-6">
           <app-button
+              [type]="'submit'"
               [disabled]="loginAuth.invalid"
               (buttonClick)="accessAccount()"
               [overRideButtonClass]="true"

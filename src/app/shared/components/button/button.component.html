@@ -2,6 +2,7 @@
   (click)="handleClick()"
   type="button"
   [disabled]="disabled"
+  [type]="type"
   [ngClass]="[
     overRideButtonClass ? getCustomClass : 'align-center items-center',
     disabled ? 'cursor-not-allowed opacity-80 ' : '',
