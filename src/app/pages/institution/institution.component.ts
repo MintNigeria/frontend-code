@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import { HelpDeskComponent } from 'src/app/shared/components/help-desk/help-desk.component';
 import { LogoutModalComponent } from 'src/app/shared/components/logout-modal/logout-modal.component';
 import { TimerService } from 'src/app/shared/util/timer.service';
 import { isUserSelector, permissionsSelector } from 'src/app/store/auth/selector';
@@ -198,6 +199,17 @@ user: any
       // width: '600px',
       // height: '600px'
     });
+  }
+  
+  openHelpDesk() {
+    const dialogRef = this.dialog.open(HelpDeskComponent, {
+      width: '500px',
+      height: 'auto',
+      data: {userType: 2},
+      disableClose: true,
+
+    });
+    
   }
 
 }

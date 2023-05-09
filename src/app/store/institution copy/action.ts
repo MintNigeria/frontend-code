@@ -19,3 +19,13 @@ export const contactUsSuccess = createAction(
   '[Utilities] send audience enquiry Success',
   props<{ payload: any }>()
 );
+
+export const contactHelpDesk = createAction (
+  '[Utilities] send help desk enquiry or request messages',
+  props<{ payload: any }>()
+)
+
+export const contactHelpDeskSuccess = createAction(
+  '[Utilities] send help desk enquiry or request messages Success',
+  props<{ payload: any }>()
+);

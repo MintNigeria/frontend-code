@@ -152,7 +152,6 @@ initForm() {
   }
 
   selectInstitution(event: any) {
-    console.log(event)
     this.notifyInstitutionForm.patchValue({
       institutionName : event.institutionName,
       institutionBody: event.institutionBody,
@@ -175,7 +174,6 @@ initForm() {
     console.log(this.notifyInstitutionForm.value)
     this.store.dispatch(notifyMyInstitution({payload: this.notifyInstitutionForm.value}))
     this.actions$.pipe(ofType(notifyMyInstitutionSuccess)).subscribe((res: any) => {
-      console.log(res)
       this.notification.publishMessages('success', res.payload.description)
       // document.getElementById('myModal')?.click()
       this.cancel()
