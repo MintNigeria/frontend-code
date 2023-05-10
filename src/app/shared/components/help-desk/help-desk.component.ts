@@ -48,7 +48,7 @@ export class HelpDeskComponent implements OnInit {
       lastName: this.user.user.lastName,
       phoneNumber: this.user.user.phoneNumber,
       email: this.user.user.email,
-      userType: String(this.modalData.userType),
+      userType: this.user.user.userType,
       subject,
       enquiry
     }

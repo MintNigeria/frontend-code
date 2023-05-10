@@ -13,6 +13,7 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import { environment } from 'src/environments/environment';
 import { Country, State, City }  from 'country-state-city';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
+import { resendOTP, resendOTPSuccess } from 'src/app/store/auth/action';
 
 @Component({
   selector: 'app-organization-registration',
@@ -219,7 +220,16 @@ selectedFileList: any  = []
   }
  
   resendOTP() {
+    const {EmailAddress} = this.institutionRegForm.value
 
+    this.store.dispatch(resendOTP({email: EmailAddress}))
+    this.actions$.pipe(ofType(resendOTPSuccess)).subscribe((res: any) => {
+      if (res.message.hasErrors === false) {
+        this.notification.publishMessages('success', res.message.description)
+        this.timer(10)
+
+      }
+    })
   }
 
   timeDisplay!: string;
@@ -243,7 +253,6 @@ selectedFileList: any  = []
       } else textSec = statSec;
 
       this.timeDisplay = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
-      console.log(this.timeDisplay)
       if (seconds == 0 ) {
         clearInterval(timer);
         this.hideResend = true;
