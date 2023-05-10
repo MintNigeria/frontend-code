@@ -27,12 +27,19 @@
   <nav class="bg-primaryBlue  ">
     <div class=" max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a  class="flex items-center">
-        <img src="/assets/images/main/new-logo.svg" class="h-8 mr-3" alt="VAC Logo">
+        <img src="/assets/images/main/vac-logo.svg" class="h-8 mr-3" alt="VAC Logo">
     </a>
     <div class="flex md:order-2">
       <div class="flex items-center">
+        <div class="flex items-center gap-2 cursor-pointer" (click)="openHelpDesk()">
+          <img  class="cursor-pointer"  src="assets/images/help-circle.svg " class="" alt="logged user avatar">
+          <p class="font-inter text-white text-base font-medium ">Help Desk
+          </p>
       
-        <div class="mx-9  hidden md:block">
+        </div>
+     
+      
+        <div class="px-5 mx-9 border-x  border-white  hidden md:block">
             <div class="dropdown dropdown-end z-[999999]">
                 <label
                   tabindex="0"
@@ -67,6 +74,7 @@
                 </ul>
               </div>
         </div>
+       
         <div  >
             <div class="flex items-center gap-2">
               <img  class="cursor-pointer"  src="assets/images/main/account.svg " class="" alt="logged user avatar">

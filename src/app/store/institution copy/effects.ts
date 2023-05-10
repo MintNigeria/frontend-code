@@ -7,7 +7,7 @@ import { StorageService } from 'src/app/core/services/shared/storage.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { AppResponseInterface } from 'src/app/types/appState.interface';
 import { setAPIResponseMessage } from '../shared/app.action';
-import { contactUs, contactUsSuccess, invokeGetStateAndLGA, invokeGetStateAndLGASuccess } from './action';
+import { contactHelpDesk, contactHelpDeskSuccess, contactUs, contactUsSuccess, invokeGetStateAndLGA, invokeGetStateAndLGASuccess } from './action';
 
 
 @Injectable()
@@ -86,6 +86,43 @@ export class UtilityEffects {
               );
               // read data and update payload
               return contactUsSuccess({
+               payload: data
+              });
+            })
+          );
+      })
+    );
+  });
+
+  contactHelpDesk$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(contactHelpDesk),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const { payload } =
+          action;
+        return this.utilityService.contactHelpDesk(payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return contactHelpDeskSuccess({
                payload: data
               });
             })

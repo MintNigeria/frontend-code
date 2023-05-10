@@ -34,6 +34,12 @@ export class UtilityService
     );  
   }
 
+  contactHelpDesk(payload: any){
+    return this.http.post<any>(
+      `${this.baseUrl}mint-messaging/api/Notification/HelpDesk`, payload
+    );  
+  }
+
   getuserIP() {
     return this.http.get<any>('https://jsonip.com')
   }

@@ -259,7 +259,6 @@ selectedFileList: any  = []
       } else textSec = statSec;
 
       this.timeDisplay = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
-      console.log(this.timeDisplay)
       if (seconds == 0 ) {
         clearInterval(timer);
         this.hideResend = true;

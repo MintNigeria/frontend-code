@@ -1,0 +1,35 @@
+<div class="p-6">
+<h4 class="font-inter font-medium text-lg text-darkGray mb-6">Help Desk</h4>
+<form [formGroup]="helpDeskForm" >
+<div class="mb-6">
+    <label for="subject" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Subject
+        <span class="text-danger">*</span> </label>
+      <app-input [formGrp]="helpDeskForm" formCtrlName="subject" [type]="'text'" [class]="
+                'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+              " placeholder="Enter subject" [name]="'subject'"></app-input>
+</div>
+<div class="mb-6">
+    <label for="enquiry" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Enquiry
+        <span class="text-danger">*</span> </label>
+        <textarea name="" formControlName="enquiry" id="" class="w-full h-32 rounded border bg-white p-4">Enter a description...</textarea>
+
+</div>
+
+<div class="flex gap-4 justify-center items-center w-full">
+    <app-button 
+    type="submit"
+    (buttonClick)="closeModal()"
+    class="px-4 py-[10px] w-1/2 flex items-center justify-center rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal">
+      Cancel
+    </app-button>
+    <app-button 
+    type="submit"
+    [disabled]="helpDeskForm.invalid"
+    (buttonClick)="submit()"
+    class="px-4 py-[10px] w-1/2 flex items-center justify-center rounded-lg font-inter font-medium text-sm   bg-primaryBlue text-white border text-failedNormal">
+      Send
+    </app-button>
+    
+</div>
+</form>
+</div>

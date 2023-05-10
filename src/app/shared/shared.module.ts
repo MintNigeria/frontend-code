@@ -24,6 +24,7 @@ import { TrustedURLPipe } from '../core/pipe/trustedURLPipe.pipe';
 import { LoaderComponent } from './components/loader/loader.component';
 import { CollapseComponent } from './components/collapse/collapse.component';
 import { TextareaComponent } from './components/textarea/textarea.component';
+import { HelpDeskComponent } from './components/help-desk/help-desk.component';
 
 const components: any[] = [
   InputComponent,
@@ -51,6 +52,7 @@ const components: any[] = [
 @NgModule({
   declarations: [
     ...components,
+    HelpDeskComponent,
   ],
   imports: [
     CommonModule,

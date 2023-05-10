@@ -73,6 +73,7 @@ export class LoginComponent implements OnInit {
             id: this.loggedInUser.id,
             lastLogin: this.loggedInUser.last_login_time,
             name: this.loggedInUser.name,
+            phoneNumber: this.loggedInUser.phone_number,
             userType: this.loggedInUser.UserType,
             role: this.loggedInUser?.role || 'undefined',
           },
@@ -149,6 +150,7 @@ export class LoginComponent implements OnInit {
           id: this.loggedInUser.id,
           lastLogin: this.loggedInUser.last_login_time,
           name: this.loggedInUser.name,
+          phoneNumber: this.loggedInUser.phone_number,
           userType: this.loggedInUser.UserType,
           role: this.loggedInUser?.role || 'undefined',
         },
@@ -230,7 +232,6 @@ export class LoginComponent implements OnInit {
       } else textSec = statSec;
 
       this.timeDisplay = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
-      console.log(this.timeDisplay)
       if (seconds == 0 ) {
         clearInterval(timer);
         this.hideResend = true;
