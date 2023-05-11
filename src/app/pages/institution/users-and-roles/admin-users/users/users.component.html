@@ -135,7 +135,7 @@
                     [customClass]="'w-20 h-10 rounded-lg font-normal border border-buttonBlue text-buttonBlue leading-6 bg-none p-2 mt-6'">Cancel
                 </app-button>
                 <app-button
-                *ngIf="permissionList.includes('USER_UPDATE')"
+                *ngIf="permissionList?.includes('USER_UPDATE') || superAdminRole === 'Super Admin' || superAdminRole === 'undefined'"
                     (buttonClick)="updateUserData()"
                     [overRideButtonClass]="true"
                     [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'">Update user

@@ -5,7 +5,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { take } from 'rxjs';
 import { UsersAndRolesService } from 'src/app/core/services/users-and-roles/users-and-roles.service';
-import { messageNotification, permissionsSelector } from 'src/app/store/auth/selector';
+import { isUserSelector, messageNotification, permissionsSelector } from 'src/app/store/auth/selector';
 import { invokeGetStateAndLGA } from 'src/app/store/institution copy/action';
 import { stateLgaSelector } from 'src/app/store/institution copy/selector';
 import { getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess, getInstitutionUserInfo, getInstitutionUserInfoSuccess } from 'src/app/store/institution/action';
@@ -24,12 +24,14 @@ import { NotificationsService } from 'src/app/core/services/notifications.servic
 })
 export class UsersComponent implements OnInit {
   permission$ = this.appStore.pipe(select(permissionsSelector));
+  user$ = this.appStore.pipe(select(isUserSelector));
 
   permissionList: any;
 
   stateLGA$ = this.appStore.pipe(select(stateLgaSelector));
   buttonText: string = 'Create User';
   enableToggleButton: string = 'Enable User';
+  superAdminRole: any;
 
   changesConfirmed = "changesConfirmed";
   userForm!: FormGroup;
@@ -96,7 +98,7 @@ export class UsersComponent implements OnInit {
     }
 
     this.permissions()
-
+    this.users()
    
   }
 
@@ -106,6 +108,14 @@ export class UsersComponent implements OnInit {
 
     })
   }
+
+  users() {
+    this.user$.subscribe((res: any) => {
+      this.superAdminRole = res.role.split('|')[0]
+
+    })
+  }
+
   initUserForm() {
     this.userForm = this.fb.group({
       title: ['', Validators.required],

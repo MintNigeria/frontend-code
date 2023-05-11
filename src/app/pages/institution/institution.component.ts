@@ -51,7 +51,7 @@ export class InstitutionComponent implements OnInit {
     {
       id: 2,
       title: 'Records',
-      label: 'Graduate Records',
+      label: 'Records',
       hasChild: false,
       path: 'records',
       active: 'assets/images/gradaute-active.svg',
@@ -71,7 +71,7 @@ export class InstitutionComponent implements OnInit {
     {
       id: 3,
       title: 'Uploads',
-      label: 'Graduate Uploads',
+      label: 'Uploads',
       hasChild: false,
       path: 'uploads',
       active: 'assets/images/institution-inactive.svg',
