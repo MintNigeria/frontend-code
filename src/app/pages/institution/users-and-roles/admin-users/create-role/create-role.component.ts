@@ -7,7 +7,7 @@ import { take } from 'rxjs';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { UsersAndRolesService } from 'src/app/core/services/users-and-roles/users-and-roles.service';
 import { selectAppAPIResponse } from 'src/app/store/shared/app.selector';
-import { invokeGlobalAdminRole, invokePermissionAndRoles, invokePermissionAndRoleSuccess, invokeRolePermission, invokeRolePermissionSuccess, updatePermissionsInRole, updatePermissionsInRoleSuccess } from 'src/app/store/users-and-roles/actions';
+import { getInstitutionRoles, invokeGlobalAdminRole, invokePermissionAndRoles, invokePermissionAndRoleSuccess, invokeRolePermission, invokeRolePermissionSuccess, updatePermissionsInRole, updatePermissionsInRoleSuccess } from 'src/app/store/users-and-roles/actions';
 import { createAdminRoleSelector, getRolePermissionSelector, getRolesAndPermissionsSelector, messageNotification } from 'src/app/store/users-and-roles/selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { Status } from 'src/app/types/shared.types';
@@ -47,7 +47,7 @@ export class CreateRoleComponent implements OnInit {
       this.actions$.pipe(ofType(invokeRolePermissionSuccess)).subscribe((res: any) => {
         this.populatePermissions(res.payload)
       })
-      console.log('Na me den dey call ooooo')
+      // console.log('Na me den dey call ooooo')
     } else {
 
     }
@@ -106,7 +106,12 @@ export class CreateRoleComponent implements OnInit {
             'success',
             res.payload.description
           )
-          this.router.navigateByUrl('/institution/users-and-roles/roles-and-permission')
+          // location.reload()
+          // this.store.dispatch(getInstitutionRoles({id: this.institutionId}))
+
+          setTimeout(() => {
+            this.router.navigateByUrl('/institution/users-and-roles/roles-and-permission')
+          }, 1000);
         }
     })
     // this.userAndRolesService.createAdminRole(payload).subscribe((res) => {
