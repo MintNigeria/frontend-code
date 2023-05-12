@@ -91,7 +91,15 @@ export class ResetPasswordComponent implements OnInit {
     this.auth.resetPassword(payload).subscribe((res: any) => {
       if (res.hasErrors === false) {
             this.notification.publishMessages('success', res.payload.description)
-            this.router.navigateByUrl('/')
+            if (this.param.UserType === '2') {
+              this.router.navigateByUrl('/auth/institution')
+            }
+             if (this.param.UserType === '3') {
+              this.router.navigateByUrl('/auth/graduate')
+            }
+             if (this.param.UserType === '4') {
+              this.router.navigateByUrl('/auth/organization')
+            }
 
       }
     })

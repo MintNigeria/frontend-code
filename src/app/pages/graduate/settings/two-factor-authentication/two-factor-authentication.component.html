@@ -63,8 +63,8 @@
             </div>
 
             <div class="text-center mt-4">
-                <p *ngIf="!timerExpired" class="text-[#2F4662] font-semibold text-base font-inter">Code would expire in 
-                    <span class="bg-[#0EA5AE] bg-opacity-20 rounded text-danger font-inter font-semibold text-base">{{ timer }}</span>
+                <p  class="text-[#2F4662] font-semibold text-base font-inter">Code would expire in 
+                    <span class="bg-[#0EA5AE] bg-opacity-20 rounded text-danger font-inter font-semibold text-base">{{timeDisplay}}</span>
                 </p>
                 <!-- <p *ngIf="timerExpired" class="text-[#2F4662]">OTP expired</p> -->
             </div>
@@ -80,7 +80,7 @@
             </div>
 
             <div class="flex justify-center mt-16">
-                <p class="text-center w-96 font-inter font-normal text-sm text-failedNormal">Didn't get the code?
+                <p *ngIf="hideResend === true" class="text-center w-96 font-inter font-normal text-sm text-failedNormal">Didn't get the code?
                     <span class="font-medium text-discountBlue cursor-pointer" (click)="resendOTP()">Resend</span>
                 </p>
             </div>
