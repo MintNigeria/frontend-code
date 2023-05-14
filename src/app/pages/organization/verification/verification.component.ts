@@ -23,6 +23,7 @@ export class VerificationComponent implements OnInit {
   selectedFaculty : string = "All";
   documentType: string = "All";
   status: string = "All";
+  showDate : boolean = false;
 
   filterStatus = { status: 'All'};
   filterOption = {selectedOption : 'All Time'};
@@ -110,6 +111,8 @@ export class VerificationComponent implements OnInit {
 
   changeRange(range: number, name: string) {
     this.selectedOption = name
+    this.showDate = true;
+
     if (range === 5) {
       // launch calender
       const dialogRef = this.dialog.open(DateRangeComponent, {

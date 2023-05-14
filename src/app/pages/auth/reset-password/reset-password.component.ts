@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -41,9 +40,7 @@ export class ResetPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.param = this.route.snapshot.queryParams
-    console.log(this.param)
     this.initLoginForm();
-    // if (!this.requestToken) return window.history.back();
     this.createAccountForm.valueChanges.subscribe((val) => {
       this.lenghtChecked = val.password.length > 8 ? true : false;
       this.numberChecked = RegExp('(?=.*[0-9])').test(val.password)

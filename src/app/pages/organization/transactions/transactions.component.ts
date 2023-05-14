@@ -20,6 +20,10 @@ export class TransactionsComponent implements OnInit {
   selectedSector : string = "All";
   documentType: string = "All";
   status: string = "All";
+  showDate : boolean = false;
+  showStatus : boolean = false;
+  showType : boolean = false;
+
 
   filterStatus = { status: 'All'};
   filterOption = {selectedOption : 'All Time'};
@@ -104,6 +108,8 @@ searchForm = new FormGroup({
 
   changeRange(range: number, name: string) {
     this.selectedOption = name
+    this.showDate = true;
+
     if (range === 5) {
       // launch calender
       const dialogRef = this.dialog.open(DateRangeComponent, {
@@ -129,10 +135,12 @@ searchForm = new FormGroup({
 
   changeStatus(status: number, name: string) {
     this.status = name
+    this.showStatus = true
     const filter = {...this.filter, ['status'] : status};
     this.filter = filter;
   }
   changeType(name: string) {
+    this.showType = true
     this.selectedType = name
     const filter = {...this.filter, ['TransactionType'] : name};
     this.filter = filter;

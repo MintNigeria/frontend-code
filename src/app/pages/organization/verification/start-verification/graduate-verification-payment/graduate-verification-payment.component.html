@@ -273,7 +273,7 @@
       
                   <app-button
                   [overRideButtonClass]="true"
-                  [disabled]="selectedMerchant?.length === 0"
+                  [disabled]="selectedMerchant.length === 0"
                   customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
                   (buttonClick)="payWithCard()"
                   >Make Payment</app-button>

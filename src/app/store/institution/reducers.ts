@@ -9,7 +9,6 @@ import {
   createFacultyInInstitutionSuccess,
   createGradeInInstitutionSuccess,
   createNewInstitutionSuccess,
-  getAllAdminInstitutionTransactionSuccess,
   getALlDepartmentInInstitutionSuccess,
   getALlFacultiesInInstitutionSuccess,
   getAllInstitutionDegreeTypeSuccess,
@@ -96,12 +95,7 @@ export const institutionReducers = createReducer(
     };
   }),
 
-  on(getAllAdminInstitutionTransactionSuccess, (state, { payload }) => {
-    return {
-      ...state,
-      institutionAdminTransaction: payload,
-    };
-  }),
+
 
   on(getInstitutionTypeSuccess, (state, { payload }) => {
     return {

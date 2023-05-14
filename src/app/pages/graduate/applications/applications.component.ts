@@ -21,6 +21,9 @@ export class ApplicationsComponent implements OnInit {
   selectedSector : string = "All";
   documentType: string = "All";
   status: string = "All";
+  showDocType : boolean = false;
+  showDate : boolean = false;
+  showStatus : boolean = false;
 
   filterStatus = { status: 'All'};
   filterOption = {selectedOption : 'All Time'};
@@ -118,6 +121,7 @@ export class ApplicationsComponent implements OnInit {
 
   changeRange(range: number, name: string) {
     this.selectedOption = name
+    this.showDate = true;
     if (range === 5) {
       // launch calender
       const dialogRef = this.dialog.open(DateRangeComponent, {
@@ -184,6 +188,7 @@ export class ApplicationsComponent implements OnInit {
   
   changeDocumentType(name: string, type: any) {
     this.documentType = type
+    this.showDocType = true;
     const filter = {...this.filter, ['documentType'] : type};
     this.filter = filter;
   }
@@ -191,6 +196,7 @@ export class ApplicationsComponent implements OnInit {
   
   changeStatus(status: number, name: string) {
     this.status = name
+    this.showStatus = true;
     const filter = {...this.filter, ['status'] : status};
     this.filter = filter;
   }

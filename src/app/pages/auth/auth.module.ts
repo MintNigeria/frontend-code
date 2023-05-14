@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
-import { SplitScreenComponent } from './split-screen/split-screen.component';
 import { LoginComponent } from './login/login.component';
 import { InstitutitionRegistrationComponent } from './institutition-registration/institutition-registration.component';
 import { OrganizationRegistrationComponent } from './organization-registration/organization-registration.component';
@@ -35,7 +34,6 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 @NgModule({
   declarations: [
     AuthComponent,
-    SplitScreenComponent,
     LoginComponent,
     InstitutitionRegistrationComponent,
     OrganizationRegistrationComponent,
@@ -54,9 +52,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     RecaptchaFormsModule,
     NgOtpInputModule,
     NgSelectModule,
-    AuthRoutingModule,
     StoreModule.forFeature('auth', authReducers),
-    EffectsModule.forFeature([AuthEffects, UtilityEffects, ConfigurationEffects, OrganizationEffects, InstitutionEffects, GraduatesEffects]),
+    EffectsModule.forFeature([AuthEffects, UtilityEffects, OrganizationEffects, InstitutionEffects, GraduatesEffects]),
+    AuthRoutingModule,
   ],
   // providers: [{ provide: RECAPTCHA_V3_SITE_KEY, useValue: environment.recaptchaKey }],
 })

@@ -5,7 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { NotifierModule } from 'angular-notifier';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,8 +15,8 @@ import { LoaderInterceptor } from './core/interceptors/http-loader.interceptor';
 import { AuthInterceptor } from './core/interceptors/http.interceptor';
 import { appReducer } from './store/shared/app.reducer';
 import { metaReducers, reducers } from './types/appState.interface';
-import { customNotifierOptions } from './types/index.types';
 import { LoaderComponent } from './shared/components/loader/loader.component';
+import { SharedModule } from './shared/shared.module';
 
 
 
@@ -28,13 +27,11 @@ import { LoaderComponent } from './shared/components/loader/loader.component';
     BrowserAnimationsModule,
     RecaptchaModule,
     AppRoutingModule,
-    
-    NotifierModule,
+    SharedModule,
     HttpClientModule,
     StoreModule.forRoot({}),
     StoreModule.forFeature('apiResponse', appReducer),
     EffectsModule.forRoot(),
-    NotifierModule.withConfig(customNotifierOptions),
     StoreModule.forRoot(reducers, {
       metaReducers,
     }),

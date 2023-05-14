@@ -5,13 +5,13 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { RecaptchaErrorParameters } from 'ng-recaptcha';
-import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { confirm2FAction, confirm2FActionSuccess, invokeLoginUser, loginSuccess } from 'src/app/store/auth/action';
 import { isUserSelector } from 'src/app/store/auth/selector';
 import { selectAppAPIResponse } from 'src/app/store/shared/app.selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { Status } from 'src/app/types/shared.types';
 import { environment } from 'src/environments/environment';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 
 @Component({
   selector: 'app-login',

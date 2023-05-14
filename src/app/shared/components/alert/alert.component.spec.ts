@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SplitScreenComponent } from './split-screen.component';
+import { AlertComponent } from './alert.component';
 
-describe('SplitScreenComponent', () => {
-  let component: SplitScreenComponent;
-  let fixture: ComponentFixture<SplitScreenComponent>;
+describe('AlertComponent', () => {
+  let component: AlertComponent;
+  let fixture: ComponentFixture<AlertComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SplitScreenComponent ]
+      declarations: [ AlertComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SplitScreenComponent);
+    fixture = TestBed.createComponent(AlertComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -52,24 +52,6 @@ export const getAllInstitutionUsersSuccess = createAction(
   props<{ payload: any }>()
 );
 
-export const getAllAdminInstitutionTransaction = createAction(
-  '[institutions] get all admininstitution transaction',
-  props<{
-    institutionId: string,
-    keyword: string,
-    filter: string,
-    status: string,
-    requestor: string,
-    fromDate: string,
-    toDate: string,
-    pageIndex: number,
-    pageSize: number
-  }>()
-);
-export const getAllAdminInstitutionTransactionSuccess = createAction(
-  '[institutions] get all admininstitution transaction success',
-  props<{ payload: any }>()
-);
 
 export const getInstitutionTypes = createAction(
   '[institutions] get all institution types',
