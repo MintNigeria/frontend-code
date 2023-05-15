@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -17,6 +17,7 @@ import { appReducer } from './store/shared/app.reducer';
 import { metaReducers, reducers } from './types/appState.interface';
 import { LoaderComponent } from './shared/components/loader/loader.component';
 import { SharedModule } from './shared/shared.module';
+import { GlobalErrorHandler } from './global-error-handler';
 
 
 
@@ -57,6 +58,7 @@ import { SharedModule } from './shared/shared.module';
       useClass: AuthInterceptor,
       multi: true,
     },
+    {provide: ErrorHandler, useClass: GlobalErrorHandler},
     DatePipe,
   ],
   bootstrap: [AppComponent],
