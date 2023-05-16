@@ -7,7 +7,6 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { createPassword, createPasswordSuccess, invokeLoginUser, loginSuccess, resetPassword, resetPasswordSuccess } from 'src/app/store/auth/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
-import { Status } from 'src/app/types/shared.types';
 
 @Component({
   selector: 'app-reset-password',

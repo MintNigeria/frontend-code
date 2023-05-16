@@ -53,7 +53,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     NgOtpInputModule,
     NgSelectModule,
     StoreModule.forFeature('auth', authReducers),
-    EffectsModule.forFeature([AuthEffects, UtilityEffects, OrganizationEffects, InstitutionEffects, GraduatesEffects]),
+    EffectsModule.forFeature([AuthEffects, UtilityEffects, OrganizationEffects, InstitutionEffects, GraduatesEffects, ConfigurationEffects]),
     AuthRoutingModule,
   ],
   // providers: [{ provide: RECAPTCHA_V3_SITE_KEY, useValue: environment.recaptchaKey }],

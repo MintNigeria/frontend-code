@@ -235,7 +235,7 @@
               <!-- <app-input [formGrp]="institutionRegForm" formCtrlName="InstitutionName" [type]="'text'" [class]="
                         'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
                       " placeholder="Enter institution name" [name]="'Email'"></app-input> -->
-                      <ng-select class="custom-ng-dropdown" (change)="selectInstitutionSector($event)" formControlName="InstitutionName" [selectOnTab]="true"
+                      <ng-select class="custom-ng-dropdown"  formControlName="InstitutionName" [selectOnTab]="true"
                 placeholder="Select Institution Name">
                 <ng-option *ngFor="let unit of institutionList" [value]="unit?.name">{{unit?.name}}</ng-option>
               </ng-select>
@@ -261,7 +261,7 @@
             </re-captcha>
           </div>
           <div class="mb-6">
-            <app-button (buttonClick)="continueCreation()"    [overRideButtonClass]="true"
+            <app-button (buttonClick)="continueCreation()" [disabled]="institutionRegForm.invalid"    [overRideButtonClass]="true"
               customClass="w-40 h-12 rounded-lg font-inter font-medium text-base text-white leading-6 bg-primaryBlue">
               Continue</app-button>
           </div>
@@ -327,7 +327,7 @@
 
         <div class="flex justify-center items-center">
 
-          <app-button (buttonClick)="continue()"  [overRideButtonClass]="true"
+          <app-button (buttonClick)="continue()"   [overRideButtonClass]="true"
             customClass="w-32 h-12 rounded-lg font-normal text-base text-white leading-6 bg-primaryBlue">Continue
           </app-button>
         </div>
