@@ -18,7 +18,6 @@ export class TwoFactorAuthenticationComponent implements OnInit {
 
 
   otp: number[] = [];
-  timer = 30;
   timerExpired = false;
   otpEntered = false;
 
@@ -59,16 +58,16 @@ export class TwoFactorAuthenticationComponent implements OnInit {
 
   onSave(): void {
     // Your save logic here.
-    console.log('Save button clicked');
+    // console.log('Save button clicked');
   }
 
   onCancel(): void {
     // Your cancel logic here.
-    console.log('Cancel button clicked');
+    // console.log('Cancel button clicked');
   }
 
   openOtpModal(){
-    console.log('dsdsdsd')
+    // console.log('dsdsdsd')
     const payload = {
       enable2FA: this.twoFactorEnabled ,
       code: ''
@@ -77,6 +76,7 @@ export class TwoFactorAuthenticationComponent implements OnInit {
     this.store.dispatch(activateDeactivate2FA({payload}))
     this.actions$.pipe(ofType(activateDeactivate2FASuccess)).subscribe((res: any) => {
       if(res.message.hasErrors === false) {
+        this.timer(10)
         // this.notification.publishMessages('success', res.message.description)
         document.getElementById('otpModal')?.click();
       }
@@ -132,6 +132,7 @@ export class TwoFactorAuthenticationComponent implements OnInit {
     this.actions$.pipe(ofType(confirm2FActionSuccess)).subscribe((res: any) => {
       console.log(res)
       if(res.message.hasErrors === false) {
+        this.timer(10)
         this.notification.publishMessages('success', res.message.description)
         // document.getElementById('otpModal')?.click();
       }
@@ -145,6 +146,37 @@ export class TwoFactorAuthenticationComponent implements OnInit {
   
   closeSuccess() {
     document.getElementById('successModal')?.click();
+  }
+
+  timeDisplay!: string;
+  hideResend: boolean = false;
+
+  timer(minute: any) {
+    // let min = minute;
+    let seconds: number = minute * 60;
+    let textSec: any = "0";
+    let statSec: number = 60;
+
+    const prefix = minute < 10 ? "0" : "";
+
+    const timer = setInterval(() => {
+      seconds--;
+      if (statSec != 0) statSec--;
+      else statSec = 59;  
+
+      if (statSec < 10) {
+        textSec = "0" + statSec;
+      } else textSec = statSec;
+
+      this.timeDisplay = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
+      if (seconds == 0 ) {
+        clearInterval(timer);
+        this.hideResend = true;
+      } else {
+        this.hideResend = false;
+
+      }
+    }, 1000);
   }
 
 }

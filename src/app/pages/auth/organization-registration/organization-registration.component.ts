@@ -6,8 +6,6 @@ import { select, Store } from '@ngrx/store';
 import { getOrganisationIndustry, getOrganisationIndustrySuccess, getOrganisationSector, getOrganisationSectorSuccess } from 'src/app/store/configuration/action';
 import { invokeGetStateAndLGA } from 'src/app/store/institution copy/action';
 import { stateLgaSelector } from 'src/app/store/institution copy/selector';
-import { createNewInstitution, createNewInstitutionSuccess, getAllInstitutionRecords, getAllInstitutionRecordsSuccess, getInstitutionBody, getInstitutionSector, getInstitutionTypes, ValidateRegistrationCode, ValidateRegistrationCodeSuccess } from 'src/app/store/institution/action';
-import { institutionTypeSelector, institutionSectorSelector, institutionBodySelector, institutionRecordSelector } from 'src/app/store/institution/selector';
 import { registerOrganization, registerOrganizationSuccess, validateOrganizationCode, validateOrganizationCodeSuccess } from 'src/app/store/organization/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { environment } from 'src/environments/environment';
@@ -33,11 +31,8 @@ selectedFile!: null
 allowedFiled = ["image/png", "image/jpeg", "application/pdf"];
 selectedFileList: any  = []
   showOTPPage: boolean = false;
-  institutionType$ = this.appStore.pipe(select(institutionTypeSelector));
-  institutionSectors$ = this.appStore.pipe(select(institutionSectorSelector));
-  institutionBody$ = this.appStore.pipe(select(institutionBodySelector));
   stateLGA$ = this.appStore.pipe(select(stateLgaSelector));
-  institutionName$ = this.appStore.pipe(select(institutionRecordSelector));
+  // institutionName$ = this.appStore.pipe(select(institutionRecordSelector));
   lga: any;
   industrtList: any;
   sectorList: any;
@@ -71,15 +66,11 @@ selectedFileList: any  = []
       this.sectorList = res.payload
 
     })
-    this.store.dispatch(
-      getInstitutionBody()
-    );
+    
     this.store.dispatch(
       invokeGetStateAndLGA()
     );
     
-    	// const countries = Country?.getAllCountries()
-      // //console.log(contries)
 
   }
 

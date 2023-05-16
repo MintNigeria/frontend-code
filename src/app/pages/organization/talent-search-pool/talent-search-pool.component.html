@@ -44,11 +44,14 @@
                                 Date
                             </p>
                             <div class="dropdown dropdown-bottom">
-                                <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
-                                <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedOption }}</p>
+                                <label tabindex="0"
+                                (click)="showDate = false"
+              [ngClass]="showDate? 'w-fit' : 'w-[160px]'"
+                                 class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
+                                <p class="my-0 text-black font-inter font-medium text-sm">{{ selectedOption }}</p>
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
                                 </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
+                                <ul tabindex="0" [ngClass]="showDate? 'hidden' : 'block'" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
                                     <li><a (click)="changeRange(0, 'All Time') ">All Time</a></li>
                                     <li><a (click)="changeRange(3, '30 Days')">30 Days</a></li>
                                     <li><a (click)="changeRange(2, '7 days' )">7 Days</a></li>
@@ -70,7 +73,7 @@
           </ng-select>
                             <div class="dropdown dropdown-bottom">
                                 <!-- <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
-                                <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedInstitution }}</p>
+                                <p class="my-0 text-black font-inter font-medium text-sm">{{ selectedInstitution }}</p>
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
                                 </label> -->
                                 <!-- <ul tabindex="0" class="dropdown-content h-64 overflow-y-scroll menu p-2 shadow bg-white text-black rounded-box w-56">
@@ -90,7 +93,7 @@
               </ng-select>
                             <!-- <div class="dropdown dropdown-bottom">
                                 <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
-                                <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedSector }}</p>
+                                <p class="my-0 text-black font-inter font-medium text-sm">{{ selectedSector }}</p>
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
                                 </label>
                                 <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-56">
@@ -111,7 +114,7 @@
               </ng-select>
                             <!-- <div class="dropdown dropdown-bottom">
                                 <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
-                                <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedSector }}</p>
+                                <p class="my-0 text-black font-inter font-medium text-sm">{{ selectedSector }}</p>
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
                                 </label>
                                 <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-56">
@@ -122,7 +125,7 @@
                             </div> -->
                         </div>
 
-                        <div class="flex items-center mt-6">
+                        <div class="flex items-center ">
                             <button type="button" class="bg-[#4086EF] text-white font-medium font-inter text-xs w-[80px] h-[40px] rounded-xl" (click)="addFilter()">Add Filter</button>
                             <button  type="button" class="bg-none  text-[#4086EF] font-medium font-inter text-xs w-[80px] h-[40px] rounded" (click)="clearFilter()">Clear Filter</button>
                         </div>

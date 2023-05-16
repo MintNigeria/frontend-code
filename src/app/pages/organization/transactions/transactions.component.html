@@ -59,11 +59,14 @@
             </p>
             <div class="dropdown dropdown-bottom">
               <label tabindex="0"
+              (click)="showDate = false"
+              [ngClass]="showDate? 'w-fit' : 'w-[160px]'"
                 class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
-                <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedOption }}</p>
+                <p class="my-0 text-black font-inter font-medium text-sm">{{ selectedOption }}</p>
                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
               </label>
-              <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
+              <ul tabindex="0"
+              [ngClass]="showDate? 'hidden' : 'block'" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
                 <li><a (click)="changeRange(0, 'All Time') ">All Time</a></li>
                 <li><a (click)="changeRange(3, '30 Days')">30 Days</a></li>
                 <li><a (click)="changeRange(2, '7 days' )">7 Days</a></li>
@@ -81,11 +84,14 @@
             </p>
             <div class="dropdown dropdown-bottom">
               <label tabindex="0"
-                class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
-                <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ selectedType }}</p>
+              (click)="showType = false"
+              [ngClass]="showType? 'w-fit' : 'w-[160px]'"
+                class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg  h-10 w-32  py-4 px-3 cursor-pointer">
+                <p class="my-0 text-black font-inter font-medium text-sm">{{ selectedType }}</p>
                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
               </label>
-              <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white rounded-box w-56 text-black">
+              <ul tabindex="0"
+              [ngClass]="showType? 'hidden' : 'block'" class="dropdown-content menu p-2 shadow bg-white rounded-box w-56 text-black">
                 <li><a (click)="selectedType='All'">All</a></li>
                 <li><a (click)="changeType('subscription payment plan')">Subscription payment plan</a></li>
                 <li><a (click)="changeType('payment for verification')">Payment for verification</a></li>
@@ -100,12 +106,15 @@
             </p>
             <div class="dropdown dropdown-bottom">
               <label tabindex="0"
+              (click)="showStatus = false"
+              [ngClass]="showStatus? 'w-fit' : 'w-[160px]'"
                 class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
-                <p class="my-0 text-[lightGray] font-inter font-medium text-sm">{{ status }}</p>
+                <p class="my-0 text-black font-inter font-medium text-sm">{{ status }}</p>
                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
               </label>
               <ul
               tabindex="0"
+              [ngClass]="showStatus? 'hidden' : 'block'"
               class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72"
               >
 

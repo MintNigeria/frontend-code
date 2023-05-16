@@ -1,0 +1,6 @@
+.notify {
+    left: 50%;
+    transform: translate3d(-50%, calc(100% + 12px + 10px), 0px);
+    bottom: 12vh;
+    visibility: visible;
+}

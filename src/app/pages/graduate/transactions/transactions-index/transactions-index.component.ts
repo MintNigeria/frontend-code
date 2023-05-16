@@ -21,6 +21,9 @@ export class TransactionsIndexComponent implements OnInit {
   selectedSector : string = "All";
   documentType: string = "All";
   status: string = "All";
+  showDate : boolean = false;
+  showStatus : boolean = false;
+  showPayment : boolean = false;
 
   filterStatus = { status: 'All'};
   filterOption = {selectedOption : 'All Time'};
@@ -69,7 +72,6 @@ export class TransactionsIndexComponent implements OnInit {
     })
     this.store.dispatch(graduateTransactionTypeFilter())
     this.actions$.pipe(ofType(graduateTransactionTypeFilterSuccess)).subscribe((res: any) => {
-      console.log(res)
       this.transactionType = res.payload
     })
     this.searchForm.controls.searchPhrase.valueChanges
@@ -110,6 +112,8 @@ export class TransactionsIndexComponent implements OnInit {
   
   changeRange(range: number, name: string) {
     this.selectedOption = name
+    this.showDate = true;
+
     if (range === 5) {
       // launch calender
       const dialogRef = this.dialog.open(DateRangeComponent, {
@@ -135,11 +139,13 @@ export class TransactionsIndexComponent implements OnInit {
 
   changeStatus(status: number, name: string) {
     this.status = name
+    this.showStatus = true
     const filter = {...this.filter, ['status'] : status};
     this.filter = filter;
   }
   changeType(name: string) {
     this.documentType = name
+    this.showPayment = true
     const filter = {...this.filter, ['TransactionType'] : name};
     this.filter = filter;
   }

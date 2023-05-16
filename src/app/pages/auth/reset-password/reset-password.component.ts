@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { createPassword, createPasswordSuccess, invokeLoginUser, loginSuccess, resetPassword, resetPasswordSuccess } from 'src/app/store/auth/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
-import { Status } from 'src/app/types/shared.types';
 
 @Component({
   selector: 'app-reset-password',
@@ -41,9 +39,7 @@ export class ResetPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.param = this.route.snapshot.queryParams
-    console.log(this.param)
     this.initLoginForm();
-    // if (!this.requestToken) return window.history.back();
     this.createAccountForm.valueChanges.subscribe((val) => {
       this.lenghtChecked = val.password.length > 8 ? true : false;
       this.numberChecked = RegExp('(?=.*[0-9])').test(val.password)
@@ -91,7 +87,15 @@ export class ResetPasswordComponent implements OnInit {
     this.auth.resetPassword(payload).subscribe((res: any) => {
       if (res.hasErrors === false) {
             this.notification.publishMessages('success', res.payload.description)
-            this.router.navigateByUrl('/')
+            if (this.param.UserType === '2') {
+              this.router.navigateByUrl('/auth/institution')
+            }
+             if (this.param.UserType === '3') {
+              this.router.navigateByUrl('/auth/graduate')
+            }
+             if (this.param.UserType === '4') {
+              this.router.navigateByUrl('/auth/organization')
+            }
 
       }
     })

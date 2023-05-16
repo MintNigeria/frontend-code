@@ -46,7 +46,7 @@
                   (click)="showDate = false;"
                   class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-[160px] h-[40px] py-[14px] px-3 cursor-pointer"
                 >
-                  <p class="my-0 text-[#667085] font-inter font-medium text-sm">
+                  <p class="my-0 text-black font-inter font-medium text-sm">
                     {{ selectedOption }}
                   </p>
                   <img src="assets/images/icons/downward_arrow.svg" />
@@ -54,7 +54,7 @@
                 <ul
                         tabindex="0"
                         [ngClass]="showDate ? 'hidden' : 'block'"
-                        class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52"
+                        class="dropdown-content  menu p-2 shadow bg-white text-black rounded-box w-52"
                     >
                         <li><a (click)="changeRange(0, 'All Time') ">All Time</a></li>
                         <li><a (click)="changeRange(3, '30 Days')">30 Days</a></li>
@@ -78,10 +78,10 @@
               <div class="dropdown dropdown-bottom">
                 <label
                   tabindex="0"
-                  (click)="showDocType = false;"
-                  class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-[160px] h-[40px] py-[14px] px-3 cursor-pointer"
+                  (click)="showDocType = false;" [ngClass]="showDocType? 'w-fit' : 'w-[160px]'"
+                  class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg  h-[40px] py-[14px] px-3 cursor-pointer"
                 >
-                  <p class="my-0 text-[#667085] font-inter font-medium text-sm">
+                  <p class="my-0 text-black font-inter font-medium text-sm">
                     {{ documentType }}
                   </p>
                   <img src="assets/images/icons/downward_arrow.svg" />
@@ -89,7 +89,7 @@
                 <ul 
                 tabindex="0" 
                 [ngClass]="showDocType ? 'hidden' : 'block'"
-                class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72">
+                class="dropdown-content h-64 overflow-y-scroll menu p-2 shadow bg-white text-black rounded-box w-72">
                   <li><a (click)="documentType='All'">All</a></li>
                   <li><a (click)="changeDocumentType(unit.documentTypeName)" *ngFor="let unit of processingFeeList">{{unit.documentTypeName}}</a></li>
               </ul>
@@ -108,7 +108,7 @@
                   (click)="showStatus = false;"
                   class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-[160px] h-[40px] py-[14px] px-3 cursor-pointer"
                 >
-                  <p class="my-0 text-[#667085] font-inter font-medium text-sm">
+                  <p class="my-0 text-black font-inter font-medium text-sm">
                     {{ status }}
                   </p>
                   <img src="assets/images/icons/downward_arrow.svg" />
@@ -119,7 +119,7 @@
                         class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72"
                     >
                        
-                        <li *ngFor="let unit of requestStatus"><a (click)="changeStatus(unit.value, unit.name)">{{unit.name}}</a>
+                        <li *ngFor="let unit of requestStatus"><a (click)="changeStatus(unit.value, unit.name)">{{unit.name | titlecase}}</a>
                         </li>
                        
                     </ul>

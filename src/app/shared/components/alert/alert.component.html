@@ -1,0 +1,85 @@
+
+<div *ngIf="(notification.show && notification.style === 'error') || (notification.show && notification.style === 'danger') " style="
+position: fixed;
+
+z-index: 34444444444444444444444;
+" class="w-max notify flex items-center p-4 mb-4 text-white bg-[#D9534F] "
+  role="alert">
+  
+  <div class=" text-sm font-medium">
+    {{ notification.content }}
+  </div>
+  <button type="button" (click)="dismiss()"
+    class="ml-4 -mx-1.5 -my-1.5  text-white inline-flex  "
+    data-dismiss-target="#alert-border-3" aria-label="Close">
+    <span class="sr-only">Dismiss</span>
+    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd"
+        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </button>
+</div>
+<div *ngIf="notification.show && notification.style === 'success' " style="
+position: fixed;
+
+z-index: 34444444444444444444444;
+" class="w-max notify flex items-center p-4 mb-4 text-white bg-[#5CB85C] "
+  role="alert">
+  
+  <div class=" text-sm font-medium">
+    {{ notification.content }}
+  </div>
+  <button type="button" (click)="dismiss()"
+    class="ml-4 -mx-1.5 -my-1.5  text-white inline-flex  "
+    data-dismiss-target="#alert-border-3" aria-label="Close">
+    <span class="sr-only">Dismiss</span>
+    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd"
+        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </button>
+</div>
+<div *ngIf="notification.show && notification.style === 'info' " style="
+position: fixed;
+
+z-index: 34444444444444444444444;
+" class="w-max notify flex items-center p-4 mb-4 text-white bg-[#5BC0DE] "
+  role="alert">
+  
+  <div class=" text-sm font-medium">
+    {{ notification.content }}
+  </div>
+  <button type="button" (click)="dismiss()"
+    class="ml-4 -mx-1.5 -my-1.5  text-white inline-flex  "
+    data-dismiss-target="#alert-border-3" aria-label="Close">
+    <span class="sr-only">Dismiss</span>
+    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd"
+        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </button>
+</div>
+<div *ngIf="notification.show && notification.style === 'warning' " style="
+position: fixed;
+
+z-index: 34444444444444444444444;
+" class="w-max notify flex items-center p-4 mb-4 text-white bg-[#F0AD4E] "
+  role="alert">
+  
+  <div class=" text-sm font-medium">
+    {{ notification.content }}
+  </div>
+  <button type="button" (click)="dismiss()"
+    class="ml-4 -mx-1.5 -my-1.5  text-white inline-flex  "
+    data-dismiss-target="#alert-border-3" aria-label="Close">
+    <span class="sr-only">Dismiss</span>
+    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd"
+        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </button>
+</div>

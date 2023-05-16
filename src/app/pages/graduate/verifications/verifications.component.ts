@@ -21,6 +21,8 @@ export class VerificationsComponent implements OnInit {
   selectedSector : string = "All";
   documentType: string = "All";
   status: string = "All";
+  showDate : boolean = false;
+  showStatus : boolean = false;
 
   filterStatus = { status: 'All'};
   filterOption = {selectedOption : 'All Time'};
@@ -108,6 +110,8 @@ export class VerificationsComponent implements OnInit {
 
   changeRange(range: number, name: string) {
     this.selectedOption = name
+    this.showDate = true;
+
     if (range === 5) {
       // launch calender
       const dialogRef = this.dialog.open(DateRangeComponent, {
@@ -132,6 +136,8 @@ export class VerificationsComponent implements OnInit {
 
   changeStatus(status: number, name: string) {
     this.status = name
+    this.showStatus = true;
+
     const filter = {...this.filter, ['status'] : String(status)};
     this.filter = filter;
   }

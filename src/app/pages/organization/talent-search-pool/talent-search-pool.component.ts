@@ -23,6 +23,7 @@ export class TalentSearchPoolComponent implements OnInit {
   documentType: string = "All";
   status: string = "All";
   selectedFaculty: string = 'All';
+  showDate : boolean = false;
 
   filterStatus = { status: 'All'};
   filterOption = {selectedOption : 'All Time'};
@@ -111,6 +112,8 @@ export class TalentSearchPoolComponent implements OnInit {
 
   changeRange(range: number, name: string) {
     this.selectedOption = name
+    this.showDate = true;
+
     if (range === 5) {
       // launch calender
       const dialogRef = this.dialog.open(DateRangeComponent, {

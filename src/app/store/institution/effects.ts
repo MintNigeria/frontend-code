@@ -17,8 +17,6 @@ import {
   approveRejectInstitutionSuccess,
   getAllInstitutionUsers,
   getAllInstitutionUsersSuccess,
-  getAllAdminInstitutionTransaction,
-  getAllAdminInstitutionTransactionSuccess,
   getInstitutionTypeSuccess,
   getInstitutionTypes,
   getInstitutionSector,

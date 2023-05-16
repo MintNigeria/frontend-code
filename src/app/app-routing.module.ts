@@ -23,11 +23,13 @@ const routes: Routes = [
     path: 'organization',
     loadChildren: () =>
       import('./pages/organization/organization.module').then((m) => m.OrganizationModule),
+       canActivate: [AuthGuard]
   },
   {
     path: 'graduate',
     loadChildren: () =>
       import('./pages/graduate/graduate.module').then((m) => m.GraduateModule),
+       canActivate: [AuthGuard]
   },
 ];
 
