@@ -1,0 +1,86 @@
+<div class="bg-white w-full h-screen  flex justify-center items-center">
+  <div class="w-fill md:w-3/5 mx-auto " *ngIf="!show2FAOTP">
+    <h4 class="font-semibold font-poppins text-3xl pb-3 text-darkGray">Login as {{currentRoute === 'institution' ? 'an Institution' : currentRoute === 'graduate' ? 'a Graduate' : ' an Organization'}}</h4>
+    <p class="font-nunito font-normal text-base text-ligthGray mb-8">Enter your details to login to your dashboard</p>
+    <form [formGroup]="loginAuth" (ngSubmit)="accessAccount()" class="w-full">
+      <ng-container >
+        <div class="mb-5">
+          <label for="email" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Email <span
+              class="text-danger">*</span></label>
+          <app-input [formGrp]="loginAuth" formCtrlName="email" [type]="'text'" [class]="
+                  'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                " Issuer="Enter your email" [name]="'Email'"></app-input>
+        </div>
+        <div class="mb-5">
+          <label for="password" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Password <span
+              class="text-danger">*</span></label>
+          <app-password [formGrp]="loginAuth" formCtrlName="password" [type]="'password'" [class]="
+                  'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                " placeholder="***********" [name]="'Password'"></app-password>
+        </div>
+        <div class="mb-6">
+          <div class="flex justify-between items-center">
+              <div class="flex items-center ">
+                  <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                  <label for="default-checkbox" class="ml-2 text-sm font-medium text-failedNormal dark:text-gray-300 font-inter">Remember me</label>
+              </div>
+              <a class="cursor-pointer font-inter font-medium text-sm text-primaryBlue" routerLink="/auth/forgot-password" >Forgot Password?</a>
+          </div>
+        </div>
+        <div class="mb-6">
+          <re-captcha formControlName="recaptchaReactive" (resolved)="resolved($event)" [siteKey]="siteKey"></re-captcha>
+        </div>
+        <div class="mb-6">
+          <app-button
+              [type]="'submit'"
+              [disabled]="loginAuth.invalid"
+              (buttonClick)="accessAccount()"
+              [overRideButtonClass]="true"
+              customClass="w-40 h-12 rounded-lg font-inter font-medium text-base text-white leading-6 bg-primaryBlue"
+              >Sign In</app-button
+            >
+        </div>
+        <div class="mb-8">
+          <p class="font-nunito font-normal text-sm text-lightGray">Dont have an account? <span class="cursor-pointer text-primaryBlue font-medium" (click)="createAccount()">Register</span> </p>
+        </div>
+      </ng-container>
+    
+    </form>
+  </div>
+  <div class="w-fill md:w-3/5 mx-auto " *ngIf="show2FAOTP">
+   
+    <form [formGroup]="loginAuth" class="w-full">
+     
+      <ng-container >
+        <div class="bg-white w-full h-screen  flex justify-center items-center">
+          <div class="w-fill  mx-auto">
+            <h4 class="font-semibold font-poppins text-3xl pb-3 text-darkGray">Email verification</h4>
+            <p class="leading-6 text-base pb-8 text-lightGray font-nunito mb-8">We’ve sent a unique code to {{loginAuth.get("email")?.value}}
+              in order to verify your email address. Please enter the code below.</p>
+            <div class="mb-8">
+              <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }"></ng-otp-input>
+            </div>
+            <div class="flex justify-start items-center my-6">
+              <p class="font-sans font-semibold text-sm text-[#2F4662]">
+                Code will expire in
+              </p>
+              <div class="mx-2">
+                <i class="fa fa-clock text-placeholderText"></i>
+              </div>
+              <div class="text-asteriskRed bg-[#E7F6F7] font-semibold font-sans text-danger px-3 py-1 rouded">{{timeDisplay}}</div>
+            </div>
+            <div class="mb-6">
+              <app-button (buttonClick)="verifyOTP()" [disabled]="otplength?.length !== 6" [overRideButtonClass]="true"
+                customClass="w-40 h-12 rounded-lg font-inter font-medium text-base text-white leading-6 bg-primaryBlue">Verify
+              </app-button>
+            </div>
+            <div class="mb-8">
+              <p *ngIf="hideResend === true" class="font-nunito font-normal text-sm text-lightGray">Didnt get the code? <span (click)="resendOTP()"
+                  class="cursor-pointer text-primaryBlue font-medium">Resend</span> </p>
+            </div>
+          </div>
+        </div>
+      </ng-container >
+    </form>
+  </div>
+</div>

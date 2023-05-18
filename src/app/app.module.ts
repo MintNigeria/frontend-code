@@ -22,7 +22,7 @@ import { GlobalErrorHandler } from './global-error-handler';
 
 
 @NgModule({
-  declarations: [AppComponent, LoaderComponent, ],
+  declarations: [AppComponent, LoaderComponent,  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

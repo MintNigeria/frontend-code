@@ -180,7 +180,7 @@
         <div>
           <h3 class="font-medium text-sm text-[#344054]">Destination</h3>
           <p class="text-sm text-[#667085]">
-            Please fill out your academic details delivery
+            Please select a delivery type above to fill out your academic details delivery
           </p>
         </div>
 
@@ -229,13 +229,13 @@
             </div>
             <div>
               <p class="input_label label_asterisk my-1">Enter Login Username</p>
-              <app-input [formGrp]="fileUploadForm" formCtrlName="loginUser" [type]="'number'" [class]="
+              <app-input [formGrp]="fileUploadForm" formCtrlName="loginUser" [type]="'text'" [class]="
                   'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
                 " placeholder="Enter Login Username" [name]="'fullName'"></app-input>
             </div>
             <div>
               <p class="input_label label_asterisk my-1">Enter Login Password</p>
-              <app-input [formGrp]="fileUploadForm" formCtrlName="loginPassword" [type]="'number'" [class]="
+              <app-input [formGrp]="fileUploadForm" formCtrlName="loginPassword" [type]="'password'" [class]="
                   'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
                 " placeholder="Enter Login Password" [name]="'fullName'"></app-input>
             </div>
@@ -368,7 +368,7 @@
               class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
               <div>
                 <label for="file1">
-                  <img src="assets/images/auth/upload.svg" alt="uploadIcon"
+                  <img src="assets/images/auth/upload.jpg" alt="uploadIcon"
                     class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
                   <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile}} </p>
                   <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
@@ -390,7 +390,7 @@
               class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
               <div>
                 <label for="file2">
-                  <img src="assets/images/auth/upload.svg" alt="uploadIcon"
+                  <img src="assets/images/auth/upload.jpg" alt="uploadIcon"
                     class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
                   <p *ngIf="selectedFile2" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile2}} </p>
                   <p *ngIf="!selectedFile2" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
@@ -412,7 +412,7 @@
               class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
               <div>
                 <label for="file3">
-                  <img src="assets/images/auth/upload.svg" alt="uploadIcon"
+                  <img src="assets/images/auth/upload.jpg" alt="uploadIcon"
                     class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
                   <p *ngIf="selectedFile3" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile3}} </p>
                   <p *ngIf="!selectedFile3" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
@@ -434,7 +434,7 @@
               class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
               <div>
                 <label for="file4">
-                  <img src="assets/images/auth/upload.svg" alt="uploadIcon"
+                  <img src="assets/images/auth/upload.jpg" alt="uploadIcon"
                     class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
                   <p *ngIf="selectedFile4" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile4}} </p>
                   <p *ngIf="!selectedFile4" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
@@ -456,7 +456,7 @@
               class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
               <div>
                 <label for="file5">
-                  <img src="assets/images/auth/upload.svg" alt="uploadIcon"
+                  <img src="assets/images/auth/upload.jpg" alt="uploadIcon"
                     class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
                   <p *ngIf="selectedFile5" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile5}} </p>
                   <p *ngIf="!selectedFile5" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
@@ -478,7 +478,7 @@
               class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
               <div>
                 <label for="file6">
-                  <img src="assets/images/auth/upload.svg" alt="uploadIcon"
+                  <img src="assets/images/auth/upload.jpg" alt="uploadIcon"
                     class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
                   <p *ngIf="selectedFile6" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile6}} </p>
                   <p *ngIf="!selectedFile6" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
@@ -502,7 +502,8 @@
 
       <app-button (buttonClick)="cancel()" [overRideButtonClass]="true"
         customClass="w-[80px] h-12 rounded-lg font-inter font-medium text-base leading-6 bg-white border-2 border-solid border-[#EAECF0] text-[#344054]">Cancel</app-button>
-      <app-button [overRideButtonClass]="true"
+      <app-button [overRideButtonClass]="true" 
+      [disabled]="(selectedDestination === 1 && emailForm.invalid) || (selectedDestination === 2 && fileUploadForm.invalid) || (selectedDestination === 3 && hardCopyForm.invalid)"
         customClass="h-12 px-4 rounded-lg hover:bg-primaryBlue font-inter font-medium text-base text-white leading-6 bg-[#4086EF]"
         (buttonClick)="continue()">Continue</app-button>
     </div>

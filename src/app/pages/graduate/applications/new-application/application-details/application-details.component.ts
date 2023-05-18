@@ -94,7 +94,7 @@ selectedFileList: any = {
       this.dispatchFee = res.payload.dispatchFeeVMs.map((x: any) => {
         return {fee: x.fee, keyName: x.name.split(' ').join('') , label: x.name}
       })
-      console.log(this.dispatchFee)
+      // console.log(this.dispatchFee)
     })
 
   }
@@ -145,7 +145,7 @@ selectedFileList: any = {
   }
 
   originalCertificateClicked(data: any){
-    console.log(data)
+    // console.log(data)
     this.showDescription = true
     this.selectedDocumentType = data.documentTypeName
     this.selectedDocumentTypeId = data.id
@@ -153,7 +153,7 @@ selectedFileList: any = {
     this.actions$.pipe(ofType(getActiveDeliveryOptionsSuccess)).subscribe((res: any) => {
       this.deliveryType = res.payload
       this.selectedDestination = res.payload.deliveryOption
-      console.log(this.selectedDestination)
+      // console.log(this.selectedDestination)
     })
     // this.certificateOriginal = true;
     // this.certificateTemplate = false;
@@ -165,7 +165,7 @@ selectedFileList: any = {
   }
   
   changeDestination(option: any) {
-    console.log(option)
+    // console.log(option)
     this.paymentDetailsVM = option
     this.selectedDestination = option.deliveryOption
   }
@@ -175,7 +175,7 @@ selectedFileList: any = {
     this.states = State.getStatesOfCountry(JSON.parse(event).isoCode);
     this.selectedCountry = JSON.parse(event);
     this.hardCopyForm.controls['country'].setValue(this.selectedCountry.name)
-    console.log(this.selectedCountry)
+    // console.log(this.selectedCountry)
     if (this.selectedCountry.name === 'Nigeria') {
       let data  = this.dispatchFee.map((item: any) => {
         if (item.keyName === "Nipost"  || item.keyName === "WithinState" || item.keyName === "OutsideStateWithinNigeria") {

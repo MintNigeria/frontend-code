@@ -1,0 +1,32 @@
+.bg-auth {
+    background-image: url('../../../assets/images/auth/auth-bg.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .btn-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #EBF3FF;
+    opacity: 0.5; 
+    
+  }
+  
+  .btn-dot.btn-active {
+    background-color: #0D47A1;
+  }
+  
+  .btn-circle, .btn-dot {
+    opacity: 0.5; 
+  }
+  
+  .btn-active {
+    opacity: 1;
+  }
+  .btn-circle{
+      background-color: #F2F4F7;
+      border: none;
+  }
+  
+  

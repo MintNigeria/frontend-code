@@ -46,7 +46,6 @@ export class InstitutionDetailsComponent implements OnInit {
     let currentYear = new Date().getFullYear();
     for (let index = 1920; index <= currentYear; ++index) {
       this.years.push(index)
-      this.years.reverse()
 
     }
 
@@ -66,7 +65,7 @@ export class InstitutionDetailsComponent implements OnInit {
       faculty: ['', Validators.required],
       department: ['', Validators.required],
       firstName: ['', Validators.required],
-      middleName: ['', Validators.required],
+      middleName: [''],
       lastName: ['', Validators.required],
       gender: ['', Validators.required],
       matricNo: ['', Validators.required],
@@ -87,7 +86,7 @@ export class InstitutionDetailsComponent implements OnInit {
     this.actions$.pipe(ofType(getDegreeTypeWithInstitutionNameSuccess)).subscribe((res: any) => {
       this.degreeType = res.payload;
 
-      console.log(res.payload)
+      // console.log(res.payload)
     })
    
     this.institutionDetailsForm.controls['institutionName'].setValue(event.institutionName)
@@ -137,10 +136,13 @@ export class InstitutionDetailsComponent implements OnInit {
       }
     this.store.dispatch(searchGraduateRecords({payload}))
     this.actions$.pipe(ofType(searchGraduateRecordsSuccess)).subscribe((res: any) => {
-      console.log(res)
-      if (res.payload.hasErrors === false) {
+      // console.log(res)
+      if (res.payload.hasErrors === false  && res.payload?.payload.length  > 0) {
         sessionStorage.setItem('ver_Ys', JSON.stringify(res.payload.payload))
         this.router.navigateByUrl('/graduate/my-verifications/new/search-table')
+      } else {
+
+        this.notification.publishMessages('warning', 'No record(s) found')
       }
     })
   }
