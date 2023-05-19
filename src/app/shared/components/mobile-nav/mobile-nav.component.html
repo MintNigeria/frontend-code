@@ -1,0 +1,39 @@
+<ul class="w-full h-screen  flex flex-col mt-0 mr-6 p-4 space-x-8 text-sm font-medium text-gray-900 bg-white ">
+    <li 
+    routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: false }"
+        #rla="routerLinkActive"
+        [ngClass]="
+          rla.isActive
+            ? 'text-black hover:underline font-inter font-medium text-[17px] leading-[150%]'
+            : 'text-[#191C1E] font-inter font-medium text-[17px] leading-[150%]'
+        "
+    class="!ml-[0px] pb-4 transition uppercase"
+    *ngFor="let link of menuLinks">
+    <div class="flex items-center gap-2" (click)="goToPath(link.path, link.hasChild)" >
+        <a [ngClass]="
+        rla.isActive
+          ? 'text-black'
+          : 'text-gray-500'
+      " [routerLink]="link?.path">{{ link.title }} </a>
+        <div class="relative cursor-pointer" *ngIf="link.hasChild === true">
+          <div class="dropdown dropdown-bottom">
+            <svg tabindex="0" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 7.5L10 12.5L15 7.5" stroke="#BDD5FA" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              
+            <ul
+              tabindex="0"
+              class="main mt-3 dropdown-content menu p-2 shadow bg-primaryBlue md:z-50 w-52"
+            >
+              <li *ngFor="let item of link?.childRoute">
+                <a class="text-white" [routerLink]="item?.route">{{ item.name }}</a>
+              </li>
+            </ul>
+          </div>
+          
+        </div>
+      </div>
+
+    </li>
+  </ul>

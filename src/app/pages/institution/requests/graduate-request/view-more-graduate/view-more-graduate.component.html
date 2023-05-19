@@ -269,6 +269,9 @@
                             <div *ngIf="unit.fileUploadVM.contentType === 'application/pdf' " class="w-52 h-52">
                                 <iframe [src]="'data:application/pdf;base64,' + unit.fileUploadVM.path | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>  
                             </div>
+                            <div *ngIf="unit.fileUploadVM.contentType === 'application/octet-stream' " class="w-52 h-52">
+                                <iframe [src]="'data:image/png;base64,' + unit.fileUploadVM.path | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>  
+                            </div>
                             <div *ngIf="unit.fileUploadVM.contentType === 'image/png' " class="w-52 h-52">
                                 <iframe [src]="'data:image/png;base64,' + unit.fileUploadVM.path | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>  
                             </div>

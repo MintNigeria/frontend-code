@@ -70,7 +70,7 @@ export class AcademicDetailsComponent implements OnInit {
       middleName: [''],
       lastName: ['', Validators.required],
       gender: ['', Validators.required],
-      matricNo: ['', Validators.required],
+      matricNo: [''],
       degreeType: ['', Validators.required],
       yearOfEntry: ['', Validators.required],
       yearOfGraduation: ['', Validators.required],

@@ -26,6 +26,7 @@ import { CollapseComponent } from './components/collapse/collapse.component';
 import { TextareaComponent } from './components/textarea/textarea.component';
 import { HelpDeskComponent } from './components/help-desk/help-desk.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { MobileNavComponent } from './components/mobile-nav/mobile-nav.component';
 
 const components: any[] = [
   InputComponent,
@@ -48,6 +49,7 @@ const components: any[] = [
   TextareaComponent,
   HelpDeskComponent,
   AlertComponent,
+  MobileNavComponent,
 
 ]
 

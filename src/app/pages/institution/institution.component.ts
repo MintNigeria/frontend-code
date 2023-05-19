@@ -212,4 +212,21 @@ user: any
     
   }
 
+
+  openMobileNav() {
+    const el: any = document.getElementById('targetEl');
+    el.classList.toggle('showMobileNav')
+    console.log('test', el)
+  }
+  
+  closeNav(event: any) {
+    console.log(event)
+    if (event.close === 'true') {
+
+      const el: any = document.getElementById('targetEl');
+      el.classList.remove('showMobileNav')
+
+    }
+  }
+
 }

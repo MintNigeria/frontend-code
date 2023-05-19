@@ -13,12 +13,12 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/auth/auth.module').then((m) => m.AuthModule),
   },
-  {
-    path: 'authentication',
-    loadChildren: () =>
-      import('./pages/authentication/authentication.module').then((m) => m.AuthenticationModule),
-      data: { preload: true }
-  },
+  // {
+  //   path: 'authentication',
+  //   loadChildren: () =>
+  //     import('./pages/authentication/authentication.module').then((m) => m.AuthenticationModule),
+  //     data: { preload: true }
+  // },
   {
     path: 'institution',
     loadChildren: () =>
