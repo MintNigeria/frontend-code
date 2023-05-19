@@ -210,4 +210,19 @@ closeConfirmation(){
   document.getElementById('confirmationModal')?.click();
 }
 
+download(data: any) {
+  if (data.contentType === 'application/pdf') {
+    const link = document.createElement('a');
+    link.download = `${data.fileUploadVM.name}`;
+    link.href = 'data:application/pdf;base64,' + data.fileUploadVM.path;
+    link.click();
+  } else {
+    const link = document.createElement('a');
+    link.download = `${data.fileUploadVM.name}`;
+    link.href = 'data:image/png;base64,' + data.fileUploadVM.path;
+    link.click();
+
+  }
+}
+
 }
