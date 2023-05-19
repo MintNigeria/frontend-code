@@ -72,7 +72,7 @@
                             [class]="'px-4 h-[52px] mt-2 lg:w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'"
                             Issuer="Input reference code here"
                             [name]="'reference code'"
-                            [ngClass]="{'border-green-500 focus:border-green-500': isRefNumberValid()}"
+                            [ngClass]="{'border-green-500 ': isRefNumberValid()}"
                             ></app-input>
                             <div *ngIf="isRefNumberValid()" class="text-green-500 font-medium text-sm mt-1">
                             Looks good!
@@ -91,7 +91,7 @@
                             <label class="flex font-inter font-medium text-sm text-failedNormal" for="inline-full-name">
                                 Reason for Request
                             </label>
-                            <ng-select class="custom-ng-dropdown" 
+                            <ng-select class="custom-ng-dropdown h-[52px]" 
               formControlName="reasonForRequest" 
               [selectOnTab]="true" 
               placeholder="Select reason"

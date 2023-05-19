@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { NotificationsService } from 'src/app/core/services/notifications.service';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { getGraduateInstitutions, getGraduateInstitutionsSuccess, searchGraduateRecords, searchGraduateRecordsSuccess } from 'src/app/store/graduates/action';
 import { getAllInstitutionDegreeType, getAllInstitutionDegreeTypeSuccess, getDegreeTypeWithInstitutionName, getDegreeTypeWithInstitutionNameSuccess, getFacultyAndDepartmentByInstitutionName, getFacultyAndDepartmentByInstitutionNameSuccess } from 'src/app/store/institution/action';
@@ -67,10 +67,10 @@ export class AcademicDetailsComponent implements OnInit {
       faculty: ['', Validators.required],
       department: ['', Validators.required],
       firstName: ['', Validators.required],
-      middleName: ['', Validators.required],
+      middleName: [''],
       lastName: ['', Validators.required],
       gender: ['', Validators.required],
-      matricNo: ['', Validators.required],
+      matricNo: [''],
       degreeType: ['', Validators.required],
       yearOfEntry: ['', Validators.required],
       yearOfGraduation: ['', Validators.required],
@@ -88,7 +88,7 @@ export class AcademicDetailsComponent implements OnInit {
     this.actions$.pipe(ofType(getDegreeTypeWithInstitutionNameSuccess)).subscribe((res: any) => {
       this.degreeType = res.payload;
 
-      console.log(res.payload)
+      // console.log(res.payload)
     })
    
     this.academicDetailsForm.controls['institutionName'].setValue(event.institutionName)
@@ -96,7 +96,7 @@ export class AcademicDetailsComponent implements OnInit {
   }
 
   getDepartmentInFaculty(event: any) {
-    console.log(event)
+    // console.log(event)
     const data = this.facultyList.find((value: any) => value.id == Number(event.id));
     this.departmentList = data.departmentVMs;
     this.academicDetailsForm.controls['faculty'].setValue(event.name)
@@ -139,9 +139,14 @@ export class AcademicDetailsComponent implements OnInit {
     console.log(payload)
     this.store.dispatch(searchGraduateRecords({payload}))
     this.actions$.pipe(ofType(searchGraduateRecordsSuccess)).subscribe((res: any) => {
-      if (res.payload.hasErrors === false) {
+      console.log(typeof(res.payload.payload))
+      if (res.payload.hasErrors === false && res.payload?.payload.length  > 0) {
+        // this.notification.publishMessages('info', res.payload.description)
         sessionStorage.setItem('ver_Ys', JSON.stringify(res.payload.payload))
         this.router.navigateByUrl('/graduate/my-applications/new/search-table')
+      } else {
+
+        this.notification.publishMessages('warning', 'No record(s) found')
       }
     })
   }

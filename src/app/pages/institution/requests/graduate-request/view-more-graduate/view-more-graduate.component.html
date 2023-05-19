@@ -263,10 +263,29 @@
                     </h5>
                     
                 </div>
-                <div>
-                   <div class="px-7 pt-10 grid grid-cols-3 gap-8 font-sans">
-
-                   </div>
+                <div class="flex flex-wrap gap-8">
+                    <div *ngFor="let unit of requestDetail?.requestSupportingDocumentVM">
+                        <div class="relative">
+                            <div *ngIf="unit.fileUploadVM.contentType === 'application/pdf' " class="w-52 h-52">
+                                <iframe [src]="'data:application/pdf;base64,' + unit.fileUploadVM.path | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>  
+                            </div>
+                            <div *ngIf="unit.fileUploadVM.contentType === 'application/octet-stream' " class="w-52 h-52">
+                                <iframe [src]="'data:image/png;base64,' + unit.fileUploadVM.path | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>  
+                            </div>
+                            <div *ngIf="unit.fileUploadVM.contentType === 'image/png' " class="w-52 h-52">
+                                <iframe [src]="'data:image/png;base64,' + unit.fileUploadVM.path | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>  
+                            </div>
+                            <div *ngIf="unit.fileUploadVM.contentType === 'image/jpeg' " class="w-52 h-52">
+                                <iframe [src]="'data:image/png;base64,' + unit.fileUploadVM.path | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>  
+                            </div>
+                            <div *ngIf="unit.fileUploadVM.contentType === 'image/jpg' " class="w-52 h-52">
+                                <iframe [src]="'data:image/png;base64,' + unit.fileUploadVM.path | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>  
+                            </div>                        
+                            <div (click)="download(unit)" class="cursor-pointer  absolute top-2 left-2 bg-black px-[6px] rounded-md">
+                                <svg class="h-5 w-5 text-white"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />  <polyline points="7 11 12 16 17 11" />  <line x1="12" y1="4" x2="12" y2="16" /></svg>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
     </div>

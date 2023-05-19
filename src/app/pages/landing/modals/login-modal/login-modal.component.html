@@ -1,32 +1,32 @@
-<div class='p-10'>
-    <div class='mb-10'>
+<div class='md:p-10 p-2'>
+    <div class='mb-10 md:block hidden'>
         <img src={Logo} alt='' />
         
     </div>
     <div class='md:flex block'>
         <div class='md:w-2/5 w-full border-r'>
-            <p class='font-bold lg:text-3xl md:text-xl text-normal leading-10 mb-5 mt-10'>Login to <br/> continue</p>
-            <p class='text-lg font-normal'>Choose the option that <br/> applies to you</p>
+            <p class='font-bold lg:text-3xl md:text-xl text-base text-normal leading-10 mb-5 mt-10'>Login to <br class="md:block hidden" /> continue</p>
+            <p class='md:text-lg text-base font-normal'>Choose the option that <br class="md:block hidden"/> applies to you</p>
         </div>
-        <div class='md:w-3/5 w-full pl-10'>
-            <div class='flex justify-between gap-4' >
-                <div class='w-fit border rounded-lg cursor-pointer p-10' (click)="gotoLogin('graduate')">
-                    <img class='mx-auto' src='assets/images/main/graduate.svg' alt='' />
-                    <p class='pt-3 text-[#2F4662] font-bold text-center'>Individual <br/> Login</p>
+        <div class='md:w-3/5 w-full md:pl-10'>
+            <div class='flex md:flex-row flex-col justify-between gap-4' >
+                <div class='md:w-fit w-full flex md:flex-col flex-row border rounded-lg cursor-pointer md:p-10 p-2 md:gap-3 gap-6 items-center' (click)="gotoLogin('graduate')">
+                    <img class='md:mx-auto' src='assets/images/main/graduate.svg' alt='' />
+                    <p class='pt-3 text-[#2F4662] font-bold md:text-center'>Individual <br/> Login</p>
                 </div>
                 
 
-                <div class='w-fit border rounded-lg cursor-pointer p-10' (click)="gotoLogin('institution')">
-                    <img class='mx-auto' src='assets/images/main/institution.svg' alt='' />
-                    <p class='pt-3 text-[#2F4662] font-bold text-center'>Tertiary <br/> Institution</p>
+                <div class='md:w-fit w-full flex md:flex-col flex-row border rounded-lg cursor-pointer md:p-10 p-2 md:gap-3 gap-6 items-center' (click)="gotoLogin('institution')">
+                    <img class='md:mx-auto' src='assets/images/main/institution.svg' alt='' />
+                    <p class='pt-3 text-[#2F4662] font-bold md:text-center'>Tertiary <br/> Institution</p>
                 </div>
                 
             </div>
 
             <div class='flex justify-center mt-5' (click)="gotoLogin('organization')">
-                <div class='w-fit border rounded-lg cursor-pointer p-10'>
-                    <img class='mx-auto' src='assets/images/main/organisation.svg' alt='' />
-                    <p class='pt-3 text-[#2F4662] font-bold text-center'>Organization <br/> Login</p>
+                <div class='md:w-fit w-full flex md:flex-col flex-row border rounded-lg cursor-pointer md:p-10 p-2 md:gap-3 gap-6 items-center'>
+                    <img class='md:mx-auto' src='assets/images/main/organisation.svg' alt='' />
+                    <p class='pt-3 text-[#2F4662] font-bold md:text-center'>Organization <br/> Login</p>
                 </div>
                 
             </div>
