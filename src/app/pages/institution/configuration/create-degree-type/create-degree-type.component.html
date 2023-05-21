@@ -2,8 +2,8 @@
     <div class="border-1.5 rounded-xl shadow-md" [formGroup]="newDegreeForm">
         <h3 class="py-2  border-b-1.5 rounded-t-xl px-6 font-sans font-medium text-lg text-darkGray bg-white">Degree</h3>
         <div class="border-b-1.5">
-            <div class="p-6 grid grid-cols-3 items-center">
-                <p class="font-inter font-medium text-sm text-darkGray">Degree</p>
+            <div class="p-6 grid grid-cols-1 md:grid-cols-3 items-center">
+                <p class="font-inter font-medium text-sm text-darkGray">Degree Type</p>
                 <app-input 
                     [formGrp]="newDegreeForm" 
                     formCtrlName="degree" 

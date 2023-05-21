@@ -1,4 +1,4 @@
-<div class="bg-white p-6">
+<div class="bg-white md:p-6 px-4 py-6">
     <!--Header-->
     <div class="flex  items-center md:gap-4 gap-2 ">
         <div>
@@ -30,9 +30,9 @@
 
     </div>
 
-    <div class="px-5">
+    <div class="md:px-5">
         <div class="my-2">
-            <div class="flex justify-between items-center">
+            <div class="flex flex-wrap justify-between items-center">
                 <h4 class="font-medium font-poppins lg:text-4xl text-xl  text-darkGray my-3">
                     New Verification
                 </h4>
@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    <div class="grid lg:grid-cols-2 p-6  border-t border-b">
+    <div class="grid grid-cols-1 lg:grid-cols-2 md:p-6 py-6  border-t border-b">
         <div class="w-2/4">
             <p class="font-inter font-medium text-sm text-failedNormal mb-3 lg:mb-0">Payment Summary</p>
             <p class="font-inter font-normal text-sm text-lightGray mb-3 lg:mb-0">Please confirm your total transaction amount before proceeding.</p>
@@ -74,7 +74,7 @@
     </div>
 
     <div class="border-b" *ngIf="main">
-        <div class="grid lg:grid-cols-2 p-6">
+        <div class="grid lg:grid-cols-2 md:p-6 py-6">
             <div class="w-2/4">
                 <p class="font-inter font-medium text-sm text-failedNormal mb-3 lg:mb-0">Payment type</p>
                 <p class="font-inter font-normal text-sm text-lightGray mb-3 lg:mb-0">Select an option to get started</p>
@@ -129,7 +129,7 @@
     </div>
 
     <div class="border-t border-b" *ngIf="selectedPaymentMethod === 'wallet'">
-        <div class="grid lg:grid-cols-2 p-6 ">
+        <div class="grid grid-cols-1 lg:grid-cols-2 md:p-6 py-6 ">
             <div class="w-2/4">
                 <p class="font-inter font-medium text-sm text-failedNormal mb-3 lg:mb-0">Your Wallet</p>
                 
@@ -177,13 +177,13 @@
     <!---->
 
     <div *ngIf="selectedPaymentMethod === 'creditCard'">
-        <div class="p-6 ">
+        <div class="md:p-6 py-6">
             <div class="border-b border-t">
                 <h3 class="py-7  border-b-1.5 px-6 font-inter font-medium lg:text-lg text-base text-darkGray bg-tableHeader rounded-t-xl">
                     Please select a merchant
                 </h3>
 
-                <div class="grid grid-cols-3 mt-5 mb-10">
+                <div class="grid grid-cols-1 md:grid-cols-3 mt-5 mb-10">
                     <div class="bg bg-lightBlue rounded-lg py-10 px-8 border shadow-lg " [ngClass]="selectedMerchant === 'Paystack' ? 'border-4 border-[#BDD5FA] bg-transparent text-[#4086EF]' : 'border-[#EAECF0]'">
                         <div class="text-primaryBlue cursor-pointer" (click)="selectPaymentMerchant('Paystack')"> 
                             <div class="flex flex-col items-center">

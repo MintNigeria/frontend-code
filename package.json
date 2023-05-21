@@ -33,7 +33,6 @@
     "ng-otp-input": "^1.8.5",
     "ng-recaptcha": "^10.0.0",
     "ngrx-store-localstorage": "^10.0.0",
-    "ngx-device-detector": "^5.0.1",
     "ngx-pagination": "^5.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

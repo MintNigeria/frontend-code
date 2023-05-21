@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth/auth.guards';
+import { ModuleLoadingStrategyService } from './module.loading.strategy';
 
 const routes: Routes = [
   {
@@ -12,12 +13,13 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () =>
       import('./pages/auth/auth.module').then((m) => m.AuthModule),
+      data: { preload: true }
+
   },
   // {
   //   path: 'authentication',
   //   loadChildren: () =>
   //     import('./pages/authentication/authentication.module').then((m) => m.AuthenticationModule),
-  //     data: { preload: true }
   // },
   {
     path: 'institution',
@@ -40,7 +42,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    preloadingStrategy: ModuleLoadingStrategyService
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -23,7 +23,7 @@
 
 
 
-<div class="w-full fixed z-20 top-0 left-0 bg-white">
+<div class="w-full md:fixed sticky z-20 top-0 left-0 bg-white">
   <nav class="bg-primaryBlue  ">
     <div class=" max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <div class="flex items-center">
@@ -31,8 +31,8 @@
       </div>
       <div class="flex md:order-2">
         <div class="flex items-center">
-          <div class="flex items-center gap-2 cursor-pointer" (click)="openHelpDesk()">
-            <img class="cursor-pointer" src="assets/images/help-circle.svg " class="" alt="logged user avatar">
+          <div class="md:flex items-center  hidden gap-2 cursor-pointer" (click)="openHelpDesk()">
+            <img class="cursor-pointer" src="assets/images/help-circle.svg " class="" alt="Help desk icon">
             <p class="font-inter text-white text-base font-medium ">Help Desk
             </p>
 
@@ -99,7 +99,15 @@
                     </li>
                     <li>
                       <a class="flex items-center text-black " routerLink="/institution/users-and-roles"> <img
-                          src="assets/images/main/settings.svg" alt="logout icons" class="cursor-pointer"> Profile </a>
+                          src="assets/images/main/settings.svg" alt="Profile Icon" class="cursor-pointer"> Profile </a>
+                    </li>
+                    <li class="md:hidden block">
+                      <a class="flex items-center text-black  " (click)="openHelpDesk()"> <img
+                          src="assets/images/help-circle.svg" alt="Help desk Icon" class="cursor-pointer"> Help Desk </a>
+                    </li>
+                    <li class="md:hidden block">
+                      <a class="flex items-center text-black  " > <img
+                          src="assets/images/main/bell.svg" alt="notification Icon" class="cursor-pointer"> Notifications </a>
                     </li>
                     <li
                       *ngIf="superAdminRole === 'Super Admin' || superAdminRole === 'undefined' || permissionList.includes('INSTITUTION_USERS_ROLES')">
@@ -129,9 +137,7 @@
         </button>
         <div id="targetEl"  class="hidden absolute h-screen left-0 top-20  z-50 w-full md:hidden md:w-auto">
             <app-mobile-nav [menuLinks]="menuLinks" (closeMenu)="closeNav($event)"></app-mobile-nav>
-            <!-- <ul class="w-full h-screen  flex flex-col mt-0 mr-6 p-4 space-x-8 text-sm font-medium text-gray-900 bg-white ">
-              <li class="!ml-[0px] pb-6 transition uppercase" *ngFor="let unit of menuLinks">{{unit.title}}</li>
-            </ul> -->
+            
         </div>
       </div>
       <!-- <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">

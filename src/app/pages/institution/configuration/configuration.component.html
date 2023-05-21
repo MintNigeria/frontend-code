@@ -16,7 +16,7 @@
 
     </div>
 
-    <div class="px-5">
+    <div class="md:px-5">
         <div class="items-center my-2">
             <h4 class="font-medium font-poppins text-4xl  text-headerGray my-3">
                 Configuration
@@ -26,27 +26,28 @@
             </p>
         </div>
     </div>
-    <div class="flex gap-6 md:gap-10 pt-3 border-b border-solid border-[#E0E3EA] border-t-0 border-r-0 border-l-0">
-        <div routerLink="/institution/configuration" #rlaMember="routerLinkActive"
-            class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
-            [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
-            Processing Fee
-        </div>
-
-        <div routerLink="/institution/configuration/verification-fee" #rlaRoles="routerLinkActive"
-            class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
-            [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
-            Verification Fee
-        </div>
-        <div routerLink="/institution/configuration/dispatch-fee" #rlaRoles="routerLinkActive"
-            class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
-            [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
-            Dispatch Fee
-        </div>
-        <div routerLink="/institution/configuration/institution-setup" #rlaRoles="routerLinkActive"
-            class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
-             routerLinkActive="activeLink">
-            Institution setup
+    <div class="overflow-x-auto hide-scrollbar">
+        <div class="flex gap-6 md:gap-10  pt-3 border-b border-solid border-[#E0E3EA] border-t-0 border-r-0 border-l-0">
+            <div routerLink="/institution/configuration" #rlaMember="routerLinkActive"
+                class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
+                [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
+                Processing Fee
+            </div>
+            <div routerLink="/institution/configuration/verification-fee" #rlaRoles="routerLinkActive"
+                class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
+                [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
+                Verification Fee
+            </div>
+            <div routerLink="/institution/configuration/dispatch-fee" #rlaRoles="routerLinkActive"
+                class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
+                [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
+                Dispatch Fee
+            </div>
+            <div routerLink="/institution/configuration/institution-setup" #rlaRoles="routerLinkActive"
+                class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
+                 routerLinkActive="activeLink">
+                Institution setup
+            </div>
         </div>
     </div>
     
