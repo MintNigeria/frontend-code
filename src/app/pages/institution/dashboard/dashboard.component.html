@@ -279,7 +279,7 @@
       <p class="text-darkGray font-medium text-lg font-inter pb-5 border-b mb-2">
         Revenue Analysis
       </p>
-      <div class="flex gap-5 mb-4">
+      <div class="flex md:flex-row flex-col gap-5 mb-4">
         <div>
           <p class="font-nunito font-normal text-lightGray text-sm pb-1">
             Total Request
@@ -288,7 +288,7 @@
             {{revenueAnalysisData?.totalRequests || 0 | commaDelimiter}}
           </p>
         </div>
-        <div class=" w-8/12 h-8/12">
+        <div class=" md:w-8/12 h-8/12">
           <!-- <canvas id="pieData"></canvas> -->
           <app-revenue-pie-chart [revenueAnalysisData]="revenueAnalysisData"></app-revenue-pie-chart>
         </div>
@@ -342,7 +342,7 @@
 
       <div></div>
     </div>
-    <div class="col-span-2 border rounded-md p-6">
+    <div class="md:col-span-2 border rounded-md p-6">
       <div class="flex justify-between items-center">
         <h4 class="font-inter text-lg text-darkGray font-medium mb-2">
           Top Request by Organizations

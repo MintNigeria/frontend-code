@@ -3,7 +3,7 @@
         <h3 class=" font-sans font-bold text-base text-black">Institutions</h3>
         <app-button (buttonClick)="addNewInstitution()" buttonText="Add institution" customClass="text-sm text-white font-inter rounded-lg font-medium px-4 py-2.5 bg-primaryBlue" [overRideButtonClass]="true"></app-button>
     </div>
-    <div class="p-6" *ngIf="!isNewInstitution">
+    <div class="py-6 md:px-6" *ngIf="!isNewInstitution">
         <div class="overflow-x-auto mt-3 hide-scrollbar border rounded-xl shadow-sm" >
             <table class="table w-full">
             <thead>

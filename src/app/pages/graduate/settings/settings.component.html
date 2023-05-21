@@ -31,32 +31,33 @@
             </div>
         </div>
     </div> -->
-    <div class="flex gap-6 md:gap-10 pt-3 border-b border-solid border-[#E0E3EA] border-t-0 border-r-0 border-l-0">
-        <div routerLink="/graduate/settings" #rlaMember="routerLinkActive"
-            class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
-            [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
-            My Profile
-        </div>
-
-        <div routerLink="/graduate/settings/my-institution" #rlaRoles="routerLinkActive"
-            class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
-            [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
-            My institution
-        </div>
-        <div routerLink="/graduate/settings/my-hub" #rlaRoles="routerLinkActive"
-            class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
-            [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
-            My Hub
-        </div>
-        <div routerLink="/graduate/settings/change-password" #rlaRoles="routerLinkActive"
-            class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
-            [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
-            Change Password
-        </div>
-        <div routerLink="/graduate/settings/2fa" #rlaRoles="routerLinkActive"
-            class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
-            [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
-            Two Factor Authentication
+    <div class="overflow-x-auto hide-scrollbar">
+        <div class="flex gap-6 md:gap-10 pt-3 border-b border-solid border-[#E0E3EA] border-t-0 border-r-0 border-l-0">
+            <div routerLink="/graduate/settings" #rlaMember="routerLinkActive"
+                class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
+                [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
+                My Profile
+            </div>
+            <div routerLink="/graduate/settings/my-institution" #rlaRoles="routerLinkActive"
+                class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
+                [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
+                My institution
+            </div>
+            <div routerLink="/graduate/settings/my-hub" #rlaRoles="routerLinkActive"
+                class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
+                [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
+                My Hub
+            </div>
+            <div routerLink="/graduate/settings/change-password" #rlaRoles="routerLinkActive"
+                class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
+                [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
+                Change Password
+            </div>
+            <div routerLink="/graduate/settings/2fa" #rlaRoles="routerLinkActive"
+                class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
+                [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
+                Two Factor Authentication
+            </div>
         </div>
     </div>
     

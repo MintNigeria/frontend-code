@@ -69,6 +69,7 @@ export class MakePaymentComponent implements OnInit {
   ipAddress: any;
   selectedMerchant!: string;
   isTransactionSuccessful: any;
+  poolId: any;
 
   constructor(
     private fb: FormBuilder,
@@ -180,11 +181,11 @@ export class MakePaymentComponent implements OnInit {
   closeSuccess() {
     if (this.selectedPaymentMethod == 'creditCard') {
       document.getElementById('successModal')?.click();
-      document.getElementById('otpModal')?.click();
-      this.router.navigate(['organization/talent-search-pool/view-report/2']);
+      // document.getElementById('otpModal')?.click();
+      this.router.navigate([`organization/talent-search-pool/view-report/${this.poolId}`]);
     } else{
       document.getElementById('successModal')?.click();
-      this.router.navigate(['organization/talent-search-pool/view-report/2']);
+      this.router.navigate([`organization/talent-search-pool/view-report/${this.poolId}`]);
     }
   }
 
@@ -235,11 +236,14 @@ payWithWallet() {
   this.store.dispatch(makePayment({payload}))
   this.actions$.pipe(ofType(makePaymentSuccess)).subscribe((res: any) => {
     if (res.payload.hasErrors === false) {
-
+      this.poolId = res.payload.payload.organizationSearchPoolId
       this.notification.publishMessages('success', 'successful')
       document.getElementById('successModal')?.click();
-
+      
       // this.router.navigate(['organization/verifications/view-verified-documents/2']);      
+    } else {
+      this.notification.publishMessages('danger', res.payload.errors)
+
     }
   })
 }
@@ -291,20 +295,22 @@ launchPaystack() {
 onSuccess(trx: any) {
   ////console.log(trx)
   this.isTransactionSuccessful = trx.status
-    this.validatePayment()
+    this.validatePayment(trx)
 }
 onClose() {
   ////console.log('trx')
 }
 
-validatePayment() {
+validatePayment(data: any) {
   ////console.log(data)
   const payload = {
     transactionId: Number(this.transactionId),
+    refrenceNumber: data.reference,
     makePaymentType: 6,
     merchantType: 'PAYSTACK',
     isPaymentSuccessful: this.isTransactionSuccessful === 'success' ? true : false,
     imei: '',
+    talentSearchPoolTransactionVM: this.trxData,
     serialNumber: '',
     device: this.deviceModel,
     ipAddress: this.ipAddress
@@ -312,10 +318,11 @@ validatePayment() {
   }
   this.store.dispatch(validateOrganizationFundWallet({payload}))
   this.actions$.pipe(ofType(validateOrganizationFundWalletSuccess)).subscribe((res: any) => {
-    ////console.log(res)
-    if (res) {
+    if (res.payload.hasErrors === false) {
       this.notification.publishMessages('success', 'successful')
-      this.router.navigate(['organization/verifications']);      
+      this.router.navigate(['organization/talent-search-pool']);
+    } else {
+      this.notification.publishMessages('danger', res.payload.errors)
 
     }
 

@@ -9,7 +9,7 @@
                         <p class="font-inter font-normal text-sm text-lightGray">This will be displayed on your profile.</p>
                     </div>
                     <div class="lg:w-full md:w-2/3 mt-3 lg:mt-0">
-                        <div class="flex items-start gap-5 mb-9">
+                        <div class="flex md:flex-row flex-col items-start gap-5 mb-9">
                             <img tabindex="0" class="cursor-pointer " routerLink="/main/profile" *ngIf="profileImage !== null" src="data:image/png;base64,{{profileImage}}" class="!w-10 !h-10 rounded-full object-cover" alt="logged user avatar">
                             <img tabindex="0" class="cursor-pointer" routerLink="/main/profile" *ngIf="profileImage === null" src="assets/images/main/Avatar.svg" class="" alt="logged user avatar">
                             <div class="relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">

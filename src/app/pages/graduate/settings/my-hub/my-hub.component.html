@@ -10,7 +10,7 @@
     </div>
     <div class="p-6 ">
         <div class="border-b mb-6" *ngFor="let unit of hubDocuments">
-            <div class="flex gap-16 mb-8">
+            <div class="flex md:flex-row flex-col gap-16 mb-8">
             
                 <div *ngIf="unit.fileType === 'application/pdf' " class="w-52 h-52">
                     <iframe [src]="'data:application/pdf;base64,' + unit.base64 | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>  
@@ -24,7 +24,7 @@
                 <div *ngIf="unit.fileType === 'image/jpg' " class="w-52 h-52">
                     <iframe [src]="'data:image/png;base64,' + unit.base64 | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>  
                 </div>
-               <div class="grid grid-cols-2 gap-x-32">
+               <div class="grid grid-cols-1 md:grid-cols-2 gap-x-32">
                 <div> 
                     <p class="font-inter font-normal text-base text-grayWhite">Document Name</p>
                     <p class="font-inter font-medium text-base text-darkGray">{{unit.documentName}}</p>

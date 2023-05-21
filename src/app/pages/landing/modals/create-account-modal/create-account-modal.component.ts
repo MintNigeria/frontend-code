@@ -20,9 +20,8 @@ export class CreateAccountModalComponent implements OnInit {
 
   createAccount(route: string) {
     this.dialogRef.close();
-    // this.router.navigateByUrl(`/authentication/${route}`)
-    this.router.navigateByUrl(`/authentication/create-account/${route}`)
-    // this.router.navigateByUrl(`/auth/create-account/${route}`)
+    // this.router.navigateByUrl(`/authentication/create-account/${route}`)
+    this.router.navigateByUrl(`/auth/create-account/${route}`)
     
   }
 }

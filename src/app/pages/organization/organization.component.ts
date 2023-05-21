@@ -72,16 +72,7 @@ export class OrganizationComponent implements OnInit {
       inactive: 'assets/images/valueaddedservice_inactive.svg',
       show: true
     },
-    // {
-    //   id: 5,
-    //   title: 'Settings',
-    //   label: 'Settings',
-    //   hasChild: false,
-    //   path: 'settings',
-    //   active: 'assets/images/settings_inactive.svg',
-    //   inactive: 'assets/images/settings_inactive.svg',
-    //   show: true
-    // },
+    
   ];
   // user$ = this.appStore.pipe(select(isUserSelector));
   notification$ = this.appStore.pipe(select(notificationSelector))
@@ -127,6 +118,20 @@ export class OrganizationComponent implements OnInit {
 
     });
     
+  }
+
+  openMobileNav() {
+    const el: any = document.getElementById('targetEl');
+    el.classList.toggle('showMobileNav')
+  }
+  
+  closeNav(event: any) {
+    if (event.close === 'true') {
+
+      const el: any = document.getElementById('targetEl');
+      el.classList.remove('showMobileNav')
+
+    }
   }
 
 }

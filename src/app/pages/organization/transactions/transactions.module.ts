@@ -12,6 +12,7 @@ import { OrganizationEffects } from 'src/app/store/organization/effects';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { organizationReducer } from 'src/app/store/organization/reducers';
+import { ConfigurationEffects } from 'src/app/store/configuration/effects';
 
 
 @NgModule({
@@ -28,7 +29,7 @@ import { organizationReducer } from 'src/app/store/organization/reducers';
     ReactiveFormsModule,
     NgxPaginationModule,
     StoreModule.forFeature('organization', organizationReducer),
-    EffectsModule.forFeature([OrganizationEffects]),
+    EffectsModule.forFeature([OrganizationEffects, ConfigurationEffects]),
 
   ]
 })

@@ -2,18 +2,18 @@
     <ng-container *ngIf="setupToggle">
         <div class="">
             <div class="items-center">
-                <div class="w-3/4 py-2 px-4">
+                <div class="w-3/4 py-2 md:px-4">
                     <h3 class="text-black font-medium font-inter text-lg">Institution Setup</h3>
                     <p class="text-lightGray font-normal font-inter text-base">Manage institution settings here. Create and manage faculties, departments and degree types.</p>
                 </div>
 
                 <div class="border-1.5 rounded shadow-md">
                     <h3 class="py-4  border-b-1.5 px-6 font-sans font-medium text-lg text-darkGray">Select option to view</h3>
-                    <div class="p-6 ">
+                    <div class="py-6 md:px-6 ">
                         <div class="lg:flex gap-10">
-                            <div class="bg-tableHeader border border-borderGray rounded-md shadow-md w-52 align-middle">
+                            <div class="bg-tableHeader border border-borderGray rounded-md shadow-md w-full md:w-52 align-middle">
                                 
-                                <div class="flex items-center justify-between shadow-md cursor-pointer w-48 h-10 p-2 m-2 rounded-md"  routerLink="/institution/configuration/institution-setup/faculty" [routerLinkActiveOptions]="{ exact: true}"  routerLinkActive="bg-[#92BAF6]">
+                                <div class="flex items-center justify-between shadow-md cursor-pointer  md:w-48 h-10 p-2 m-2 rounded-md"  routerLink="/institution/configuration/institution-setup/faculty" [routerLinkActiveOptions]="{ exact: true}"  routerLinkActive="bg-[#92BAF6]">
                                     <p class="font-medium font-inter text-base text-[#344054]">
                                         Faculty
                                     <div class="w-6 bg-[#F2F4F7] shadow-md rounded-full text-center">
@@ -25,7 +25,7 @@
                                     </div>
                                 </div>
 
-                                <div class="flex items-center justify-between shadow-md cursor-pointer w-48 h-10 p-2 m-2 rounded-md"  routerLink="/institution/configuration/institution-setup/department" [routerLinkActiveOptions]="{ exact: true}"  routerLinkActive="bg-[#92BAF6]">
+                                <div class="flex items-center justify-between shadow-md cursor-pointer md:w-48 h-10 p-2 m-2 rounded-md"  routerLink="/institution/configuration/institution-setup/department" [routerLinkActiveOptions]="{ exact: true}"  routerLinkActive="bg-[#92BAF6]">
                                     <p class="font-medium font-inter text-base text-[#344054]">
                                         Department                                    </p>
                                     <div class="w-6 bg-[#F2F4F7] shadow-md rounded-full text-center">
@@ -37,7 +37,7 @@
                                     </div>
                                 </div>
    
-                                <div class="flex items-center justify-between shadow-md cursor-pointer w-48 h-10 p-2 m-2 rounded-md"  routerLink="/institution/configuration/institution-setup/degree-type" [routerLinkActiveOptions]="{ exact: true}"  routerLinkActive="bg-[#92BAF6]">
+                                <div class="flex items-center justify-between shadow-md cursor-pointer md:w-48 h-10 p-2 m-2 rounded-md"  routerLink="/institution/configuration/institution-setup/degree-type" [routerLinkActiveOptions]="{ exact: true}"  routerLinkActive="bg-[#92BAF6]">
                                     <p class="font-medium font-inter text-base text-[#344054]">
                                         Degree Type
                                     <div class="w-6 bg-[#F2F4F7] shadow-md rounded-full text-center">
@@ -48,7 +48,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex items-center justify-between shadow-md cursor-pointer w-48 h-10 p-2 m-2 rounded-md"  routerLink="/institution/configuration/institution-setup/grade" [routerLinkActiveOptions]="{ exact: true}"  routerLinkActive="bg-[#92BAF6]">
+                                <div class="flex items-center justify-between shadow-md cursor-pointer md:w-48 h-10 p-2 m-2 rounded-md"  routerLink="/institution/configuration/institution-setup/grade" [routerLinkActiveOptions]="{ exact: true}"  routerLinkActive="bg-[#92BAF6]">
                                     <p class="font-medium font-inter text-base text-[#344054]">
                                         Grade
                                     <div class="w-6 bg-[#F2F4F7] shadow-md rounded-full text-center">

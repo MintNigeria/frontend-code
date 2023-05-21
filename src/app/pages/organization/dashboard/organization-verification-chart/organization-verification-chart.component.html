@@ -2,32 +2,33 @@
     <h4 class="font-inter text-lg text-darkGray font-medium mb-2">
       Verification Analytics
     </h4>
-    <div class="inline-flex rounded-md shadow-sm mb-6 bg-white" role="group">
-      <button (click)="changeRange(0)" type="button"
-        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
-        All Time
-      </button>
-  
-      <button (click)="changeRange(4)" type="button"
-        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
-        12 month
-      </button>
-      <button (click)="changeRange(3)" type="button"
-        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
-        30 days
-      </button>
-      <button (click)="changeRange(2)" type="button"
-        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
-        7 days
-      </button>
-      <button (click)="changeRange(1)" type="button"
-        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
-        24 hours
-      </button>
-      <button (click)="changeRange(5)" type="button"
-        class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
-        Custom date
-      </button>
+    <div class="overflow-x-auto hide-scrollbar mb-6">
+      <div class="inline-flex rounded-md shadow-sm bg-white" role="group">
+        <button (click)="changeRange(0)" type="button"
+          class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
+          All Time
+        </button>
+        <button (click)="changeRange(4)" type="button"
+          class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
+          12 month
+        </button>
+        <button (click)="changeRange(3)" type="button"
+          class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
+          30 days
+        </button>
+        <button (click)="changeRange(2)" type="button"
+          class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
+          7 days
+        </button>
+        <button (click)="changeRange(1)" type="button"
+          class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
+          24 hours
+        </button>
+        <button (click)="changeRange(5)" type="button"
+          class="font-inter px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 ">
+          Custom date
+        </button>
+      </div>
     </div>
     <div>
         <canvas id="request" #chart> {{chart}} </canvas>
