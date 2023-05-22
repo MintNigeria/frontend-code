@@ -24,7 +24,7 @@ export class MobileNavComponent implements OnInit {
     permissionList: any;
     adminUser: any;
     superAdminRole: any;
-  
+    submenu: boolean = false
     constructor(
       private router: Router,
       private route: ActivatedRoute,
@@ -68,15 +68,17 @@ export class MobileNavComponent implements OnInit {
         this.closeMenu.emit({close: 'true'})
       }
     }
+    gotoSubmenu(path: any, ) {
+    
+      // this.router.navigate([`${this.currentRoute}`, `${path}`]);
+      this.closeMenu.emit({close: 'true'})
+    }
    
   
   
     logout(path: string) {
-      if (path == 'settings' || path == 'settings/my-settings') {
-        this.router.navigate([`/main/${path}`]);
-      } else {
-        this.openLogoutModal();
-      }
+     
+      this.openLogoutModal();
     }
   
     openLogoutModal() {
@@ -100,6 +102,10 @@ export class MobileNavComponent implements OnInit {
         }
        
       });
+    }
+
+    showSubmenu() {
+      this.submenu = !this.submenu
     }
 
 }

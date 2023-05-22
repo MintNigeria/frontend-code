@@ -39,6 +39,11 @@ const routes: Routes = [
             (m) => m.TransactionsModule
           ),
       },
+      {
+        path: 'notifications',
+        loadChildren: () =>
+          import('./notification/notification.module').then((m) => m.NotificationModule),
+      },
     ],
   },
 ];

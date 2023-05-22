@@ -11,25 +11,25 @@ export class AuthComponent implements OnInit {
   carouselItems = [
     {
       id: 'item1',
-      image: 'assets/images/main/Avatar.svg',
+      // image: 'assets/images/main/Avatar.svg',
       text: '“VAC Solution provided me with a seamless and faster way to get my BSc transcript across to my current institution.”',
       author: 'Damilare Lawson',
       position: 'Msc Student'
     },
-    {
-      id: 'item2',
-      image: 'assets/images/main/Avatar.svg',
-      text: '“VAC Solution provided me with a seamless and faster way to get my BSc transcript across to my current institution.”',
-      author: 'Damilare Lawson',
-      position: 'Msc Student'
-    },
-    {
-      id: 'item3',
-      image: 'assets/images/main/Avatar.svg',
-      text: '“VAC Solution provided me with a seamless and faster way to get my BSc transcript across to my current institution.”',
-      author: 'Damilare Lawson',
-      position: 'Msc Student'
-    },
+    // {
+    //   id: 'item2',
+    //   image: 'assets/images/main/Avatar.svg',
+    //   text: '“VAC Solution provided me with a seamless and faster way to get my BSc transcript across to my current institution.”',
+    //   author: 'Damilare Lawson',
+    //   position: 'Msc Student'
+    // },
+    // {
+    //   id: 'item3',
+    //   image: 'assets/images/main/Avatar.svg',
+    //   text: '“VAC Solution provided me with a seamless and faster way to get my BSc transcript across to my current institution.”',
+    //   author: 'Damilare Lawson',
+    //   position: 'Msc Student'
+    // },
   ];
 
   constructor() { }
