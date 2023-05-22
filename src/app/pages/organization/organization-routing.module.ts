@@ -30,6 +30,11 @@ const routes: Routes = [
       loadChildren: () =>
         import('../organization/settings/settings.module').then((m) => m.SettingsModule),
     },
+    {
+      path: 'notifications',
+      loadChildren: () =>
+        import('../organization/notification/notification.module').then((m) => m.NotificationModule),
+    },
   ]}
 ];
 

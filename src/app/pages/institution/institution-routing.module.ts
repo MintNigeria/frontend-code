@@ -59,6 +59,11 @@ const routes: Routes = [
       loadChildren: () =>
         import('./users-and-roles/users-and-roles.module').then((m) => m.UsersAndRolesModule),
     },
+    {
+      path: 'notifications',
+      loadChildren: () =>
+        import('./notification/notification.module').then((m) => m.NotificationModule),
+    },
   ]}
 ];
 
