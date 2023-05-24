@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
         '',
         Validators.compose([Validators.email, Validators.required])
       ),
-      recaptchaReactive: new FormControl(null),
+      recaptchaReactive: new FormControl(''),
     });
   }
 

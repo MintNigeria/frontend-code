@@ -22,6 +22,7 @@ export class InputComponent implements OnInit {
   @Input() formCtrlName: any;
   @Input() formGrp!: FormGroup;
   @Input() name?: string;
+  @Input() max?: string;
   @Input() maxLength?: string | number | null | undefined;
   @Input() minLength?: string | number | null | undefined;
 

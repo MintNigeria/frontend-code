@@ -12,16 +12,16 @@
 
         <div class="grid gap-5">
           <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer" *ngFor="let unit of processingFeeList"
-            [ngClass]="certificateOriginal? 'border-[#BDD5FA] bg-[#F5F9FF] text-[#4086EF]' : 'border-[#EAECF0]'"
+            [ngClass]="selectedDocumentType === unit.documentTypeName ? 'border-[#BDD5FA] bg-[#F5F9FF] text-[#4086EF]' : 'border-[#EAECF0]'"
             (click)="originalCertificateClicked(unit)">
             <div class="flex gap-4 justify-start items-start w-[92%]">
               <img src="assets/images/graduates/featured-icon.svg" alt="">
               <div>
                 <div class=" text-[#344054]">
-                  {{unit.documentTypeName}}
+                  {{unit.documentTypeName | titlecase}}
                 </div>
 
-                <p *ngIf="showDescription===true">
+                <p *ngIf="selectedDocumentType === unit.documentTypeName">
                   {{unit.description}}
                 </p>
 
@@ -37,68 +37,6 @@
 
           </div>
 
-          <!-- <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer"
-            [ngClass]="certificateTemplate? 'bg-[#F5F9FF] border-[#BDD5FA] text-[#4086EF]' : 'border-[#EAECF0]'"
-            (click)="certificateTemplateClicked()">
-            <div class="flex gap-4 justify-start items-start w-[92%]">
-              <img src="assets/images/graduates/featured-icon.svg" alt="">
-              <div>
-                <p class=" text-[#344054]">
-                  Certificate Template
-                </p>
-                <div *ngIf="certificateTemplate===true">
-                  Provide login credential for certificate uploading on third party platform.
-                </div>
-              </div>
-
-            </div>
-            <input type="radio" name="certificateType" [value]="1" 
-              class="form-radio h-5 w-5 text-gray-600" [checked]="certificateTemplate" />
-
-
-          </div>
-          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer"
-            [ngClass]="certifiedCopy? 'bg-[#F5F9FF] border-[#BDD5FA] text-[#4086EF]' : 'border-[#EAECF0]'"
-            (click)="certifiedCopyClicked()">
-            <div class="flex gap-4 justify-start items-start w-[92%]">
-              <img src="assets/images/graduates/featured-icon.svg" alt="">
-              <div>
-                <p class="text-[#344054]">
-                  Certificate (Certified True Copy)
-                </p>
-                <div *ngIf="certifiedCopy === true">
-                  E.g Hard copy would be send to Scholarship board, Embassies, International
-                  Schools/Tertiary Institutions etc.
-                </div>
-              </div>
-
-            </div>
-            <input type="radio" name="certificateType" [value]="3" 
-              class="form-radio h-5 w-5 text-gray-600" [checked]="certifiedCopy" />
-
-
-          </div>
-          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer"
-            [ngClass]="transcript? 'bg-[#F5F9FF] border-[#BDD5FA] text-[#4086EF]' : 'border-[#EAECF0]'"
-            (click)="transcriptClicked()">
-            <div class="flex gap-4 justify-start items-start w-[92%]">
-              <img src="assets/images/graduates/featured-icon.svg" alt="">
-              <div>
-                <p class="text-[#344054]">
-                  Transcript
-                </p>
-                <div *ngIf="transcript === true">
-                  E.g Hard copy would be send to Scholarship board, Embassies, International
-                  Schools/Tertiary Institutions etc.
-                </div>
-              </div>
-
-            </div>
-            <input type="radio" name="certificateType" [value]="2" class="form-radio h-5 w-5 text-gray-600"
-              [checked]="transcript" />
-
-
-          </div> -->
         </div>
 
       </div>
@@ -121,7 +59,7 @@
               <img src="assets/images/graduates/featured-icon.svg" alt="">
               <div>
                 <div class=" text-[#344054]">
-                  {{option.deliveryOptionsType}} - N{{option.fee }}
+                  {{option.deliveryOptionsType}} - ₦{{option.fee  | commaDelimiter}}
                 </div>
               </div>
 
@@ -133,42 +71,7 @@
 
 
           </div>
-<!-- 
-          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer" *ngIf="fileUploadMethod"
-            [ngClass]="fileUpload? 'bg-[#F5F9FF] border-[#BDD5FA] text-[#4086EF]' : 'border-[#EAECF0]'"
-            (click)="fileUploadClicked()">
-            <div class="flex gap-4 justify-start items-start w-[92%]">
-              <img src="assets/images/graduates/featured-icon.svg" alt="">
-              <div>
-                <p class=" text-[#344054]">
-                  File Upload - N2,500
-                </p>
-              </div>
 
-            </div>
-            <input type="radio" name="deliveryType" [value]="1" class="form-radio h-5 w-5 text-gray-600"
-              [checked]="fileUpload" />
-
-
-          </div>
-          <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer" *ngIf="hardCopyMethod"
-            [ngClass]="hardCopy? 'bg-[#F5F9FF] border-[#BDD5FA] text-[#4086EF]' : 'border-[#EAECF0]'"
-            (click)="hardCopyClicked()">
-            <div class="flex gap-4 justify-start items-start w-[92%]">
-              <img src="assets/images/graduates/featured-icon.svg" alt="">
-              <div>
-                <p class="text-[#344054]">
-                  Hard Copy - N2,500
-                </p>
-
-              </div>
-
-            </div>
-            <input type="radio" name="deliveryType" [value]="8" class="form-radio h-5 w-5 text-gray-600"
-              [checked]="hardCopy" />
-
-
-          </div> -->
 
         </div>
 
@@ -199,18 +102,7 @@
                   'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
                 " placeholder="Enter Phone Number" [name]="'fullName'"></app-input>
             </div>
-            <!-- <div class="text-sm cursor-pointer flex gap-2" (click)="showAdditionalNumber()">
-              <img src="assets/images/graduates/add.svg" alt="">
-              <p>
-                Add additional Number
-              </p>
-            </div> -->
-            <!-- <div class="col-span-2" *ngIf="additionalNumber">
-              <p class="input_label label_asterisk my-1">Add Phone Number</p>
-              <app-input [formGrp]="appDetailsForm" formCtrlName="additionalPhoneNo" [type]="'number'" [class]="
-                  'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                " placeholder="Enter Phone Number" [name]="'addPhoneNo'"></app-input>
-            </div> -->
+            
             <div class="col-span-2">
               <p class="input_label label_asterisk my-1">Reason for request</p>
               <app-input [formGrp]="emailForm" formCtrlName="reasonForRequest" [type]="'name'" [class]="
@@ -245,18 +137,7 @@
                   'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
                 " placeholder="Enter Phone Number" [name]="'fullName'"></app-input>
             </div>
-            <!-- <div class="text-sm cursor-pointer flex gap-2" (click)="showAdditionalNumber()">
-              <img src="assets/images/graduates/add.svg" alt="">
-              <p>
-                Add additional Number
-              </p>
-            </div> -->
-            <!-- <div class="col-span-2" *ngIf="additionalNumber">
-              <p class="input_label label_asterisk my-1">Add Phone Number</p>
-              <app-input [formGrp]="appDetailsForm" formCtrlName="additionalPhoneNo" [type]="'number'" [class]="
-                  'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                " placeholder="Enter Phone Number" [name]="'addPhoneNo'"></app-input>
-            </div> -->
+           
             <div class="col-span-2">
               <p class="input_label label_asterisk my-1">Reason for request</p>
               <app-input [formGrp]="fileUploadForm" formCtrlName="reasonForRequest" [type]="'name'" [class]="
@@ -496,14 +377,13 @@
 
 
       </div>
-
     </div>
     <div class="flex justify-end mt-4 gap-3">
 
       <app-button (buttonClick)="cancel()" [overRideButtonClass]="true"
         customClass="w-[80px] h-12 rounded-lg font-inter font-medium text-base leading-6 bg-white border-2 border-solid border-[#EAECF0] text-[#344054]">Cancel</app-button>
+        <!-- [disabled]="(selectedDestination === 1 && emailForm.invalid) || (selectedDestination === 2 && fileUploadForm.invalid) || (selectedDestination === 3 && hardCopyForm.invalid)" -->
       <app-button [overRideButtonClass]="true" 
-      [disabled]="(selectedDestination === 1 && emailForm.invalid) || (selectedDestination === 2 && fileUploadForm.invalid) || (selectedDestination === 3 && hardCopyForm.invalid)"
         customClass="h-12 px-4 rounded-lg hover:bg-primaryBlue font-inter font-medium text-base text-white leading-6 bg-[#4086EF]"
         (buttonClick)="continue()">Continue</app-button>
     </div>

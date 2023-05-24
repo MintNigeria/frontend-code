@@ -7,6 +7,7 @@ import { NotificationsService } from 'src/app/core/services/shared/notifications
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { getInstitutionConfiguration, getInstitutionConfigurationSuccess, saveDispatchFee, saveDispatchFeeSuccess } from 'src/app/store/configuration/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
+import * as numeral from 'numeral';
 
 
 @Component({
@@ -51,14 +52,21 @@ export class DispatchFeeComponent implements OnInit {
     this.loadIp();
     this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
     this.actions$.pipe(ofType(getInstitutionConfigurationSuccess)).subscribe((res: any) => {
-      this.dispatchFee = res.payload.dispatchFeeVMs
+      this.dispatchFee = res.payload.dispatchFeeVMs.map((x: any) => {
+        return {
+          id: x.id,
+          name: x.name,
+          fee: numeral(x.fee).format('00,'),
+          
+        }
+      })
       this.updatedData = this.dispatchFee.map((x: any, index: number) => {
         return {
           id: x.id,
-        fee: x.fee,
+          fee: numeral(x.fee).format('00,'),
         }
       })
-      //console.log(this.updatedData)
+      console.log(this.dispatchFee)
 
       // this.processingFees = res.payload
     })
@@ -72,11 +80,16 @@ export class DispatchFeeComponent implements OnInit {
     })
   }
 
+  addCommas(data: any, input: any, parent: number) {
+    let newData2 = this.dispatchFee[parent]
+    newData2  = {...newData2, fee: numeral(input.value).format('00,')}
+    this.dispatchFee[parent] = newData2
+  }
+
   getFee(data: any, input: any, parent: number) {
     const allData = this.updatedData
     let newData = this.updatedData[parent]
-    newData  = {...newData, fee: Number(input.value)}
-   
+    newData  = {...newData, fee: numeral(input.value).value()}
     this.updatedData[parent] = newData;
     sessionStorage.setItem('dispX_f', JSON.stringify(this.updatedData))
   }
@@ -84,7 +97,13 @@ export class DispatchFeeComponent implements OnInit {
   saveDispatch() {
     const data: any = sessionStorage.getItem('dispX_f')
     const newData = JSON.parse(data)
-this.store.dispatch(saveDispatchFee({institutionId: this.institutionId, payload: newData }))
+    const payload = newData.map((x: any) => {
+      return {
+        id: x.id,
+        fee: numeral(x.fee).value()
+      }
+    })
+this.store.dispatch(saveDispatchFee({institutionId: this.institutionId, payload }))
 this.actions$.pipe(ofType(saveDispatchFeeSuccess)).subscribe((res: any) => {
   if (res.payload.hasErrors === false) {
     this.notification.publishMessages('success', res.payload.description)

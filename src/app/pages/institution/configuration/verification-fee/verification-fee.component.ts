@@ -7,6 +7,7 @@ import { NotificationsService } from 'src/app/core/services/shared/notifications
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { getInstitutionConfiguration, getInstitutionConfigurationSuccess, sendverificationFeeForApproval, sendverificationFeeForApprovalSuccess } from 'src/app/store/configuration/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
+import * as numeral from 'numeral';
 
 @Component({
   selector: 'app-verification-fee',
@@ -23,6 +24,7 @@ export class VerificationFeeComponent implements OnInit {
   updatedData: any;
   isFeeApproved: any;
   isFirstFeeApproved: any;
+  verificationFeeSetup!: boolean;
 
   
   constructor( 
@@ -57,14 +59,21 @@ export class VerificationFeeComponent implements OnInit {
     this.actions$.pipe(ofType(getInstitutionConfigurationSuccess)).subscribe((res: any) => {
       ////console.log(res)
       this.isFeeApproved = res.payload.isVerificationFeeApproved
+      this.verificationFeeSetup = res.payload.hasSetUpVerificationFee
       this.isFirstFeeApproved = res.payload.isFirstTimeAddingVerificationFee
-
-      this.vericationList = res.payload.institutionVerifcationFeeVMs
+      console.log(res.payload)
+      this.vericationList = res.payload.institutionVerifcationFeeVMs.map((x: any) => {
+        return {
+          name: x.name,
+          id: x.id,
+          fee: numeral(x.fee).format('00,'),
+        }
+      })
       // this.processingFees = res.payload
       this.updatedData = this.vericationList?.map((x: any) => {
         return {
           id: x.id,
-          amount: x.fee,
+          amount: numeral(x.fee).format('00,'),
           imei: '',
       serialNumber: '',
       device: this.deviceModel,
@@ -81,11 +90,18 @@ export class VerificationFeeComponent implements OnInit {
     })
   }
 
+  addCommas(data: any, input: any, parent: number) {
+    let newData2 = this.vericationList[parent]
+    newData2  = {...newData2, fee: numeral(input.value).format('00,')}
+    this.vericationList[parent] = newData2
+  }
+
+
 
   getFee(data: any, input: any, parent: number) {
     const allData = this.updatedData
     let newData = this.updatedData[parent]
-    newData  = {...newData, amount: Number(input.value)}
+    newData  = {...newData, amount: numeral(input.value).value()}
    
     this.updatedData[parent] = newData;
     sessionStorage.setItem('verX_f', JSON.stringify(this.updatedData))
@@ -94,7 +110,16 @@ export class VerificationFeeComponent implements OnInit {
   sendForApproval() {
     const data: any = sessionStorage.getItem('verX_f')
     const newData = JSON.parse(data)
-this.store.dispatch(sendverificationFeeForApproval({institutionId: this.institutionId, payload: newData }))
+    const payload = newData.map((x: any) => {
+      return {
+        id: x.id,
+        amount: numeral(x.amount).value(),
+        imei: x.imei,
+        serialNumber: x.serialNumber,
+        device: x.device,
+        ipAddress: x.ipAddress
+    }})
+this.store.dispatch(sendverificationFeeForApproval({institutionId: this.institutionId, payload }))
 this.actions$.pipe(ofType(sendverificationFeeForApprovalSuccess)).subscribe((res: any) => {
   if (res.payload.hasErrors === false) {
     this.notification.publishMessages('success', res.payload.description)

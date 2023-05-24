@@ -10,11 +10,12 @@
 
         <div class="ml-auto">
             <div class="rounded text-center">
-                <div class=" rounded-full text-center bg-[#ECFDF3]">
+                <div class=" rounded-full text-center" [ngClass]="verificationFeeSetup === false ? 'bg-[#FEF6EE]' : isFeeApproved === true ? 'bg-[#ECFDF3]': 'bg-[#ECFDF3]'">
                      <div class="flex items-center gap-2 w-fit p-2">
-                        <div class="ml-3 w-2 h-2 rounded-full bg-[#027A48]"></div>
-                        <p class="my-0 text-sm cursor-pointer font-inter font-medium w-auto text-[#027A48]">
-                            {{isFeeApproved ? 'Approved': 'Awaiting approval'}}
+                        <div class="ml-3 w-2 h-2 rounded-full " [ngClass]="verificationFeeSetup === false ? 'bg-pendingNormal' : isFeeApproved === true ? 'bg-[#027A48]': 'bg-[#027A48]'"></div>
+                        <p class="my-0 text-sm cursor-pointer font-inter font-medium w-auto " [ngClass]="verificationFeeSetup === false ? 'text-pendingNormal' : isFeeApproved === true ? 'text-[#027A48]': 'text-[#027A48]'">
+                            {{verificationFeeSetup === false ? 'Awaiting setup' : isFeeApproved === true ? 'Approved': 'Awaiting approval'}}
+
                         </p>
                      </div>
                 </div>
@@ -28,7 +29,7 @@
             <div class="lg:flex gap-6 mb-6">
                 <div class="w-full md:w-2/4">
                     <p class=" font-inter font-medium text-base text-failedNormal">
-                        {{type.name}}
+                        {{type.name}} (₦)
                     </p>
                     <p class="font-inter font-normal text-sm text-lightGray">
                     {{type?.description}}
@@ -50,15 +51,9 @@
                                     [value]="type.fee"
                                     placeholder="N 5000"
                                     [class]="'px-4 h-[52px] w-full bg-transparent text-black border focus:bg-transparent rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
-                                    [name]="'fee'">
-                                    <!-- <app-input 
-                                    [formGrp]="feeForm" 
-                                    formCtrlName="fee" 
-                                    [type]="'text'" 
-                                    [class]="'px-4 h-[52px] w-full bg-tableHeader border focus:bg-tableHeader rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
-                                    placeholder="N 5000" 
                                     [name]="'fee'"
-                                    ></app-input> -->
+                                    (blur)="addCommas(type, $event.target, parent)">
+                                    
                                 </div>
                             </div>
                         </div>

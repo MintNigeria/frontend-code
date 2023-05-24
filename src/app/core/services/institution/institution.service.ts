@@ -97,6 +97,11 @@ export class InstitutionService
       `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionType/GetAllInstitutionTypes`
     );
   }
+  getAllInstitutionTypeLinkedToBody(id: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionType/GetAllInstitutionTypesLinkedToInstitutionBody/${id}`
+    );
+  }
 
   getAllInstitutionSector() {
     return this.http.get<any>(

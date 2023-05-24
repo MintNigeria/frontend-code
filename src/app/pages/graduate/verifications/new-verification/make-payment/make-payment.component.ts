@@ -250,7 +250,6 @@ payWithCard() {
     serialNumber: '',
     device: this.deviceModel,
     ipAddress: this.ipAddress
-
   }
   this.store.dispatch(makePayment({payload}))
   this.actions$.pipe(ofType(makePaymentSuccess)).subscribe((res: any) => {

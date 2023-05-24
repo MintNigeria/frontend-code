@@ -19,8 +19,8 @@ import {
   retry,
 } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { NotificationsService } from '../services/notifications.service';
 import { StorageService } from '../services/storage.service';
+import { NotificationsService } from '../services/shared/notifications.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -71,10 +71,10 @@ export class AuthInterceptor implements HttpInterceptor {
             ) {
               this._notificationService.publishMessages(
                 'error',
-                evt.body.errors.toString() || evt.body.description
+                evt.body.errors.toString() || evt.body.description || evt.body.errors
               );
+            } 
             }
-          }
         }
       }),
       catchError((_error: HttpErrorResponse) => {

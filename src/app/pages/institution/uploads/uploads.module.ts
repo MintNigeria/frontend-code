@@ -16,6 +16,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { InstitutionEffects } from 'src/app/store/institution/effects';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     NgSelectModule,
     ReactiveFormsModule,
     StoreModule.forFeature('graduates', graduatesReducer),
-    EffectsModule.forFeature([GraduatesEffects]),
+    EffectsModule.forFeature([GraduatesEffects, InstitutionEffects]),
 
   ]
 })

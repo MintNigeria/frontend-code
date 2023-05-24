@@ -10,6 +10,7 @@ import { validateOrganizationFundWallet, validateOrganizationFundWalletSuccess }
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { environment } from 'src/environments/environment';
 declare var PaystackPop: any;
+import * as numeral from 'numeral';
 
 @Component({
   selector: 'app-fund-wallet',
@@ -25,6 +26,7 @@ export class FundWalletComponent implements OnInit {
   userData: any;
   isTransactionSuccessful: any;
   transactionId: any;
+  walletValue!: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -63,6 +65,10 @@ export class FundWalletComponent implements OnInit {
     this.walletForm = this.fb.group({
       amount: ['', Validators.required]
     })
+
+    this.walletForm.valueChanges.subscribe((res: any) => {
+      this.walletValue = numeral(res.amount).format('00,')
+    })
   }
 
   
@@ -77,7 +83,7 @@ export class FundWalletComponent implements OnInit {
     const payload = {
       graduateId: Number(this.userData.GraduateId),
       walletId: this.walletData.id,
-      amount: Number(amount),
+      amount: numeral(amount).value(),
       refrenceNumber: '16801776659763433434343434'
     }
     this.store.dispatch(fundGraduateWallet({payload}))
@@ -137,5 +143,6 @@ export class FundWalletComponent implements OnInit {
       this.router.navigateByUrl('/graduate/transactions')
     })
   }
+
 
 }

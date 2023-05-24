@@ -89,9 +89,15 @@
                                 <p class="mb-2 font-inter font-medium text-base text-danger">*</p>
                             </div>
                             <div class="items-center gap-4">
-                                <app-input [formGrp]="uploadRecordForm" formCtrlName="yearOfGraduation" [type]="'text'" [class]="
-                                'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                              " Issuer="Enter year of graduation" [name]="'Graduation year'"></app-input>
+                                <ng-select class="custom-ng-dropdown"
+                      formControlName="yearOfGraduation"
+                      [selectOnTab]="true"
+                      placeholder="Select year of graduation"
+                      
+                      >
+                      <ng-option *ngFor="let unit of years" [value]="unit">{{unit}}</ng-option>
+                  </ng-select>
+                             
                             </div>
                         </div>
                     </div>

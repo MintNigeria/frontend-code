@@ -106,7 +106,7 @@ selectedFileList: any = {
       url: ['', Validators.required],
       loginUser: ['', Validators.required],
       loginPassword: ['', Validators.required],
-      phoneNo: ['', Validators.required],
+      phoneNo: ['', [Validators.required, Validators.pattern(/^(\+?234|0)[789]\d{9}$/)]],
       additionalPhoneNo: [ '', Validators.required ],
       reasonForRequest: [ '',  Validators.required  ],
 
@@ -119,7 +119,7 @@ selectedFileList: any = {
       state: ['', Validators.required],
       city: ['', Validators.required],
       zipCode: ['', Validators.required],
-      phoneNo: [ '' ],
+      phoneNo: ['', [Validators.required, Validators.pattern(/^(\+?234|0)[789]\d{9}$/)]],
       reasonForRequest: [ '',  Validators.required  ],
       deliveryMethod: [ '',  Validators.required  ],
 
@@ -130,7 +130,7 @@ selectedFileList: any = {
       url: ['', Validators.required],
       loginUser: ['', Validators.required],
       loginPassword: ['', Validators.required],
-      phoneNo: ['', Validators.required],
+      phoneNo: ['', [Validators.required, Validators.pattern(/^(\+?234|0)[789]\d{9}$/)]],
       reasonForRequest: [ '',  Validators.required  ],
       deliveryMethod: 0
     })
@@ -184,7 +184,7 @@ selectedFileList: any = {
       })
       const a = data.filter(Boolean)
       this.newDispatchVM = a;
-      console.log(this.newDispatchVM)
+      // console.log(this.newDispatchVM)
     } else {
       let newData  = this.dispatchFee.map((item: any) => {
         if (item.keyName !== "Nipost"  || item.keyName !== "WithinState" || item.keyName !== "OutsideStateWithinNigeria") {
@@ -193,7 +193,7 @@ selectedFileList: any = {
       })
       const list = newData.filter(Boolean)
       this.newDispatchVM = list;
-      console.log(list)
+      // console.log(list)
 
     }
     

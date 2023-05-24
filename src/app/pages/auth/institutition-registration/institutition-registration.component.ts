@@ -7,7 +7,7 @@ import { NotificationsService } from 'src/app/core/services/shared/notifications
 import { resendOTP, resendOTPForInstitution, resendOTPForInstitutionSuccess, resendOTPSuccess } from 'src/app/store/auth/action';
 import { invokeGetStateAndLGA } from 'src/app/store/institution copy/action';
 import { stateLgaSelector } from 'src/app/store/institution copy/selector';
-import { createNewInstitution, createNewInstitutionSuccess, getAllInstitutionRecords, getAllInstitutionRecordsSuccess, getInstitutionBody, getInstitutionSector, getInstitutionTypes, ValidateRegistrationCode, ValidateRegistrationCodeSuccess } from 'src/app/store/institution/action';
+import { createNewInstitution, createNewInstitutionSuccess, getAllInstitutionRecords, getAllInstitutionRecordsSuccess, getAllInstitutionTypeLinkedToBody, getAllInstitutionTypeLinkedToBodySuccess, getInstitutionBody, getInstitutionSector, getInstitutionSectorSuccess, getInstitutionTypes, ValidateRegistrationCode, ValidateRegistrationCodeSuccess } from 'src/app/store/institution/action';
 import { institutionTypeSelector, institutionSectorSelector, institutionBodySelector, institutionRecordSelector } from 'src/app/store/institution/selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { environment } from 'src/environments/environment';
@@ -41,6 +41,10 @@ filter: any = {
   SectorId: '',
 }
   institutionList: any;
+  institutionBodyList: any;
+  institutionSectorList: any;
+  sectorListData: any;
+  currentYear!: string;
   constructor(
     private fb: FormBuilder,
     private appStore: Store<AppStateInterface>,
@@ -51,10 +55,15 @@ filter: any = {
   ) { }
 
   ngOnInit(): void {
+    this.currentYear = new Date().toISOString().slice(0, 10);
     this.initInstitutionRegForm()
     this.store.dispatch(
       getInstitutionSector()
     );
+    this.actions$.pipe(ofType(getInstitutionSectorSuccess)).subscribe((res: any) => {
+      this.sectorListData = res.payload.data;
+      this.institutionSectorList = this.sectorListData;
+    })
     this.store.dispatch(
       getInstitutionTypes()
     );
@@ -93,9 +102,21 @@ filter: any = {
   }
 
   selectInstitutionBody(event: any) {
-    const filter = {...this.filter, ['InstitutionBodyId'] : event}
+    if (event.name === 'Professional Institution') {
+      this.institutionSectorList = [
+        {id: '', name: 'Private'}
+      ]
+    } else {
+      this.institutionSectorList = this.sectorListData
+    }
+    const filter = {...this.filter, ['InstitutionBodyId'] : event.id}
     this.filter = filter;
+    this.store.dispatch(getAllInstitutionTypeLinkedToBody({id: event.id}))
+    this.actions$.pipe(ofType(getAllInstitutionTypeLinkedToBodySuccess)).subscribe((res: any) => {
+      this.institutionBodyList  = res.payload.data
+    })
   }
+
   selectInstitutionType(event: any) {
     const filter = {...this.filter, ['InstitutionTypeId'] : event}
     this.filter = filter;
@@ -104,6 +125,7 @@ filter: any = {
   selectInstitutionSector(event: any) {
     const filter = {...this.filter, ['SectorId'] : event}
     this.filter = filter;
+    console.log(this.filter)
     this.store.dispatch(getAllInstitutionRecords({payload: this.filter}))
     this.actions$.pipe(ofType(getAllInstitutionRecordsSuccess)).subscribe((res: any) => {
          // console.log(res);
@@ -115,7 +137,9 @@ filter: any = {
   changeRegistrationType(event: any) {
     if (event.target.value === 'CAC' ) {
       this.institutionRegForm.controls['RegisteringBody'].setValue('CAC')
+      this.institutionRegForm.controls['RegistrationNumber'].setValidators([Validators.pattern('^(rc|RC)+([0-9]{7,7})+$')])
     } else {
+      this.institutionRegForm.controls['RegistrationNumber'].clearValidators()
       this.institutionRegForm.controls['RegisteringBody'].setValue('')
     }
   }
