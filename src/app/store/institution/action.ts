@@ -60,6 +60,16 @@ export const getInstitutionTypes = createAction(
 export const getInstitutionTypeSuccess = createAction(
   '[institutions] get all institution types transaction success',
   props<{ payload: any }>()
+  );
+  
+  export const getAllInstitutionTypeLinkedToBody = createAction(
+    '[institutions] get all institution types linked to a body',
+    props<{ id: any }>()
+);
+
+export const getAllInstitutionTypeLinkedToBodySuccess = createAction(
+  '[institutions] get all institution types linked to a body success',
+  props<{ payload: any }>()
 );
 
 export const getInstitutionSector = createAction(

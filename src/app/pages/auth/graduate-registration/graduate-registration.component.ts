@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { getAllInstitutionRecords, getAllInstitutionRecordsSuccess, getInstitutionBody, getInstitutionSector, getInstitutionTypes } from 'src/app/store/institution/action';
+import { getAllInstitutionRecords, getAllInstitutionRecordsSuccess, getAllInstitutionTypeLinkedToBody, getAllInstitutionTypeLinkedToBodySuccess, getInstitutionBody, getInstitutionSector, getInstitutionSectorSuccess, getInstitutionTypes } from 'src/app/store/institution/action';
 import { institutionTypeSelector, institutionSectorSelector, institutionBodySelector, institutionRecordSelector } from 'src/app/store/institution/selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { environment } from 'src/environments/environment';
@@ -51,6 +51,10 @@ selectedFileList: any  = []
     InstitutionTypeId: '',
     SectorId: '',
   }
+  institutionBodyList: any;
+    institutionSectorList: any;
+  sectorListData: any;
+
   constructor(
     private fb: FormBuilder,
     private appStore: Store<AppStateInterface>,
@@ -65,6 +69,10 @@ selectedFileList: any  = []
     this.store.dispatch(
       getInstitutionSector()
     );
+    this.actions$.pipe(ofType(getInstitutionSectorSuccess)).subscribe((res: any) => {
+      this.sectorListData = res.payload.data;
+      this.institutionSectorList = this.sectorListData;
+    })
     this.store.dispatch(
       getInstitutionTypes()
     );
@@ -72,9 +80,9 @@ selectedFileList: any  = []
       getInstitutionBody()
     );
     
-    this.institutionRegForm.valueChanges.subscribe((res: any) => {
-      console.log(res)
-    })
+    // this.institutionRegForm.valueChanges.subscribe((res: any) => {
+    //   console.log(res)
+    // })
     	// const countries = Country?.getAllCountries()
       // //console.log(contries)
 
@@ -155,9 +163,20 @@ selectedFileList: any  = []
   }
 
   selectInstitutionBody(event: any) {
+    if (event.name === 'Professional Institution') {
+      this.institutionSectorList = [
+        {id: '', name: 'Private'}
+      ]
+    } else {
+      this.institutionSectorList = this.sectorListData
+    }
     const filter = {...this.filter, ['InstitutionBodyId'] : event.id}
     this.filter = filter;
     this.institutionRegForm.controls['institutionBodyId'].setValue(event.name)
+    this.store.dispatch(getAllInstitutionTypeLinkedToBody({id: event.id}))
+    this.actions$.pipe(ofType(getAllInstitutionTypeLinkedToBodySuccess)).subscribe((res: any) => {
+      this.institutionBodyList  = res.payload.data
+    })
   }
   selectInstitutionType(event: any) {
     const filter = {...this.filter, ['InstitutionTypeId'] : event.id}

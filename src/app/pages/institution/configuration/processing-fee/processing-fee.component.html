@@ -10,11 +10,11 @@
 
         <div class="ml-auto">
             <div class="rounded text-center">
-                <div class=" rounded-full text-center bg-[#ECFDF3]">
+                <div class=" rounded-full text-center" [ngClass]="processingFeeSetup === false ? 'bg-[#FEF6EE]' : isFeeApproved === true ? 'bg-[#ECFDF3]': 'bg-[#ECFDF3]'">
                      <div class="flex items-center gap-2 w-fit p-2">
-                        <div class="ml-3 w-2 h-2 rounded-full bg-[#027A48]"></div>
-                        <p class="my-0 text-sm cursor-pointer font-inter font-medium w-auto text-[#027A48]">
-                            {{isFeeApproved ? 'Approved': 'Awaiting approval'}}
+                        <div class="ml-3 w-2 h-2 rounded-full " [ngClass]="processingFeeSetup === false ? 'bg-pendingNormal' : isFeeApproved === true ? 'bg-[#027A48]': 'bg-[#027A48]'"></div>
+                        <p class="my-0 text-sm cursor-pointer font-inter font-medium w-auto " [ngClass]="processingFeeSetup === false ? 'text-pendingNormal' : isFeeApproved === true ? 'text-[#027A48]': 'text-[#027A48]'">
+                            {{processingFeeSetup === false ? 'Awaiting setup' : isFeeApproved === true ? 'Approved': 'Awaiting approval'}}
 
                         </p>
                      </div>
@@ -42,14 +42,15 @@
                             <div class=" mb-6 mt-3" *ngFor="let unit of type.processingFeeConfigVM; let child = index">
                                 <div class="w-full ">
                                     <label class=" font-inter font-medium text-sm text-failedNormal " for="inline-full-name">
-                                        {{unit.deliveryOptionsType || 'N/A'}}
+                                        {{unit.deliveryOptionsType || 'N/A'}} (₦)
                                     </label>
                                 </div>
                                 <div class="w-full  mt-2">
                                     <input type="text"
                                     (input)="getFee(unit, $event.target, parent, child)"
-                                    [value]="unit.fee"
-                                    placeholder="N 5000"
+                                    (blur)="addCommas(unit, $event.target, parent, child)"
+                                    [value]="unit.inActiveFee"
+                                    placeholder="₦ 5000"
                                     [class]="'px-4 text-black h-[52px] w-full bg-transparent border focus:bg-transparent rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                                     [name]="'fee'">
                                     <!-- <app-input 

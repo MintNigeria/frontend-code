@@ -149,6 +149,13 @@ li.pagination-previous {
   height: 52px;
 }
 
+.table th:first-child {
+  position: initial !important;
+  position: -webkit-sticky initial !important;
+  left: 0px;
+  z-index: 11;
+}
+
 *::-webkit-scrollbar {
   width: 4px;
   height: 4px;

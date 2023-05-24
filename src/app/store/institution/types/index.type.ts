@@ -2,6 +2,7 @@ export interface IInstitutionStateInterface {
   institutions: { data: any[]; totalCount: number };
   institution: any;
   institutionType: any;
+  institutionTypeLinkedToBody: any;
   institutionSector: any;
   institutionBody: any;
   institutionUsers: any;

@@ -13,6 +13,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { OrganizationEffects } from 'src/app/store/organization/effects';
 import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/request-empty-state.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -24,6 +25,8 @@ import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/r
   imports: [
     CommonModule,
     SharedModule,
+    ReactiveFormsModule,
+    FormsModule,
     RequestEmptyStateComponent,
     TransactionsRoutingModule,
     NgxPaginationModule,

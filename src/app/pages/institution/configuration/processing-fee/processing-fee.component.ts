@@ -8,6 +8,7 @@ import { NotificationsService } from 'src/app/core/services/shared/notifications
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { createProcessingFeeDocumentType, createProcessingFeeDocumentTypeSuccess, getAllProcessingFee, getAllProcessingFeeSuccess, getInstitutionConfiguration, getInstitutionConfigurationSuccess, sendProcessingFeeForApproval, sendProcessingFeeForApprovalSuccess } from 'src/app/store/configuration/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
+import * as numeral from 'numeral';
 
 @Component({
   selector: 'app-processing-fee',
@@ -35,6 +36,7 @@ export class ProcessingFeeComponent implements OnInit {
   updatedData: any;
   isFeeApproved: any;
   isFirstFeeApproved: any;
+  processingFeeSetup!: boolean;
 
   constructor(
      private fb: FormBuilder,
@@ -79,15 +81,33 @@ export class ProcessingFeeComponent implements OnInit {
     this.initFeeForm()
     this.store.dispatch(getInstitutionConfiguration({institutionId: this.institutionId}))
     this.actions$.pipe(ofType(getInstitutionConfigurationSuccess)).subscribe((res: any) => {
-      this.processingFeeList = res.payload.processingFeesVM
-      this.isFeeApproved = res.payload.isProcessingFeeApproved
-      this.isFirstFeeApproved = res.payload.isFirstTimeAddingProcessingFee
-
-      this.updatedData = this.processingFeeList.map((x: any, index: number) => {
+      // console.log(res.payload)
+      this.processingFeeList = res.payload.processingFeesVM.map((x: any) => {
         const a = x.processingFeeConfigVM.map((element: any) => {
           return {
             processingFeeConfigId: element.id,
-            fee: element.fee
+            deliveryOptionsType: element.deliveryOptionsType,
+            inActiveFee: numeral(element.inActiveFee).format('00,'),
+          }
+        });
+        return {
+          documentTypeName : x.documentTypeName,
+          description: x.description,
+          processingFeeId: x.id,
+          processingFeeConfigVM : a,
+        }
+      })
+      // console.log(this.processingFeeList) 
+
+      this.isFeeApproved = res.payload.isProcessingFeeApproved
+      this.isFirstFeeApproved = res.payload.isFirstTimeAddingProcessingFee
+      this.processingFeeSetup = res.payload.hasSetUpProcessingFee
+
+      this.updatedData = res.payload.processingFeesVM.map((x: any, index: number) => {
+        const a = x.processingFeeConfigVM.map((element: any) => {
+          return {
+            processingFeeConfigId: element.id,
+            inActiveFee: numeral(element.inActiveFee).format('00,')
           }
         });
         return {
@@ -101,7 +121,9 @@ export class ProcessingFeeComponent implements OnInit {
       })
       
       // this.processingFees = res.payload
+      console.log(this.updatedData)
     })
+
 
     // this.initFeeForm()
     // setTimeout(() => {
@@ -193,19 +215,35 @@ export class ProcessingFeeComponent implements OnInit {
     })
   }
 
+  addCommas(data: any, input: any, parent: number, child: number)  {
+    let newData = this.processingFeeList[parent]
+    const j = newData.processingFeeConfigVM.map((f: any, h: any) => {
+      if (h === child) {
+        return {processingFeeConfigId : f.processingFeeConfigId, inActiveFee:  numeral(input.value).format('00,'), deliveryOptionsType: f.deliveryOptionsType,}
+      } else {
+        return f
+      }
+    })
+    newData.processingFeeConfigVM = j
+    this.processingFeeList[parent] = newData;
+    console.log(this.processingFeeList)
+    // sessionStorage.setItem('prox_f', JSON.stringify(this.updatedData))
+   
+  }
   getFee(data: any, input: any, parent: number, child: number)  {
     // //console.log(data, input.value, parent, child)
     const allData = this.updatedData;
     let newData = this.updatedData[parent]
     const j = newData.updateProcessingFeeConfigVM.map((f: any, h: any) => {
       if (h === child) {
-        return {processingFeeConfigId : f.processingFeeConfigId, fee: Number(input.value)}
+        return {processingFeeConfigId : f.processingFeeConfigId, inActiveFee: numeral(input.value).value()}
       } else {
         return f
       }
     })
     newData.updateProcessingFeeConfigVM = j
     this.updatedData[parent] = newData;
+    console.log(this.updatedData)
     sessionStorage.setItem('prox_f', JSON.stringify(this.updatedData))
    
   }
@@ -213,7 +251,25 @@ export class ProcessingFeeComponent implements OnInit {
   sendForApproval() {
     const data: any = sessionStorage.getItem('prox_f')
     const newData = JSON.parse(data)
-this.store.dispatch(sendProcessingFeeForApproval({institutionId: this.institutionId, payload: newData }))
+    console.log(newData)
+    const payload = newData.map((x: any) => {
+      const a = x.updateProcessingFeeConfigVM.map((el: any) => {
+        return {
+          fee: numeral(el.inActiveFee).value(),
+          processingFeeConfigId: el.processingFeeConfigId
+        }
+      });
+      return {
+
+        device: x.device,
+        imei: x.imei,
+        ipAddress: x.ipAddress,
+        processingFeeId: x.processingFeeId,
+        serialNumber: x.serialNumber,
+        updateProcessingFeeConfigVM: a,
+      }
+    })
+this.store.dispatch(sendProcessingFeeForApproval({institutionId: this.institutionId, payload }))
 this.actions$.pipe(ofType(sendProcessingFeeForApprovalSuccess)).subscribe((res: any) => {
   if (res.payload.hasErrors === false) {
     this.notification.publishMessages('success', res.payload.description)

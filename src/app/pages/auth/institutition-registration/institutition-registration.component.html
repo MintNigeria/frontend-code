@@ -27,27 +27,27 @@
             Type
             <span class="text-danger">*</span> </label>
           <ng-select class="custom-ng-dropdown"  (change)="selectInstitutionBody($event)" formControlName="institutionBodyId" [selectOnTab]="true"
-            placeholder="Select Institution body">
-            <ng-option *ngFor="let unit of body.data" [value]="unit.id">{{unit.name}}</ng-option>
+            placeholder="Select Institution Type">
+            <ng-option *ngFor="let unit of body.data" [value]="unit">{{unit.name}}</ng-option>
           </ng-select>
         </div>
-        <div class="w-full md:w-1/2 px-3  md:mb-0" *ngIf="institutionType$ | async as type">
+        <div class="w-full md:w-1/2 px-3  md:mb-0" >
           <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Institution
             Body
             <span class="text-danger">*</span> </label>
           <ng-select class="custom-ng-dropdown" (change)="selectInstitutionType($event)" formControlName="institutionTypeId" [selectOnTab]="true"
-            placeholder="Select Institution type">
-            <ng-option *ngFor="let unit of type.data" [value]="unit.id">{{unit.name}}</ng-option>
+            placeholder="Select Institution Body">
+            <ng-option *ngFor="let unit of institutionBodyList" [value]="unit.id">{{unit.name}}</ng-option>
           </ng-select>
         </div>
       </div>
       <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
-        <div class="w-full md:w-1/2 px-3  md:mb-0" *ngIf="institutionSectors$ | async as sector">
+        <div class="w-full md:w-1/2 px-3  md:mb-0" >
           <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Institution
             Sector <span class="text-danger">*</span> </label>
           <ng-select class="custom-ng-dropdown" (change)="selectInstitutionSector($event)" formControlName="institutionSectorId" [selectOnTab]="true"
             placeholder="Select Institution sector">
-            <ng-option *ngFor="let unit of sector.data" [value]="unit.id">{{unit.name}}</ng-option>
+            <ng-option *ngFor="let unit of institutionSectorList" [value]="unit.id">{{unit.name}}</ng-option>
           </ng-select>
         </div>
         <div class="w-full md:w-1/2 px-3  md:mb-0" >
@@ -69,7 +69,7 @@
             Incoporation <span class="text-danger">*</span> </label>
           <app-input [formGrp]="institutionRegForm" formCtrlName="DateOfIncorporation" [type]="'date'" [class]="
                     'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " Issuer="Enter institution name" [name]="'Email'"></app-input>
+                  " Issuer="Enter institution name" [name]="'Date of Incoporation'" [max]="currentYear" ></app-input>
         </div>
         <div class="w-full md:w-1/2 px-3  md:mb-0">
           <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Registration
@@ -210,8 +210,9 @@
                 JPG
                 (max. 5mb) </p>
             </label>
-            <input (change)="handleFileUpload($event)" class="hidden  file:absolute file:w-full file:h-full" type="file"
-              id="file1" />
+            <input (change)="handleFileUpload($event)" class="top-0 appearance-none left-0 right-0 opacity-0 bottom-0 absolute w-full h-full" type="file"
+            id="file1" />
+
           </div>
         </div>
         <div *ngFor="let file of selectedFileList; let i = index"

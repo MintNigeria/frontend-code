@@ -1,6 +1,6 @@
 <div class="" [formGroup]="formGrp">
     <input [id]="id" [type]="type" [placeholder]="Issuer" [class]="class " [required]="required" [readonly]="readonly"
-      [formControlName]="formCtrlName" [ngClass]="{ 'is-invalid': invalid }" [value]="value" [pattern]="pattern"
+      [formControlName]="formCtrlName" [max]="max" [ngClass]="{ 'is-invalid': invalid }" [value]="value" [pattern]="pattern"
       [name]="name" />
   </div>
   
@@ -35,7 +35,7 @@
       Invalid Email
     </small>
     <small class="text-red-500" *ngIf="formGrp.controls[formCtrlName].errors?.['pattern']">
-      It must be a number and must be up to 11 digit
+      Invalid pattern
     </small>
   </div>
   

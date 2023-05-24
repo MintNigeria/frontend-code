@@ -15,6 +15,7 @@ import {
   getAllInstitutionGradeSuccess,
   getAllInstitutionRecordsSuccess,
   getAllInstitutionsDropdownSuccess,
+  getAllInstitutionTypeLinkedToBodySuccess,
   getAllInstitutionUsersSuccess,
   getDegreeTypeWithInstitutionNameSuccess,
   getFacultyAndDepartmentByInstitutionNameSuccess,
@@ -42,6 +43,7 @@ const initialState: IInstitutionStateInterface = {
   institutionUsers: null,
   institutionAdminTransaction: null,
   institutionType: null,
+  institutionTypeLinkedToBody: null,
   institutionSector: null,
   institutionBody: null,
   institutionRegistration: null,
@@ -98,6 +100,14 @@ export const institutionReducers = createReducer(
 
 
   on(getInstitutionTypeSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      institutionType: payload
+    };
+  }),
+
+
+  on(getAllInstitutionTypeLinkedToBodySuccess, (state, { payload }) => {
     return {
       ...state,
       institutionType: payload

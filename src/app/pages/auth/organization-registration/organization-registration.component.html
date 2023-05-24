@@ -217,8 +217,9 @@
                   JPG
                   (max. 5mb) </p>
               </label>
-              <input (change)="handleFileUpload($event)" class="hidden  file:absolute file:w-full file:h-full" type="file"
-                id="file1" />
+              <input (change)="handleFileUpload($event)" class="top-0 appearance-none left-0 right-0 opacity-0 bottom-0 absolute w-full h-full" type="file"
+              id="file1" />
+
             </div>
           </div>
           <div *ngFor="let file of selectedFileList; let i = index"

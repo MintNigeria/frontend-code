@@ -9,6 +9,7 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import { Country, State, City }  from 'country-state-city';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
+import * as moment from 'moment';
 
 
 @Component({
@@ -108,7 +109,7 @@ export class OrganizationProfileComponent implements OnInit {
     this.profileForm.patchValue({
       name: data.name,
       sector: data.organizationSector,
-      establishment: data?.dateOfInCorporation,
+      establishment: moment(data?.dateOfInCorporation).format('YYYY-MM-DD'),
       type: data.registeringBody,
       regNumber: data.cac,
       email: data.email,

@@ -25,6 +25,8 @@ export class UploadRecordsComponent implements OnInit {
   facultyList: any;
   departmentList: any;
 
+  years: Array<any> = [];
+
   degreeFilter = {
     institutionId: '',
     IMEI: '',
@@ -61,7 +63,11 @@ export class UploadRecordsComponent implements OnInit {
       this.degreeTypeList = res.payload.data;
     })
     this.loadIp();
+    let currentYear = new Date().getFullYear();
+    for (let index = 1920; index <= currentYear; ++index) {
+      this.years.push(index)
 
+    }
   }
 
   loadIp() {
@@ -69,15 +75,7 @@ export class UploadRecordsComponent implements OnInit {
       const filter = {...this.degreeFilter, ['IpAddress'] : res.ip}
       this.degreeFilter = filter
     })
-    // this.http.get('https://jsonip.com').subscribe(
-    //   (value:any) => {
-    //     ////console.log(value);
-    //     // this.userIP = value.ip;
-    //   },
-    //   (error) => {
-    //     ////console.log(error);
-    //   }
-    // );
+    
   }
 
   initUploadForm() {
@@ -85,7 +83,7 @@ export class UploadRecordsComponent implements OnInit {
       faculty: [null, Validators.required],
       department: [null, Validators.required],
       degreeType: [null, Validators.required],
-      yearOfGraduation: ['', Validators.required],
+      yearOfGraduation: [null, Validators.required],
       Document: null
     })
   }

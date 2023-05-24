@@ -186,7 +186,7 @@
                                 <th class="bg-tableHeader">
                                    <div class="flex gap-2">
                                         <p class="text-xs text-lightGray font-medium font-inter ">Department</p>
-                                        <img src="assets/images/icons/arrow_down.svg" alt="arrow_down">
+                                        <!-- <img src="assets/images/icons/arrow_down.svg" alt="arrow_down"> -->
                                    </div>
                                 </th>
                                 <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Matriculation Number
@@ -205,7 +205,7 @@
                                     <div>
                                         <div>
                                             <div>
-                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-primaryBlue ">{{data.fullName}}</p>
+                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-primaryBlue ">{{data.fullName || 'N/A' | titlecase}}</p>
                                             </div>
                                         </div>
 
@@ -214,13 +214,13 @@
                                 
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data?.faculty}}</p>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data?.faculty | titlecase}}</p>
                                     </div>
                                 </td>
 
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.department}}</p>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.department | titlecase}}</p>
                                        
                                     </div>
                                 </td>
@@ -241,7 +241,7 @@
                                 <td class="bg-white"
                                 [routerLink]="'/institution/records/record-details/'+data.id">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-primaryBlue ">view</p>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-primaryBlue ">View</p>
                                         
                                     </div>
 
