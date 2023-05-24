@@ -26,7 +26,7 @@
           <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Institution
             Type
             <span class="text-danger">*</span> </label>
-          <ng-select class="custom-ng-dropdown"  (change)="selectInstitutionBody($event)" formControlName="institutionBodyId" [selectOnTab]="true"
+          <ng-select class="custom-ng-dropdown"  (change)="selectInstitutionBody($event)"  [selectOnTab]="true"
             placeholder="Select Institution Type">
             <ng-option *ngFor="let unit of body.data" [value]="unit">{{unit.name}}</ng-option>
           </ng-select>

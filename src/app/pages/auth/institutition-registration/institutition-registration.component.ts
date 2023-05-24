@@ -109,12 +109,15 @@ filter: any = {
     } else {
       this.institutionSectorList = this.sectorListData
     }
+
     const filter = {...this.filter, ['InstitutionBodyId'] : event.id}
     this.filter = filter;
     this.store.dispatch(getAllInstitutionTypeLinkedToBody({id: event.id}))
     this.actions$.pipe(ofType(getAllInstitutionTypeLinkedToBodySuccess)).subscribe((res: any) => {
       this.institutionBodyList  = res.payload.data
     })
+    this.institutionRegForm.controls['institutionBodyId'].setValue(event.id)
+
   }
 
   selectInstitutionType(event: any) {
