@@ -15,7 +15,7 @@ pipeline {
 
         stage('Build and Start Docker Containers') {
             steps {
-                sh 'docker-compose -f /var/lib/jenkins/workspace/ngmintclient/docker-compose.yml up -d'
+                sh 'docker-compose -f /var/lib/jenkins/workspace/ngmintclient/ansible/docker-compose.yml up -d'
             }
         }
     }
