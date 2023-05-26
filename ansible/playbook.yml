@@ -16,5 +16,5 @@
 
     - name: Start Docker Compose
       docker_compose:
-        project_src: /var/lib/jenkins/workspace/ngmintclient/ansible/docker-compose.yml
+        project_src: /var/lib/jenkins/workspace/ngmintclient/ansible/
         build: yes
