@@ -1,0 +1,20 @@
+---
+- name: Deploy Angular App
+  hosts: localhost
+  tasks:
+    - name: Copy Angular app files
+      copy:
+        src: //mint_client/dist/mint-client/
+        dest: /usr/share/nginx/html
+
+    - name: Build Docker image
+      docker_image:
+        name: my-angular-app
+        build:
+          context: /var/lib/jenkins/workspace/ngmintclient
+          dockerfile: Dockerfile
+
+    - name: Start Docker Compose
+      docker_compose:
+        project_src: /var/lib/jenkins/workspace/ngmintclient
+        build: yes
