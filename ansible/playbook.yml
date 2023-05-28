@@ -8,7 +8,7 @@
         dest: "/usr/share/nginx/html"
 
     - name: Build Docker image
-      command: docker build -t my-angular-app -f {{ workspace_dir }}/Dockerfile {{ workspace_dir }}
+      command: docker build -t my-angular-app -f {{ workspace_dir }}/Dockerfile {{ workspace_dir }} .
 
     - name: Start Docker Compose
       command: docker-compose -f {{ ansible_playbook_dir }}/ansible/docker-compose.yml up -d --force-recreate
