@@ -4,17 +4,21 @@
   tasks:
     - name: Copy Angular app files
       copy:
-        src: /mint_client/dist/mint-client/
-        dest: /usr/share/nginx/html
+        src: "{{ mint_client_src }}"
+        dest: "/usr/share/nginx/html"
 
     - name: Build Docker image
       docker_image:
         name: my-angular-app
         build:
-          context: /var/lib/jenkins/workspace/ngmintclient
+          context: "{{ workspace_dir }}"
           dockerfile: Dockerfile
 
     - name: Start Docker Compose
       docker_compose:
-        project_src: /var/lib/jenkins/workspace/ngmintclient/ansible/
+        project_src: "{{ ansible_playbook_dir }}/ansible"
         build: yes
+
+  vars:
+    mint_client_src: "/var/lib/jenkins/workspace/ngmintclient"
+    workspace_dir: "/var/lib/jenkins/workspace/ngmintclient"
