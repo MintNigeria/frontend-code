@@ -20,5 +20,5 @@
         build: yes
 
   vars:
-    mint_client_src: "/var/lib/jenkins/workspace/ngmintclient"
+    mint_client_src: "/var/lib/jenkins/workspace/ngmintclient/dist/mint-client"
     workspace_dir: "/var/lib/jenkins/workspace/ngmintclient"
