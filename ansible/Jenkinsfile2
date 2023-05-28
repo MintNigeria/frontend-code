@@ -8,7 +8,7 @@ pipeline {
                 ANSIBLE_USER = 'VAC_Admin'
             }
             steps {
-                withCredentials([usernamePassword(credentialsId: 'TOSH ', usernameVariable: 'ANSIBLE_USER', passwordVariable: 'ANSIBLE_PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: 'TOSH', usernameVariable: 'ANSIBLE_USER', passwordVariable: 'ANSIBLE_PASSWORD')]) {
                     script {
                         sh '''
                         ansible-playbook -i ${env.ANSIBLE_HOST}, --user ${env.ANSIBLE_USER} --ask-pass ansible/playbook.yml
