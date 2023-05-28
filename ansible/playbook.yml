@@ -8,17 +8,11 @@
         dest: "/usr/share/nginx/html"
 
     - name: Build Docker image
-      docker_image:
-        name: my-angular-app
-        build:
-          context: "{{ workspace_dir }}"
-          dockerfile: Dockerfile
+      command: docker build -t my-angular-app -f {{ workspace_dir }}/Dockerfile {{ workspace_dir }}
 
     - name: Start Docker Compose
-      docker_compose:
-        project_src: "{{ ansible_playbook_dir }}/ansible"
-        build: yes
+      command: docker-compose -f {{ ansible_playbook_dir }}/ansible/docker-compose.yml up -d --force-recreate
 
   vars:
-    mint_client_src: "/var/lib/jenkins/workspace/ngmintclient/dist/mint-client"
+    mint_client_src: "/mint_client/dist/mint-client/"
     workspace_dir: "/var/lib/jenkins/workspace/ngmintclient"
