@@ -6,12 +6,12 @@ pipeline {
             environment {
                 ANSIBLE_HOST = 'localhost'
                 ANSIBLE_USER = 'VAC_Admin'
-                ANSIBLE_PASS = 'Be verified$'
+                ANSIBLE_PASSWORD = credentials('TOSH')
             }
             steps {
-                withCredentials([usernamePassword(credentialsId: 'ANSIBLE_PRIVATE_KEY', usernameVariable: 'VAC_Admin', passwordVariable: ${ANSIBLE_PASS})]) {
+                withCredentials([usernamePassword(credentialsId: 'TOSH', usernameVariable: 'ANSIBLE_USER', passwordVariable: 'ANSIBLE_PASSWORD')]) {
                     sh """
-                    ansible-playbook -i ${ANSIBLE_HOST}, --user ${ANSIBLE_USER} --private-key /home/VAC_Admin/ansible_private_key
+                    ansible-playbook -i ${ANSIBLE_HOST}, --user ${ANSIBLE_USER} --ask-pass ansible/playbook.yml
                     """
                 }
             }
