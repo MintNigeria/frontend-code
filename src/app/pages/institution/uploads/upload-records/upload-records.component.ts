@@ -64,7 +64,7 @@ export class UploadRecordsComponent implements OnInit {
     })
     this.loadIp();
     let currentYear = new Date().getFullYear();
-    for (let index = 1920; index <= currentYear; ++index) {
+    for (let index = 1990; index <= currentYear; ++index) {
       this.years.push(index)
 
     }

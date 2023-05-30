@@ -107,7 +107,7 @@ selectedFileList: any  = []
       institutionTypeId: [null, Validators.required],
       institutionSectorId: [null, Validators.required],
       InstitutionName: [null, Validators.required],
-      recaptchaReactive: [null],
+      recaptchaReactive: [null, Validators.required],
       consent: ['', Validators.required],
       nspm: ['', Validators.required],
     })

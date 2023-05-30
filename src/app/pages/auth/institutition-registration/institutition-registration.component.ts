@@ -91,7 +91,7 @@ filter: any = {
       EmailAddress: ['', [Validators.required, Validators.email]],
       PhoneNumber : ['', [Validators.pattern(/^(\+?234|0)[789]\d{9}$/)]],
       Street : ['', Validators.required],
-      recaptchaReactive: [null],
+      recaptchaReactive: [null, Validators.required],
       Title: [''],
       FirstName: [''],
       LastName: [''],

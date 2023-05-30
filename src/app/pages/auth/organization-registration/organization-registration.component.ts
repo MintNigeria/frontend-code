@@ -89,7 +89,7 @@ selectedFileList: any  = []
       RegisteringBody: ['', Validators.required],
       DateOfIncorporation: ['', Validators.required],
       CAC: [''],
-      recaptchaReactive: [null],
+      recaptchaReactive: [null, Validators.required],
       Title: [''],
       FirstName: [''],
       LastName: [''],

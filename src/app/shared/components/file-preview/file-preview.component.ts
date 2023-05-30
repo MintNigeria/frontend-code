@@ -15,7 +15,6 @@ export class FilePreviewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.data)
   }
 
   download(data: any) {
@@ -31,6 +30,10 @@ export class FilePreviewComponent implements OnInit {
       link.click();
   
     }
+  }
+
+  print() {
+    window.print()
   }
 
 }

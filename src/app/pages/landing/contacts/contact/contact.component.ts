@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { NotificationsService } from 'src/app/core/services/notifications.service';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { contactUs, contactUsSuccess } from 'src/app/store/institution copy/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
@@ -285,7 +285,7 @@ export class ContactComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', Validators.required],
-      tel: [''],
+      PhoneNumber : [''],
       subject: [''],
       message: [''],
     })

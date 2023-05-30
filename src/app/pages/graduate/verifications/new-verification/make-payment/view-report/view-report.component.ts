@@ -53,7 +53,7 @@ export class ViewReportComponent implements OnInit {
     this.userData = JSON.parse(data)
 
     let currentYear = new Date().getFullYear();   
-    for (let index = 1920; index <= currentYear; ++index) {
+    for (let index = 1990; index <= currentYear; ++index) {
       this.years.push(index)
       
     }

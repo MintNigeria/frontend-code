@@ -74,7 +74,7 @@
                             [name]="'reference code'"
                             ></app-input>
                             <div *ngIf="isRefNumberValid()" class="text-green-500 font-medium text-sm mt-1">
-                                Looks good!
+                                Valid code
                             </div>
                             <!-- [ngClass]="{'border-green-500 ': isRefNumberValid()}" -->
                         </div>
@@ -113,7 +113,7 @@
                         [overRideButtonClass]="true" [disabled]="referenceForm.invalid"
                         customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
                         (buttonClick)="verifyData()"
-                        >Proceed to payment</app-button>
+                        >Proceed</app-button>
                     </div>
                     
                 </div>
