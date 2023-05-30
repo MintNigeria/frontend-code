@@ -149,6 +149,23 @@ li.pagination-previous {
   height: 52px;
 }
 
+.dropdown-menu.show {
+  display: block;
+  width: 100% !important;
+}
+
+.iti {
+  width: 100% !important;
+  min-width: 18rem;
+
+}
+
+.iti input#country-search-box {
+  // padding-left: 6px;
+  background: white !important;
+  padding: 10px !important;
+}
+
 .table th:first-child {
   position: initial !important;
   position: -webkit-sticky initial !important;

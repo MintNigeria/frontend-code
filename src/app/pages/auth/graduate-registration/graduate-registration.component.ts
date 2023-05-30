@@ -11,12 +11,18 @@ import { Country, State, City }  from 'country-state-city';
 import { registerNewGraduate, registerNewGraduateSuccess, validateGraduateRegistration, validateGraduateRegistrationSuccess } from 'src/app/store/graduates/action';
 import { resendOTP, resendOTPSuccess } from 'src/app/store/auth/action';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
+
 @Component({
   selector: 'app-graduate-registration',
   templateUrl: './graduate-registration.component.html',
   styleUrls: ['./graduate-registration.component.scss']
 })
 export class GraduateRegistrationComponent implements OnInit {
+  SearchCountryField = SearchCountryField;
+	CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
+  separateDialCode = true;
   institutionType$ = this.appStore.pipe(select(institutionTypeSelector));
   institutionSectors$ = this.appStore.pipe(select(institutionSectorSelector));
   institutionBody$ = this.appStore.pipe(select(institutionBodySelector));
@@ -80,9 +86,10 @@ selectedFileList: any  = []
       getInstitutionBody()
     );
     
-    // this.institutionRegForm.valueChanges.subscribe((res: any) => {
-    //   console.log(res)
-    // })
+    this.institutionRegForm.valueChanges.subscribe((res: any) => {
+      console.log(res)
+      console.log(this.institutionRegForm)
+    })
     	// const countries = Country?.getAllCountries()
       // //console.log(contries)
 
@@ -94,7 +101,7 @@ selectedFileList: any  = []
       FirstName  : ['', Validators.required],
       LastName   : ['', Validators.required],
       Email: ['', [Validators.required, Validators.email]],
-      PhoneNumber : ['',[Validators.pattern(/^(\+?234|0)[789]\d{9}$/)]],
+      PhoneNumber : [null,Validators.required],
       Address : ['', Validators.required],
       Gender: ['', Validators.required],
       City: [null, Validators.required],
@@ -193,7 +200,6 @@ selectedFileList: any  = []
       this.institutionList = res.payload.data
     })
     this.institutionRegForm.controls['institutionSectorId'].setValue(event.name)
-
   }
 
   public resolved(captchaResponse: string): void {

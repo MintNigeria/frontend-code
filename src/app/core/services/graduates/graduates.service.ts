@@ -26,7 +26,7 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
     const body = new FormData()
     body.append('FirstName', payload.FirstName)
     body.append('LastName', payload.LastName)
-    body.append('PhoneNumber', payload.PhoneNumber)
+    body.append('PhoneNumber', payload.PhoneNumber.internationalNumber)
     body.append('Email', payload.Email)
     body.append('Address', payload.Address)
     body.append('Gender', payload.Gender)

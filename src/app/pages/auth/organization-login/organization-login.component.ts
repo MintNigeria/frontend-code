@@ -14,11 +14,11 @@ import { environment } from 'src/environments/environment';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-organization-login',
+  templateUrl: './organization-login.component.html',
+  styleUrls: ['./organization-login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class OrganizationLoginComponent implements OnInit {
   loginAuth!: FormGroup;
   siteKey: string = environment.recaptchaKey;
   currentRoute!: string;
@@ -80,24 +80,22 @@ export class LoginComponent implements OnInit {
           permissions: this.loggedInUser.Permission
     
         };
-        if (this.loggedInUser.UserType === 'Institution') {
+        
+        if (this.loggedInUser.UserType === 'Organization') {
           localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
           localStorage.setItem('authData', JSON.stringify(data));
           this.notificationService.publishMessages('success', 'Login Successful');
-          this.router.navigateByUrl('/institution/dashboard');
-  
+            this.router.navigateByUrl('/organization/dashboard');
         }
-       
       } else {
-        if (this.loggedInUser.UserType === 'Institution') {
-  
-          this.show2FAOTP = true;
+        if (this.loggedInUser.UserType === 'Organization') {
+          this.show2FAOTP = true
           this.timer(10)
-        }
+      }
 
       }
     })
-  
+    
   }
 
   fetchOTPCode() {}
@@ -109,7 +107,8 @@ export class LoginComponent implements OnInit {
 
   createAccount() {
    
-    this.router.navigateByUrl('/auth/create-account/institution');
+    this.router.navigateByUrl('/auth/create-account/organization');
+   
   }
 
   verifyOTP() {
@@ -143,12 +142,11 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
       localStorage.setItem('authData', JSON.stringify(data));
       this.notificationService.publishMessages('success', 'Login Successful');
-      if (this.loggedInUser.UserType === 'Institution') {
-        this.router.navigateByUrl('/institution/dashboard');
-
-        // this.showOTPPage = true;
-      }
+      
      
+      if (this.loggedInUser.UserType === 'Organization') {
+          this.router.navigateByUrl('/organization/dashboard');
+      }
     
     })
     
@@ -210,4 +208,5 @@ export class LoginComponent implements OnInit {
       }
     }, 1000);
   }
+
 }
