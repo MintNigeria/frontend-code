@@ -4,7 +4,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    restart: always 
     image: ${DOCKER_REGISTRY}nspm-client-fe:latest
     container_name: nspm-client-fe
     restart: always
