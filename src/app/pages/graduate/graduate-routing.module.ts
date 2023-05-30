@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { GraduateComponent } from './graduate.component';
+import { GraduateGuard } from 'src/app/core/guards/graduate.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: GraduateComponent,
+    canActivateChild: [GraduateGuard],
     children: [
       // { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
       {

@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { InstitutionComponent } from './institution.component';
+import { InstitutionGuard } from 'src/app/core/guards/institution.guard';
 
 const routes: Routes = [
-  {path: '', component: InstitutionComponent, children: [
+  {path: '', component: InstitutionComponent, canActivateChild: [InstitutionGuard], children: [
     {
       path: 'institution',
       loadChildren: () =>

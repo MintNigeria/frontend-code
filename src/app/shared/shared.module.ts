@@ -27,6 +27,8 @@ import { TextareaComponent } from './components/textarea/textarea.component';
 import { HelpDeskComponent } from './components/help-desk/help-desk.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { MobileNavComponent } from './components/mobile-nav/mobile-nav.component';
+import { FilePreviewComponent } from './components/file-preview/file-preview.component';
+import { NigeriaPhoneNumberPipe } from '../core/pipe/nigeria-phone-number.pipe';
 
 const components: any[] = [
   InputComponent,
@@ -38,9 +40,6 @@ const components: any[] = [
   FilesizePipe,
   StatusTabComponent,
   ModalComponent,
-  FilesizePipe,
-  TrustedURLPipe,
-  CommaDelimiterPipe,
   CheckMarkComponent,
   DateRangeComponent,
   LogoutModalComponent,
@@ -50,6 +49,13 @@ const components: any[] = [
   HelpDeskComponent,
   AlertComponent,
   MobileNavComponent,
+  FilePreviewComponent,
+
+  
+  FilesizePipe,
+  TrustedURLPipe,
+  NigeriaPhoneNumberPipe,
+  CommaDelimiterPipe,
 
 ]
 

@@ -78,7 +78,7 @@
                     <option [value]="i" *ngFor="let unit of requestStatus; let i = index">{{unit.name}}</option>
                 </select>
                 <app-button
-                [disabled]="requestDetail?.paymentStatus !== 1"
+                [disabled]="requestDetail?.paymentStatus !== 1 || requestDetail?.status === 7"
                     [overRideButtonClass]="true"
                     customClass="h-[52px] w-32 rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
                     (buttonClick)="openConfirmation()"
@@ -267,7 +267,7 @@
                 [for]="confirmationModal"
                 class="text-center bg-white rounded-lg border border-buttonBlue  hover:bg-buttonBlue hover:text-white text-buttonBlue text-base font-medium font-inter py-2 px-4 w-36 "
             >
-                Cancel
+                Close
         </label>
             <button
                 (click)="actionRequest()"

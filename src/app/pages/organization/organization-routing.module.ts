@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { OrganizationComponent } from './organization.component';
+import { OrganizationGuard } from 'src/app/core/guards/organization.guard';
 
 
 const routes: Routes = [
-  {path: '', component: OrganizationComponent,children: [
+  {path: '', component: OrganizationComponent, canActivateChild: [OrganizationGuard], children: [
     {
       path: 'dashboard',
       loadChildren: () =>

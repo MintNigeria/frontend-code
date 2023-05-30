@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import { FilePreviewComponent } from 'src/app/shared/components/file-preview/file-preview.component';
 import { invokeGetRequestDetails, updateInstitutionRequest, updateInstitutionRequestSuccess } from 'src/app/store/request/action';
 import { requestDetailsSelector } from 'src/app/store/request/selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
@@ -38,74 +40,6 @@ export class ViewMoreGraduateComponent implements OnInit {
 
   }
 
-  graduateList  = [
-  {
-    id: '1',
-    requestID: '#3086',
-    date: '12/01/2023',
-    name: 'AdeKunle Ciroma',
-    number: '080912002',
-    docType: 'Certificate(Original)',
-    institution: 'University of Lagos',
-    status: 'Completed',
-    action: 'view'
-  },
-  {
-    id: '2',
-    requestID: '#3086',
-    date: '12/01/2023',
-    name: 'Phoenix Baker',
-    number: '080912002',
-    docType: 'Certificate(Original)',
-    institution: 'University of Benin',
-    status: 'Pending',
-    action: 'view'
-  },
-  {
-    id: '3',
-    requestID: '#3086',
-    date: '12/01/2023',
-    name: 'Lane Ciroma',
-    number: '080912002',
-    docType: 'Certificate(Original)',
-    institution: 'Lagos State University',
-    status: 'Processing',
-    action: 'view'
-  },
-  {
-    id: '4',
-    requestID: '#3086',
-    date: '12/01/2023',
-    name: 'Demi Wiki',
-    number: '080912002',
-    docType: 'Certificate(Original)',
-    institution: 'Yaba Technology',
-    status: 'Paused',
-    action: 'view'
-  },
-  {
-    id: '5',
-    requestID: '#3086',
-    date: '12/01/2023',
-    name: 'AdeKunle Ciroma',
-    number: '080912002',
-    docType: 'Certificate(Original)',
-    institution: 'University of Lagos',
-    status: 'Completed',
-    action: 'view'
-  },
-  {
-    id: '6',
-    requestID: '#3086',
-    date: '12/01/2023',
-    name: 'AdeKunle Ciroma',
-    number: '080912002',
-    docType: 'Certificate(Original)',
-    institution: 'University of Lagos',
-    status: 'Completed',
-    action: 'view'
-  }
- ]
 
  requestId: any;
  requestDetails$ = this.appStore.pipe(select(requestDetailsSelector));
@@ -131,7 +65,7 @@ export class ViewMoreGraduateComponent implements OnInit {
    private actions$: Actions,
    private utilityService: UtilityService,
    private notification: NotificationsService,
-
+   private  dialog: MatDialog
 
  ) {
   const userAgent = navigator.userAgent;
@@ -223,6 +157,15 @@ download(data: any) {
     link.click();
 
   }
+}
+
+previewFile(data: any) {
+  // console.log(data)
+  this.dialog.open(FilePreviewComponent, {
+    width: '800px',
+    height: '800px',
+    data
+  })
 }
 
 }

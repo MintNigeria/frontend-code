@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { NotificationsService } from 'src/app/core/services/notifications.service';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { getGraduateInstitutions, getGraduateInstitutionsSuccess, searchGraduateRecords, searchGraduateRecordsSuccess } from 'src/app/store/graduates/action';
 import { getAllInstitutionDegreeType, getAllInstitutionDegreeTypeSuccess, getDegreeTypeWithInstitutionName, getDegreeTypeWithInstitutionNameSuccess, getFacultyAndDepartmentByInstitutionName, getFacultyAndDepartmentByInstitutionNameSuccess } from 'src/app/store/institution/action';
@@ -44,7 +44,7 @@ export class InstitutionDetailsComponent implements OnInit {
       this.institutionList = res.payload.payload
     })
     let currentYear = new Date().getFullYear();
-    for (let index = 1920; index <= currentYear; ++index) {
+    for (let index = 1990; index <= currentYear; ++index) {
       this.years.push(index)
 
     }
@@ -94,7 +94,6 @@ export class InstitutionDetailsComponent implements OnInit {
   }
 
   getDepartmentInFaculty(event: any) {
-    console.log(event)
     const data = this.facultyList.find((value: any) => value.id == Number(event.id));
     this.departmentList = data.departmentVMs;
     this.institutionDetailsForm.controls['faculty'].setValue(event.name)
