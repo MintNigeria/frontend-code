@@ -85,7 +85,10 @@ export class GraduateLoginComponent implements OnInit {
           localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
           localStorage.setItem('authData', JSON.stringify(data));
           this.notificationService.publishMessages('success', 'Login Successful');
-            this.router.navigateByUrl('/graduate/dashboard');
+          this.router.navigateByUrl('/graduate/dashboard');
+        }  else {
+          console.log('dsd')
+          this.notificationService.publishMessages('error', 'Invalid login credential');
         }
         
       } else {
@@ -139,11 +142,11 @@ export class GraduateLoginComponent implements OnInit {
         permissions: this.loggedInUser.Permission
   
       };
-      localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
-      localStorage.setItem('authData', JSON.stringify(data));
-      this.notificationService.publishMessages('success', 'Login Successful');
       
       if (this.loggedInUser.UserType === 'Graduates') {
+        localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
+        localStorage.setItem('authData', JSON.stringify(data));
+        this.notificationService.publishMessages('success', 'Login Successful');
           this.router.navigateByUrl('/graduate/dashboard');
         // this.showOTPPage = true;
       }
