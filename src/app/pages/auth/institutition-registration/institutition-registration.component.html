@@ -194,7 +194,7 @@
       </div>
       <div>
         <p class="font-medium mb-1 mt-2  text-sm text-failedNormal ">
-          Supporting Document <span class="text-danger">*</span>
+          Attach Supporting Document <span class="text-danger">*</span>
         </p>
         <p class="font-nunito font-normal text-xs text-failedNormal mb-[6px]">Document such as business registration,
           institution’s letter of approval</p>
@@ -204,11 +204,13 @@
             <label for="file1">
               <img src="assets/images/auth/upload.jpg" alt="uploadIcon"
                 class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
-              <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile}} </p>
-              <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
-                  class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF or
-                JPG
-                (max. 5mb) </p>
+              <p *ngIf="showDefault !== true " class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile}} </p>
+              <ng-container *ngIf="showDefault === true">
+                <p  class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
+                    class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF or
+                  JPG
+                  (max. 5mb) </p>
+              </ng-container>
             </label>
             <input (change)="handleFileUpload($event)" class="top-0 appearance-none left-0 right-0 opacity-0 bottom-0 absolute w-full h-full" type="file"
             id="file1" />
@@ -238,9 +240,9 @@
             information provided above is true and correct.</label>
         </div>
         <div class="flex items-center mb-4">
-          <input id="default-checkbox" type="checkbox" value="" formControlName="nspm"
+          <input id="default-checkbox33" type="checkbox" value="" formControlName="nspm"
             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-          <label for="default-checkbox"
+          <label for="default-checkbox33"
             class="ml-2 text-sm font-medium text-failedNormal dark:text-gray-300 font-inter">I agree to NSPM terms and
             conditions.</label>
         </div>

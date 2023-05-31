@@ -60,6 +60,7 @@ selectedFileList: any  = []
   institutionBodyList: any;
     institutionSectorList: any;
   sectorListData: any;
+  showDefault: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -160,12 +161,16 @@ selectedFileList: any  = []
 
 		  return;
 		} else {
+      this.showDefault = true;
+
+      
       this.selectedFile = e.target.files[0].name
       this.selectedFileList.push(file)
     }
   }
-
+  
   deleteFile(index: number){
+    this.showDefault = true;
     this.selectedFileList.splice(index, 1);
   }
 

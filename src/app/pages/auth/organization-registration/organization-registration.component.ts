@@ -54,6 +54,8 @@ selectedFileList: any  = []
   state: any;
   city: any;
   countryCode: any;
+  showDefault: boolean = true;
+
   constructor(
     private fb: FormBuilder,
     private appStore: Store<AppStateInterface>,
@@ -132,6 +134,9 @@ selectedFileList: any  = []
 
   
   deleteFile(index: number){
+    this.showDefault = true;
+
+
     this.selectedFileList.splice(index, 1);
   }
 
@@ -167,6 +172,8 @@ selectedFileList: any  = []
 
 		  return;
 		} else {
+      this.showDefault = true;
+
       this.selectedFile = e.target.files[0].name
       this.selectedFileList.push(file)
     }
