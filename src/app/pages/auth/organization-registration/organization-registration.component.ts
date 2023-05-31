@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment';
 import { Country, State, City }  from 'country-state-city';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { resendOTP, resendOTPSuccess } from 'src/app/store/auth/action';
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-organization-registration',
@@ -19,6 +20,13 @@ import { resendOTP, resendOTPSuccess } from 'src/app/store/auth/action';
   styleUrls: ['./organization-registration.component.scss']
 })
 export class OrganizationRegistrationComponent implements OnInit {
+  SearchCountryField = SearchCountryField;
+	CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
+  separateDialCode = true;
+
+
+ 
   otplength: any;
   otpValue: any;
   countries = Country.getAllCountries();
@@ -79,7 +87,7 @@ selectedFileList: any  = []
       // institutionBody: ['', Validators.required],
       Name : ['', Validators.required],
       EmailAddress: ['', [Validators.required, Validators.email]],
-      PhoneNumber : ['', [Validators.pattern(/^(\+?234|0)[789]\d{9}$/)]],
+      PhoneNumber : [null, Validators.required],
       City: [null, Validators.required],
       Country: [null, Validators.required],
       State: [null, Validators.required],

@@ -62,6 +62,7 @@
                 SearchCountryField.Iso2,
                 SearchCountryField.Name
               ]"
+              [phoneValidation]="true"
               [selectedCountryISO]="CountryISO.Nigeria"
               [maxLength]="15"
               [phoneValidation]="true"
@@ -73,7 +74,9 @@
               type="tel"
             >
             </ngx-intl-tel-input>
-           
+            <small class="text-red-500" *ngIf="institutionRegForm.controls['PhoneNumber'].touched && institutionRegForm.controls['PhoneNumber'].invalid">
+              Invalid number
+            </small>
                     <!-- <app-input [formGrp]="institutionRegForm" formCtrlName="PhoneNumber" [type]="'text'" [class]="
                     'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
                   " placeholder="Enter phone number" [name]="'Phone number'"></app-input> -->

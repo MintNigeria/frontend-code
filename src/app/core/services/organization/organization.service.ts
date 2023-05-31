@@ -46,7 +46,7 @@ export class OrganizationService
     body.append('City', payload.City)
     body.append('Country', payload.Country)
     body.append('Address', payload.Address)
-    body.append('PhoneNumber', payload.PhoneNumber)
+    body.append('PhoneNumber', payload.PhoneNumber.internationalNumber)
     body.append('Email', payload.EmailAddress)
     body.append('ApproverVM.Title', payload.Title)
     body.append('ApproverVM.FirstName', payload.FirstName)

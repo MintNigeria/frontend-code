@@ -160,6 +160,11 @@ li.pagination-previous {
 
 }
 
+ngx-intl-tel-input.ng-invalid.ng-touched input {
+	border: 1px solid #c0392b;
+}
+
+
 .iti input#country-search-box {
   // padding-left: 6px;
   background: white !important;
