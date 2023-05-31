@@ -43,7 +43,7 @@
                 <!-- <div class="w-full   md:w-9/12"> -->
                 <div class="w-full   md:full">
                     <div class="flex justify-between items-center">
-                        <p class="font-inter font-medium text-base text-darkGray mb-4">{{roleTitle + ' ' + 'Users' }}</p>
+                        <p class="font-inter font-medium text-base text-darkGray mb-4">{{roleTitle ? roleTitle + ' Users ' : '' }}</p>
                         <app-button
                         *ngIf="roleTitle !== undefined"
                             routerLink="/institution/users-and-roles/roles-and-permission/edit-permission/{{selectedRoledId}}"

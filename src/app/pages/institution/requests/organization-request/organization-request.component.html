@@ -283,17 +283,12 @@
                     class="flex gap-1 text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
                   >
                     Request ID
-                    <span
-                      ><img
-                        src="/assets/images/icons/arrow_down.svg"
-                        alt=""
-                        class="mt-0.5"
-                    /></span>
+                  
                   </th>
                   <th
                     class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
                   >
-                    Name
+                    Name / Matric No.
                   </th>
                   <th
                     class="text-xs text-[#667085] font-medium font-inter bg-[#F9FAFB]"
@@ -333,11 +328,7 @@
                       >
                         {{ data.requestId }}
                       </p>
-                      <p
-                        class="text-xs font-normal font-inter my-0 text-[#667085]"
-                      >
-                      {{data?.dateRequested | date }}
-                      </p>
+                     
                     </div>
                   </td>
   
@@ -363,6 +354,11 @@
                       >
                         {{ data.documentType }}
                       </p>
+                      <p
+                      class="text-xs font-normal font-inter my-0 text-[#667085]"
+                    >
+                    {{data?.dateRequested | date }}
+                    </p>
                     </div>
                   </td>
                   <td class="bg-white">

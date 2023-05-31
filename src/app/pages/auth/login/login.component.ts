@@ -59,6 +59,7 @@ export class LoginComponent implements OnInit {
 
   accessAccount() {
     this.status = Status.LOADING;
+  
     this.store.dispatch(invokeLoginUser({payload: this.loginAuth.value}));
     this.actions$.pipe(ofType(loginSuccess)).subscribe((res: any) => {
       if (res.accessToken !== undefined && typeof(res.payload) !== 'string') {
@@ -85,7 +86,9 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('authData', JSON.stringify(data));
           this.notificationService.publishMessages('success', 'Login Successful');
           this.router.navigateByUrl('/institution/dashboard');
-  
+        } else {
+          this.notificationService.publishMessages('error', 'Invalid login credential');
+
         }
        
       } else {

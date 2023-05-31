@@ -86,6 +86,9 @@ export class OrganizationLoginComponent implements OnInit {
           localStorage.setItem('authData', JSON.stringify(data));
           this.notificationService.publishMessages('success', 'Login Successful');
             this.router.navigateByUrl('/organization/dashboard');
+        }  else {
+          this.notificationService.publishMessages('error', 'Invalid login credential');
+
         }
       } else {
         if (this.loggedInUser.UserType === 'Organization') {

@@ -87,8 +87,8 @@ selectedFileList: any  = []
     );
     
     this.institutionRegForm.valueChanges.subscribe((res: any) => {
-      console.log(res)
-      console.log(this.institutionRegForm)
+      // console.log(res)
+      // console.log(this.institutionRegForm)
     })
     	// const countries = Country?.getAllCountries()
       // //console.log(contries)

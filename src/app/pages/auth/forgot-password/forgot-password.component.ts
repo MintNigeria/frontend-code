@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { RecaptchaErrorParameters } from 'ng-recaptcha';
-import { NotificationsService } from 'src/app/core/services/notifications.service';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { invokeLoginUser, loginSuccess, requestPasswordReset, requestPasswordResetSuccess } from 'src/app/store/auth/action';
 import { isUserSelector } from 'src/app/store/auth/selector';
 import { selectAppAPIResponse } from 'src/app/store/shared/app.selector';

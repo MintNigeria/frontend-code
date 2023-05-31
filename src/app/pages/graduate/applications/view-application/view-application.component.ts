@@ -5,7 +5,9 @@ import { Store } from '@ngrx/store';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { getAllGraduateRequestDetailForGradaute, getAllGraduateRequestDetailForGradauteSuccess } from 'src/app/store/graduates/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
+import { MatDialog } from '@angular/material/dialog';
 
+import { FilePreviewComponent } from 'src/app/shared/components/file-preview/file-preview.component';
 @Component({
   selector: 'app-view-application',
   templateUrl: './view-application.component.html',
@@ -20,7 +22,9 @@ export class ViewApplicationComponent implements OnInit {
     private store: Store,
     private actions$: Actions,
     private utilityService: UtilityService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+       private  dialog: MatDialog
+
   ) { }
 
   ngOnInit(): void {
@@ -45,5 +49,15 @@ export class ViewApplicationComponent implements OnInit {
 
     }
   }
+
+
+  previewFile(data: any) {
+  // console.log(data)
+  this.dialog.open(FilePreviewComponent, {
+    width: '800px',
+    height: '800px',
+    data
+  })
+}
 
 }
