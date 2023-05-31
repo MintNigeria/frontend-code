@@ -105,10 +105,38 @@
           <div class="w-full md:w-1/2 px-3  md:mb-0">
             <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Phone Number
               <span class="text-danger">*</span> </label>
-            <app-input [formGrp]="institutionRegForm" formCtrlName="PhoneNumber" [type]="'number'" [class]="
+              <div class="w-full mt-2">
+                <ngx-intl-tel-input
+                [cssClass]="'  pr-3 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'"
+                [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="true"
+                [searchCountryFlag]="true"
+                [selectFirstCountry]="false"
+                [searchCountryField]="[
+                  SearchCountryField.Iso2,
+                  SearchCountryField.Name
+                ]"
+                [phoneValidation]="true"
+                [selectedCountryISO]="CountryISO.Nigeria"
+                [maxLength]="15"
+                [phoneValidation]="true"
+                [separateDialCode]="separateDialCode"
+                [numberFormat]="PhoneNumberFormat.National"
+                name="PhoneNumber"
+                aria-autocomplete="phoneno"
+                formControlName="PhoneNumber"
+                type="tel"
+                            >
+                            </ngx-intl-tel-input>
+              </div>
+            <small class="text-red-500" *ngIf="institutionRegForm.controls['PhoneNumber'].touched && institutionRegForm.controls['PhoneNumber'].invalid">
+              Invalid number
+            </small>
+            <!-- <app-input [formGrp]="institutionRegForm" formCtrlName="PhoneNumber" [type]="'number'" [class]="
                       'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                    " Issuer="Enter phone number" [name]="'Phone number'"></app-input>
+                    " Issuer="Enter phone number" [name]="'Phone number'"></app-input> -->
           </div>
+
           <div class="w-full md:w-1/2 px-3  md:mb-0" >
             <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Country <span
                 class="text-danger">*</span> </label>

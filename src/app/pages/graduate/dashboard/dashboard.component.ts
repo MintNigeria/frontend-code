@@ -36,6 +36,7 @@ export class DashboardComponent implements OnInit {
   modalId = 'messageModal'
   notifyInstitutionForm!: FormGroup
   user: any;
+  
   constructor(
     private router: Router,
     private store: Store,

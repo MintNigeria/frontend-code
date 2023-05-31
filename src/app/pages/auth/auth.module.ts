@@ -30,6 +30,9 @@ import { ConfigurationEffects } from 'src/app/store/configuration/effects';
 import { OrganizationEffects } from 'src/app/store/organization/effects';
 import { GraduatesEffects } from 'src/app/store/graduates/effects';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { GraduateLoginComponent } from './graduate-login/graduate-login.component';
+import { OrganizationLoginComponent } from './organization-login/organization-login.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +45,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     ForgotPasswordComponent,
     VerifyPasswordComponent,
     ResetPasswordComponent,
+    GraduateLoginComponent,
+    OrganizationLoginComponent,
   ],
   imports: [
     CommonModule,
@@ -52,6 +57,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     RecaptchaFormsModule,
     NgOtpInputModule,
     NgSelectModule,
+    NgxIntlTelInputModule,
     StoreModule.forFeature('auth', authReducers),
     EffectsModule.forFeature([AuthEffects, UtilityEffects, OrganizationEffects, InstitutionEffects, GraduatesEffects, ConfigurationEffects]),
     AuthRoutingModule,

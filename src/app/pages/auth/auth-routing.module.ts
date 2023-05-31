@@ -8,6 +8,8 @@ import { InstitutitionRegistrationComponent } from './institutition-registration
 import { LoginComponent } from './login/login.component';
 import { OrganizationRegistrationComponent } from './organization-registration/organization-registration.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { OrganizationLoginComponent } from './organization-login/organization-login.component';
+import { GraduateLoginComponent } from './graduate-login/graduate-login.component';
 
 const routes: Routes = [
   {
@@ -15,8 +17,8 @@ const routes: Routes = [
     component: AuthComponent,
     children: [
       { path: 'institution', component: LoginComponent },
-      { path: 'organization', component: LoginComponent },
-      { path: 'graduate', component: LoginComponent },
+      { path: 'organization', component: OrganizationLoginComponent },
+      { path: 'graduate', component: GraduateLoginComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
       { path: 'create-account/institution', component: InstitutitionRegistrationComponent },
       { path: 'create-account/organization', component: OrganizationRegistrationComponent },

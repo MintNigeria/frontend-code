@@ -149,6 +149,28 @@ li.pagination-previous {
   height: 52px;
 }
 
+.dropdown-menu.show {
+  display: block;
+  width: 100% !important;
+}
+
+.iti {
+  width: 100% !important;
+  min-width: 18rem;
+
+}
+
+ngx-intl-tel-input.ng-invalid.ng-touched input {
+	border: 1px solid #c0392b;
+}
+
+
+.iti input#country-search-box {
+  // padding-left: 6px;
+  background: white !important;
+  padding: 10px !important;
+}
+
 .table th:first-child {
   position: initial !important;
   position: -webkit-sticky initial !important;
