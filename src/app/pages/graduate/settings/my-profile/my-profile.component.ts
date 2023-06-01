@@ -175,8 +175,12 @@ export class MyProfileComponent implements OnInit {
 
 		  return;
 		} else {
-      this.selectedFile = e.target.files[0].name
-      this.profileForm.controls['profileImage'].setValue(file)
+      if (file.size <= 5 * 1024 * 1024) { // 5MB in bytes
+        this.selectedFile = e.target.files[0].name
+        this.profileForm.controls['profileImage'].setValue(file)
+      } else {
+        this.notification.publishMessages('danger', 'Total size of uploaded files exceeds the maximum allowed size of 5MB.')
+      }
 
     }
   }

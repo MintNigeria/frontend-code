@@ -176,6 +176,12 @@ selectedFileList: any  = []
 
       this.selectedFile = e.target.files[0].name
       this.selectedFileList.push(file)
+      const totalSize = this.selectedFileList.reduce((accumulator: any, currentFile: any) => accumulator + currentFile.size, 0);
+      if (totalSize > 5 * 1024 * 1024) { // 5MB in bytes
+        this.selectedFileList.pop(); 
+        this.notification.publishMessages('danger', 'Total size of uploaded files exceeds the maximum allowed size of 5MB.')
+        
+      } 
     }
   }
 

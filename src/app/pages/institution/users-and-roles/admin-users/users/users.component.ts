@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { take } from 'rxjs';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { UsersAndRolesService } from 'src/app/core/services/users-and-roles/users-and-roles.service';
 import { isUserSelector, messageNotification, permissionsSelector } from 'src/app/store/auth/selector';
 import { invokeGetStateAndLGA } from 'src/app/store/institution copy/action';
@@ -14,7 +15,6 @@ import { createInstitutionUserWithRole, createInstitutionUserWithRoleSuccess, ge
 import { getLGASelector } from 'src/app/store/users-and-roles/selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { Status } from 'src/app/types/shared.types';
-import { NotificationsService } from 'src/app/core/services/notifications.service';
 
 
 @Component({
@@ -145,6 +145,7 @@ changeFaculty(event: any) {
 }
 
 enableDisableUser(event: any) {
+  console.log(event)
   if (event.checked === true) {
     this.enableToggleButton = 'Enabled';
   } else {

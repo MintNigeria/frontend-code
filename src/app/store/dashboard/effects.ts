@@ -1122,29 +1122,26 @@ export class DashboardEffects {
               };
               const formatAllTime = (data = []) => {
                 
-                let gradValue = 0
+                let verValue = 0
                 let orgValue = 0
                 let value = ''
                 
               
                 let completedRequest: any = [];
-                let completedGradValue: any = [];
-                let completedOrgValue: any = [];
+                let completedVerValue: any = [];
                 data.forEach((x: any) => {
                   if (x.year) {
-                    gradValue = x.graduate || x.graduate;
-                    orgValue = x.organization || x.organization;
+                    verValue = x.verificationCount || x.verificationCount;
+
                     value = `${x.month + ' ' + x.year} `;
                   }
                   
                   completedRequest.push(value);
-                  completedGradValue.push(gradValue);
-                  completedOrgValue.push(orgValue);
+                  completedVerValue.push(verValue);
                 });
                 return {
                   completedRequest,
-                  completedGradValue,
-                  completedOrgValue,
+                  completedVerValue,
                 };
               };
 
