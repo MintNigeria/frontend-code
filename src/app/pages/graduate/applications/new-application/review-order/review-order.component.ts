@@ -32,7 +32,6 @@ export class ReviewOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    console.log(this.id)
     this.store.dispatch(getAllGraduateRequestDetailForGradaute({requestId: this.id}))
     this.actions$.pipe(ofType(getAllGraduateRequestDetailForGradauteSuccess)).subscribe((res: any) => {
       this.data = res.payload.payload

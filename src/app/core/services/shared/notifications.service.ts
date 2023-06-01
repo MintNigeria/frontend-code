@@ -26,7 +26,7 @@ export class NotificationsService {
     });
     setTimeout(() => {
       this.dismissMessage();
-    }, 4000);
+    }, 9000);
   }
 
   dismissMessage() {

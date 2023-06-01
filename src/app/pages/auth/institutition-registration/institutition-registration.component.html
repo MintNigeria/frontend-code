@@ -66,10 +66,10 @@
       <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
         <div class="w-full md:w-1/2 px-3  md:mb-0">
           <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Date of
-            Incoporation <span class="text-danger">*</span> </label>
+            Incorporation <span class="text-danger">*</span> </label>
           <app-input [formGrp]="institutionRegForm" formCtrlName="DateOfIncorporation" [type]="'date'" [class]="
                     'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " Issuer="Enter institution name" [name]="'Date of Incoporation'" [max]="currentYear" ></app-input>
+                  " Issuer="Enter date of Incorporation" [name]="'Date of Incoporation'" [max]="currentYear" ></app-input>
         </div>
         <div class="w-full md:w-1/2 px-3  md:mb-0">
           <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Registration
@@ -194,7 +194,7 @@
       </div>
       <div>
         <p class="font-medium mb-1 mt-2  text-sm text-failedNormal ">
-          Supporting Document <span class="text-danger">*</span>
+          Attach Supporting Document <span class="text-danger">*</span>
         </p>
         <p class="font-nunito font-normal text-xs text-failedNormal mb-[6px]">Document such as business registration,
           institution’s letter of approval</p>
@@ -202,13 +202,15 @@
           class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
           <div>
             <label for="file1">
-              <img src="assets/images/auth/upload.jpg" alt="uploadIcon"
+              <img src="assets/images/icons/upload_icon.svg" alt="uploadIcon"
                 class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
-              <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile}} </p>
-              <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
-                  class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF or
-                JPG
-                (max. 5mb) </p>
+              <p *ngIf="showDefault !== true " class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile}} </p>
+              <ng-container *ngIf="showDefault === true">
+                <p  class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
+                    class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF or
+                  JPG
+                  (max. 5mb) </p>
+              </ng-container>
             </label>
             <input (change)="handleFileUpload($event)" class="top-0 appearance-none left-0 right-0 opacity-0 bottom-0 absolute w-full h-full" type="file"
             id="file1" />
@@ -238,9 +240,9 @@
             information provided above is true and correct.</label>
         </div>
         <div class="flex items-center mb-4">
-          <input id="default-checkbox" type="checkbox" value="" formControlName="nspm"
+          <input id="default-checkbox33" type="checkbox" value="" formControlName="nspm"
             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-          <label for="default-checkbox"
+          <label for="default-checkbox33"
             class="ml-2 text-sm font-medium text-failedNormal dark:text-gray-300 font-inter">I agree to NSPM terms and
             conditions.</label>
         </div>

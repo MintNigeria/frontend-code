@@ -46,7 +46,7 @@ export class NewSearchTalentComponent implements OnInit {
   ngOnInit(): void {
     const data: any = localStorage.getItem('userData')
     this.userData = JSON.parse(data)
-    this.store.dispatch(getAllInstitutionsDropdown())
+    this.store.dispatch(getAllInstitutionsDropdown({payload: {institutionStatus:2}}))
     this.actions$.pipe(ofType(getAllInstitutionsDropdownSuccess)).subscribe((res: any) => {
       this.institutionList = res.payload;
     })

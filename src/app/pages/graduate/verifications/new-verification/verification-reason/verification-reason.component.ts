@@ -26,6 +26,7 @@ export class VerificationReasonComponent implements OnInit {
   userData: any;
   deviceModel: string;
   ipAddress: any;
+  showDefault: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -83,12 +84,16 @@ export class VerificationReasonComponent implements OnInit {
 
 		  return;
 		} else {
+      this.showDefault = true;
+
       this.selectedFile = e.target.files[0].name
       this.selectedFileList.push(file)
     }
   }
 
   deleteFile(index: number){
+    this.showDefault = true;
+
     this.selectedFileList.splice(index, 1);
   }
 

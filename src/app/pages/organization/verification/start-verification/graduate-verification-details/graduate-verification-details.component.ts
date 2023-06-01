@@ -48,7 +48,7 @@ export class GraduateVerificationDetailsComponent implements OnInit {
     this.actions$.pipe(ofType(getOrganizationWalletIdSuccess)).subscribe((res: any) => {
       this.balance = res.payload.balance;
     })
-    this.store.dispatch(getAllInstitutionsDropdown())
+    this.store.dispatch(getAllInstitutionsDropdown({payload : {institutionStatus:2}}))
     this.actions$.pipe(ofType(getAllInstitutionsDropdownSuccess)).subscribe((res: any) => {
       this.institutionList = res.payload;
     })
@@ -57,7 +57,6 @@ export class GraduateVerificationDetailsComponent implements OnInit {
     for (let index = 1990; index <= currentYear; ++index) {
       this.years.push(index)
       // this.years.reverse()
-
     }
 
 
@@ -155,6 +154,9 @@ export class GraduateVerificationDetailsComponent implements OnInit {
       if (res.payload.hasErrors === false && res.payload.payload.length !== 0) {
         sessionStorage.setItem('ver_Ys', JSON.stringify(res.payload.payload))
         this.router.navigateByUrl('/organization/verifications/graduate-details-search-result')
+      } else {
+
+        this.notification.publishMessages('warning', 'No record(s) found')
       }
     })
   }

@@ -93,21 +93,45 @@
               <p class="input_label label_asterisk my-1">Email Address</p>
               <app-input [formGrp]="emailForm" formCtrlName="email" [type]="'text'" [class]="
                   'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                " placeholder="Enter email Address" [name]="'urlAddress'"></app-input>
+                " placeholder="Enter email Address" [name]="'Email'"></app-input>
             </div>
            
             <div class="col-span-2">
               <p class="input_label label_asterisk my-1">Phone Number</p>
-              <app-input [formGrp]="emailForm" formCtrlName="phoneNo" [type]="'number'" [class]="
+              <!-- <app-input [formGrp]="emailForm" formCtrlName="phoneNo" [type]="'number'" [class]="
                   'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                " placeholder="Enter Phone Number" [name]="'fullName'"></app-input>
+                " placeholder="Enter Phone Number" [name]="'Phone number'"></app-input> -->
+                <div class="w-full mt-2">
+                  <ngx-intl-tel-input
+                  [cssClass]="'phone-number-field h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'"
+                  [enableAutoCountrySelect]="true"
+                  [enablePlaceholder]="true"
+                  [searchCountryFlag]="true"
+                  [selectFirstCountry]="false"
+                  [searchCountryField]="[
+                    SearchCountryField.Iso2,
+                    SearchCountryField.Name
+                  ]"
+                  [phoneValidation]="true"
+                  [selectedCountryISO]="CountryISO.Nigeria"
+                  [maxLength]="15"
+                  [phoneValidation]="true"
+                  [separateDialCode]="separateDialCode"
+                  [numberFormat]="PhoneNumberFormat.National"
+                  name="phoneNo"
+                  aria-autocomplete="phoneno"
+                  formControlName="phoneNo"
+                  type="tel"
+                              >
+                              </ngx-intl-tel-input>
+                              </div>
             </div>
             
             <div class="col-span-2">
               <p class="input_label label_asterisk my-1">Reason for request</p>
               <app-input [formGrp]="emailForm" formCtrlName="reasonForRequest" [type]="'name'" [class]="
                   'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                " placeholder="Enter reason for Request" [name]="'reasonForRequest'"></app-input>
+                " placeholder="Enter reason for Request" [name]="'Reason ForRequest'"></app-input>
             </div>
           </div>
         </ng-container>
@@ -117,32 +141,56 @@
               <p class="input_label label_asterisk my-1">URL</p>
               <app-input [formGrp]="fileUploadForm" formCtrlName="url" [type]="'text'" [class]="
                   'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                " placeholder="Enter URL Address" [name]="'urlAddress'"></app-input>
+                " placeholder="Enter URL Address" [name]="'URL Address'"></app-input>
             </div>
             <div>
               <p class="input_label label_asterisk my-1">Enter Login Username</p>
               <app-input [formGrp]="fileUploadForm" formCtrlName="loginUser" [type]="'text'" [class]="
                   'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                " placeholder="Enter Login Username" [name]="'fullName'"></app-input>
+                " placeholder="Enter Login Username" [name]="'Login Username'"></app-input>
             </div>
             <div>
               <p class="input_label label_asterisk my-1">Enter Login Password</p>
               <app-input [formGrp]="fileUploadForm" formCtrlName="loginPassword" [type]="'password'" [class]="
                   'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                " placeholder="Enter Login Password" [name]="'fullName'"></app-input>
+                " placeholder="Enter Login Password" [name]="'Login Password'"></app-input>
             </div>
             <div class="col-span-2">
               <p class="input_label label_asterisk my-1">Phone Number</p>
-              <app-input [formGrp]="fileUploadForm" formCtrlName="phoneNo" [type]="'number'" [class]="
+              <!-- <app-input [formGrp]="fileUploadForm" formCtrlName="phoneNo" [type]="'number'" [class]="
                   'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                " placeholder="Enter Phone Number" [name]="'fullName'"></app-input>
+                " placeholder="Enter Phone Number" [name]="'Phone Number'"></app-input> -->
+                <div class="w-full mt-2">
+                  <ngx-intl-tel-input
+                  [cssClass]="'phone-number-field h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'"
+                  [enableAutoCountrySelect]="true"
+                  [enablePlaceholder]="true"
+                  [searchCountryFlag]="true"
+                  [selectFirstCountry]="false"
+                  [searchCountryField]="[
+                    SearchCountryField.Iso2,
+                    SearchCountryField.Name
+                  ]"
+                  [phoneValidation]="true"
+                  [selectedCountryISO]="CountryISO.Nigeria"
+                  [maxLength]="15"
+                  [phoneValidation]="true"
+                  [separateDialCode]="separateDialCode"
+                  [numberFormat]="PhoneNumberFormat.National"
+                  name="phoneNo"
+                  aria-autocomplete="phoneno"
+                  formControlName="phoneNo"
+                  type="tel"
+                              >
+                              </ngx-intl-tel-input>
+                              </div>
             </div>
            
             <div class="col-span-2">
               <p class="input_label label_asterisk my-1">Reason for request</p>
               <app-input [formGrp]="fileUploadForm" formCtrlName="reasonForRequest" [type]="'name'" [class]="
                   'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                " placeholder="Enter reason for Request" [name]="'reasonForRequest'"></app-input>
+                " placeholder="Enter reason for Request" [name]="'Reason for request'"></app-input>
             </div>
           </div>
         </ng-container>
@@ -191,13 +239,37 @@
               <p class="input_label label_asterisk my-1">Postal/Zip Code</p>
               <app-input [formGrp]="hardCopyForm" formCtrlName="zipCode" [type]="'number'" [class]="
                   'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                " placeholder="Enter Phone Number" [name]="'fullName'"></app-input>
+                " placeholder="Enter Phone Number" [name]="'Zip code'"></app-input>
             </div>
             <div class="col-span-2">
               <p class="input_label label_asterisk my-1">Phone Number</p>
-              <app-input [formGrp]="hardCopyForm" formCtrlName="phoneNo" [type]="'number'" [class]="
+              <!-- <app-input [formGrp]="hardCopyForm" formCtrlName="phoneNo" [type]="'number'" [class]="
                   'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                " placeholder="Enter Phone Number" [name]="'fullName'"></app-input>
+                " placeholder="Enter Phone Number" [name]="'Phone Number'"></app-input> -->
+                <div class="w-full mt-2">
+                  <ngx-intl-tel-input
+                  [cssClass]="'phone-number-field h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'"
+                  [enableAutoCountrySelect]="true"
+                  [enablePlaceholder]="true"
+                  [searchCountryFlag]="true"
+                  [selectFirstCountry]="false"
+                  [searchCountryField]="[
+                    SearchCountryField.Iso2,
+                    SearchCountryField.Name
+                  ]"
+                  [phoneValidation]="true"
+                  [selectedCountryISO]="CountryISO.Nigeria"
+                  [maxLength]="15"
+                  [phoneValidation]="true"
+                  [separateDialCode]="separateDialCode"
+                  [numberFormat]="PhoneNumberFormat.National"
+                  name="phoneNo"
+                  aria-autocomplete="phoneno"
+                  formControlName="phoneNo"
+                  type="tel"
+                              >
+                              </ngx-intl-tel-input>
+                              </div>
             </div>
             <!-- <div class="text-sm cursor-pointer flex gap-2" (click)="showAdditionalNumber()">
               <img src="assets/images/graduates/add.svg" alt="">
@@ -220,11 +292,11 @@
             <div class="col-span-2">
               <p class="input_label label_asterisk my-1">Delivery Method</p>
               <ng-select class="custom-ng-dropdown" 
-              formControlName="deliveryMethod" 
+              (change)="getDispatchData($event)" 
               [selectOnTab]="true" 
               placeholder="Select method"
               >
-          <ng-option *ngFor="let type of newDispatchVM" [value]="type.fee">{{type.label}}</ng-option>
+          <ng-option *ngFor="let type of newDispatchVM" [value]="type">{{type.label}}</ng-option>
           </ng-select>
             </div>
           </div>
@@ -249,7 +321,7 @@
               class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
               <div>
                 <label for="file1">
-                  <img src="assets/images/auth/upload.jpg" alt="uploadIcon"
+                  <img src="assets/images/auth/upload.svg" alt="uploadIcon"
                     class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
                   <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile}} </p>
                   <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
@@ -271,7 +343,7 @@
               class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
               <div>
                 <label for="file2">
-                  <img src="assets/images/auth/upload.jpg" alt="uploadIcon"
+                  <img src="assets/images/auth/upload.svg" alt="uploadIcon"
                     class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
                   <p *ngIf="selectedFile2" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile2}} </p>
                   <p *ngIf="!selectedFile2" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
@@ -293,7 +365,7 @@
               class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
               <div>
                 <label for="file3">
-                  <img src="assets/images/auth/upload.jpg" alt="uploadIcon"
+                  <img src="assets/images/auth/upload.svg" alt="uploadIcon"
                     class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
                   <p *ngIf="selectedFile3" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile3}} </p>
                   <p *ngIf="!selectedFile3" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
@@ -315,7 +387,7 @@
               class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
               <div>
                 <label for="file4">
-                  <img src="assets/images/auth/upload.jpg" alt="uploadIcon"
+                  <img src="assets/images/auth/upload.svg" alt="uploadIcon"
                     class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
                   <p *ngIf="selectedFile4" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile4}} </p>
                   <p *ngIf="!selectedFile4" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
@@ -337,7 +409,7 @@
               class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
               <div>
                 <label for="file5">
-                  <img src="assets/images/auth/upload.jpg" alt="uploadIcon"
+                  <img src="assets/images/auth/upload.svg" alt="uploadIcon"
                     class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
                   <p *ngIf="selectedFile5" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile5}} </p>
                   <p *ngIf="!selectedFile5" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
@@ -359,7 +431,7 @@
               class="mt-2 relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
               <div>
                 <label for="file6">
-                  <img src="assets/images/auth/upload.jpg" alt="uploadIcon"
+                  <img src="assets/images/auth/upload.svg" alt="uploadIcon"
                     class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
                   <p *ngIf="selectedFile6" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile6}} </p>
                   <p *ngIf="!selectedFile6" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span

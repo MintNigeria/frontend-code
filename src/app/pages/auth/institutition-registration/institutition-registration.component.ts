@@ -45,6 +45,7 @@ filter: any = {
   institutionSectorList: any;
   sectorListData: any;
   currentYear!: string;
+  showDefault: boolean = true;
   constructor(
     private fb: FormBuilder,
     private appStore: Store<AppStateInterface>,
@@ -167,12 +168,14 @@ filter: any = {
 
 		  return;
 		} else {
+      this.showDefault = true;
       this.selectedFile = e.target.files[0].name
       this.selectedFileList.push(file)
     }
   }
 
   deleteFile(index: number){
+    this.showDefault = true;
     this.selectedFileList.splice(index, 1);
   }
 

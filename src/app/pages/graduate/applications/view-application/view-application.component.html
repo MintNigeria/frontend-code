@@ -23,7 +23,7 @@
 </div>
 
 <h4 class="font-medium font-poppins text-4xl text-[#101828] my-5 px-5 md:px-8">
-    Application ID: #{{requestDetail?.applicationNumber}}
+    Application ID: {{requestDetail?.applicationNumber}}
 </h4>
 
 <div class="px-5 md:px-8 mt-3">
@@ -41,7 +41,7 @@
             <div class="flex-1 bg-[#EAECF0] h-[1px]"></div>
         </div>
 
-        <p class="text-sm mt-2">Your application with an ID number <span class="text-[#0D47A1]">"#{{requestDetail?.applicationNumber}}"</span> is {{requestDetail?.status | lowercase}}.</p>
+        <p class="text-sm mt-2">Your application with an ID number <span class="text-[#0D47A1]">"{{requestDetail?.applicationNumber}}"</span> is {{requestDetail?.status | lowercase}}.</p>
     </div>
 </div>
 
@@ -111,7 +111,7 @@
                 </div>
                 <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
                     <h5 class="font-medium text-[#344054]">Phone Number</h5>
-                    <p class="font-medium text-[#667085]">{{requestDetail?.reasonForRequest}}</p>
+                    <p class="font-medium text-[#667085]">{{requestDetail?.phoneNumber}}</p>
                 </div>
                 <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
                     <h5 class="font-medium text-[#344054]">Reason for Request</h5>
@@ -119,7 +119,7 @@
                 </div>
                 <div class="py-4 grid gap-2 md:grid-cols-[auto_auto] justify-between">
                     <h5 class="font-medium text-[#344054]">Destination</h5>
-                    <p class="font-medium text-[#667085]">{{requestDetail?.email}}</p>
+                    <p class="font-medium text-[#667085]">{{requestDetail?.destination}}</p>
                 </div>
             </div>
 

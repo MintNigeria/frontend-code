@@ -9,7 +9,7 @@ import { GraduateVerificationDetailsSearchResultComponent } from './start-verifi
 import { GraduateVerificationPaymentComponent } from './start-verification/graduate-verification-payment/graduate-verification-payment.component';
 
 const routes: Routes = [
-  {path: '', component: VerificationComponent,},
+  {path: '', component: VerificationComponent},
 
   {path: 'verify-documents', component: StartVerificationComponent},
   {path: 'verify-graduate-details', component: GraduateVerificationDetailsComponent},

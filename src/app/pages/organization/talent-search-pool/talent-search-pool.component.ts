@@ -69,7 +69,7 @@ export class TalentSearchPoolComponent implements OnInit {
       this.total = res.payload.totalCount
       // this.balance = res.payload;
     })
-    this.store.dispatch(getAllInstitutionsDropdown())
+    this.store.dispatch(getAllInstitutionsDropdown({payload: {institutionStatus:2}}))
     this.actions$.pipe(ofType(getAllInstitutionsDropdownSuccess)).subscribe((res: any) => {
       this.institutionList = res.payload;
     })
