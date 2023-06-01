@@ -9,6 +9,7 @@ import { getAllProcessingFee, getAllProcessingFeeSuccess, getInstitutionConfigur
 import { createGraduateApplication, createGraduateApplicationSuccess, getActiveDeliveryOptions, getActiveDeliveryOptionsSuccess } from 'src/app/store/graduates/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { Country, State, City }  from 'country-state-city';
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-application-details',
@@ -16,6 +17,11 @@ import { Country, State, City }  from 'country-state-city';
   styleUrls: ['./application-details.component.scss']
 })
 export class ApplicationDetailsComponent implements OnInit {
+  SearchCountryField = SearchCountryField;
+	CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
+  separateDialCode = true;
+
   certificateOriginal: boolean = true;
   certificateTemplate: boolean = false;
   certifiedCopy: boolean = false;
@@ -119,9 +125,10 @@ selectedFileList: any = {
       state: ['', Validators.required],
       city: ['', Validators.required],
       zipCode: ['', Validators.required],
-      phoneNo: ['', [Validators.required, Validators.pattern(/^(\+?234|0)[789]\d{9}$/)]],
+      phoneNo: ['', Validators.required],
       reasonForRequest: [ '',  Validators.required  ],
-      deliveryMethod: [ '',  Validators.required  ],
+      dispatchAmount: [ '',  Validators.required  ],
+      dispatchMethod: [ '',  Validators.required  ],
 
     })
   }
@@ -130,7 +137,7 @@ selectedFileList: any = {
       url: ['', Validators.required],
       loginUser: ['', Validators.required],
       loginPassword: ['', Validators.required],
-      phoneNo: ['', [Validators.required, Validators.pattern(/^(\+?234|0)[789]\d{9}$/)]],
+      phoneNo: ['', Validators.required],
       reasonForRequest: [ '',  Validators.required  ],
       deliveryMethod: 0
     })
@@ -155,13 +162,7 @@ selectedFileList: any = {
       this.selectedDestination = res.payload.deliveryOption
       // console.log(this.selectedDestination)
     })
-    // this.certificateOriginal = true;
-    // this.certificateTemplate = false;
-    // this.certifiedCopy = false;
-    // this.transcript = false;
-    // this.hardCopyMethod = true;
-    // this.fileUploadMethod = false;
-    // this.emailUploadMethod = false;
+    
   }
   
   changeDestination(option: any) {
@@ -210,6 +211,13 @@ selectedFileList: any = {
   onCityChange(event: any): void {
     this.selectedCity = JSON.parse(event)
     this.hardCopyForm.controls['city'].setValue(this.selectedCity.name)
+
+  }
+
+  getDispatchData(event: any) {
+    console.log(event)
+    this.hardCopyForm.controls['dispatchMethod'].setValue(event.label)
+    this.hardCopyForm.controls['dispatchAmount'].setValue(event.fee)
 
   }
 
@@ -316,7 +324,7 @@ selectedFileList: any = {
         paymentDetailsVM: {...this.paymentDetailsVM, documentType: this.selectedDocumentType, documentId: this.selectedDocumentTypeId}
       }
       
-    } else {
+    } else if (this.selectedDestination === 3) {
       data = {
         hardCopyOptionVM: [this.hardCopyForm.value],
         supportingDocument: this.selectedFileList,
@@ -325,6 +333,9 @@ selectedFileList: any = {
       }
 
     }
+
+    console.log(data)
+
     this.store.dispatch(createGraduateApplication({payload: data}))
     this.actions$.pipe(ofType(createGraduateApplicationSuccess)).subscribe((res: any) => {
       // console.log(res)

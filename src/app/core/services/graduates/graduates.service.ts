@@ -542,7 +542,7 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
        
         body.append(
           'model.CreateApplicationVM[' + i + '].ReasonForRequest',
-          payload.hardCopyOptionVM[i].reason,
+          payload.hardCopyOptionVM[i].reasonForRequest,
         );
         body.append(
           'model.CreateApplicationVM[' + i + '].MatriculationNumber',
@@ -580,7 +580,7 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
         );
         body.append(
           'model.CreateApplicationVM[' + i + '].PaymentDetailsVM.DispatchAmount',
-          payload.hardCopyOptionVM[i].deliveryMethod,
+          payload.hardCopyOptionVM[i].dispatchAmount,
         );
         body.append(
           'model.CreateApplicationVM[' + i + '].InstitutionGraduateId',

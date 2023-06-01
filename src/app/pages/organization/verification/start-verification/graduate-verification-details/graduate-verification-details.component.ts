@@ -48,7 +48,7 @@ export class GraduateVerificationDetailsComponent implements OnInit {
     this.actions$.pipe(ofType(getOrganizationWalletIdSuccess)).subscribe((res: any) => {
       this.balance = res.payload.balance;
     })
-    this.store.dispatch(getAllInstitutionsDropdown())
+    this.store.dispatch(getAllInstitutionsDropdown({payload : {institutionStatus:2}}))
     this.actions$.pipe(ofType(getAllInstitutionsDropdownSuccess)).subscribe((res: any) => {
       this.institutionList = res.payload;
     })

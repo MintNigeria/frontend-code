@@ -109,9 +109,9 @@ export class InstitutionService
     );
   }
 
-  getAllInstitutionsDropdown() {
+  getAllInstitutionsDropdown(params?: any) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/DropDown`
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/DropDown`, {params}
     );
   }
 

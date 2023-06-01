@@ -1075,7 +1075,7 @@ export class InstitutionEffects {
           })
         );
         
-        return this.institutionService.getAllInstitutionsDropdown()
+        return this.institutionService.getAllInstitutionsDropdown(action.payload)
           .pipe(
             map((data) => {
               this.appStore.dispatch(

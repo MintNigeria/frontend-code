@@ -25,6 +25,7 @@ import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/r
 import { InstitutionEffects } from 'src/app/store/institution/effects';
 import { ConfigurationEffects } from 'src/app/store/configuration/effects';
 
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ConfigurationEffects } from 'src/app/store/configuration/effects';
     RequestEmptyStateComponent,
     NgSelectModule,
     NgxPaginationModule,
+    NgxIntlTelInputModule,
     StoreModule.forFeature('graduates', graduatesReducer),
     StoreModule.forFeature('organization', organizationReducer),
     EffectsModule.forFeature([GraduatesEffects, OrganizationEffects, InstitutionEffects, ConfigurationEffects]),

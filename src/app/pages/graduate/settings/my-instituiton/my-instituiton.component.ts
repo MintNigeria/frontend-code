@@ -243,7 +243,7 @@ export class MyInstituitonComponent implements OnInit {
         if (res.payload.hasErrors === false) {
           this.notification.publishMessages('success', res.payload.description)
           this.isNewInstitution = false
-          document.getElementById('confirmChanges')?.click();
+          // document.getElementById('confirmChanges')?.click();
           this.newInstitution.reset()
           this.store.dispatch(getGraduateInstitutions({id: this.graduateId}))
         }
@@ -255,7 +255,6 @@ export class MyInstituitonComponent implements OnInit {
   updatedInstitutionList() {
     // use edit here
     const {name, body, type, sector, faculty, department, yearOfEntry, yearOfGraduation} = this.newInstitution.value;
-    console.log(this.newInstitution.value)
     const payload = {
       id: this.selectedInstitutionId,
       isRemoved: false,
@@ -267,7 +266,6 @@ export class MyInstituitonComponent implements OnInit {
     }
     // console.log(payload, this.upd)
     const data = [payload, ...this.newUpdatedList]
-    console.log(data)
     this.store.dispatch(updateGraduateInstitutions({payload: data, id: this.graduateId}))
     this.actions$.pipe(ofType(updateGraduateInstitutionsSuccess)).subscribe((res: any) => {
       // console.log(res)

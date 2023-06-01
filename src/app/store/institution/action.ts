@@ -82,6 +82,7 @@ export const getInstitutionSectorSuccess = createAction(
 
 export const getAllInstitutionsDropdown = createAction(
   '[institutions] get all institution name dropdown',
+  props<{ payload: any }>()
 );
 export const getAllInstitutionsDropdownSuccess = createAction(
   '[institutions] get all institution name dropdown success',
