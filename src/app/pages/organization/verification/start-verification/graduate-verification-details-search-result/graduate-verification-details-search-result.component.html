@@ -56,14 +56,14 @@
               <div>
                 <p class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]">
                   {{ res.graduationYear }}
-                </p>
+              </p>
               </div>
             </td>
            
   
             <td class="bg-white">
               <div class="flex gap-2 items-center" >
-                <input type="radio" name="radio-1" class="radio" (change)="viewDetails(res)" />
+                <input type="radio" name="radio-1" class="radio radio-info checked:bg-blue-500" (change)="viewDetails(res)" />
               </div>
             </td>
           </tr>
@@ -84,8 +84,8 @@
                     <div class="grid gap-5">
                        
                         <div>
-                            <p class="input_label label_asterisk my-1">Faculty <span class="text-danger">*</span></p>
-                            <ng-select class="custom-ng-dropdown" 
+                            <p class="input_label label_asterisk my-1">Reason for Request <span class="text-danger">*</span></p>
+                            <ng-select class="custom-ng-dropdown !h-[52px]" 
                             formControlName="selectedReason"
               [selectOnTab]="true" 
               placeholder="Select reason"

@@ -94,7 +94,7 @@
               [ngClass]="showType? 'hidden' : 'block'" class="dropdown-content menu p-2 shadow bg-white rounded-box w-56 text-black">
                 <li><a (click)="selectedType='All'">All</a></li>
                 <li><a (click)="changeType('subscription payment plan')">Subscription payment plan</a></li>
-                <li><a (click)="changeType('payment for verification')">Payment for verification</a></li>
+                <li><a (click)="changeType('certificate verification')">Certificate verification</a></li>
                 <li><a (click)="changeType('talent search pool')">talent search pool</a></li>
               </ul>
             </div>
@@ -163,23 +163,7 @@
         ></app-search>
                 </div>
 
-                <!-- <div class="flex md:items-center gap-4 ">
-                    <div>
-                        <div class="lg:justify-between gap-4">
-                            <div class="dropdown dropdown-end">
-                                <label tabindex="0" class="flex justify-between bg-[#F5F9FF] rounded-[10px] items-center  border border-none min-w-[101px] py-[8px] px-4 text-sm cursor-pointer">
-                                <p class="my-0 text-[#0D47A1] font-inter font-medium text-sm">Export</p>
-                                <img src="assets/images/icons/downward_arrow_blue.svg" alt="" class="">
-                                </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
-                                    <li (click)="download('CSV')"><a>Export as CSV</a></li>
-                                    <li (click)="download('Excel')"><a >Export as Excel</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
+              
 
             </div>
         </form>
@@ -236,7 +220,7 @@
 
                 <td class="bg-white">
                   <div>
-                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.description || 'N/A'}}
+                    <p class=" table-wrapper my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.description || 'N/A'}}
                     </p>
 
                   </div>

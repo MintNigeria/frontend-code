@@ -18,10 +18,10 @@
                                     class="mx-auto flex justify-center items-center" /> &nbsp; &nbsp;
                                   <p *ngIf="selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400"> {{selectedFile}} </p>
                                   <p *ngIf="!selectedFile" class="b-2 text-sm text-gray-500 dark:text-gray-400 text-center"> <span
-                                      class="font-medium font-inter text-primaryBlue">Click to Upload</span> or drag and drop <br> PDF or JPG
+                                      class="font-medium font-inter text-primaryBlue">Click to Upload</span> JPG
                                     (max. 5mb) </p>
                                 </label>
-                                <input (change)="handleFileUpload($event)" class="hidden  file:absolute file:w-full file:h-full" type="file"
+                                <input (change)="handleFileUpload($event)" [accept]="allowedFiled" class="hidden  file:absolute file:w-full file:h-full" type="file"
                                   id="file1" />
                             </div>
                         </div>

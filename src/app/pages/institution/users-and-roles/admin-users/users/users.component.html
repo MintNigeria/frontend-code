@@ -19,7 +19,7 @@
                     <app-input
                         [formGrp]="userForm"
                         formCtrlName="fullName"
-                        [name]="'Name Name'"
+                        [name]="'Name'"
                         [Issuer]="'Enter Name'"
                         [type]="'text'"
                         [class]="' bg-white w-full h-[52px] mt-2 border border-[#D0D5DD] rounded-md placeholder:text-sm placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
@@ -121,8 +121,8 @@
                         <div class="grid grid-cols-3 items-center mt-6">
                             <p class="font-inter font-medium text-sm text-darkGray">Disable User</p>
                             <div class="cursor-pointer flex gap-3">
-                                <input type="checkbox" class="toggle toggle-primary" formControlName="isEnabled" checked />
-                                <p class="font-inter font-meduim text-base text-darkGray">Enabled</p>
+                                <input type="checkbox" (change)="enableDisableUser($event)" class="toggle toggle-primary" formControlName="isEnabled" checked />
+                                <p class="font-inter font-meduim text-base text-darkGray">{{enableToggleButton}}</p>
                             </div>
                         </div>
                     </div>
@@ -135,10 +135,10 @@
                     [customClass]="'w-20 h-10 rounded-lg font-normal border border-buttonBlue text-buttonBlue leading-6 bg-none p-2 mt-6'">Cancel
                 </app-button>
                 <app-button
-                *ngIf="permissionList?.includes('USER_UPDATE') || superAdminRole === 'Super Admin' || superAdminRole === 'undefined'"
+                    *ngIf="permissionList?.includes('USER_UPDATE') || superAdminRole === 'Super Admin' || superAdminRole === 'undefined'"
                     (buttonClick)="updateUserData()"
                     [overRideButtonClass]="true"
-                    [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'">Update user
+                    [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-primaryBlue  p-2 mt-6'">Update user
                 </app-button>
             </div>
         </div>

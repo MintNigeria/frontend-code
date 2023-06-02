@@ -20,25 +20,6 @@ export class ViewMoreGraduateComponent implements OnInit {
   confirmationModal = "confirmationModal";
   changesConfirmed = "changesConfirmed";
 
-  data = {
-    fullName: 'Adekunle Ciroma',
-    institution: 'University of Lagos',
-    faculty: 'Social Science',
-    department: 'Sociology',
-    degree: 'Bsc',
-    matNumber: '12344',
-    yearOfEntry: '2019',
-    yearOfgrad: '2023',
-    gender: "male",
-    docType: 'Certificate(Original)',
-    deliveryOption: 'Email',
-    number: '080912002',
-    reasonForRequest: 'Educational Purpose',
-    destination: 'Lagos',
-    payment: 'Sucess',
-
-
-  }
 
 
  requestId: any;

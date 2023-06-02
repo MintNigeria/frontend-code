@@ -64,14 +64,14 @@
                     <div class="grid gap-5">
                         <div>
                             <p class="input_label label_asterisk my-1">Institution Name <span class="text-danger">*</span></p>
-                            <ng-select class="custom-ng-dropdown" (change)="selectInstitutionName($event)"
+                            <ng-select class="custom-ng-dropdown h-[52px]" (change)="selectInstitutionName($event)"
                                 formControlName="institutionName" [selectOnTab]="true" placeholder="All">
                                 <ng-option *ngFor="let unit of institutionList" [value]="unit">{{unit?.institutionName}}</ng-option>
                               </ng-select>
                         </div>
                         <div>
                             <p class="input_label label_asterisk my-1">Faculty <span class="text-danger">*</span></p>
-                            <ng-select class="custom-ng-dropdown"
+                            <ng-select class="custom-ng-dropdown h-[52px]"
                             formControlName="faculty"
                             [selectOnTab]="true"
                             placeholder="Select Faculty"
@@ -83,7 +83,7 @@
                         </div>
                         <div>
                             <p class="input_label label_asterisk my-1">Department <span class="text-danger">*</span></p>
-                            <ng-select class="custom-ng-dropdown"
+                            <ng-select class="custom-ng-dropdown h-[52px]"
                                   formControlName="department"
                                   [selectOnTab]="true"
                                   placeholder="Select Department"
@@ -130,7 +130,7 @@
                       </div>
                         <div>
                             <p class="input_label my-1">Gender <span class="text-danger">*</span></p>
-                            <ng-select class="custom-ng-dropdown" (change)="changeGender($event)" formControlName="gender"
+                            <ng-select class="custom-ng-dropdown !h-[52px]" (change)="changeGender($event)" formControlName="gender"
                                 [selectOnTab]="true" placeholder="Select Gender">
                                 <ng-option [value]="1">Male</ng-option>
                                 <ng-option [value]="2">Female</ng-option>
@@ -145,7 +145,7 @@
                         </div>
                         <div>
                             <p class="input_label label_asterisk my-1">Degree Type <span class="text-danger">*</span></p>
-                            <ng-select class="custom-ng-dropdown" (change)="changeGender($event)"
+                            <ng-select class="custom-ng-dropdown !h-[52px]" (change)="changeGender($event)"
                                 formControlName="degreeType" [selectOnTab]="true" placeholder="Select degree Type">
                                 <ng-option *ngFor="let unit of degreeType" [value]="unit.name">{{unit.name}}</ng-option>
     
@@ -153,7 +153,7 @@
                         </div>
                         <div>
                             <p class="input_label label_asterisk my-1">Grade </p>
-                            <ng-select class="custom-ng-dropdown" (change)="changeGender($event)"
+                            <ng-select class="custom-ng-dropdown !h-[52px] " (change)="changeGender($event)"
                                 formControlName="grade" [selectOnTab]="true" placeholder="Select degree Type">
                                 <ng-option *ngFor="let unit of degreeTypeList" [value]="unit.name">{{unit.name}}</ng-option>
     
@@ -161,7 +161,7 @@
                         </div>
                         <div>
                             <p class="input_label label_asterisk my-1">Year of Entry </p>
-                            <ng-select class="custom-ng-dropdown"
+                            <ng-select class="custom-ng-dropdown !h-[52px]"
                             formControlName="yearOfEntry"
                             [selectOnTab]="true"
                             placeholder="Select year of entry"
@@ -172,7 +172,7 @@
                         </div>
                         <div>
                             <p class="input_label label_asterisk my-1">Year of Graduation <span class="text-danger">*</span></p>
-                            <ng-select class="custom-ng-dropdown"
+                            <ng-select class="custom-ng-dropdown !h-[52px]"
                             formControlName="yearOfGraduation"
                             [selectOnTab]="true"
                             placeholder="Select year of graduation"
