@@ -24,7 +24,7 @@ export class MyProfileComponent implements OnInit {
   cities: any;
   profileForm!: FormGroup
   selectedFile!: null
-  allowedFiled = ["image/png", "image/jpeg", "application/pdf"];
+  allowedFiled = ["image/png", "image/jpeg"];
 
   confirmChanges = 'confirmChanges';
   changesConfirmed = 'changesConfirmed';

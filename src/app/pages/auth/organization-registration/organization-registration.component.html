@@ -251,7 +251,7 @@
                       (max. 5mb) </p>
                   </ng-container>
               </label>
-              <input (change)="handleFileUpload($event)" class="top-0 appearance-none left-0 right-0 opacity-0 bottom-0 absolute w-full h-full" type="file"
+              <input (change)="handleFileUpload($event)" [accept]="allowedFiled" class="top-0 appearance-none left-0 right-0 opacity-0 bottom-0 absolute w-full h-full" type="file"
               id="file1" />
 
             </div>

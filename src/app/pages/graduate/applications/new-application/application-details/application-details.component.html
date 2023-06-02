@@ -330,7 +330,7 @@
                     JPG
                     (max. 5mb) </p>
                 </label>
-                <input (change)="handleFileUpload($event, 1)" class="hidden  file:absolute file:w-full file:h-full"
+                <input (change)="handleFileUpload($event, 1)" [accept]="allowedFiled" class="hidden  file:absolute file:w-full file:h-full"
                   type="file" id="file1" />
               </div>
             </div>
@@ -352,7 +352,7 @@
                     JPG
                     (max. 5mb) </p>
                 </label>
-                <input (change)="handleFileUpload($event, 2)" class="hidden  file:absolute file:w-full file:h-full"
+                <input (change)="handleFileUpload($event, 2)" [accept]="allowedFiled" class="hidden  file:absolute file:w-full file:h-full"
                   type="file" id="file2" />
               </div>
             </div>
@@ -374,7 +374,7 @@
                     JPG
                     (max. 5mb) </p>
                 </label>
-                <input (change)="handleFileUpload($event, 3)" class="hidden  file:absolute file:w-full file:h-full"
+                <input (change)="handleFileUpload($event, 3)"  [accept]="allowedFiled"  class="hidden  file:absolute file:w-full file:h-full"
                   type="file" id="file3" />
               </div>
             </div>
@@ -396,7 +396,7 @@
                     JPG
                     (max. 5mb) </p>
                 </label>
-                <input (change)="handleFileUpload($event, 4)" class="hidden  file:absolute file:w-full file:h-full"
+                <input (change)="handleFileUpload($event, 4)" [accept]="allowedFiled" class="hidden  file:absolute file:w-full file:h-full"
                   type="file" id="file4" />
               </div>
             </div>
@@ -418,7 +418,7 @@
                     JPG
                     (max. 5mb) </p>
                 </label>
-                <input (change)="handleFileUpload($event, 5)" class="hidden  file:absolute file:w-full file:h-full"
+                <input (change)="handleFileUpload($event, 5)" [accept]="allowedFiled" class="hidden  file:absolute file:w-full file:h-full"
                   type="file" id="file5" />
               </div>
             </div>
@@ -440,7 +440,7 @@
                     JPG
                     (max. 5mb) </p>
                 </label>
-                <input (change)="handleFileUpload($event, 6)" class="hidden  file:absolute file:w-full file:h-full"
+                <input (change)="handleFileUpload($event, 6)"  [accept]="allowedFiled" class="hidden  file:absolute file:w-full file:h-full"
                   type="file" id="file6" />
               </div>
             </div>

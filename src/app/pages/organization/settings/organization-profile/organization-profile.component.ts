@@ -24,7 +24,7 @@ export class OrganizationProfileComponent implements OnInit {
 
  profileForm!: FormGroup
   selectedFile!: null
-  allowedFiled = ["image/png", "image/jpeg", "application/pdf"];
+  allowedFiled = ["image/png", "image/jpeg", ];
 
   confirmChanges = 'confirmChanges';
   changesConfirmed = 'changesConfirmed';
@@ -129,8 +129,13 @@ export class OrganizationProfileComponent implements OnInit {
 
 		  return;
 		} else {
-      this.selectedFile = e.target.files[0].name
-      this.profileForm.controls['file'].setValue(file)
+      if (file.size <= 5 * 1024 * 1024) { // 5MB in bytes
+        this.selectedFile = e.target.files[0].name
+        this.profileForm.controls['file'].setValue(file)
+      } else {
+        // Throw an error if the file size exceeds 5MB
+        this.notification.publishMessages('danger', 'Total size of uploaded files exceeds the maximum allowed size of 5MB.')
+      }
 
     }
   }

@@ -20,7 +20,7 @@ export class MyProfileComponent implements OnInit {
 
   profileForm!: FormGroup
   selectedFile!: null
-  allowedFiled = ["image/png", "image/jpeg", "application/pdf"];
+  allowedFiled = ["image/png", "image/jpeg"];
 
   confirmChanges = 'confirmChanges';
   changesConfirmed = 'changesConfirmed';
@@ -154,7 +154,6 @@ export class MyProfileComponent implements OnInit {
   }
 
   selectLocalGovt(data: any) {
-    console.log(data)
     this.stateLGA$.subscribe((x) => {
       const record = x.find((value: any) => value.id == Number(data.id));
       this.profileForm.controls['state'].setValue(data.id)

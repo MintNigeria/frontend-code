@@ -21,7 +21,7 @@
                                       class="font-medium font-inter text-primaryBlue">Click to Upload</span>
                                     (max. 5mb) </p>
                                 </label>
-                                <input (change)="handleFileUpload($event)" class="hidden  file:absolute file:w-full file:h-full" type="file"
+                                <input (change)="handleFileUpload($event)" [accept]="allowedFiled" class="hidden  file:absolute file:w-full file:h-full" type="file"
                                   id="file1" />
                             </div>
                         </div>
