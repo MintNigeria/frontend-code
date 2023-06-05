@@ -12,6 +12,7 @@ export class SearchListComponent implements OnInit {
   consentForm!: FormGroup
   recordList: any
   data : any
+  activateButton: boolean = false;
   constructor(
     private router : Router,
     private fb: FormBuilder
@@ -19,7 +20,7 @@ export class SearchListComponent implements OnInit {
 
   ngOnInit(): void {
     this.consentForm = this.fb.group({
-      consent: ['', Validators.required]
+      consent: [false, Validators.required]
     })
         const record: any = sessionStorage.getItem('ver_Ys')
     this.recordList = JSON.parse(record)
@@ -40,6 +41,16 @@ export class SearchListComponent implements OnInit {
   openEdit() {
     this.router.navigateByUrl('/graduate/my-applications/new/app-details')
     document.getElementById('editModal')?.click();
+  }
+
+  approveConsent(event: any) {
+    console.log(event.checked) 
+    if (event.checked === true) {
+      this.activateButton = true
+    } else {
+      this.activateButton = false
+
+    }
   }
 
   proceed() {

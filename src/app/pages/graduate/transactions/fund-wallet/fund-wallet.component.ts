@@ -11,7 +11,7 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import { environment } from 'src/environments/environment';
 declare var PaystackPop: any;
 import * as numeral from 'numeral';
-
+import { PaystackOptions } from 'angular4-paystack';
 @Component({
   selector: 'app-fund-wallet',
   templateUrl: './fund-wallet.component.html',
@@ -27,8 +27,10 @@ export class FundWalletComponent implements OnInit {
   isTransactionSuccessful: any;
   transactionId: any;
   walletValue!: string;
-  initialFee: any;
-
+  initialFee: number = 0;
+  title!: string;
+  reference = `ref-${Math.ceil(Math.random() * 10e13)}`;
+  options!: PaystackOptions;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -68,9 +70,13 @@ export class FundWalletComponent implements OnInit {
     })
 
     this.walletForm.valueChanges.subscribe((res: any) => {
-      this.initialFee = res
+      this.initialFee = res.amount
       this.walletValue = numeral(res.amount).format('00,')
     })
+
+    
+ 
+
   }
 
   
@@ -92,7 +98,15 @@ export class FundWalletComponent implements OnInit {
     this.actions$.pipe(ofType(fundGraduateWalletSuccess)).subscribe((res: any) => {
       if (res.payload.hasErrors === false) {
         this.transactionId = res.payload.payload?.transactionId
+        // document.getElementById('paystack')?.click()
         this.lauchPaystack()
+        // this.paymentInit()
+        // console.log(this.initialFee, this.userData.email)
+        // this.options = {
+        //   amount: this.initialFee * 100,
+        //   email: this.userData.email,
+        //   ref: `${Math.ceil(Math.random() * 10e10)}`
+        // }
       }
     })
   }
@@ -143,6 +157,21 @@ export class FundWalletComponent implements OnInit {
       this.notification.publishMessages('success', 'successful')
       this.router.navigateByUrl('/graduate/transactions')
     })
+  }
+
+  paymentInit() {
+    console.log('Payment initialized');
+  }
+
+  paymentDone(ref: any) {
+    this.title = 'Payment successfull';
+    console.log(this.title, ref);
+    this.validatePayment(ref)
+
+  }
+
+  paymentCancel() {
+    console.log('payment failed');
   }
 
 

@@ -47,7 +47,7 @@
         
         <div class="relative" [formGroup]="walletForm">
           <p class="absolute text-black inset-y-0 left-0 flex items-center pl-3 pr-10 pointer-events-none">₦</p>
-          <app-input [formGrp]="walletForm" formCtrlName="amount" [type]="'text'" [class]="
+          <app-input [formGrp]="walletForm" formCtrlName="amount" [type]="'number'" [class]="
           ' h-[52px] text-black px-10 w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
         " placeholder="Enter amount" [name]="'Amount'" [value]="walletValue"></app-input>   
         <!-- input     -->
@@ -61,11 +61,22 @@
     customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
     >Cancel</app-button>
 
-    <app-button
-    [overRideButtonClass]="true"
+    <button
     [disabled]="walletForm.invalid"
-    customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
-    (buttonClick)="proceedToPayment()"
-    >Proceed to Payment</app-button>
+    class="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+    (click)="proceedToPayment()"
+    >Proceed to Payment</button>
+
+    <!-- <button id="paystack"
+    class="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+    [disabled]="walletForm.invalid"
+    angular4-paystack
+    [paystackOptions]="options"
+    (paymentInit)="paymentInit()"
+    (onClose)="paymentCancel()"
+    (callback)="paymentDone($event)"
+  >
+  Proceed to Payment
+  </button> -->
 </div>
 </div>
