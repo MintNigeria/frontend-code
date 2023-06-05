@@ -11,7 +11,6 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import { environment } from 'src/environments/environment';
 declare var PaystackPop: any;
 import * as numeral from 'numeral';
-import { PaystackOptions } from 'angular4-paystack';
 @Component({
   selector: 'app-fund-wallet',
   templateUrl: './fund-wallet.component.html',
@@ -30,7 +29,6 @@ export class FundWalletComponent implements OnInit {
   initialFee: number = 0;
   title!: string;
   reference = `ref-${Math.ceil(Math.random() * 10e13)}`;
-  options!: PaystackOptions;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -92,7 +90,7 @@ export class FundWalletComponent implements OnInit {
       graduateId: Number(this.userData.GraduateId),
       walletId: this.walletData.id,
       amount: numeral(amount).value(),
-      refrenceNumber: '16801776659763433434343434'
+      refrenceNumber: this.reference
     }
     this.store.dispatch(fundGraduateWallet({payload}))
     this.actions$.pipe(ofType(fundGraduateWalletSuccess)).subscribe((res: any) => {
@@ -112,15 +110,15 @@ export class FundWalletComponent implements OnInit {
   }
 
   lauchPaystack() {
-    console.log('launched')
+    // console.log('launched')
     const paystack = new PaystackPop();
     paystack.newTransaction({
       key: this.pk, // Replace with your public key
       reference: new Date().getTime().toString(),
       email: this.userData?.email,
       amount:  this.initialFee * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
-      onCancel: () => {
-        this.onClose();
+      onCancel: (transaction: any) => {
+        this.onClose(transaction);
       },
       onSuccess: (transaction: any) => {
         this.onSuccess(transaction);
@@ -134,8 +132,25 @@ export class FundWalletComponent implements OnInit {
     this.isTransactionSuccessful = trx.status
     this.validatePayment(trx)
   }
-  onClose() {
-    ////console.log('trx')
+  onClose(trx: any) {
+    const payload = {
+      transactionId: Number(this.transactionId),
+      makePaymentType: 2,
+      refrenceNumber: 'N/A',
+      merchantType: 'PAYSTACK',
+      isPaymentSuccessful:  false,
+      imei: '',
+      serialNumber: '',
+      device: this.deviceModel,
+      ipAddress: this.ipAddress
+  
+    }
+    this.store.dispatch(validateOrganizationFundWallet({payload}))
+    this.actions$.pipe(ofType(validateOrganizationFundWalletSuccess)).subscribe((res: any) => {
+      // console.log(res)
+      this.notification.publishMessages('warning', 'Payment cancelled')
+      this.router.navigateByUrl('/graduate/transactions')
+    })
   }
 
   validatePayment(data: any) {
