@@ -26,6 +26,7 @@ pk: string = environment.pkKey
   ipAddress: any;
   isTransactionSuccessful: any;
   referenceNumber: any;
+  failedTransactionId: any;
   constructor(
     private appStore: Store<AppStateInterface>,
     private store: Store,
@@ -70,7 +71,6 @@ pk: string = environment.pkKey
     this.selectedPlanData = plan
     this.store.dispatch(getOrganizationWalletId({id: this.userData.OrganizationId}))
     this.actions$.pipe(ofType(getOrganizationWalletIdSuccess)).subscribe((res: any) => {
-      ////console.log(res)
       this.walletId = res.payload.id;
     })
     // launch paystack thing here
@@ -104,13 +104,33 @@ pk: string = environment.pkKey
     ////console.log(payload)
     this.store.dispatch(fundOrganizationWallet({payload}))
     this.actions$.pipe(ofType(fundOrganizationWalletSuccess)).subscribe((res: any) => {
-      ////console.log('res, res', res)
       // const id = res.payload.payload.
+      this.failedTransactionId = res?.payload?.payload?.transactionId
+      console.log('res, res', res,  this.failedTransactionId)
       this.validatePayment(res)
     })
   }
   onClose() {
-    ////console.log('trx')
+    const payload = {
+      transactionId: this.failedTransactionId,
+      makePaymentType: 3,
+      refrenceNumber: 'N/A',
+      merchantType: 'PAYSTACK',
+      isPaymentSuccessful: false,
+      imei: '',
+      serialNumber: '',
+      device: this.deviceModel,
+      ipAddress: this.ipAddress
+  
+    }
+    this.store.dispatch(validateOrganizationFundWallet({payload}))
+    this.actions$.pipe(ofType(validateOrganizationFundWalletSuccess)).subscribe((res: any) => {
+      ////console.log(res)
+      this.notification.publishMessages('warning', 'Payment cancelled')
+      this.router.navigateByUrl('/organization/transactions')
+     
+
+    })
   }
 
   validatePayment(data: any) {

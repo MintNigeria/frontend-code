@@ -66,14 +66,14 @@ export class VerificationFeeComponent implements OnInit {
         return {
           name: x.name,
           id: x.id,
-          fee: numeral(x.fee).format('00,'),
+          inActiveFee: numeral(x.inActiveFee).format('00,'),
         }
       })
       // this.processingFees = res.payload
       this.updatedData = this.vericationList?.map((x: any) => {
         return {
           id: x.id,
-          amount: numeral(x.fee).format('00,'),
+          amount: numeral(x.inActiveFee).format('00,'),
           imei: '',
       serialNumber: '',
       device: this.deviceModel,
@@ -92,7 +92,7 @@ export class VerificationFeeComponent implements OnInit {
 
   addCommas(data: any, input: any, parent: number) {
     let newData2 = this.vericationList[parent]
-    newData2  = {...newData2, fee: numeral(input.value).format('00,')}
+    newData2  = {...newData2, inActiveFee: numeral(input.value).format('00,')}
     this.vericationList[parent] = newData2
   }
 

@@ -284,7 +284,28 @@ onSuccess(trx: any) {
     this.validatePayment(trx)
 }
 onClose() {
-  ////console.log('trx')
+  const payload = {
+    transactionId: Number(this.trxData.transactionId),
+    makePaymentType: 1,
+    refrenceNumber: 'N/A',
+    merchantType: 'PAYSTACK',
+    isPaymentSuccessful: false,
+    imei: '',
+    serialNumber: '',
+    device: this.deviceModel,
+    ipAddress: this.ipAddress
+
+  }
+  this.store.dispatch(validateOrganizationFundWallet({payload}))
+  this.actions$.pipe(ofType(validateOrganizationFundWalletSuccess)).subscribe((res: any) => {
+    ////console.log(res)
+    if (res) {
+      this.notification.publishMessages('warning', 'Payment cancelled')
+      this.router.navigate(['/graduate/my-applications']);      
+
+    }
+
+  })
 }
 
 validatePayment(data: any) {

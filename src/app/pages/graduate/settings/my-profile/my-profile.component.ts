@@ -42,7 +42,8 @@ export class MyProfileComponent implements OnInit {
   state: any;
   city: any;
   countryCode: any;
-  
+  currentYear!: string;
+
 
   constructor(
     private fb: FormBuilder,
@@ -70,6 +71,8 @@ export class MyProfileComponent implements OnInit {
    }
 
   ngOnInit(): void {
+        this.currentYear = new Date().toISOString().slice(0, 10);
+
     this.initProfileForm()
     const data: any = localStorage.getItem('userData')
     this.institutionData = JSON.parse(data)
@@ -211,9 +214,9 @@ export class MyProfileComponent implements OnInit {
     }
     this.store.dispatch(updateGraduateProfile({payload}))
     this.actions$.pipe(ofType(updateGraduateProfileSuccess)).subscribe((res: any) => {
-      console.log(res)
       document.getElementById('confirmChanges')?.click();
       this.notification.publishMessages('success', res.payload.payload)
+      this.store.dispatch(getGraduateProfile({id: this.institutionId}))
 
     })
   }
