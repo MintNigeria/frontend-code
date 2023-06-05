@@ -63,11 +63,11 @@ export class NewSearchTalentComponent implements OnInit {
       InstitutionName : ['', Validators.required],
       Faculty  : ['', Validators.required],
       Department   : ['', Validators.required],
-      Degree: ['', Validators.required],
-      Grade : ['', Validators.required],
+      Degree: [null, Validators.required],
+      Grade : [null, Validators.required],
       Gender : ['', Validators.required],
-      FromYearOfGraduation : ['', Validators.required],
-      ToYearOfGraduation : ['', Validators.required],
+      FromYearOfGraduation : [null, Validators.required],
+      ToYearOfGraduation : [null, Validators.required],
       YearOfGraduation : [''],
     })
   }

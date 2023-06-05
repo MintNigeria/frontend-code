@@ -83,7 +83,7 @@
                     <div class="flex md:flex-row flex-col gap-12 mb-9">
                         <div class="md:w-1/3">
                             <label class=" font-inter font-medium text-sm text-failedNormal" for="inline-full-name">
-                                Reason for Request
+                                Reason for Request <span class="text-red-700">*</span>
                             </label>
                             <p class="font-nunito font-normal text-sm text-lightGray">Please select a reason for requesting verification.</p>
                         </div>
@@ -91,7 +91,7 @@
                             <label class="flex font-inter font-medium text-sm text-failedNormal" for="inline-full-name">
                                 Reason for Request
                             </label>
-                            <ng-select class="custom-ng-dropdown h-[52px]" 
+                            <ng-select class="custom-ng-dropdown !h-[52px]" 
               formControlName="reasonForRequest" 
               [selectOnTab]="true" 
               placeholder="Select reason"

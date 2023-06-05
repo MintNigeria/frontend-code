@@ -86,7 +86,7 @@ export class StartVerificationComponent implements OnInit {
   initReferenceForm() {
     this.referenceForm = this.fb.group({
     refNumber: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]{13}$/)]],
-    reasonForRequest: ['', Validators.required],
+    reasonForRequest: [null, Validators.required],
   });
   }
 

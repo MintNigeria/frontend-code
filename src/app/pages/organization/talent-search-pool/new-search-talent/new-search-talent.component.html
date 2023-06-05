@@ -31,11 +31,11 @@
                 <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
                     <div class="w-full md:w-1/4">
                         <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                            Institution
+                            Institution <span class="text-red-700">*</span>
                         </label>
                     </div>
                     <div class="w-full md:w-2/3">
-                        <ng-select class="custom-ng-dropdown" 
+                        <ng-select class="ng-select-filter" 
                         [selectOnTab]="true" 
                         placeholder="Select Institution"
                         (change)="getInstitutionFaculty($event)"
@@ -49,11 +49,11 @@
                 <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
                     <div class="w-full md:w-1/4">
                         <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                            Faculty
+                            Faculty <span class="text-red-700">*</span>
                         </label>
                     </div>
                     <div class="w-full md:w-2/3"> 
-                         <ng-select class="custom-ng-dropdown" 
+                         <ng-select class="ng-select-filter" 
               [selectOnTab]="true" 
               placeholder="Select faculty"
               (change)="getDepartmentInFaculty($event)"
@@ -67,11 +67,11 @@
                 <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
                     <div class="w-full md:w-1/4">
                         <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                            Department
+                            Department <span class="text-red-700">*</span>
                         </label>
                     </div>
-                    <div class="w-full md:w-2/3">
-                        <ng-select class="custom-ng-dropdown" 
+                    <div class="w-full md:w-2/3 ">
+                        <ng-select class="ng-select-filter !h-[52px]" 
                         [selectOnTab]="true" 
                         placeholder="Select department"
                         (change)="getDegree($event)"
@@ -83,11 +83,11 @@
                 <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
                     <div class="w-full md:w-1/4">
                         <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                            Grade
+                            Grade <span class="text-red-700">*</span>
                         </label>
                     </div>
                     <div class="w-full md:w-2/3">
-                        <ng-select class="custom-ng-dropdown" 
+                        <ng-select class="ng-select-filter !h-[52px]" 
                         [selectOnTab]="true" 
                         placeholder="Select grade"
                         formControlName="Grade"
@@ -99,11 +99,11 @@
                 <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
                     <div class="w-full md:w-1/4">
                         <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                            Degree
+                            Degree <span class="text-red-700">*</span>
                         </label>
                     </div>
                     <div class="w-full md:w-2/3">
-                        <ng-select class="custom-ng-dropdown" 
+                        <ng-select class="ng-select-filter !h-[52px]" 
                         [selectOnTab]="true" 
                         placeholder="Select degree"
                         formControlName="Degree"
@@ -114,8 +114,8 @@
                 </div>
                 <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
                     <div class="w-full md:w-1/4">
-                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                            Gender
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name"> 
+                            Gender <span class="text-red-700">*</span>
                         </label>
                     </div>
                     <div class="w-full md:w-2/3">
@@ -133,7 +133,7 @@
                 <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
                     <div class="w-full md:w-1/4">
                         <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                            Year of graduation
+                            Year of graduation <span class="text-red-700">*</span>
                         </label>
                         <p class="font-inter font-normal text-xs text-lightGray">Please select a range of graduation years.</p>
                     </div>
@@ -142,7 +142,7 @@
                             <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
                                 From
                             </label>
-                            <ng-select class="custom-ng-dropdown" 
+                            <ng-select class="ng-select-filter" 
                         [selectOnTab]="true" 
                         placeholder="Select year"
                         formControlName="FromYearOfGraduation"
@@ -154,7 +154,7 @@
                             <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
                                 To
                             </label>
-                            <ng-select class="custom-ng-dropdown" 
+                            <ng-select class="ng-select-filter" 
                             [selectOnTab]="true" 
                             placeholder="Select year"
                             formControlName="ToYearOfGraduation"

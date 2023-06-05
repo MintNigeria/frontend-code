@@ -146,7 +146,7 @@ li.pagination-previous {
 
 
 .custom-ng-dropdown {
-  height: 52px;
+  height: 52px !important;
 }
 
 .dropdown-menu.show {
@@ -177,6 +177,8 @@ ngx-intl-tel-input.ng-invalid.ng-touched input {
   left: 0px;
   z-index: 11;
 }
+
+
 
 *::-webkit-scrollbar {
   width: 4px;

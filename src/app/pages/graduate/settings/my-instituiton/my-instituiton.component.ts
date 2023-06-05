@@ -243,7 +243,7 @@ export class MyInstituitonComponent implements OnInit {
         if (res.payload.hasErrors === false) {
           this.notification.publishMessages('success', res.payload.description)
           this.isNewInstitution = false
-          // document.getElementById('confirmChanges')?.click();
+          document.getElementById('confirmChanges')?.click();
           this.newInstitution.reset()
           this.store.dispatch(getGraduateInstitutions({id: this.graduateId}))
         }

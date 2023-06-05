@@ -36,3 +36,8 @@
   top: 50% !important;
   transform: translateY(-50%) !important;
 }
+
+::ng-deep .ng-select.ng-select-single .ng-select-container, .ng-select.ng-select-multiple .ng-select-container {
+  height: 56px !important;
+  // color: lightgray !important;
+}

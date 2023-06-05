@@ -27,6 +27,7 @@ export class FundWalletComponent implements OnInit {
   isTransactionSuccessful: any;
   transactionId: any;
   walletValue!: string;
+  initialFee: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -67,6 +68,7 @@ export class FundWalletComponent implements OnInit {
     })
 
     this.walletForm.valueChanges.subscribe((res: any) => {
+      this.initialFee = res
       this.walletValue = numeral(res.amount).format('00,')
     })
   }
@@ -89,7 +91,6 @@ export class FundWalletComponent implements OnInit {
     this.store.dispatch(fundGraduateWallet({payload}))
     this.actions$.pipe(ofType(fundGraduateWalletSuccess)).subscribe((res: any) => {
       if (res.payload.hasErrors === false) {
-        console.log(res)
         this.transactionId = res.payload.payload?.transactionId
         this.lauchPaystack()
       }
@@ -97,13 +98,13 @@ export class FundWalletComponent implements OnInit {
   }
 
   lauchPaystack() {
-    const {amount} = this.walletForm.value
+    console.log('launched')
     const paystack = new PaystackPop();
     paystack.newTransaction({
       key: this.pk, // Replace with your public key
       reference: new Date().getTime().toString(),
       email: this.userData?.email,
-      amount: amount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+      amount:  this.initialFee * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
       onCancel: () => {
         this.onClose();
       },
