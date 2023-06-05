@@ -12,6 +12,7 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import { Status } from 'src/app/types/shared.types';
 import { environment } from 'src/environments/environment';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
     private store: Store,
     private appStore: Store<AppStateInterface>,
     private actions$: Actions,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
   ) {}
 
   ngOnInit(): void {
@@ -58,8 +59,8 @@ export class LoginComponent implements OnInit {
   }
 
   accessAccount() {
-    this.status = Status.LOADING;
-  
+    // this.status = Status.LOADING;
+
     this.store.dispatch(invokeLoginUser({payload: this.loginAuth.value}));
     this.actions$.pipe(ofType(loginSuccess)).subscribe((res: any) => {
       if (res.accessToken !== undefined && typeof(res.payload) !== 'string') {
@@ -123,6 +124,7 @@ export class LoginComponent implements OnInit {
       code: this.otpValue,
       twoFA: true
     }
+
     this.store.dispatch(invokeLoginUser({payload}));
     this.actions$.pipe(ofType(loginSuccess)).subscribe((res: any) => {
       const helper = new JwtHelperService();

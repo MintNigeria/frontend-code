@@ -87,7 +87,7 @@
                             <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
                                 Faculty
                             </p>
-                            <ng-select class="ng-select-filter !w-40 !h-10"  [selectOnTab]="true" (change)="changeFaculty($event)"
+                            <ng-select class=" !w-40 "  [selectOnTab]="true" (change)="changeFaculty($event)"
                 [placeholder]="selectedFaculty">
                 <ng-option  *ngFor="let unit of facultyList; let i = index" [value]="unit.name">{{unit?.name}}</ng-option>
               </ng-select>
