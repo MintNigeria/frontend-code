@@ -112,7 +112,7 @@ selectedFileList: any = {
       url: ['', Validators.required],
       loginUser: ['', Validators.required],
       loginPassword: ['', Validators.required],
-      phoneNo: ['', [Validators.required, Validators.pattern(/^(\+?234|0)[789]\d{9}$/)]],
+      phoneNo: [''],
       additionalPhoneNo: [ '', Validators.required ],
       reasonForRequest: [ '',  Validators.required  ],
 
@@ -334,15 +334,16 @@ selectedFileList: any = {
 
     }
 
-    console.log(data)
 
     this.store.dispatch(createGraduateApplication({payload: data}))
     this.actions$.pipe(ofType(createGraduateApplicationSuccess)).subscribe((res: any) => {
-      // console.log(res)
-      this.notification.publishMessages('success', res.payload.description)
-      sessionStorage.setItem('app_Data', JSON.stringify(res.payload.payload))
-      this.router.navigateByUrl(`/graduate/my-applications/new/review-order/${res.payload.payload.requestId}`)
-      sessionStorage.setItem('appl_Dt', JSON.stringify(data))
+      if (res.payload.hasErrors === false) {
+
+        // this.notification.publishMessages('success', res.payload.description)
+        sessionStorage.setItem('app_Data', JSON.stringify(res.payload.payload))
+        this.router.navigateByUrl(`/graduate/my-applications/new/review-order/${res.payload.payload.requestId}`)
+        sessionStorage.setItem('appl_Dt', JSON.stringify(data))
+      }
     })
 
     // this.router.navigateByUrl(`/graduate/my-applications/new/review-order`)

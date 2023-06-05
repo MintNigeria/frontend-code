@@ -11,7 +11,6 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import { environment } from 'src/environments/environment';
 declare var PaystackPop: any;
 import * as numeral from 'numeral';
-
 @Component({
   selector: 'app-fund-wallet',
   templateUrl: './fund-wallet.component.html',
@@ -27,8 +26,9 @@ export class FundWalletComponent implements OnInit {
   isTransactionSuccessful: any;
   transactionId: any;
   walletValue!: string;
-  initialFee: any;
-
+  initialFee: number = 0;
+  title!: string;
+  reference = `ref-${Math.ceil(Math.random() * 10e13)}`;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -68,9 +68,13 @@ export class FundWalletComponent implements OnInit {
     })
 
     this.walletForm.valueChanges.subscribe((res: any) => {
-      this.initialFee = res
+      this.initialFee = res.amount
       this.walletValue = numeral(res.amount).format('00,')
     })
+
+    
+ 
+
   }
 
   
@@ -86,27 +90,35 @@ export class FundWalletComponent implements OnInit {
       graduateId: Number(this.userData.GraduateId),
       walletId: this.walletData.id,
       amount: numeral(amount).value(),
-      refrenceNumber: '16801776659763433434343434'
+      refrenceNumber: this.reference
     }
     this.store.dispatch(fundGraduateWallet({payload}))
     this.actions$.pipe(ofType(fundGraduateWalletSuccess)).subscribe((res: any) => {
       if (res.payload.hasErrors === false) {
         this.transactionId = res.payload.payload?.transactionId
+        // document.getElementById('paystack')?.click()
         this.lauchPaystack()
+        // this.paymentInit()
+        // console.log(this.initialFee, this.userData.email)
+        // this.options = {
+        //   amount: this.initialFee * 100,
+        //   email: this.userData.email,
+        //   ref: `${Math.ceil(Math.random() * 10e10)}`
+        // }
       }
     })
   }
 
   lauchPaystack() {
-    console.log('launched')
+    // console.log('launched')
     const paystack = new PaystackPop();
     paystack.newTransaction({
       key: this.pk, // Replace with your public key
       reference: new Date().getTime().toString(),
       email: this.userData?.email,
       amount:  this.initialFee * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
-      onCancel: () => {
-        this.onClose();
+      onCancel: (transaction: any) => {
+        this.onClose(transaction);
       },
       onSuccess: (transaction: any) => {
         this.onSuccess(transaction);
@@ -120,8 +132,25 @@ export class FundWalletComponent implements OnInit {
     this.isTransactionSuccessful = trx.status
     this.validatePayment(trx)
   }
-  onClose() {
-    ////console.log('trx')
+  onClose(trx: any) {
+    const payload = {
+      transactionId: Number(this.transactionId),
+      makePaymentType: 2,
+      refrenceNumber: 'N/A',
+      merchantType: 'PAYSTACK',
+      isPaymentSuccessful:  false,
+      imei: '',
+      serialNumber: '',
+      device: this.deviceModel,
+      ipAddress: this.ipAddress
+  
+    }
+    this.store.dispatch(validateOrganizationFundWallet({payload}))
+    this.actions$.pipe(ofType(validateOrganizationFundWalletSuccess)).subscribe((res: any) => {
+      // console.log(res)
+      this.notification.publishMessages('warning', 'Payment cancelled')
+      this.router.navigateByUrl('/graduate/transactions')
+    })
   }
 
   validatePayment(data: any) {
@@ -143,6 +172,21 @@ export class FundWalletComponent implements OnInit {
       this.notification.publishMessages('success', 'successful')
       this.router.navigateByUrl('/graduate/transactions')
     })
+  }
+
+  paymentInit() {
+    console.log('Payment initialized');
+  }
+
+  paymentDone(ref: any) {
+    this.title = 'Payment successfull';
+    console.log(this.title, ref);
+    this.validatePayment(ref)
+
+  }
+
+  paymentCancel() {
+    console.log('payment failed');
   }
 
 

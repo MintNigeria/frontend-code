@@ -61,11 +61,22 @@
     customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
     >Cancel</app-button>
 
-    <app-button
-    [overRideButtonClass]="true"
+    <button
     [disabled]="walletForm.invalid"
-    customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
-    (buttonClick)="proceedToPayment()"
-    >Proceed to Payment</app-button>
+    class="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+    (click)="proceedToPayment()"
+    >Proceed to Payment</button>
+
+    <!-- <button id="paystack"
+    class="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+    [disabled]="walletForm.invalid"
+    angular4-paystack
+    [paystackOptions]="options"
+    (paymentInit)="paymentInit()"
+    (onClose)="paymentCancel()"
+    (callback)="paymentDone($event)"
+  >
+  Proceed to Payment
+  </button> -->
 </div>
 </div>
