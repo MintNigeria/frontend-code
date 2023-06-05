@@ -44,7 +44,7 @@ tbody>tr>td {
     transform: translateY(-50%) !important;
 }
 
-::ng-deep .ng-select.ng-select-single .ng-select-container, .ng-select.ng-select-multiple .ng-select-container {
+.ng-select.ng-select-single .ng-select-container, .ng-select.ng-select-multiple .ng-select-container {
     height: 36px !important;
-    color: lightgray !important;
+    // color: ba !important;
 }

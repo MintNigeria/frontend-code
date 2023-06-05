@@ -20,6 +20,7 @@ export class AuthService extends BaseURI implements AbstractAuthService {
   }
 
   login(payload: any) {
+   
     let httpParams = new HttpParams({
         fromObject: {
             username: payload.email,
@@ -28,10 +29,10 @@ export class AuthService extends BaseURI implements AbstractAuthService {
         scope: 'offline_access openid',
       },
     });
-    // let body = new HttpParams()
-    // .set('grant_type', 'password')
-    // .set('username', payload.email)
-    // .set('password', payload.password);
+    let body = new HttpParams()
+    .set('grant_type', 'password')
+    .set('username', payload.email)
+    .set('password', payload.password);
     if (payload.twoFA === true) {
       // httpParams.code = payload.code;
       httpParams = new HttpParams({

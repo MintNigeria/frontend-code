@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import * as moment from 'moment';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { invokeGetStateAndLGA } from 'src/app/store/institution copy/action';
@@ -92,7 +93,7 @@ export class MyProfileComponent implements OnInit {
       name: ['', Validators.required],
       type: ['', Validators.required],
       email: ['', Validators.required],
-      phone: ['', Validators.required],
+      phone: ['', Validators.pattern(/^(\+?234|0)[789]\d{9}$/)],
       state: ['', Validators.required],
       lga: ['', Validators.required],
       lgaId: [''],
@@ -109,13 +110,15 @@ export class MyProfileComponent implements OnInit {
     this.profileForm.patchValue({
       name: data.institutionName,
       sector: data.institutionSector,
-      establishment: '02-02-1967',
-      type: 'CAC',
+      establishment: moment(data?.dateOfInCorporation).format('YYYY-MM-DD'),
+      type: data?.registeringBody,
       regNumber: data.rcNumber,
       email: data.emailAddress,
       phone: data.phoneNumber,
       state: data.state,
       lga: data.lga,
+      stateId: data.stateId,
+      lgaId: data.lgaId,
       address: data.address,
     })
   }
@@ -156,35 +159,34 @@ export class MyProfileComponent implements OnInit {
   selectLocalGovt(data: any) {
     this.stateLGA$.subscribe((x) => {
       const record = x.find((value: any) => value.id == Number(data.id));
-      this.profileForm.controls['state'].setValue(data.id)
+      this.profileForm.controls['stateId'].setValue(data.id)
   
   
       this.lga = record.lgaVMs;
     });
   }
   selectLga(data: any) {
-    this.profileForm.controls['lga'].setValue(data.id)
+    this.profileForm.controls['lgaId'].setValue(data.id)
     
   }
 
   saveUpdates() {
-    const {lga, state, address, logo, phone } = this.profileForm.value;
+    const {lga, state, address, logo, phone, stateId, lgaId } = this.profileForm.value;
     const payload = {
       imei: '',
       serialNumber: '',
       device: this.deviceModel,
       ipAddress: this.ipAddress,
-      lga,
-      state,
+      lga: lgaId,
+      state: stateId,
       address,
       logo,
       phone
     }
     this.store.dispatch(updatedInstitution({payload, id: this.institutionId}))
     this.actions$.pipe(ofType(updatedInstitutionSuccess)).subscribe((res: any) => {
-      console.log(res)
       document.getElementById('confirmChanges')?.click();
-      this.notification.publishMessages('success', res.payload.payload)
+      this.notification.publishMessages('success', res.payload.description)
 
     })
   }
