@@ -11,14 +11,14 @@ import { GraduateVerificationPaymentComponent } from './start-verification/gradu
 const routes: Routes = [
   {path: '', component: VerificationComponent},
 
-  {path: 'verify-documents', component: StartVerificationComponent},
+  {path: 'verify-record-by-code', component: StartVerificationComponent},
   {path: 'verify-graduate-details', component: GraduateVerificationDetailsComponent},
   {path: 'graduate-details-search-result', component: GraduateVerificationDetailsSearchResultComponent},
   {path: 'graduate-details-payment/:id', component: GraduateVerificationPaymentComponent},
   {path: 'verify-documents/:id', component: SearchResultsComponent},
   {path: 'verify-documents/:id/:id', component: VerifyDocumentsComponent},
 
-  {path: 'view-verified-documents/:id', component: VerifyDocumentsComponent}
+  {path: 'view-verified-record/:id', component: VerifyDocumentsComponent}
 
 ];
 
