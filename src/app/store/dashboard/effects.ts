@@ -861,23 +861,22 @@ export class DashboardEffects {
                 
               
                 let completedRequest: any = [];
-                let completedGradValue: any = [];
-                let completedOrgValue: any = [];
+                let completedVerificationValue: any = [];
+                let completedApplicationValue: any = [];
                 data.forEach((x: any) => {
                   if (x.year) {
-                    gradValue = x.graduate || x.graduate;
-                    orgValue = x.organization || x.organization;
+                    gradValue = x.applications || x.applications;
+                    orgValue = x.verifications || x.verifications;
                     value = `${x.month + ' ' + x.year} `;
                   }
-                  
                   completedRequest.push(value);
-                  completedGradValue.push(gradValue);
-                  completedOrgValue.push(orgValue);
+                  completedVerificationValue.push(gradValue);
+                  completedApplicationValue.push(orgValue);
                 });
                 return {
                   completedRequest,
-                  completedGradValue,
-                  completedOrgValue,
+                  completedVerificationValue,
+                  completedApplicationValue,
                 };
               };
 

@@ -72,8 +72,6 @@ export class FundWalletComponent implements OnInit {
       this.walletValue = numeral(res.amount).format('00,')
     })
 
-    
- 
 
   }
 
@@ -111,12 +109,13 @@ export class FundWalletComponent implements OnInit {
 
   lauchPaystack() {
     // console.log('launched')
+    const amount: any = numeral(this.initialFee).value()
     const paystack = new PaystackPop();
     paystack.newTransaction({
       key: this.pk, // Replace with your public key
       reference: new Date().getTime().toString(),
       email: this.userData?.email,
-      amount:  this.initialFee * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+      amount: amount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
       onCancel: (transaction: any) => {
         this.onClose(transaction);
       },
@@ -174,19 +173,24 @@ export class FundWalletComponent implements OnInit {
     })
   }
 
-  paymentInit() {
-    console.log('Payment initialized');
-  }
+  // paymentInit() {
+  //   console.log('Payment initialized');
+  // }
 
-  paymentDone(ref: any) {
-    this.title = 'Payment successfull';
-    console.log(this.title, ref);
-    this.validatePayment(ref)
+  // paymentDone(ref: any) {
+  //   this.title = 'Payment successfull';
+  //   console.log(this.title, ref);
+  //   this.validatePayment(ref)
 
-  }
+  // }
 
-  paymentCancel() {
-    console.log('payment failed');
+  // paymentCancel() {
+  //   console.log('payment failed');
+  // }
+
+  cancel() {
+    this.router.navigateByUrl('/graduate/transactions')
+
   }
 
 

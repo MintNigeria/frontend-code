@@ -88,7 +88,7 @@
         </div>
 
         <ng-container *ngIf="selectedDestination === 1">
-          <div class="grid gap-5 grid-cols-2">
+          <div class="grid gap-5 grid-cols-2" [formGroup]="emailForm">
             <div class="col-span-2">
               <p class="input_label label_asterisk my-1">Email Address</p>
               <app-input [formGrp]="emailForm" formCtrlName="email" [type]="'text'" [class]="
@@ -134,7 +134,7 @@
           </div>
         </ng-container>
         <ng-container *ngIf="selectedDestination === 2">
-          <div class="grid gap-5 grid-cols-2">
+          <div class="grid gap-5 grid-cols-2" [formGroup]="fileUploadForm">
             <div class="col-span-2">
               <p class="input_label label_asterisk my-1">URL</p>
               <app-input [formGrp]="fileUploadForm" formCtrlName="url" [type]="'text'" [class]="

@@ -5,6 +5,9 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { getAllGraduateRequestDetailForGradaute, getAllGraduateRequestDetailForGradauteSuccess } from 'src/app/store/graduates/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { FilePreviewComponent } from 'src/app/shared/components/file-preview/file-preview.component';
+
 
 @Component({
   selector: 'app-review-order',
@@ -27,6 +30,8 @@ export class ReviewOrderComponent implements OnInit {
     private store: Store,
     private appStore: Store<AppStateInterface>,
     private actions$: Actions,
+           private  dialog: MatDialog
+
 
   ) { }
 
@@ -41,12 +46,21 @@ export class ReviewOrderComponent implements OnInit {
 
 
   cancel() {
-   
+   this.router.navigateByUrl('/graduate/my-applications')
   }
   
 
 goBack() {
   window.history.back();
+}
+
+previewFile(data: any) {
+  // console.log(data)
+  this.dialog.open(FilePreviewComponent, {
+    width: '800px',
+    height: '800px',
+    data
+  })
 }
 
 

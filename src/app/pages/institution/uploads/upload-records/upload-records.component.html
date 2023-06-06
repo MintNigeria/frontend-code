@@ -141,10 +141,11 @@
                                 </div>
                             </label>
                             <input 
-                            (change)="handleFileUpload($event)" 
+                            (change)="handleFileUpload($event)"
                             class="hidden  file:absolute file:w-full file:h-full" 
                             type="file"
-                            id="file1" />
+                            id="file1"
+                            [accept]="allowedFiled" />
                         </div>
                         <div *ngIf="selectedFile"
                         class="border rounded-lg border-primaryBlue p-3 mt-3">

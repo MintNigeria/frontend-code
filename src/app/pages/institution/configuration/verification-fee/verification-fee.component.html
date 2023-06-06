@@ -48,7 +48,7 @@
                                 <div class="w-full  mt-2">
                                     <input type="text"
                                     (input)="getFee(type, $event.target, parent)"
-                                    [value]="type.fee"
+                                    [value]="type.inActiveFee"
                                     placeholder="N 5000"
                                     [class]="'px-4 h-[52px] w-full bg-transparent text-black border focus:bg-transparent rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                                     [name]="'fee'"

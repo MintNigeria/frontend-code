@@ -78,23 +78,11 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
     this.userData = JSON.parse(data)
     this.loadIp();
 
-    this.initPaymentForm()
     this.store.dispatch(getOrganizationWalletId({id: this.userData.OrganizationId}))
     this.actions$.pipe(ofType(getOrganizationWalletIdSuccess)).subscribe((res: any) => {
       this.balance = res.payload.balance;
     })
-    setTimeout(() => {
-      this.populateForm()
-    }, 2000);
-
-    const interval = setInterval(() => {
-      if (this.timer > 0) {
-        this.timer--;
-      } else {
-        clearInterval(interval);
-        this.timerExpired = true;
-      }
-    }, 1000);
+   
   }
 
   loadIp() {
@@ -103,56 +91,6 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
     })
   }
 
-  initPaymentForm() {
-    this.paymentForm = this.fb.group({
-      cardNumber: ['', Validators.required],
-      expiryMonth: ['', Validators.required],
-      expiryYear: ['', Validators.required],
-      cvc: ['', Validators.required],
-      cardholderName: ['', Validators.required],
-    })
-  }
-
-  populateForm() {
-    this.paymentForm.patchValue({
-      cardNumber: '1234 1234 1234 2123',
-      expiryMonth: '11',
-      expiryYear: '27',
-      cvc: '789',
-      cardholderName: 'Chiemela Esther',
-    })
-  }
-
-  openOtpModal(){
-    document.getElementById('otpModal')?.click();
-  }
-
-  closeOtpModal(){
-     document.getElementById('otpModal')?.click();
-  }
-
-  onOtpChange(index: number, event: any) {
-    const otpValue = event.target.value;
-    if (!isNaN(otpValue)) {
-      this.otp[index] = parseInt(otpValue, 10);
-      if (this.otp.every((value) => !isNaN(value))) {
-        this.otpEntered = true;
-      }
-    } else {
-      this.otp[index] = 0;
-      this.otpEntered = false;
-    }
-  }
-
-  verifyOtp() {
-    const enteredOtp = this.otp.join('');
-    //console.log('Entered OTP:', enteredOtp);
-    this.openSuccess();
-  }
-
-  openSuccess() {
-    document.getElementById('successModal')?.click();
-  }
   
   closeSuccess() {
     if (this.selectedPaymentMethod == 'creditCard') {
@@ -204,8 +142,6 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
     this.store.dispatch(makePayment({payload}))
     this.actions$.pipe(ofType(makePaymentSuccess)).subscribe((res: any) => {
       if (res.payload.hasErrors === false) {
-        // this.notification.publishMessages('success', 'successful')
-        // this.router.navigate(['organization/verifications/view-verified-documents/2']);      
       }
     })
     if (this.selectedMerchant === 'Paystack') {

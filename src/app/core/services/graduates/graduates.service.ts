@@ -377,7 +377,7 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].PhoneNumber',
-				payload.emailOptionVM[i].phoneNo,
+				payload.emailOptionVM[i].phoneNo.internationalNumber,
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].DocumentType',
@@ -449,7 +449,7 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].PhoneNumber',
-				payload.fileUploadOptionVM.phoneNo,
+				payload.fileUploadOptionVM.phoneNo.internationalNumber,
 			);
 			body.append(
 				'model.CreateApplicationVM[' + i + '].MatriculationNumber',
@@ -537,7 +537,7 @@ export class GraduatesService extends BaseURI implements AbstractGraduateService
 			);
         body.append(
           'model.CreateApplicationVM[' + i + '].PhoneNumber',
-          payload.hardCopyOptionVM[i].phoneNo,
+          payload.hardCopyOptionVM[i].phoneNo.internationalNumber,
         );
        
         body.append(

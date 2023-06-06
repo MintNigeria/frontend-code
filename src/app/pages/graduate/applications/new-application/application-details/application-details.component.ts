@@ -102,6 +102,9 @@ selectedFileList: any = {
       })
       // console.log(this.dispatchFee)
     })
+    this.emailForm.valueChanges.subscribe(res => {
+      console.log(res)
+    })
 
   }
 
@@ -307,6 +310,7 @@ selectedFileList: any = {
 
   continue() {
     // routerLink="/graduate/my-applications/new/review-order"
+    console.log('dsdsd', this.emailForm.value)
     let data = {}
     if (this.selectedDestination === 1) {
 

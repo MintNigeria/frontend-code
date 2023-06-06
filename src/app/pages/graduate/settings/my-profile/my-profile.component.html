@@ -10,8 +10,8 @@
                     </div>
                     <div class="lg:w-full md:w-2/3 mt-3 lg:mt-0">
                         <div class="flex items-start gap-5 mb-9">
-                            <img tabindex="0" class="cursor-pointer " routerLink="/main/profile" *ngIf="profileImage !== null" src="data:image/png;base64,{{profileImage}}" class="!w-10 !h-10 rounded-full object-cover" alt="logged user avatar">
-                            <img tabindex="0" class="cursor-pointer" routerLink="/main/profile" *ngIf="profileImage === null" src="assets/images/main/Avatar.svg" class="" alt="logged user avatar">
+                            <img tabindex="0" class="cursor-pointer " routerLink="/main/profile" *ngIf="profileImage !== null" src="data:image/png;base64,{{profileImage}}" class="!w-12 !h-12 rounded-full object-cover" alt="Avatar">
+                            <img tabindex="0" class="cursor-pointer" routerLink="/main/profile" *ngIf="profileImage === null" src="assets/images/main/Avatar.svg" class="" alt="Avatar">
                             <div class="relative  text-[#6E7191] bg-white  py-3 px-4 w-full rounded-lg border-solid border cursor-pointer  flex justify-center items-center">
                                 <label for="file1">
                                   <img src="assets/images/auth/upload.svg" alt="uploadIcon"
@@ -43,7 +43,7 @@
                             [type]="'text'" 
                             [class]="'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                             Issuer="Enter first name"
-                            [name]="'name'"></app-input>
+                            [name]="'First name'"></app-input>
                         </div>
                         <div class="mt-3">
                             <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
@@ -55,7 +55,7 @@
                             [type]="'text'" 
                             [class]="'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                             Issuer="Enter middle name"
-                            [name]="'name'"></app-input>
+                            [name]="'Middle name'"></app-input>
                         </div>
                         <div class="mt-3">
                             <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
@@ -67,7 +67,7 @@
                             [type]="'text'" 
                             [class]="'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                             Issuer="Enter last name"
-                            [name]="'name'"></app-input>
+                            [name]="'Last name'"></app-input>
                         </div>
                         <div class="mt-3">
                             <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
@@ -116,9 +116,10 @@
                             [formGrp]="profileForm" 
                             formCtrlName="dateOfBirth" 
                             [type]="'date'" 
+                            [max]="currentYear"
                             [class]="'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                             Issuer="Choose Date of Birth"
-                            [name]="'name'"></app-input>
+                            [name]="'Date of birth'"></app-input>
                         </div>
                     </div>
                 </div>
