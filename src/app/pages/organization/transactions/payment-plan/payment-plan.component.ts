@@ -27,6 +27,8 @@ pk: string = environment.pkKey
   isTransactionSuccessful: any;
   referenceNumber: any;
   failedTransactionId: any;
+  transactionId: any;
+  authData: any;
   constructor(
     private appStore: Store<AppStateInterface>,
     private store: Store,
@@ -51,11 +53,17 @@ pk: string = environment.pkKey
   ngOnInit(): void {
     const data: any = localStorage.getItem('userData')
     this.userData = JSON.parse(data)
+    const auth: any = localStorage.getItem('authData')
+    this.authData = JSON.parse(data)
     this.institutionId = this.userData.InstitutionId
 
     this.store.dispatch(getAllPaymentPlans());
     this.actions$.pipe(ofType(getAllPaymentPlansSuccess)).subscribe((res: any) => {
       this.planList = res.payload;
+    })
+    this.store.dispatch(getOrganizationWalletId({id: this.userData.OrganizationId}))
+    this.actions$.pipe(ofType(getOrganizationWalletIdSuccess)).subscribe((res: any) => {
+      this.walletId = res.payload.id;
     })
     this.loadIp();
 
@@ -69,50 +77,49 @@ pk: string = environment.pkKey
 
   selectPlan(plan: any) {
     this.selectedPlanData = plan
-    this.store.dispatch(getOrganizationWalletId({id: this.userData.OrganizationId}))
-    this.actions$.pipe(ofType(getOrganizationWalletIdSuccess)).subscribe((res: any) => {
-      this.walletId = res.payload.id;
-    })
+    
+    this.buyOrganizationSubscription()
     // launch paystack thing here
-    const paystack = new PaystackPop();
-    paystack.newTransaction({
-      key: this.pk, // Replace with your public key
-      reference: new Date().getTime().toString(),
-      email: this.userData?.email,
-      amount: plan?.amount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
-      onCancel: () => {
-        this.onClose();
-      },
-      onSuccess: (transaction: any) => {
-        this.onSuccess(transaction);
-      },
-    });
 
   }
 
-  onSuccess(trx: any) {
-    ////console.log(trx)
-    this.isTransactionSuccessful = trx.status,
-    this.referenceNumber = trx.reference
+  buyOrganizationSubscription() {
     const payload = {
       organizationId: Number(this.userData.OrganizationId),
       amount: this.selectedPlanData.amount,
       subscriptionPlanId: this.selectedPlanData.id,
       walletId: this.walletId,
-      transactionReferencenumber: trx.reference
+      transactionReferencenumber: new Date().getTime().toString(),
     }
-    ////console.log(payload)
     this.store.dispatch(fundOrganizationWallet({payload}))
     this.actions$.pipe(ofType(fundOrganizationWalletSuccess)).subscribe((res: any) => {
-      // const id = res.payload.payload.
-      this.failedTransactionId = res?.payload?.payload?.transactionId
-      console.log('res, res', res,  this.failedTransactionId)
-      this.validatePayment(res)
+      this.transactionId = res?.payload?.payload?.transactionId
+      const paystack = new PaystackPop();
+      paystack.newTransaction({
+        key: this.pk, // Replace with your public key
+        reference: new Date().getTime().toString(),
+        email: this.userData?.email,
+        amount: this.selectedPlanData?.amount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+        onCancel: () => {
+          this.onClose();
+        },
+        onSuccess: (transaction: any) => {
+          this.onSuccess(transaction);
+        },
+      });
     })
+  }
+
+  onSuccess(trx: any) {
+   
+        this.isTransactionSuccessful = trx.status,
+    this.referenceNumber = trx.reference
+
+    this.validatePayment(trx)
   }
   onClose() {
     const payload = {
-      transactionId: this.failedTransactionId,
+      transactionId: this.transactionId,
       makePaymentType: 3,
       refrenceNumber: 'N/A',
       merchantType: 'PAYSTACK',
@@ -134,9 +141,8 @@ pk: string = environment.pkKey
   }
 
   validatePayment(data: any) {
-    ////console.log(data)
     const payload = {
-      transactionId: Number(data?.payload?.payload?.transactionId),
+      transactionId: Number(this.transactionId),
       makePaymentType: 3,
       refrenceNumber: this.referenceNumber,
       merchantType: 'PAYSTACK',
@@ -149,7 +155,6 @@ pk: string = environment.pkKey
     }
     this.store.dispatch(validateOrganizationFundWallet({payload}))
     this.actions$.pipe(ofType(validateOrganizationFundWalletSuccess)).subscribe((res: any) => {
-      ////console.log(res)
       this.notification.publishMessages('success', 'successful')
       this.router.navigateByUrl('/organization/transactions')
      

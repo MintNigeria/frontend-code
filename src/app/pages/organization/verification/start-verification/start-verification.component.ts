@@ -117,14 +117,11 @@ verifyData() {
   this.store.dispatch(verifyGraduateRecord({payload}))
   this.actions$.pipe(ofType(verifyGraduateRecordSuccess)).subscribe((res: any) => {
     if (res.payload.hasErrors === false) {
+      console.log(res)
       this.notification.publishMessages('success', res.payload.description)
-      sessionStorage.setItem('dx_l', JSON.stringify(res.payload.payload))
-      this.router.navigateByUrl(`/organization/verifications/verify-documents/${res.payload.payload.transactionId}`)
-      // this.router.navigateByUrl('/organization/verifications')
-      // /organization/verifications/verify-documents/2
+      this.router.navigateByUrl(`organization/verifications/view-verified-record/${res.payload.payload.institutionGraduateId}`)
+     
     }
   })
-
-  // [routerLink]="''"
 }
 }

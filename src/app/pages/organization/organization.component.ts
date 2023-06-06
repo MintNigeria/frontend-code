@@ -42,7 +42,7 @@ export class OrganizationComponent implements OnInit {
           name: 'Verification List'
         },
         {
-          route: '/organization/verifications/verify-documents',
+          route: '/organization/verifications/verify-document-by-code',
           name: 'Verify By Code'
         },
         {
