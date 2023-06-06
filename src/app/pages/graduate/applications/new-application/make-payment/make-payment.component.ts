@@ -334,6 +334,7 @@ validatePayment(data: any) {
   })
 }
 
+
 ngOnDestroy(): void {
   sessionStorage.removeItem('app_Data')  
   sessionStorage.removeItem('appl_Dt')  

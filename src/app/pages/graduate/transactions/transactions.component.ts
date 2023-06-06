@@ -37,7 +37,6 @@ export class TransactionsComponent implements OnInit {
     this.actions$.pipe(ofType(getGraduateWalletIdSuccess)).subscribe((res: any) => {
       // this.transactionDetails = res.payload.data;
       // this.totalCount = res.payload.totalCount
-      console.log(res)
       this.walletData = res.payload.payload;
     })
   }

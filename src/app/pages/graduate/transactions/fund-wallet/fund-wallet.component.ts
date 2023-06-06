@@ -173,19 +173,24 @@ export class FundWalletComponent implements OnInit {
     })
   }
 
-  paymentInit() {
-    console.log('Payment initialized');
-  }
+  // paymentInit() {
+  //   console.log('Payment initialized');
+  // }
 
-  paymentDone(ref: any) {
-    this.title = 'Payment successfull';
-    console.log(this.title, ref);
-    this.validatePayment(ref)
+  // paymentDone(ref: any) {
+  //   this.title = 'Payment successfull';
+  //   console.log(this.title, ref);
+  //   this.validatePayment(ref)
 
-  }
+  // }
 
-  paymentCancel() {
-    console.log('payment failed');
+  // paymentCancel() {
+  //   console.log('payment failed');
+  // }
+
+  cancel() {
+    this.router.navigateByUrl('/graduate/transactions')
+
   }
 
 
