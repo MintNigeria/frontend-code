@@ -13,25 +13,6 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 })
 export class VerifyDocumentsComponent implements OnInit {
 
-
-  studentDetails = {
-    fullName: 'Chukwuka Chiemelie Esther',
-    gender: 'Female',
-    dob: '12th June, 2022',
-    address: '14 Karimu Kotun street, Victoria Island, Lagos',
-    stateOfOrigin: 'Ogun State',
-  }
-
-  academicDetails = {
-    institution : 'Florida Atlantic University',
-    faculty: 'College of Business',
-    department: 'Mathematics',
-    matricNo: "123456",
-    degree: 'B.Sc',
-    grade: 'Second Class Upper',
-    yearOfEntry: '2016',
-    yearOfGrad: '2019'
-  }
   graduateData!: any;
 
   constructor(

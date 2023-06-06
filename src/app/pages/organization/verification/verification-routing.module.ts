@@ -11,7 +11,7 @@ import { GraduateVerificationPaymentComponent } from './start-verification/gradu
 const routes: Routes = [
   {path: '', component: VerificationComponent},
 
-  {path: 'verify-document-by-code', component: StartVerificationComponent},
+  {path: 'verify-record-by-code', component: StartVerificationComponent},
   {path: 'verify-graduate-details', component: GraduateVerificationDetailsComponent},
   {path: 'graduate-details-search-result', component: GraduateVerificationDetailsSearchResultComponent},
   {path: 'graduate-details-payment/:id', component: GraduateVerificationPaymentComponent},
