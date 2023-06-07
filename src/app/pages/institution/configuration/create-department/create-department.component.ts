@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { NotificationsService } from 'src/app/core/services/notifications.service';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { createDepartmentInInstitution, createDepartmentInInstitutionSuccess, getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess, updateDepartmentInInstitution, updateDepartmentInInstitutionSuccess } from 'src/app/store/institution/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
@@ -44,6 +44,7 @@ export class CreateDepartmentComponent implements OnInit {
     this.createDepartmentForm = this.formBuilder.group({
       departmentName: ['', Validators.required],
       faculty: ['', Validators.required],
+      facultyId: [''],
     });
   const userAgent = navigator.userAgent;
   if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
@@ -93,7 +94,8 @@ export class CreateDepartmentComponent implements OnInit {
 
   loadIp() {
     this.utilityService.getuserIP().subscribe((res: any) => {
-     this.ipAddress = res.ip
+      console.log(res)
+     this.ipAddress = res.query
     })
   }
 
@@ -126,7 +128,7 @@ export class CreateDepartmentComponent implements OnInit {
     this.location.back()
   }
 
-  updateDepartment(){
+  updateDepartmentAction(){
     const {faculty, departmentName} = this.createDepartmentForm.value;
     const payload = {
       departmentId: Number(this.id),

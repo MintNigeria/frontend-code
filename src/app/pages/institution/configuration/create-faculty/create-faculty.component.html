@@ -9,6 +9,7 @@
                     formCtrlName="facultyName" 
                     [Issuer]="'Enter faculty name'"
                     [type]="'text'"
+                    [name]="'Faculty name'"
                     [class]="' bg-white w-full h-10 mt-2 border border-[#D0D5DD] rounded-md placeholder:text-base placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
                 </app-input>
             </div>
@@ -23,7 +24,7 @@
                 
                 (buttonClick)="createFaculty()"
                 [overRideButtonClass]="true" 
-                [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'">Create
+                [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-primaryBlue p-2 mt-6'">Create
             </app-button>
            
         </div>
@@ -38,6 +39,7 @@
                     formCtrlName="facultyName" 
                     [Issuer]="'Enter faculty name'"
                     [type]="'text'"
+                    [name]="'Faculty name'"
                     [class]="' bg-white w-full h-10 mt-2 border border-[#D0D5DD] rounded-md placeholder:text-base placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
                 </app-input>
             </div>
@@ -52,7 +54,7 @@
             <app-button
                 (buttonClick)="updateFaculty()"
                 [overRideButtonClass]="true" 
-                [customClass]="'w-fit h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'">Save and Continue
+                [customClass]="'w-fit h-10 rounded-lg font-normal text-base text-white leading-6 bg-primaryBlue p-2 mt-6'">Save and Continue
             </app-button>
         </div>
     </div>

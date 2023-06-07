@@ -116,12 +116,12 @@ export const createNewInstitutionSuccess = createAction(
 );
 
 export const updatedInstitution = createAction(
-  '[institutions] update institution',
+  '[institutions] update institution profile',
   props<{ payload: any, id: any }>()
 );
 
 export const updatedInstitutionSuccess = createAction(
-  '[institutions] update institution',
+  '[institutions] update institution profile success',
   props<{ payload: any }>()
 );
 
@@ -187,14 +187,14 @@ export const createDepartmentInInstitutionSuccess = createAction(
 );
 
 export const updateDepartmentInInstitution = createAction(
-  '[institutions] create institution Department type ',
+  '[institutions] update institution Department type ',
   props<{
     payload: any;
   }>()
 );
 
 export const updateDepartmentInInstitutionSuccess = createAction(
-  '[institutions] create institution Department type success',
+  '[institutions] update institution Department type success',
   props<{ payload: any }>()
 );
 

@@ -120,6 +120,7 @@ export class DepartmentComponent implements OnInit {
   }
 
   editDepartment(data: any) {
+    console.log(data)
     this.router.navigateByUrl(`/institution/configuration/institution-setup/edit-department/${data.id}/${data.departmentName}/${data.facultyName}`)
 
   }

@@ -73,6 +73,10 @@ export class ChangePasswordComponent implements OnInit {
         this.cancelConfirmChanges()
         this.notification.publishMessages('success', res.message.description)
         this.passwordForm.reset()
+        setTimeout(() => {
+          this.router.navigateByUrl('/auth/graduate');
+          localStorage.clear()
+        }, 2000);
       }
 
     })

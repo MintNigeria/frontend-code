@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { activateDeactivate2FA, activateDeactivate2FASuccess, confirm2FAction, confirm2FActionSuccess } from 'src/app/store/auth/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { ActionConfirmationModalComponent } from 'src/app/shared/components/action-confirmation-modal/action-confirmation-modal.component';
 
 @Component({
   selector: 'app-two-factor-authentication',
@@ -34,7 +36,9 @@ export class TwoFactorAuthenticationComponent implements OnInit {
     private store: Store,
     private appStore: Store<AppStateInterface>,
     private actions$: Actions,
-    private notification: NotificationsService
+    private notification: NotificationsService,
+    private  dialog: MatDialog
+
   ) { }
 
   ngOnInit(): void {
@@ -58,27 +62,41 @@ export class TwoFactorAuthenticationComponent implements OnInit {
 
   onSave(): void {
     // Your save logic here.
-    console.log('Save button clicked');
+    // console.log('Save button clicked');
   }
 
   onCancel(): void {
     // Your cancel logic here.
-    console.log('Cancel button clicked');
+    // console.log('Cancel button clicked');
   }
 
   openOtpModal(){
-    const payload = {
-      enable2FA: this.twoFactorEnabled ,
-      code: ''
-    }
-    
-    this.store.dispatch(activateDeactivate2FA({payload}))
-    this.actions$.pipe(ofType(activateDeactivate2FASuccess)).subscribe((res: any) => {
-      if(res.message.hasErrors === false) {
-        this.timer(10)
-        // this.notification.publishMessages('success', res.message.description)
-        document.getElementById('otpModal')?.click();
+    this.dialog.open(ActionConfirmationModalComponent, {
+      width: '',
+      height: '',
+      data: {
+        question: this.twoFactorEnabled ? 'Are you sure you want to activate 2FA?' : 'Are you sure you want to deactivate 2FA?',
+        title: 'Two Factor Authentication'
       }
+    }).afterClosed().subscribe((res: any) => {
+      console.log(res)
+      if (res.continue === true) {
+
+       
+        const payload = {
+          enable2FA: this.twoFactorEnabled ,
+          code: ''
+        }
+        
+        this.store.dispatch(activateDeactivate2FA({payload}))
+        this.actions$.pipe(ofType(activateDeactivate2FASuccess)).subscribe((res: any) => {
+          if(res.message.hasErrors === false) {
+            this.timer(10)
+            // this.notification.publishMessages('success', res.message.description)
+            document.getElementById('otpModal')?.click();
+          }
+        })
+      } 
     })
   }
 

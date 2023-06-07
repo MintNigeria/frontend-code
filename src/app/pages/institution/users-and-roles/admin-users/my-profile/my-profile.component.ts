@@ -85,7 +85,7 @@ export class MyProfileComponent implements OnInit {
 
   loadIp() {
     this.utilityService.getuserIP().subscribe((res: any) => {
-     this.ipAddress = res.ip
+     this.ipAddress = res.query
     })
   }
   initProfileForm() {
@@ -187,7 +187,10 @@ export class MyProfileComponent implements OnInit {
     this.actions$.pipe(ofType(updatedInstitutionSuccess)).subscribe((res: any) => {
       document.getElementById('confirmChanges')?.click();
       this.notification.publishMessages('success', res.payload.description)
+      setTimeout(() => {
+        this.store.dispatch(invokeGetInstitution({id: this.institutionId}))
 
+      }, 2000);
     })
   }
 

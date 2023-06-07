@@ -68,7 +68,7 @@ export class InstitutionService
     body.append('LgaId', payload.lga)
     body.append('StateId', payload.state)
     body.append('Address', payload.address)
-    body.append('PhoneNumber', payload.phoneNumber)
+    body.append('PhoneNumber', payload.phone)
     body.append('Logo', payload.logo)
     body.append('imei', payload.imei)
     body.append('serialNumber', payload.serialNumber)
