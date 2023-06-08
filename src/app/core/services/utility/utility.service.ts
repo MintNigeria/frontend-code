@@ -41,7 +41,8 @@ export class UtilityService
   }
 
   getuserIP() {
-    return this.http.get<any>('https://api64.ipify.org?format=json')
+    return this.http.get<any>('http://ip-api.com/json')
+    // return this.http.get<any>('https://api64.ipify.org?format=json')
     // return this.http.get<any>('https://jsonip.com')
   }
 }

@@ -139,5 +139,9 @@ export class ViewReportComponent implements OnInit {
     this.store.dispatch(getAlltalentSearchPoolResult({payload: {...filter, id: this.poolId}}))
   }
 
+  exportData(type: any) {
+    
+  }
+
 
 }

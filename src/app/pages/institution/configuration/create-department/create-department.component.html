@@ -9,6 +9,7 @@
                     formCtrlName="departmentName" 
                     [Issuer]="'Enter Department Name'"
                     [type]="'text'"
+                    [name]="'Department name'"
                     [class]="' bg-white w-full h-10 mt-2 border border-[#D0D5DD] rounded-md placeholder:text-sm placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
                 </app-input>
             </div>
@@ -36,7 +37,7 @@
             </app-button>
             <app-button
                 *ngIf="isEditForm"
-                (buttonClick)="createDepartment()"
+                (buttonClick)="updateDepartmentAction()"
                 [disabled]="createDepartmentForm.invalid"
                 [overRideButtonClass]="true" 
                 [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-primaryBlue p-2 mt-6'">Save

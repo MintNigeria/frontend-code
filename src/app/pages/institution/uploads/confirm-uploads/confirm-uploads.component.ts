@@ -57,7 +57,7 @@ successful: any;
     this.UploadedList = JSON.parse(data)
 
     this.utilityService.getuserIP().subscribe((res) => {
-      this.ipAddress = res.ip
+      this.ipAddress = res.query
     })
     // this.institutionId = this.institutionData.InstitutionId
     ////console.log(this.UploadedList)

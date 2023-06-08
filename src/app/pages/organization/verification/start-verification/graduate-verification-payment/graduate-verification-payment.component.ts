@@ -99,7 +99,7 @@ export class GraduateVerificationPaymentComponent implements OnInit {
 
   loadIp() {
     this.utilityService.getuserIP().subscribe((res: any) => {
-     this.ipAddress = res.ip
+     this.ipAddress = res.query
     })
   }
 

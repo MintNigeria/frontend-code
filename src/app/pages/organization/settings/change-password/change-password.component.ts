@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { take } from 'rxjs';
@@ -25,7 +26,8 @@ export class ChangePasswordComponent implements OnInit {
     private store: Store,
     private appStore: Store<AppStateInterface>,
     private actions$: Actions,
-    private notification: NotificationsService
+    private notification: NotificationsService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -66,6 +68,10 @@ export class ChangePasswordComponent implements OnInit {
         document.getElementById('confirmChanges')?.click();
         this.notification.publishMessages('success', res.message.description)
         this.passwordForm.reset()
+        setTimeout(() => {
+          this.router.navigateByUrl('/auth/organization');
+          localStorage.clear()
+        }, 2000);
       }
 
     })

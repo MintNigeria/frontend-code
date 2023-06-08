@@ -72,6 +72,10 @@ export class ChangePasswordComponent implements OnInit {
         document.getElementById('confirmChanges')?.click();
         this.notification.publishMessages('success', res.message.description)
         this.passwordForm.reset()
+        setTimeout(() => {
+          this.router.navigateByUrl('/auth/institution');
+          localStorage.clear()
+        }, 2000);
       }
 
     })

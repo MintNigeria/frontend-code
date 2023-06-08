@@ -107,7 +107,7 @@
                         </div>
 
                         <div class="flex items-center mt-6">
-                            <button type="button" class="bg-[#4086EF] text-white font-medium font-inter text-xs w-[80px] h-[40px] rounded-xl" (click)="addFilter()">Add Filter</button>
+                            <button type="button" class="bg-[#4086EF] text-white font-medium font-inter text-xs w-[80px] h-[40px] rounded-xl" (click)="addFilter()">Generate</button>
                             <button  type="button" class="bg-none  text-[#4086EF] font-medium font-inter text-xs w-[80px] h-[40px] rounded" (click)="clearFilter()">Clear Filter</button>
                         </div>
 
@@ -138,9 +138,9 @@
                                 <p class="my-0 text-white font-inter font-medium text-sm">Export</p>
                                 <img src="assets/images/icons/downward_arrow_white.svg" alt="downward_arrow_white">
                                 </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                    <li><a>Export as CSV</a></li>
-                                    <li><a >Export as PDF</a></li>
+                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
+                                    <li (click)="exportData('csv')"><a>Export as CSV</a></li>
+                                    <li (click)="exportData('excel')"><a >Export as PDF</a></li>
                                 </ul>
                             </div>
                         </div>
