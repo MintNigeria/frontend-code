@@ -57,7 +57,8 @@ export class VerificationReasonComponent implements OnInit {
     this.loadIp();
 
     this.reasonForm = this.fb.group({
-      reasonForRequest: ['', Validators.required]
+      reasonForRequest: [null, Validators.required],
+      fileList: [null, [Validators.required, Validators.minLength(1)]],
     })
     const record: any = sessionStorage.getItem('sel_Ver')
     this.selectedVerificationUser = JSON.parse(record)
@@ -88,6 +89,16 @@ export class VerificationReasonComponent implements OnInit {
 
       this.selectedFile = e.target.files[0].name
       this.selectedFileList.push(file)
+      this.reasonForm.patchValue({
+        fileList: this.selectedFileList,
+      });
+      this.reasonForm.get('fileList')?.updateValueAndValidity();
+      const totalSize = this.selectedFileList.reduce((accumulator: any, currentFile: any) => accumulator + currentFile.size, 0);
+      if (totalSize > 5 * 1024 * 1024) { // 5MB in bytes
+        this.selectedFileList.pop(); 
+        this.notification.publishMessages('danger', 'Total size of uploaded files exceeds the maximum allowed size of 5MB.')
+        
+      } 
     }
   }
 
@@ -95,6 +106,9 @@ export class VerificationReasonComponent implements OnInit {
     this.showDefault = true;
 
     this.selectedFileList.splice(index, 1);
+    this.reasonForm.patchValue({
+      fileList: this.selectedFileList,
+    });
   }
 
   

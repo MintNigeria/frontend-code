@@ -142,90 +142,13 @@
                 </div>
             </div>
         </div>
-        <!-- <div
-            class=" border border-solid border-[#EAECF0] border-t-0 border-b-2 border-r-0 border-l-0 rounded-sm p-4 md:p-6 divide-y divide-[#EAECF0]">
-            <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
-                <div>
-                    <h3 class="font-medium text-sm text-[#344054]">Delivery Method</h3>
-                    <p class="text-sm text-[#667085]">
-                        Select an option to get started
-                    </p>
-                </div>
-
-                <div class="grid gap-5">
-                    <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer"
-                        [ngClass]="emailSelect? 'border-[#BDD5FA] bg-[#F5F9FF] text-[#4086EF]' : 'border-[#EAECF0]'"
-                        (click)="emailClicked()">
-                        <div class="flex gap-4 justify-start items-start w-[92%]">
-                            <img src="assets/images/graduates/featured-icon.svg" alt="">
-                            <div>
-                                <div class=" text-[#344054]">
-                                    Email - N2,500
-                                </div>
-
-                                <p>
-                                    Certificate would be shared ony to official institution account(s).
-                                </p>
-
-
-                            </div>
-
-                        </div>
-                        <div>
-                            <input type="radio" name="deliveryMethod" [value]="4" 
-                                class="form-radio h-5 w-5 text-gray-600" [checked]="emailSelect" />
-                        </div>
-
-
-                    </div>
-
-                    <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer"
-                        [ngClass]="fileUpload? 'bg-[#F5F9FF] border-[#BDD5FA] text-[#4086EF]' : 'border-[#EAECF0]'"
-                        (click)="fileUploadClicked()">
-                        <div class="flex gap-4 justify-start items-start w-[92%]">
-                            <img src="assets/images/graduates/featured-icon.svg" alt="">
-                            <div>
-                                <p class=" text-[#344054]">
-                                    File Upload - N2,500
-                                </p>
-                                Provide login credential for certificate uploading on third party platform.
-                            </div>
-
-                        </div>
-                        <input type="radio" name="deliveryMethod" [value]="1" 
-                            class="form-radio h-5 w-5 text-gray-600" [checked]="fileUpload" />
-
-
-                    </div>
-                    <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer"
-                        [ngClass]="hardCopy? 'bg-[#F5F9FF] border-[#BDD5FA] text-[#4086EF]' : 'border-[#EAECF0]'"
-                        (click)="hardCopyClicked()">
-                        <div class="flex gap-4 justify-start items-start w-[92%]">
-                            <img src="assets/images/graduates/featured-icon.svg" alt="">
-                            <div>
-                                <p class="text-[#344054]">
-                                    Hard Copy - N2,500
-                                </p>
-                                E.g Hard copy would be send to Scholarship board, Embassies, International
-                                Schools/Tertiary Institutions etc.
-                            </div>
-
-                        </div>
-                        <input type="radio" name="deliveryMethod" [value]="8" 
-                            class="form-radio h-5 w-5 text-gray-600" [checked]="hardCopy" />
-
-
-                    </div>
-                </div>
-
-            </div>
-        </div> -->
+       
         <div class="flex justify-end mt-4 gap-3">
 
             <app-button (buttonClick)="cancel()" [overRideButtonClass]="true"
                 customClass="w-[80px] h-12 rounded-lg font-inter font-medium text-base leading-6 bg-white border-2 border-solid border-[#EAECF0] text-[#344054]">Cancel</app-button>
             <app-button [overRideButtonClass]="true" [disabled]="academicDetailsForm.invalid"
-                customClass="w-[80px] h-12 rounded-lg font-inter font-medium text-base text-white leading-6 bg-[#4086EF]"
+                customClass="w-[80px] h-12 rounded-lg font-inter font-medium text-base text-white leading-6 bg-primaryBlue"
                 (buttonClick)="searchRecord()">Search</app-button>
         </div>
     </form>

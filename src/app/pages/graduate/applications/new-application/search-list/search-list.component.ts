@@ -20,7 +20,7 @@ export class SearchListComponent implements OnInit {
 
   ngOnInit(): void {
     this.consentForm = this.fb.group({
-      consent: [false, Validators.required]
+      consent: [false, Validators.requiredTrue]
     })
         const record: any = sessionStorage.getItem('ver_Ys')
     this.recordList = JSON.parse(record)

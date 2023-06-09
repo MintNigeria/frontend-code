@@ -83,7 +83,7 @@ export class GraduateVerificationDetailsComponent implements OnInit {
       degreeType: ['', Validators.required],
       yearOfEntry: [''],
       yearOfGraduation: ['', Validators.required],
-      consent: ['', Validators.required],
+      consent: [false, Validators.requiredTrue],
     })
   }
 

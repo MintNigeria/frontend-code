@@ -179,7 +179,7 @@ export class MyProfileComponent implements OnInit {
       ipAddress: this.ipAddress,
       lga: lgaId,
       state: stateId,
-      address,
+    address,
       logo,
       phone
     }

@@ -74,7 +74,7 @@ export class AcademicDetailsComponent implements OnInit {
       degreeType: ['', Validators.required],
       yearOfEntry: ['', Validators.required],
       yearOfGraduation: ['', Validators.required],
-      consent: ['', Validators.required],
+      consent: [false, Validators.requiredTrue],
     })
   }
 
