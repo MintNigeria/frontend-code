@@ -98,8 +98,10 @@ filter: any = {
       FirstName: [''],
       LastName: [''],
       Designation: [''],
-      consent: ['', Validators.required],
-      nspm: ['', Validators.required],
+      consent: [false, Validators.requiredTrue],
+      nspm: [false, Validators.requiredTrue],
+      fileList: [null, [Validators.required, Validators.minLength(1)]],
+
     })
   }
 
@@ -172,6 +174,10 @@ filter: any = {
       this.showDefault = true;
       this.selectedFile = e.target.files[0].name
       this.selectedFileList.push(file)
+      this.institutionRegForm.patchValue({
+        fileList: this.selectedFileList,
+      });
+      this.institutionRegForm.get('fileList')?.updateValueAndValidity();
       const totalSize = this.selectedFileList.reduce((accumulator: any, currentFile: any) => accumulator + currentFile.size, 0);
       if (totalSize > 5 * 1024 * 1024) { // 5MB in bytes
         this.selectedFileList.pop(); 
@@ -184,6 +190,9 @@ filter: any = {
   deleteFile(index: number){
     this.showDefault = true;
     this.selectedFileList.splice(index, 1);
+    this.institutionRegForm.patchValue({
+      fileList: this.selectedFileList,
+    });
   }
 
   public resolved(captchaResponse: string): void {

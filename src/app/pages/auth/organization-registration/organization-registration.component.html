@@ -23,7 +23,7 @@
       <ng-container>
         <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
           <div class="w-full md:w-1/2 px-3  md:mb-0" >
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Organization Industry 
+            <label for="organizationIndustry" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Organization Industry 
               <span class="text-danger">*</span> </label>
             <ng-select class="custom-ng-dropdown"  formControlName="OrganizationIndustryId" [selectOnTab]="true"
               placeholder="Select Institution body">
@@ -31,7 +31,7 @@
             </ng-select>
           </div>
           <div class="w-full md:w-1/2 px-3  md:mb-0" >
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Organization Sector
+            <label for="organizationSector" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Organization Sector
               <span class="text-danger">*</span> </label>
             <ng-select class="custom-ng-dropdown"  formControlName="OrganizationSectorId" [selectOnTab]="true"
               placeholder="Select Institution type">
@@ -42,14 +42,14 @@
 
         <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
           <div class="w-full md:w-1/2 px-3  md:mb-0" >
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Organization Name
+            <label for="organizationNamae" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Organization Name
              <span class="text-danger">*</span> </label>
             <app-input [formGrp]="institutionRegForm" formCtrlName="Name" [type]="'text'" [class]="
                       'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
                     " Issuer="Enter organization name" [name]="'Organization Name'"></app-input>
           </div>
           <div class="w-full md:w-1/2 px-3  md:mb-0" >
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Date of Incoporation
+            <label for="dateOfIncoporation" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Date of Incoporation
               <span class="text-danger">*</span> </label>
            
                     <app-input [formGrp]="institutionRegForm" formCtrlName="DateOfIncorporation" [type]="'date'" [class]="
@@ -61,7 +61,7 @@
         <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
           
           <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Registration
+            <label for="registrationType" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Registration
               Type
               <span class="text-danger">*</span> </label>
             <select name="" id="" (change)="changeRegistrationType($event)"
@@ -73,7 +73,7 @@
             
           </div>
           <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Registration
+            <label for="registrationBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Registration
               Body
               <span class="text-danger">*</span> </label>
             <app-input [formGrp]="institutionRegForm" formCtrlName="RegisteringBody" [type]="'text'" [class]="
@@ -85,14 +85,14 @@
         <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
           
           <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Registration
+            <label for="registrationNumber" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Registration
               Number <span class="text-danger">*</span> </label>
             <app-input [formGrp]="institutionRegForm" formCtrlName="CAC" [type]="'text'" [class]="
                       'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
                     " Issuer="Enter registration number" [name]="'Registration Number'"></app-input>
           </div>
           <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Email <span
+            <label for="email" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Email <span
                 class="text-danger">*</span> </label>
             <app-input [formGrp]="institutionRegForm" formCtrlName="EmailAddress" [type]="'email'" [class]="
                       'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
@@ -104,7 +104,7 @@
         <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
          
           <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Phone Number
+            <label for="phoneNumber" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Phone Number
               <span class="text-danger">*</span> </label>
               <div class="w-full mt-2">
                 <ngx-intl-tel-input
@@ -139,7 +139,7 @@
           </div>
 
           <div class="w-full md:w-1/2 px-3  md:mb-0" >
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Country <span
+            <label for="country" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Country <span
                 class="text-danger">*</span> </label>
                 <ng-select class="custom-ng-dropdown" 
                 formControlName="Country" 
@@ -154,7 +154,7 @@
         </div>
         <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
           <div class="w-full md:w-1/2 px-3  md:mb-0" >
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">State <span
+            <label for="state" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">State <span
                 class="text-danger">*</span> </label>
                 <ng-select class="custom-ng-dropdown" 
                 formControlName="State" 
@@ -166,7 +166,7 @@
             </ng-select>
           </div>
           <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">City
+            <label for="city" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">City
               <span class="text-danger">*</span> </label>
               <ng-select class="custom-ng-dropdown" 
               formControlName="City" 
@@ -180,7 +180,7 @@
         </div>
         <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
           <div class="w-full px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Address <span
+            <label for="address" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Address <span
                 class="text-danger">*</span> </label>
             <app-input [formGrp]="institutionRegForm" formCtrlName="Address" [type]="'text'" [class]="
                       'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
@@ -192,7 +192,7 @@
         </p>
         <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
           <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Title <span
+            <label for="title" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Title <span
                 class="text-danger">*</span> </label>
             <select name="" id="" formControlName="Title"
               class="mt-2 select h-[52px] w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
@@ -208,7 +208,7 @@
             </small>
           </div>
           <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">First Name
+            <label for="firstName" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">First Name
               <span class="text-danger">*</span> </label>
             <app-input [formGrp]="institutionRegForm" formCtrlName="FirstName" [type]="'text'" [class]="
                       'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
@@ -217,14 +217,14 @@
         </div>
         <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
           <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Last Name <span
+            <label for="lastName" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Last Name <span
                 class="text-danger">*</span> </label>
             <app-input [formGrp]="institutionRegForm" formCtrlName="LastName" [type]="'text'" [class]="
                       'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
                     " Issuer="Enter last name" [name]="'Last name'"></app-input>
           </div>
           <div class="w-full md:w-1/2 px-3  md:mb-0">
-            <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Designation
+            <label for="designation" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Designation
               <span class="text-danger">*</span> </label>
             <app-input [formGrp]="institutionRegForm" formCtrlName="Designation" [type]="'text'" [class]="
                       'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
