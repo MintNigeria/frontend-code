@@ -118,6 +118,7 @@ selectedFileList: any = {
       phoneNo: [''],
       additionalPhoneNo: [ '', Validators.required ],
       reasonForRequest: [ '',  Validators.required  ],
+      fileList: [null, [Validators.required, Validators.minLength(1)]],
 
     })
   }
@@ -132,6 +133,8 @@ selectedFileList: any = {
       reasonForRequest: [ '',  Validators.required  ],
       dispatchAmount: [ '',  Validators.required  ],
       dispatchMethod: [ '',  Validators.required  ],
+      fileList: [null, [Validators.required, Validators.minLength(1)]],
+
 
     })
   }
@@ -142,7 +145,9 @@ selectedFileList: any = {
       loginPassword: ['', Validators.required],
       phoneNo: ['', Validators.required],
       reasonForRequest: [ '',  Validators.required  ],
-      deliveryMethod: 0
+      deliveryMethod: 0,
+      fileList: [null, [Validators.required, Validators.minLength(1)]],
+
     })
   }
   initEmailForm(){
@@ -280,6 +285,14 @@ selectedFileList: any = {
 		  return;
 		} else {
       // this.selectedFileList.push(file)
+      // this  .institutionRegForm.get('fileList')?.updateValueAndValidity();
+      const totalSize = this.selectedFileList.reduce((accumulator: any, currentFile: any) => accumulator + currentFile.size, 0);
+      if (totalSize > 5 * 1024 * 1024) { // 5MB in bytes
+        this.selectedFileList.pop(); 
+        this.notification.publishMessages('danger', 'Total size of uploaded files exceeds the maximum allowed size of 5MB.')
+        
+      } 
+
       if (type === 1) {
         this.selectedFileList['whiteBgPassport'] = { name: "White Background Passport Photograph", type: 1, File: file }
         this.selectedFile = e.target.files[0].name
@@ -300,8 +313,9 @@ selectedFileList: any = {
         this.selectedFileList['policceReport'] = { name: "Police Report", type: 6, File: file }
       }
     }
+    console.log(type)
 
-    // console.log(this.selectedFileList)
+    console.log(this.selectedFileList)
   }
 
   cancel(){
@@ -339,6 +353,7 @@ selectedFileList: any = {
     }
 
 
+    console.log(data)
     this.store.dispatch(createGraduateApplication({payload: data}))
     this.actions$.pipe(ofType(createGraduateApplicationSuccess)).subscribe((res: any) => {
       if (res.payload.hasErrors === false) {

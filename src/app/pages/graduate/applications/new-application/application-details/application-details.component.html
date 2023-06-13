@@ -268,7 +268,7 @@
             
             <div class="col-span-2">
               <p class="input_label label_asterisk my-1">Reason for request</p>
-              <app-input [formGrp]="appDetailsForm" formCtrlName="reasonForRequest" [type]="'name'" [class]="
+              <app-input [formGrp]="hardCopyForm" formCtrlName="reasonForRequest" [type]="'name'" [class]="
                   'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
                 " placeholder="Enter reason for Request" [name]="'Reason for request'"></app-input>
             </div>
@@ -286,7 +286,7 @@
         </ng-container>
 
       </div>
-      <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20 my-3 py-5">
+      <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20 my-3 py-5" *ngIf="selectedDestination === 1 || selectedDestination === 2 || selectedDestination === 3">
         <div>
           <p class="font-medium mb-1 mt-2  text-sm text-failedNormal ">
             Supporting Document <span class="text-danger">*</span>
@@ -296,7 +296,7 @@
             police reports etc.</p>
         </div>
         <div class="grid md:grid-cols-2 grid-cols-1 gap-6">
-          <div>
+          <div  *ngIf="selectedDestination === 1 || selectedDestination === 2 || selectedDestination === 3">
             <p class="text-black text-base">
               White Background Passport<span class="text-danger">*</span>
             </p>
@@ -318,7 +318,7 @@
               </div>
             </div>
           </div>
-          <div>
+          <div *ngIf="selectedDestination === 1 || selectedDestination === 2 || selectedDestination === 3">
             <p class="text-black text-base">
               Valid Means of ID <span class="text-danger">*</span>
             </p>
@@ -340,7 +340,7 @@
               </div>
             </div>
           </div>
-          <div>
+          <div *ngIf="selectedDestination === 3">
             <p class="text-black text-base">
               Student Final Clearance
             </p>
@@ -362,7 +362,7 @@
               </div>
             </div>
           </div>
-          <div>
+          <div *ngIf="selectedDestination === 3">
             <p class="text-black text-base">
               Notification of Result
             </p>
@@ -384,7 +384,7 @@
               </div>
             </div>
           </div>
-          <div>
+          <div *ngIf="selectedDestination === 3">
             <p class="text-black text-base">
               Court Affidavit
             </p>
@@ -406,7 +406,7 @@
               </div>
             </div>
           </div>
-          <div>
+          <div *ngIf="selectedDestination === 3">
             <p class="text-black text-base">
               Police Report
             </p>
