@@ -88,7 +88,7 @@ export class GraduateLoginComponent implements OnInit {
           this.router.navigateByUrl('/graduate/dashboard');
         }  else if (this.loggedInUser.UserType !== 'Graduates') {
           this.notificationService.publishMessages('error', 'Invalid login credential');
-          localStorage.clear()
+          // localStorage.clear()
         }
         
       } else {
