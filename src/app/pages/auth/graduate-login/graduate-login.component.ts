@@ -87,15 +87,15 @@ export class GraduateLoginComponent implements OnInit {
           this.notificationService.publishMessages('success', 'Login Successful');
           this.router.navigateByUrl('/graduate/dashboard');
         }  else {
-          console.log('dsd')
           this.notificationService.publishMessages('error', 'Invalid login credential');
+          localStorage.clear()
+
         }
         
       } else {
-        if (this.loggedInUser.UserType === 'Graduates') {
-          this.show2FAOTP = true
-          this.timer(10)
-      }
+        this.show2FAOTP = true
+        this.timer(1)
+      
 
       }
     })
@@ -175,7 +175,7 @@ export class GraduateLoginComponent implements OnInit {
     this.actions$.pipe(ofType(confirm2FActionSuccess)).subscribe((res: any) => {
       if (res.message.hasErrors === false) {
         this.notificationService.publishMessages('success', res.message.description);
-        this.timer(10)
+        this.timer(1)
        
 
       }

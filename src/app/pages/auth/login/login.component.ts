@@ -89,16 +89,14 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('/institution/dashboard');
         } else {
           this.notificationService.publishMessages('error', 'Invalid login credential');
+          localStorage.clear()
 
         }
        
       } else {
-        if (this.loggedInUser.UserType === 'Institution') {
-  
-          this.show2FAOTP = true;
-          this.timer(10)
-        }
-
+        this.show2FAOTP = true;
+        this.timer(1)
+      
       }
     })
   

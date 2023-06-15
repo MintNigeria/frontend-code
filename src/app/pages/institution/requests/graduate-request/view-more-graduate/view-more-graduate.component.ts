@@ -32,7 +32,7 @@ export class ViewMoreGraduateComponent implements OnInit {
     { name: 'DISPATCHED',  value: 3},
     { name: 'PAUSED',  value: 4},
     { name: 'DELIVERED',  value: 5},
-    { name: 'DECLINED',  value: 6},
+    // { name: 'DECLINED',  value: 6},
     { name: 'COMPLETED',  value: 7},
   ]
   ipAddress: any;

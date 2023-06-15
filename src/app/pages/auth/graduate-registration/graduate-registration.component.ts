@@ -227,6 +227,12 @@ selectedFileList: any  = []
   }
 
   continueCreation() {
+    if (this.institutionRegForm.invalid) {
+      // Mark all form controls as touched to trigger validation errors
+      this.institutionRegForm.markAllAsTouched();
+      return;
+    }
+
     const data = {
       approvalFile : this.selectedFileList, ...this.institutionRegForm.value
     }
@@ -235,7 +241,7 @@ selectedFileList: any  = []
       if (res.payload.hasErrors === false) {
         this.notification.publishMessages('success', 'Registration successful')
         this.showOTPPage = true;
-        this.timer(10)
+        this.timer(1)
 
       }
     })
@@ -276,7 +282,7 @@ selectedFileList: any  = []
     this.actions$.pipe(ofType(resendOTPSuccess)).subscribe((res: any) => {
       if (res.message.hasErrors === false) {
         this.notification.publishMessages('success', res.message.description)
-        this.timer(10)
+        this.timer(1)
 
       }
     })

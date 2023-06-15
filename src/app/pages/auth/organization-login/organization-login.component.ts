@@ -88,14 +88,14 @@ export class OrganizationLoginComponent implements OnInit {
             this.router.navigateByUrl('/organization/dashboard');
         }  else {
           this.notificationService.publishMessages('error', 'Invalid login credential');
+          localStorage.clear()
+
 
         }
       } else {
-        if (this.loggedInUser.UserType === 'Organization') {
-          this.show2FAOTP = true
-          this.timer(10)
-      }
-
+        this.show2FAOTP = true
+        this.timer(10)
+     
       }
     })
     
