@@ -142,9 +142,9 @@ export class OrganizationLoginComponent implements OnInit {
         permissions: this.loggedInUser.Permission
   
       };
+      this.notificationService.publishMessages('success', 'Login Successful');
       localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
       localStorage.setItem('authData', JSON.stringify(data));
-      this.notificationService.publishMessages('success', 'Login Successful');
       
      
       if (this.loggedInUser.UserType === 'Organization') {

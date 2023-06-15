@@ -83,10 +83,10 @@ export class LoginComponent implements OnInit {
     
         };
         if (this.loggedInUser.UserType === 'Institution') {
+          this.router.navigateByUrl('/institution/dashboard');
+          this.notificationService.publishMessages('success', 'Login Successful');
           localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
           localStorage.setItem('authData', JSON.stringify(data));
-          this.notificationService.publishMessages('success', 'Login Successful');
-          this.router.navigateByUrl('/institution/dashboard');
         } else {
           this.notificationService.publishMessages('error', 'Invalid login credential');
           localStorage.clear()
@@ -95,8 +95,8 @@ export class LoginComponent implements OnInit {
        
       } else {
         this.show2FAOTP = true;
-        this.timer(1)
-      
+        this.timer(10)
+       
       }
     })
   
