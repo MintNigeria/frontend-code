@@ -53,11 +53,11 @@ export class GraduateLoginComponent implements OnInit {
         '',
         Validators.compose([Validators.email, Validators.required])
       ),
-      recaptchaReactive: new FormControl('', [Validators.required]),
+      recaptchaReactive: new FormControl(''),
     });
   }
 
-  
+
   accessAccount() {
     this.status = Status.LOADING;
     this.store.dispatch(invokeLoginUser({payload: this.loginAuth.value}));
@@ -142,7 +142,6 @@ export class GraduateLoginComponent implements OnInit {
           role: this.loggedInUser?.role || 'undefined',
         },
         permissions: this.loggedInUser.Permission
-  
       };
       
       if (this.loggedInUser.UserType === 'Graduates') {

@@ -193,7 +193,7 @@ export class ApplicationDetailsComponent implements OnInit {
     // console.log(this.selectedCountry)
     if (this.selectedCountry.name === 'Nigeria') {
       let data = this.dispatchFee.map((item: any) => {
-        if (item.keyName === "Nipost" || item.keyName === "WithinState" || item.keyName === "OutsideStateWithinNigeria") {
+        if ( item.keyName === "WithinState" || item.keyName === "OutsideStateWithinNigeria") {
           return item
         }
       })
@@ -202,7 +202,7 @@ export class ApplicationDetailsComponent implements OnInit {
       // console.log(this.newDispatchVM)
     } else {
       let newData = this.dispatchFee.map((item: any) => {
-        if (item.keyName !== "Nipost" || item.keyName !== "WithinState" || item.keyName !== "OutsideStateWithinNigeria") {
+        if ( item.keyName !== "WithinState" || item.keyName !== "OutsideStateWithinNigeria") {
           return item
         }
       })
