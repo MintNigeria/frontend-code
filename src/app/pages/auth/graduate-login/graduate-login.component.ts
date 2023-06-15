@@ -86,10 +86,9 @@ export class GraduateLoginComponent implements OnInit {
           localStorage.setItem('authData', JSON.stringify(data));
           this.notificationService.publishMessages('success', 'Login Successful');
           this.router.navigateByUrl('/graduate/dashboard');
-        }  else {
+        }  else if (this.loggedInUser.UserType !== 'Graduates') {
           this.notificationService.publishMessages('error', 'Invalid login credential');
           localStorage.clear()
-
         }
         
       } else {

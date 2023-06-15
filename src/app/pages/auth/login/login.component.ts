@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit {
 
     this.store.dispatch(invokeLoginUser({payload: this.loginAuth.value}));
     this.actions$.pipe(ofType(loginSuccess)).subscribe((res: any) => {
+      console.log(res)
       if (res.accessToken !== undefined && typeof(res.payload) !== 'string') {
         const helper = new JwtHelperService();
         this.loggedInUser = helper.decodeToken(res.accessToken);
@@ -83,20 +84,19 @@ export class LoginComponent implements OnInit {
     
         };
         if (this.loggedInUser.UserType === 'Institution') {
+          this.router.navigateByUrl('/institution/dashboard');
+          this.notificationService.publishMessages('success', 'Login Successful');
           localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
           localStorage.setItem('authData', JSON.stringify(data));
-          this.notificationService.publishMessages('success', 'Login Successful');
-          this.router.navigateByUrl('/institution/dashboard');
-        } else {
+        } else if(this.loggedInUser.UserType !== 'Institution') {
           this.notificationService.publishMessages('error', 'Invalid login credential');
           localStorage.clear()
-
         }
        
       } else {
         this.show2FAOTP = true;
         this.timer(1)
-      
+       
       }
     })
   
@@ -105,7 +105,6 @@ export class LoginComponent implements OnInit {
   fetchOTPCode() {}
 
   public resolved(captchaResponse: string): void {
-    ////console.log(`Resolved captcha with response: ${captchaResponse}`);
     this.loginAuth.controls['recaptchaReactive'].setValue(captchaResponse);
   }
 
@@ -176,9 +175,7 @@ export class LoginComponent implements OnInit {
     this.actions$.pipe(ofType(confirm2FActionSuccess)).subscribe((res: any) => {
       if (res.message.hasErrors === false) {
         this.notificationService.publishMessages('success', res.message.description);
-        this.timer(10)
-       
-
+        this.timer(1)
       }
     })
   }

@@ -86,7 +86,7 @@ export class OrganizationLoginComponent implements OnInit {
           localStorage.setItem('authData', JSON.stringify(data));
           this.notificationService.publishMessages('success', 'Login Successful');
             this.router.navigateByUrl('/organization/dashboard');
-        }  else {
+        }  else if (this.loggedInUser.UserType !== 'Organization') {
           this.notificationService.publishMessages('error', 'Invalid login credential');
           localStorage.clear()
 
@@ -94,7 +94,7 @@ export class OrganizationLoginComponent implements OnInit {
         }
       } else {
         this.show2FAOTP = true
-        this.timer(10)
+        this.timer(1)
      
       }
     })
@@ -142,9 +142,9 @@ export class OrganizationLoginComponent implements OnInit {
         permissions: this.loggedInUser.Permission
   
       };
+      this.notificationService.publishMessages('success', 'Login Successful');
       localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
       localStorage.setItem('authData', JSON.stringify(data));
-      this.notificationService.publishMessages('success', 'Login Successful');
       
      
       if (this.loggedInUser.UserType === 'Organization') {
@@ -174,7 +174,7 @@ export class OrganizationLoginComponent implements OnInit {
     this.actions$.pipe(ofType(confirm2FActionSuccess)).subscribe((res: any) => {
       if (res.message.hasErrors === false) {
         this.notificationService.publishMessages('success', res.message.description);
-        this.timer(10)
+        this.timer(1)
        
 
       }
