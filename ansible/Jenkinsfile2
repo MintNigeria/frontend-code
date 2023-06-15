@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Deploy with Ansible') {
+            environment {
+                ANSIBLE_HOST = 'localhost'
+                ANSIBLE_USER = 'VAC_Admin'
+                ANSIBLE_PASSWORD = 'Centos7.0_User'
+            }
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'TOSH', usernameVariable: 'ANSIBLE_USER', passwordVariable: 'ANSIBLE_PASSWORD')]) {
+                    sh """
+                    ansible-playbook -i ${ANSIBLE_HOST}, --user ${ANSIBLE_USER} --ask-pass ansible/playbook.yml
+                    """
+                }
+            }
+        }
+
+        stage('Build and Start Docker Containers') {
+            steps {
+                sh 'docker-compose -f /var/lib/jenkins/workspace/ngmintclient/ansible/docker-compose.yml up -d --force-recreate'
+            }
+        }
+    }
+}
