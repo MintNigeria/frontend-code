@@ -57,10 +57,12 @@ export class GraduateLoginComponent implements OnInit {
     });
   }
 
+  
   accessAccount() {
     this.status = Status.LOADING;
     this.store.dispatch(invokeLoginUser({payload: this.loginAuth.value}));
     this.actions$.pipe(ofType(loginSuccess)).subscribe((res: any) => {
+      console.log(res)
       if (res.accessToken !== undefined && typeof(res.payload) !== 'string') {
         const helper = new JwtHelperService();
         this.loggedInUser = helper.decodeToken(res.accessToken);
@@ -90,6 +92,7 @@ export class GraduateLoginComponent implements OnInit {
           this.notificationService.publishMessages('error', 'Invalid login credential');
           // localStorage.clear()
         }
+        
         
       } else {
         this.show2FAOTP = true
