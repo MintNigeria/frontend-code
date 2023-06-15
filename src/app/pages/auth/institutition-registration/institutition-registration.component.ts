@@ -210,7 +210,7 @@ filter: any = {
       if (res.payload.hasErrors === false) {
         this.notification.publishMessages('success', 'Registration successful')
         this.showOTPPage = true;
-        this.timer(10)
+        this.timer(1)
 
       }
     })
@@ -244,7 +244,7 @@ filter: any = {
     this.actions$.pipe(ofType(resendOTPForInstitutionSuccess)).subscribe((res: any) => {
       if (res.message.hasErrors === false) {
         this.notification.publishMessages('success', res.message.description)
-        this.timer(10)
+        this.timer(1)
       }
     })
   }

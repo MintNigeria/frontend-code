@@ -39,7 +39,7 @@ export class OrganizationComponent implements OnInit {
       childRoute:  [
         {
           route: '/organization/verifications',
-          name: 'Verification List'
+          name: 'Verification History'
         },
         {
           route: '/organization/verifications/verify-record-by-code',

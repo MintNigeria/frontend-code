@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'
 import { filter } from "rxjs";
-const MINUTES_UNITL_AUTO_LOGOUT = 15 // in mins
+const MINUTES_UNITL_AUTO_LOGOUT = 5 // in mins
 const CHECK_INTERVAL = 5000 // in ms
 const STORE_KEY =  'lastAction';
 @Injectable(

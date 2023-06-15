@@ -9,24 +9,26 @@
       <!-- Navigation links -->
       <nav class="hidden md:flex items-center space-x-6">
         <div class="flex space-x-4">
-          <a routerLink="/verification-services" class="font-inter font-medium text-base text-lightGray">
-            Verification Services
+          <a routerLink="/about" class="font-inter font-medium text-base text-lightGray">
+            About Us
           </a>
-          <a routerLink="/transcript-services" class="font-inter font-medium text-base text-lightGray">
-            Transcript Services
+          <a routerLink="/contacts" class="font-inter font-medium text-base text-lightGray">
+            Contact Us
           </a>
+          <a routerLink="/faqs" class="font-inter font-medium text-base text-lightGray">
+            FAQs
+          </a>
+          
         </div>
 
         <div class="dropdown">
           <label tabindex="0" class="font-inter font-medium text-base text-lightGray inline-flex items-center space-x-2">
-            <p>Company</p>
+            <p>Services</p>
             <img src="assets/images/icons/dropdown.svg" alt="dropdown">
           </label>
           <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
-            <li><a routerLink="/about">About</a></li>
-            <!-- <li><a routerLink="/career">Career</a></li> -->
-            <li><a routerLink="/contacts">Contacts</a></li>
-            <li><a routerLink="/faqs">FAQs</a></li>
+            <li><a routerLink="/verification-services">Verification Services</a></li>
+            <li><a routerLink="/transcript-services">Transcript Services</a></li>
           </ul>
         </div>
       </nav>
@@ -59,23 +61,24 @@
   <!-- Mobile menu -->
   <div *ngIf="mobileMenuOpen" class="md:hidden fixed inset-x-0 top-16 z-10 bg-white shadow-lg w-full">
     <nav class="flex flex-col space-y-4 p-4">
-      <a routerLink="/verification-services" class="font-inter font-medium text-base text-lightGray">
-        Verification Services
+      <a routerLink="/about" class="font-inter font-medium text-base text-lightGray">
+       About Us
       </a>
-      <a routerLink="/transcript-services" class="font-inter font-medium text-base text-lightGray">
-        Transcript Services
+      <a routerLink="/contacts" class="font-inter font-medium text-base text-lightGray">
+        Contact Us
       </a>
-      <div class="dropdown">
-        <label tabindex="0" class="font-inter font-medium text-base text-lightGray inline-flex items-center space-x-2">
-          <p>Company</p>
-          <img src="assets/images/icons/dropdown.svg" alt="dropdown">
-        </label>
-        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-          <li><a routerLink="/about">About</a></li>
-          <!-- <li><a routerLink="/career">Career</a></li> -->
-          <li><a routerLink="/contacts">Contacts</a></li>
-          <li><a routerLink="/faqs">FAQs</a></li>
-        </ul>
+      <a routerLink="/faqs" class="font-inter font-medium text-base text-lightGray">
+        FAQs
+      </a>
+      <div  class="gap-10 flex font-inter font-medium text-base text-lightGray">
+        <p>Services</p>
+        <img src="assets/images/icons/dropdown.svg" alt="dropdown" (click)="showOthers()">
+      </div>
+      <div class="flex flex-col gap-3" *ngIf="showServices">
+        
+        <a class="pt-2 font-inter font-medium text-base text-lightGray"  routerLink="/verification-services">Verification Services</a>
+        <a class="pt-2 font-inter font-medium text-base text-lightGray" routerLink="/transcript-services">Transcript Services</a>
+
       </div>
     </nav>
   </div>

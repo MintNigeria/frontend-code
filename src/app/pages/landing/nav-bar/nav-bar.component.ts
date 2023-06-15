@@ -9,7 +9,7 @@ import { CreateAccountModalComponent } from '../modals/create-account-modal/crea
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
-
+  showServices: boolean = false
   mobileMenuOpen = false;
 
   constructor(
@@ -33,6 +33,9 @@ export class NavBarComponent implements OnInit {
       // height: '600px'
     });
 
+  }
+  showOthers() {
+    this.showServices = !this.showServices
   }
 
 }

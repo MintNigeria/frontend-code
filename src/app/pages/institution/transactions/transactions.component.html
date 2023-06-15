@@ -93,6 +93,7 @@
                         [ngClass]="showInitiator? 'hidden' : 'block'"
                         class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72"
                     >
+                        <li><a (click)="transactionType='All'">All</a></li>
                         <li><a (click)="changeInitiator(1,  'Graduates') ">Graduates</a></li>
                         <li>
                         <a (click)="changeInitiator(2, 'Organizations ') "
@@ -133,7 +134,7 @@
                     <p
                     class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2"
                     >
-                    Status
+                    Transaction Status
                     </p>
                     <div class="dropdown dropdown-bottom">
                     <label
@@ -155,11 +156,11 @@
                         <li><a (click)="changeStatus(0, 'Pending')">Pending</a>
                         </li>
                         <li>
-                        <a (click)="changeStatus(1, 'Approved')">Approved</a>
+                        <a (click)="changeStatus(1, 'Successful')">Successful</a>
                         </li>
                         <li>
-                        <a (click)="changeStatus(2, 'Decline')"
-                            >Declined</a
+                        <a (click)="changeStatus(2, 'Failed')"
+                            >Failed</a
                         >
                         </li>
                     </ul>
@@ -194,7 +195,7 @@
                <div class="p-6">
                 <div class="flex mb-3 ">
                     <div class=" flex p-1 rounded mr-2  bg-[#12B76A]"><img src="assets/images/main/Number.svg" alt=""></div>
-                    <p class="border-b border-dashed font-inter font-semibold text-base text-failedNormal"> Total revenue generated</p>
+                    <p class="border-b border-dashed font-inter font-semibold text-base text-failedNormal"> Total transaction(Value)</p>
                 </div>
                 <p class="text-successNormal font-bold text-3xl font-poppins">₦{{transactionDetails?.totalRevenueGeneratedVM?.total | commaDelimiter}}</p>
                </div> 
@@ -221,7 +222,7 @@
                <div class="p-6">
                 <div class="flex mb-3 ">
                     <div class=" flex p-1 rounded mr-2  bg-[#F38744]"><img src="assets/images/main/Fintech.svg" alt=""></div>
-                    <p class="border-b border-dashed font-inter font-semibold text-base text-failedNormal"> Total Transactions</p>
+                    <p class="border-b border-dashed font-inter font-semibold text-base text-failedNormal"> Total Transaction(Volume)</p>
                 </div>
                 <p class="text-failedNormal font-bold text-3xl font-poppins">{{transactionDetails?.totalTransactionInVolumeVM?.total}}</p>
                </div> 
@@ -292,15 +293,17 @@
             <!--Table Content-->
 
             <div class="flex flex-wrap mt-3  rounded-l-xl bg-white border border-solid border-[#EFF0F6]">
-                <div class="w-full md:w-1/2 border-r">
+                <div class="w-full  md:w-9/12 border-r">
                     <div class="overflow-x-auto  hide-scrollbar">
                         <table class="table w-full">
                             <thead>
                                 <tr>
+                                    <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  "> Transaction Id / <br> Transaction Date</th>
+                                    <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Transaction Type</th>
                                     <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Initiator</th>
                                     <th class="flex gap-1 text-xs text-lightGray font-medium font-inter bg-tableHeader ">Amount
                                     </th>
-                                    <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">date</th>
+                                    <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">status</th>
                                     <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">
                                     </th>
                                 </tr>
@@ -309,6 +312,26 @@
                             <tbody class="bg-white">
                                         <tr *ngFor="let data of transactionDetails?.minifiedTransactionInfoVMs | paginate: { itemsPerPage: filter.pageSize, currentPage: pageIndex, totalItems: totalCount } " class="bg-white" [ngClass]="{ 'bg-primaryBlue': selectedDataId === data.id }">
                                         
+                                            
+                                            <td class="bg-white" [ngClass]="selectedDataId === data.id ? 'bg-blue-200': '' ">
+                                                <div>
+                                                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray">
+                                                      {{ data?.transactionRefId }}
+                                                    </p>
+                                                    <p class="text-xs font-normal font-inter my-0 text-lightGray">
+                                                      {{ data?.createdOn | date }}
+                                                    </p>
+                                                  </div>
+                                            </td>
+                                            
+                                            <td class="bg-white" [ngClass]="selectedDataId === data.id ? 'bg-blue-200': '' ">
+                                                <div>
+                                                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray">
+                                                      {{ data?.transactionType }}
+                                                    </p>
+                                                   
+                                                  </div>
+                                            </td>
                                             
                                             <td class="bg-white" [ngClass]="selectedDataId === data.id ? 'bg-blue-200': '' ">
                                                 <div>
@@ -329,9 +352,17 @@
 
                                             <td class="bg-white" [ngClass]="selectedDataId === data.id ? 'bg-blue-200': '' ">
                                                 <div>
-                                                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.createdOn | date : 'mediumDate'}}</p>
-                                                
-                                                </div>
+                                                    <p [ngClass]="
+                                                    data.status === 1
+                                                      ? 'bg-successLight text-successNormal'
+                                                      : data.status === 0
+                                                      ? 'bg-pendingLight text-pendingNormal': ''"
+                                                     
+                                                      class="my-0 w-fit rounded-md  px-2 text-base cursor-pointer font-inter font-normal text-lightGray"
+                                                    >
+                                                    {{data?.status === 0 ? 'Pending' : data?.status === 1 ? 'Successful' : 'Failed'}}
+                                                    </p>
+                                                  </div>
                                             </td>
                                             <td class="bg-white" [ngClass]="selectedDataId === data.id ? 'bg-blue-200': '' ">
                                                 <div>
@@ -346,7 +377,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="w-full md:w-1/2 grid ">
+                <div class="w-full md:w-3/12 grid ">
                     <div *ngIf="selectedData" class="">
                         <div>
                             <div class="bg-tabBlue p-4">

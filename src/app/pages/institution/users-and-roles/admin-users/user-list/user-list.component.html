@@ -106,9 +106,15 @@
     
                             <td class="bg-white">
                                 <div class="flex  gap-2 items-center" 
-                                (click)="seeDetails(item.userId)">
-                                    
-                                    <p 
+                                
+                                >
+                                    <div>
+                                        <div class="cursor-pointer flex gap-3">
+                                            <input type="checkbox" [checked]="item.userStatus === 1" (change)="enableDisableUser($event, item?.userId)" class="toggle toggle-primary" />
+                                            <p class="font-inter font-meduim text-base text-darkGray">&nbsp;</p>
+                                        </div>
+                                    </div>
+                                    <p (click)="seeDetails(item.userId)"
                                     class=" text-sm font-inter cursor-pointer font-medium text-primaryBlue "> View </p>
     
                                 </div>

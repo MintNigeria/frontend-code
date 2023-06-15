@@ -22,7 +22,7 @@ export class TransactionsComponent implements OnInit {
   selectedInstituition : string = "All";
   selectedSector : string = "All";
   documentType: string = "All";
-  transactionType: string = "Graduates";
+  transactionType: string = "All";
   status: string = "All";
   showDate : boolean = false;
   showInitiator : boolean = false;
@@ -145,6 +145,7 @@ filter = {
     this.selectedOption = 'All Time';
     this.filterOption = { selectedOption : 'All Time'};
     this.selectedSector = 'All'
+    this.transactionType = 'All'
     this.filterSector = { selectedSector: 'All'};
     this.selectedInstituition = 'All'
     this.filterInstituition = {selectedInstituition: 'All'};

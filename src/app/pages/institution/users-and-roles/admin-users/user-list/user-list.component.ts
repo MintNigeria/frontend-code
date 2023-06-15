@@ -9,6 +9,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { getALlFacultiesInInstitutionSuccess, getAllInstitutionUsers, getAllInstitutionUsersSuccess } from 'src/app/store/institution/action';
 import { Actions, ofType } from '@ngrx/effects';
 import { isUserSelector, permissionsSelector } from 'src/app/store/auth/selector';
+import { UsersAndRolesService } from 'src/app/core/services/users-and-roles/users-and-roles.service';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -46,7 +48,8 @@ export class UserListComponent implements OnInit {
     private appStore: Store<AppStateInterface>,
     private router: Router,
     private actions$: Actions,
-
+    private userAndRolesService: UsersAndRolesService,
+    private notificationService: NotificationsService
   ) { }
 
   ngOnInit(): void {
@@ -114,6 +117,27 @@ export class UserListComponent implements OnInit {
     this.store.dispatch(getAllInstitutionUsers({payload: {...filter, institutionId: this.institutionId}}))
 
   }
+
+  enableDisableUser(event: any, userId: any) {
+    // console.log(event.target.checked)
+    const payload = {
+      userIds: [userId],
+      status: event.target.checked === true ? 1 : 2
+    }
+    this.userAndRolesService
+      .activateOrDeactivateUsers(payload)
+      .subscribe((res) => {
+        if (!res.hasErrors) {
+          console.log(res)
+          this.notificationService.publishMessages(
+            'success',
+            event.target.checked === true ? 'User successfully activated' : 'User successfully deactivated'
+          );
+        }
+      });
+   
+  }
+  
 
 
 }
