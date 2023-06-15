@@ -83,6 +83,7 @@ export class LoginComponent implements OnInit {
           permissions: this.loggedInUser.Permission
     
         };
+        console.log(this.loggedInUser.UserType)
         if (this.loggedInUser.UserType === 'Institution') {
           this.router.navigateByUrl('/institution/dashboard');
           this.notificationService.publishMessages('success', 'Login Successful');
@@ -90,7 +91,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('authData', JSON.stringify(data));
         } else if(this.loggedInUser.UserType !== 'Institution') {
           this.notificationService.publishMessages('error', 'Invalid login credential');
-          localStorage.clear()
+          // localStorage.clear()
         }
        
       } else {
