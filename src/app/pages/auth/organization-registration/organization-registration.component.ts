@@ -99,11 +99,11 @@ selectedFileList: any  = []
       RegisteringBody: ['', Validators.required],
       DateOfIncorporation: ['', Validators.required],
       CAC: [''],
-      recaptchaReactive: [null, Validators.required],
-      Title: [''],
-      FirstName: [''],
-      LastName: [''],
-      Designation: [''],
+      recaptchaReactive: [null],
+      Title: ['', Validators.required],
+      FirstName: ['', Validators.required],
+      LastName: ['', Validators.required],
+      Designation: ['', Validators.required],
       consent: [false, Validators.requiredTrue],
       nspm: [false, Validators.requiredTrue],
       fileList: [null, [Validators.required, Validators.minLength(1)]],
@@ -201,6 +201,12 @@ selectedFileList: any  = []
   }
 
   continueCreation() {
+    if (this.institutionRegForm.invalid) {
+      // Mark all form controls as touched to trigger validation errors
+      this.institutionRegForm.markAllAsTouched();
+      return;
+    }
+
     const data = {
       approvalFile : this.selectedFileList, ...this.institutionRegForm.value
     }
