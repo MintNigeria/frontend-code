@@ -18,16 +18,20 @@ import { metaReducers, reducers } from './types/appState.interface';
 import { LoaderComponent } from './shared/components/loader/loader.component';
 import { SharedModule } from './shared/shared.module';
 import { GlobalErrorHandler } from './global-error-handler';
+import { IdleScreenLoginComponent } from './pages/idle-screen-login/idle-screen-login.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
 
 @NgModule({
-  declarations: [AppComponent, LoaderComponent,  ],
+  declarations: [AppComponent, LoaderComponent, IdleScreenLoginComponent,  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     RecaptchaModule,
     AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
     SharedModule,
     HttpClientModule,
     StoreModule.forRoot({}),

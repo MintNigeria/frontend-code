@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { StorageService } from 'src/app/core/services/shared/storage.service';
 
@@ -10,16 +11,22 @@ import { StorageService } from 'src/app/core/services/shared/storage.service';
   styleUrls: ['./logout-modal.component.scss']
 })
 export class LogoutModalComponent implements OnInit {
+  user: any;
 
   constructor(
     private dialogRef: MatDialogRef<LogoutModalComponent>,
     private localStorage: StorageService,
     private router: Router,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
+    private authService: AuthService,
+
 
   ) { }
 
   ngOnInit(): void {
+    const data: any = localStorage.getItem('authData')
+    this.user = JSON.parse(data)
+    console.log(this.user)
   }
 
 
@@ -30,13 +37,16 @@ export class LogoutModalComponent implements OnInit {
 
 
   logOutUser() {
-      this.localStorage.clear()
-      this.notificationService.publishMessages('success', 'User logged out successfully')
-      setTimeout(() => {
-        this.closeModal()
-
+    const payload = {
+      emailAddress : this.user.user.email
+    }
+      this.authService.logOut(payload).subscribe((res: any) => {
+        this.notificationService.publishMessages('success', 'User logged out successfully')
+        this.localStorage.clear()
         this.router.navigateByUrl('/')
-      }, 1000);
+        this.closeModal()
+       
+      })
   }
 
 }

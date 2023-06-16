@@ -1,0 +1,41 @@
+
+
+<div class="  p-8 w-full hide-scrollbar  max-w-5xl">
+        
+    <div class=" mt-5 w-full">
+        <div class="text-center ">
+            <div class="flex justify-center mx-auto text-center items-center ">
+
+                <img src="assets/images/main/caution.svg" class="w-24 h-24" alt="success">
+            </div>
+
+            <div class="lg:w-[400px] md:w-[300px] w-[250px]">
+                <h3 class="mb-5 text-lg font-normal text-center text-gray-500 dark:text-gray-400">You have a session currently running <br>do you wish to  terminate the session <br> and continue?</h3>
+
+
+            </div>
+
+            <div class="flex md:flex-row flex-col justify-center gap-6 mt-5 ">
+               <div>
+                <app-button [overRideButtonClass]="true" (buttonClick)="closeModal()"
+                customClass="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, Cancel
+                </app-button>
+               </div>
+
+               <div>
+                <app-button [overRideButtonClass]="true"  (buttonClick)="logOutUser()"
+                customClass="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">Yes, Continue
+                </app-button>
+
+               </div>
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+</div>

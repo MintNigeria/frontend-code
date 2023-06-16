@@ -101,7 +101,7 @@ selectedFileList: any  = []
       // institutionBody: ['', Validators.required],
       FirstName  : ['', Validators.required],
       LastName   : ['', Validators.required],
-      Email: ['', [Validators.required, Validators.email]],
+      Email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
       PhoneNumber : [null,Validators.required],
       Address : ['', Validators.required],
       Gender: ['', Validators.required],

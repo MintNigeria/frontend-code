@@ -88,7 +88,7 @@ selectedFileList: any  = []
     this.institutionRegForm = this.fb.group({
       // institutionBody: ['', Validators.required],
       Name : ['', Validators.required],
-      EmailAddress: ['', [Validators.required, Validators.email]],
+      EmailAddress: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
       PhoneNumber : [null, Validators.required],
       City: [null, Validators.required],
       Country: [null, Validators.required],

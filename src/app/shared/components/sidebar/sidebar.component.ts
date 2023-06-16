@@ -22,6 +22,7 @@ permission$ = this.appStore.pipe(select(permissionsSelector));
   continuDownloadId = 'addContinueDownloadModal';
   currentRoute!: any;
   permissionList: any;
+  alternativePermissions: any;
   adminUser: any;
   superAdminRole: any;
 
@@ -32,9 +33,11 @@ permission$ = this.appStore.pipe(select(permissionsSelector));
     private appStore: Store<AppStateInterface>
   ) {
 
-    this.permissions()
     const data: any = localStorage.getItem('authData')
     this.adminUser = JSON.parse(data)
+    this.alternativePermissions = this.adminUser?.permissions
+    console.log(this.alternativePermissions)
+    this.permissions()
   }
 
   ngOnInit(): void {
@@ -54,7 +57,14 @@ permission$ = this.appStore.pipe(select(permissionsSelector));
   }
   permissions() {
     this.permission$.subscribe((res: any) => {
-      this.permissionList = res;
+      console.log(res);
+      if (res !== null) {
+        this.permissionList = res;
+
+      } else {
+        this.permissionList = this.alternativePermissions
+        console.log(this.permissionList, this.alternativePermissions)
+      }
     })
   }
 
@@ -85,10 +95,12 @@ permission$ = this.appStore.pipe(select(permissionsSelector));
   }
 
   activeLink() {
+    console.log('weyrey')
     this.menuLinks.filter((link) => {
       const title = link.label.replace(' ', '_').toUpperCase()
       const newTitle = `INSTITUTION_${title}`
-      if (this.permissionList?.includes(newTitle)) {
+      console.log(this.permissionList)
+      if (this.permissionList?.includes(newTitle) || this.alternativePermissions?.includes(newTitle)) {
         link.show = true;
       } else if (this.adminUser.user?.userType === 'Graduates' || this.adminUser.user?.userType === 'Organization') {
         link.show = true;

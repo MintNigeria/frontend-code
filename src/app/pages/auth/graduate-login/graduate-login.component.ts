@@ -12,6 +12,8 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import { Status } from 'src/app/types/shared.types';
 import { environment } from 'src/environments/environment';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
+import { SingleSessionModalComponent } from 'src/app/shared/components/single-session-modal/single-session-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-graduate-login',
@@ -35,7 +37,9 @@ export class GraduateLoginComponent implements OnInit {
     private store: Store,
     private appStore: Store<AppStateInterface>,
     private actions$: Actions,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
+    private dialog: MatDialog,
+
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +55,7 @@ export class GraduateLoginComponent implements OnInit {
       ]),
       email: new FormControl(
         '',
-        Validators.compose([Validators.email, Validators.required])
+        Validators.compose([Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/), Validators.required])
       ),
       recaptchaReactive: new FormControl(''),
     });
@@ -63,7 +67,7 @@ export class GraduateLoginComponent implements OnInit {
     this.store.dispatch(invokeLoginUser({payload: this.loginAuth.value}));
     this.actions$.pipe(ofType(loginSuccess)).subscribe((res: any) => {
       console.log(res)
-      if (res.accessToken !== undefined && typeof(res.payload) !== 'string') {
+      if (res.accessToken !== undefined) {
         const helper = new JwtHelperService();
         this.loggedInUser = helper.decodeToken(res.accessToken);
         const data =  {
@@ -90,14 +94,15 @@ export class GraduateLoginComponent implements OnInit {
           this.router.navigateByUrl('/graduate/dashboard');
         }  else if (this.loggedInUser.UserType !== 'Graduates') {
           this.notificationService.publishMessages('error', 'Invalid login credential');
-          // localStorage.clear()
+          localStorage.clear()
         }
         
         
-      } else {
-        this.show2FAOTP = true
+      } else if (res.accessToken === undefined && res.hasErrors === false) {
+        this.show2FAOTP = true;
         this.timer(1)
-      
+      } else if (res.accessToken === undefined && res.hasErrors === true && res.errors[0] === 'You have an active session!!!') {
+        this.launchSingleLoginModal(this.loginAuth.value)
 
       }
     })
@@ -212,6 +217,16 @@ export class GraduateLoginComponent implements OnInit {
 
       }
     }, 1000);
+  }
+
+  launchSingleLoginModal(data: any) {
+    const dialogRef = this.dialog.open(SingleSessionModalComponent, {
+      // width: '600px',
+      // height: '600px'
+      data,
+      disableClose: true 
+
+    });
   }
 
 }

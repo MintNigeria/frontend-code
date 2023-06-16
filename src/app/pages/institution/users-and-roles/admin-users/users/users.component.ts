@@ -120,10 +120,10 @@ export class UsersComponent implements OnInit {
     this.userForm = this.fb.group({
       title: ['', Validators.required],
       fullName: ['', Validators.required],
-      emailAddress: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', Validators.required],
-      faculty: ['', Validators.required],
-      department: ['', Validators.required],
+      emailAddress: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^(\+?234|0)[789]\d{9}$/)]],
+      faculty: [null, Validators.required],
+      department: [null, Validators.required],
       stateOfResidence: [null, Validators.required],
       localGovernment: [null, Validators.required],
       address: ['', Validators.required],
@@ -178,6 +178,12 @@ selectLocalGovt(stateId: any) {
 }
 
 createNewUser() {
+  if (this.userForm.invalid) {
+    // Mark all form controls as touched to trigger validation errors
+    this.userForm.markAllAsTouched();
+    return;
+  }
+
   const {title, fullName, phoneNumber, emailAddress, faculty, department, stateOfResidence, localGovernment, address, roleId, staffIdNumber} = this.userForm.value
   const payload = {
     title,
@@ -196,7 +202,7 @@ createNewUser() {
   this.store.dispatch(createInstitutionUserWithRole({payload}))
   this.actions$.pipe(ofType(createInstitutionUserWithRoleSuccess)).subscribe((res: any) => {
     if (res.payload.hasErrors === false) {
-      this.notification.publishMessages('success', res.payload.payload);
+      this.notification.publishMessages('success', res.payload.description);
       this.router.navigateByUrl('/institution/users-and-roles/users')
     }
   })
@@ -224,7 +230,7 @@ updateUserData() {
   this.store.dispatch(updateInstitutionUserWithRole({payload}))
   this.actions$.pipe(ofType(updateInstitutionUserWithRoleSuccess)).subscribe((res: any) => {
     if (res.payload.hasErrors === false) {
-      this.notification.publishMessages('success', res.payload.payload);
+      this.notification.publishMessages('success', res.payload.description);
 
       this.router.navigateByUrl('/institution/users-and-roles/users')
     }

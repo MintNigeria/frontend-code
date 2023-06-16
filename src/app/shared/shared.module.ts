@@ -30,6 +30,7 @@ import { MobileNavComponent } from './components/mobile-nav/mobile-nav.component
 import { FilePreviewComponent } from './components/file-preview/file-preview.component';
 import { NigeriaPhoneNumberPipe } from '../core/pipe/nigeria-phone-number.pipe';
 import { ActionConfirmationModalComponent } from './components/action-confirmation-modal/action-confirmation-modal.component';
+import { SingleSessionModalComponent } from './components/single-session-modal/single-session-modal.component';
 
 const components: any[] = [
   InputComponent,
@@ -65,6 +66,7 @@ const components: any[] = [
 @NgModule({
   declarations: [
     ...components,
+    SingleSessionModalComponent,
   ],
   imports: [
     CommonModule,

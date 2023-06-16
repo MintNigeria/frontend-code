@@ -1,7 +1,10 @@
 import { Injectable } from "@angular/core";
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
 import { filter } from "rxjs";
-const MINUTES_UNITL_AUTO_LOGOUT = 5 // in mins
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthService } from "src/app/core/services/auth/auth.service";
+
+const MINUTES_UNITL_AUTO_LOGOUT = 10 // in mins
 const CHECK_INTERVAL = 5000 // in ms
 const STORE_KEY =  'lastAction';
 @Injectable(
@@ -11,6 +14,8 @@ const STORE_KEY =  'lastAction';
 )
 export class TimerService {
   val: any;
+  token: any;
+  userData: any;
  public getLastAction() {
     const data: any = localStorage.getItem(STORE_KEY)
     return parseInt(data);
@@ -19,17 +24,35 @@ export class TimerService {
     localStorage.setItem(STORE_KEY, lastAction.toString());
   }
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, 
+    private route: ActivatedRoute,
+    private authService: AuthService) {
+      const data: any = localStorage.getItem('userData')
+      this.userData = JSON.parse(data)
+  
+    this.token = localStorage.getItem('token')
     this.check();
     this.initListener();
     this.initInterval();
+    
     localStorage.setItem(STORE_KEY,Date.now().toString());
-    router.events
-  .pipe(filter(event => event instanceof NavigationEnd))
-  .subscribe((event: any) => {
-    // console.log('prev:', event.url);
-    // this.previousUrl = event.url;
-  });
+    setInterval(() => {
+      if (this.isIdle()) {
+        this.lockUser();
+      }
+    }, 300000 ); // 1 minute in milliseconds
+}
+
+isIdle() {
+  return !document.body.classList.contains('active');
+}
+
+lockUser() {
+  const currentURL = window.location.href;
+  const path = new URL(currentURL).pathname;
+  this.router.navigate(['/idle-user'], { queryParams: { returnUrl: path } });
+
+  
 }
 
   initListener() {
@@ -62,14 +85,28 @@ export class TimerService {
     const diff = timeleft - now;
     // console.log('difference',diff)
     const isTimeout = diff < 0;
+    const helper = new JwtHelperService();
 
-    if (isTimeout)  {
-      localStorage.clear();
-      this.router.navigate(['/']);
+    const expirationDate = helper.isTokenExpired(String(this.token));
+    if (expirationDate)  {
+      this.logOut()
+      // this.router.navigate(['/']);
     }
   }
   storageEvt(){
   this.val = localStorage.getItem(STORE_KEY);
 }
+
+logOut() {
+  const payload = {
+    emailAddress : this.userData.email
+  }
+  this.authService.logOut(payload).subscribe((res: any) => {
+    localStorage.clear()
+    this.router.navigateByUrl('/')
+    })
+}
+
+
 }
 

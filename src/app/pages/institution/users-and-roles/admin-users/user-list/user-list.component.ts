@@ -132,7 +132,9 @@ export class UserListComponent implements OnInit {
           this.notificationService.publishMessages(
             'success',
             event.target.checked === true ? 'User successfully activated' : 'User successfully deactivated'
-          );
+            );
+            this.store.dispatch(getAllInstitutionUsers({payload: {...this.filter, institutionId: this.institutionId}}))
+
         }
       });
    

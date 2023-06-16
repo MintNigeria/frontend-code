@@ -12,6 +12,8 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import { Status } from 'src/app/types/shared.types';
 import { environment } from 'src/environments/environment';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
+import { SingleSessionModalComponent } from 'src/app/shared/components/single-session-modal/single-session-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-organization-login',
@@ -35,6 +37,7 @@ export class OrganizationLoginComponent implements OnInit {
     private store: Store,
     private appStore: Store<AppStateInterface>,
     private actions$: Actions,
+    private dialog: MatDialog,
     private notificationService: NotificationsService
   ) {}
 
@@ -51,7 +54,7 @@ export class OrganizationLoginComponent implements OnInit {
       ]),
       email: new FormControl(
         '',
-        Validators.compose([Validators.email, Validators.required])
+        Validators.compose([Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/), Validators.required])
       ),
       recaptchaReactive: new FormControl(''),
     });
@@ -61,7 +64,7 @@ export class OrganizationLoginComponent implements OnInit {
     this.status = Status.LOADING;
     this.store.dispatch(invokeLoginUser({payload: this.loginAuth.value}));
     this.actions$.pipe(ofType(loginSuccess)).subscribe((res: any) => {
-      if (res.accessToken !== undefined && typeof(res.payload) !== 'string') {
+      if (res.accessToken !== undefined) {
         const helper = new JwtHelperService();
         this.loggedInUser = helper.decodeToken(res.accessToken);
         const data =  {
@@ -89,14 +92,16 @@ export class OrganizationLoginComponent implements OnInit {
         }  
         else if (this.loggedInUser.UserType !== 'Organization') {
           this.notificationService.publishMessages('error', 'Invalid login credential');
-          // localStorage.clear()
+          localStorage.clear()
 
 
         }
-      } else {
-        this.show2FAOTP = true
+      } else if (res.accessToken === undefined && res.hasErrors === false) {
+        this.show2FAOTP = true;
         this.timer(1)
-     
+      } else if (res.accessToken === undefined && res.hasErrors === true && res.errors[0] === 'You have an active session!!!') {
+        this.launchSingleLoginModal(this.loginAuth.value)
+
       }
     })
     
@@ -211,6 +216,17 @@ export class OrganizationLoginComponent implements OnInit {
 
       }
     }, 1000);
+  }
+
+
+  launchSingleLoginModal(data: any) {
+    const dialogRef = this.dialog.open(SingleSessionModalComponent, {
+      // width: '600px',
+      // height: '600px'
+      data,
+      disableClose: true 
+
+    });
   }
 
 }
