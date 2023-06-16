@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit {
       if (res.accessToken !== undefined) {
         const helper = new JwtHelperService();
         this.loggedInUser = helper.decodeToken(res.accessToken);
+        
         const data =  {
           isAuthenticated: true,
           user: {
@@ -85,6 +86,7 @@ export class LoginComponent implements OnInit {
           permissions: this.loggedInUser.Permission
     
         };
+        
         if (this.loggedInUser.UserType === 'Institution') {
           this.router.navigateByUrl('/institution/dashboard');
           this.notificationService.publishMessages('success', 'Login Successful');
@@ -97,7 +99,7 @@ export class LoginComponent implements OnInit {
        
       } else if (res.accessToken === undefined && res.hasErrors === false) {
         this.show2FAOTP = true;
-        this.timer(1)
+        this.timer(7)
       } else if (res.accessToken === undefined && res.hasErrors === true && res.errors[0] === 'You have an active session!!!') {
         this.launchSingleLoginModal(this.loginAuth.value)
 
@@ -130,6 +132,8 @@ export class LoginComponent implements OnInit {
     this.actions$.pipe(ofType(loginSuccess)).subscribe((res: any) => {
       const helper = new JwtHelperService();
       this.loggedInUser = helper.decodeToken(res.accessToken);
+      let currentAuthData: any = localStorage.getItem('auth')
+      currentAuthData.permissions = this.loggedInUser.Permission
       const data =  {
         isAuthenticated: true,
         user: {
@@ -148,6 +152,7 @@ export class LoginComponent implements OnInit {
       };
       localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
       localStorage.setItem('authData', JSON.stringify(data));
+      localStorage.setItem('auth', JSON.stringify(currentAuthData));
       this.notificationService.publishMessages('success', 'Login Successful');
       if (this.loggedInUser.UserType === 'Institution') {
         this.router.navigateByUrl('/institution/dashboard');
@@ -179,7 +184,7 @@ export class LoginComponent implements OnInit {
     this.actions$.pipe(ofType(confirm2FActionSuccess)).subscribe((res: any) => {
       if (res.message.hasErrors === false) {
         this.notificationService.publishMessages('success', res.message.description);
-        this.timer(1)
+        this.timer(7)
       }
     })
   }
