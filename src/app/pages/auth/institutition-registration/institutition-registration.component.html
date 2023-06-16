@@ -30,6 +30,9 @@
             placeholder="Select Institution Type">
             <ng-option *ngFor="let unit of body.data" [value]="unit">{{unit.name}}</ng-option>
           </ng-select>
+          <small class="text-red-500" *ngIf="institutionRegForm.controls['institutionTypeId'].touched && institutionRegForm.controls['institutionTypeId'].invalid">
+            Institution type is required
+          </small>
         </div>
         <div class="w-full md:w-1/2 px-3  md:mb-0" >
           <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Institution
@@ -39,6 +42,9 @@
             placeholder="Select Institution Body">
             <ng-option *ngFor="let unit of institutionBodyList" [value]="unit.id">{{unit.name}}</ng-option>
           </ng-select>
+          <small class="text-red-500" *ngIf="institutionRegForm.controls['institutionBodyId'].touched && institutionRegForm.controls['institutionBodyId'].invalid">
+            Institution Body is required
+          </small>
         </div>
       </div>
       <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
@@ -49,18 +55,21 @@
             placeholder="Select Institution sector">
             <ng-option *ngFor="let unit of institutionSectorList" [value]="unit.id">{{unit.name}}</ng-option>
           </ng-select>
+          <small class="text-red-500" *ngIf="institutionRegForm.controls['institutionSectorId'].touched && institutionRegForm.controls['institutionSectorId'].invalid">
+            Institution sector is required
+          </small>
         </div>
         <div class="w-full md:w-1/2 px-3  md:mb-0" >
           <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Institution
             Name
             <span class="text-danger">*</span> </label>
-          <!-- <app-input [formGrp]="institutionRegForm" formCtrlName="InstitutionName" [type]="'text'" [class]="
-                    'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Enter institution name" [name]="'Email'"></app-input> -->
                   <ng-select class="custom-ng-dropdown"  formControlName="InstitutionName" [selectOnTab]="true"
             placeholder="Select Institution Name">
             <ng-option *ngFor="let unit of institutionList" [value]="unit?.name">{{unit.name}}</ng-option>
           </ng-select>
+          <small class="text-red-500" *ngIf="institutionRegForm.controls['InstitutionName'].touched && institutionRegForm.controls['InstitutionName'].invalid">
+            Institution Name is required
+          </small>
         </div>
       </div>
       <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
@@ -81,11 +90,12 @@
             <option value="CAC">CAC</option>
             <option value="Others">Others</option>
           </select>
+          
         </div>
       </div>
       <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
         <div class="w-full md:w-1/2 px-3  md:mb-0">
-          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Registration
+          <label for="registrationBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Registration
             Body
             <span class="text-danger">*</span> </label>
           <app-input [formGrp]="institutionRegForm" formCtrlName="RegisteringBody" [type]="'text'" [class]="
@@ -93,7 +103,7 @@
                   " Issuer="Enter registration body" [name]="'Registration Body'"></app-input>
         </div>
         <div class="w-full md:w-1/2 px-3  md:mb-0">
-          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Registration
+          <label for="registrationNumber" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Registration
             Number <span class="text-danger">*</span> </label>
           <app-input [formGrp]="institutionRegForm" formCtrlName="RegistrationNumber" [type]="'text'" [class]="
                     'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
@@ -128,9 +138,12 @@
               >
           <ng-option *ngFor="let state of states" [value]="state.id">{{state.name}}</ng-option>
           </ng-select>
+          <small class="text-red-500" *ngIf="institutionRegForm.controls['StateId'].touched && institutionRegForm.controls['StateId'].invalid">
+            State is required
+          </small>
         </div>
         <div class="w-full md:w-1/2 px-3  md:mb-0">
-          <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Local
+          <label for="lgaId" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Local
             Government
             <span class="text-danger">*</span> </label>
             <ng-select class="custom-ng-dropdown" 
@@ -140,6 +153,9 @@
             >
         <ng-option *ngFor="let lga of lga" [value]="lga.id">{{lga.name}}</ng-option>
         </ng-select>
+        <small class="text-red-500" *ngIf="institutionRegForm.controls['LgaId'].touched && institutionRegForm.controls['LgaId'].invalid">
+         LGA is required
+        </small>
         </div>
       </div>
       <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
@@ -167,6 +183,9 @@
             <option value="Dr">Dr</option>
             <option value="Prof">Prof</option>
           </select>
+          <small class="text-red-500" *ngIf="institutionRegForm.controls['Title'].touched && institutionRegForm.controls['Title'].invalid">
+            Title is required
+          </small>
         </div>
         <div class="w-full md:w-1/2 px-3  md:mb-0">
           <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">First Name
@@ -217,6 +236,9 @@
 
           </div>
         </div>
+        <small class="text-red-500" *ngIf="institutionRegForm.controls['fileList'].touched && institutionRegForm.controls['fileList'].invalid">
+          Supporting document is required
+        </small>
         <div *ngFor="let file of selectedFileList; let i = index"
           class="bg-white border rounded-lg p-4 flex justify-between items-center mt-4 mb-3">
           <div class="flex items-center">
@@ -251,7 +273,8 @@
           </re-captcha>
         </div>
         <div class="mb-6">
-          <app-button (buttonClick)="continueCreation()"  [disabled]="institutionRegForm.invalid" [overRideButtonClass]="true"
+          <app-button (buttonClick)="continueCreation()"  
+           [overRideButtonClass]="true"
             customClass="w-40 h-12 rounded-lg font-inter font-medium text-base text-white leading-6 bg-primaryBlue">
             Continue</app-button>
         </div>

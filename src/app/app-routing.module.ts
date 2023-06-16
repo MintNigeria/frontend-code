@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth/auth.guards';
 import { ModuleLoadingStrategyService } from './module.loading.strategy';
+import { IdleScreenLoginComponent } from './pages/idle-screen-login/idle-screen-login.component';
 
 const routes: Routes = [
   {
@@ -16,11 +17,6 @@ const routes: Routes = [
       data: { preload: true }
 
   },
-  // {
-  //   path: 'authentication',
-  //   loadChildren: () =>
-  //     import('./pages/authentication/authentication.module').then((m) => m.AuthenticationModule),
-  // },
   {
     path: 'institution',
     loadChildren: () =>
@@ -39,11 +35,16 @@ const routes: Routes = [
       import('./pages/graduate/graduate.module').then((m) => m.GraduateModule),
        canActivate: [AuthGuard]
   },
+  {
+    path: 'idle-user',
+    component: IdleScreenLoginComponent
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-    preloadingStrategy: ModuleLoadingStrategyService
+    preloadingStrategy: ModuleLoadingStrategyService,
+    scrollPositionRestoration: 'enabled'
   })],
   exports: [RouterModule]
 })

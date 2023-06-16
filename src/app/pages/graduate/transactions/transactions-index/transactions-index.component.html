@@ -103,10 +103,10 @@
                   <li><a (click)="changeStatus(0, 'Pending')">Pending</a>
                   </li>
                   <li>
-                    <a (click)="changeStatus(1, 'Approved')">Approved</a>
+                    <a (click)="changeStatus(1, 'Successful')">Successful</a>
                   </li>
                   <li>
-                    <a (click)="changeStatus(2, 'Declined')">Declined</a>
+                    <a (click)="changeStatus(2, 'Failed')">Failed</a>
                   </li>
                   </ul>
                 </div>
@@ -289,7 +289,7 @@
                                 
                             "
                           >
-                            {{ data.paymentStatus === 1? 'Approved' : data.paymentStatus === 2 ? 'Declined' : 'Pending' }}
+                            {{ data.paymentStatus === 1? 'Successful' : data.paymentStatus === 2 ? 'Failed' : 'Pending' }}
                           </p>
                             
                           </div>

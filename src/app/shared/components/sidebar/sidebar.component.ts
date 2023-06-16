@@ -22,6 +22,7 @@ permission$ = this.appStore.pipe(select(permissionsSelector));
   continuDownloadId = 'addContinueDownloadModal';
   currentRoute!: any;
   permissionList: any;
+  alternativePermissions: any;
   adminUser: any;
   superAdminRole: any;
 
@@ -35,6 +36,8 @@ permission$ = this.appStore.pipe(select(permissionsSelector));
     this.permissions()
     const data: any = localStorage.getItem('authData')
     this.adminUser = JSON.parse(data)
+    console.log(this.adminUser.permissions)
+    this.alternativePermissions = this.adminUser?.permissions
   }
 
   ngOnInit(): void {
@@ -54,7 +57,13 @@ permission$ = this.appStore.pipe(select(permissionsSelector));
   }
   permissions() {
     this.permission$.subscribe((res: any) => {
-      this.permissionList = res;
+      if (res !== null) {
+        this.permissionList = res;
+
+      } else {
+        this.permissionList = this.alternativePermissions
+        console.log(this.permissionList, this.adminUser?.permissions)
+      }
     })
   }
 

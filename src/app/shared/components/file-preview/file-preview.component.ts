@@ -17,6 +17,11 @@ export class FilePreviewComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  closeModal() {
+    this.dialogRef.close();
+
+  }
+
   download(data: any) {
     if (data.contentType === 'application/pdf') {
       const link = document.createElement('a');
