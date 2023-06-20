@@ -69,6 +69,7 @@ export class AuthInterceptor implements HttpInterceptor {
               evt.body.code !== 1 &&
               evt.body.code !== 'OK'
             ) {
+              console.log(evt.body)
               this._notificationService.publishMessages(
                 'error',
                 evt.body.errors.toString() || evt.body.description || evt.body.errors
@@ -78,8 +79,8 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       }),
       catchError((_error: HttpErrorResponse) => {
-        // ////console.log(_error.status);
         if (_error) {
+          console.log(_error);
           if (_error.status === 401) {
             localStorage.clear();
 

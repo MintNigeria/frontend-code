@@ -110,7 +110,7 @@
                           src="assets/images/main/bell.svg" alt="notification Icon" class="cursor-pointer"> Notifications </a>
                     </li>
                     <li
-                      *ngIf="superAdminRole === 'Super Admin' || superAdminRole === 'undefined' || permissionList.includes('INSTITUTION_USERS_ROLES')">
+                      *ngIf="superAdminRole === 'Super Admin' || superAdminRole === 'undefined' || permissionList?.includes('INSTITUTION_USERS_ROLES')">
                       <a class="flex items-center text-black " routerLink="/institution/users-and-roles/users"> <img
                           src="assets/images/main/settings.svg" alt="logout icons" class="cursor-pointer"> Users & Roles
                       </a></li>

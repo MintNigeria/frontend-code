@@ -310,7 +310,6 @@ export class ApplicationDetailsComponent implements OnInit {
       this.emailForm.get('fileList')?.updateValueAndValidity();
       console.log(this.selectedEmailFileList)
       const totalSize = this.selectedEmailFileList.map((item: any) => item.File).reduce((accumulator: any, currentFile: any) => accumulator + currentFile.size, 0);
-      console.log(totalSize)
       if (totalSize > 5 * 1024 * 1024) { // 5MB in bytes
         this.selectedEmailFileList.pop();
         this.notification.publishMessages('danger', 'Total size of uploaded files exceeds the maximum allowed size of 5MB.')

@@ -45,4 +45,20 @@ export class UtilityService
     // return this.http.get<any>('https://api64.ipify.org?format=json')
     // return this.http.get<any>('https://jsonip.com')
   }
+
+  deleteCookie(name: string) {
+    console.log(name)
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  }
+
+  getCookieValue(name: string): string {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return '';
+  }
 }

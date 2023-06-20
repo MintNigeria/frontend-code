@@ -30,6 +30,7 @@ export const authReducers = createReducer(
     
     const helper = new JwtHelperService();
     const decodedToken = helper.decodeToken(accessToken);
+    console.log(decodedToken)
     return {
       isAuthenticated: true,
       user: {

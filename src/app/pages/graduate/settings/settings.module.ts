@@ -21,6 +21,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/request-empty-state.component';
 import { GraduatesEffects } from 'src/app/store/graduates/effects';
 import { AuthEffects } from 'src/app/store/auth/effects';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { AuthEffects } from 'src/app/store/auth/effects';
     RequestEmptyStateComponent,
     NgSelectModule,
     NgxPaginationModule,
+    NgxIntlTelInputModule,
     NgOtpInputModule,
     StoreModule.forFeature('usersAndRoles', usersAndRolesReducer),
     EffectsModule.forFeature([UsersAndRolesEffects, InstitutionEffects, GraduatesEffects, AuthEffects]),

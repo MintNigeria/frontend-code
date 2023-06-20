@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { StorageService } from 'src/app/core/services/shared/storage.service';
+import { logoutAction } from 'src/app/store/auth/action';
 
 @Component({
   selector: 'app-logout-modal',
@@ -19,6 +21,8 @@ export class LogoutModalComponent implements OnInit {
     private router: Router,
     private notificationService: NotificationsService,
     private authService: AuthService,
+    private store: Store,
+
 
 
   ) { }
@@ -41,10 +45,14 @@ export class LogoutModalComponent implements OnInit {
       emailAddress : this.user.user.email
     }
       this.authService.logOut(payload).subscribe((res: any) => {
-        this.notificationService.publishMessages('success', 'User logged out successfully')
-        this.localStorage.clear()
-        this.router.navigateByUrl('/')
-        this.closeModal()
+        if (res) {
+          this.notificationService.publishMessages('success', 'User logged out successfully')
+          this.router.navigateByUrl('/')
+          this.closeModal()
+          this.store.dispatch(logoutAction());
+          localStorage.clear()
+          localStorage.removeItem('auth');
+        }
        
       })
   }

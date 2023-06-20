@@ -224,6 +224,7 @@ export class GraduatesService
     body.append('LastName', payload.lastName);
     body.append('PhoneNumber', payload.phone);
     body.append('DateOfBirth', payload.dateOfBirth);
+    body.append('Address', payload.address);
     body.append('Country', payload.country);
     body.append('State', payload.state);
     body.append('City', payload.city);

@@ -12,6 +12,7 @@ import { invokeGetInstitution, invokeGetInstitutionSuccess, updatedInstitution, 
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { Country, State, City }  from 'country-state-city';
 import * as moment from 'moment';
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-my-profile',
@@ -19,6 +20,11 @@ import * as moment from 'moment';
   styleUrls: ['./my-profile.component.scss']
 })
 export class MyProfileComponent implements OnInit {
+  SearchCountryField = SearchCountryField;
+	CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
+  separateDialCode = true;
+
   countries = Country.getAllCountries();
   states: any;
   cities: any;
@@ -104,8 +110,8 @@ export class MyProfileComponent implements OnInit {
     this.profileForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      middleName: ['', Validators.required],
-      type: ['', Validators.required],
+      middleName: [''],
+      // type: ['', Validators.required],
       email: ['', Validators.required],
       phone: ['', Validators.required],
       country: ['', Validators.required],
@@ -190,7 +196,13 @@ export class MyProfileComponent implements OnInit {
 
   
   openConfirmChanges() {
-    document.getElementById('confirmChanges')?.click();
+    if (this.profileForm.invalid) {
+      this.profileForm.markAllAsTouched();
+      return;
+    } else {
+
+      document.getElementById('confirmChanges')?.click();
+    }
   }
 
   cancelConfirmChanges() {
@@ -214,9 +226,13 @@ export class MyProfileComponent implements OnInit {
     }
     this.store.dispatch(updateGraduateProfile({payload}))
     this.actions$.pipe(ofType(updateGraduateProfileSuccess)).subscribe((res: any) => {
-      document.getElementById('confirmChanges')?.click();
-      this.notification.publishMessages('success', res.payload.payload)
-      this.store.dispatch(getGraduateProfile({id: this.institutionId}))
+      console.log(res) 
+      if (res) {
+
+        document.getElementById('confirmChanges')?.click();
+        this.notification.publishMessages('success', res.payload.payload)
+        this.store.dispatch(getGraduateProfile({id: this.institutionId}))
+      }
 
     })
   }

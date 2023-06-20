@@ -23,7 +23,7 @@
                     Uploads
                 </h4>
                 <app-button
-                *ngIf="permissionList?.includes('USER_UPDATE') || superAdminRole === 'Super Admin' || superAdminRole === 'undefined'"
+                *ngIf="permissionList?.includes('INSTITUTION_RECORDS_UPLOAD') || superAdminRole === 'Super Admin' || superAdminRole === 'undefined'"
 
                 [routerLink]="'/institution/uploads/upload-records'"
                 [overRideButtonClass]="true"

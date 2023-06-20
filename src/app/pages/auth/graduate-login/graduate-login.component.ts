@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { SingleSessionModalComponent } from 'src/app/shared/components/single-session-modal/single-session-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { UtilityService } from 'src/app/core/services/utility/utility.service';
 
 @Component({
   selector: 'app-graduate-login',
@@ -39,12 +40,20 @@ export class GraduateLoginComponent implements OnInit {
     private actions$: Actions,
     private notificationService: NotificationsService,
     private dialog: MatDialog,
+    private utility: UtilityService
+
 
   ) {}
 
   ngOnInit(): void {
     this.currentRoute = this.route.snapshot.url[0].path;
     this.initLoginForm();
+    const a = this.utility.getCookieValue('email')
+    if (a !== undefined) {
+      this.loginAuth.patchValue({
+        email: a
+      })
+    }
   }
 
   initLoginForm() {
@@ -57,7 +66,9 @@ export class GraduateLoginComponent implements OnInit {
         '',
         Validators.compose([Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/), Validators.required])
       ),
-      recaptchaReactive: new FormControl(''),
+      rememberMe: new FormControl(false),
+      recaptchaReactive: new FormControl(null, [Validators.required]),
+
     });
   }
 
@@ -66,7 +77,6 @@ export class GraduateLoginComponent implements OnInit {
     this.status = Status.LOADING;
     this.store.dispatch(invokeLoginUser({payload: this.loginAuth.value}));
     this.actions$.pipe(ofType(loginSuccess)).subscribe((res: any) => {
-      console.log(res)
       if (res.accessToken !== undefined) {
         const helper = new JwtHelperService();
         this.loggedInUser = helper.decodeToken(res.accessToken);
@@ -106,6 +116,14 @@ export class GraduateLoginComponent implements OnInit {
 
       }
     })
+    const {email,rememberMe} = this.loginAuth.value;
+    if (rememberMe === true) {
+      const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+      document.cookie = `email=${email}; expires=${expires.toUTCString()}; path=/`;
+    } else {
+      this.utility.deleteCookie('email')
+    }
+
    
   }
 

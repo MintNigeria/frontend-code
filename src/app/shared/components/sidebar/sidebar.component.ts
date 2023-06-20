@@ -33,17 +33,16 @@ permission$ = this.appStore.pipe(select(permissionsSelector));
     private appStore: Store<AppStateInterface>
   ) {
 
-    this.permissions()
     const data: any = localStorage.getItem('authData')
     this.adminUser = JSON.parse(data)
-    console.log(this.adminUser.permissions)
+    this.permissions()
     this.alternativePermissions = this.adminUser?.permissions
   }
-
+  
   ngOnInit(): void {
     this.currentRoute = this.router.url.split('/')[1]
     this.getUser()
-    this.activeLink();
+    this.activeLink('ssdsds');
 
     ////console.log(this.currentRoute, this.router.url.split('/')[1])
   }
@@ -56,15 +55,17 @@ permission$ = this.appStore.pipe(select(permissionsSelector));
     })
   }
   permissions() {
-    this.permission$.subscribe((res: any) => {
-      if (res !== null) {
-        this.permissionList = res;
+    const data: any = localStorage.getItem('authData')
+    this.adminUser = JSON.parse(data)
+    this.permissionList = this.adminUser?.permissions;
+    // this.permission$.subscribe((res: any) => {
+    //   if (res !== null) {
 
-      } else {
-        this.permissionList = this.alternativePermissions
-        console.log(this.permissionList, this.adminUser?.permissions)
-      }
-    })
+    //   } else {
+    //     this.permissionList = this.alternativePermissions
+    //     console.log(this.permissionList, this.adminUser?.permissions)
+    //   }
+    // })
   }
 
   goToPath(path: any, hasChild: boolean) {
@@ -93,9 +94,9 @@ permission$ = this.appStore.pipe(select(permissionsSelector));
     });
   }
 
-  activeLink() {
+  activeLink(data: any) {
     this.menuLinks.filter((link) => {
-      const title = link.label.replace(' ', '_').toUpperCase()
+      const title = link?.label?.replace(' ', '_').toUpperCase()
       const newTitle = `INSTITUTION_${title}`
       if (this.permissionList?.includes(newTitle)) {
         link.show = true;
