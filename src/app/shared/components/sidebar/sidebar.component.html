@@ -21,8 +21,8 @@
             rla.isActive
               ? ' text-white '
               : ' text-[#EBF3FF] '
-          " [routerLink]="link?.path">{{ link.title }} </a>
-            <div class="relative cursor-pointer" *ngIf="link.hasChild === true">
+          " [routerLink]="link?.path">{{ link?.title }} </a>
+            <div class="relative cursor-pointer" *ngIf="link?.hasChild === true">
               <div class="dropdown dropdown-bottom dropdown-end">
                 <svg tabindex="0" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5 7.5L10 12.5L15 7.5" stroke="#BDD5FA" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>

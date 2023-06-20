@@ -87,18 +87,7 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
 
 
     this.initPaymentForm()
-    setTimeout(() => {
-      this.populateForm()
-    }, 2000);
-
-    const interval = setInterval(() => {
-      if (this.timer > 0) {
-        this.timer--;
-      } else {
-        clearInterval(interval);
-        this.timerExpired = true;
-      }
-    }, 1000);
+   
   }
 
   get applicationAmount () {
@@ -130,15 +119,6 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
     })
   }
 
-  populateForm() {
-    this.paymentForm.patchValue({
-      cardNumber: '1234 1234 1234 2123',
-      expiryMonth: '11',
-      expiryYear: '27',
-      cvc: '789',
-      cardholderName: 'Chiemela Esther',
-    })
-  }
 
   openOtpModal(){
     document.getElementById('otpModal')?.click();
@@ -148,24 +128,7 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
      document.getElementById('otpModal')?.click();
   }
 
-  onOtpChange(index: number, event: any) {
-    const otpValue = event.target.value;
-    if (!isNaN(otpValue)) {
-      this.otp[index] = parseInt(otpValue, 10);
-      if (this.otp.every((value) => !isNaN(value))) {
-        this.otpEntered = true;
-      }
-    } else {
-      this.otp[index] = 0;
-      this.otpEntered = false;
-    }
-  }
 
-  verifyOtp() {
-    const enteredOtp = this.otp.join('');
-    //console.log('Entered OTP:', enteredOtp);
-    this.openSuccess();
-  }
 
   openSuccess() {
     document.getElementById('successModal')?.click();

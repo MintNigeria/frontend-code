@@ -298,7 +298,8 @@
                         <table class="table w-full">
                             <thead>
                                 <tr>
-                                    <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  "> Transaction Id / <br> Transaction Date</th>
+                                    <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  "> Transaction Id </th>
+                                    <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  "> Transaction Date / <br> Transaction Time</th>
                                     <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Transaction Type</th>
                                     <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Initiator</th>
                                     <th class="flex gap-1 text-xs text-lightGray font-medium font-inter bg-tableHeader ">Amount
@@ -318,8 +319,16 @@
                                                     <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray">
                                                       {{ data?.transactionRefId }}
                                                     </p>
+                                                  
+                                                  </div>
+                                            </td>
+                                            <td class="bg-white" [ngClass]="selectedDataId === data.id ? 'bg-blue-200': '' ">
+                                                <div>
+                                                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray">
+                                                      {{ data?.createdOn | date : 'mediumDate' }}
+                                                    </p>
                                                     <p class="text-xs font-normal font-inter my-0 text-lightGray">
-                                                      {{ data?.createdOn | date }}
+                                                      {{ data?.createdOn | date: 'mediumTime' }}
                                                     </p>
                                                   </div>
                                             </td>

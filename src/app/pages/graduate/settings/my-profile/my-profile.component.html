@@ -82,18 +82,38 @@
                             [name]="'Email'"
                             [readonly]="true"></app-input>
                         </div>
-                        <div class="">
+                        <div class="mt-3">
                             <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
                                 Phone Number
                             </label>
-                            <app-input 
-                            [formGrp]="profileForm" 
-                            formCtrlName="phone" 
-                            [type]="'tel'" 
-                            [class]="'px-4 h-[52px] w-full bg-grayWhite border rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
-                            Issuer="Phone Number" 
-                            [name]="'phone'"
-                            [readonly]="true"></app-input>
+                            
+                            <div class="w-full ">
+                                <ngx-intl-tel-input
+                                [cssClass]="'phone-number-field h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'"
+                                [enableAutoCountrySelect]="true"
+                                [enablePlaceholder]="true"
+                                [searchCountryFlag]="true"
+                                [selectFirstCountry]="false"
+                                [searchCountryField]="[
+                                  SearchCountryField.Iso2,
+                                  SearchCountryField.Name
+                                ]"
+                                [phoneValidation]="true"
+                                [selectedCountryISO]="CountryISO.Nigeria"
+                                [maxLength]="15"
+                                [phoneValidation]="true"
+                                [separateDialCode]="separateDialCode"
+                                [numberFormat]="PhoneNumberFormat.National"
+                                name="phone"
+                                aria-autocomplete="phoneno"
+                                formControlName="phone"
+                                type="tel"
+                                            >
+                                            </ngx-intl-tel-input>
+                              </div>
+                            <small class="text-red-500" *ngIf="profileForm.controls['phone'].touched && profileForm.controls['phone'].invalid">
+                              Invalid phone number 
+                            </small>
                         </div>
                         <div class="mt-3">
                             <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
@@ -143,6 +163,9 @@
                                 >
                             <ng-option  *ngFor="let country of countries" [value]="country | json">{{country.name}}</ng-option>
                             </ng-select>
+                            <small class="text-red-500" *ngIf="profileForm.controls['country'].touched && profileForm.controls['country'].invalid">
+                                Country is required 
+                              </small>
                             </div>
                         </div>
                         <div class="mt-3">
@@ -158,6 +181,9 @@
                                 >
                             <ng-option *ngFor="let state of states" [value]="state | json">{{state.name}}</ng-option>
                             </ng-select>
+                            <small class="text-red-500" *ngIf="profileForm.controls['state'].touched && profileForm.controls['state'].invalid">
+                                State is required
+                              </small>
                             </div>
                         </div>
                         <div class="mt-3">
@@ -173,6 +199,9 @@
                                 >
                             <ng-option *ngFor="let lga of cities" [value]="lga | json">{{lga.name}}</ng-option>
                             </ng-select>
+                            <small class="text-red-500" *ngIf="profileForm.controls['city'].touched && profileForm.controls['city'].invalid">
+                                City is required
+                              </small>
                             </div>
                         </div>
                         <div class="mt-3">

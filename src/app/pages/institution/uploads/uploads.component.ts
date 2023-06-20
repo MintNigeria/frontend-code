@@ -10,10 +10,12 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
   styleUrls: ['./uploads.component.scss']
 })
 export class UploadsComponent implements OnInit {
-  permission$ = this.appStore.pipe(select(permissionsSelector));
-  user$ = this.appStore.pipe(select(isUserSelector));
+  // permission$ = this.appStore.pipe(select(permissionsSelector));
+  // user$ = this.appStore.pipe(select(isUserSelector));
   superAdminRole: any;
 
+  alternativePermissions: any;
+  adminUser: any;
 
   permissionList: any;
 
@@ -21,26 +23,38 @@ export class UploadsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private store: Store,
     private appStore: Store<AppStateInterface>,
-  ) { }
+  ) { 
+    const data: any = localStorage.getItem('authData')
+    this.adminUser = JSON.parse(data)
+    this.alternativePermissions = this.adminUser?.permissions
+    this.superAdminRole = this.adminUser?.user?.role.split('|')[0]
 
+  }
+  
   ngOnInit(): void {
-    this.permissions()
+    
+    // this.permissions()
     this.users()
 
   }
 
-  permissions() {
-    this.permission$.subscribe((res: any) => {
-      this.permissionList = res
-      console.log(this.permissionList)
-    })
-  }
+  // permissions() {
+   
+  //   this.permission$.subscribe((res: any) => {
+  //     if (res !== null) {
+  //       this.permissionList = res;
+  //     } else {
+  //       this.permissionList = this.alternativePermissions
+  //     }
+  //   })
+  // }
 
   users() {
-    this.user$.subscribe((res: any) => {
-      this.superAdminRole = res.role.split('|')[0]
+    // console.log('sdsds')
+    // this.user$.subscribe((res: any) => {
+    //   this.superAdminRole = res.role.split('|')[0]
 
-    })
+    // })
   }
 
 }

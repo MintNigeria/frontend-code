@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Actions, ofType } from '@ngrx/effects';
-import { select, Store } from '@ngrx/store';
+import { select, Store, UPDATE } from '@ngrx/store';
 import { RecaptchaErrorParameters } from 'ng-recaptcha';
 import { confirm2FAction, confirm2FActionSuccess, invokeLoginUser, loginSuccess } from 'src/app/store/auth/action';
 import { isUserSelector } from 'src/app/store/auth/selector';
@@ -15,6 +15,7 @@ import { NotificationsService } from 'src/app/core/services/shared/notifications
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { SingleSessionModalComponent } from 'src/app/shared/components/single-session-modal/single-session-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { UtilityService } from 'src/app/core/services/utility/utility.service';
 
 @Component({
   selector: 'app-login',
@@ -40,11 +41,18 @@ export class LoginComponent implements OnInit {
     private actions$: Actions,
     private dialog: MatDialog,
     private notificationService: NotificationsService,
+    private utility: UtilityService
   ) {}
 
   ngOnInit(): void {
     this.currentRoute = this.route.snapshot.url[0].path;
     this.initLoginForm();
+    const a = this.utility.getCookieValue('email')
+    if (a !== undefined) {
+      this.loginAuth.patchValue({
+        email: a
+      })
+    }
   }
 
   initLoginForm() {
@@ -57,7 +65,9 @@ export class LoginComponent implements OnInit {
         '',
         Validators.compose([Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/), Validators.required])
       ),
-      recaptchaReactive: new FormControl(''),
+      rememberMe: new FormControl(false),
+      recaptchaReactive: new FormControl(null, [Validators.required]),
+
     });
   }
 
@@ -92,6 +102,8 @@ export class LoginComponent implements OnInit {
           this.notificationService.publishMessages('success', 'Login Successful');
           localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
           localStorage.setItem('authData', JSON.stringify(data));
+          localStorage.setItem('authx', JSON.stringify(data));
+
         } else if(this.loggedInUser.UserType !== 'Institution') {
           this.notificationService.publishMessages('error', 'Invalid login credential');
           localStorage.clear()
@@ -99,12 +111,21 @@ export class LoginComponent implements OnInit {
        
       } else if (res.accessToken === undefined && res.hasErrors === false) {
         this.show2FAOTP = true;
-        this.timer(7)
+        this.timer(1)
       } else if (res.accessToken === undefined && res.hasErrors === true && res.errors[0] === 'You have an active session!!!') {
         this.launchSingleLoginModal(this.loginAuth.value)
 
       }
     })
+    const {email,rememberMe} = this.loginAuth.value;
+    if (rememberMe === true) {
+      const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+      document.cookie = `email=${email}; expires=${expires.toUTCString()}; path=/`;
+    } else {
+      this.utility.deleteCookie('email')
+    }
+
+    
   
   }
 
@@ -134,6 +155,7 @@ export class LoginComponent implements OnInit {
       this.loggedInUser = helper.decodeToken(res.accessToken);
       let currentAuthData: any = localStorage.getItem('auth')
       currentAuthData.permissions = this.loggedInUser.Permission
+      console.log(this.loggedInUser)
       const data =  {
         isAuthenticated: true,
         user: {
@@ -152,7 +174,8 @@ export class LoginComponent implements OnInit {
       };
       localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
       localStorage.setItem('authData', JSON.stringify(data));
-      localStorage.setItem('auth', JSON.stringify(currentAuthData));
+      localStorage.setItem('authx', JSON.stringify(data));
+      // this.appStore.up
       this.notificationService.publishMessages('success', 'Login Successful');
       if (this.loggedInUser.UserType === 'Institution') {
         this.router.navigateByUrl('/institution/dashboard');

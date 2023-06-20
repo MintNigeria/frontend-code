@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { SingleSessionModalComponent } from 'src/app/shared/components/single-session-modal/single-session-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { UtilityService } from 'src/app/core/services/utility/utility.service';
 
 @Component({
   selector: 'app-organization-login',
@@ -38,12 +39,20 @@ export class OrganizationLoginComponent implements OnInit {
     private appStore: Store<AppStateInterface>,
     private actions$: Actions,
     private dialog: MatDialog,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
+    private utility: UtilityService
+
   ) {}
 
   ngOnInit(): void {
     this.currentRoute = this.route.snapshot.url[0].path;
     this.initLoginForm();
+    const a = this.utility.getCookieValue('email')
+    if (a !== undefined) {
+      this.loginAuth.patchValue({
+        email: a
+      })
+    }
   }
 
   initLoginForm() {
@@ -56,7 +65,9 @@ export class OrganizationLoginComponent implements OnInit {
         '',
         Validators.compose([Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/), Validators.required])
       ),
-      recaptchaReactive: new FormControl(''),
+      rememberMe: new FormControl(false),
+      recaptchaReactive: new FormControl(null, [Validators.required]),
+
     });
   }
 
@@ -104,6 +115,13 @@ export class OrganizationLoginComponent implements OnInit {
 
       }
     })
+    const {email,rememberMe} = this.loginAuth.value;
+    if (rememberMe === true) {
+      const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+      document.cookie = `email=${email}; expires=${expires.toUTCString()}; path=/`;
+    } else {
+      this.utility.deleteCookie('email')
+    }
     
   }
 

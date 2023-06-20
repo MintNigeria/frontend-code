@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import { DashboardService } from 'src/app/core/services/dashboard/dashboard.service';
-import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { isUserSelector } from 'src/app/store/auth/selector';
 import { getGraduateDashboardBottomData, getGraduateDashboardBottomDataSuccess, getGraduateDashboardTopData, getGraduateDashboardTopDataSuccess } from 'src/app/store/dashboard/action';
@@ -13,6 +12,7 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import {Chart} from 'chart.js/auto'
 import { MatDialog } from '@angular/material/dialog';
 import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -175,9 +175,12 @@ initForm() {
     console.log(this.notifyInstitutionForm.value)
     this.store.dispatch(notifyMyInstitution({payload: this.notifyInstitutionForm.value}))
     this.actions$.pipe(ofType(notifyMyInstitutionSuccess)).subscribe((res: any) => {
-      this.notification.publishMessages('success', res.payload.description)
-      // document.getElementById('myModal')?.click()
-      this.cancel()
+      if (res) {
+
+        this.notification.publishMessages('success', res.payload.description)
+        // document.getElementById('myModal')?.click()
+        this.cancel()
+      }
     })
 
   }

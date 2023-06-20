@@ -135,9 +135,6 @@ user: any
     private dialog: MatDialog,
     private store: Store,
     private timer: TimerService
-
-
-
   ) {
     const userAgent = navigator.userAgent;
 
@@ -153,7 +150,7 @@ user: any
     this.loadIp();
     const data: any = localStorage.getItem('authData')
     this.user = JSON.parse(data)
-  
+  console.log(this.user)
         this.superAdminRole = this.user.user.role.split('|')[0]
    }
 
@@ -190,7 +187,7 @@ user: any
   permissions() {
     this.permission$.subscribe((res: any) => {
       this.permissionList = res
-
+      console.log(this.permissionList)
     })
   }
 

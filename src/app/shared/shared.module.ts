@@ -59,6 +59,7 @@ const components: any[] = [
   TrustedURLPipe,
   NigeriaPhoneNumberPipe,
   CommaDelimiterPipe,
+  SingleSessionModalComponent,
 
 ]
 
@@ -66,7 +67,6 @@ const components: any[] = [
 @NgModule({
   declarations: [
     ...components,
-    SingleSessionModalComponent,
   ],
   imports: [
     CommonModule,
