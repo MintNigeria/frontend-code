@@ -6,7 +6,7 @@ import { AuthService } from "src/app/core/services/auth/auth.service";
 import { Store } from "@ngrx/store";
 import { logoutAction } from "src/app/store/auth/action";
 
-const MINUTES_UNITL_AUTO_LOGOUT = 5 // in mins
+const MINUTES_UNITL_AUTO_LOGOUT = 1 // in mins
 const CHECK_INTERVAL = 5000 // in ms
 const STORE_KEY =  'lastAction';
 @Injectable(
@@ -87,14 +87,12 @@ export class TimerService {
     const now = Date.now();
     const timeleft = this.getLastAction() + MINUTES_UNITL_AUTO_LOGOUT * 60 * 1000;
     const diff = timeleft - now;
-    // console.log('difference',diff)
     const isTimeout = diff < 0;
-    const helper = new JwtHelperService();
+    // const helper = new JwtHelperService();
 
-    const expirationDate = helper.isTokenExpired(String(this.token));
-    if (expirationDate)  {
+    // const expirationDate = helper.isTokenExpired(String(this.token));
+    if (isTimeout)  {
       this.logOut()
-      // this.router.navigate(['/']);
     }
   }
   storageEvt(){
