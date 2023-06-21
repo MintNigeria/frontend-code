@@ -14,7 +14,7 @@ children: [
   {path: 'my-institution', component: MyInstituitonComponent},
   {path: 'my-hub', component: MyHubComponent},
   {path: 'change-password', component: ChangePasswordComponent},
-  {path: '2fa', component: TwoFactorAuthenticationComponent}
+  // {path: '2fa', component: TwoFactorAuthenticationComponent}
 ] }
 ];
 

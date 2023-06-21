@@ -167,7 +167,7 @@
                     <table class="table w-full">
                         <thead>
                             <tr>
-                                <th class="flex gap-1 text-xs text-lightGray font-medium font-inter bg-tableHeader ">Batch ID
+                                <th class="flex gap-1 text-xs text-lightGray font-medium font-inter bg-tableHeader ">Batch ID / Date
                                 </th>
                                 <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Institution Name</th>
                                 <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Faculty</th>
@@ -189,7 +189,7 @@
                                             <div>
                                                 <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">{{data.searchPoolBatchId}}</p>
                                                 <p class="text-xs font-normal font-inter my-0 text-lightGray">
-                                                {{data.createdOn | date}}
+                                                {{data.createdOn | date: 'medium'}}
                                                 </p>
 
                                             </div>

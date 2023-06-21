@@ -9,6 +9,7 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { FaqsComponent } from './faqs/faqs.component';
 import { VerificationServicesComponent } from './verification-services/verification-services.component';
 import { TranscriptServicesComponent } from './transcript-services/transcript-services.component';
+import { RequestDemoComponent } from './request-demo/request-demo.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: 'about', component: AboutUsComponent },
       { path: 'career', component: CareersComponent },
       { path: 'contacts', component: ContactsComponent },
+      { path: 'request-demo', component: RequestDemoComponent },
       { path: 'faqs', component: FaqsComponent },
       {path: 'verification-services', component: VerificationServicesComponent},
       {path: 'transcript-services', component: TranscriptServicesComponent},

@@ -12,7 +12,7 @@ children: [
   {path: 'my-profile', component:MyProfileComponent},
   {path: '', component:OrganizationProfileComponent},
   {path: 'change-password', component: ChangePasswordComponent},
-  {path: '2fa', component: TwoFactorAuthenticationComponent}
+  // {path: '2fa', component: TwoFactorAuthenticationComponent}
 ]},
 
 ];

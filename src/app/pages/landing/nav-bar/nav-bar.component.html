@@ -15,22 +15,22 @@
           <a routerLink="/contacts" class="font-inter font-medium text-base text-lightGray">
             Contact Us
           </a>
+          <div class="dropdown">
+            <label tabindex="0" class="font-inter font-medium text-base text-lightGray inline-flex items-center space-x-2">
+              <p>Services</p>
+              <img src="assets/images/icons/dropdown.svg" alt="dropdown">
+            </label>
+            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
+              <li><a routerLink="/verification-services">Verification Services</a></li>
+              <li><a routerLink="/transcript-services">Transcript Services</a></li>
+            </ul>
+          </div>
           <a routerLink="/faqs" class="font-inter font-medium text-base text-lightGray">
             FAQs
           </a>
           
         </div>
 
-        <div class="dropdown">
-          <label tabindex="0" class="font-inter font-medium text-base text-lightGray inline-flex items-center space-x-2">
-            <p>Services</p>
-            <img src="assets/images/icons/dropdown.svg" alt="dropdown">
-          </label>
-          <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
-            <li><a routerLink="/verification-services">Verification Services</a></li>
-            <li><a routerLink="/transcript-services">Transcript Services</a></li>
-          </ul>
-        </div>
       </nav>
       <div class="flex gap-3 items-center">
         <!-- Sign in button -->
@@ -67,9 +67,6 @@
       <a routerLink="/contacts" class="font-inter font-medium text-base text-lightGray">
         Contact Us
       </a>
-      <a routerLink="/faqs" class="font-inter font-medium text-base text-lightGray">
-        FAQs
-      </a>
       <div  class="gap-10 flex font-inter font-medium text-base text-lightGray">
         <p>Services</p>
         <img src="assets/images/icons/dropdown.svg" alt="dropdown" (click)="showOthers()">
@@ -80,6 +77,9 @@
         <a class="pt-2 font-inter font-medium text-base text-lightGray" routerLink="/transcript-services">Transcript Services</a>
 
       </div>
+      <a routerLink="/faqs" class="font-inter font-medium text-base text-lightGray">
+        FAQs
+      </a>
     </nav>
   </div>
 </header>
