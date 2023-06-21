@@ -40,6 +40,12 @@ export class UtilityService
     );  
   }
 
+  requestForDemo(payload: any){
+    return this.http.post<any>(
+      `${this.baseUrl}mint-messaging/api/Notification/SendDemoRequest`, payload
+    );  
+  }
+
   getuserIP() {
     return this.http.get<any>('http://ip-api.com/json')
     // return this.http.get<any>('https://api64.ipify.org?format=json')

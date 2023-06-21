@@ -6,7 +6,7 @@ import { AuthService } from "src/app/core/services/auth/auth.service";
 import { Store } from "@ngrx/store";
 import { logoutAction } from "src/app/store/auth/action";
 
-const MINUTES_UNITL_AUTO_LOGOUT = 10 // in mins
+const MINUTES_UNITL_AUTO_LOGOUT = 5 // in mins
 const CHECK_INTERVAL = 5000 // in ms
 const STORE_KEY =  'lastAction';
 @Injectable(

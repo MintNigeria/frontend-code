@@ -29,3 +29,13 @@ export const contactHelpDeskSuccess = createAction(
   '[Utilities] send help desk enquiry or request messages Success',
   props<{ payload: any }>()
 );
+
+export const requestForDemo = createAction (
+  '[Utilities] request for demo',
+  props<{ payload: any }>()
+)
+
+export const requestForDemoSuccess = createAction(
+  '[Utilities] request for demo Success',
+  props<{ payload: any }>()
+);

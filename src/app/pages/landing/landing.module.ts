@@ -32,6 +32,8 @@ import { utilityReducers } from 'src/app/store/institution copy/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { UtilityEffects } from 'src/app/store/institution copy/effects';
+import { RequestDemoComponent } from './request-demo/request-demo.component';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 
 @NgModule({
@@ -60,6 +62,7 @@ import { UtilityEffects } from 'src/app/store/institution copy/effects';
     TranscriptServicesComponent,
     TranscriptServiceComponent,
     CreateAccountModalComponent,
+    RequestDemoComponent,
   ],
   imports: [
     CommonModule,
@@ -67,6 +70,7 @@ import { UtilityEffects } from 'src/app/store/institution copy/effects';
     ReactiveFormsModule,
     FormsModule,
     LandingRoutingModule,
+    NgxIntlTelInputModule,
     StoreModule.forFeature('utility', utilityReducers),
     EffectsModule.forFeature([UtilityEffects]),
 
