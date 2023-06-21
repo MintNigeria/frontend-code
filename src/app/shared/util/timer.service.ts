@@ -87,14 +87,12 @@ export class TimerService {
     const now = Date.now();
     const timeleft = this.getLastAction() + MINUTES_UNITL_AUTO_LOGOUT * 60 * 1000;
     const diff = timeleft - now;
-    // console.log('difference',diff)
     const isTimeout = diff < 0;
-    const helper = new JwtHelperService();
+    // const helper = new JwtHelperService();
 
-    const expirationDate = helper.isTokenExpired(String(this.token));
-    if (expirationDate)  {
+    // const expirationDate = helper.isTokenExpired(String(this.token));
+    if (isTimeout)  {
       this.logOut()
-      // this.router.navigate(['/']);
     }
   }
   storageEvt(){

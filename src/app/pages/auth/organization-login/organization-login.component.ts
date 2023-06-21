@@ -109,7 +109,7 @@ export class OrganizationLoginComponent implements OnInit {
         }
       } else if (res.accessToken === undefined && res.hasErrors === false) {
         this.show2FAOTP = true;
-        this.timer(7)
+        this.timer(3)
       } else if (res.accessToken === undefined && res.hasErrors === true && res.errors[0] === 'You have an active session!!!') {
         this.launchSingleLoginModal(this.loginAuth.value)
 
@@ -198,7 +198,7 @@ export class OrganizationLoginComponent implements OnInit {
     this.actions$.pipe(ofType(confirm2FActionSuccess)).subscribe((res: any) => {
       if (res.message.hasErrors === false) {
         this.notificationService.publishMessages('success', res.message.description);
-        this.timer(7)
+        this.timer(3)
        
 
       }
