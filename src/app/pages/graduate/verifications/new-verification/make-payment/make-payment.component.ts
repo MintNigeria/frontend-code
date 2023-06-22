@@ -9,7 +9,7 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 declare var PaystackPop: any;
 import { environment } from 'src/environments/environment';
-import { getGraduateWalletId, getGraduateWalletIdSuccess } from 'src/app/store/graduates/action';
+import { getGraduateWalletId, getGraduateWalletIdSuccess, retryApplicationVarificationPayment, retryApplicationVarificationPaymentSuccess } from 'src/app/store/graduates/action';
 
 @Component({
   selector: 'app-make-payment',
@@ -70,7 +70,12 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
   ipAddress: any;
   selectedMerchant: string = '';
   isTransactionSuccessful: any;
+  requestId: any;
 
+  retryPayment: boolean = false;
+  retryApplicationAmount:any;
+  retryApplicationTransactionId!: number;
+  retryApplicationmakePaymentType!: number;
   constructor(
     private fb: FormBuilder,
     private appStore: Store<AppStateInterface>,
@@ -106,21 +111,14 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
       this.balance = res.payload.payload.balance;
 
     })
+    this.requestId = this.route.snapshot.params['id']
+    const currentURL = window.location.href;
+      const path = new URL(currentURL).pathname;
+      if (path.includes('retry-payment')) {
+        this.getApplicationAmout()
+      }
     this.loadIp();
 
-
-    this.initPaymentForm()
-    setTimeout(() => {
-    }, 2000);
-
-    const interval = setInterval(() => {
-      if (this.timer > 0) {
-        this.timer--;
-      } else {
-        clearInterval(interval);
-        this.timerExpired = true;
-      }
-    }, 1000);
   }
 
   loadIp() {
@@ -128,17 +126,16 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
      this.ipAddress = res.query
     })
   }
-  initPaymentForm() {
-    this.paymentForm = this.fb.group({
-      cardNumber: ['', Validators.required],
-      expiryMonth: ['', Validators.required],
-      expiryYear: ['', Validators.required],
-      cvc: ['', Validators.required],
-      cardholderName: ['', Validators.required],
+
+  getApplicationAmout() {
+    this.store.dispatch(retryApplicationVarificationPayment({id: this.requestId}))
+    this.actions$.pipe(ofType(retryApplicationVarificationPaymentSuccess)).subscribe((res: any) => {
+      this.retryPayment = true;
+      this.retryApplicationAmount = res.payload?.amount
+      this.retryApplicationTransactionId = res.payload?.transactionId
+      this.retryApplicationmakePaymentType= res.payload?.makePaymentType
     })
   }
-
-
 
   openOtpModal(){
     document.getElementById('otpModal')?.click();
@@ -148,24 +145,7 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
      document.getElementById('otpModal')?.click();
   }
 
-  onOtpChange(index: number, event: any) {
-    const otpValue = event.target.value;
-    if (!isNaN(otpValue)) {
-      this.otp[index] = parseInt(otpValue, 10);
-      if (this.otp.every((value) => !isNaN(value))) {
-        this.otpEntered = true;
-      }
-    } else {
-      this.otp[index] = 0;
-      this.otpEntered = false;
-    }
-  }
 
-  verifyOtp() {
-    const enteredOtp = this.otp.join('');
-    //console.log('Entered OTP:', enteredOtp);
-    this.openSuccess();
-  }
 
   openSuccess() {
     document.getElementById('successModal')?.click();
@@ -215,8 +195,8 @@ openWalletPayment() {
 
 payWithWallet() {
   const payload = {
-    transactionId: Number(this.transactionId),
-    makePaymentType: 4,
+    transactionId: this.retryPayment === false ? Number(this.transactionId): Number(this.retryApplicationTransactionId),
+    makePaymentType: this.retryPayment === false ? 4 : this.retryApplicationmakePaymentType,
     isCard: false,
     imei: '',
     serialNumber: '',
@@ -243,8 +223,8 @@ selectPaymentMerchant(merchant: string) {
 
 payWithCard() {
   const payload = {
-    transactionId: Number(this.transactionId),
-    makePaymentType: 4,
+    transactionId: this.retryPayment === false ? Number(this.transactionId): Number(this.retryApplicationTransactionId),
+    makePaymentType: this.retryPayment === false ? 4 : this.retryApplicationmakePaymentType,
     isCard: true,
     imei: '',
     serialNumber: '',
@@ -269,7 +249,7 @@ launchPaystack() {
     key: this.pk, // Replace with your public key
     reference: new Date().getTime().toString(),
     email: this.userData?.email,
-    amount: this.trxData?.amount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    amount: this.retryPayment === false ? (this.trxData?.amount * 100) : (this.retryApplicationAmount * 100) , //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
     onCancel: () => {
       this.onClose();
     },
@@ -291,8 +271,8 @@ onClose() {
 validatePayment(data: any) {
   ////console.log(data)
   const payload = {
-    transactionId: Number(this.transactionId),
-    makePaymentType: 4,
+    transactionId: this.retryPayment === false ? Number(this.transactionId): Number(this.retryApplicationTransactionId),
+    makePaymentType: this.retryPayment === false ? 4 : this.retryApplicationmakePaymentType,
     refrenceNumber: data.reference,
     merchantType: 'PAYSTACK',
     isPaymentSuccessful: this.isTransactionSuccessful === 'success' ? true : false,

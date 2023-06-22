@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
@@ -23,7 +23,8 @@ export class ViewApplicationComponent implements OnInit {
     private actions$: Actions,
     private utilityService: UtilityService,
     private route: ActivatedRoute,
-       private  dialog: MatDialog
+      private  dialog: MatDialog,
+      private router: Router
 
   ) { }
 
@@ -58,6 +59,10 @@ export class ViewApplicationComponent implements OnInit {
     height: '800px',
     data
   })
+}
+
+retryPayment() {
+  this.router.navigateByUrl(`/graduate/my-applications/new/retry-payment/${this.requestId}`)
 }
 
 }

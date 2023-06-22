@@ -222,7 +222,7 @@ export class GraduatesService
     const body = new FormData();
     body.append('FirstName', payload.firstName);
     body.append('LastName', payload.lastName);
-    body.append('PhoneNumber', payload.phone);
+    body.append('PhoneNumber', payload.phone.internationalNumber);
     body.append('DateOfBirth', payload.dateOfBirth);
     body.append('Address', payload.address);
     body.append('Country', payload.country);
@@ -350,6 +350,12 @@ export class GraduatesService
   graduateDocumentTypeFilter(id: any) {
     return this.http.get<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Graduate-DocumentType-For-Filter/${id}`
+    );
+  }
+
+  retryApplicationVarificationPayment(id: any) {
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Retry-Payment-For-Graduate-Requests`, {requestId: Number(id)}
     );
   }
 

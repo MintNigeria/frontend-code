@@ -27,6 +27,9 @@ const routes: Routes = [
       {
         path: 'make-payment/:id', component: MakePaymentComponent
       },
+      {
+        path: 'retry-payment/:id', component: MakePaymentComponent
+      },
     ]
   },
   {

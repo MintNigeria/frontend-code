@@ -442,6 +442,16 @@ export const invokeGetGraduateDetailsSuccess = createAction(
     props<{ payload: any }>()
   );
     
+    export const retryApplicationVarificationPayment = createAction(
+      '[Graduates] get data for retrying payment ',
+      props<{ id: any }>()
+  );
+  
+  export const retryApplicationVarificationPaymentSuccess = createAction(
+    '[Graduates] get data for retrying payment success',
+    props<{ payload: any }>()
+  );
+    
     export const submitVerificationReasonForRequest = createAction(
       '[Graduates] submit verification request reason ',
       props<{ payload: any }>()

@@ -9,7 +9,7 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 declare var PaystackPop: any;
 import { environment } from 'src/environments/environment';
-import { getGraduateWalletId, getGraduateWalletIdSuccess } from 'src/app/store/graduates/action';
+import { getGraduateWalletId, getGraduateWalletIdSuccess, retryApplicationVarificationPayment, retryApplicationVarificationPaymentSuccess } from 'src/app/store/graduates/action';
 
 @Component({
   selector: 'app-make-payment',
@@ -45,6 +45,11 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
   selectedMerchant: string = '';
   isTransactionSuccessful: any;
   applicationData: any;
+  requestId: any;
+  retryPayment: boolean = false;
+  retryApplicationAmount:any;
+  retryApplicationTransactionId!: number;
+  retryApplicationmakePaymentType!: number;
 
   constructor(
     private fb: FormBuilder,
@@ -83,6 +88,13 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
       this.balance = res.payload.payload.balance;
 
     })
+    this.requestId = this.route.snapshot.params['id']
+    const currentURL = window.location.href;
+      const path = new URL(currentURL).pathname;
+      if (path.includes('retry-payment')) {
+        this.getApplicationAmout()
+      }
+    // this.currentRoute = this.route.snapshot
     this.loadIp();
 
 
@@ -90,16 +102,27 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
    
   }
 
+  getApplicationAmout() {
+    this.store.dispatch(retryApplicationVarificationPayment({id: this.requestId}))
+    this.actions$.pipe(ofType(retryApplicationVarificationPaymentSuccess)).subscribe((res: any) => {
+      console.log(res)
+      this.retryPayment = true;
+      this.retryApplicationAmount = res.payload?.amount
+      this.retryApplicationTransactionId = res.payload?.transactionId
+      this.retryApplicationmakePaymentType= res.payload?.makePaymentType
+    })
+  }
+
   get applicationAmount () {
     // console.log(this.applicationData)
-    if (this.applicationData.emailOptionVM !== null) {
-      const amount = this.applicationData.emailOptionVM[0].deliveryMethod + this.applicationData.paymentDetailsVM.fee
+    if (this.applicationData?.emailOptionVM !== null) {
+      const amount = this.applicationData?.emailOptionVM[0].deliveryMethod + this.applicationData?.paymentDetailsVM.fee
       return amount
-    } else if (this.applicationData.fileUploadOptionVM !== null) {
-      const amount = this.applicationData.fileUploadOptionVM[0].deliveryMethod + this.applicationData.paymentDetailsVM.fee
+    } else if (this.applicationData?.fileUploadOptionVM !== null) {
+      const amount = this.applicationData?.fileUploadOptionVM[0].deliveryMethod + this.applicationData?.paymentDetailsVM.fee
       return amount
     } else {
-      const amount = this.applicationData.hardCopyOptionVM[0].deliveryMethod + this.applicationData.paymentDetailsVM.fee
+      const amount = this.applicationData?.hardCopyOptionVM[0].deliveryMethod + this.applicationData?.paymentDetailsVM.fee
       return amount
       
     }
@@ -178,8 +201,8 @@ openWalletPayment() {
 
 payWithWallet() {
   const payload = {
-    transactionId: Number(this.trxData.transactionId),
-    makePaymentType: 1,
+    transactionId: this.retryPayment === false ? Number(this.trxData.transactionId) : Number(this.retryApplicationTransactionId),
+    makePaymentType: this.retryPayment === false ? 1 : this.retryApplicationmakePaymentType,
     isCard: false,
     imei: '',
     serialNumber: '',
@@ -204,8 +227,8 @@ selectPaymentMerchant(merchant: string) {
 
 payWithCard() {
   const payload = {
-    transactionId: Number(this.trxData.transactionId),
-    makePaymentType: 1,
+    transactionId: this.retryPayment === false ? Number(this.trxData.transactionId) : Number(this.retryApplicationTransactionId),
+    makePaymentType: this.retryPayment === false ? 1 : this.retryApplicationmakePaymentType,
     isCard: true,
     imei: '',
     serialNumber: '',
@@ -231,7 +254,7 @@ launchPaystack() {
     key: this.pk, // Replace with your public key
     reference: new Date().getTime().toString(),
     email: this.userData?.email,
-    amount: this.applicationAmount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    amount: this.retryPayment === false ? (this.applicationAmount * 100) : (this.retryApplicationAmount * 100), //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
     onCancel: () => {
       this.onClose();
     },
@@ -248,8 +271,8 @@ onSuccess(trx: any) {
 }
 onClose() {
   const payload = {
-    transactionId: Number(this.trxData.transactionId),
-    makePaymentType: 1,
+    transactionId: this.retryPayment === false ? Number(this.trxData.transactionId) : Number(this.retryApplicationTransactionId),
+    makePaymentType: this.retryPayment === false ? 1 : this.retryApplicationmakePaymentType,
     refrenceNumber: 'N/A',
     merchantType: 'PAYSTACK',
     isPaymentSuccessful: false,
@@ -274,8 +297,8 @@ onClose() {
 validatePayment(data: any) {
   ////console.log(data)
   const payload = {
-    transactionId: Number(this.trxData.transactionId),
-    makePaymentType: 1,
+    transactionId: this.retryPayment === false ? Number(this.trxData.transactionId) : Number(this.retryApplicationTransactionId),
+    makePaymentType: this.retryPayment === false ? 1 : this.retryApplicationmakePaymentType,
     refrenceNumber: data.reference,
     merchantType: 'PAYSTACK',
     isPaymentSuccessful: this.isTransactionSuccessful === 'success' ? true : false,
@@ -283,13 +306,12 @@ validatePayment(data: any) {
     serialNumber: '',
     device: this.deviceModel,
     ipAddress: this.ipAddress
-
   }
   this.store.dispatch(validateOrganizationFundWallet({payload}))
   this.actions$.pipe(ofType(validateOrganizationFundWalletSuccess)).subscribe((res: any) => {
     ////console.log(res)
     if (res) {
-      this.notification.publishMessages('success', 'successful')
+      this.notification.publishMessages('success', res.payload.description)
       this.router.navigate(['/graduate/my-applications']);      
 
     }

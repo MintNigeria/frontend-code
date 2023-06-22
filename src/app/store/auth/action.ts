@@ -52,12 +52,12 @@ export const requestPasswordResetSuccess = createAction(
 );
 
 export const resendOTP = createAction(
-  '[requestPasswordReset] Resend OTP',
+  '[resendOTP] Resend OTP',
   props<{ email: string }>()
 );
 
 export const resendOTPSuccess = createAction(
-  '[requestPasswordReset] Resend OTP Success',
+  '[resendOTP] Resend OTP Success',
   props<{ message: string }>()
 );
 

@@ -66,6 +66,7 @@ export interface GraduatesStateInterface {
   searchRecord: any;
   transactionType: any;
   documentType: any;
+  retryPayment: any;
   createGraduateApplication: any;
   submitverificationRequest: any;
   submitVerificationRequest: any;

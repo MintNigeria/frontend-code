@@ -26,7 +26,7 @@ export class UploadsComponent implements OnInit {
   ) { 
     const data: any = localStorage.getItem('authData')
     this.adminUser = JSON.parse(data)
-    this.alternativePermissions = this.adminUser?.permissions
+    this.permissionList = this.adminUser?.permissions
     this.superAdminRole = this.adminUser?.user?.role.split('|')[0]
 
   }
