@@ -155,7 +155,6 @@ export class LoginComponent implements OnInit {
       this.loggedInUser = helper.decodeToken(res.accessToken);
       let currentAuthData: any = localStorage.getItem('auth')
       currentAuthData.permissions = this.loggedInUser.Permission
-      console.log(this.loggedInUser)
       const data =  {
         isAuthenticated: true,
         user: {
@@ -179,11 +178,8 @@ export class LoginComponent implements OnInit {
       this.notificationService.publishMessages('success', 'Login Successful');
       if (this.loggedInUser.UserType === 'Institution') {
         this.router.navigateByUrl('/institution/dashboard');
-
         // this.showOTPPage = true;
-      }
-     
-    
+      }   
     })
     
    
