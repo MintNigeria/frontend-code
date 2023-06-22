@@ -144,7 +144,7 @@ filter: any = {
   changeRegistrationType(event: any) {
     if (event.target.value === 'CAC' ) {
       this.institutionRegForm.controls['RegisteringBody'].setValue('CAC')
-      this.institutionRegForm.controls['RegistrationNumber'].setValidators([Validators.pattern('^(rc|RC)+([0-9]{7,7})+$')])
+      this.institutionRegForm.controls['RegistrationNumber'].setValidators([Validators.pattern('^(rc|RC|BN)+([0-9]{7,7})+$')])
     } else {
       this.institutionRegForm.controls['RegistrationNumber'].clearValidators()
       this.institutionRegForm.controls['RegisteringBody'].setValue('')

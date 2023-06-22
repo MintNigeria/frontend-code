@@ -48,10 +48,18 @@
       </div>
     </div>
   </div>
+
+  <!-- <div class="flex justify-end" (click)="saveDocument()">
+    Print
+  </div> -->
   <!---->
   <!---->
-  <div class="mt-3 bg-white flex justify-center">
-    <div class="flex flex-wrap mt-3  rounded-xl bg-white border border-solid border-[#EFF0F6] w-1/2">
+  <div class="mt-3 bg-white flex justify-center" id="document">
+    <div class="flex flex-wrap mt-3  rounded-xl bg-white border border-solid border-[#EFF0F6]  w-3/4">
+      <div class="flex justify-between items-center w-full px-10 py-6">
+        <img src="assets/images/main/vac-logo.png" alt="logo">
+                <img src="data:image/png;base64,{{graduateData?.institutionLogo}}" alt="Institution Logo" class="w-14 h-14 border rounded-full object-cover">
+      </div>
       <div class="w-full rounded-xl ">
         <div class="">
           <div class="bg-tabBlue p-6 mb-6 rounded-xl">
@@ -65,22 +73,7 @@
               </div>
             </div>
           </div>
-          <!-- <div class="bg-white -mt-5">
-                        <div class="bg-white p-4 grid grid-cols-2 items-center">
-                            <p class="text-base font-inter font-normal mb-3 text-lightGray">Middle Name:</p>
-                            <div class="flex items-center">
-                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{graduateData.fullName}}</p>
-                            </div>
-                        </div>
-                    </div> -->
-          <!-- <div class="bg-white -mt-5">
-                        <div class="bg-white p-4 grid grid-cols-2 items-center">
-                            <p class="text-base font-inter font-normal mb-3 text-lightGray">Last Name:</p>
-                            <div class="flex items-center">
-                                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{studentDetails.fullName}}</p>
-                            </div>
-                        </div>
-                    </div> -->
+
           <div class="bg-white -mt-5">
             <div class="bg-white p-4 grid grid-cols-2 items-center">
               <p class="text-base font-inter font-normal mb-3 text-lightGray">Gender:</p>
@@ -167,6 +160,9 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="bg-tabBlue p-6 mb-6 rounded-xl">
+          <h2 class="text-lg text-center font-medium font-inter text-darkGray">Powered by The Nigerian Security Printing and Minting PLC (NSPM)</h2>
         </div>
       </div>
     </div>
