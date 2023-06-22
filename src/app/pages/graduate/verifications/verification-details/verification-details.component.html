@@ -20,10 +20,19 @@
             <span class="text-[#0D47A1] font-inter md:text-base text-sm font-medium">Back to all verifications</span>
         </div>
     </div>
-
-    <h4 class="font-medium font-poppins text-4xl text-[#101828] my-5 px-5 md:px-8">
-        Verification ID: #{{requestDetail?.applicationNumber}}
-    </h4>
+<div class="flex justify-between items-center">
+    
+        <h4 class="font-medium font-poppins text-4xl text-[#101828] my-5 px-5 md:px-8">
+            Verification ID: #{{requestDetail?.applicationNumber}}
+        </h4>
+        <app-button *ngIf="requestDetail?.paymentStatus === 'UnPaid'"
+    (buttonClick)="retryPayment()"
+    [overRideButtonClass]="true"
+    [customClass]="'flex items-center gap-2 rounded-lg p-1 m-auto w-fit bg-tabBlue text-primaryBlue text-base font-inter font-medium'">
+    <img src="assets/images/icons/refresh.svg" alt="refresh">
+    <p>Retry Payment</p>
+    </app-button>
+</div>
 
 
 

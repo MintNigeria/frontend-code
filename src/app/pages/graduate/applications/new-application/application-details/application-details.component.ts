@@ -79,6 +79,7 @@ export class ApplicationDetailsComponent implements OnInit {
   dispatchFee: any;
   newDispatchVM: any;
   showDescription: boolean = false;
+  selecedDelMethod: any;
   constructor(
     private fb: FormBuilder,
     private store: Store,
@@ -177,6 +178,10 @@ export class ApplicationDetailsComponent implements OnInit {
       // console.log(this.selectedDestination)
     })
 
+  }
+
+  showDocType(option: any) {
+    this.selecedDelMethod = option?.deliveryOptionsType
   }
 
   changeDestination(option: any) {

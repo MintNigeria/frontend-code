@@ -10,7 +10,7 @@
               <div class="flex justify-between p-3 items-center gap-3">
                   <div>
                       <p class="font-nunito font-normal text-base text-failedNormal">Total Amount</p>
-                      <p class="text-discountBlue font-semibold text-2xl font-avenir">₦{{ applicationAmount | commaDelimiter}}</p>
+                      <p class="text-discountBlue font-semibold text-2xl font-avenir">₦{{ applicationAmount || retryApplicationAmount | commaDelimiter}}</p>
                   </div>
                   <div>
                       <img src="assets/images/icons/wallet.svg" alt="wallet_icon">
@@ -47,7 +47,7 @@
                           </div>
                       </div>
                       <div>
-                          <input type="radio" name="paymentMethod" id="creditCard" (click)="selectPaymentMethod('creditCard')">
+                          <input type="radio" class="form-radio h-5 w-5 text-primaryBlue" name="paymentMethod" id="creditCard" (click)="selectPaymentMethod('creditCard')">
                       </div>
                   </div> 
               </div>
@@ -63,7 +63,7 @@
                           </div>
                       </div>
                       <div>
-                          <input type="radio" name="paymentMethod" id="wallet" (click)="selectPaymentMethod('wallet')">
+                          <input type="radio" class="form-radio h-5 w-5 text-primaryBlue" name="paymentMethod" id="wallet" (click)="selectPaymentMethod('wallet')">
                       </div>
                   </div> 
               </div>

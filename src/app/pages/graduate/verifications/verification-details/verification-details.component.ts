@@ -48,5 +48,9 @@ export class VerificationDetailsComponent implements OnInit {
     this.location.back();
   }
 
+  retryPayment() {
+    this.router.navigateByUrl(`/graduate/my-verifications/new/retry-payment/${this.id}`)
+  }
+
 
 }
