@@ -178,7 +178,7 @@
           <div class="w-full md:w-1/2 px-3  md:mb-0">
             <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">ID Type <span
                 class="text-danger">*</span> </label>
-            <select name="" id="" formControlName="IdType"
+            <select name="" id="" formControlName="IdType" (change)="validateIdType($event.target)"
               class="mt-2 select h-[52px] w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
               <option value="">Select ID type</option>
               <option value="1">International PassPort </option>
