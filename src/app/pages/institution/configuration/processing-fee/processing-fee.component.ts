@@ -226,7 +226,7 @@ export class ProcessingFeeComponent implements OnInit {
     })
     newData.processingFeeConfigVM = j
     this.processingFeeList[parent] = newData;
-    console.log(this.processingFeeList)
+    // console.log(this.processingFeeList)
     // sessionStorage.setItem('prox_f', JSON.stringify(this.updatedData))
    
   }
@@ -243,7 +243,6 @@ export class ProcessingFeeComponent implements OnInit {
     })
     newData.updateProcessingFeeConfigVM = j
     this.updatedData[parent] = newData;
-    console.log(this.updatedData)
     sessionStorage.setItem('prox_f', JSON.stringify(this.updatedData))
    
   }

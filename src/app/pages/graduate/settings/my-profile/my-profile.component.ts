@@ -216,21 +216,20 @@ export class MyProfileComponent implements OnInit {
 
 
   saveUpdates() {
-    const {firstName, lastName, email,  phone, state, country, dateOfBirth, city, address, zipCode, twitter, facebook, linkedIn, profileImage } = this.profileForm.value;
+    const {firstName, lastName, middleName, email,  phone, state, country, dateOfBirth, city, address, zipCode, twitter, facebook, linkedIn, profileImage } = this.profileForm.value;
     const payload = {
       imei: '',
       serialNumber: '',
       device: this.deviceModel,
       ipAddress: this.ipAddress,
-      firstName, lastName, email, phone, state, country, dateOfBirth, city, address, zipCode, twitter, facebook, linkedIn, profileImage 
+      firstName, lastName, middleName, email, phone, state, country, dateOfBirth, city, address, zipCode, twitter, facebook, linkedIn, profileImage 
     }
     this.store.dispatch(updateGraduateProfile({payload}))
     this.actions$.pipe(ofType(updateGraduateProfileSuccess)).subscribe((res: any) => {
-      console.log(res) 
       if (res) {
 
         document.getElementById('confirmChanges')?.click();
-        this.notification.publishMessages('success', res.payload.payload)
+        this.notification.publishMessages('success', res.payload.description)
         this.store.dispatch(getGraduateProfile({id: this.institutionId}))
       }
 

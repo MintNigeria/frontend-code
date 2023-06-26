@@ -222,6 +222,7 @@ export class GraduatesService
     const body = new FormData();
     body.append('FirstName', payload.firstName);
     body.append('LastName', payload.lastName);
+    body.append('MiddleName', payload.middleName);
     body.append('PhoneNumber', payload.phone.internationalNumber);
     body.append('DateOfBirth', payload.dateOfBirth);
     body.append('Address', payload.address);
