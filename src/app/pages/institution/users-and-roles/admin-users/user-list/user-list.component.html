@@ -110,7 +110,9 @@
                                 >
                                     <div>
                                         <div class="cursor-pointer flex gap-3">
-                                            <input type="checkbox" [disabled]="item.isAdmin === true" [checked]="item.userStatus === 1" (change)="enableDisableUser($event, item?.userId)" class="toggle toggle-success" />
+                                            <input type="checkbox" [disabled]="item.isAdmin === true" 
+                                            [checked]="item.userStatus === 1" (change)="enableDisableUser($event, item?.userId)" class="toggle" 
+                                            [ngClass]="item?.userStatus === 1 ? 'toggle-success' : 'toggle-error'" />
                                             <p class="font-inter font-meduim text-base text-darkGray">&nbsp;</p>
                                         </div>
                                     </div>

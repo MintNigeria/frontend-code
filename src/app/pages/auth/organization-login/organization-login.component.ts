@@ -66,7 +66,7 @@ export class OrganizationLoginComponent implements OnInit {
         Validators.compose([Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/), Validators.required])
       ),
       rememberMe: new FormControl(false),
-      recaptchaReactive: new FormControl(null, [Validators.required]),
+      recaptchaReactive: new FormControl(null),
 
     });
   }

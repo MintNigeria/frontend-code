@@ -140,6 +140,8 @@ selectedFileList: any  = []
   changeRegistrationType(event: any) {
     if (event.target.value === 'CAC' ) {
       this.institutionRegForm.controls['RegisteringBody'].setValue('CAC')
+      this.institutionRegForm.controls['CAC'].setValidators([Validators.pattern('^(rc|RC|BN)+([0-9]{7,7})+$')])
+
     } else {
       this.institutionRegForm.controls['RegisteringBody'].setValue('')
     }

@@ -5,6 +5,8 @@ export const environment = {
   apiBaseURI: 'https://certificatesverification.org/',
   // apiBaseURI: 'http://102.164.32.78:2000/',
   // apiBaseURI: 'http://40.67.166.30:2000/',
+  // apiBaseURI: 'http://20.83.190.78:2000/',
+
   pkKey: 'pk_test_dc7c232fe6f9d7ff3eaeeda082074ef765244dbf',
 
 };

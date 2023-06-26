@@ -128,7 +128,6 @@ export class UserListComponent implements OnInit {
       .activateOrDeactivateUsers(payload)
       .subscribe((res) => {
         if (!res.hasErrors) {
-          console.log(res)
           this.notificationService.publishMessages(
             'success',
             event.target.checked === true ? 'User successfully activated' : 'User successfully deactivated'
