@@ -139,17 +139,25 @@
               Please select a merchant
           </h3>
 
-          <div class="grid grid-cols-3 mt-5 mb-10">
+          <div class="grid grid-cols-3 gap-4 mt-5 mb-10">
             <div class="bg bg-lightBlue rounded-lg py-10 px-8 border shadow-lg " [ngClass]="selectedMerchant === 'Paystack' ? 'border-4 border-[#BDD5FA] bg-transparent text-[#4086EF]' : 'border-[#EAECF0]'">
                 <div class="text-primaryBlue cursor-pointer" (click)="selectPaymentMerchant('Paystack')"> 
                     <div class="flex flex-col items-center">
                         <img src="assets/images/main/paystack.png">
                         <p class="font-medium font-inter pt-4">Paystack</p>
                     </div>
-            </div>
-              <div>&nbsp;</div>
-              <div>&nbsp;</div>
+                </div>
+               
           </div>
+            <!-- <div class="bg bg-lightBlue rounded-lg py-10 px-8 border shadow-lg " [ngClass]="selectedMerchant === 'Interswitch' ? 'border-4 border-[#BDD5FA] bg-transparent text-[#4086EF]' : 'border-[#EAECF0]'">
+               
+                <div class="text-primaryBlue cursor-pointer" (click)="selectPaymentMerchant('Interswitch')"> 
+                    <div class="flex flex-col items-center">
+                        <img src="assets/images/main/interswitch.png">
+                        <p class="font-medium font-inter pt-4">Interswitch</p>
+                    </div>
+                </div>
+          </div> -->
          
 
         </div>
