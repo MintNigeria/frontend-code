@@ -63,8 +63,8 @@ export class ResetPasswordComponent implements OnInit {
 
   initLoginForm() {
     this.createAccountForm = this.fb.group({ 
-      password: [ '', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [  Validators.required, Validators.minLength(6)]],     
+      password: [ '', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [  Validators.required, Validators.minLength(8)]],     
     }, {
       validator: this.MustMatch('password', 'confirmPassword')
     });
@@ -86,7 +86,7 @@ export class ResetPasswordComponent implements OnInit {
     // temporary fix
     this.auth.resetPassword(payload).subscribe((res: any) => {
       if (res.hasErrors === false) {
-            this.notification.publishMessages('success', res.payload.description)
+            this.notification.publishMessages('success', res.description)
             if (this.param.UserType === '2') {
               this.router.navigateByUrl('/auth/institution')
             }

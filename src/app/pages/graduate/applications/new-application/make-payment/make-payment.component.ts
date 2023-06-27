@@ -248,6 +248,22 @@ payWithCard() {
   }
 }
 
+paymentOptions = {
+  merchantCode: 'XXXXXXXXX',
+  payItemID: 'XXXXXXXXXXXXXXXXXXXXX',
+  amount: '10000',
+  transactionReference: Date.now().toString(),
+  customerEmail: 'johndoe@gmail.com',
+  customerName: 'John Doe',
+    txn_ref: "sample_txn_ref_123",
+    currency: 566, // ISO 4217 numeric code of the currency used
+    mode: 'TEST'
+}
+
+paymentCallback(data: any){
+  // console.log('data: ', data);
+}
+
 launchPaystack() {
   const paystack = new PaystackPop();
   paystack.newTransaction({
