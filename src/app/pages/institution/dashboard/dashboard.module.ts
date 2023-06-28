@@ -11,22 +11,23 @@ import { dashboardReducer } from 'src/app/store/dashboard/reducer';
 import { RevenueChartComponent } from './revenue-chart/revenue-chart.component';
 import { TopInstitutionChartComponent } from './top-institution-chart/top-institution-chart.component';
 import { RevenuePieChartComponent } from './revenue-pie-chart/revenue-pie-chart.component';
+import { RequestEmptyStateComponent } from "../../../shared/request-empty-state/request-empty-state.component";
 
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    RevenueChartComponent,
-    TopInstitutionChartComponent,
-    RevenuePieChartComponent
-  ],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-    SharedModule,
-    StoreModule.forFeature('dashboard', dashboardReducer),
-    EffectsModule.forFeature([DashboardEffects])
-
-  ]
+    declarations: [
+        DashboardComponent,
+        RevenueChartComponent,
+        TopInstitutionChartComponent,
+        RevenuePieChartComponent
+    ],
+    imports: [
+        CommonModule,
+        DashboardRoutingModule,
+        SharedModule,
+        StoreModule.forFeature('dashboard', dashboardReducer),
+        EffectsModule.forFeature([DashboardEffects]),
+        RequestEmptyStateComponent
+    ]
 })
 export class DashboardModule { }

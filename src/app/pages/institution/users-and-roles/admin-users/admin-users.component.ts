@@ -39,16 +39,16 @@ export class AdminUsersComponent implements OnInit {
     this.adminUser = JSON.parse(data)
     this.alternativePermissions = this.adminUser?.permissions
     this.permissionList = this.alternativePermissions
-    console.log(this.permissionList)
+    // console.log(this.permissionList)
 
-    this.permission$.subscribe((res: any) => {
-      if (res !== null) {
-        this.permissionList = res;
-      } else {
-        this.permissionList = this.alternativePermissions
-        // console.log(this.permissionList)
-      }
-    })
+    // this.permission$.subscribe((res: any) => {
+    //   if (res !== null) {
+    //     this.permissionList = res;
+    //   } else {
+    //     this.permissionList = this.alternativePermissions
+    //     // console.log(this.permissionList)
+    //   }
+    // })
   }
 
   users() {

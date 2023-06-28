@@ -63,6 +63,9 @@ filter = {
   deviceModel: string;
   ipAddress: any;
   extra: any;
+  superAdminRole: any;
+  adminUser: any;
+  permissionList: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -90,6 +93,10 @@ filter = {
 
   ngOnInit(): void {
     const data: any = localStorage.getItem('userData')
+    this.adminUser = JSON.parse(data)
+    this.permissionList = this.adminUser?.permissions;
+
+    this.superAdminRole = this.adminUser.user.role.split('|')[0]
     this.institutionData = JSON.parse(data)
     this.institutionId = this.institutionData.InstitutionId
     this.store.dispatch(invokeGetAllGraduates({institutionId: this.institutionId, payload: {...this.filter, ...this.extra}}))

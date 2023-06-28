@@ -150,6 +150,9 @@ user: any
     this.loadIp();
     const data: any = localStorage.getItem('authData')
     this.user = JSON.parse(data)
+    this.permissionList = this.user?.permissions;
+    console.log(this.user)
+
     this.superAdminRole = this.user.user.role.split('|')[0]
    }
 
@@ -184,10 +187,13 @@ user: any
   //   })
   // }
   permissions() {
-    this.permission$.subscribe((res: any) => {
-      this.permissionList = res
-      // console.log(this.permissionList)
-    })
+    const data: any = localStorage.getItem('authData')
+    this.user = JSON.parse(data)
+    this.permissionList = this.user?.permissions;
+    // this.permission$.subscribe((res: any) => {
+    //   this.permissionList = res
+    //   // console.log(this.permissionList)
+    // })
   }
 
   openLogoutModal() {
