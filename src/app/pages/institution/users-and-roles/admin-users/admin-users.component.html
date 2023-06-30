@@ -35,7 +35,7 @@
                 [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="activeLink">
                 Change Password
             </div>
-            <div routerLink="/institution/users-and-roles/users" #rlaRoles="routerLinkActive" *ngIf="permissionList?.includes('INSTITUTION_USERS_ROLES') || superAdminRole === 'Super Admin' || superAdminRole === 'undefined'"
+            <div routerLink="/institution/users-and-roles/users" #rlaRoles="routerLinkActive" *ngIf="permissionList?.includes('INSTITUTION_USERS_ROLES') || permissionList?.includes('USER_DELETE') || permissionList?.includes('USER_READ')  || superAdminRole === 'Super Admin' || superAdminRole === 'undefined'"
                 class="textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px]"
                 routerLinkActive="activeLink">
                 Users

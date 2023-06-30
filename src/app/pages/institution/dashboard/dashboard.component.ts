@@ -35,6 +35,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   revenueLabel  = ['MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT', 'SUN'];
   topInstitutionRequestData: any;
   adminUser: any;
+  permissionList: any;
+  superAdminRole: any;
 
   constructor(
     private appStore: Store<AppStateInterface>,
@@ -44,7 +46,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ) { 
     const data: any = localStorage.getItem('authData')
     this.adminUser = JSON.parse(data)
-  
+    this.permissionList = this.adminUser?.permissions;
+    this.superAdminRole = this.adminUser.user.role.split('|')[0]
+
   }
 
   ngOnInit(): void {

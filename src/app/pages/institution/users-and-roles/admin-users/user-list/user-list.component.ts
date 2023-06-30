@@ -42,6 +42,7 @@ export class UserListComponent implements OnInit {
     pageIndex: 1
   }
   superAdminRole: any;
+  adminUser: any;
 
   constructor(
     private store: Store,
@@ -56,6 +57,10 @@ export class UserListComponent implements OnInit {
     const data: any = localStorage.getItem('userData')
     this.institutionData = JSON.parse(data)
     this.institutionId = this.institutionData.InstitutionId
+    this.adminUser = JSON.parse(data)
+    this.permissionList = this.adminUser?.permissions;
+
+    this.superAdminRole = this.adminUser.user.role.split('|')[0]
     this.permissions()
     this.users()
 
@@ -74,10 +79,13 @@ export class UserListComponent implements OnInit {
   }
 
   permissions() {
-    this.permission$.subscribe((res: any) => {
-      this.permissionList = res
-      console.log(res)
-    })
+    const data: any = localStorage.getItem('authData')
+    this.adminUser = JSON.parse(data)
+    this.permissionList = this.adminUser?.permissions;
+    // this.permission$.subscribe((res: any) => {
+    //   this.permissionList = res
+    //   console.log(res)
+    // })
   }
 
   users() {
