@@ -10,13 +10,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/landing/landing.module').then((m) => m.LandingModule),
   },
-  {
-    path: 'auth',
-    loadChildren: () =>
-      import('./pages/auth/auth.module').then((m) => m.AuthModule),
-      data: { preload: true }
+  // {
+  //   path: 'auth',
+  //   loadChildren: () =>
+  //     import('./pages/auth/auth.module').then((m) => m.AuthModule),
+  //     data: { preload: true }
 
-  },
+  // },
   {
     path: 'institution',
     loadChildren: () =>
