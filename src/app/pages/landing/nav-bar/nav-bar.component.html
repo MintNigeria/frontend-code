@@ -8,14 +8,14 @@
       </div>
       <!-- Navigation links -->
       <nav class="hidden md:flex items-center space-x-6">
-        <div class="flex space-x-4">
+        <div class="flex gap-10">
           <a routerLink="/about" class="font-inter font-medium text-base text-lightGray">
             About Us
           </a>
-          <div class="dropdown">
+          <div class="dropdown cursor-pointer">
             <label tabindex="0" class="font-inter font-medium text-base text-lightGray inline-flex items-center space-x-2">
               <p>Services</p>
-              <img src="assets/images/icons/dropdown.svg" alt="dropdown">
+              <img src="assets/images/icons/dropdown.svg" alt="dropdown" class="cursor-pointer">
             </label>
             <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
               <li><a routerLink="/verification-services">Verification Services</a></li>
@@ -33,24 +33,27 @@
 
       </nav>
       <div class="flex gap-3 items-center">
-        <!-- <app-button
+        <!-- Sign in button -->
+        <app-button
         (buttonClick)="openLogin()"
         [overRideButtonClass]="true"
         [customClass]="'font-inter text-[#0D47A1] font-medium lg:text-base text-sm rounded-md bg-[#F5F9FF]  lg:p-2 p-1'">
             Sign In
         </app-button>
+        <!-- Sign in button -->
         <app-button
         (buttonClick)="openCreateAccount()"
         [overRideButtonClass]="true"
         [customClass]="'font-inter font-medium lg:text-base text-sm rounded-md bg-primaryBlue text-white lg:p-2 p-1'">
             Sign Up
         </app-button>
+        <!-- Mobile menu button -->
         <div class="flex md:hidden">
           <button (click)="mobileMenuOpen = !mobileMenuOpen" class="focus:outline-none">
             <img *ngIf="!mobileMenuOpen" src="assets/images/icons/menu.svg" alt="Menu">
             <img *ngIf="mobileMenuOpen" src="assets/images/icons/x.svg" alt="Close">
           </button>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>

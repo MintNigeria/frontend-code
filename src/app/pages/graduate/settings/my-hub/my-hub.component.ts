@@ -60,9 +60,7 @@ filter = {
       this.hubDocuments = res.payload.payload
     })
     this.initUploadForm()
-    setTimeout(() => {
-      this.populateForm()
-    },2000)
+   
   }
 
   initUploadForm(){
@@ -82,13 +80,7 @@ filter = {
     })
   }
 
-  populateForm(){
-    this.uploadForm.patchValue({
-      documentName: 'NYSC',
-      Issuer: 'Federal Government',
-      date: '03/04/1963'
-    })
-  }
+ 
 
   openConfirmChanges() {
     document.getElementById('confirmChanges')?.click();

@@ -12,7 +12,9 @@ export class FilePreviewComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<FilePreviewComponent>,
 
-  ) { }
+  ) { 
+    // dialogRef.disableClose = false;
+  }
 
   ngOnInit(): void {
   }
@@ -38,8 +40,8 @@ export class FilePreviewComponent implements OnInit {
   }
 
   print() {
-    const printContents = this.printAreaRef.nativeElement.innerHTML;
-    const originalContents = document.body.innerHTML;
+    // const printContents = this.printAreaRef.nativeElement.innerHTML;
+    // const originalContents = document.body.innerHTML;
     // const printWindow : any = window.open('', '');
     // printWindow.document.open();
     // printWindow.document.write(`
@@ -62,7 +64,7 @@ export class FilePreviewComponent implements OnInit {
     // printWindow.close();
 
     window.print()
-    document.body.innerHTML = originalContents;
+    // document.body.innerHTML = originalContents;
 
 
     //     const printDialog = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0')
