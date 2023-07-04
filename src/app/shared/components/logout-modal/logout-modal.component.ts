@@ -30,7 +30,6 @@ export class LogoutModalComponent implements OnInit {
   ngOnInit(): void {
     const data: any = localStorage.getItem('authData')
     this.user = JSON.parse(data)
-    console.log(this.user)
   }
 
 

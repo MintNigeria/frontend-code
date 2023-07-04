@@ -1048,4 +1048,10 @@ export class GraduatesService
       `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionConfiguration/ActiveDeliveryOptions/${processingfeeId}`
     );
   }
+
+  completeGraduateTalentSearchProfile(payload: any) {
+    return this.http.post<any>(
+      `${this.baseUrl}mint-auth/api/v1/TalentSearch/Complete-Profile-For-TalentSearch`, payload
+    );
+  }
 }

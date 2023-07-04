@@ -22,6 +22,7 @@ import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/r
 import { GraduatesEffects } from 'src/app/store/graduates/effects';
 import { AuthEffects } from 'src/app/store/auth/effects';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { GraduateTalentSearchComponent } from './graduate-talent-search/graduate-talent-search.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
     MyInstituitonComponent,
     MyHubComponent,
     ChangePasswordComponent,
-    TwoFactorAuthenticationComponent
+    TwoFactorAuthenticationComponent,
+    GraduateTalentSearchComponent
   ],
   imports: [
     CommonModule,

@@ -6,6 +6,7 @@ import { MyInstituitonComponent } from './my-instituiton/my-instituiton.componen
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { SettingsComponent } from './settings.component';
 import { TwoFactorAuthenticationComponent } from './two-factor-authentication/two-factor-authentication.component';
+import { GraduateTalentSearchComponent } from './graduate-talent-search/graduate-talent-search.component';
 
 const routes: Routes = [
   { path: '', component: SettingsComponent,
@@ -13,6 +14,7 @@ children: [
   {path: '', component:  MyProfileComponent},
   {path: 'my-institution', component: MyInstituitonComponent},
   {path: 'my-hub', component: MyHubComponent},
+  {path: 'my-experience', component: GraduateTalentSearchComponent},
   {path: 'change-password', component: ChangePasswordComponent},
   // {path: '2fa', component: TwoFactorAuthenticationComponent}
 ] }

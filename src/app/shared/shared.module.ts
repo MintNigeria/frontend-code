@@ -31,6 +31,7 @@ import { FilePreviewComponent } from './components/file-preview/file-preview.com
 import { NigeriaPhoneNumberPipe } from '../core/pipe/nigeria-phone-number.pipe';
 import { ActionConfirmationModalComponent } from './components/action-confirmation-modal/action-confirmation-modal.component';
 import { SingleSessionModalComponent } from './components/single-session-modal/single-session-modal.component';
+import { InputNumberComponent } from './components/input-number/input-number.component';
 
 const components: any[] = [
   InputComponent,
@@ -53,6 +54,7 @@ const components: any[] = [
   MobileNavComponent,
   FilePreviewComponent,
   ActionConfirmationModalComponent,
+  InputNumberComponent,
 
   
   FilesizePipe,

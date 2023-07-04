@@ -84,12 +84,12 @@
                           </label>
                     </div>
                     <div class="w-full md:w-2/3">
-                        <app-input 
+                        <app-input-number 
                         [formGrp]="profileForm" 
                         formCtrlName="phone" 
-                        [type]="'tel'" 
+                        [type]="'text'" 
                         [class]="'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
-                        Issuer="Phone Number" [name]="'phone'"></app-input>
+                        Issuer="Phone Number" [name]="'phone'"></app-input-number>
                     </div>
                 </div>
                 <div class="flex flex-wrap gap-6 mb-9">
@@ -193,7 +193,7 @@
                         formCtrlName="address" 
                         [type]="'email'" 
                         [class]="'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
-                        Issuer="Enter your address" [name]="'Email'"></app-input>
+                        Issuer="Enter your address" [name]="'Address'"></app-input>
                     </div>
                 </div>
             </div>

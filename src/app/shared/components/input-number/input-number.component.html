@@ -1,0 +1,46 @@
+<div class="" [formGroup]="formGrp">
+    <input [id]="id" 
+    [type]="type" [placeholder]="Issuer" 
+    [class]="class " 
+    [required]="required" 
+    [readonly]="readonly"
+    (keypress)="numberOnly($event)"
+      [formControlName]="formCtrlName" [max]="max" [ngClass]="{ 'is-invalid': invalid }" [value]="value" [pattern]="pattern"
+      [name]="name" />
+  </div>
+  
+  <div>
+    <small class="text-red-500 mt-1"
+      [class.hidden]="formGrp.controls[formCtrlName].valid || formGrp.controls[formCtrlName].untouched"
+      *ngIf="formGrp.controls[formCtrlName].errors?.['required']">
+      {{ name }} is required
+    </small>
+  
+    <small class="text-red-500 mt-1" *ngIf="formGrp.controls[formCtrlName].errors?.['minlength']">
+      {{ name }} should be at least {{formGrp.controls[formCtrlName].errors?.['minlength'].requiredLength}} characters
+    </small>
+    <small class="text-red-500 mt-1" *ngIf="formGrp.controls[formCtrlName].errors?.['maxlength']">
+      {{ name }} should not be more than {{formGrp.controls[formCtrlName].errors?.['maxlength'].requiredLength}}
+      characters
+    </small>
+    <small [class.hidden]="formGrp.controls[formCtrlName].valid || formGrp.controls[formCtrlName].untouched"
+      class="text-red-500 mt-1" *ngIf="formGrp.controls[formCtrlName].errors?.['notFound']">
+      Record not found
+    </small>
+    <small [class.hidden]="formGrp.controls[formCtrlName].valid || formGrp.controls[formCtrlName].untouched"
+      class="text-red-500 mt-1" *ngIf="formGrp.controls[formCtrlName].errors?.['notCorrect']">
+      {{name}} is not valid
+    </small>
+    <small [class.hidden]="formGrp.controls[formCtrlName].valid || formGrp.controls[formCtrlName].untouched"
+      class="text-red-500 mt-1" *ngIf="formGrp.controls[formCtrlName].errors?.['mismatch']">
+      Passwords do not match
+    </small>
+    <small [class.hidden]="formGrp.controls[formCtrlName].valid || formGrp.controls[formCtrlName].untouched"
+      class="text-red-500 mt-1" *ngIf="formGrp.controls[formCtrlName].errors?.['email']">
+      Invalid Email
+    </small>
+    <small class="text-red-500" *ngIf="formGrp.controls[formCtrlName].errors?.['pattern']">
+      Invalid {{name}} pattern
+    </small>
+  </div>
+  
