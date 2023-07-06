@@ -70,6 +70,7 @@ export class MakePaymentComponent implements OnInit {
   selectedMerchant!: string;
   isTransactionSuccessful: any;
   poolId: any;
+  reportData: any;
 
   constructor(
     private fb: FormBuilder,
@@ -97,8 +98,11 @@ export class MakePaymentComponent implements OnInit {
 
   ngOnInit(): void {
     this.transactionId = this.route.snapshot.params['id']
-    const trx : any = sessionStorage.getItem('telx_pl')
+    // const trx : any = sessionStorage.getItem('telx_pl')
+    const trx : any = sessionStorage.getItem('tal_trx')
     this.trxData = JSON.parse(trx)
+    const count: any = sessionStorage.getItem('telx_pl')
+    this.reportData = JSON.parse(count)
     const data: any = localStorage.getItem('userData')
     this.userData = JSON.parse(data)
     this.store.dispatch(getOrganizationWalletId({id: this.userData.OrganizationId}))
@@ -108,19 +112,6 @@ export class MakePaymentComponent implements OnInit {
     this.loadIp();
 
 
-    this.initPaymentForm()
-    setTimeout(() => {
-      this.populateForm()
-    }, 2000);
-
-    const interval = setInterval(() => {
-      if (this.timer > 0) {
-        this.timer--;
-      } else {
-        clearInterval(interval);
-        this.timerExpired = true;
-      }
-    }, 1000);
   }
 
   loadIp() {
@@ -138,23 +129,14 @@ export class MakePaymentComponent implements OnInit {
     })
   }
 
-  populateForm() {
-    this.paymentForm.patchValue({
-      cardNumber: '1234 1234 1234 2123',
-      expiryMonth: '11',
-      expiryYear: '27',
-      cvc: '789',
-      cardholderName: 'Chiemela Esther',
-    })
-  }
 
-  openOtpModal(){
-    document.getElementById('otpModal')?.click();
-  }
+  // openOtpModal(){
+  //   document.getElementById('otpModal')?.click();
+  // }
 
-  closeOtpModal(){
-     document.getElementById('otpModal')?.click();
-  }
+  // closeOtpModal(){
+  //    document.getElementById('otpModal')?.click();
+  // }
 
   onOtpChange(index: number, event: any) {
     const otpValue = event.target.value;
@@ -226,7 +208,8 @@ payWithWallet() {
     transactionId: Number(this.transactionId),
     makePaymentType: 6,
     isCard: false,
-    talentSearchPoolTransactionVM: this.trxData,
+    talentSearchPoolTransactionVM: this.reportData,
+    // talentSearchPoolTransactionVM: this.trxData,
     imei: '',
     serialNumber: '',
     device: this.deviceModel,
@@ -235,9 +218,11 @@ payWithWallet() {
   }
   this.store.dispatch(makePayment({payload}))
   this.actions$.pipe(ofType(makePaymentSuccess)).subscribe((res: any) => {
+    console.log(res)
+
     if (res.payload.hasErrors === false) {
       this.poolId = res.payload.payload.organizationSearchPoolId
-      this.notification.publishMessages('success', 'successful')
+      this.notification.publishMessages('success', res.payload.description)
       document.getElementById('successModal')?.click();
       
       // this.router.navigate(['organization/verifications/view-verified-documents/2']);      
@@ -310,7 +295,8 @@ validatePayment(data: any) {
     merchantType: 'PAYSTACK',
     isPaymentSuccessful: this.isTransactionSuccessful === 'success' ? true : false,
     imei: '',
-    talentSearchPoolTransactionVM: this.trxData,
+    // talentSearchPoolTransactionVM: this.trxData,
+    talentSearchPoolTransactionVM: this.reportData,
     serialNumber: '',
     device: this.deviceModel,
     ipAddress: this.ipAddress
@@ -318,8 +304,9 @@ validatePayment(data: any) {
   }
   this.store.dispatch(validateOrganizationFundWallet({payload}))
   this.actions$.pipe(ofType(validateOrganizationFundWalletSuccess)).subscribe((res: any) => {
+    console.log(res)
     if (res.payload.hasErrors === false) {
-      this.notification.publishMessages('success', 'successful')
+      this.notification.publishMessages('success', res.payload.description)
       this.router.navigate(['organization/talent-search-pool']);
     } else {
       this.notification.publishMessages('danger', res.payload.errors)

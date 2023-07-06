@@ -66,7 +66,7 @@
                     </div> -->
                     <div class="flex justify-between p-3 items-center gap-3">
                         <p class="font-nunito font-normal text-base text-failedNormal">Total Number of Reports</p>
-                        <p class="font-nunito font-semibold text-base text-darkGray">{{trxData?.institutionGraduateIds?.length}}</p> 
+                        <p class="font-nunito font-semibold text-base text-darkGray">{{reportData?.graduateIds?.length}}</p> 
                     </div> 
                 </div>
         </div>
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                             <div>
-                                <input type="radio" name="paymentMethod" id="creditCard" (click)="selectPaymentMethod('creditCard')">
+                                <input type="radio" class="form-radio h-5 w-5 text-primaryBlue" name="paymentMethod" id="creditCard" (click)="selectPaymentMethod('creditCard')">
                             </div>
                         </div> 
                     </div>
@@ -107,7 +107,7 @@
                                 </div>
                             </div>
                             <div>
-                                <input type="radio" name="paymentMethod" id="wallet" (click)="selectPaymentMethod('wallet')">
+                                <input type="radio" class="form-radio h-5 w-5 text-primaryBlue" name="paymentMethod" id="wallet" (click)="selectPaymentMethod('wallet')">
                             </div>
                         </div> 
                     </div>

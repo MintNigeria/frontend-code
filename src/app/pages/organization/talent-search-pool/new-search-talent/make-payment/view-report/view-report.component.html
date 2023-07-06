@@ -159,11 +159,10 @@
                         <thead>
                             <tr>
                                 <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Name</th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Institution</th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Faculty</th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Department</th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Graduation Year</th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Grade</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Class of Degree</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Email</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Phone Number</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Year of Experience</th>
                             </tr>
                         </thead>
 
@@ -175,7 +174,7 @@
                                     <div class="items-center">
                                         <div>
                                             <div>
-                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">{{data.name}}</p>
+                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">{{data.fullName}}</p>
                                                 <p class="my-0 text-sm cursor-pointer font-inter font-normal text-lightGray ">{{data.gender}}</p>
                                             </div>
                                         </div>
@@ -184,7 +183,7 @@
                                 </td>
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.institutionName}}</p>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.classOfDegree}}</p>
                                       
                                     </div>
 
@@ -193,7 +192,7 @@
                                     <div class="items-center">
                                         <div>
                                             <div>
-                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-lightGray ">{{data.faculty}}</p>
+                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-lightGray ">{{data.email}}</p>
                                             </div>
                                         </div>
 
@@ -202,23 +201,18 @@
                                 
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.department}}</p>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.phoneNumber}}</p>
                                        
                                     </div>
                                 </td>
 
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.yearOfGraduation}}</p>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.yearOfExperience}}</p>
                                         
                                     </div>
                                 </td>
-                                <td class="bg-white">
-                                    <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.grade}}</p>
-                                      
-                                    </div>
-                                </td>
+                               
 
 
 

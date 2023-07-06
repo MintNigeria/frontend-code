@@ -1049,9 +1049,133 @@ export class GraduatesService
     );
   }
 
+  getTalentSearchProfileCmpletionStatus(graduateId: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-auth/api/v1/TalentSearch/Has-Completed-Profile-For-TalentSearch/${graduateId}`
+    );
+  }
+
+  getTalentSearchProfile(graduateId: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-auth/api/v1/TalentSearch/Experience-Profile/${graduateId}`
+    );
+  }
+
   completeGraduateTalentSearchProfile(payload: any) {
+    const { educationalQualificationVM, skillSetVM, workHistoryVM } = payload;
+    const body = new FormData();
+    body.append(
+      'GraduateId',
+      payload.graduateId
+    );
+    body.append(
+      'CreateProfessionalQualificationVM[' + 0 + '].LinkedInProfile',
+      payload.linkedInProfile
+    );
+    body.append(
+      'CreateProfessionalQualificationVM[' + 0 + '].PortfolioUrl',
+      payload.porfolioUrl
+    );
+    body.append(
+      'CreateProfessionalQualificationVM[' + 0 + '].DocumentVM.File',
+      payload.resume
+    );
+    for (let i = 0; i < payload.qualifications?.length; i++) {
+
+      body.append(
+        `CreateProfessionalQualificationVM[0].ProfessionalQualification[${i}]`,
+        payload.qualifications[i]
+      );
+   
+    }
+    for (let i = 0; i < educationalQualificationVM?.length; i++) {
+
+      body.append(
+        'CreateEducationalQualificationVM[' + 0 + '].InstitutionName',
+        educationalQualificationVM[i].InstitutionName
+      );
+      body.append(
+        'CreateEducationalQualificationVM[' + 0 + '].CourseOfStudy',
+        educationalQualificationVM[i].course
+      );
+      body.append(
+        'CreateEducationalQualificationVM[' + 0 + '].DegreeObtained',
+        educationalQualificationVM[i].degree
+      );
+      body.append(
+        'CreateEducationalQualificationVM[' + 0 + '].ClassOfDegree',
+        educationalQualificationVM[i].classOfDegree
+      );
+      body.append(
+        'CreateEducationalQualificationVM[' + 0 + '].YearOfGraduation',
+        educationalQualificationVM[i].yearOfGraduation
+      );
+      body.append(
+        'CreateEducationalQualificationVM[' + 0 + '].DocumentVM.File',
+        educationalQualificationVM[i].certificate
+      );
+   
+    }
+    for (let i = 0; i < skillSetVM?.length; i++) {
+
+      body.append(
+        'CreateSkillSetVM[' + 0 + '].Description',
+        skillSetVM[i].description
+      );
+      body.append(
+        'CreateSkillSetVM[' + 0 + '].QualificationName',
+        skillSetVM[i].title
+      );
+      body.append(
+        'CreateSkillSetVM[' + 0 + '].YearOfCertification',
+        skillSetVM[i].year
+      );
+    
+      body.append(
+        'CreateSkillSetVM[' + 0 + '].DocumentVM.File',
+        skillSetVM[i].document
+      );
+   
+    }
+    for (let i = 0; i < workHistoryVM?.length; i++) {
+
+      body.append(
+        'CreateWorkHistoryVM[' + 0 + '].CompanyName',
+        workHistoryVM[i].companyName
+      );
+      body.append(
+        'CreateWorkHistoryVM[' + 0 + '].CompanyAddress',
+        workHistoryVM[i].companyAddress
+      );
+      body.append(
+        'CreateWorkHistoryVM[' + 0 + '].Profession',
+        workHistoryVM[i].profession
+      );
+      body.append(
+        'CreateWorkHistoryVM[' + 0 + '].Title',
+        workHistoryVM[i].title
+      );
+      body.append(
+        'CreateWorkHistoryVM[' + 0 + '].DateOfEmployment',
+        workHistoryVM[i].dateOfEmployment
+      );
+      body.append(
+        'CreateWorkHistoryVM[' + 0 + '].EndDateOfEmployment',
+        workHistoryVM[i].endOfEmployment
+      );
+      body.append(
+        'CreateWorkHistoryVM[' + 0 + '].YearsOfExperience',
+        workHistoryVM[i].yearsOfExperience
+      );
+    
+      body.append(
+        'CreateWorkHistoryVM[' + 0 + '].DocumentVM.File',
+        workHistoryVM[i].document
+      );
+   
+    }
     return this.http.post<any>(
-      `${this.baseUrl}mint-auth/api/v1/TalentSearch/Complete-Profile-For-TalentSearch`, payload
+      `${this.baseUrl}mint-auth/api/v1/TalentSearch/Complete-Profile-For-TalentSearch`, body
     );
   }
 }

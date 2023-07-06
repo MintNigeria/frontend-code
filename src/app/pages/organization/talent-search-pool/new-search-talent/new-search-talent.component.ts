@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
+import { InstitutionService } from 'src/app/core/services/institution/institution.service';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess, getAllInstitutionDegreeType, getAllInstitutionDegreeTypeSuccess, getAllInstitutionGrade, getAllInstitutionGradeSuccess, getAllInstitutionsDropdown, getAllInstitutionsDropdownSuccess, getFacultyAndDepartmentByInstitutionName, getFacultyAndDepartmentByInstitutionNameSuccess } from 'src/app/store/institution/action';
 import { getDepartmentGrades, getDepartmentGradesSuccess, newTalentPoolSearch, newTalentPoolSearchSuccess, verifyHistoryInstitutionDropdown } from 'src/app/store/organization/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
+import { stateLgaSelector } from 'src/app/store/institution copy/selector';
+import { invokeGetStateAndLGA } from 'src/app/store/institution copy/action';
+import { OrganizationService } from 'src/app/core/services/organization/organization.service';
 
 @Component({
   selector: 'app-new-search-talent',
@@ -15,6 +19,7 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
   styleUrls: ['./new-search-talent.component.scss']
 })
 export class NewSearchTalentComponent implements OnInit {
+  stateLGA$ = this.appStore.pipe(select(stateLgaSelector));
 
   selectedOption: string = "Academic Report";
 
@@ -32,6 +37,7 @@ export class NewSearchTalentComponent implements OnInit {
   use: any;
   listCount: any;
   transactionId: any;
+  gradeList: any;
   constructor(
     private appStore: Store<AppStateInterface>,
     private store: Store,
@@ -39,7 +45,10 @@ export class NewSearchTalentComponent implements OnInit {
     private utilityService: UtilityService,
     private fb:FormBuilder,
     private router: Router,
-    private notification: NotificationsService
+    private notification: NotificationsService,
+    private gradeService: InstitutionService,
+    private organizationService: OrganizationService
+
 
   ) { }
 
@@ -56,20 +65,47 @@ export class NewSearchTalentComponent implements OnInit {
       this.years.push(index)
       
     }
+    this.getAllGrades()
+    this.store.dispatch(
+      invokeGetStateAndLGA()
+    );
+
+  }
+
+  getAllGrades() {
+    this.gradeService.getAllGradesConfig().subscribe((res: any) => {
+      this.gradeList = res.payload;
+    })
   }
 
   initForm () {
     this.newTalentsearchForm = this.fb.group({
-      InstitutionName : ['', Validators.required],
-      Faculty  : ['', Validators.required],
-      Department   : ['', Validators.required],
-      Degree: [null, Validators.required],
-      Grade : [null, Validators.required],
-      Gender : ['', Validators.required],
-      FromYearOfGraduation : [null, Validators.required],
-      ToYearOfGraduation : [null, Validators.required],
+      Institutions : [''],
+      ClassesOfDegree : [null],
+      StateOfOrigin : [''],
+      StateOfLocation : [''],
       YearOfGraduation : [''],
+      FromYearOfGraduation : [null],
+      ToYearOfGraduation : [null],
+      YearOfExperience : [''],
+      startYearOfExperience : [''],
+      endYearOfExperience : [''],
+      Profession : [''],
+      Age : [''], // range of 15 - 65
+      StartAgeRange : [''],
+      EndAgeRange : [''],
     })
+    // this.newTalentsearchForm = this.fb.group({
+    //   InstitutionName : ['', Validators.required],
+    //   Faculty  : ['', Validators.required],
+    //   Department   : ['', Validators.required],
+    //   Degree: [null, Validators.required],
+    //   Grade : [null, Validators.required],
+    //   Gender : ['', Validators.required],
+    //   FromYearOfGraduation : [null, Validators.required],
+    //   ToYearOfGraduation : [null, Validators.required],
+    //   YearOfGraduation : [''],
+    // })
   }
 
   getInstitutionFaculty(event: any) {
@@ -105,6 +141,42 @@ export class NewSearchTalentComponent implements OnInit {
     this.newTalentsearchForm.controls['Department'].setValue(event.departmentName)
   }
 
+  searchTalents() {
+    const {Institutions,ClassesOfDegree ,StateOfOrigin, StateOfLocation, YearOfGraduation, FromYearOfGraduation, ToYearOfGraduation, YearOfExperience, Profession, Age, StartAgeRange, EndAgeRange, startYearOfExperience, endYearOfExperience } = this.newTalentsearchForm.value;
+
+    const payload = {
+      Institutions: Institutions || null,
+      ClassesOfDegree : ClassesOfDegree || null,
+      StateOfOrigin : StateOfOrigin || null, 
+      StateOfLocation : StateOfLocation || null,
+      YearOfGraduation: YearOfGraduation || null,
+      FromYearOfGraduation: FromYearOfGraduation || null,
+      ToYearOfGraduation: ToYearOfGraduation || null,
+      Profession: Profession || null,
+      Age: Number(Age) || null,
+      StartAgeRange: Number(StartAgeRange) || null,
+      EndAgeRange: Number(EndAgeRange) || null,
+      YearOfExperience : Number(YearOfExperience) || null,
+      startYearOfExperience: Number(startYearOfExperience) || null,
+      endYearOfExperience: Number(endYearOfExperience) || null
+    };
+    // console.log(this.newTalentsearchForm.value)
+    // const formData = new FormData(this.newTalentsearchForm.value);
+    this.organizationService.searchCompletedGraduateProfileForTalentSearch(payload).subscribe((res: any) => {
+      console.log(res)
+      if (res.hasErrors === false && res.payload?.graduateIds?.length  !== 0) {
+        document.getElementById('confirmChanges')?.click();
+        //console.log(res)
+          this.transactionId = res.payload?.payload?.transactionId
+          sessionStorage.setItem('telx_pl', JSON.stringify(res.payload))
+          this.listCount = res.payload?.graduateIds?.length
+          //console.log(this.listCount)
+      } else {
+        this.notification.publishMessages('warning', 'No record(s) found')
+      }
+    })
+  }
+
   generateReport() {
     //console.log(this.newTalentsearchForm.value)
     const payload = {
@@ -123,14 +195,22 @@ export class NewSearchTalentComponent implements OnInit {
           sessionStorage.setItem('telx_pl', JSON.stringify(res.payload.payload))
           this.listCount = res.payload?.payload?.institutionGraduateIds?.length
           //console.log(this.listCount)
-      } else {
-        this.notification.publishMessages('warning', 'No record(s) found')
+        } else {
+          this.notification.publishMessages('warning', 'No record(s) found')
+        }
+      })
+    }
+    
+    makePayment() {
+      const payload = {
+        organizationId: Number(this.userData.OrganizationId),
+        recordCount: Number(this.listCount)
       }
+      this.organizationService.getTalentSearchTransactionId(payload).subscribe((res: any) => {
+        console.log(res)
+        sessionStorage.setItem('tal_trx', JSON.stringify(res.payload))
+      this.router.navigateByUrl(`/organization/talent-search-pool/make-payment/${res.payload.transactionId}`)
     })
-  }
-
-  makePayment() {
-    this.router.navigateByUrl(`/organization/talent-search-pool/make-payment/${this.transactionId}`)
     // [routerLink]="'/organization/talent-search-pool/make-payment/2'"
   }
 

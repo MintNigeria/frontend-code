@@ -716,6 +716,7 @@ export class OrganizationEffects {
         const {payload} = action
         return this.organizationService
           .getAlltalentSearchPoolResult(payload)
+          // .getAlltalentSearchPoolResult(payload)
           .pipe(
             map((data) => {
               this.appStore.dispatch(
@@ -753,7 +754,8 @@ export class OrganizationEffects {
         );
         const {payload} = action
         return this.organizationService
-          .getAlltalentSearchPool(payload)
+          .getTalentSearchBatchRecord(payload)
+          // .getAlltalentSearchPool(payload)
           .pipe(
             map((data) => {
               this.appStore.dispatch(
