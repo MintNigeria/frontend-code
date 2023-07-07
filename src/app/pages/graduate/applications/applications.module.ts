@@ -26,8 +26,7 @@ import { InstitutionEffects } from 'src/app/store/institution/effects';
 import { ConfigurationEffects } from 'src/app/store/configuration/effects';
 
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-import { NgInterswitchModule } from '@interswitchapi/ng-interswitch';
-
+// import { NgInterswitchModule } from 'ng-interswitch';
 @NgModule({
   declarations: [
     ApplicationsComponent,
@@ -49,7 +48,7 @@ import { NgInterswitchModule } from '@interswitchapi/ng-interswitch';
     NgSelectModule,
     NgxPaginationModule,
     NgxIntlTelInputModule,
-    NgInterswitchModule,
+    // NgInterswitchModule,
     StoreModule.forFeature('graduates', graduatesReducer),
     StoreModule.forFeature('organization', organizationReducer),
     EffectsModule.forFeature([GraduatesEffects, OrganizationEffects, InstitutionEffects, ConfigurationEffects]),

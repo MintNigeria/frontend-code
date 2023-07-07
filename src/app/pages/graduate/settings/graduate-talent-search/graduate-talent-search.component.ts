@@ -98,6 +98,7 @@ skillSet = this.fb.group({
     "Ethics",
     "Professionalism"
 ]
+editProfile: boolean = false;
   constructor(
     private fb: FormBuilder,
     private store: Store,
@@ -129,15 +130,16 @@ skillSet = this.fb.group({
     }
     this.initForm()
     this.getAllGrades()
+    this.getAllDegree()
     this.getTalentProfile()
   }
 
   getTalentProfile() {
     this.graduateService.getTalentSearchProfile(this.graduateId).subscribe((res: any) => {
       console.log(res)
-      if (res) {
-
+      if (res.payload.hasStartedUpdtingTalentSearchProfile === true) {
         this.populateForm(res.payload)
+        this.editProfile = true;
       }
     })
   }
@@ -179,6 +181,11 @@ skillSet = this.fb.group({
       this.gradeList = res.payload;
     })
   }
+  getAllDegree() {
+    this.gradeService.getAllDegreeConfig().subscribe((res: any) => {
+      this.degreeType = res.payload;
+    })
+  }
 
  
 
@@ -194,14 +201,24 @@ skillSet = this.fb.group({
   }
 
   addMoreEducation() {
-    console.log('dsdsds')
     this.educationalQualificationVM.push(this.eduForm)
+  }
+  removeEducation(index: number) {
+    this.educationalQualificationVM.removeAt(index)
   }
   addWorkHistory() {
     this.workHistoryVM.push(this.workHistory)
   }
+  
+    removeWork(index: number) {
+      this.workHistoryVM.removeAt(index)
+    }
   addSkillSet() {
     this.skillSetVM.push(this.skillSet)
+  }
+
+  removeSkill(index: number) {
+    this.skillSetVM.removeAt(index)
   }
 
   selectInstitutionName(event: any) {
@@ -351,10 +368,21 @@ skillSet = this.fb.group({
       graduateId: this.graduateId,
       ...this.talentForm.value
     }
-    console.log(payload)
     this.graduateService.completeGraduateTalentSearchProfile(payload).subscribe((res: any) => {
-      console.log(res)
       this.notification.publishMessages('success', res.description)
+      this.talentForm.reset();
+      location.reload();
+    })
+  }
+  updateRecord() {
+    const payload = {
+      graduateId: this.graduateId,
+      ...this.talentForm.value
+    }
+    this.graduateService.updateGraduateTalentSearchProfile(payload).subscribe((res: any) => {
+      this.notification.publishMessages('success', res.description)
+      this.talentForm.reset();
+      location.reload();
     })
   }
 

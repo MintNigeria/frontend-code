@@ -22,7 +22,6 @@
     "@angular/router": "^14.2.12",
     "@auth0/angular-jwt": "^5.1.2",
     "@fortawesome/fontawesome-free": "^5.15.1",
-    "@interswitchapi/ng-interswitch": "^1.0.4",
     "@ng-select/ng-select": "^9.0.3",
     "@ngrx/effects": "^14.3.2",
     "@ngrx/store": "^14.3.2",

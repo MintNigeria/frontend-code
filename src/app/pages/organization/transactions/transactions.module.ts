@@ -13,13 +13,16 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { organizationReducer } from 'src/app/store/organization/reducers';
 import { ConfigurationEffects } from 'src/app/store/configuration/effects';
+import { FundWalletComponent } from './fund-wallet/fund-wallet.component';
 
+// import { NgInterswitchModule } from 'ng-interswitch';
 
 @NgModule({
   declarations: [
     TransactionsComponent,
     PaymentPlanComponent,
-    MakePaymentComponent
+    MakePaymentComponent,
+    FundWalletComponent
   ],
   imports: [
     CommonModule,
@@ -28,6 +31,7 @@ import { ConfigurationEffects } from 'src/app/store/configuration/effects';
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
+    // NgInterswitchModule,
     StoreModule.forFeature('organization', organizationReducer),
     EffectsModule.forFeature([OrganizationEffects, ConfigurationEffects]),
 

@@ -1091,27 +1091,27 @@ export class GraduatesService
     for (let i = 0; i < educationalQualificationVM?.length; i++) {
 
       body.append(
-        'CreateEducationalQualificationVM[' + 0 + '].InstitutionName',
+        'CreateEducationalQualificationVM[' + i + '].InstitutionName',
         educationalQualificationVM[i].InstitutionName
       );
       body.append(
-        'CreateEducationalQualificationVM[' + 0 + '].CourseOfStudy',
+        'CreateEducationalQualificationVM[' + i + '].CourseOfStudy',
         educationalQualificationVM[i].course
       );
       body.append(
-        'CreateEducationalQualificationVM[' + 0 + '].DegreeObtained',
+        'CreateEducationalQualificationVM[' + i + '].DegreeObtained',
         educationalQualificationVM[i].degree
       );
       body.append(
-        'CreateEducationalQualificationVM[' + 0 + '].ClassOfDegree',
+        'CreateEducationalQualificationVM[' + i + '].ClassOfDegree',
         educationalQualificationVM[i].classOfDegree
       );
       body.append(
-        'CreateEducationalQualificationVM[' + 0 + '].YearOfGraduation',
+        'CreateEducationalQualificationVM[' + i + '].YearOfGraduation',
         educationalQualificationVM[i].yearOfGraduation
       );
       body.append(
-        'CreateEducationalQualificationVM[' + 0 + '].DocumentVM.File',
+        'CreateEducationalQualificationVM[' + i + '].DocumentVM.File',
         educationalQualificationVM[i].certificate
       );
    
@@ -1119,20 +1119,20 @@ export class GraduatesService
     for (let i = 0; i < skillSetVM?.length; i++) {
 
       body.append(
-        'CreateSkillSetVM[' + 0 + '].Description',
+        'CreateSkillSetVM[' + i + '].Description',
         skillSetVM[i].description
       );
       body.append(
-        'CreateSkillSetVM[' + 0 + '].QualificationName',
+        'CreateSkillSetVM[' + i + '].QualificationName',
         skillSetVM[i].title
       );
       body.append(
-        'CreateSkillSetVM[' + 0 + '].YearOfCertification',
+        'CreateSkillSetVM[' + i + '].YearOfCertification',
         skillSetVM[i].year
       );
     
       body.append(
-        'CreateSkillSetVM[' + 0 + '].DocumentVM.File',
+        'CreateSkillSetVM[' + i + '].DocumentVM.File',
         skillSetVM[i].document
       );
    
@@ -1140,42 +1140,161 @@ export class GraduatesService
     for (let i = 0; i < workHistoryVM?.length; i++) {
 
       body.append(
-        'CreateWorkHistoryVM[' + 0 + '].CompanyName',
+        'CreateWorkHistoryVM[' + i + '].CompanyName',
         workHistoryVM[i].companyName
       );
       body.append(
-        'CreateWorkHistoryVM[' + 0 + '].CompanyAddress',
+        'CreateWorkHistoryVM[' + i + '].CompanyAddress',
         workHistoryVM[i].companyAddress
       );
       body.append(
-        'CreateWorkHistoryVM[' + 0 + '].Profession',
+        'CreateWorkHistoryVM[' + i + '].Profession',
         workHistoryVM[i].profession
       );
       body.append(
-        'CreateWorkHistoryVM[' + 0 + '].Title',
+        'CreateWorkHistoryVM[' + i + '].Title',
         workHistoryVM[i].title
       );
       body.append(
-        'CreateWorkHistoryVM[' + 0 + '].DateOfEmployment',
+        'CreateWorkHistoryVM[' + i + '].DateOfEmployment',
         workHistoryVM[i].dateOfEmployment
       );
       body.append(
-        'CreateWorkHistoryVM[' + 0 + '].EndDateOfEmployment',
+        'CreateWorkHistoryVM[' + i + '].EndDateOfEmployment',
         workHistoryVM[i].endOfEmployment
       );
       body.append(
-        'CreateWorkHistoryVM[' + 0 + '].YearsOfExperience',
+        'CreateWorkHistoryVM[' + i + '].YearsOfExperience',
         workHistoryVM[i].yearsOfExperience
       );
     
       body.append(
-        'CreateWorkHistoryVM[' + 0 + '].DocumentVM.File',
+        'CreateWorkHistoryVM[' + i + '].DocumentVM.File',
         workHistoryVM[i].document
       );
    
     }
     return this.http.post<any>(
       `${this.baseUrl}mint-auth/api/v1/TalentSearch/Complete-Profile-For-TalentSearch`, body
+    );
+  }
+
+
+  updateGraduateTalentSearchProfile(payload: any) {
+    const { educationalQualificationVM, skillSetVM, workHistoryVM } = payload;
+    const body = new FormData();
+    body.append(
+      'GraduateId',
+      payload.graduateId
+    );
+    body.append(
+      'UpdateProfessionalQualificationVM[' + 0 + '].LinkedInProfile',
+      payload.linkedInProfile
+    );
+    body.append(
+      'UpdateProfessionalQualificationVM[' + 0 + '].PortfolioUrl',
+      payload.porfolioUrl
+    );
+    body.append(
+      'UpdateProfessionalQualificationVM[' + 0 + '].DocumentVM.File',
+      payload.resume
+    );
+    for (let i = 0; i < payload.qualifications?.length; i++) {
+
+      body.append(
+        `UpdateProfessionalQualificationVM[0].ProfessionalQualification[${i}]`,
+        payload.qualifications[i]
+      );
+   
+    }
+    for (let i = 0; i < educationalQualificationVM?.length; i++) {
+
+      body.append(
+        'UpdateEducationalQualificationVM[' + i + '].InstitutionName',
+        educationalQualificationVM[i].InstitutionName
+      );
+      body.append(
+        'UpdateEducationalQualificationVM[' + i + '].CourseOfStudy',
+        educationalQualificationVM[i].course
+      );
+      body.append(
+        'UpdateEducationalQualificationVM[' + i + '].DegreeObtained',
+        educationalQualificationVM[i].degree
+      );
+      body.append(
+        'UpdateEducationalQualificationVM[' + i + '].ClassOfDegree',
+        educationalQualificationVM[i].classOfDegree
+      );
+      body.append(
+        'UpdateEducationalQualificationVM[' + i + '].YearOfGraduation',
+        educationalQualificationVM[i].yearOfGraduation
+      );
+      body.append(
+        'UpdateEducationalQualificationVM[' + i + '].DocumentVM.File',
+        educationalQualificationVM[i].certificate
+      );
+   
+    }
+    for (let i = 0; i < skillSetVM?.length; i++) {
+
+      body.append(
+        'UpdateSkillSetVM[' + i + '].Description',
+        skillSetVM[i].description
+      );
+      body.append(
+        'UpdateSkillSetVM[' + i + '].QualificationName',
+        skillSetVM[i].title
+      );
+      body.append(
+        'UpdateSkillSetVM[' + i + '].YearOfCertification',
+        skillSetVM[i].year
+      );
+    
+      body.append(
+        'UpdateSkillSetVM[' + i + '].DocumentVM.File',
+        skillSetVM[i].document
+      );
+   
+    }
+    for (let i = 0; i < workHistoryVM?.length; i++) {
+
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].CompanyName',
+        workHistoryVM[i].companyName
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].CompanyAddress',
+        workHistoryVM[i].companyAddress
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].Profession',
+        workHistoryVM[i].profession
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].Title',
+        workHistoryVM[i].title
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].DateOfEmployment',
+        workHistoryVM[i].dateOfEmployment
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].EndDateOfEmployment',
+        workHistoryVM[i].endOfEmployment
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].YearsOfExperience',
+        workHistoryVM[i].yearsOfExperience
+      );
+    
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].DocumentVM.File',
+        workHistoryVM[i].document
+      );
+   
+    }
+    return this.http.put<any>(
+      `${this.baseUrl}mint-auth/api/v1/TalentSearch/Profile-For-TalentSearch`, body
     );
   }
 }
