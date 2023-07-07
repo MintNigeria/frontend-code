@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@ang
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import * as moment from 'moment';
 import { Subject } from 'rxjs';
 import { GraduatesService } from 'src/app/core/services/graduates/graduates.service';
 import { InstitutionService } from 'src/app/core/services/institution/institution.service';
@@ -35,6 +36,7 @@ eduForm = this.fb.group({
   yearOfGraduation: new FormControl('', [Validators.required]),
   classOfDegree: new FormControl('', [Validators.required]),
   certificate: null,
+  id: null,
 });
 workHistory = this.fb.group({
   companyName: new FormControl(''),
@@ -44,13 +46,15 @@ workHistory = this.fb.group({
   dateOfEmployment: new FormControl(''),
   endOfEmployment: new FormControl(''),
   isCurrent: new FormControl(''),
-  yearsOfExperience: new FormControl(''),
+  yearsOfExperience: new FormControl(false),
+  id: new FormControl(''),
 });
 skillSet = this.fb.group({
   title: new FormControl(''),
   description: new FormControl(''),
   year: new FormControl(''),
   document: new FormControl(null),
+  id: new FormControl(null),
 });
   gradeList: any;
   isCurrent: boolean = false;
@@ -140,6 +144,9 @@ editProfile: boolean = false;
       if (res.payload.hasStartedUpdtingTalentSearchProfile === true) {
         this.populateForm(res.payload)
         this.editProfile = true;
+      } else {
+        this.editProfile = false;
+
       }
     })
   }
@@ -151,6 +158,7 @@ editProfile: boolean = false;
   populateForm(data: any) {
     console.log(data)
     this.talentForm.patchValue({
+      id: data.professionalQualificationVM[0].id,
       qualifications: data.professionalQualificationVM[0].professionalQualificationsVM,
       linkedInProfile: data.professionalQualificationVM[0].linkedInProfile,
       porfolioUrl: data.professionalQualificationVM[0].portfolioUrl ,
@@ -167,6 +175,7 @@ editProfile: boolean = false;
       linkedInProfile: ['', Validators.required],
       porfolioUrl: ['', Validators.required],
       resume: [null, Validators.required],
+      id: [null],
       educationalQualificationVM: this.fb.array([]),
       workHistoryVM: this.fb.array([]),
       skillSetVM: this.fb.array([])
@@ -257,7 +266,6 @@ editProfile: boolean = false;
   }
 
   setExistingEducationData(data: any) {
-    console.log(data)
     const formArray: any = new FormArray([]);
     for (const x of data) {
       // // (x);
@@ -267,6 +275,7 @@ editProfile: boolean = false;
         degree: x.degreeObtained,
         yearOfGraduation: x.yearOfGraduation,
         classOfDegree: x.classOfDegree,
+        id: x.id,
      
      });
      formArray.push(formGroup)
@@ -282,10 +291,11 @@ editProfile: boolean = false;
         companyAddress: x.companyAddress,
         profession: x.profession,
         title: x.title,
-        dateOfEmployment: x.dateOfEmployment,
-        endOfEmployment: x.endOfEmployment,
-        isCurrent: x.isCurrent,
+        dateOfEmployment: moment(x?.dateOfEmployment).format('YYYY-MM-DD'),
+        endOfEmployment: moment(x?.endOfEmployment).format('YYYY-MM-DD'),
+        isCurrent: x.isCurrentPlaceOfEmployment,
         yearsOfExperience: x.yearsOfExperience,
+        id: x.id,
      
      });
      formArray.push(formGroup)
@@ -301,6 +311,7 @@ editProfile: boolean = false;
         title: x.qualificationName,
         description: x.description,
         year: x.yearOfCertification,
+        id: x.id,
      });
      formArray.push(formGroup)
    }
@@ -379,10 +390,11 @@ editProfile: boolean = false;
       graduateId: this.graduateId,
       ...this.talentForm.value
     }
+    console.log(payload)
     this.graduateService.updateGraduateTalentSearchProfile(payload).subscribe((res: any) => {
       this.notification.publishMessages('success', res.description)
       this.talentForm.reset();
-      location.reload();
+      // location.reload();
     })
   }
 
