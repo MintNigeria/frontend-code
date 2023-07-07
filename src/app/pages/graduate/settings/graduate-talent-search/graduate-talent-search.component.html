@@ -88,8 +88,8 @@
                 
             
               </div>
-              <div class="absolute right-0 top-0">
-                <p (click)="removeEducation(index)" class="cursor-pointer px-2 py-1 bg-white border-gray-800  border-2 rounded-full  text-[#3F4C62] font-bold"  >
+              <div class="absolute right-0 top-0" (click)="removeEducation(index)">
+                <p  class="cursor-pointer px-2 py-1 bg-white border-gray-800  border-2 rounded-full  text-[#3F4C62] font-bold"  >
                     ✕ <span>Remove</span>
                 </p>
               </div>
@@ -215,15 +215,15 @@
                     <p class="input_label label_asterisk my-1">Do you still work here?</p>
                     <div class="cursor-pointer flex gap-3 mt-2">
                       <input type="checkbox" 
-                      (change)="isworkCurrent($event)" class="toggle toggle-success"  />
+                      (change)="isworkCurrent($event)" formControlName="isCurrent" class="toggle toggle-success"  />
                       <p class="font-inter font-meduim text-base text-darkGray">   </p>
                   </div>
                 </div>
               
               
               </div>
-              <div class="absolute right-0 top-0">
-                <p (click)="removeWork(index)" class="cursor-pointer px-2 py-1 bg-white border-gray-800  border-2 rounded-full  text-[#3F4C62] font-bold"  >
+              <div class="absolute right-0 top-0" (click)="removeWork(index)">
+                <p  class="cursor-pointer px-2 py-1 bg-white border-gray-800  border-2 rounded-full  text-[#3F4C62] font-bold"  >
                     ✕ <span>Remove</span>
                 </p>
               </div>
@@ -287,8 +287,8 @@
                 </div>
                  
               </div>
-              <div class="absolute right-0 top-0">
-                <p (click)="removeSkill(index)" class="cursor-pointer px-2 py-1 bg-white border-gray-800  border-2 rounded-full  text-[#3F4C62] font-bold"  >
+              <div class="absolute right-0 top-0" (click)="removeSkill(index)">
+                <p  class="cursor-pointer px-2 py-1 bg-white border-gray-800  border-2 rounded-full  text-[#3F4C62] font-bold"  >
                     ✕ <span>Remove</span>
                 </p>
               </div>
@@ -398,8 +398,8 @@
                 
             
               </div>
-              <div class="absolute right-0 top-0">
-                <p (click)="removeEducation(index)" class="cursor-pointer px-2 py-1 bg-white border-gray-800  border-2 rounded-full  text-[#3F4C62] font-bold"  >
+              <div class="absolute right-0 top-0" (click)="removeEducation(index)">
+                <p  class="cursor-pointer px-2 py-1 bg-white border-gray-800  border-2 rounded-full  text-[#3F4C62] font-bold"  >
                     ✕ <span>Remove</span>
                 </p>
               </div>
@@ -525,15 +525,15 @@
                     <p class="input_label label_asterisk my-1">Do you still work here?</p>
                     <div class="cursor-pointer flex gap-3 mt-2">
                       <input type="checkbox" 
-                      (change)="isworkCurrent($event)" class="toggle toggle-success"  />
+                      (change)="isworkCurrent($event)" [checked]="isCurrent" formControlName="isCurrent" class="toggle toggle-success"  />
                       <p class="font-inter font-meduim text-base text-darkGray">   </p>
                   </div>
                 </div>
               
               
               </div>
-              <div class="absolute right-0 top-0">
-                <p (click)="removeWork(index)" class="cursor-pointer px-2 py-1 bg-white border-gray-800  border-2 rounded-full  text-[#3F4C62] font-bold"  >
+              <div class="absolute right-0 top-0" (click)="removeWork(index)">
+                <p  class="cursor-pointer px-2 py-1 bg-white border-gray-800  border-2 rounded-full  text-[#3F4C62] font-bold"  >
                     ✕ <span>Remove</span>
                 </p>
               </div>
@@ -597,8 +597,8 @@
                 </div>
                  
               </div>
-              <div class="absolute right-0 top-0">
-                <p (click)="removeSkill(index)" class="cursor-pointer px-2 py-1 bg-white border-gray-800  border-2 rounded-full  text-[#3F4C62] font-bold"  >
+              <div class="absolute right-0 top-0" (click)="removeSkill(index)">
+                <p  class="cursor-pointer px-2 py-1 bg-white border-gray-800  border-2 rounded-full  text-[#3F4C62] font-bold"  >
                     ✕ <span>Remove</span>
                 </p>
               </div>

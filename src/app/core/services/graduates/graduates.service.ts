@@ -1156,6 +1156,10 @@ export class GraduatesService
         workHistoryVM[i].title
       );
       body.append(
+        'CreateWorkHistoryVM[' + i + '].IsCurrentPlaceOfEmployment',
+        workHistoryVM[i].isCurrent
+      );
+      body.append(
         'CreateWorkHistoryVM[' + i + '].DateOfEmployment',
         workHistoryVM[i].dateOfEmployment
       );
@@ -1168,10 +1172,7 @@ export class GraduatesService
         workHistoryVM[i].yearsOfExperience
       );
     
-      body.append(
-        'CreateWorkHistoryVM[' + i + '].DocumentVM.File',
-        workHistoryVM[i].document
-      );
+     
    
     }
     return this.http.post<any>(
@@ -1195,9 +1196,16 @@ export class GraduatesService
       'UpdateProfessionalQualificationVM[' + 0 + '].PortfolioUrl',
       payload.porfolioUrl
     );
+    if (payload.resume) {
+      body.append(
+        'UpdateProfessionalQualificationVM[' + 0 + '].DocumentVM.File',
+        payload.resume
+      );
+
+    }
     body.append(
-      'UpdateProfessionalQualificationVM[' + 0 + '].DocumentVM.File',
-      payload.resume
+      'UpdateProfessionalQualificationVM[' + 0 + '].Id',
+      payload.id 
     );
     for (let i = 0; i < payload.qualifications?.length; i++) {
 
@@ -1209,6 +1217,10 @@ export class GraduatesService
     }
     for (let i = 0; i < educationalQualificationVM?.length; i++) {
 
+      body.append(
+        'UpdateEducationalQualificationVM[' + i + '].Id',
+        educationalQualificationVM[i].id
+      );
       body.append(
         'UpdateEducationalQualificationVM[' + i + '].InstitutionName',
         educationalQualificationVM[i].InstitutionName
@@ -1229,10 +1241,13 @@ export class GraduatesService
         'UpdateEducationalQualificationVM[' + i + '].YearOfGraduation',
         educationalQualificationVM[i].yearOfGraduation
       );
-      body.append(
-        'UpdateEducationalQualificationVM[' + i + '].DocumentVM.File',
-        educationalQualificationVM[i].certificate
-      );
+      if (educationalQualificationVM[i].certificate) {
+
+        body.append(
+          'UpdateEducationalQualificationVM[' + i + '].DocumentVM.File',
+          educationalQualificationVM[i].certificate
+        );
+      }
    
     }
     for (let i = 0; i < skillSetVM?.length; i++) {
@@ -1240,6 +1255,10 @@ export class GraduatesService
       body.append(
         'UpdateSkillSetVM[' + i + '].Description',
         skillSetVM[i].description
+      );
+      body.append(
+        'UpdateSkillSetVM[' + i + '].Id',
+        skillSetVM[i].id
       );
       body.append(
         'UpdateSkillSetVM[' + i + '].QualificationName',
@@ -1250,14 +1269,21 @@ export class GraduatesService
         skillSetVM[i].year
       );
     
-      body.append(
-        'UpdateSkillSetVM[' + i + '].DocumentVM.File',
-        skillSetVM[i].document
-      );
+      if (skillSetVM[i].document) {
+
+        body.append(
+          'UpdateSkillSetVM[' + i + '].DocumentVM.File',
+          skillSetVM[i].document
+        );
+      }
    
     }
     for (let i = 0; i < workHistoryVM?.length; i++) {
 
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].Id',
+        workHistoryVM[i].id
+      );
       body.append(
         'UpdateWorkHistoryVM[' + i + '].CompanyName',
         workHistoryVM[i].companyName
@@ -1279,6 +1305,10 @@ export class GraduatesService
         workHistoryVM[i].dateOfEmployment
       );
       body.append(
+        'UpdateWorkHistoryVM[' + i + '].IsCurrentPlaceOfEmployment',
+        workHistoryVM[i].isCurrent
+      );
+      body.append(
         'UpdateWorkHistoryVM[' + i + '].EndDateOfEmployment',
         workHistoryVM[i].endOfEmployment
       );
@@ -1287,10 +1317,7 @@ export class GraduatesService
         workHistoryVM[i].yearsOfExperience
       );
     
-      body.append(
-        'UpdateWorkHistoryVM[' + i + '].DocumentVM.File',
-        workHistoryVM[i].document
-      );
+      
    
     }
     return this.http.put<any>(
