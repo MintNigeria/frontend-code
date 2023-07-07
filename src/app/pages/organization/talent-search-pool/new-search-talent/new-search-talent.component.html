@@ -25,13 +25,260 @@
     </div>
 
     <div class="border-1.5 rounded-t-md mt-8" [formGroup]="newTalentsearchForm">
-        <h3 class="py-4  border-b-1.5 px-6 font-inter font-semibold text-lg text-darkGray">Filter Reports by</h3>
+        <h3 class="py-4  border-b-1.5 px-6 font-inter font-semibold text-lg text-darkGray">New Talent Search</h3>
         <div class="p-6 ">
             <div class="border-b">
                 <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
                     <div class="w-full md:w-1/4">
                         <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                            Institution <span class="text-red-700">*</span>
+                            Institution(s) 
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <ng-select class="ng-select-filter" 
+                        [selectOnTab]="true" 
+                        placeholder="Select Institution"
+                        [multiple]="true"
+                        formControlName="Institutions"
+                        >
+                            <ng-option *ngFor="let unit of institutionList" [value]="unit.institutionName">{{unit.institutionName}}</ng-option>
+                        </ng-select>
+                      
+                    </div>
+                </div>
+
+
+                
+                <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                            Class of Degree(s) 
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <ng-select class="ng-select-filter !h-[52px]" 
+                        [selectOnTab]="true" 
+                        placeholder="Select grade"
+                        [multiple]="true"
+                        formControlName="ClassesOfDegree"
+                        >
+                    <ng-option *ngFor="let unit of gradeList" [value]="unit.name">{{unit.name}}</ng-option>
+                    </ng-select>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-6 mb-4 md:mb-9" *ngIf="stateLGA$ | async as states">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                            State of Origin 
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <ng-select class="ng-select-filter !h-[52px]" 
+                        [selectOnTab]="true" 
+                        placeholder="Select State of Origin"
+                        formControlName="StateOfOrigin"
+                        >
+                        <ng-option *ngFor="let state of states" [value]="state.name">{{state.name}}</ng-option>
+                    </ng-select>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-6 mb-4 md:mb-9" *ngIf="stateLGA$ | async as states">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                            State of Location 
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <ng-select class="ng-select-filter !h-[52px]" 
+                        [selectOnTab]="true" 
+                        placeholder="Select State of Location"
+                        formControlName="StateOfLocation"
+                        >
+                        <ng-option *ngFor="let state of states" [value]="state.name">{{state.name}}</ng-option>
+                    </ng-select>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name"> 
+                            Profession 
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <app-input [formGrp]="newTalentsearchForm" formCtrlName="Profession" [type]="'text'" [class]="
+                        'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                      " Issuer="Enter profession" [name]="'Profession'"></app-input>
+          
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name"> 
+                            Years of Experience 
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <app-input-number [formGrp]="newTalentsearchForm" formCtrlName="YearOfExperience" [type]="'text'" [class]="
+                        'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                      " Issuer="Enter number of years only" [name]="'Year of Experience'">
+
+                        </app-input-number>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                             Graduation Year range
+                        </label>
+                        <p class="font-inter font-normal text-xs text-lightGray">Please use this range if you are not sure of the year of experience</p>
+                    </div>
+                    <div class="w-full md:w-2/3 grid grid-cols-2 gap-6">
+                        <div>
+                            <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                                From
+                            </label>
+                            <app-input-number [formGrp]="newTalentsearchForm" formCtrlName="startYearOfExperience" [type]="'text'" [class]="
+                        'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                      " Issuer="Enter number of years only" [name]="'Year of Experience'">
+
+                        </app-input-number>
+                        </div>
+                        <div>
+                            <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                                To
+                            </label>
+                            <app-input-number [formGrp]="newTalentsearchForm" formCtrlName="endYearOfExperience" [type]="'text'" [class]="
+                            'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                          " Issuer="Enter number of years only" [name]="'Year of Experience'">
+    
+                            </app-input-number>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name"> 
+                            Age 
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <app-input-number [formGrp]="newTalentsearchForm" formCtrlName="Age" [type]="'text'" [class]="
+                        'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                      " Issuer="Enter age" [name]="'age'">
+
+                        </app-input-number>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                            Age Range 
+                        </label>
+                        <p class="font-inter font-normal text-xs text-lightGray">Please use age range if you are not sure of the desired age</p>
+                    </div>
+                    <div class="w-full md:w-2/3 grid grid-cols-2 gap-6">
+                        <div>
+                            <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                                Start Age Range
+                            </label>
+                            <input type="range" formControlName="StartAgeRange" min="15" max="40" value="15"  class="range" step="5" />
+                                <div class="w-full flex justify-between text-xs px-2">
+                                <span>15</span>
+                                <span>20</span>
+                                <span>25</span>
+                                <span>30</span>
+                                <span>35</span>
+                                <span>40</span>
+                                </div>
+                        </div>
+                        <div>
+                            <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                                End Age Range
+                            </label>
+                            <input type="range" formControlName="EndAgeRange" min="45" max="65"  value="35" class="range" step="5" />
+                                <div class="w-full flex justify-between text-xs px-2">
+                                <span>45</span>
+                                <span>50</span>
+                                <span>55</span>
+                                <span>60</span>
+                                <span>65</span>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name"> 
+                            Year of Graduation 
+                        </label>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <ng-select class="ng-select-filter" 
+                        [selectOnTab]="true" 
+                        placeholder="Select year"
+                        formControlName="YearOfGraduation"
+                        >
+                    <ng-option *ngFor="let unit of years" [value]="unit">{{unit}}</ng-option>
+                    </ng-select>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                             Graduation Year range
+                        </label>
+                        <p class="font-inter font-normal text-xs text-lightGray">Please use age range if you are not sure of the graduation year</p>
+                    </div>
+                    <div class="w-full md:w-2/3 grid grid-cols-2 gap-6">
+                        <div>
+                            <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                                From
+                            </label>
+                            <ng-select class="ng-select-filter" 
+                        [selectOnTab]="true" 
+                        placeholder="Select year"
+                        formControlName="FromYearOfGraduation"
+                        >
+                    <ng-option *ngFor="let unit of years" [value]="unit">{{unit}}</ng-option>
+                    </ng-select>
+                        </div>
+                        <div>
+                            <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                                To
+                            </label>
+                            <ng-select class="ng-select-filter" 
+                            [selectOnTab]="true" 
+                            placeholder="Select year"
+                            formControlName="ToYearOfGraduation"
+                            >
+                        <ng-option *ngFor="let unit of years" [value]="unit">{{unit}}</ng-option>
+                        </ng-select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="flex justify-end items-center gap-4 mt-4">
+                <!-- <app-button
+                
+                [overRideButtonClass]="true"
+                customClass="p-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
+                >Cancel</app-button> -->
+                <app-button
+                [disabled]="newTalentsearchForm.invalid"
+                (buttonClick)="searchTalents()"
+                [overRideButtonClass]="true"
+                customClass="p-2 rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
+                >Search</app-button>
+            </div>
+        </div>
+        <!-- <div class="p-6 ">
+            <div class="border-b">
+                <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
+                    <div class="w-full md:w-1/4">
+                        <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
+                            Institution 
                         </label>
                     </div>
                     <div class="w-full md:w-2/3">
@@ -49,7 +296,7 @@
                 <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
                     <div class="w-full md:w-1/4">
                         <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                            Faculty <span class="text-red-700">*</span>
+                            Faculty 
                         </label>
                     </div>
                     <div class="w-full md:w-2/3"> 
@@ -67,7 +314,7 @@
                 <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
                     <div class="w-full md:w-1/4">
                         <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                            Department <span class="text-red-700">*</span>
+                            Department 
                         </label>
                     </div>
                     <div class="w-full md:w-2/3 ">
@@ -83,7 +330,7 @@
                 <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
                     <div class="w-full md:w-1/4">
                         <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                            Grade <span class="text-red-700">*</span>
+                            Grade 
                         </label>
                     </div>
                     <div class="w-full md:w-2/3">
@@ -124,7 +371,6 @@
                         id=""
                         class="select h-[52px] w-full text-black font-normal  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
                         <option value="">Select gender</option>
-                        <!-- <option value="0">Unknown</option> -->
                         <option value="1">Male</option>
                         <option value="2">Female</option>
                         </select>
@@ -168,11 +414,7 @@
             </div>
 
             <div class="flex justify-end items-center gap-4 mt-4">
-                <!-- <app-button
-                
-                [overRideButtonClass]="true"
-                customClass="p-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
-                >Cancel</app-button> -->
+               
                 <app-button
                 [disabled]="newTalentsearchForm.invalid"
                 (buttonClick)="generateReport()"
@@ -180,7 +422,7 @@
                 customClass="p-2 rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
                 >Search</app-button>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 

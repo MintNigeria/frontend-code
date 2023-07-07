@@ -13,6 +13,7 @@ import {Chart} from 'chart.js/auto'
 import { MatDialog } from '@angular/material/dialog';
 import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
+import { GraduatesService } from 'src/app/core/services/graduates/graduates.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -36,6 +37,7 @@ export class DashboardComponent implements OnInit {
   modalId = 'messageModal'
   notifyInstitutionForm!: FormGroup
   user: any;
+  talentSearchProfile: any;
   
   constructor(
     private router: Router,
@@ -47,6 +49,7 @@ export class DashboardComponent implements OnInit {
     private notification: NotificationsService,
     private dashboardService: DashboardService,
     private dialog : MatDialog,
+    private graduateService: GraduatesService
 
   ) { 
     const userAgent = navigator.userAgent;
@@ -90,6 +93,13 @@ export class DashboardComponent implements OnInit {
 
     this.checkInstitutionOnboarded()
     this.checkInstitutionOnboardedStatus()
+    this.getCompletionStatus()
+  }
+
+  getCompletionStatus() {
+    this.graduateService.getTalentSearchProfileCmpletionStatus(this.userData?.GraduateId).subscribe((res: any) => {
+      this.talentSearchProfile = res.payload;
+    })
   }
 
 initForm() {

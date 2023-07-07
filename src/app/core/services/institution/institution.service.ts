@@ -273,4 +273,16 @@ export class InstitutionService
     );
   }
 
+  getAllGradesConfig() {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GradesConfiguration/GetAllIGradesConfigurations`
+    );
+  }
+
+  getAllDegreeConfig() {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/DegreeConfiguration/All-Degree-Configuration`
+    );
+  }
+
 }

@@ -50,6 +50,8 @@
                                     (input)="getFee(unit, $event.target, parent, child)"
                                     (blur)="addCommas(unit, $event.target, parent, child)"
                                     [value]="unit.inActiveFee"
+                                    (keypress)="numberOnly($event)"
+
                                     placeholder="₦ 5000"
                                     [class]="'px-4 text-black h-[52px] w-full bg-transparent border focus:bg-transparent rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
                                     [name]="'fee'">

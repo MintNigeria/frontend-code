@@ -35,10 +35,14 @@
               <p class="text-successNormal font-bold text-3xl font-poppins">₦{{balance || 0 | commaDelimiter}}</p>
             </div>
             <div>
-              <app-button [buttonText]="'Buy Plan'" [overRideButtonClass]="true"
+              <app-button [buttonText]="'Fund Wallet'" [overRideButtonClass]="true"
+                [customClass]="'border rounded border-grayWhite bg-white text-failedNormal font-inter font-medium text-sm h-8'"
+                [routerLink]="'/organization/transactions/fund-wallet'">
+              </app-button>
+              <!-- <app-button [buttonText]="'Buy Plan'" [overRideButtonClass]="true"
                 [customClass]="'border rounded border-grayWhite bg-white text-failedNormal font-inter font-medium text-sm h-8'"
                 [routerLink]="'/organization/transactions/payment-plan'">
-              </app-button>
+              </app-button> -->
             </div>
           </div>
         </div>

@@ -1,0 +1,133 @@
+<div class="flex items-center md:gap-4 gap-2 px-5 md:px-8 pt-4">
+    <div>
+      <img [routerLink]="'/organization/transactions'" src="assets/images/icons/home.svg" />
+    </div>
+    <div>
+      <img src="assets/images/icons/forward_arrow.svg" />
+    </div>
+  
+    <div>
+      <p
+        class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer"
+      >
+        Dashboard
+      </p>
+    </div>
+</div>
+
+<div class="mt-5 px-5 md:px-8">
+    <div routerLink="/graduate/transactions" class="cursor-pointer flex items-center gap-2">
+        <img src="assets/images/icons/arrow-left.svg" alt="">
+        <span class="text-[#0D47A1] font-inter md:text-base text-sm font-medium">Back to all transactions</span>
+    </div>
+</div>
+
+<div class="bg-white py-6 px-8 pb-20">
+    <div class="flex flex-wrap gap-4 items-center justify-between">
+      <h4 class="font-medium font-poppins text-4xl text-[#101828]">
+        Fund Wallet
+      </h4>
+      <div class="px-4 py-3 flex gap-2 items-center whitespace-nowrap border border-solid border-[#D0D5DD] rounded-lg [box-shadow:0px_1px_2px_rgba(16,_24,_40,_0.05)]">
+        <img src="assets/images/icons/wallet-icon.svg" alt="">
+        <span class="font-medium font-inter text-sm text-[#344054]">Wallet Balance: ₦{{walletData?.balance || 0 | commaDelimiter  }} </span>
+      </div>
+    </div>
+</div>
+
+<div class="border-t">
+  <div class="bg-white rounded-lg">
+    <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] p-3 items-center gap-3">
+        <div class="flex gap-2">
+            <img src="assets/images/icons/wallerSide.svg" alt="walletBlue">
+            <div>
+                <p class="font-nunito font-medium text-sm text-darkGray">Pay with Wallet</p>
+                <p class="text-lightGray font-normal text-sm font-avenir">Fund your wallet and pay seamlessly.</p>
+            </div>
+        </div>
+        
+        <div class="relative" [formGroup]="walletForm">
+          <p class="absolute text-black inset-y-0 left-0 flex items-center pl-3 pr-10 pointer-events-none">₦</p>
+          <app-input-number [formGrp]="walletForm" formCtrlName="amount" [type]="'text'" [class]="
+          ' h-[52px] text-black px-10 w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+        " placeholder="Enter amount" [name]="'Amount'" [value]="walletValue"></app-input-number>   
+        <!-- input     -->
+      </div>
+    </div> 
+</div>
+<div >
+  <!-- <div class="p-6 ">
+      <div class="border-b border-t">
+          <h3 class="py-7  border-b-1.5 px-6 font-inter font-medium lg:text-lg text-base text-darkGray bg-tableHeader rounded-t-xl">
+              Please select a merchant
+          </h3>
+
+          <div class="grid grid-cols-3 gap-4 mt-5 mb-10">
+            <div class="bg bg-lightBlue rounded-lg py-10 px-8 border shadow-lg " [ngClass]="selectedMerchant === 'Paystack' ? 'border-4 border-[#BDD5FA] bg-transparent text-[#4086EF]' : 'border-[#EAECF0]'">
+                <div class="text-primaryBlue cursor-pointer" (click)="selectPaymentMerchant('Paystack')"> 
+                    <div class="flex flex-col items-center">
+                        <img src="assets/images/main/paystack.png">
+                        <p class="font-medium font-inter pt-4">Paystack</p>
+                    </div>
+                </div>
+               
+          </div>
+            <div class="bg bg-lightBlue rounded-lg py-10 px-8 border shadow-lg " [ngClass]="selectedMerchant === 'Interswitch' ? 'border-4 border-[#BDD5FA] bg-transparent text-[#4086EF]' : 'border-[#EAECF0]'">
+               
+                <div class="text-primaryBlue cursor-pointer" (click)="selectPaymentMerchant('Interswitch')"> 
+                    <div class="flex flex-col items-center">
+                        <img src="assets/images/main/interswitch.png">
+                        <p class="font-medium font-inter pt-4">Interswitch</p>
+                    </div>
+                    <div class="hidden">
+                      <ng-interswitch
+                      [paymentOptions]="paymentOptions"
+                      (paymentCallback)="paymentCallback($event)"
+                      [class]="'btn btn-danger'"
+                    >Make Payment</ng-interswitch>
+                    </div>
+                </div>
+          </div>
+         
+
+        </div>
+        <div class="flex justify-end items-center gap-4 mt-6 mb-6 mr-8">
+            <app-button
+            [overRideButtonClass]="true"
+            customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
+            >Cancel</app-button>
+
+            <app-button
+            [overRideButtonClass]="true"
+            [disabled]="selectedMerchant.length === 0"
+            customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
+            >Make Payment</app-button>
+        </div>
+      
+  </div>
+</div> -->
+
+  <div class="flex justify-end items-center gap-4 mt-6 pb-6 mr-8">
+    <app-button 
+    [overRideButtonClass]="true"
+    customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
+    >Cancel</app-button>
+
+    <button (buttonClick)="cancel()"
+    [disabled]="walletForm.invalid"
+    class="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+    (click)="proceedToPayment()"
+    >Proceed to Payment</button>
+
+    <!-- <button id="paystack"
+    class="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
+    [disabled]="walletForm.invalid"
+    angular4-paystack
+    [paystackOptions]="options"
+    (paymentInit)="paymentInit()"
+    (onClose)="paymentCancel()"
+    (callback)="paymentDone($event)"
+  >
+  Proceed to Payment
+  </button> -->
+</div>
+</div>
