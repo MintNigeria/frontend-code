@@ -81,6 +81,10 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
     this.trxData = JSON.parse(trx)
     const app_Data : any = sessionStorage.getItem('appl_Dt')
     this.applicationData = JSON.parse(app_Data)
+    const trxAmount : any = sessionStorage.getItem('st__ng')
+    this.applicationData = trxAmount
+    console.log(this.applicationData)
+   
     const data: any = localStorage.getItem('userData')
     this.userData = JSON.parse(data)
     this.store.dispatch(getGraduateWalletId())
@@ -115,17 +119,7 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
 
   get applicationAmount () {
     // console.log(this.applicationData)
-    if (this.applicationData?.emailOptionVM !== null) {
-      const amount = this.applicationData?.emailOptionVM[0].deliveryMethod + this.applicationData?.paymentDetailsVM.fee
-      return amount
-    } else if (this.applicationData?.fileUploadOptionVM !== null) {
-      const amount = this.applicationData?.fileUploadOptionVM[0].deliveryMethod + this.applicationData?.paymentDetailsVM.fee
-      return amount
-    } else {
-      const amount = this.applicationData?.hardCopyOptionVM[0].deliveryMethod + this.applicationData?.paymentDetailsVM.fee
-      return amount
-      
-    }
+   return this.applicationData
   }
   loadIp() {
     this.utilityService.getuserIP().subscribe((res: any) => {
@@ -213,7 +207,7 @@ payWithWallet() {
   this.store.dispatch(makePayment({payload}))
   this.actions$.pipe(ofType(makePaymentSuccess)).subscribe((res: any) => {
     if (res.payload.hasErrors === false) {
-      this.notification.publishMessages('success', 'successful')
+      this.notification.publishMessages('success', res.payload.description)
       document.getElementById('successModal')?.click();
       // this.router.navigate(['organization/verifications/view-verified-documents/2']);      
     }
@@ -337,8 +331,8 @@ validatePayment(data: any) {
 
 
 ngOnDestroy(): void {
-  sessionStorage.removeItem('app_Data')  
-  sessionStorage.removeItem('appl_Dt')  
+  // sessionStorage.removeItem('app_Data')  
+  // sessionStorage.removeItem('appl_Dt')  
 }
 
 }

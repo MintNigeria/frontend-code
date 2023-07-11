@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { getGraduateWalletId, getGraduateWalletIdSuccess } from 'src/app/store/graduates/action';
@@ -15,6 +16,7 @@ export class NewApplicationComponent implements OnInit {
   constructor(
     private store: Store,
     private actions$: Actions,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -24,5 +26,13 @@ export class NewApplicationComponent implements OnInit {
     this.actions$.pipe(ofType(getGraduateWalletIdSuccess)).subscribe((res: any) => {
       this.balance = res.payload.payload.balance;
     })
+    
+  }
+  
+  
+  startApplication() {
+    this.router.navigateByUrl('/graduate/my-applications')
+        sessionStorage.removeItem('app_Data')  
+    sessionStorage.removeItem('appl_Dt')  
   }
 }

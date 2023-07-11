@@ -55,12 +55,15 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     const data: any = localStorage.getItem('userData')
+    console.log(data)
     this.institutionData = JSON.parse(data)
     this.institutionId = this.institutionData.InstitutionId
-    this.adminUser = JSON.parse(data)
-    this.permissionList = this.adminUser?.permissions;
+    const data2: any = localStorage.getItem('authData')
 
-    this.superAdminRole = this.adminUser.user.role.split('|')[0]
+    this.adminUser = JSON.parse(data2)
+    this.permissionList = this.adminUser?.permissions;
+    console.log(this.adminUser)
+    // this.superAdminRole = this.adminUser.user.role.split('|')[0]
     this.permissions()
     this.users()
 

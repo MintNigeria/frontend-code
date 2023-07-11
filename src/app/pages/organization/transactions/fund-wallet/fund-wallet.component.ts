@@ -55,6 +55,7 @@ export class FundWalletComponent implements OnInit {
     mode: 'TEST'
 };
   walletId: any;
+  balance: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -82,11 +83,12 @@ export class FundWalletComponent implements OnInit {
         const data: any = localStorage.getItem('userData')
     this.userData = JSON.parse(data)
 
-     this.store.dispatch(getGraduateWalletId())
+    //  this.store.dispatch(getGraduateWalletId())
      this.store.dispatch(getOrganizationWalletId({id: this.userData.OrganizationId}))
      this.actions$.pipe(ofType(getOrganizationWalletIdSuccess)).subscribe((res: any) => {
        this.walletId = res.payload.id;
-     })
+       this.balance = res.payload.balance;
+      })
     this.loadIp();
 
     this.walletForm = this.fb.group({
