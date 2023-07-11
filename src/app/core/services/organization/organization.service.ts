@@ -267,11 +267,17 @@ export class OrganizationService
     body.append('Age', payload.Age)
     body.append('StartAgeRange', payload.StartAgeRange)
     body.append('EndAgeRange', payload.EndAgeRange)
-    for (let i = 0; i < Institutions.length; i++) {
-      body.append('Institutions[' + i + ']', Institutions[i]);
+    if (Institutions !== null ) {
+
+      for (let i = 0; i < Institutions.length; i++) {
+        body.append('Institutions[' + i + ']', Institutions[i]);
+      }
     }
-    for (let i = 0; i < ClassesOfDegree.length; i++) {
-      body.append('ClassesOfDegree[' + i + ']', ClassesOfDegree[i]);
+    if (ClassesOfDegree !== null ) {
+
+      for (let i = 0; i < ClassesOfDegree.length; i++) {
+        body.append('ClassesOfDegree[' + i + ']', ClassesOfDegree[i]);
+      }
     }
     return this.http.post<any>(
       `${this.baseUrl}mint-auth/api/v1/TalentSearch/Search-Completed-Graduate-Profile-For-TalentSearch`, payload

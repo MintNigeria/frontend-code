@@ -1251,76 +1251,73 @@ export class GraduatesService
       }
    
     }
-    // for (let i = 0; i < skillSetVM?.length; i++) {
+    for (let i = 0; i < skillSetVM?.length; i++) {
 
-    //   body.append(
-    //     'UpdateSkillSetVM[' + i + '].Description',
-    //     skillSetVM[i].description
-    //   );
-    //   body.append(
-    //     'UpdateSkillSetVM[' + i + '].Id',
-    //     skillSetVM[i].id
-    //   );
-    //   body.append(
-    //     'UpdateSkillSetVM[' + i + '].QualificationName',
-    //     skillSetVM[i].title
-    //   );
-    //   body.append(
-    //     'UpdateSkillSetVM[' + i + '].YearOfCertification',
-    //     skillSetVM[i].year
-    //   );
+      body.append(
+        'UpdateSkillSetVM[' + i + '].Description',
+        skillSetVM[i].description
+      );
+      body.append(
+        'UpdateSkillSetVM[' + i + '].Id',
+        skillSetVM[i].id
+      );
+      body.append(
+        'UpdateSkillSetVM[' + i + '].QualificationName',
+        skillSetVM[i].title
+      );
+      body.append(
+        'UpdateSkillSetVM[' + i + '].YearOfCertification',
+        skillSetVM[i].year
+      );
     
-    //   if (skillSetVM[i].document) {
+      if (skillSetVM[i].document) {
 
-    //     body.append(
-    //       'UpdateSkillSetVM[' + i + '].DocumentVM.File',
-    //       skillSetVM[i].document
-    //     );
-    //   }
+        body.append(
+          'UpdateSkillSetVM[' + i + '].DocumentVM.File',
+          skillSetVM[i].document
+        );
+      }
    
-    // }
-    // for (let i = 0; i < workHistoryVM?.length; i++) {
+    }
+    for (let i = 0; i < workHistoryVM?.length; i++) {
 
-    //   body.append(
-    //     'UpdateWorkHistoryVM[' + i + '].Id',
-    //     workHistoryVM[i].id
-    //   );
-    //   body.append(
-    //     'UpdateWorkHistoryVM[' + i + '].CompanyName',
-    //     workHistoryVM[i].companyName
-    //   );
-    //   body.append(
-    //     'UpdateWorkHistoryVM[' + i + '].CompanyAddress',
-    //     workHistoryVM[i].companyAddress
-    //   );
-    //   body.append(
-    //     'UpdateWorkHistoryVM[' + i + '].Profession',
-    //     workHistoryVM[i].profession
-    //   );
-    //   body.append(
-    //     'UpdateWorkHistoryVM[' + i + '].Title',
-    //     workHistoryVM[i].title
-    //   );
-    //   body.append(
-    //     'UpdateWorkHistoryVM[' + i + '].DateOfEmployment',
-    //     workHistoryVM[i].dateOfEmployment
-    //   );
-    //   body.append(
-    //     'UpdateWorkHistoryVM[' + i + '].IsCurrentPlaceOfEmployment',
-    //     workHistoryVM[i].isCurrent
-    //   );
-    //   body.append(
-    //     'UpdateWorkHistoryVM[' + i + '].EndDateOfEmployment',
-    //     workHistoryVM[i].endOfEmployment
-    //   );
-    //   body.append(
-    //     'UpdateWorkHistoryVM[' + i + '].YearsOfExperience',
-    //     workHistoryVM[i].yearsOfExperience
-    //   );
-    
-      
-   
-    // }
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].Id',
+        workHistoryVM[i].id
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].CompanyName',
+        workHistoryVM[i].companyName
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].CompanyAddress',
+        workHistoryVM[i].companyAddress
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].Profession',
+        workHistoryVM[i].profession
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].Title',
+        workHistoryVM[i].title
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].DateOfEmployment',
+        workHistoryVM[i].dateOfEmployment
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].IsCurrentPlaceOfEmployment',
+        workHistoryVM[i].isCurrent
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].EndDateOfEmployment',
+        workHistoryVM[i].endOfEmployment
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].YearsOfExperience',
+        workHistoryVM[i].yearsOfExperience
+      );
+    }
     return this.http.put<any>(
       `${this.baseUrl}mint-auth/api/v1/TalentSearch/Profile-For-TalentSearch`, body
     );

@@ -128,7 +128,7 @@
                 <div class="flex flex-wrap gap-6 mb-4 md:mb-9">
                     <div class="w-full md:w-1/4">
                         <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                             Graduation Year range
+                             Experience Year range
                         </label>
                         <p class="font-inter font-normal text-xs text-lightGray">Please use this range if you are not sure of the year of experience</p>
                     </div>
@@ -265,8 +265,8 @@
                 [overRideButtonClass]="true"
                 customClass="p-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
                 >Cancel</app-button> -->
+                <!-- [disabled]="newTalentsearchForm.invalid" -->
                 <app-button
-                [disabled]="newTalentsearchForm.invalid"
                 (buttonClick)="searchTalents()"
                 [overRideButtonClass]="true"
                 customClass="p-2 rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"

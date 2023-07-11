@@ -81,13 +81,13 @@ export class NewSearchTalentComponent implements OnInit {
   initForm () {
     this.newTalentsearchForm = this.fb.group({
       Institutions : [''],
-      ClassesOfDegree : [null],
+      ClassesOfDegree : [''],
       StateOfOrigin : [''],
       StateOfLocation : [''],
       YearOfGraduation : [''],
-      FromYearOfGraduation : [null],
-      ToYearOfGraduation : [null],
-      YearOfExperience : [''],
+      FromYearOfGraduation : [''],
+      ToYearOfGraduation : [''],
+      YearOfExperience : [0],
       startYearOfExperience : [''],
       endYearOfExperience : [''],
       Profession : [''],
@@ -142,7 +142,8 @@ export class NewSearchTalentComponent implements OnInit {
   }
 
   searchTalents() {
-    const {Institutions,ClassesOfDegree ,StateOfOrigin, StateOfLocation, YearOfGraduation, FromYearOfGraduation, ToYearOfGraduation, YearOfExperience, Profession, Age, StartAgeRange, EndAgeRange, startYearOfExperience, endYearOfExperience } = this.newTalentsearchForm.value;
+    console.log(this.newTalentsearchForm)
+    const {Institutions,ClassesOfDegree,StateOfOrigin, StateOfLocation, YearOfGraduation, FromYearOfGraduation, ToYearOfGraduation, YearOfExperience, Profession, Age, StartAgeRange, EndAgeRange, startYearOfExperience, endYearOfExperience } = this.newTalentsearchForm.value;
 
     const payload = {
       Institutions: Institutions || null,
@@ -160,7 +161,7 @@ export class NewSearchTalentComponent implements OnInit {
       startYearOfExperience: Number(startYearOfExperience) || null,
       endYearOfExperience: Number(endYearOfExperience) || null
     };
-    // console.log(this.newTalentsearchForm.value)
+    console.log(payload)
     // const formData = new FormData(this.newTalentsearchForm.value);
     this.organizationService.searchCompletedGraduateProfileForTalentSearch(payload).subscribe((res: any) => {
       console.log(res)
