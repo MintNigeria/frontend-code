@@ -466,6 +466,10 @@ export class ApplicationDetailsComponent implements OnInit {
         sessionStorage.setItem('app_Data', JSON.stringify(res.payload))
         this.router.navigateByUrl(`/graduate/my-applications/new/review-order/${res.payload.requestId}`)
         sessionStorage.setItem('appl_Dt', JSON.stringify(data))
+        const amount = data.emailOptionVM[0].deliveryMethod + data?.paymentDetailsVM.fee
+        sessionStorage.setItem('st__ng', amount) // transaction mount
+
+
       }
     })
   }
@@ -485,6 +489,9 @@ export class ApplicationDetailsComponent implements OnInit {
         sessionStorage.setItem('app_Data', JSON.stringify(res.payload))
         this.router.navigateByUrl(`/graduate/my-applications/new/review-order/${res.payload.requestId}`)
         sessionStorage.setItem('appl_Dt', JSON.stringify(data))
+        const amount = data.fileUploadOptionVM[0].deliveryMethod + data?.paymentDetailsVM.fee
+        sessionStorage.setItem('st__ng', amount) // transaction mount
+
       }
     })
   }
@@ -503,6 +510,9 @@ export class ApplicationDetailsComponent implements OnInit {
         sessionStorage.setItem('app_Data', JSON.stringify(res.payload))
         this.router.navigateByUrl(`/graduate/my-applications/new/review-order/${res.payload.requestId}`)
         sessionStorage.setItem('appl_Dt', JSON.stringify(data))
+        const amount = data.hardCopyOptionVM[0].dispatchAmount + data?.paymentDetailsVM.fee
+        sessionStorage.setItem('st__ng', amount) // transaction mount
+
       }
     })
   }

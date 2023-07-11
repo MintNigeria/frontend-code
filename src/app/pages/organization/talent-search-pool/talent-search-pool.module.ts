@@ -17,6 +17,7 @@ import { StoreModule } from '@ngrx/store';
 import { OrganizationEffects } from 'src/app/store/organization/effects';
 import { organizationReducer } from 'src/app/store/organization/reducers';
 
+import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/request-empty-state.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { organizationReducer } from 'src/app/store/organization/reducers';
   ],
   imports: [
     CommonModule,
+    RequestEmptyStateComponent,
     TalentSearchPoolRoutingModule,
     SharedModule,
     FormsModule,

@@ -39,14 +39,14 @@
                 </div>
                 <div class="px-7 py-3 grid grid-cols-3 items-center">
                     <p class="font-inter font-medium text-sm text-darkGray">Phone Number</p>
-                    <app-input
+                    <app-input-number
                         [formGrp]="userForm"
                         formCtrlName="phoneNumber"
                         [name]="'Phone Number'"
-                        [Issuer]="'Enter Phone Number'"
+                        placeholder="Enter Phone Number"
                         [type]="'text'"
                         [class]="'h-[52px] px-2 w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none  '">
-                    </app-input>
+                    </app-input-number>
                 </div>
                 <div class="px-7 py-3 grid grid-cols-3 items-center">
                     <label for="faculty" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Faculty</label>

@@ -12,17 +12,25 @@
         <div class="border-b mb-6" *ngFor="let unit of hubDocuments">
             <div class="flex md:flex-row flex-col gap-16 mb-8">
             
-                <div *ngIf="unit.fileType === 'application/pdf' " class="w-52 h-52">
-                    <iframe [src]="'data:application/pdf;base64,' + unit.base64 | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>  
-                </div>
-                <div *ngIf="unit.fileType === 'image/png' " class="w-52 h-52">
-                    <iframe [src]="'data:image/png;base64,' + unit.base64 | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>  
-                </div>
-                <div *ngIf="unit.fileType === 'image/jpeg' " class="w-52 h-52">
-                    <iframe [src]="'data:image/png;base64,' + unit.base64 | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>  
-                </div>
-                <div *ngIf="unit.fileType === 'image/jpg' " class="w-52 h-52">
-                    <iframe [src]="'data:image/png;base64,' + unit.base64 | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>  
+                <div class="relative">
+                    <div *ngIf="unit.fileType === 'application/pdf' " class="w-52 h-52">
+                        <iframe [src]="'data:application/pdf;base64,' + unit.base64 | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>
+                    </div>
+                    <div *ngIf="unit.fileType === 'image/png' " class="w-52 h-52">
+                        <iframe [src]="'data:image/png;base64,' + unit.base64 | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>
+                    </div>
+                    <div *ngIf="unit.fileType === 'image/jpeg' " class="w-52 h-52">
+                        <iframe [src]="'data:image/png;base64,' + unit.base64 | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>
+                    </div>
+                    <div *ngIf="unit.fileType === 'image/jpg' " class="w-52 h-52">
+                        <iframe [src]="'data:image/png;base64,' + unit.base64 | trustedURLPipe " frameborder="0" style="height: 22.389vh; width: 100%;"></iframe>
+                    </div>
+                    <div (click)="previewFile(unit)" class="cursor-pointer  absolute top-2 right-4 bg-black px-[6px] rounded-md">
+                        <p class="text-sm text-white">Preview</p>
+                         </div>
+                    <div  class="cursor-pointer  absolute bottom-2 left-2 bg-lightBlue text-black px-[6px] rounded-md">
+                        <small>{{unit?.name}}</small>
+                    </div>
                 </div>
                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-32">
                 <div> 
@@ -38,7 +46,7 @@
                     <p class="font-inter font-medium text-base text-darkGray">{{unit.issuerName}}</p>
                 </div>
                 <div>
-                    <p class="font-inter font-normal text-base text-grayWhite">Date Issued</p>
+                    <p class="font-inter  font-normal text-base text-grayWhite">Date Issued</p>
                     <p class="font-inter font-medium text-base text-darkGray">{{unit.dateIssued | date: 'medium'}}</p>
                 </div>
                 <div class="flex gap-8">
@@ -51,7 +59,7 @@
                     <app-button
                     (buttonClick)="deleteFile(unit)"
                     [overRideButtonClass]="true"
-                    [customClass]="'p-2 font-inter font-medium text-base text-darkGray border-none  bg-transparent'">
+                    [customClass]="'p-2 border border-red-600 rounded font-inter font-medium text-base text-darkGray   bg-transparent'">
                     Delete
                     </app-button>
                 </div>
