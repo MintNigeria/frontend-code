@@ -382,7 +382,8 @@ editProfile: boolean = false;
     this.graduateService.completeGraduateTalentSearchProfile(payload).subscribe((res: any) => {
       this.notification.publishMessages('success', res.description)
       this.talentForm.reset();
-      location.reload();
+      this.getTalentProfile()
+      
     })
   }
   updateRecord() {
@@ -394,6 +395,7 @@ editProfile: boolean = false;
     this.graduateService.updateGraduateTalentSearchProfile(payload).subscribe((res: any) => {
       this.notification.publishMessages('success', res.description)
       this.talentForm.reset();
+      this.getTalentProfile()
       // location.reload();
     })
   }
