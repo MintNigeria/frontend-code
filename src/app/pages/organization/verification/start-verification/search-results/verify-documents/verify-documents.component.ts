@@ -32,4 +32,9 @@ export class VerifyDocumentsComponent implements OnInit {
     })
   }
 
+
+  printDocument() {
+    window.print()
+  }
+
 }

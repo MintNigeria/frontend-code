@@ -1,4 +1,4 @@
-<div class="bg-white p-6">
+<div class="bg-white p-6 print:p-0">
   <!--Header-->
   <div class=" print:hidden flex  items-center md:gap-4 gap-2 ">
     <div>
@@ -16,12 +16,12 @@
     </div>
 
   </div>
-  <div class="px-5">
-    <div class="items-center my-2 flex justify-between">
+  <div class="px-5 print:px-1">
+    <div class="items-center my-2 flex justify-between print:hidden">
       <h4 class="font-medium font-poppins lg:text-4xl text-xl  text-darkGray my-3">
         Student’s Verified Record
       </h4>
-      <div class="flex items-center px-2 bg-buttonBlue text-white font-medium font-inter lg:text-lg text-xs h-10  whitespace-nowrap rounded-xl   mt-6 mb-3 dropdown dropdown-bottom dropdown-end">
+      <div class="flex items-center px-2 bg-primaryBlue text-white font-medium font-inter lg:text-lg text-xs h-10  whitespace-nowrap rounded-xl   mt-6 mb-3 dropdown dropdown-bottom dropdown-end">
 
         <p class=" ">
           Start New Verification
@@ -49,13 +49,13 @@
     </div>
   </div>
 
-  <!-- <div class="flex justify-end" (click)="saveDocument()">
-    Print
-  </div> -->
+  <div class="flex justify-end print:hidden py-4 " >
+    <p (click)="printDocument()" class="py-2 px-4 bg-primaryBlue text-white rounded-lg cursor-pointer">Print</p>
+  </div>
   <!---->
   <!---->
-  <div class="mt-3 bg-white flex justify-center" id="document">
-    <div class="flex flex-wrap mt-3  rounded-xl bg-white border border-solid border-[#EFF0F6]  w-3/4">
+  <div class="mt-3 print:mt-0 bg-white flex justify-center" id="document">
+    <div class="flex flex-wrap mt-3  rounded-xl bg-white border border-solid border-[#EFF0F6]  w-3/4 print:w-full">
       <div class="flex justify-between items-center w-full px-10 py-6">
         <img src="assets/images/main/vac-logo.png" alt="logo">
                 <img src="data:image/png;base64,{{graduateData?.institutionLogo}}" alt="Institution Logo" class="w-14 h-14 border rounded-full object-cover">
@@ -84,8 +84,8 @@
           </div>
 
         </div>
-        <div class="rounded-b-xl">
-          <div class="bg-tabBlue p-6 mb-6">
+        <div class="rounded-b-xl print:p-0">
+          <div class="bg-tabBlue p-6  mb-6">
             <h2 class="text-lg font-medium font-inter text-darkGray">Academic Details</h2>
           </div>
           <div class="bg-white -mt-5">
@@ -161,7 +161,7 @@
             </div>
           </div>
         </div>
-        <div class="bg-tabBlue p-6 mb-6 rounded-xl">
+        <div class="bg-tabBlue p-6 print:px-0 print:pb-0 mb-6 rounded-xl">
           <h2 class="text-lg text-center font-medium font-inter text-darkGray">Powered by The Nigerian Security Printing and Minting PLC (NSPM)</h2>
         </div>
       </div>
