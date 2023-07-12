@@ -59,15 +59,15 @@ export class OrganizationLoginComponent implements OnInit {
     this.loginAuth = new FormGroup({
       password: new FormControl('', [
         Validators.required,
-        Validators.minLength(6),
+        Validators.minLength(8),
       ]),
       email: new FormControl(
         '',
         Validators.compose([Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/), Validators.required])
       ),
       rememberMe: new FormControl(false),
-      recaptchaReactive: new FormControl(null),
-      // recaptchaReactive: new FormControl(null, [Validators.required]),
+      // recaptchaReactive: new FormControl(null),
+      recaptchaReactive: new FormControl(null, [Validators.required]),
 
     });
   }

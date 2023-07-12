@@ -384,15 +384,22 @@
             </ng-select>
               </div>
               <div class="">
-                <p class="input_label label_asterisk my-1">City</p>
-                <ng-select class="custom-ng-dropdown"
+                <p class="input_label my-1">City</p>
+                <!-- <ng-select class="custom-ng-dropdown"
                 formControlName="city"
                 [selectOnTab]="true"
                 placeholder="Select City"
                 (change)="onCityChange($event)"
                 >
             <ng-option *ngFor="let lga of cities" [value]="lga | json">{{lga.name}}</ng-option>
-            </ng-select>
+            </ng-select> -->
+            <app-input 
+            [formGrp]="hardCopyForm" 
+            formCtrlName="city" 
+            [type]="'text'" 
+            [class]="'px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+            Issuer="Enter your city"
+            [name]="'address'"></app-input>
               </div>
               <div class="">
                 <p class="input_label label_asterisk my-1">Postal/Zip Code</p>

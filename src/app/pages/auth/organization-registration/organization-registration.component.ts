@@ -90,7 +90,7 @@ selectedFileList: any  = []
       Name : ['', Validators.required],
       EmailAddress: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
       PhoneNumber : [null, Validators.required],
-      City: [null, Validators.required],
+      City: [''],
       Country: [null, Validators.required],
       State: [null, Validators.required],
       Address : ['', Validators.required],

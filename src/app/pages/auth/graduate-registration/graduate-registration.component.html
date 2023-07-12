@@ -136,18 +136,12 @@
             </div>
             <div class="w-full md:w-1/2 px-3  md:mb-0">
               <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">City
-                <span class="text-danger">*</span> </label>
-                <ng-select class="custom-ng-dropdown" 
-                formControlName="City" 
-                [selectOnTab]="true" 
-                placeholder="Select City"
-                (change)="onCityChange($event)"
-                >
-            <ng-option *ngFor="let lga of cities" [value]="lga | json">{{lga.name}}</ng-option>
-            </ng-select>
-            <small class="text-red-500" *ngIf="institutionRegForm.controls['City'].touched && institutionRegForm.controls['City'].invalid">
-              City is required
-            </small>
+                 </label>
+                
+            <app-input [formGrp]="institutionRegForm" formCtrlName="City" [type]="'text'" [class]="
+                      'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                    " placeholder="Enter city" [name]="'City'"></app-input>
+
             </div>
           </div>
 

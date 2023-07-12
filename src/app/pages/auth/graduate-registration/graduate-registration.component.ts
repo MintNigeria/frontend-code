@@ -105,7 +105,7 @@ selectedFileList: any  = []
       PhoneNumber : [null,Validators.required],
       Address : ['', Validators.required],
       Gender: ['', Validators.required],
-      City: [null, Validators.required],
+      City: [''],
       Country: [null, Validators.required],
       State: [null, Validators.required],
       ZipCode: [null, Validators.required],
