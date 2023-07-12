@@ -109,7 +109,7 @@ export class ApplicationDetailsComponent implements OnInit {
       // console.log(this.dispatchFee)
     })
     this.emailForm.valueChanges.subscribe(res => {
-      console.log(res)
+      // console.log(res)
     })
 
   }
@@ -133,7 +133,7 @@ export class ApplicationDetailsComponent implements OnInit {
       address: ['', Validators.required],
       country: ['', Validators.required],
       state: ['', Validators.required],
-      city: ['', Validators.required],
+      city: [''],
       zipCode: ['', Validators.required],
       phoneNo: ['', Validators.required],
       reasonForRequest: ['', Validators.required],

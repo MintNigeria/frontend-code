@@ -115,7 +115,7 @@ export class MyProfileComponent implements OnInit {
       email: ['', Validators.required],
       phone: ['', Validators.required],
       country: ['', Validators.required],
-      city: ['', Validators.required],
+      city: [''],
       state: ['', Validators.required],
       lga: ['', Validators.required],
       gender: ['', Validators.required],
