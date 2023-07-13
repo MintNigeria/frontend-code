@@ -143,5 +143,9 @@ export class ViewReportComponent implements OnInit {
     
   }
 
+  viewDetails(id: number) {
+    this.router.navigateByUrl(`/organization/talent-search-pool/view-graduate-record/${id}`)
+  }
+
 
 }

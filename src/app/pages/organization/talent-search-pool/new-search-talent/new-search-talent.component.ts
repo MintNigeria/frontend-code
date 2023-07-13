@@ -33,6 +33,7 @@ export class NewSearchTalentComponent implements OnInit {
   grades: any;
   degreeType: any;
   years: Array<any> = [];
+  ageRange: Array<any> = [];
   userData: any;
   use: any;
   listCount: any;
@@ -65,10 +66,16 @@ export class NewSearchTalentComponent implements OnInit {
       this.years.push(index)
       
     }
+for (let i = 18; i <= 65; i++) {
+  this.ageRange.push(i);
+}
     this.getAllGrades()
     this.store.dispatch(
       invokeGetStateAndLGA()
     );
+
+
+
 
   }
 
@@ -80,8 +87,8 @@ export class NewSearchTalentComponent implements OnInit {
 
   initForm () {
     this.newTalentsearchForm = this.fb.group({
-      Institutions : [''],
-      ClassesOfDegree : [''],
+      Institutions : ['', Validators.required],
+      ClassesOfDegree : ['', Validators.required],
       StateOfOrigin : [''],
       StateOfLocation : [''],
       YearOfGraduation : [''],
@@ -106,6 +113,16 @@ export class NewSearchTalentComponent implements OnInit {
     //   ToYearOfGraduation : [null, Validators.required],
     //   YearOfGraduation : [''],
     // })
+  }
+
+
+  onSelectAll() {
+    const selected = this.institutionList.map((item: any) => item.institutionName);
+    this.newTalentsearchForm.controls['Institutions'].patchValue(selected);
+  }
+
+  onClearAll() {
+    this.newTalentsearchForm.controls['Institutions'].patchValue(null);
   }
 
   getInstitutionFaculty(event: any) {

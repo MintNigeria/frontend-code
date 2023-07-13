@@ -2,7 +2,7 @@
     <!--Header-->
     <div class="flex  items-center md:gap-4 gap-2 mb-6">
         <div>
-            <img [routerLink]="'/organization/value-added-services'" src="assets/images/icons/home.svg" alt="home-icon">
+            <img [routerLink]="'/organization/talent-search-pool'" src="assets/images/icons/home.svg" alt="home-icon">
         </div>
         <div>
             <img src="assets/images/icons/forward_arrow.svg" alt="forward-arrow">
@@ -158,11 +158,13 @@
                     <table class="table w-full">
                         <thead>
                             <tr>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Name</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Name / Gender</th>
                                 <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Class of Degree</th>
                                 <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Email</th>
                                 <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Phone Number</th>
                                 <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Year of Experience</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Age</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Action</th>
                             </tr>
                         </thead>
 
@@ -211,6 +213,21 @@
                                         <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.yearOfExperience}}</p>
                                         
                                     </div>
+                                </td>
+                                <td class="bg-white">
+                                    <div>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.age}}</p>
+                                        
+                                    </div>
+                                </td>
+                                <td class="bg-white">
+                                    <div  (click)="viewDetails(data?.id)"
+                                    class="flex  gap-2 items-center" 
+                                    >
+                                    <p 
+                                    class="my-0 text-sm font-inter cursor-pointer font-medium text-primaryBlue ">View</p>
+                                    </div>
+
                                 </td>
                                
 
