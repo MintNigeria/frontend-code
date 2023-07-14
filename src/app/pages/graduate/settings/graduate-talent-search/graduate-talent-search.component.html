@@ -80,7 +80,7 @@
                   </div>
                   <div>
                       <p class="input_label label_asterisk my-1">Certificate Obtained</p>
-                      <input (change)="handleEducationFileUpload($event)" [type]="'file'" [class]="
+                      <input [accept]="allowedFiled" (change)="handleEducationFileUpload($event)" [type]="'file'" [class]="
                       'mt-1 file-input  file-input-ghost h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
                     "  />
                   </div>
@@ -140,7 +140,7 @@
           </div>
             <div>
               <p class="input_label label_asterisk my-1">Resume / CV</p>
-              <input (change)="handleResumeFileUpload($event)" [type]="'file'" [class]="
+              <input [accept]="allowedFiled" (change)="handleResumeFileUpload($event)" [type]="'file'" [class]="
               'mt-1 file-input  file-input-ghost h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
             " />
 
@@ -281,7 +281,7 @@
                 </div>
                   <div>
                     <p class="input_label label_asterisk my-1">Certification Document</p>
-                    <input (change)="handleSkillSetFileUpload($event)" formControlName="certificate" [type]="'file'" [class]="
+                    <input [accept]="allowedFiled" (change)="handleSkillSetFileUpload($event)" formControlName="certificate" [type]="'file'" [class]="
                     'mt-1 file-input  file-input-ghost h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
                   ">
                 </div>
@@ -390,9 +390,10 @@
                   </div>
                   <div>
                       <p class="input_label label_asterisk my-1">Certificate Obtained</p>
-                      <input (change)="handleEducationFileUpload($event)" [type]="'file'" [class]="
+                      <input [accept]="allowedFiled" (change)="handleEducationFileUpload($event)" [type]="'file'" [class]="
                       'mt-1 file-input  file-input-ghost h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
                     "  />
+                      <small>Previously uploaded File: {{profileDetails?.educationalQualificationVM[index].fileUploadVM?.name}}</small>
                   </div>
             
                 
@@ -450,9 +451,10 @@
           </div>
             <div>
               <p class="input_label label_asterisk my-1">Resume / CV</p>
-              <input (change)="handleResumeFileUpload($event)" [type]="'file'" [class]="
+              <input [accept]="allowedFiled" (change)="handleResumeFileUpload($event)" [type]="'file'" [class]="
               'mt-1 file-input  file-input-ghost h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
             " />
+            <small>Previously uploaded File: {{profileDetails?.professionalQualificationVM[0].fileUploadVM?.name}} </small>
 
           </div>
          
@@ -591,9 +593,11 @@
                 </div>
                   <div>
                     <p class="input_label label_asterisk my-1">Certification Document</p>
-                    <input (change)="handleSkillSetFileUpload($event)" formControlName="certificate" [type]="'file'" [class]="
+                    <input [accept]="allowedFiled" (change)="handleSkillSetFileUpload($event)" formControlName="certificate" [type]="'file'" [class]="
                     'mt-1 file-input  file-input-ghost h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
                   ">
+                  <small>Previously uploaded File: {{profileDetails?.skillSetVM[index].fileUploadVM?.name}}</small>
+
                 </div>
                  
               </div>

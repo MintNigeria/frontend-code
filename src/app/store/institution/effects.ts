@@ -69,6 +69,8 @@ import {
   updateGradeInInstitutionSuccess,
   getAllInstitutionTypeLinkedToBody,
   getAllInstitutionTypeLinkedToBodySuccess,
+  getAllInstitutionsRecordsAllNames,
+  getAllInstitutionsRecordsAllNamesSuccess,
 } from './action';
 
 @Injectable()
@@ -641,6 +643,44 @@ export class InstitutionEffects {
               );
               // read data and update payload
               return getAllInstitutionRecordsSuccess({
+                payload: {data: data.payload}
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getAllInstitutionsRecordsAllNames$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getAllInstitutionsRecordsAllNames),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.institutionService
+          .getAllInstitutionsRecordsAllNames()
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getAllInstitutionsRecordsAllNamesSuccess({
                 payload: {data: data.payload}
                   
               });

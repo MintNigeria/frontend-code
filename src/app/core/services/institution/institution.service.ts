@@ -115,6 +115,12 @@ export class InstitutionService
     );
   }
 
+  getAllInstitutionsRecordsAllNames() {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/AllInstitutionRecordsByName`
+    );
+  }
+
   getAllInstitutionGrade(payload: any) {
     return this.http.get<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/Grades/GetAllIGrades`, {params: payload}
