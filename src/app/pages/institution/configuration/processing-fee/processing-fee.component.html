@@ -151,7 +151,7 @@
                             [customClass]="'w-full h-10 rounded-lg font-normal border border-buttonBlue text-base text-primaryBlue leading-6 bg-white'">Cancel
                         </app-button>
                         <app-button
-                        [disabled]="processingFeesForm.invalid"
+                        [disabled]="processingFeesForm.invalid || deliveryOptionIds?.length === 0"
                         (buttonClick)="createDocumentType()"
                             [overRideButtonClass]="true" 
                             [customClass]="'w-full h-10 rounded-lg font-normal text-base text-white leading-6 bg-primaryBlue'">Add Document Type

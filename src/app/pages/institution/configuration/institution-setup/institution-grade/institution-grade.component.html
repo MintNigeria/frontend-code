@@ -4,7 +4,7 @@
         <div class="border-b-1.5" *ngFor="let unit of degreeTypeList">
             <div class="p-6 flex justify-between">
                 <p class="font-inter font-medium text-base text-darkGray">{{unit.name}}</p>
-                <p class="font-inter font-medium text-base text-primaryBlue" (click)="editDegreeType(unit)">Edit</p>
+                <p class="font-inter font-medium text-base text-primaryBlue cursor-pointer" (click)="editDegreeType(unit)">Edit</p>
             </div>
         </div>
         

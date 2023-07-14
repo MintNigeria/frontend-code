@@ -368,9 +368,9 @@
     </div>
   </div>
 
-  <div>
+  <div [hidden]="permissionList?.includes('INSTITUTION_DASHBOARD') || superAdminRole === 'Super Admin' || superAdminRole === 'undefined'">
     <app-request-empty-state
-    *ngIf="!permissionList?.includes('INSTITUTION_DASHBOARD') || superAdminRole !== 'Super Admin' || superAdminRole !== 'undefined'"
+    
      [dataStatus]="'You do not have permission to view data on this page'"></app-request-empty-state>
   </div>
 </div>

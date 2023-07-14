@@ -1,5 +1,5 @@
 <div>
-    <div class="flex items-center gap-3">
+    <!-- <div class="flex items-center gap-3">
         <div class="lg:justify-between gap-4">
             <p class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2">
                 Department
@@ -23,7 +23,7 @@
         >
         Generate
         </app-button>
-    </div>
+    </div> -->
     <div class="overflow-x-auto mt-3 hide-scrollbar border rounded-xl shadow-sm">
         <table class="table w-full">
             <thead>
@@ -45,7 +45,7 @@
                         <p class="font-inter font-normal text-base text-lightGray">{{data.facultyName}}</p>
                     </td>
                     <td class="bg-white">
-                        <p class="font-inter font-medium text-base text-primaryBlue" (click)="editDepartment(data)">Edit</p>
+                        <p class="font-inter font-medium text-base text-primaryBlue cursor-pointer" (click)="editDepartment(data)">Edit</p>
                     </td>
                 </tr>
             </tbody>
