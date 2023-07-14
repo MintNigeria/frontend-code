@@ -104,6 +104,13 @@ export const getAllInstitutionRecordsSuccess = createAction(
   '[institutions] get all institution records  success',
   props<{ payload: any }>()
 );
+export const getAllInstitutionsRecordsAllNames = createAction(
+  '[institutions] get all institution names',
+);
+export const getAllInstitutionsRecordsAllNamesSuccess = createAction(
+  '[institutions] get all institution names  success',
+  props<{ payload: any }>()
+);
 
 export const createNewInstitution = createAction(
   '[institutions] create institution',

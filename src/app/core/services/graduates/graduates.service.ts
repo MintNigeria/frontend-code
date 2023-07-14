@@ -1084,7 +1084,7 @@ export class GraduatesService
     for (let i = 0; i < payload.qualifications?.length; i++) {
 
       body.append(
-        `CreateProfessionalQualificationVM[0].ProfessionalQualification[${i}]`,
+        `CreateProfessionalQualificationVM[0].ProfessionalQualifications[${i}]`,
         payload.qualifications[i]
       );
    
@@ -1211,7 +1211,7 @@ export class GraduatesService
     for (let i = 0; i < payload.qualifications?.length; i++) {
 
       body.append(
-        `UpdateProfessionalQualificationVM[0].ProfessionalQualification[${i}]`,
+        `UpdateProfessionalQualificationVM[0].ProfessionalQualifications[${i}]`,
         payload.qualifications[i]
       );
    
@@ -1224,7 +1224,7 @@ export class GraduatesService
       );
       body.append(
         'UpdateEducationalQualificationVM[' + i + '].InstitutionName',
-        educationalQualificationVM[i].InstitutionName
+        educationalQualificationVM[i].institutionName
       );
       body.append(
         'UpdateEducationalQualificationVM[' + i + '].CourseOfStudy',

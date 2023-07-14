@@ -9,8 +9,7 @@ import { GraduatesService } from 'src/app/core/services/graduates/graduates.serv
 import { InstitutionService } from 'src/app/core/services/institution/institution.service';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
-import { getGraduateInstitutions, getGraduateInstitutionsSuccess, searchGraduateRecords, searchGraduateRecordsSuccess } from 'src/app/store/graduates/action';
-import { getAllInstitutionDegreeType, getAllInstitutionDegreeTypeSuccess, getDegreeTypeWithInstitutionName, getDegreeTypeWithInstitutionNameSuccess, getFacultyAndDepartmentByInstitutionName, getFacultyAndDepartmentByInstitutionNameSuccess } from 'src/app/store/institution/action';
+import { getAllInstitutionDegreeType, getAllInstitutionDegreeTypeSuccess, getAllInstitutionsRecordsAllNames, getAllInstitutionsRecordsAllNamesSuccess, getDegreeTypeWithInstitutionName, getDegreeTypeWithInstitutionNameSuccess, getFacultyAndDepartmentByInstitutionName, getFacultyAndDepartmentByInstitutionNameSuccess } from 'src/app/store/institution/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
 @Component({
@@ -28,7 +27,7 @@ export class GraduateTalentSearchComponent implements OnInit {
   prefessionalQualifications = ['MBA', 'LLM', 'MEng', 'GDL', 'PGDE', 'CIPM', 'CIM', 'CPIN', 'ICAN']
 talentForm!: FormGroup
 selectedSkillSetFile: any;
-allowedFiled = ["image/png", "image/jpeg", "application/pdf"];
+allowedFiled = ["application/pdf"];
 eduForm = this.fb.group({
   institutionName: new FormControl('', [Validators.required]),
   course: new FormControl('', [Validators.required]),
@@ -103,6 +102,7 @@ skillSet = this.fb.group({
     "Professionalism"
 ]
 editProfile: boolean = false;
+  profileDetails: any;
   constructor(
     private fb: FormBuilder,
     private store: Store,
@@ -120,9 +120,9 @@ editProfile: boolean = false;
     const data: any = localStorage.getItem('userData')
     this.graduateData = JSON.parse(data)
     this.graduateId = this.graduateData.GraduateId
-    this.store.dispatch(getGraduateInstitutions({ id: this.graduateId }))
-    this.actions$.pipe(ofType(getGraduateInstitutionsSuccess)).subscribe((res: any) => {
-      this.institutionList = res.payload.payload
+    this.store.dispatch(getAllInstitutionsRecordsAllNames())
+    this.actions$.pipe(ofType(getAllInstitutionsRecordsAllNamesSuccess)).subscribe((res: any) => {
+      this.institutionList = res.payload.data
     })
 
     let currentYear = new Date().getFullYear();
@@ -140,10 +140,10 @@ editProfile: boolean = false;
 
   getTalentProfile() {
     this.graduateService.getTalentSearchProfile(this.graduateId).subscribe((res: any) => {
-      console.log(res)
       if (res.payload.hasStartedUpdtingTalentSearchProfile === true) {
         this.populateForm(res.payload)
         this.editProfile = true;
+        this.profileDetails = res.payload
       } else {
         this.editProfile = false;
 
@@ -156,10 +156,9 @@ editProfile: boolean = false;
 
 
   populateForm(data: any) {
-    console.log(data)
     this.talentForm.patchValue({
       id: data.professionalQualificationVM[0].id,
-      qualifications: data.professionalQualificationVM[0].professionalQualificationsVM,
+      qualifications: data.professionalQualificationVM[0].professionalQualificationsVM.map((item: any) => item.name),
       linkedInProfile: data.professionalQualificationVM[0].linkedInProfile,
       porfolioUrl: data.professionalQualificationVM[0].portfolioUrl ,
     })

@@ -14,6 +14,7 @@ export interface IInstitutionStateInterface {
   institutionFaculty: any;
   institutionDepartment: any;
   institutionRecord: any;
+  institutionRecordNames: any;
   institutionDegreeType: any;
   institutiongrade: any;
   newDegreeType: any;
