@@ -42,6 +42,7 @@ export class GraduateRequestComponent implements OnInit {
  institutionId: any = '';
  institutionData: any;
  pageIndex = 1;
+ pageSize: number = 10;
 
   filterParams = {
   institutionId: '',
@@ -74,7 +75,7 @@ exportFilterParam = {
     { name: 'DISPATCHED',  value: 3},
     { name: 'PAUSED',  value: 4},
     { name: 'DELIVERED',  value: 5},
-    { name: 'DECLINED',  value: 6},
+    // { name: 'DECLINED',  value: 6},
     { name: 'COMPLETED',  value: 7},
   ]
 
@@ -227,6 +228,13 @@ exportFilterParam = {
   getPage(currentPage: number) {
     const filter = {...this.filterParams, ['pageIndex'] : currentPage}
     this.store.dispatch(getAllInstitutionGraduateRequest({payload: {...filter, institutionId: this.institutionId}}))
+  }
+  
+  selectRecordCount(event: any) {
+    this.pageSize = event.value
+    const filter = {...this.filterParams, ['pageSize'] : event.value}
+    this.store.dispatch(getAllInstitutionGraduateRequest({payload: {...filter, institutionId: this.institutionId}}))
+
   }
 
 

@@ -71,6 +71,7 @@ export class TransactionsComponent implements OnInit {
   institutionId: any;
   institutionData: any;
   pageIndex = 1;
+  pageSize = 10;
 filter = {
   keyword: '',
     filter: '',
@@ -256,5 +257,13 @@ filter = {
     const filter = {...this.filter, ['pageIndex'] : currentPage}
     this.store.dispatch(invokeGetTransactions({institutionId: this.institutionId, payload: filter}))
   }
+  
+  selectRecordCount(event: any) {
+    this.pageSize = event.value
+    const filter = {...this.filter, ['pageSize'] : event.value}
+    this.store.dispatch(invokeGetTransactions({institutionId: this.institutionId, payload: filter}))
+
+  }
+
 
 }

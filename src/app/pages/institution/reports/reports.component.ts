@@ -48,6 +48,7 @@ export class ReportsComponent implements OnInit {
   institutionData: any;
   institutionId: any;
   pageIndex = 1;
+  pageSize = 10;
 
   transactionDetails: any;
   totalCount: any;
@@ -209,6 +210,14 @@ export class ReportsComponent implements OnInit {
     const filter = {...this.filterParams, ['pageIndex'] : currentPage}
     this.store.dispatch(invokeGetAllReport({payload: {...filter, institutionId: this.institutionId}}))
   }
+  
+  selectRecordCount(event: any) {
+    this.pageSize = event.value
+    const filter = {...this.filterParams, ['pageSize'] : event.value}
+    this.store.dispatch(invokeGetAllReport({payload: {...filter, institutionId: this.institutionId}}))
+
+  }
+
 
 
 }

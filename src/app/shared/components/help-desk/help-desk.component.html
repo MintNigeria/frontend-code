@@ -12,7 +12,9 @@
     <label for="enquiry" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Enquiry
         <span class="text-danger">*</span> </label>
         <textarea name="" formControlName="enquiry" id="" class="w-full h-32 rounded border bg-white p-4">Enter a description...</textarea>
-
+        <small class="text-red-500" *ngIf="helpDeskForm.controls['enquiry'].touched && helpDeskForm.controls['enquiry'].invalid">
+          Enquiry is required 
+        </small>
 </div>
 
 <div class="flex gap-4 justify-center items-center w-full">

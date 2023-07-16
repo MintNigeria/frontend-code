@@ -89,14 +89,19 @@ filter = {
     }
     const data: any = sessionStorage.getItem('extras')
     this.extra = JSON.parse(data)
+    const data2: any = localStorage.getItem('authData')
+    this.adminUser = JSON.parse(data2)
+    this.permissionList = this.adminUser?.permissions;
+ 
+    this.superAdminRole = this.adminUser.user.role.split('|')[0]
    }
 
   ngOnInit(): void {
     const data: any = localStorage.getItem('userData')
     this.adminUser = JSON.parse(data)
-    this.permissionList = this.adminUser?.permissions;
+    // this.permissionList = this.adminUser?.permissions;
 
-    this.superAdminRole = this.adminUser.user.role.split('|')[0]
+    // this.superAdminRole = this.adminUser.user.role.split('|')[0]
     this.institutionData = JSON.parse(data)
     this.institutionId = this.institutionData.InstitutionId
     this.store.dispatch(invokeGetAllGraduates({institutionId: this.institutionId, payload: {...this.filter, ...this.extra}}))

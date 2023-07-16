@@ -190,7 +190,7 @@
 
             <tbody class="bg-white">
               <tr
-                *ngFor="let data of reportDetails | paginate: { itemsPerPage: filterParams.pageSize, currentPage: pageIndex, totalItems: totalCount }"
+                *ngFor="let data of reportDetails | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: totalCount }"
                 class="bg-white">
 
 
@@ -242,10 +242,15 @@
       <!---->
 
       <!--Pagination-->
-      <div class="flex items-center justify-end mt-10">
-        <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
-                    Showing 1 to 7 of {{ institutionList.length }} entries
-                </p> -->
+      <div class="flex items-center justify-between mt-10">
+        <select class=" text-black select max-w-xs bg-white" (change)="selectRecordCount($event.target)">
+          <option disabled selected>Per page</option>
+          <option value="10">10</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="150">150</option>
+          <option value="200">200</option>
+        </select>
         <div class="flex item gap-3">
           <pagination-controls  [responsive]="true"  (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next">
           </pagination-controls>

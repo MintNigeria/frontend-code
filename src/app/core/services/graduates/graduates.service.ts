@@ -1322,4 +1322,11 @@ export class GraduatesService
       `${this.baseUrl}mint-auth/api/v1/TalentSearch/Profile-For-TalentSearch`, body
     );
   }
+
+
+  downloadTalentSearchDocuments(fileId: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-auth/api/v1/TalentSearch/Retrieve-File/${fileId}`
+    );
+  }
 }
