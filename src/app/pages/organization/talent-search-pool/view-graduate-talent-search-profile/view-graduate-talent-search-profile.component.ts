@@ -19,8 +19,17 @@ export class ViewGraduateTalentSearchProfileComponent implements OnInit {
   ngOnInit(): void {
     this.graduateId = this.route.snapshot.params['id']
     this.graduateService.getTalentSearchProfile(this.graduateId).subscribe((res: any) => {
-      console.log(res)
       this.profileDetails = res.payload;
+    })
+  }
+
+  downloadFile(id: string) {
+    this.graduateService.downloadTalentSearchDocuments(id).subscribe((res: any) => {
+      console.log(res)
+      const link = document.createElement('a');
+        link.download = `${res.payload?.name}.pdf`;
+        link.href = 'data:image/png;base64,' + res.payload?.path;
+        link.click();
     })
   }
 

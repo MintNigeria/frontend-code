@@ -116,7 +116,7 @@
                 <ul
                         tabindex="0"
                         [ngClass]="showStatus ? 'hidden' : 'block'"
-                        class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-72"
+                        class="dropdown-content h-64 overflow-y-scroll menu p-2 shadow bg-white text-black rounded-box w-72"
                     >
                        
                         <li *ngFor="let unit of requestStatus"><a (click)="changeStatus(unit.value, unit.name)">{{unit.name | titlecase}}</a>
@@ -266,7 +266,7 @@
               </thead>
   
               <tbody class="" *ngIf="request.data.graduatesRequests.length >=  1">
-                <tr *ngFor="let data of request?.data?.graduatesRequests | paginate: { itemsPerPage: filterParams.pageSize, currentPage: pageIndex, totalItems: request?.data?.totalGraduateRequests }" class=" ">
+                <tr *ngFor="let data of request?.data?.graduatesRequests | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: request?.data?.totalGraduateRequests }" class=" ">
                   <td class="bg-white">
                     <div>
                       <p
@@ -397,10 +397,15 @@
         *ngIf="request.data.graduatesRequests.length < 1"
         [dataStatus]="'No Request'"
         ></app-request-empty-state>
-        <div class="flex items-center justify-end mt-10" *ngIf="request.data.graduatesRequests.length >=  1">
-          <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
-            Showing 1 to 7 of {{ graduateList.length }} entries
-          </p> -->
+        <div class="flex items-center justify-between mt-10" *ngIf="request.data.graduatesRequests.length >=  1">
+          <select class=" text-black select max-w-xs bg-white" (change)="selectRecordCount($event.target)">
+            <option disabled selected>Per page</option>
+            <option value="10">10</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="150">150</option>
+            <option value="200">200</option>
+          </select>
           <div class="flex item gap-3">
             <pagination-controls  [responsive]="true"  (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next"></pagination-controls>
 

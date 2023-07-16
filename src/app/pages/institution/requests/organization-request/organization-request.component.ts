@@ -39,6 +39,7 @@ selectedOption: string = 'All Time';
    institutionId: any;
    institutionData: any;
    pageIndex = 1;
+   pageSize = 10;
     filterParams = {
     institutionId: '',
     DocumentType: '',
@@ -220,7 +221,15 @@ selectedOption: string = 'All Time';
 
   getPage(currentPage: number) {
     const filter = {...this.filterParams, ['pageIndex'] : currentPage}
-    this.store.dispatch(getAllInstitutionOrganizationRequest({payload: {...this.filterParams, institutionId: this.institutionId}}))
+    this.store.dispatch(getAllInstitutionOrganizationRequest({payload: {...filter, institutionId: this.institutionId}}))
   }
+  
+  selectRecordCount(event: any) {
+    this.pageSize = event.value
+    const filter = {...this.filterParams, ['pageSize'] : event.value}
+    this.store.dispatch(getAllInstitutionOrganizationRequest({payload: {...filter, institutionId: this.institutionId}}))
+
+  }
+
 
 }

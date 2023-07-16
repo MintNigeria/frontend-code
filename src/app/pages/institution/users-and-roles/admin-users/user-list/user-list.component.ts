@@ -126,8 +126,16 @@ export class UserListComponent implements OnInit {
   getPage(currentPage: number) {
     const filter = {...this.filter, ['pageIndex'] : currentPage}
     this.store.dispatch(getAllInstitutionUsers({payload: {...filter, institutionId: this.institutionId}}))
+    
+  }
+  
+  selectRecordCount(event: any) {
+    this.pageSize = event.value
+    const filter = {...this.filter, ['pageSize'] : event.value}
+    this.store.dispatch(getAllInstitutionUsers({payload: {...filter, institutionId: this.institutionId}}))
 
   }
+
 
   enableDisableUser(event: any, userId: any) {
     // console.log(event.target.checked)
