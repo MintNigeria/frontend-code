@@ -5,7 +5,7 @@
             Welcome back, {{ adminUser?.user.firstName }}
         </h4>
         <p class="font-nunito font-normal text-base text-lightGray mb-6">
-            Last login date: {{ adminUser?.user.lastLogin }}
+            Last login date: {{ adminUser?.user.lastLogin | date: 'medium' }}
         </p>
     </div>
     <app-button

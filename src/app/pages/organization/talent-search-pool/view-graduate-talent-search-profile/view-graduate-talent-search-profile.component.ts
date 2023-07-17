@@ -25,12 +25,15 @@ export class ViewGraduateTalentSearchProfileComponent implements OnInit {
 
   downloadFile(id: string) {
     this.graduateService.downloadTalentSearchDocuments(id).subscribe((res: any) => {
-      console.log(res)
       const link = document.createElement('a');
         link.download = `${res.payload?.name}.pdf`;
         link.href = 'data:image/png;base64,' + res.payload?.path;
         link.click();
     })
+  }
+
+  printDocument() {
+    window.print()
   }
 
 }

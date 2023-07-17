@@ -1,4 +1,10 @@
 <div class="md:w-[90%] w-full mx-auto">
+  <div class="flex justify-end print:hidden py-4 " >
+    <p (click)="printDocument()" class="py-2 px-4 bg-primaryBlue text-white rounded-lg cursor-pointer flex gap-3 items-center">Print <span><svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 20 20">
+      <path d="M5 20h10a1 1 0 0 0 1-1v-5H4v5a1 1 0 0 0 1 1Z"/>
+      <path d="M18 7H2a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2v-3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Zm-1-2V2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v3h14Z"/>
+    </svg></span> </p>
+  </div>
   <div class=" border border-solid border-[#EAECF0] border-t-0 border-b-2 border-r-0 border-l-0 rounded-sm p-4 md:p-6 divide-y divide-[#EAECF0]">
     <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
       <div>

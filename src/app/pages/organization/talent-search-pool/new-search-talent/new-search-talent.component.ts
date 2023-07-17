@@ -39,6 +39,7 @@ export class NewSearchTalentComponent implements OnInit {
   listCount: any;
   transactionId: any;
   gradeList: any;
+  disableForm: boolean = false;
   constructor(
     private appStore: Store<AppStateInterface>,
     private store: Store,
@@ -74,10 +75,28 @@ for (let i = 18; i <= 65; i++) {
       invokeGetStateAndLGA()
     );
 
+    this.newTalentsearchForm.valueChanges.subscribe((res: any) => {
+      const ctrl = this.newTalentsearchForm.get('Institutions');
+      if ((res.endYearOfExperience.length !== 0 && (Number(res.startYearOfExperience) > Number(res.endYearOfExperience)) || res.EndAgeRange.length !== 0 && (Number(res.StartAgeRange) > Number(res.EndAgeRange)))) {
+        this.disableForm = true;
+      } else {
+        this.disableForm = false;
 
+      }
+      if (res.endYearOfExperience.length !== 0 && (Number(res.startYearOfExperience) > Number(res.endYearOfExperience))) {
+        this.notification.publishMessages('warning', 'Start year of experience cant be greater than End year of Experience')
+      } 
+      if (res.EndAgeRange.length !== 0 && (Number(res.StartAgeRange) > Number(res.EndAgeRange))) {
+        this.notification.publishMessages('warning', 'Start age range cant be greater than End age range')
+      } 
+
+    })
 
 
   }
+
+
+
 
   getAllGrades() {
     this.gradeService.getAllGradesConfig().subscribe((res: any) => {

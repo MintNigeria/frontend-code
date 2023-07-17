@@ -157,7 +157,7 @@ filter = {
         filter: '',
         pageSize: 10,
         pageIndex: 1,
-        requestor: 1,
+        // requestor: 1,
         'TimeBoundSearchVm.TimeRange': 0,
         status: '',
         transactionType: '',
