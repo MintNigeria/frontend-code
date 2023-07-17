@@ -309,318 +309,477 @@
 
 
   </form>
-  <form [formGroup]="talentForm" *ngIf="editProfile">
-    <div
-      class=" ">
-      <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
-
-
-
-
+  <ng-container *ngIf="editProfile">
+    <div class="md:w-[90%] w-full mx-auto" *ngIf="editProfile && !editMode">
+      <div class="flex gap-2 justify-end print:hidden py-4 " >
+        <p (click)="printDocument()" class="py-2 px-4 bg-primaryBlue text-white rounded-lg cursor-pointer flex gap-3 items-center">Print <span><svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 20 20">
+          <path d="M5 20h10a1 1 0 0 0 1-1v-5H4v5a1 1 0 0 0 1 1Z"/>
+          <path d="M18 7H2a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2v-3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Zm-1-2V2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v3h14Z"/>
+        </svg></span> </p>
+        <p (click)="switchProfileView()" class="py-2 px-4 border-primaryBlue border bg-[#F5F9FF] text-[#0D47A1] rounded-lg cursor-pointer flex gap-3 items-center">Edit profile <span>
+          <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 20 18">
+            <path d="M6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm-1.391 7.361.707-3.535a3 3 0 0 1 .82-1.533L7.929 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h4.259a2.975 2.975 0 0 1-.15-1.639ZM8.05 17.95a1 1 0 0 1-.981-1.2l.708-3.536a1 1 0 0 1 .274-.511l6.363-6.364a3.007 3.007 0 0 1 4.243 0 3.007 3.007 0 0 1 0 4.243l-6.365 6.363a1 1 0 0 1-.511.274l-3.536.708a1.07 1.07 0 0 1-.195.023Z"/>
+          </svg> </span> </p>
       </div>
-    </div>
-    <div
-    class=" border border-solid border-[#EAECF0] border-t-0 border-b-2 border-r-0 border-l-0 rounded-sm p-4 md:p-6 divide-y divide-[#EAECF0]">
-    <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
-        <div>
-            <h3 class="font-medium text-sm text-[#344054]">Educational Qualification</h3>
+      <div class=" border border-solid border-[#EAECF0] border-t-0 border-b-2 border-r-0 border-l-0 rounded-sm p-4 md:p-6 divide-y divide-[#EAECF0]">
+        <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
+          <div>
+            <h3 class="font-medium text-sm text-[#344054]">Academic Details</h3>
             <p class="text-sm text-[#667085]">
-                Complete your educational qualification
+              Graduate's academic details
             </p>
-        </div>
-
-        <div formArrayName="educationalQualificationVM" >
-          <ng-container *ngFor="let educationForm of educationalQualificationVM.controls; let index = index">
-            <div [formGroupName]="index" class="relative">
-              <div class="grid py-10 grid-cols-3 gap-5 mb-3">
-                  <div>
-                      <p class="input_label label_asterisk my-1">Institution Name</p>
-                      <ng-select class="custom-ng-dropdown"
-                      formControlName="institutionName"
-                      [selectOnTab]="true"
-                      [addTag]="true"
-                      placeholder="Select Institution"
-                          [typeahead]="institutionInput$"
-                          (change)="additem($event)"
-                          >
-                      <ng-option *ngFor="let unit of institutionList" [value]="unit.institutionName">{{unit?.institutionName}}</ng-option>
-                    </ng-select>
+          </div>
+    
+          <div class="grid grid-cols-1 gap-5">
+            <div class="shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] border-md rounded mb-3 p-4" *ngFor="let unit of profileDetails?.educationalQualificationVM">
+              <div class="flex justify-between">
+                <div>
+                  <div class="flex items-center gap-3 mb-3">
+                    <p class="font-nunito text-black text-lg font-bold ">{{unit?.institutionName}}</p>
+                    <p class="font-nunito font-medium text-primaryBlue">({{unit?.degreeObtained}})</p>
                   </div>
-                  <div>
-                    <p class="input_label label_asterisk my-1">Course of Study</p>
-                    <input  formControlName="course" [type]="'text'" [class]="
-                    'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Course of Study"/>
+                  <div class="flex items-center gap-6 mb-3" >
+                    <p class=" text-black font-medium font-nunito" >Course of Study:  </p>
+                    <p class=" text-black font-medium font-nunito" >{{unit?.courseOfStudy}}</p>
                 </div>
-                  <div>
-                    <p class="input_label label_asterisk my-1">Degree Obtained</p>
-                    <!-- <input  formControlName="degree" [type]="'text'" [class]="
-                    'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Degree Obtained"/> -->
-                    <ng-select class="custom-ng-dropdown text-black"
-                      formControlName="degree"
-                      [selectOnTab]="true"
-                      placeholder="Degree Obtained"
-            
-                      >
-                      <ng-option *ngFor="let unit of degreeType" [value]="unit.name">{{unit.name}}</ng-option>
-                  </ng-select>
-                </div>
-                  <div>
-                    <p class="input_label label_asterisk my-1">Class of Degree</p>
-                    <ng-select class="custom-ng-dropdown text-black"
-                      formControlName="classOfDegree"
-                      [selectOnTab]="true"
-                      placeholder="Select year of graduation"
-            
-                      >
-                      <ng-option *ngFor="let unit of gradeList" [value]="unit.name">{{unit.name}}</ng-option>
-                  </ng-select>
-                </div>
-                  <div>
-                      <p class="input_label label_asterisk my-1">Year of Graduation</p>
-                      <ng-select class="custom-ng-dropdown text-black"
-                      formControlName="yearOfGraduation"
-                      [selectOnTab]="true"
-                      placeholder="Select year of graduation"
-            
-                      >
-                      <ng-option *ngFor="let unit of years" [value]="unit">{{unit}}</ng-option>
-                  </ng-select>
+                  <p class="font-nunito text-black text-lg font-bold pb-5 ">Certificate</p>
+                  <div class="flex items-center gap-3 mb-3" >
+                      <p class="text-black font-medium font-nunito" > <span>
+                          <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 20">
+                              <path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 18a.969.969 0 0 0 .933 1h12.134A.97.97 0 0 0 15 18M1 7V5.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 1h8.239A.97.97 0 0 1 15 2v5M6 1v4a1 1 0 0 1-1 1H1m0 9v-5h1.5a1.5 1.5 0 1 1 0 3H1m12 2v-5h2m-2 3h2m-8-3v5h1.375A1.626 1.626 0 0 0 10 13.375v-1.75A1.626 1.626 0 0 0 8.375 10H7Z"/>
+                            </svg>
+                      </span> </p>
+                      <p class=" text-black font-medium font-nunito flex items-center gap-3 " >{{unit?.fileUploadVM?.name}} 
+                        <span (click)="downloadFile(unit?.fileUploadVM.id)" class="cursor-pointer" title="Download document"><svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 20 20">
+                        <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
+                        <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
+                      </svg></span>  </p>
                   </div>
-                  <div>
-                      <p class="input_label label_asterisk my-1">Certificate Obtained</p>
-                      <input [accept]="allowedFiled" (change)="handleEducationFileUpload($event)" [type]="'file'" [class]="
-                      'mt-1 file-input  file-input-ghost h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                    "  />
-                      <small>Previously uploaded File: {{profileDetails?.educationalQualificationVM[index].fileUploadVM?.name}}</small>
-                  </div>
-            
-                
-            
+                </div>
+                <div>
+                  <p class=" text-primaryBlue font-medium font-nunito">({{unit?.yearOfGraduation | titlecase}})</p>
+                </div>
               </div>
-              <div class="absolute right-0 top-0" (click)="removeEducation(index)">
-                <p  class="cursor-pointer px-2 py-1 bg-white border-gray-800  border-2 rounded-full  text-[#3F4C62] font-bold"  >
-                    ✕ <span>Remove</span>
-                </p>
-              </div>
+    
             </div>
-          </ng-container>
-          <p class="my-2 flex items-center gap-3 text-black rounded cursor-pointer w-fit text-sm font-bold py-1 px-2 bg-gray-200" (click)="addMoreEducation()"> Add more</p>
+          </div>
         </div>
-
-    </div>
-</div>
-    <div
-    class=" border border-solid border-[#EAECF0] border-t-0 border-b-2 border-r-0 border-l-0 rounded-sm p-4 md:p-6 divide-y divide-[#EAECF0]">
-    <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
-        <div>
-            <h3 class="font-medium text-sm text-[#344054]">Professional Qualification</h3>
+      </div>
+      <div class=" border border-solid border-[#EAECF0] border-t-0 border-b-2 border-r-0 border-l-0 rounded-sm p-4 md:p-6 divide-y divide-[#EAECF0]">
+        <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
+          <div>
+            <h3 class="font-medium text-sm text-[#344054]">Professional Qualifications</h3>
             <p class="text-sm text-[#667085]">
-                Add your professional qualification
+              Graduate's Professional Qualification
             </p>
-        </div>
-
-        <div class="grid grid-cols-2 gap-5">
-            <div>
-                <p class="input_label label_asterisk my-1">Qualification</p>
-                <ng-select class="custom-ng-dropdown" 
-                formControlName="qualifications" 
-                [selectOnTab]="true"
-                [addTag]="true"
-                [multiple]="true"
-                typeToSearchText="Please enter 2 or more characters"
-                    [typeahead]="institutionInput$"
-                    (add)="addProfessionalitem($event)">
-                <ng-option *ngFor="let unit of prefessionalQualifications" [value]="unit">{{unit}}</ng-option>
-              </ng-select>
+          </div>
+    
+          <div class="grid grid-cols-1 gap-5">
+            <div class="shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] border-md rounded mb-3 p-4" >
+                <p class="font-nunito text-black text-lg font-bold pb-5 ">Professional Qualifications</p>
+                <div class="flex items-center gap-3 mb-3" >
+                    <span class="rounded-lg px-3 py-1 flex items-center justify-center bg-gray-300 text-black font-medium font-nunito" *ngFor="let unit of profileDetails?.professionalQualificationVM[0]?.professionalQualificationsVM">{{unit.name}}</span>
+                </div>
+                <p class="font-nunito text-black text-lg font-bold pb-5 ">Links</p>
+                <div class="flex items-center gap-6 mb-3" >
+                    <p class="text-black font-medium font-nunito flex items-center gap-2" >LinkedIn <span><svg class="w-3 h-3 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 15 15">
+                        <path fill-rule="evenodd" d="M7.979 5v1.586a3.5 3.5 0 0 1 3.082-1.574C14.3 5.012 15 7.03 15 9.655V15h-3v-4.738c0-1.13-.229-2.584-1.995-2.584-1.713 0-2.005 1.23-2.005 2.5V15H5.009V5h2.97ZM3 2.487a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" clip-rule="evenodd"/>
+                        <path d="M3 5.012H0V15h3V5.012Z"/>
+                      </svg>
+                        </span> </p>
+                    <p class=" text-black font-medium font-nunito" >{{profileDetails?.professionalQualificationVM[0].linkedInProfile}}</p>
+                </div>
+                <div class="flex items-center gap-6 mb-3" >
+                    <p class=" text-black font-medium font-nunito flex items-center gap-2" >Portfolio  <span><svg class="w-3 h-3 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 19 19">
+                        <path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.013 7.962a3.519 3.519 0 0 0-4.975 0l-3.554 3.554a3.518 3.518 0 0 0 4.975 4.975l.461-.46m-.461-4.515a3.518 3.518 0 0 0 4.975 0l3.553-3.554a3.518 3.518 0 0 0-4.974-4.975L10.3 3.7"/>
+                      </svg></span> </p>
+                    <p class=" text-black font-medium font-nunito" >{{profileDetails?.professionalQualificationVM[0].portfolioUrl}}</p>
+                </div>
+                <p class="font-nunito text-black text-lg font-bold pb-5 ">Resume / CV</p>
+                <div class="flex items-center gap-3 mb-3" >
+                    <p class="text-black font-medium font-nunito" > <span>
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 20">
+                            <path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 18a.969.969 0 0 0 .933 1h12.134A.97.97 0 0 0 15 18M1 7V5.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 1h8.239A.97.97 0 0 1 15 2v5M6 1v4a1 1 0 0 1-1 1H1m0 9v-5h1.5a1.5 1.5 0 1 1 0 3H1m12 2v-5h2m-2 3h2m-8-3v5h1.375A1.626 1.626 0 0 0 10 13.375v-1.75A1.626 1.626 0 0 0 8.375 10H7Z"/>
+                          </svg>
+                    </span> </p>
+                    <p class=" text-black font-medium font-nunito flex items-center gap-3" >{{profileDetails?.professionalQualificationVM[0].fileUploadVM?.name}}  <span (click)="downloadFile(profileDetails?.professionalQualificationVM[0].fileUploadVM?.id)" class="cursor-pointer" title="Download document"><svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 20 20">
+                      <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
+                      <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
+                    </svg></span></p>
+                </div>
+               
+             
+    
             </div>
-            <div>
-              <p class="input_label label_asterisk my-1">LinkedIn Profile</p>
-              <app-input [formGrp]="talentForm" formCtrlName="linkedInProfile" [type]="'text'" [class]="
-              'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-            " Issuer="Enter your linkedIn profile url" [name]="'LinkedIn profile'"></app-input>
-
           </div>
-            <div>
-              <p class="input_label label_asterisk my-1">Portfolio Url</p>
-              <app-input [formGrp]="talentForm" formCtrlName="porfolioUrl" [type]="'text'" [class]="
-              'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-            " Issuer="Enter your portfolio url" [name]="'Portfolio Url'"></app-input>
-
-          </div>
-            <div>
-              <p class="input_label label_asterisk my-1">Resume / CV</p>
-              <input [accept]="allowedFiled" (change)="handleResumeFileUpload($event)" [type]="'file'" [class]="
-              'mt-1 file-input  file-input-ghost h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-            " />
-            <small>Previously uploaded File: {{profileDetails?.professionalQualificationVM[0].fileUploadVM?.name}} </small>
-
-          </div>
-         
-            
         </div>
-    </div>
-</div>
-
-    <div
-    class=" border border-solid border-[#EAECF0] border-t-0 border-b-2 border-r-0 border-l-0 rounded-sm p-4 md:p-6 divide-y divide-[#EAECF0]">
-    <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
-        <div>
+      </div>
+      <div class=" border border-solid border-[#EAECF0] border-t-0 border-b-2 border-r-0 border-l-0 rounded-sm p-4 md:p-6 divide-y divide-[#EAECF0]">
+        <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
+          <div>
             <h3 class="font-medium text-sm text-[#344054]">Work Experience</h3>
             <p class="text-sm text-[#667085]">
-                Add your Work Experience
+              Graduate's Work Experience
             </p>
-        </div>
-
-        <div formArrayName="workHistoryVM">
-          <ng-container *ngFor="let workForm of workHistoryVM.controls; let index = index">
-
-            <div [formGroupName]="index" class="relative">
-  
-              <div class="grid py-10 grid-cols-2 gap-5">
-              
-                  <div>
-                    <p class="input_label label_asterisk my-1">Company name</p>
-                    <input formControlName="companyName" [type]="'text'" [class]="
-                    'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Enter your Company name" [name]="'Company name'">
+          </div>
+    
+          <div class="grid grid-cols-1 gap-5">
+            <div class="shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] border-md rounded mb-3 p-4" *ngFor="let unit of profileDetails?.workHistoryVM">
+                <div class="">
+                    <div class="flex justify-between items-center mb-3" >
+                        <p class=" text-black font-medium font-nunito flex gap-6" >Company Name: <span>{{unit.companyName}}</span>  </p>
+                        <p class=" text-primaryBlue font-medium font-nunito" >({{unit?.dateOfEmployment | date: 'yyyy'}} - {{unit?.isCurrentPlaceOfEmployment === true ? 'Present' : unit?.endDateOfEmployment | date: 'yyyy'}})  </p>
+                       
+                    </div>
+                    <div class="flex items-center gap-6 mb-3" >
+                        <p class=" text-black font-medium font-nunito" >Profession:  </p>
+                        <p class=" text-black font-medium font-nunito" >{{unit.profession}}</p>
+                    </div>
+                    <div class="flex items-center gap-6 mb-3" >
+                        <p class=" text-black font-medium font-nunito" >Title:  </p>
+                        <p class=" text-black font-medium font-nunito" >{{unit.title}}</p>
+                    </div>
+                    <div class="flex items-center gap-6 mb-3" >
+                        <p class=" text-black font-medium font-nunito" >Company Address:  </p>
+                        <p class=" text-black font-medium font-nunito" >{{unit.companyAddress}}</p>
+                    </div>
                 </div>
-                  <div>
-                    <p class="input_label label_asterisk my-1">Company address</p>
-                    <input formControlName="companyAddress" [type]="'text'" [class]="
-                    'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Enter your Company address" [name]="'Company address'">
-                </div>
-                  <div>
-                    <p class="input_label label_asterisk my-1">Profession</p>
-                    <input formControlName="profession" [type]="'text'" [class]="
-                    'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Enter your profession" [name]="'Profession'">
-                </div>
-                  <div>
-                    <p class="input_label label_asterisk my-1">Position / Title</p>
-                    <input formControlName="title" [type]="'text'" [class]="
-                    'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Enter your position / designation" [name]="'Position'">
-                </div>
-              
-                  <div>
-                    <p class="input_label label_asterisk my-1">Start Date of Employment</p>
-                    <input formControlName="dateOfEmployment" [type]="'date'" [class]="
-                    'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Enter your position / designation" [name]="'Position'">
-                </div>
-                  <div>
-                    <p class="input_label label_asterisk my-1">End Date of Employment</p>
-                    <input formControlName="endOfEmployment" [type]="'date'" [class]="
-                    'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Enter your position / designation" [name]="'Position'">
-                </div>
-                  <div>
-                    <p class="input_label label_asterisk my-1">Years of Experience</p>
-                    <input formControlName="yearsOfExperience" [type]="'text'" [class]="
-                    'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Enter only the year " >
-                </div>
-                  <div>
-                    <p class="input_label label_asterisk my-1">Do you still work here?</p>
-                    <div class="cursor-pointer flex gap-3 mt-2">
-                      <input type="checkbox" 
-                      (change)="isworkCurrent($event)" [checked]="isCurrent" formControlName="isCurrent" class="toggle toggle-success"  />
-                      <p class="font-inter font-meduim text-base text-darkGray">   </p>
-                  </div>
-                </div>
-              
-              
+      
               </div>
-              <div class="absolute right-0 top-0" (click)="removeWork(index)">
-                <p  class="cursor-pointer px-2 py-1 bg-white border-gray-800  border-2 rounded-full  text-[#3F4C62] font-bold"  >
-                    ✕ <span>Remove</span>
-                </p>
-              </div>
-            </div>
-          </ng-container>
-          <p class="my-2 flex items-center gap-3 text-black rounded cursor-pointer w-fit text-sm font-bold py-1 px-2 bg-gray-200" (click)="addWorkHistory()"> Add more</p>
-
+          </div>
         </div>
-    </div>
-</div>
-
-    <div
-    class=" border border-solid border-[#EAECF0] border-t-0 border-b-2 border-r-0 border-l-0 rounded-sm p-4 md:p-6 divide-y divide-[#EAECF0]">
-    <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
-        <div>
-            <h3 class="font-medium text-sm text-[#344054]">Skill sets</h3>
+      </div>
+    
+      <div class=" border border-solid border-[#EAECF0] border-t-0 border-b-2 border-r-0 border-l-0 rounded-sm p-4 md:p-6 divide-y divide-[#EAECF0]">
+        <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
+          <div>
+            <h3 class="font-medium text-sm text-[#344054]">Skill Sets</h3>
             <p class="text-sm text-[#667085]">
-                Add your Skill sets
+              Graduate's Work Experience
             </p>
-        </div>
-
-        <div formArrayName="skillSetVM" >
-          <ng-container *ngFor="let skillSetForm of skillSetVM.controls; let index = index">
-
-            <div [formGroupName]="index" class="relative">
-              <div class="grid py-10 grid-cols-2 gap-5">
-              
-                  <div>
-                    <p class="input_label label_asterisk my-1">Skill Title</p>
-                    <ng-select class="custom-ng-dropdown text-black"
-                      formControlName="title"
-                      [selectOnTab]="true"
-                      placeholder="Select year of graduation"
-            
-                      >
-                      <ng-option *ngFor="let unit of skill_sets" [value]="unit">{{unit}}</ng-option>
-                  </ng-select>
+          </div>
+    
+          <div class="grid grid-cols-1 gap-5">
+            <div class="shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] border-md rounded mb-3 p-4" *ngFor="let unit of profileDetails?.skillSetVM">
+                <div class="">
+                    
+                    <div class="flex items-center gap-6 mb-3" >
+                        <p class=" text-black font-medium font-nunito" >Qualification Name:  </p>
+                        <p class=" text-black font-medium font-nunito" >{{unit?.qualificationName}}</p>
+                    </div>
+                    <div class="flex items-center gap-6 mb-3" >
+                        <p class=" text-black font-medium font-nunito" >Qualification Description:  </p>
+                        <p class=" text-black font-medium font-nunito" >{{unit?.description}}</p>
+                    </div>
+                    <div class="flex items-center gap-6 mb-3" >
+                        <p class=" text-black font-medium font-nunito" >Year of Certification:  </p>
+                        <p class=" text-black font-medium font-nunito" >{{unit.yearOfCertification}}</p>
+                    </div>
+                    <div class="flex items-center gap-6 mb-3" >
+                        <p class=" text-black font-medium font-nunito" >Certification Proof:  </p>
+                        <p class=" text-black font-medium font-nunito flex gap-4 items-center" >{{unit.fileUploadVM?.name}}  <span (click)="downloadFile(unit?.fileUploadVM.id)" class="cursor-pointer" title="Download document"><svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 20 20">
+                          <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
+                          <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
+                        </svg></span>  </p>
+                    </div>
                 </div>
-                  <div>
-                    <p class="input_label label_asterisk my-1">Skill Description</p>
-                    <input formControlName="description" [type]="'text'" [class]="
-                    'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  " placeholder="Enter your Company address" [name]="'Company address'">
-                </div>
-                  <div>
-                    <p class="input_label label_asterisk my-1">Year of certification</p>
-                    <ng-select class="custom-ng-dropdown text-black"
-                      formControlName="year"
-                      [selectOnTab]="true"
-                      placeholder="Select year of graduation"
-            
-                      >
-                      <ng-option *ngFor="let unit of years" [value]="unit">{{unit}}</ng-option>
-                  </ng-select>
-                </div>
-                  <div>
-                    <p class="input_label label_asterisk my-1">Certification Document</p>
-                    <input [accept]="allowedFiled" (change)="handleSkillSetFileUpload($event)" formControlName="certificate" [type]="'file'" [class]="
-                    'mt-1 file-input  file-input-ghost h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-                  ">
-                  <small>Previously uploaded File: {{profileDetails?.skillSetVM[index].fileUploadVM?.name}}</small>
-
-                </div>
-                 
+      
               </div>
-              <div class="absolute right-0 top-0" (click)="removeSkill(index)">
-                <p  class="cursor-pointer px-2 py-1 bg-white border-gray-800  border-2 rounded-full  text-[#3F4C62] font-bold"  >
-                    ✕ <span>Remove</span>
-                </p>
-              </div>
-            </div>
-          </ng-container>
-          <p class="my-2 flex items-center gap-3 text-black rounded cursor-pointer w-fit text-sm font-bold py-1 px-2 bg-gray-200" (click)="addSkillSet()"> Add more</p>
+          </div>
         </div>
-
+      </div>
     </div>
-</div>
-
-<div class="flex justify-end mt-4 gap-3">
-
-  <app-button [overRideButtonClass]="true" 
-      customClass="w-fit px-5 h-12 rounded-lg font-inter font-medium text-base text-white leading-6 bg-primaryBlue"
-      (buttonClick)="updateRecord()">Update Profile</app-button>
-</div>
-
-
-  </form>
+    <form [formGroup]="talentForm" *ngIf="editMode">
+      <div
+        class=" ">
+        <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
+        </div>
+      </div>
+      <div
+      class=" border border-solid border-[#EAECF0] border-t-0 border-b-2 border-r-0 border-l-0 rounded-sm p-4 md:p-6 divide-y divide-[#EAECF0]">
+      <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
+          <div>
+              <h3 class="font-medium text-sm text-[#344054]">Educational Qualification</h3>
+              <p class="text-sm text-[#667085]">
+                  Complete your educational qualification
+              </p>
+          </div>
+          <div formArrayName="educationalQualificationVM" >
+            <ng-container *ngFor="let educationForm of educationalQualificationVM.controls; let index = index">
+              <div [formGroupName]="index" class="relative">
+                <div class="grid py-10 grid-cols-3 gap-5 mb-3">
+                    <div>
+                        <p class="input_label label_asterisk my-1">Institution Name</p>
+                        <ng-select class="custom-ng-dropdown"
+                        formControlName="institutionName"
+                        [selectOnTab]="true"
+                        [addTag]="true"
+                        placeholder="Select Institution"
+                            [typeahead]="institutionInput$"
+                            (change)="additem($event)"
+                            >
+                        <ng-option *ngFor="let unit of institutionList" [value]="unit.institutionName">{{unit?.institutionName}}</ng-option>
+                      </ng-select>
+                    </div>
+                    <div>
+                      <p class="input_label label_asterisk my-1">Course of Study</p>
+                      <input  formControlName="course" [type]="'text'" [class]="
+                      'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                    " placeholder="Course of Study"/>
+                  </div>
+                    <div>
+                      <p class="input_label label_asterisk my-1">Degree Obtained</p>
+                      <!-- <input  formControlName="degree" [type]="'text'" [class]="
+                      'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                    " placeholder="Degree Obtained"/> -->
+                      <ng-select class="custom-ng-dropdown text-black"
+                        formControlName="degree"
+                        [selectOnTab]="true"
+                        placeholder="Degree Obtained"
+    
+                        >
+                        <ng-option *ngFor="let unit of degreeType" [value]="unit.name">{{unit.name}}</ng-option>
+                    </ng-select>
+                  </div>
+                    <div>
+                      <p class="input_label label_asterisk my-1">Class of Degree</p>
+                      <ng-select class="custom-ng-dropdown text-black"
+                        formControlName="classOfDegree"
+                        [selectOnTab]="true"
+                        placeholder="Select year of graduation"
+    
+                        >
+                        <ng-option *ngFor="let unit of gradeList" [value]="unit.name">{{unit.name}}</ng-option>
+                    </ng-select>
+                  </div>
+                    <div>
+                        <p class="input_label label_asterisk my-1">Year of Graduation</p>
+                        <ng-select class="custom-ng-dropdown text-black"
+                        formControlName="yearOfGraduation"
+                        [selectOnTab]="true"
+                        placeholder="Select year of graduation"
+    
+                        >
+                        <ng-option *ngFor="let unit of years" [value]="unit">{{unit}}</ng-option>
+                    </ng-select>
+                    </div>
+                    <div>
+                        <p class="input_label label_asterisk my-1">Certificate Obtained</p>
+                        <input [accept]="allowedFiled" (change)="handleEducationFileUpload($event)" [type]="'file'" [class]="
+                        'mt-1 file-input  file-input-ghost h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                      "  />
+                        <!-- <small>Previously uploaded File: {{profileDetails?.educationalQualificationVM[index].fileUploadVM?.name}}</small> -->
+                    </div>
+    
+    
+    
+                </div>
+                <div class="absolute right-0 top-0" (click)="removeEducation(index)">
+                  <p  class="cursor-pointer px-2 py-1 bg-white border-gray-800  border-2 rounded-full  text-[#3F4C62] font-bold"  >
+                      ✕ <span>Remove</span>
+                  </p>
+                </div>
+              </div>
+            </ng-container>
+            <p class="my-2 flex items-center gap-3 text-black rounded cursor-pointer w-fit text-sm font-bold py-1 px-2 bg-gray-200" (click)="addMoreEducation()"> Add more</p>
+          </div>
+      </div>
+    </div>
+      <div
+      class=" border border-solid border-[#EAECF0] border-t-0 border-b-2 border-r-0 border-l-0 rounded-sm p-4 md:p-6 divide-y divide-[#EAECF0]">
+      <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
+          <div>
+              <h3 class="font-medium text-sm text-[#344054]">Professional Qualification</h3>
+              <p class="text-sm text-[#667085]">
+                  Add your professional qualification
+              </p>
+          </div>
+          <div class="grid grid-cols-2 gap-5">
+              <div>
+                  <p class="input_label label_asterisk my-1">Qualification</p>
+                  <ng-select class="custom-ng-dropdown"
+                  formControlName="qualifications"
+                  [selectOnTab]="true"
+                  [addTag]="true"
+                  [multiple]="true"
+                  typeToSearchText="Please enter 2 or more characters"
+                      [typeahead]="institutionInput$"
+                      (add)="addProfessionalitem($event)">
+                  <ng-option *ngFor="let unit of prefessionalQualifications" [value]="unit">{{unit}}</ng-option>
+                </ng-select>
+              </div>
+              <div>
+                <p class="input_label label_asterisk my-1">LinkedIn Profile</p>
+                <app-input [formGrp]="talentForm" formCtrlName="linkedInProfile" [type]="'text'" [class]="
+                'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+              " Issuer="Enter your linkedIn profile url" [name]="'LinkedIn profile'"></app-input>
+            </div>
+              <div>
+                <p class="input_label label_asterisk my-1">Portfolio Url</p>
+                <app-input [formGrp]="talentForm" formCtrlName="porfolioUrl" [type]="'text'" [class]="
+                'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+              " Issuer="Enter your portfolio url" [name]="'Portfolio Url'"></app-input>
+            </div>
+              <div>
+                <p class="input_label label_asterisk my-1">Resume / CV</p>
+                <input [accept]="allowedFiled" (change)="handleResumeFileUpload($event)" [type]="'file'" [class]="
+                'mt-1 file-input  file-input-ghost h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+              " />
+              <!-- <small>Previously uploaded File: {{profileDetails?.professionalQualificationVM[0].fileUploadVM?.name}} </small> -->
+            </div>
+    
+    
+          </div>
+      </div>
+    </div>
+      <div
+      class=" border border-solid border-[#EAECF0] border-t-0 border-b-2 border-r-0 border-l-0 rounded-sm p-4 md:p-6 divide-y divide-[#EAECF0]">
+      <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
+          <div>
+              <h3 class="font-medium text-sm text-[#344054]">Work Experience</h3>
+              <p class="text-sm text-[#667085]">
+                  Add your Work Experience
+              </p>
+          </div>
+          <div formArrayName="workHistoryVM">
+            <ng-container *ngFor="let workForm of workHistoryVM.controls; let index = index">
+              <div [formGroupName]="index" class="relative">
+    
+                <div class="grid py-10 grid-cols-2 gap-5">
+    
+                    <div>
+                      <p class="input_label label_asterisk my-1">Company name</p>
+                      <input formControlName="companyName" [type]="'text'" [class]="
+                      'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                    " placeholder="Enter your Company name" [name]="'Company name'">
+                  </div>
+                    <div>
+                      <p class="input_label label_asterisk my-1">Company address</p>
+                      <input formControlName="companyAddress" [type]="'text'" [class]="
+                      'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                    " placeholder="Enter your Company address" [name]="'Company address'">
+                  </div>
+                    <div>
+                      <p class="input_label label_asterisk my-1">Profession</p>
+                      <input formControlName="profession" [type]="'text'" [class]="
+                      'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                    " placeholder="Enter your profession" [name]="'Profession'">
+                  </div>
+                    <div>
+                      <p class="input_label label_asterisk my-1">Position / Title</p>
+                      <input formControlName="title" [type]="'text'" [class]="
+                      'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                    " placeholder="Enter your position / designation" [name]="'Position'">
+                  </div>
+    
+                    <div>
+                      <p class="input_label label_asterisk my-1">Start Date of Employment</p>
+                      <input formControlName="dateOfEmployment" [type]="'date'" [class]="
+                      'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                    " placeholder="Enter your position / designation" [name]="'Position'">
+                  </div>
+                    <div>
+                      <p class="input_label label_asterisk my-1">End Date of Employment</p>
+                      <input formControlName="endOfEmployment" [type]="'date'" [class]="
+                      'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                    " placeholder="Enter your position / designation" [name]="'Position'">
+                  </div>
+                    <div>
+                      <p class="input_label label_asterisk my-1">Years of Experience</p>
+                      <input formControlName="yearsOfExperience" [type]="'text'" [class]="
+                      'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                    " placeholder="Enter only the year " >
+                  </div>
+                    <div>
+                      <p class="input_label label_asterisk my-1">Do you still work here?</p>
+                      <div class="cursor-pointer flex gap-3 mt-2">
+                        <input type="checkbox"
+                        (change)="isworkCurrent($event)" [checked]="isCurrent" formControlName="isCurrent" class="toggle toggle-success"  />
+                        <p class="font-inter font-meduim text-base text-darkGray">   </p>
+                    </div>
+                  </div>
+    
+    
+                </div>
+                <div class="absolute right-0 top-0" (click)="removeWork(index)">
+                  <p  class="cursor-pointer px-2 py-1 bg-white border-gray-800  border-2 rounded-full  text-[#3F4C62] font-bold"  >
+                      ✕ <span>Remove</span>
+                  </p>
+                </div>
+              </div>
+            </ng-container>
+            <p class="my-2 flex items-center gap-3 text-black rounded cursor-pointer w-fit text-sm font-bold py-1 px-2 bg-gray-200" (click)="addWorkHistory()"> Add more</p>
+          </div>
+      </div>
+    </div>
+      <div
+      class=" border border-solid border-[#EAECF0] border-t-0 border-b-2 border-r-0 border-l-0 rounded-sm p-4 md:p-6 divide-y divide-[#EAECF0]">
+      <div class="grid xl:grid-cols-[200px_1fr] 2xl:grid-cols-[300px_1fr] lg:gap-6 2xl:gap-20">
+          <div>
+              <h3 class="font-medium text-sm text-[#344054]">Skill sets</h3>
+              <p class="text-sm text-[#667085]">
+                  Add your Skill sets
+              </p>
+          </div>
+          <div formArrayName="skillSetVM" >
+            <ng-container *ngFor="let skillSetForm of skillSetVM.controls; let index = index">
+              <div [formGroupName]="index" class="relative">
+                <div class="grid py-10 grid-cols-2 gap-5">
+    
+                    <div>
+                      <p class="input_label label_asterisk my-1">Skill Title</p>
+                      <ng-select class="custom-ng-dropdown text-black"
+                        formControlName="title"
+                        [selectOnTab]="true"
+                        placeholder="Select year of graduation"
+    
+                        >
+                        <ng-option *ngFor="let unit of skill_sets" [value]="unit">{{unit}}</ng-option>
+                    </ng-select>
+                  </div>
+                    <div>
+                      <p class="input_label label_asterisk my-1">Skill Description</p>
+                      <input formControlName="description" [type]="'text'" [class]="
+                      'mt-1 px-4 h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                    " placeholder="Enter your Company address" [name]="'Company address'">
+                  </div>
+                    <div>
+                      <p class="input_label label_asterisk my-1">Year of certification</p>
+                      <ng-select class="custom-ng-dropdown text-black"
+                        formControlName="year"
+                        [selectOnTab]="true"
+                        placeholder="Select year of graduation"
+    
+                        >
+                        <ng-option *ngFor="let unit of years" [value]="unit">{{unit}}</ng-option>
+                    </ng-select>
+                  </div>
+                    <div>
+                      <p class="input_label label_asterisk my-1">Certification Document</p>
+                      <input [accept]="allowedFiled" (change)="handleSkillSetFileUpload($event)" formControlName="certificate" [type]="'file'" [class]="
+                      'mt-1 file-input  file-input-ghost h-[52px] w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                    ">
+                    <!-- <small>Previously uploaded File: {{profileDetails?.skillSetVM[index].fileUploadVM?.name}}</small> -->
+                  </div>
+    
+                </div>
+                <div class="absolute right-0 top-0" (click)="removeSkill(index)">
+                  <p  class="cursor-pointer px-2 py-1 bg-white border-gray-800  border-2 rounded-full  text-[#3F4C62] font-bold"  >
+                      ✕ <span>Remove</span>
+                  </p>
+                </div>
+              </div>
+            </ng-container>
+            <p class="my-2 flex items-center gap-3 text-black rounded cursor-pointer w-fit text-sm font-bold py-1 px-2 bg-gray-200" (click)="addSkillSet()"> Add more</p>
+          </div>
+      </div>
+    </div>
+    
+    <div class="flex justify-end mt-4 gap-3">
+    <app-button [overRideButtonClass]="true"
+        customClass="w-fit px-5 h-12 rounded-lg font-inter font-medium text-base text-white leading-6 bg-primaryBlue"
+        (buttonClick)="updateRecord()">Update Profile</app-button>
+    </div>
+    </form>
+  </ng-container>
 </div>

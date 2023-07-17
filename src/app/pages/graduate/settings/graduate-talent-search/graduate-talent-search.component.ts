@@ -102,6 +102,7 @@ skillSet = this.fb.group({
     "Professionalism"
 ]
 editProfile: boolean = false;
+editMode: boolean = false;
   profileDetails: any;
   constructor(
     private fb: FormBuilder,
@@ -152,6 +153,22 @@ editProfile: boolean = false;
   }
 
 
+  printDocument() {
+    window.print()
+  }
+
+  switchProfileView() {
+    this.editMode = true;
+  }
+
+  downloadFile(id: string) {
+    this.graduateService.downloadTalentSearchDocuments(id).subscribe((res: any) => {
+      const link = document.createElement('a');
+        link.download = `${res.payload?.name}.pdf`;
+        link.href = 'data:image/png;base64,' + res.payload?.path;
+        link.click();
+    })
+  }
  
 
 

@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div class="border-1.5 rounded-t-md mt-8" [formGroup]="newTalentsearchForm">
+    <form class="border-1.5 rounded-t-md mt-8" [formGroup]="newTalentsearchForm" >
         <h3 class="py-4  border-b-1.5 px-6 font-inter font-semibold text-lg text-darkGray">New Talent Search</h3>
         <div class="p-6 ">
             <div class="border-b">
@@ -266,7 +266,7 @@
                 <!-- [disabled]="newTalentsearchForm.invalid" -->
                 <app-button
                 (buttonClick)="searchTalents()"
-                [disabled]="newTalentsearchForm.invalid"
+                [disabled]="newTalentsearchForm.invalid || disableForm"
                 [overRideButtonClass]="true"
                 customClass="p-2 rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
                 >Search</app-button>
@@ -422,7 +422,7 @@
                 >Search</app-button>
             </div>
         </div> -->
-    </div>
+    </form>
 </div>
 
 
