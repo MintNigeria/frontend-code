@@ -77,17 +77,20 @@ for (let i = 18; i <= 65; i++) {
 
     this.newTalentsearchForm.valueChanges.subscribe((res: any) => {
       const ctrl = this.newTalentsearchForm.get('Institutions');
-      if ((res.endYearOfExperience.length !== 0 && (Number(res.startYearOfExperience) > Number(res.endYearOfExperience)) || res.EndAgeRange.length !== 0 && (Number(res.StartAgeRange) > Number(res.EndAgeRange)))) {
+      if ((res.endYearOfExperience.length !== 0 && (Number(res.startYearOfExperience) >= Number(res.endYearOfExperience)) || res.EndAgeRange.length !== 0 && (Number(res.StartAgeRange) >= Number(res.EndAgeRange))) || res.FromYearOfGraduation.length !== 0 && (Number(res.FromYearOfGraduation) >= Number(res.ToYearOfGraduation))) {
         this.disableForm = true;
       } else {
         this.disableForm = false;
 
       }
-      if (res.endYearOfExperience.length !== 0 && (Number(res.startYearOfExperience) > Number(res.endYearOfExperience))) {
-        this.notification.publishMessages('warning', 'Start year of experience cant be greater than End year of Experience')
+      if (res.endYearOfExperience.length !== 0 && (Number(res.startYearOfExperience) >= Number(res.endYearOfExperience)) ) {
+        this.notification.publishMessages('warning', `Start year of experience can't be Greater than or Equal to End year of Experience`)
       } 
-      if (res.EndAgeRange.length !== 0 && (Number(res.StartAgeRange) > Number(res.EndAgeRange))) {
-        this.notification.publishMessages('warning', 'Start age range cant be greater than End age range')
+      if (res.EndAgeRange.length !== 0 && (Number(res.StartAgeRange) >= Number(res.EndAgeRange))) {
+        this.notification.publishMessages('warning', `Start age range can't be Greater than or Equal to End age range`)
+      } 
+      if (res.FromYearOfGraduation.length !== 0 && (Number(res.FromYearOfGraduation) >= Number(res.ToYearOfGraduation))) {
+        this.notification.publishMessages('warning', `Start age range can't be Greater than or Equal to End age range`)
       } 
 
     })

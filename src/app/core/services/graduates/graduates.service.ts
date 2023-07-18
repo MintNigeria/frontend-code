@@ -1329,4 +1329,18 @@ export class GraduatesService
       `${this.baseUrl}mint-auth/api/v1/TalentSearch/Retrieve-File/${fileId}`
     );
   }
+
+    downloadTalentCSV(payload: any) {
+      return this.http.get<any>(
+        `${this.baseUrl}mint-auth/api/v1/TalentSearch/Export-As-CSV`,
+        { params: payload }
+      );
+    }
+  
+    downloadTalentExcel(payload: any) {
+      return this.http.get<any>(
+        `${this.baseUrl}mint-auth/api/v1/TalentSearch/Export-As-Excel`,
+        { params: payload }
+      );
+    }
 }

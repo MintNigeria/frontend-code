@@ -7,7 +7,7 @@ import { UploadsService } from 'src/app/core/services/uploads/uploads.service';
 import { WalletService } from 'src/app/core/services/wallet/wallet.service';
 import { AppResponseInterface } from 'src/app/types/appState.interface';
 import { setAPIResponseMessage } from '../shared/app.action';
-import { approvePendingGraduate, approveRejectPendingGraduateSuccess, createGraduateApplication, createGraduateApplicationSuccess, createGraduateRecord, createGraduateRecordSuccess, deleteHubItem, deleteHubItemSuccess, downloadCSV, downloadCSVSuccess, downloadExcel, downloadExcelSuccess, downloadRecordUploadFormat, downloadRecordUploadFormatSuccess, exportGraduateApplicationAsExcel, exportGraduateApplicationAsExcelSuccess, exportGraduateApplicationCSV, exportGraduateApplicationCSVSuccess, exportGraduateTransactionAsCSV, exportGraduateTransactionAsCSVSuccess, exportGraduateTransactionAsExcel, exportGraduateTransactionAsExcelSuccess, exportGraduateVerificationAsExcel, exportGraduateVerificationAsExcelSuccess, exportGraduateVerificationCSV, exportGraduateVerificationCSVSuccess, fundGraduateWallet, fundGraduateWalletSuccess, getActiveDeliveryOptions, getActiveDeliveryOptionsSuccess, getAllGraduateRequestDetailForGradaute, getAllGraduateRequestDetailForGradauteSuccess, getAllGraduateRequestForGradaute, getAllGraduateRequestForGradauteSuccess, getAllHubItem, getAllHubItemSuccess, getAllInstitutionUpload, getAllInstitutionUploadSuccess, getGraduateCertificateVerificationDetail, getGraduateCertificateVerificationDetailSuccess, getGraduateCertificateVerifications, getGraduateCertificateVerificationsSuccess, getGraduateInstitutions, getGraduateInstitutionsSuccess, getGraduateProfile, getGraduateProfileSuccess, getGraduateTransactionHistory, getGraduateTransactionHistorySuccess, getGraduateWalletId, getGraduateWalletIdSuccess, getMyInstitutionNotified, getMyInstitutionNotifiedSuccess, getMyInstitutionsNotifiedStatus, getMyInstitutionsNotifiedStatusSuccess, graduateDocumentTypeFilter, graduateDocumentTypeFilterSuccess, graduateTransactionTypeFilter, graduateTransactionTypeFilterSuccess, invokeGetAllGraduates, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduates, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, notifyMyInstitution, notifyMyInstitutionSuccess, registerNewGraduate, registerNewGraduateSuccess, rejectPendingGraduate, retryApplicationVarificationPayment, retryApplicationVarificationPaymentSuccess, searchGraduateRecords, searchGraduateRecordsSuccess, submitGraduateVerificationRequest, submitGraduateVerificationRequestSuccess, submitVerificationReasonForRequest, submitVerificationReasonForRequestSuccess, updateGraduateInstitutions, updateGraduateInstitutionsSuccess, updateGraduateProfile, updateGraduateProfileSuccess, uploadGraduateRecord, uploadGraduateRecordSuccess, uploadHubItem, uploadHubItemSuccess, validateGraduateRegistration, validateGraduateRegistrationSuccess } from './action';
+import { approvePendingGraduate, approveRejectPendingGraduateSuccess, createGraduateApplication, createGraduateApplicationSuccess, createGraduateRecord, createGraduateRecordSuccess, deleteHubItem, deleteHubItemSuccess, downloadCSV, downloadCSVSuccess, downloadExcel, downloadExcelSuccess, downloadRecordUploadFormat, downloadRecordUploadFormatSuccess, downloadTalentSearchReportCSV, downloadTalentSearchReportCSVSuccess, downloadTalentSearchReportExcel, downloadTalentSearchReportExcelSuccess, exportGraduateApplicationAsExcel, exportGraduateApplicationAsExcelSuccess, exportGraduateApplicationCSV, exportGraduateApplicationCSVSuccess, exportGraduateTransactionAsCSV, exportGraduateTransactionAsCSVSuccess, exportGraduateTransactionAsExcel, exportGraduateTransactionAsExcelSuccess, exportGraduateVerificationAsExcel, exportGraduateVerificationAsExcelSuccess, exportGraduateVerificationCSV, exportGraduateVerificationCSVSuccess, fundGraduateWallet, fundGraduateWalletSuccess, getActiveDeliveryOptions, getActiveDeliveryOptionsSuccess, getAllGraduateRequestDetailForGradaute, getAllGraduateRequestDetailForGradauteSuccess, getAllGraduateRequestForGradaute, getAllGraduateRequestForGradauteSuccess, getAllHubItem, getAllHubItemSuccess, getAllInstitutionUpload, getAllInstitutionUploadSuccess, getGraduateCertificateVerificationDetail, getGraduateCertificateVerificationDetailSuccess, getGraduateCertificateVerifications, getGraduateCertificateVerificationsSuccess, getGraduateInstitutions, getGraduateInstitutionsSuccess, getGraduateProfile, getGraduateProfileSuccess, getGraduateTransactionHistory, getGraduateTransactionHistorySuccess, getGraduateWalletId, getGraduateWalletIdSuccess, getMyInstitutionNotified, getMyInstitutionNotifiedSuccess, getMyInstitutionsNotifiedStatus, getMyInstitutionsNotifiedStatusSuccess, graduateDocumentTypeFilter, graduateDocumentTypeFilterSuccess, graduateTransactionTypeFilter, graduateTransactionTypeFilterSuccess, invokeGetAllGraduates, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduates, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, notifyMyInstitution, notifyMyInstitutionSuccess, registerNewGraduate, registerNewGraduateSuccess, rejectPendingGraduate, retryApplicationVarificationPayment, retryApplicationVarificationPaymentSuccess, searchGraduateRecords, searchGraduateRecordsSuccess, submitGraduateVerificationRequest, submitGraduateVerificationRequestSuccess, submitVerificationReasonForRequest, submitVerificationReasonForRequestSuccess, updateGraduateInstitutions, updateGraduateInstitutionsSuccess, updateGraduateProfile, updateGraduateProfileSuccess, uploadGraduateRecord, uploadGraduateRecordSuccess, uploadHubItem, uploadHubItemSuccess, validateGraduateRegistration, validateGraduateRegistrationSuccess } from './action';
 
 @Injectable()
 export class GraduatesEffects {
@@ -1662,5 +1662,84 @@ export class GraduatesEffects {
     );
   });
 
+
+  
+  downloadTalentSearchReportExcel$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(downloadTalentSearchReportExcel),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const {payload } =
+          action;
+        return this.graduateService.downloadTalentExcel(
+            payload
+          )
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return downloadTalentSearchReportExcelSuccess({
+                payload: data.payload
+              });
+            })
+          );
+      })
+    );
+  });
+
+  downloadTalentSearchReportCSV$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(downloadTalentSearchReportCSV),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        const {payload } =
+          action;
+        return this.graduateService.downloadTalentCSV(
+            payload
+          )
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return downloadTalentSearchReportCSVSuccess({
+                payload: data.payload
+              });
+            })
+          );
+      })
+    );
+  });
 
 }

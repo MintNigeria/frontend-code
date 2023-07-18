@@ -503,7 +503,7 @@ export class ApplicationDetailsComponent implements OnInit {
       paymentDetailsVM: { ...this.paymentDetailsVM, documentType: this.selectedDocumentType, documentId: this.selectedDocumentTypeId }
     }
 
-    this.graduateService.createGraduateApplicationHardCopy (data).subscribe((res: any) => {
+    this.graduateService.createGraduateApplicationHardCopy(data).subscribe((res: any) => {
       if (res.hasErrors === false) {
 
         this.notification.publishMessages('success', res.description)
