@@ -87,7 +87,7 @@ export class ProcessingFeeComponent implements OnInit {
           return {
             processingFeeConfigId: element.id,
             deliveryOptionsType: element.deliveryOptionsType,
-            inActiveFee: numeral(element.inActiveFee).format('00,'),
+            inActiveFee: numeral(element.inActiveFee).format('0,0'),
           }
         });
         return {
@@ -107,7 +107,7 @@ export class ProcessingFeeComponent implements OnInit {
         const a = x.processingFeeConfigVM.map((element: any) => {
           return {
             processingFeeConfigId: element.id,
-            inActiveFee: numeral(element.inActiveFee).format('00,')
+            inActiveFee: numeral(element.inActiveFee).format('0,0')
           }
         });
         return {

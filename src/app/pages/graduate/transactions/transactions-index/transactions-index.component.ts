@@ -46,7 +46,8 @@ export class TransactionsIndexComponent implements OnInit {
    searchForm = new FormGroup({
     searchPhrase: new FormControl(''),
   });
-  pageIndex = 1
+  pageIndex: number = 1
+  pageSize: number = 10;
   transactionType: any;
 
   constructor(
@@ -192,7 +193,16 @@ export class TransactionsIndexComponent implements OnInit {
   getPage(currentPage: number) {
     this.pageIndex = currentPage
     const filter = {...this.filter, ['pageIndex'] : currentPage}
+    this.filter = filter
     this.store.dispatch(getGraduateTransactionHistory({payload:{...filter, GraduateId: this.userData.GraduateId}}))
+  }
+  
+  selectRecordCount(event: any) {
+    this.pageSize = event.value
+    const filter = {...this.filter, ['pageSize'] : event.value}
+    this.filter = filter
+    this.store.dispatch(getGraduateTransactionHistory({payload:{...filter, GraduateId: this.userData.GraduateId}}))
+
   }
 
 }

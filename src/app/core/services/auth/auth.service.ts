@@ -48,7 +48,7 @@ export class AuthService extends BaseURI implements AbstractAuthService {
 
     return this.http
       .post<any>(
-        `${this.baseUrl}mint-auth/api/v1/authentication/token`,
+        `${this.baseUrl}mint-auth/api/v1/authentication/token?userType=${payload.userType}`,
         httpParams,
         {
           headers: { skip: 'true' },

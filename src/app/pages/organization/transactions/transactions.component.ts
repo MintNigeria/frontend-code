@@ -45,6 +45,7 @@ export class TransactionsComponent implements OnInit {
   history: any;
   total: any;
 pageIndex = 1
+pageSize = 10
 searchForm = new FormGroup({
   searchPhrase: new FormControl(''),
 });
@@ -167,7 +168,16 @@ searchForm = new FormGroup({
 
   getPage(currentPage: number) {
     const filter = {...this.filter, ['pageIndex'] : currentPage}
+    this.filter = filter
     this.store.dispatch(getOrganizationSubscriptionHistory({payload: {...filter, OrganizationId: this.userData.OrganizationId}}))
+  }
+  
+  selectRecordCount(event: any) {
+    this.pageSize = event.value
+    const filter = {...this.filter, ['pageSize'] : event.value}
+    this.filter = filter
+    this.store.dispatch(getOrganizationSubscriptionHistory({payload: {...filter, OrganizationId: this.userData.OrganizationId}}))
+
   }
 
 

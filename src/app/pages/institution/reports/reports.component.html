@@ -182,7 +182,7 @@
                 <th class="flex gap-1 text-xs text-lightGray font-medium font-inter bg-tableHeader ">Date
                 </th>
                 <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Document Type</th>
-                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Reason
+                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Reason for Request
                 </th>
 
               </tr>
@@ -198,7 +198,7 @@
                   <div>
                     <div>
                       <div>
-                        <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">
+                        <p class="my-0 text-base  font-inter font-medium text-darkGray ">
                           {{data.initiator}}</p>
                       </div>
                     </div>
@@ -208,7 +208,7 @@
 
                 <td class="bg-white">
                   <div>
-                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">
+                    <p class="my-0 text-base  font-inter font-normal text-lightGray ">
                       {{data?.date | date: 'mediumDate'}}</p>
                     <p class="text-xs font-normal font-inter my-0 text-lightGray">
                       {{data?.date | date: 'shortTime'}}
@@ -218,14 +218,14 @@
 
                 <td class="bg-white">
                   <div>
-                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">
+                    <p class="my-0 text-base  font-inter font-normal text-lightGray ">
                       {{data.documentType}}</p>
 
                   </div>
                 </td>
                 <td class="bg-white">
                   <div>
-                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.reason}}</p>
+                    <p class="my-0 text-base  font-inter font-normal text-lightGray ">{{data.reason}}</p>
 
                   </div>
 

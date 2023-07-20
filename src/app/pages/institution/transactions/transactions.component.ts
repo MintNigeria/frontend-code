@@ -255,12 +255,14 @@ filter = {
 
   getPage(currentPage: number) {
     const filter = {...this.filter, ['pageIndex'] : currentPage}
+    this.filter = filter
     this.store.dispatch(invokeGetTransactions({institutionId: this.institutionId, payload: filter}))
   }
   
   selectRecordCount(event: any) {
     this.pageSize = event.value
     const filter = {...this.filter, ['pageSize'] : event.value}
+    this.filter = filter
     this.store.dispatch(invokeGetTransactions({institutionId: this.institutionId, payload: filter}))
 
   }

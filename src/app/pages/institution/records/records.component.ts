@@ -43,6 +43,7 @@ export class RecordsComponent implements OnInit {
   institutionData: any;
   institutionId: any;
   pageIndex = 1;
+  pageSize: number = 10;
 filter = {
   keyword: '',
     filter: '',
@@ -210,7 +211,16 @@ filter = {
 
   getPage(currentPage: number) {
     const filter = {...this.filter, ['pageIndex'] : currentPage}
+    this.filter = filter
     this.store.dispatch(invokeGetAllGraduates({institutionId: this.institutionId, payload: filter}))
+  }
+  
+  selectRecordCount(event: any) {
+    this.pageSize = event.value
+    const filter = {...this.filter, ['pageSize'] : event.value}
+    this.filter = filter
+    this.store.dispatch(invokeGetAllGraduates({institutionId: this.institutionId, payload: filter}))
+
   }
 
 }
