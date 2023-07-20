@@ -200,14 +200,14 @@
                         </thead>
 
                         <tbody class="bg-white">
-                            <tr *ngFor="let data of recordList | paginate: { itemsPerPage: filter.pageSize, currentPage: pageIndex, totalItems: totalCount }" class="bg-white">
+                            <tr *ngFor="let data of recordList | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: totalCount }" class="bg-white">
                             
                                 
                                 <td class="bg-white">
                                     <div>
                                         <div>
                                             <div>
-                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-primaryBlue ">{{data.fullName || 'N/A' | titlecase}}</p>
+                                                <p class="my-0 text-base  font-inter font-medium text-primaryBlue ">{{data.fullName || 'N/A' | titlecase}}</p>
                                             </div>
                                         </div>
 
@@ -216,26 +216,26 @@
                                 
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data?.faculty | titlecase}}</p>
+                                        <p class="my-0 text-base  font-inter font-normal text-lightGray ">{{data?.faculty | titlecase}}</p>
                                     </div>
                                 </td>
 
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.department | titlecase}}</p>
+                                        <p class="my-0 text-base  font-inter font-normal text-lightGray ">{{data.department | titlecase}}</p>
                                        
                                     </div>
                                 </td>
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.matriculationNumber}}</p>
+                                        <p class="my-0 text-base  font-inter font-normal text-lightGray ">{{data.matriculationNumber}}</p>
                                         
                                     </div>
 
                                 </td>
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.graduationYear}}</p>
+                                        <p class="my-0 text-base  font-inter font-normal text-lightGray ">{{data.graduationYear}}</p>
                                         
                                     </div>
 
@@ -259,10 +259,15 @@
             <!---->
 
             <!--Pagination-->
-            <div class="flex items-center justify-end mt-10">
-                <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
-                    Showing 1 to 7 of {{ recordsList.length }} entries
-                </p> -->
+            <div class="flex items-center justify-between mt-10">
+                <select class=" text-black select max-w-xs bg-white" (change)="selectRecordCount($event.target)">
+                    <option disabled selected>Per page</option>
+                    <option value="10">10</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="150">150</option>
+                    <option value="200">200</option>
+                  </select>
                 <div class="flex item gap-3">
                     <pagination-controls [responsive]="true"   (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next"></pagination-controls>
                 </div>

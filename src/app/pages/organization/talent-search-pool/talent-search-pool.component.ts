@@ -42,7 +42,8 @@ export class TalentSearchPoolComponent implements OnInit {
  total: any;
 //  pageIndex: a
 
- pageIndex = 1
+pageIndex = 1
+pageSize: number = 10;
  searchForm = new FormGroup({
    searchPhrase: new FormControl(''),
  });
@@ -182,7 +183,17 @@ export class TalentSearchPoolComponent implements OnInit {
   getPage(currentPage: number) {
     const filter = {...this.filter, ['pageIndex'] : currentPage}
 
+    this.filter = filter
     this.store.dispatch(getAlltalentSearchPool({payload: {...filter, OrganizationId: this.userData.OrganizationId}}))
+  }
+  
+  
+  selectRecordCount(event: any) {
+    this.pageSize = event.value
+    const filter = {...this.filter, ['pageSize'] : event.value}
+    this.filter = filter
+    this.store.dispatch(getAlltalentSearchPool({payload: {...filter, OrganizationId: this.userData.OrganizationId}}))
+
   }
 
 

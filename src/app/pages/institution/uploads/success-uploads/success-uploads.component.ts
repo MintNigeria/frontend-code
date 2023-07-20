@@ -21,6 +21,7 @@ export class SuccessUploadsComponent implements OnInit {
   institutionId: any;
   institutionData: any;
   pageIndex = 1;
+  pageSize = 10;
   filter = {
   institutionId: '',
   keyword: '',
@@ -88,7 +89,16 @@ searchForm = new FormGroup({
 
   getPage(currentPage: number) {
     const filter = {...this.filter, ['pageIndex'] : currentPage}
+    this.filter = filter
     this.store.dispatch(getAllInstitutionUpload({payload: {...filter, institutionId: this.institutionId}}))
+  }
+  
+  selectRecordCount(event: any) {
+    this.pageSize = event.value
+    const filter = {...this.filter, ['pageSize'] : event.value}
+    this.filter = filter
+    this.store.dispatch(getAllInstitutionUpload({payload: {...filter, institutionId: this.institutionId}}))
+
   }
 
   

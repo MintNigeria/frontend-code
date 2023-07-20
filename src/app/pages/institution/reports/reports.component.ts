@@ -208,12 +208,14 @@ export class ReportsComponent implements OnInit {
   
   getPage(currentPage: number) {
     const filter = {...this.filterParams, ['pageIndex'] : currentPage}
+    this.filterParams = filter
     this.store.dispatch(invokeGetAllReport({payload: {...filter, institutionId: this.institutionId}}))
   }
   
   selectRecordCount(event: any) {
     this.pageSize = event.value
     const filter = {...this.filterParams, ['pageSize'] : event.value}
+    this.filterParams = filter
     this.store.dispatch(invokeGetAllReport({payload: {...filter, institutionId: this.institutionId}}))
 
   }

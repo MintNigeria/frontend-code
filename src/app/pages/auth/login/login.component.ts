@@ -65,6 +65,7 @@ export class LoginComponent implements OnInit {
         '',
         Validators.compose([Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/), Validators.required])
       ),
+      userType: new FormControl(2),
       rememberMe: new FormControl(false),
       // recaptchaReactive: new FormControl(null),
       recaptchaReactive: new FormControl(null, [Validators.required]),
@@ -142,10 +143,11 @@ export class LoginComponent implements OnInit {
   }
 
   verifyOTP() {
-    const {email, password} = this.loginAuth.value
+    const {email, password, userType} = this.loginAuth.value
     const payload = {
       email,
       password,
+      userType,
       code: this.otpValue,
       twoFA: true
     }
