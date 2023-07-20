@@ -79,7 +79,7 @@ searchForm = new FormGroup({
         ////console.log(x.batchId )
         this.selectedDataId = x.batchId
       }});
-      console.log(id, this.selectedDataId)
+      // console.log(id, this.selectedDataId)
       ////console.log(this.selectedData,this.selectedDataId)
 
       
