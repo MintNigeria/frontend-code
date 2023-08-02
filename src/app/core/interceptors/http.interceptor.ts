@@ -21,16 +21,22 @@ import {
 import { Router } from '@angular/router';
 import { StorageService } from '../services/storage.service';
 import { NotificationsService } from '../services/shared/notifications.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   private token: any = '';
-
+private user: any;
   constructor(
     private storageService: StorageService,
     private router: Router,
-    private _notificationService: NotificationsService
-  ) {}
+    private _notificationService: NotificationsService,
+    private authService: AuthService
+  ) {
+    const data: any = localStorage.getItem('authData')
+    this.user = JSON.parse(data)
+
+  }
 
   private AUTH_HEADER = 'Authorization';
   private refreshTokenInProgress = false;
@@ -82,27 +88,40 @@ export class AuthInterceptor implements HttpInterceptor {
         if (_error) {
           console.log(_error);
           if (_error.status === 401) {
-            localStorage.clear();
+            const payload = {
+              emailAddress : this.user.user.email
+            }
+            this.authService.logOut(payload).subscribe((res: any) => {
 
-            // this.storageService.removeItem('token');
-            //     //   use notification here with message "your session has expired you need to login again"
-            this._notificationService.publishMessages(
-              'error',
-              'Your session has expired you need to login again'
-            );
-
-            // this.router.navigate(['/']);
-            location.href = '/';
+              localStorage.clear();
+  
+              // this.storageService.removeItem('token');
+              //     //   use notification here with message "your session has expired you need to login again"
+              this._notificationService.publishMessages(
+                'error',
+                'Your session has expired you need to login again'
+              );
+  
+              // this.router.navigate(['/']);
+              location.href = '/';
+            })
           }
           if (_error.status === 403) {
-            localStorage.clear();
-
-            this._notificationService.publishMessages(
-              'error',
-              'You don"t have access to view this application'
-            );
-            //  use notification here with message "You don't view this application"
-            this.router.navigate(['/']);
+            const payload = {
+              emailAddress : this.user.user.email
+            }
+            this.authService.logOut(payload).subscribe((res: any) => {
+  
+             
+              localStorage.clear();
+  
+              this._notificationService.publishMessages(
+                'error',
+                'You don"t have access to view this application'
+              );
+              //  use notification here with message "You don't view this application"
+              this.router.navigate(['/']);
+            })
           }
           if (_error.status === 400) {
             // ////console.log(_error);
