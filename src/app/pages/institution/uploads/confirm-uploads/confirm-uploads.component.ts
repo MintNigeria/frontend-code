@@ -100,6 +100,7 @@ openChangesConfirmed(){
       gender: record.gender,
       dateOfBirth: record.dateOfBirth,
       stateOfOrigin: record.stateOfOrigin,
+      successStatus: record.successStatus,
       academicInformation:{
         program: record.academicInformation.program,
         matriculationNumber:  record.academicInformation.matriculationNumber,
