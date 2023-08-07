@@ -107,9 +107,9 @@ logOut() {
     if (res) {
 
       localStorage.clear()
+      this.reset()
       this.router.navigateByUrl('/')
       this.store.dispatch(logoutAction());
-
     }
     })
 }
