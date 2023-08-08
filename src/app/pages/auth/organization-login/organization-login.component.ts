@@ -105,7 +105,7 @@ export class OrganizationLoginComponent implements OnInit {
         }  
         else if (this.loggedInUser.UserType !== 'Organization') {
           this.notificationService.publishMessages('error', 'Invalid login credential');
-          localStorage.clear()
+          // localStorage.clear()
 
 
         }

@@ -24,6 +24,7 @@ export class GraduateGuard implements CanActivateChild {
     }
 
     const expirationDate = helper.isTokenExpired(String(authenticationToken));
+    // console.log(expirationDate)
     if (expirationDate || !authenticationToken) {
       localStorage.removeItem('token');
     }

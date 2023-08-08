@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TimerService } from 'src/app/shared/util/timer.service';
 
 @Component({
   selector: 'app-auth',
@@ -32,7 +33,9 @@ export class AuthComponent implements OnInit {
     // },
   ];
 
-  constructor() { }
+  constructor(
+    private timer: TimerService
+  ) { }
 
   ngOnInit(): void {
   }

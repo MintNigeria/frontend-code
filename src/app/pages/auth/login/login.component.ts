@@ -108,7 +108,7 @@ export class LoginComponent implements OnInit {
 
         } else if(this.loggedInUser.UserType !== 'Institution') {
           this.notificationService.publishMessages('error', 'Invalid login credential');
-          localStorage.clear()
+          // localStorage.clear()
         }
        
       } else if (res.accessToken === undefined && res.hasErrors === false) {
