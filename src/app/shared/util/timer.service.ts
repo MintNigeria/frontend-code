@@ -92,7 +92,7 @@ export class TimerService {
 
     // const expirationDate = helper.isTokenExpired(String(this.token));
     if (isTimeout)  {
-      console.log('I don time out oooooooo', isTimeout)
+      // console.log('I don time out oooooooo', isTimeout)
       this.logOut()
     }
   }
