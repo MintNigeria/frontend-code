@@ -86,13 +86,13 @@ private user: any;
       }),
       catchError((_error: HttpErrorResponse) => {
         if (_error) {
-          console.log(_error);
+          // console.log(_error);
           if (_error.status === 401) {
             const payload = {
               emailAddress : this.user.user.email
             }
             this.authService.logOut(payload).subscribe((res: any) => {
-
+              console.log('I am called on 401')
               localStorage.clear();
   
               // this.storageService.removeItem('token');
