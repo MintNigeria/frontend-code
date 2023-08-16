@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
-import { downloadRecordUploadFormat, downloadRecordUploadFormatSuccess, uploadGraduateRecord, uploadGraduateRecordSuccess } from 'src/app/store/graduates/action';
+import { downloadRecordUploadFormat, downloadRecordUploadFormatSuccess, uploadBulkGraduateRecord, uploadBulkGraduateRecordSuccess, uploadGraduateRecord, uploadGraduateRecordSuccess } from 'src/app/store/graduates/action';
 import { getALlDepartmentInInstitution, getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess, getAllInstitutionDegreeType, getAllInstitutionDegreeTypeSuccess } from 'src/app/store/institution/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
@@ -24,7 +24,10 @@ export class UploadRecordsComponent implements OnInit {
   institutionId: any;
   facultyList: any;
   departmentList: any;
-
+uploadType=[
+  {name: 'simple', description: 'This template contains doesnt not contain columns like Faculty, department, and Year' },
+  {name: 'bulk', description: 'This template contains column like Program, Faculty, Department, Degree,  Year of Graduation' }
+]
   years: Array<any> = [];
 
   degreeFilter = {
@@ -35,8 +38,13 @@ export class UploadRecordsComponent implements OnInit {
     IpAddress: '',
 
   }
-  uploadRecordForm!: FormGroup
+  simpleuploadRecordForm!: FormGroup
+  bulkuploadRecordForm!: FormGroup
   degreeTypeList: any;
+  selectedFileUploadType: string = ''
+  ipAddress: any;
+  deviceModel: string;
+  isBulkUpload: boolean = false;
   constructor(
      private route: ActivatedRoute,
     private router: Router,
@@ -45,13 +53,25 @@ export class UploadRecordsComponent implements OnInit {
     private actions$: Actions,
     private fb: FormBuilder,
     private utilityService: UtilityService
-  ) { }
+  ) { 
+    const userAgent = navigator.userAgent;
+    if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
+     this.deviceModel = 'iPad or iPhone';
+   } else if (userAgent.match(/Android/i)) {
+     this.deviceModel = 'Android';
+   } else if (userAgent.match(/Window/i)) {
+     this.deviceModel = 'Window';
+   } else {
+     this.deviceModel = 'Other';
+   }
+  }
 
   ngOnInit(): void {
     const data: any = localStorage.getItem('userData')
     this.institutionData = JSON.parse(data)
     this.institutionId = this.institutionData.InstitutionId
     this.initUploadForm()
+    this.initBulkUploadForm()
     
     this.store.dispatch(getALlDepartmentInInstitution({id: this.institutionId}))
     this.store.dispatch(getALlFacultiesInInstitution({id: this.institutionId}))
@@ -68,23 +88,42 @@ export class UploadRecordsComponent implements OnInit {
       this.years.push(index)
 
     }
+
+
   }
 
   loadIp() {
     this.utilityService.getuserIP().subscribe((res: any) => {
+      this.ipAddress = res.query;
       const filter = {...this.degreeFilter, ['IpAddress'] : res.ip}
       this.degreeFilter = filter
     })
     
   }
 
+  selecUploadType(unit: any) {
+    this.selectedFileUploadType = unit.name
+    if (unit.name === 'bulk') {
+      this.isBulkUpload = true;
+    } else {
+
+      this.isBulkUpload = false;
+    }
+  }
+
   initUploadForm() {
-    this.uploadRecordForm = this.fb.group({
+    this.simpleuploadRecordForm = this.fb.group({
       faculty: [null, Validators.required],
       department: [null, Validators.required],
       degreeType: [null, Validators.required],
       yearOfGraduation: [null, Validators.required],
-      Document: null
+      Document: [null, Validators.required]
+    })
+  }
+  initBulkUploadForm() {
+    this.bulkuploadRecordForm = this.fb.group({
+     
+      Document: [null, Validators.required]
     })
   }
 
@@ -103,14 +142,36 @@ export class UploadRecordsComponent implements OnInit {
 		  return;
 		} else {
       this.selectedFile = e.target.files[0]
-      this.uploadRecordForm.controls['Document'].setValue(file)
+      this.simpleuploadRecordForm.controls['Document'].setValue(file)
+      this.uploadFile(file);
+    }
+  }
+  handleBulkFileUpload(e: any) {
+    const file = e.target.files[0];
+    ////console.log(file)
+    if (!this.allowedFiled.includes(file.type)) {
+		  alert("Invalid format! Please select only correct file type");
+
+		  return;
+		} else {
+      this.selectedFile = e.target.files[0]
+      this.bulkuploadRecordForm.controls['Document'].setValue(file)
       this.uploadFile(file);
     }
   }
 
 
   downloadFormat() {
-    this.store.dispatch(downloadRecordUploadFormat({payload: {institutionId: this.institutionId}}))
+    const payload = {
+      institutionId: this.institutionId,
+      isBulkUpload: this.isBulkUpload,
+      imei: '',
+  serialNumber: '',
+  device: this.deviceModel,
+  ipAddress: this.ipAddress 
+    }
+    // this.store.dispatch(downloadRecordUploadFormat({payload: {institutionId: this.institutionId}}))
+    this.store.dispatch(downloadRecordUploadFormat({payload}))
     this.actions$.pipe(ofType(downloadRecordUploadFormatSuccess)).subscribe((res: any) => {
       const link = document.createElement('a');
       ////console.log(res)
@@ -152,7 +213,7 @@ export class UploadRecordsComponent implements OnInit {
 
 submitUpload() {
   const data = {
-    ...this.uploadRecordForm.value,
+    ...this.simpleuploadRecordForm.value,
     institutionId: this.institutionId
   }
   this.store.dispatch(uploadGraduateRecord({payload: data}))
@@ -161,6 +222,21 @@ submitUpload() {
    if (res.payload.hasErrors === false) {
     localStorage.setItem('recordUpload', JSON.stringify(res.payload.payload))
     this.router.navigateByUrl(`/institution/uploads/confirm-uploads`)
+
+   }
+ })
+}
+submitBulkUpload() {
+  const data = {
+    ...this.bulkuploadRecordForm.value,
+    institutionId: this.institutionId
+  }
+  this.store.dispatch(uploadBulkGraduateRecord({payload: data}))
+  this.actions$.pipe(ofType(uploadBulkGraduateRecordSuccess)).subscribe((res: any) => {
+   ////console.log(res)
+   if (res.payload.hasErrors === false) {
+    localStorage.setItem('recordUpload', JSON.stringify(res.payload.payload))
+    this.router.navigateByUrl(`/institution/uploads`)
 
    }
  })

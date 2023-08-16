@@ -146,6 +146,20 @@ export class GraduatesService
     );
   }
 
+  uploadBulkGraduateRecord(payload: any) {
+    const body = new FormData();
+    body.append('InstitutionId', payload.institutionId);
+    // body.append('FacultyId', payload.faculty);
+    // body.append('DepartmentId', payload.department);
+    // body.append('DegreeTypeId', payload.degreeType);
+    // body.append('YearOfGraduation', payload.yearOfGraduation);
+    body.append('File', payload.Document);
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/BulkUploadGraduates`,
+      body
+    );
+  }
+
   createGraduateRecord(payload: any) {
     return this.http.post<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/CreateGraduates`,
