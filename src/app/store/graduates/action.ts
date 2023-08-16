@@ -135,6 +135,17 @@ export const uploadGraduateRecordSuccess = createAction(
   '[Graduates] upload graduate records file success',
   props<{ payload: any }>()
 );
+export const uploadBulkGraduateRecord = createAction(
+  '[Graduates] upload graduate records in bulk file ',
+  props<{
+    payload: any;
+  }>()
+);
+
+export const uploadBulkGraduateRecordSuccess = createAction(
+  '[Graduates] upload graduate records in bulk file success',
+  props<{ payload: any }>()
+);
 
 export const createGraduateRecord = createAction(
   '[Graduates] create graduate records ',
