@@ -124,6 +124,17 @@ export const downloadRecordUploadFormatSuccess = createAction(
   '[Graduates] download graduate record upload file success',
   props<{ payload: any }>()
 );
+export const getRecordsInABatch = createAction(
+  '[Graduates] get records in a batch ',
+  props<{
+    payload: any;
+  }>()
+);
+
+export const getRecordsInABatchSuccess = createAction(
+  '[Graduates] get records in a batch success',
+  props<{ payload: any }>()
+);
 export const uploadGraduateRecord = createAction(
   '[Graduates] upload graduate records file ',
   props<{

@@ -1,9 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { GraduatesService } from 'src/app/core/services/graduates/graduates.service';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { downloadRecordUploadFormat, downloadRecordUploadFormatSuccess, uploadBulkGraduateRecord, uploadBulkGraduateRecordSuccess, uploadGraduateRecord, uploadGraduateRecordSuccess } from 'src/app/store/graduates/action';
 import { getALlDepartmentInInstitution, getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess, getAllInstitutionDegreeType, getAllInstitutionDegreeTypeSuccess } from 'src/app/store/institution/action';
@@ -45,6 +47,7 @@ uploadType=[
   ipAddress: any;
   deviceModel: string;
   isBulkUpload: boolean = false;
+  showProgress: boolean = false;
   constructor(
      private route: ActivatedRoute,
     private router: Router,
@@ -52,7 +55,9 @@ uploadType=[
     private appStore: Store<AppStateInterface>,
     private actions$: Actions,
     private fb: FormBuilder,
-    private utilityService: UtilityService
+    private utilityService: UtilityService,
+    private graduateService: GraduatesService,
+    private notification: NotificationsService
   ) { 
     const userAgent = navigator.userAgent;
     if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
@@ -175,7 +180,7 @@ uploadType=[
     this.actions$.pipe(ofType(downloadRecordUploadFormatSuccess)).subscribe((res: any) => {
       const link = document.createElement('a');
       ////console.log(res)
-       link.download = `${res.payload?.fileName}.xlsx`;
+       link.download = `${res.payload?.fileName}`;
        link.href = 'data:image/png;base64,' + res.payload?.base64;
        link.click();
    })
@@ -231,15 +236,26 @@ submitBulkUpload() {
     ...this.bulkuploadRecordForm.value,
     institutionId: this.institutionId
   }
-  this.store.dispatch(uploadBulkGraduateRecord({payload: data}))
-  this.actions$.pipe(ofType(uploadBulkGraduateRecordSuccess)).subscribe((res: any) => {
-   ////console.log(res)
-   if (res.payload.hasErrors === false) {
-    localStorage.setItem('recordUpload', JSON.stringify(res.payload.payload))
-    this.router.navigateByUrl(`/institution/uploads`)
+  this.graduateService.uploadBulkGraduateRecordSync(data).subscribe((resp: HttpEvent<any>) => {
+    if (resp.type === HttpEventType.Response) {
+      // console.log('Upload complete');
+      this.notification.publishMessages('success', 'File completely uploaded')
+      this.router.navigateByUrl(`/institution/uploads`)
+  }
+  if (resp.type === HttpEventType.UploadProgress) {
+      const percentDone = Math.round((100 * resp.loaded) / resp.total!)
+      // console.log('Progress ' + percentDone + '%', resp.loaded , resp.total!);
+      this.showProgress = true;
+  } 
+  })
+//   this.store.dispatch(uploadBulkGraduateRecord({payload: data}))
+//   this.actions$.pipe(ofType(uploadBulkGraduateRecordSuccess)).subscribe((res: any) => {
+//    ////console.log(res)
+//    if (res.payload.hasErrors === false) {
+//     localStorage.setItem('recordUpload', JSON.stringify(res.payload.payload))
 
-   }
- })
+//    }
+//  })
 }
 
 }

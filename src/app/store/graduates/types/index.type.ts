@@ -43,6 +43,7 @@ export interface GraduatesStateInterface {
     graduateRecord: any;
   graduateRecordUploadFormat: any;
   graduateBulkRecordUploadFormat: any;
+  recordsInABatch: any;
   uploadRecord: any;
   createGraduaterecord: any;
   graduateRequestRecord: any;
