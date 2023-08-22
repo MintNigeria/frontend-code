@@ -167,7 +167,7 @@ export class FundWalletComponent implements OnInit {
     }
     this.store.dispatch(validateOrganizationFundWallet({payload}))
     this.actions$.pipe(ofType(validateOrganizationFundWalletSuccess)).subscribe((res: any) => {
-      console.log(res)
+      // console.log(res)
       this.notification.publishMessages('success', res.payload.description)
       this.router.navigateByUrl('/graduate/transactions')
     })

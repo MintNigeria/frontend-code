@@ -34,11 +34,11 @@ time: any;
   ];
 
   constructor(
-    // private timer: TimerService
+    private timer: TimerService
   ) { }
 
   ngOnInit(): void {
-    // this.time = this.timer;
+    this.time = this.timer;
   }
 
   prevSlide() {

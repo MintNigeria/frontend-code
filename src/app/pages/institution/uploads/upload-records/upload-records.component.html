@@ -301,7 +301,7 @@
                                             alt="delete_icon">
                                         </div>
                                     </div>
-                                    <div class="relative mt-6 flex gap-2 items-center">
+                                    <div class="relative mt-6 flex gap-2 items-center" *ngIf="!showProgress">
                                         <div 
                                         class="overflow-hidden h-2 text-xs flex rounded bg-gray-200 border w-full">
                                             <div 
@@ -312,9 +312,14 @@
                                             <div>100%</div>
                                         </div>
                                     </div>
+
                                 </div>
                                 
                                 
+                            </div>
+                            <div *ngIf="showProgress" class="flex justify-center my-4 ">
+
+                                <progress class="progress w-56"></progress>
                             </div>
                         </div>
                         <div class="flex justify-end mt-6">

@@ -131,6 +131,12 @@ export class GraduatesService
       { params: payload }
     );
   }
+  getGraduateInABatch(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/GetInstitutionGraduatesFromABatch`,
+      { params: payload }
+    );
+  }
 
   uploadGraduateRecord(payload: any) {
     const body = new FormData();
@@ -157,6 +163,20 @@ export class GraduatesService
     return this.http.post<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/BulkUploadGraduates`,
       body
+    );
+  }
+  uploadBulkGraduateRecordSync(payload: any) {
+    const body = new FormData();
+    body.append('InstitutionId', payload.institutionId);
+    // body.append('FacultyId', payload.faculty);
+    // body.append('DepartmentId', payload.department);
+    // body.append('DegreeTypeId', payload.degreeType);
+    // body.append('YearOfGraduation', payload.yearOfGraduation);
+    body.append('File', payload.Document);
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/BulkUploadAsyncRealTime`,
+      body, {reportProgress: true,
+        observe: 'events'}
     );
   }
 
