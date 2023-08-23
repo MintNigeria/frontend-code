@@ -254,11 +254,11 @@ export class GraduateVerificationPaymentComponent implements OnInit {
     }
     this.store.dispatch(validateOrganizationFundWallet({payload}))
     this.actions$.pipe(ofType(validateOrganizationFundWalletSuccess)).subscribe((res: any) => {
-      console.log(res)
+      console.log(res.payload.payload)
       if (res) {
-        this.notification.publishMessages('success', 'successful')
+        this.notification.publishMessages('success', res.payload.description)
         // this.router.navigate(['organization/verifications']); 
-        this.router.navigateByUrl(`/organization/verifications/view-verified-documents/${res.payload.payload.institutionGraduateId}`)     
+        this.router.navigateByUrl(`/organization/verifications/view-verified-record/${res.payload.payload.institutionGraduateId}`)     
 
       }
 
