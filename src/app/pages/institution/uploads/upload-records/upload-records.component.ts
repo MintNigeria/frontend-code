@@ -9,7 +9,10 @@ import { NotificationsService } from 'src/app/core/services/shared/notifications
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { downloadRecordUploadFormat, downloadRecordUploadFormatSuccess, uploadBulkGraduateRecord, uploadBulkGraduateRecordSuccess, uploadGraduateRecord, uploadGraduateRecordSuccess } from 'src/app/store/graduates/action';
 import { getALlDepartmentInInstitution, getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess, getAllInstitutionDegreeType, getAllInstitutionDegreeTypeSuccess } from 'src/app/store/institution/action';
+import { setAPILoadingState } from 'src/app/store/shared/app.action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
+import { ActionConfirmationModalComponent } from 'src/app/shared/components/action-confirmation-modal/action-confirmation-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-upload-records',
@@ -57,7 +60,9 @@ uploadType=[
     private fb: FormBuilder,
     private utilityService: UtilityService,
     private graduateService: GraduatesService,
-    private notification: NotificationsService
+    private notification: NotificationsService,
+    private  dialog: MatDialog
+
   ) { 
     const userAgent = navigator.userAgent;
     if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
@@ -246,16 +251,34 @@ submitBulkUpload() {
       const percentDone = Math.round((100 * resp.loaded) / resp.total!)
       // console.log('Progress ' + percentDone + '%', resp.loaded , resp.total!);
       this.showProgress = true;
+      this.appStore.dispatch(
+        setAPILoadingState({ apiLoading: { isLoading: false } })
+      );
   } 
   })
-//   this.store.dispatch(uploadBulkGraduateRecord({payload: data}))
-//   this.actions$.pipe(ofType(uploadBulkGraduateRecordSuccess)).subscribe((res: any) => {
-//    ////console.log(res)
-//    if (res.payload.hasErrors === false) {
+
+  //   this.store.dispatch(uploadBulkGraduateRecord({payload: data}))
+  //   this.actions$.pipe(ofType(uploadBulkGraduateRecordSuccess)).subscribe((res: any) => {
+    //    ////console.log(res)
+    //    if (res.payload.hasErrors === false) {
 //     localStorage.setItem('recordUpload', JSON.stringify(res.payload.payload))
 
 //    }
 //  })
+}
+
+goBack() {
+  this.dialog.open(ActionConfirmationModalComponent, {
+    width: '',
+    height: '',
+    data: {
+      question:  'Are you sure you want to leave this page to continue other operations?',
+      title: 'Leave Page'
+    }
+  }).afterClosed().subscribe((res: any) => {
+  
+    this.router.navigateByUrl('/institution/uploads')
+  })
 }
 
 }

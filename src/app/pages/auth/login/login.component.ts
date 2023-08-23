@@ -16,6 +16,7 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { SingleSessionModalComponent } from 'src/app/shared/components/single-session-modal/single-session-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import { TimerService } from 'src/app/shared/util/timer.service';
 
 @Component({
   selector: 'app-login',
@@ -41,7 +42,9 @@ export class LoginComponent implements OnInit {
     private actions$: Actions,
     private dialog: MatDialog,
     private notificationService: NotificationsService,
-    private utility: UtilityService
+    private utility: UtilityService,
+    // private timerService: TimerService
+
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +56,7 @@ export class LoginComponent implements OnInit {
         email: a
       })
     }
+    // this.timerService.initListener()
   }
 
   initLoginForm() {

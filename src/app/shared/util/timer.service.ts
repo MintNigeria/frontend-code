@@ -1,7 +1,5 @@
 import { Injectable } from "@angular/core";
 import { Router, ActivatedRoute } from '@angular/router'
-import { filter } from "rxjs";
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from "src/app/core/services/auth/auth.service";
 import { Store } from "@ngrx/store";
 import { logoutAction } from "src/app/store/auth/action";
@@ -35,29 +33,13 @@ export class TimerService {
       this.userData = JSON.parse(data)
   
     this.token = localStorage.getItem('token')
-    this.check();
     this.initListener();
     this.initInterval();
-    
     localStorage.setItem(STORE_KEY,Date.now().toString());
-    // setInterval(() => {
-    //   if (this.isIdle()) {
-    //     this.lockUser();
-    //   }
-    // }, 300000 ); // 1 minute in milliseconds
+    this.check();
+    
 }
 
-// isIdle() {
-//   return !document.body.classList.contains('active');
-// }
-
-// lockUser() {
-//   const currentURL = window.location.href;
-//   const path = new URL(currentURL).pathname;
-//   // this.router.navigate(['/idle-user'], { queryParams: { returnUrl: path } });
-
-  
-// }
 
   initListener() {
     document.body.addEventListener('click', () => this.reset());
@@ -71,8 +53,6 @@ export class TimerService {
 }
 
   reset() {
-// console.log( this.route.snapshot.queryParams['returnUrl'])
-
     this.setLastAction(Date.now());
 
   }
@@ -88,11 +68,11 @@ export class TimerService {
     const timeleft = this.getLastAction() + MINUTES_UNITL_AUTO_LOGOUT * 60 * 1000;
     const diff = timeleft - now;
     const isTimeout = diff < 0;
-    // const helper = new JwtHelperService();
+    // console.log('Diff', diff, isTimeout)
 
     // const expirationDate = helper.isTokenExpired(String(this.token));
     if (isTimeout)  {
-      // console.log('I don time out oooooooo', isTimeout)
+      // console.log('I timed out ', isTimeout)
       this.logOut()
     }
   }
