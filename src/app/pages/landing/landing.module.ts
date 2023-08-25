@@ -34,6 +34,7 @@ import { StoreModule } from '@ngrx/store';
 import { UtilityEffects } from 'src/app/store/institution copy/effects';
 import { RequestDemoComponent } from './request-demo/request-demo.component';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { CountdownComponent } from './countdown/countdown.component';
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
     TranscriptServiceComponent,
     CreateAccountModalComponent,
     RequestDemoComponent,
+    CountdownComponent,
   ],
   imports: [
     CommonModule,
