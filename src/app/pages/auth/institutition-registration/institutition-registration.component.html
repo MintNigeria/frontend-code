@@ -51,7 +51,7 @@
         <div class="w-full md:w-1/2 px-3  md:mb-0" >
           <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Institution
             Sector <span class="text-danger">*</span> </label>
-          <ng-select class="custom-ng-dropdown" (change)="selectInstitutionSector($event)" formControlName="institutionSectorId" [selectOnTab]="true"
+          <ng-select class="custom-ng-dropdown"  formControlName="institutionSectorId" [selectOnTab]="true"
             placeholder="Select Institution sector">
             <ng-option *ngFor="let unit of institutionSectorList" [value]="unit.id">{{unit.name}}</ng-option>
           </ng-select>

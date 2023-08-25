@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.log(this.permissionList, this.superAdminRole)
+    // console.log(this.permissionList, this.superAdminRole)
     const data: any = localStorage.getItem('userData')
     this.institutionData = JSON.parse(data)
     this.institutionId = this.institutionData.InstitutionId
