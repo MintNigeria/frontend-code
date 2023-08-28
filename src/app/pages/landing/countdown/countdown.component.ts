@@ -19,7 +19,7 @@ seconds: any;
   }
 
   updateCountdown() {
-    const targetDate = new Date('2023-09-15T00:00:00'); 
+    const targetDate = new Date('2023-09-14T00:00:00'); 
     const currentDate = new Date();
 
     const timeDifference = targetDate.getTime() - currentDate.getTime();
