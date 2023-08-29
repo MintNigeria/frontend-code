@@ -17,7 +17,7 @@ export class CarouselComponent implements OnInit {
       id: 'slide1',
       image: 'assets/images/main/carousel-1.jpg',
       header: 'Transcript requests and certificate verification just got better.',
-      text: 'VAC is your one-stop solution for all your academic verification needs. With VAC, you can easily request for your academic transcripts and have them verified with just a few clicks. Our platform provides fast and secure verification services, making the process of job applications, further education and other verification needs hassle-free.',
+      text: 'The VAC solution is an innovative digital solution that streamlines and automates the process of certificate verification, as well as manage and facilitate transcript requests.',
       buttonOne: 'Request For Demo',
       buttonOneRoute: '/request-demo',
       buttonTwo: 'See how it works',
