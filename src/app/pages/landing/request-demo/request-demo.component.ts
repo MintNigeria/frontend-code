@@ -39,20 +39,22 @@ export class RequestDemoComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', Validators.required],
-      phoneNumber : [''],
+      phoneNumber : ['', Validators.required],
       jobTitle: [''],
+      Organization : [''],
       message: [''],
     })
   }
 
   submit() {
-    const {firstName, lastName, email, phoneNumber, jobTitle, message } = this.contactForm.value;
+    const {firstName, lastName, email, phoneNumber, jobTitle, message, Organization } = this.contactForm.value;
     const payload = {
       firstName,
       lastName,
       email,
       phoneNumber: phoneNumber.internationalNumber,
       jobTitle,
+      Organization,
       message
     }
     this.store.dispatch(requestForDemo({payload: payload}))
