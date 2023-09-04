@@ -38,4 +38,8 @@ export class NavBarComponent implements OnInit {
     this.showServices = !this.showServices
   }
 
+  mobileMenuOpenOption() {
+    this.mobileMenuOpen = !this.mobileMenuOpen
+  }
+
 }
