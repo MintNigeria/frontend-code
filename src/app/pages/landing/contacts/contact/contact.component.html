@@ -55,9 +55,9 @@
     <div class="w-full md:w-1/2 mt-8 md:mt-0 border rounded-lg p-4 md:p-12">
       <form [formGroup]="contactForm">
          <div class="flex gap-3 w-auto">
-          <div class="">
+          <div class="md:w-1/2 md-full">
               <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                  First Name
+                  First Name <span class="text-danger font-bold">*</span>
               </label>
               <app-input 
               [formGrp]="contactForm" 
@@ -67,9 +67,9 @@
               Issuer=""
               [name]="'name'"></app-input>
           </div>
-          <div class="mb-2">
+          <div class="md:w-1/2 md-full">
               <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                  Last Name
+                  Last Name <span class="text-danger font-bold">*</span>
               </label>
               <app-input 
               [formGrp]="contactForm" 
@@ -82,7 +82,7 @@
         </div>
         <div class="mb-2">
               <label class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">
-                  Email
+                  Email <span class="text-danger font-bold">*</span>
               </label>
               <app-input 
               [formGrp]="contactForm" 
@@ -92,25 +92,34 @@
               Issuer=""
               [name]="'name'"></app-input>
           </div>
-        <div class="mb-4">
-          <label for="phone-number" 
-          class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">Phone Number</label>
-          <div class="flex border rounded-lg">
-            <select id="country-code" class="rounded-l-lg bg-white border w-32">
-              <option *ngFor="let countryCode of countryCodes" [value]="countryCode.code" [selected]="countryCode.default">
-                {{ countryCode.code }}
-              </option>
-            </select>
-            <app-input
-            [formGrp]="contactForm" 
-            formCtrlName="PhoneNumber" 
-            [type]="'tel'" 
-            id="phone-number" 
-            class="px-4 h-[52px] w-full bg-white border-none focus:bg-white  rounded-r-lg border-[#D0D5DD] placeholder:font-inter placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
-            </app-input>
+          <div class="mb-4">
+            <label for="phone-number" 
+            class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">Phone Number <span class="text-danger font-bold">*</span></label>
+            <div class="w-full mt-2">
+                <ngx-intl-tel-input
+                [cssClass]="'phone-number-field h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'"
+                [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="true"
+                [searchCountryFlag]="true"
+                [selectFirstCountry]="false"
+                [searchCountryField]="[
+                  SearchCountryField.Iso2,
+                  SearchCountryField.Name
+                ]"
+                [phoneValidation]="true"
+                [selectedCountryISO]="CountryISO.Nigeria"
+                [maxLength]="15"
+                [phoneValidation]="true"
+                [separateDialCode]="separateDialCode"
+                [numberFormat]="PhoneNumberFormat.National"
+                name="phoneNumber"
+                aria-autocomplete="phoneno"
+                formControlName="phoneNumber"
+                type="tel"
+                            >
+                            </ngx-intl-tel-input>
+              </div>
           </div>
-        </div>
-
         <div class="mb-4">
           <label for="subject" 
           class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">Subject</label>
