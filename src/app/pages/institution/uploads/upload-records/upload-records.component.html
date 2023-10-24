@@ -343,5 +343,42 @@
                 </ng-container>
         </div>
     </div>
+
+    <label id="myModal" for="messageModal" class="hidden "></label>
+
+    <app-modal [id]="modalId">
+      <div class="modal-box bg-white  p-8 w-fit   max-w-5xl">
+       
+        <div class=" mt-5   w-full" >
+          <div class="rounded-lg mb-4">
+            <div class="flex flex-col items-center gap-5">
+              <!-- <img src="assets/images/approval-modal.svg" class="mb-5" alt=""> -->
+              <form>
+                <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">
+                    Enter API Endpoint <span class="text-danger">*</span> </label>
+                  <app-input [formGrp]="bulkApiEndpoint" formCtrlName="endpoint" [type]="'text'" [class]="
+                            'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                          " placeholder="Enter endpoint" [name]="'endpoint'"></app-input>
+              </form>
+  
+            </div>
+          </div>
+  
+          <div class="flex justify-center items-center">
+            <!-- <div *ngIf="showApiProgress"  class="flex justify-center my-4 ">
+
+                <progress class="progress w-56"></progress>
+               
+              
+            </div> -->
+            <app-button  (buttonClick)="submitEndpoint()"   [overRideButtonClass]="true"
+              customClass="w-32 h-12 rounded-lg font-normal text-base text-white leading-6 bg-primaryBlue">Continue
+            </app-button>
+          </div>
+  
+        </div>
+       
+      </div>
+    </app-modal>
    
 </div>

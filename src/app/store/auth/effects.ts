@@ -58,7 +58,7 @@ export class AuthEffects {
         );
 
         const { payload } = action;
-        loginSuccess({ accessToken: '' });
+        // loginSuccess({ accessToken: '' });
         return this.authService.login(payload).pipe(
           map((data) => {
             this.appStore.dispatch(

@@ -1,0 +1,16 @@
+.bg {
+    background-image: url('../../../../../../../assets/images/bgconfidential.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    // backdrop-filter: ;
+}
+
+@media print {
+    
+    .bg {
+        background-image: url('../../../../../../../assets/images/bgconfidential.png');
+        background-position: center center;
+        background-repeat: no-repeat;
+        // backdrop-filter: ;
+    }
+}
