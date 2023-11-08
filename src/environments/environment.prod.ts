@@ -9,6 +9,4 @@ export const environment = {
 
   pkKey: 'pk_test_eb4b13434160b570438c8b4ce2cc1c4601c4fc94',
   // pkKey: 'pk_test_dc7c232fe6f9d7ff3eaeeda082074ef765244dbf',
-
-
 };
