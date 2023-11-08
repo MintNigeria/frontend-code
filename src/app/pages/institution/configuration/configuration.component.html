@@ -1,7 +1,7 @@
 <div class="bg-white p-6">
     <div [routerLink]="'/institution/configuration'" class="flex  items-center md:gap-4 gap-2 ">
         <div>
-            <img  src="assets/images/icons/home.svg">
+            <img src="assets/images/icons/home.svg">
         </div>
         <div>
             <img src="assets/images/icons/forward_arrow.svg">
@@ -22,7 +22,8 @@
                 Configuration
             </h4>
             <p class="text-lightGray font-inter md:text-base text-sm font-medium cursor-pointer">
-                A fee-setting configuration to create specific pricing on academic documents based on its delivery options.
+                A fee-setting configuration to create specific pricing on academic documents based on its delivery
+                options.
             </p>
         </div>
     </div>
@@ -45,12 +46,17 @@
             </div>
             <div routerLink="/institution/configuration/institution-setup" #rlaRoles="routerLinkActive"
                 class="flex gap-2 items-center textLight no-underline text-xs  cursor-pointer sm:text-base font-normal pb-[18px] active"
-                 routerLinkActive="activeLink">
+                routerLinkActive="activeLink">
                 Institution setup
+            </div>
+            <div routerLink="/institution/configuration/api-configuration" #rlaRoles="routerLinkActive"
+                class="flex gap-2 items-center textLight no-underline text-xs cursor-pointer sm:text-base font-normal pb-[18px] active"
+                routerLinkActive="activeLink">
+                API Configuration
             </div>
         </div>
     </div>
-    
+
 
     <div class="mt-6">
         <router-outlet></router-outlet>

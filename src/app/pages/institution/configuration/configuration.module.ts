@@ -26,6 +26,7 @@ import { CreateFacultyComponent } from './create-faculty/create-faculty.componen
 import { InstitutionIndexComponent } from './institution-setup/institution-index/institution-index.component';
 import { InstitutionGradeComponent } from './institution-setup/institution-grade/institution-grade.component';
 import { CreateGradeComponent } from './create-grade/create-grade.component';
+import { ApiConfigurationComponent } from './api-configuration/api-configuration.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { CreateGradeComponent } from './create-grade/create-grade.component';
     CreateFacultyComponent,
     InstitutionIndexComponent,
     InstitutionGradeComponent,
-    CreateGradeComponent
+    CreateGradeComponent,
+    ApiConfigurationComponent
   ],
   imports: [
     CommonModule,
