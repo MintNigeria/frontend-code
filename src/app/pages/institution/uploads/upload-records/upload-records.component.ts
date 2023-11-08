@@ -13,6 +13,7 @@ import { setAPILoadingState } from 'src/app/store/shared/app.action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { ActionConfirmationModalComponent } from 'src/app/shared/components/action-confirmation-modal/action-confirmation-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { BulkApiType } from 'src/app/types/index.types';
 
 @Component({
   selector: 'app-upload-records',
@@ -31,7 +32,8 @@ export class UploadRecordsComponent implements OnInit {
   departmentList: any;
 uploadType=[
   {name: 'simple', description: 'This template contains doesnt not contain columns like Faculty, department, and Year' },
-  {name: 'bulk', description: 'This template contains column like Program, Faculty, Department, Degree,  Year of Graduation' }
+  {name: 'bulk', description: 'This template contains column like Program, Faculty, Department, Degree,  Year of Graduation' },
+  {name: 'API Upload', description: 'Upload record by entering API endpoint that returns a structure data' },
 ]
   years: Array<any> = [];
 
@@ -51,6 +53,10 @@ uploadType=[
   deviceModel: string;
   isBulkUpload: boolean = false;
   showProgress: boolean = false;
+  bulkApiEndpoint!: FormGroup;
+  modalId = 'messageModal'
+  showApiProgress: boolean = false;
+
   constructor(
      private route: ActivatedRoute,
     private router: Router,
@@ -62,7 +68,6 @@ uploadType=[
     private graduateService: GraduatesService,
     private notification: NotificationsService,
     private  dialog: MatDialog
-
   ) { 
     const userAgent = navigator.userAgent;
     if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
@@ -98,6 +103,9 @@ uploadType=[
       this.years.push(index)
 
     }
+    this.bulkApiEndpoint = this.fb.group({
+      endpoint: ['', Validators.required]
+    })
 
 
   }
@@ -115,9 +123,11 @@ uploadType=[
     this.selectedFileUploadType = unit.name
     if (unit.name === 'bulk') {
       this.isBulkUpload = true;
-    } else {
+    } else if (unit.name === 'simple') {
 
       this.isBulkUpload = false;
+    } else {
+      this.launchEndpointModal()
     }
   }
 
@@ -279,6 +289,52 @@ goBack() {
   
     this.router.navigateByUrl('/institution/uploads')
   })
+}
+
+launchEndpointModal() {
+  document.getElementById('myModal')?.click()
+}
+
+
+submitEndpoint() {
+  const {endpoint} = this.bulkApiEndpoint.value
+  this.utilityService.getCustomFieldEndpoint(endpoint).subscribe((res: any) => {
+    console.log(res)
+    this.showApiProgress = true;
+    const isDataStructureTrue = this.isArrayTypeEqual(res)
+    console.log(isDataStructureTrue)
+    if (res) {
+      const data = {
+        apiAddInstitutionGraduateVMs: res,
+        imei: '',
+        serialNumber: '',
+        device: this.deviceModel,
+        ipAddress: this.ipAddress 
+      }
+
+      this.callBulkApiEndpoint(data)
+    }
+    // if()
+  })
+}
+
+
+callBulkApiEndpoint(data: any) {
+  this.graduateService.uploadBulkGraduateRecordViaApi(data).subscribe((res: any) => {
+    console.log(res)
+    if (res.hasErrors === false) {
+  document.getElementById('myModal')?.click()
+  this.notification.publishMessages('success', res.description)
+  this.router.navigateByUrl('/institution/uploads')
+
+    }
+  });
+}
+
+isArrayTypeEqual(array: any[]) {
+ array.every((item) => {
+  return typeof item === "object" && item instanceof Object && !(item instanceof Array);
+})
 }
 
 }

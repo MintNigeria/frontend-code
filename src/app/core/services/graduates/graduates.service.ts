@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseURI } from '../shared/baseURI.shared';
+import { BulkApiType } from 'src/app/types/index.types';
 
 abstract class AbstractGraduateService {
   abstract getAllInstitutionGraduates(
@@ -177,6 +178,19 @@ export class GraduatesService
       `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/BulkUploadAsyncRealTime`,
       body, {reportProgress: true,
         observe: 'events'}
+    );
+  }
+  uploadBulkGraduateRecordViaApi(payload: any) {
+    // const body = new FormData();
+    // body.append('InstitutionId', payload.institutionId);
+    // // body.append('FacultyId', payload.faculty);
+    // // body.append('DepartmentId', payload.department);
+    // // body.append('DegreeTypeId', payload.degreeType);
+    // // body.append('YearOfGraduation', payload.yearOfGraduation);
+    // body.append('File', payload.Document);
+    return this.http.post<Array<BulkApiType>>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/CreateGraduatesAPI`,
+      payload
     );
   }
 

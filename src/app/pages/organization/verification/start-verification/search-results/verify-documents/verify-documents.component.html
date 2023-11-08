@@ -57,50 +57,45 @@
   </div>
   <!---->
   <!---->
-  <div class="mt-3 print:mt-0 bg-white flex justify-center" id="document">
-    <div class="flex flex-wrap mt-3  rounded-xl bg-white border border-solid border-[#EFF0F6]  w-3/4 print:w-full">
+  <div class="mt-3 print:mt-0 bg-white flex justify-center " id="document">
+    <div class="flex flex-wrap mt-3  rounded-xl bg-white bg border border-solid border-[#EFF0F6]  w-3/4 print:w-full">
       <div class="flex justify-between items-center w-full px-10 py-6">
         <img src="assets/images/main/vac-logo.png" alt="logo">
                 <img src="data:image/png;base64,{{graduateData?.institutionLogo}}" alt="Institution Logo" class="w-14 h-14 border rounded-full object-cover">
       </div>
       <div class="w-full rounded-xl ">
         <div class="">
-          <div class="bg-tabBlue p-6 mb-6 rounded-xl">
-            <h2 class="text-lg font-medium font-inter text-darkGray">Student Details</h2>
+          <div class="bg-[#4472C4] print:bg-[#4472C4] p-3 mb-6 rounded-xl text-white">
+            <h2 class="text-lg font-medium font-inter text-center text-white">This is to certify</h2>
           </div>
-          <div class="bg-white -mt-5">
-            <div class="bg-white p-4 grid grid-cols-2 items-center">
+          <div class=" -mt-5">
+            <p class="text-base font-inter font-normal mb-3 text-lightGray text-center py-10">The NAME <span class="text-black font-bold">“{{graduateData?.fullName}}”</span> has a verified certificate with <span class="text-black font-bold">“{{graduateData?.academicInformation?.institutionName}}”</span>.</p>
+            <!-- <div class="bg-white p-4 grid grid-cols-2 items-center">
               <p class="text-base font-inter font-normal mb-3 text-lightGray">Full Name:</p>
               <div class="flex items-center">
                 <p class="text-base font-inter font-medium mb-3 text-darkGray">{{graduateData?.fullName}}</p>
               </div>
-            </div>
+            </div> -->
           </div>
-
-          <div class="bg-white -mt-5">
-            <div class="bg-white p-4 grid grid-cols-2 items-center">
-              <p class="text-base font-inter font-normal mb-3 text-lightGray">Gender:</p>
-              <div class="flex items-center">
-                <p class="text-base font-inter font-medium mb-3 text-darkGray">{{graduateData?.gender}}</p>
-              </div>
-            </div>
+          <div class="bg-[#4472C4] print:bg-[#4472C4] p-3 mb-6 rounded-xl text-white">
+            <h2 class="text-lg font-medium font-inter text-center text-white">Credentials</h2>
           </div>
-
+     
         </div>
         <div class="rounded-b-xl print:p-0">
-          <div class="bg-tabBlue p-6  mb-6">
+          <!-- <div class="bg-tabBlue p-6  mb-6">
             <h2 class="text-lg font-medium font-inter text-darkGray">Academic Details</h2>
-          </div>
-          <div class="bg-white -mt-5">
-            <div class="bg-white p-4 grid grid-cols-2 items-center">
-              <p class="text-base font-inter font-normal mb-3 text-lightGray">Institution:</p>
+          </div> -->
+          <div class=" -mt-5">
+            <div class=" p-4 grid grid-cols-2 items-center">
+              <p class="text-base font-inter  mb-3 text-black font-medium">School:</p>
               <div class="flex items-center">
                 <p class="text-base font-inter font-medium mb-3 text-darkGray">
                   {{graduateData?.academicInformation?.institutionName}}</p>
               </div>
             </div>
           </div>
-          <div class="bg-white -mt-5">
+          <!-- <div class="bg-white -mt-5">
             <div class="bg-white p-4 grid grid-cols-2 items-center">
               <p class="text-base font-inter font-normal mb-3 text-lightGray">Faculty:</p>
               <div class="flex items-center">
@@ -108,17 +103,17 @@
                   {{graduateData?.academicInformation?.facultyName}}</p>
               </div>
             </div>
-          </div>
-          <div class="bg-white -mt-5">
-            <div class="bg-white p-4 grid grid-cols-2 items-center">
-              <p class="text-base font-inter font-normal mb-3 text-lightGray">Department:</p>
+          </div> -->
+          <div class=" -mt-5">
+            <div class=" p-4 grid grid-cols-2 items-center">
+              <p class="text-base font-inter  mb-3 text-black font-medium">Department:</p>
               <div class="flex items-center">
                 <p class="text-base font-inter font-medium mb-3 text-darkGray">
                   {{graduateData?.academicInformation?.department}}</p>
               </div>
             </div>
           </div>
-          <div class="bg-white -mt-5">
+          <!-- <div class="bg-white -mt-5">
             <div class="bg-white p-4 grid grid-cols-2 items-center">
               <p class="text-base font-inter font-normal mb-3 text-lightGray">Matric Number:</p>
               <div class="flex items-center">
@@ -126,26 +121,26 @@
                   {{graduateData?.academicInformation?.matriculationNumber}}</p>
               </div>
             </div>
-          </div>
-          <div class="bg-white -mt-5">
-            <div class="bg-white p-4 grid grid-cols-2 items-center">
-              <p class="text-base font-inter font-normal mb-3 text-lightGray">Degree:</p>
+          </div> -->
+          <div class=" -mt-5">
+            <div class=" p-4 grid grid-cols-2 items-center">
+              <p class="text-base font-inter  mb-3 text-black font-medium">Degree:</p>
               <div class="flex items-center">
                 <p class="text-base font-inter font-medium mb-3 text-darkGray">
                   {{graduateData?.academicInformation?.degree}}</p>
               </div>
             </div>
           </div>
-          <div class="bg-white -mt-5">
-            <div class="bg-white p-4 grid grid-cols-2 items-center">
-              <p class="text-base font-inter font-normal mb-3 text-lightGray">Grade:</p>
+          <div class=" -mt-5">
+            <div class=" p-4 grid grid-cols-2 items-center">
+              <p class="text-base font-inter  mb-3 text-black font-medium">Class of Degree:</p>
               <div class="flex items-center">
                 <p class="text-base font-inter font-medium mb-3 text-darkGray">
                   {{graduateData?.academicInformation?.grade}}</p>
               </div>
             </div>
           </div>
-          <div class="bg-white -mt-5">
+          <!-- <div class="bg-white -mt-5">
             <div class="bg-white p-4 grid grid-cols-2 items-center">
               <p class="text-base font-inter font-normal mb-3 text-lightGray">Year of Entry:</p>
               <div class="flex items-center">
@@ -162,10 +157,10 @@
                   {{graduateData?.academicInformation?.yearOfGraduation}}</p>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
-        <div class="bg-tabBlue p-6 print:px-0 print:pb-0 mb-6 rounded-xl">
-          <h2 class="text-lg text-center font-medium font-inter text-darkGray">Powered by The Nigerian Security Printing and Minting PLC (NSPM)</h2>
+        <div class="bg-tabBlue print:bg-tabBlue p-6 print:px-0 print:pb-0 mb-6 rounded-xl">
+          <h2 class="text-lg text-center font-medium font-inter text-green-500">Powered by The Nigerian Security Printing and Minting PLC (NSPM)</h2>
         </div>
       </div>
     </div>

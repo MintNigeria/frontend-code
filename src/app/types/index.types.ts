@@ -23,6 +23,25 @@ export type SelectOption = {
   name: string;
   value: string;
 };
+export type BulkApiType = {
+  firstName: string,
+  lastName: string,
+  middleName: string,
+  address: string,
+  stateOfOrigin: string,
+  academicInformationVM: {
+    programme: string,
+    faculty: string,
+    department: string,
+    matriculationNumber: string,
+    degree: string,
+    grade: string,
+    yearOfEntry: string,
+    yearOfGraduation: string
+  },
+  gender: string,
+  dateOfBirth: string
+};
 
 // export const customNotifierOptions: NotifierOptions = {
 //   position: {
