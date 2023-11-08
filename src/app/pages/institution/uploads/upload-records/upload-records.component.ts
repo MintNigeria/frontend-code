@@ -33,7 +33,7 @@ export class UploadRecordsComponent implements OnInit {
 uploadType=[
   {name: 'simple', description: 'This template contains doesnt not contain columns like Faculty, department, and Year' },
   {name: 'bulk', description: 'This template contains column like Program, Faculty, Department, Degree,  Year of Graduation' },
-  {name: 'API Upload', description: 'Upload record by entering API endpoint that returns a structure data' },
+  // {name: 'API Upload', description: 'Upload record by entering API endpoint that returns a structure data' },
 ]
   years: Array<any> = [];
 

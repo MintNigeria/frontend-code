@@ -71,6 +71,10 @@ import {
   getAllInstitutionTypeLinkedToBodySuccess,
   getAllInstitutionsRecordsAllNames,
   getAllInstitutionsRecordsAllNamesSuccess,
+  getInstitutionDataSource,
+  getInstitutionDataSourceSuccess,
+  setInstitutionDataSourceSuccess,
+  setInstitutionDataSource,
 } from './action';
 
 @Injectable()
@@ -1167,6 +1171,80 @@ export class InstitutionEffects {
               // read data and update payload
               return getInstitutionTransactionTypeFilterSuccess({
                 payload: data.payload
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getInstitutionDataSource$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getInstitutionDataSource),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.institutionService.getInstitutionDataSource(action.id)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getInstitutionDataSourceSuccess({
+                payload: data.payload
+                  
+              });
+            })
+          );
+      })
+    );
+  });
+
+  setInstitutionDataSource$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(setInstitutionDataSource),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+        
+        return this.institutionService.setInstitutionDataSource(action.payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return setInstitutionDataSourceSuccess({
+                payload: data
                   
               });
             })

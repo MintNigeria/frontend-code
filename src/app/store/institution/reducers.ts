@@ -22,12 +22,14 @@ import {
   getFacultyAndDepartmentByInstitutionNameSuccess,
   getInstitutionBodySuccess,
   getInstitutionConfigurationSuccess,
+  getInstitutionDataSourceSuccess,
   getInstitutionSectorSuccess,
   getInstitutionTransactionTypeFilterSuccess,
   getInstitutionTypeSuccess,
   getInstitutionUserInfoSuccess,
   invokeGetInstitutionsSuccess,
   invokeGetInstitutionSuccess,
+  setInstitutionDataSourceSuccess,
   updateDegreeTypeInInstitutionSuccess,
   updateDepartmentInInstitutionSuccess,
   updatedInstitutionSuccess,
@@ -70,6 +72,8 @@ const initialState: IInstitutionStateInterface = {
   dropdown: null,
   degreeTypeByName: null,
   transactionTypeFilter: null,
+  getDataSource: null,
+  setDataSource: null,
 };
 
 export const institutionReducers = createReducer(
@@ -288,6 +292,20 @@ export const institutionReducers = createReducer(
     return {
       ...state,
       transactionTypeFilter : payload
+    };
+  }),
+  
+  on(getInstitutionDataSourceSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      getDataSource : payload
+    };
+  }),
+  
+  on(setInstitutionDataSourceSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      setDataSource : payload
     };
   }),
 

@@ -343,3 +343,26 @@ export const getInstitutionTransactionTypeFilterSuccess = createAction(
   props<{ payload: any }>()
 );
 
+export const getInstitutionDataSource = createAction(
+  '[institutions] get Institution data source ',
+  props<{id: any}>()
+);
+
+export const getInstitutionDataSourceSuccess = createAction(
+  '[institutions] get Institution data source success',
+  props<{ payload: any }>()
+  );
+  
+  export const setInstitutionDataSource = createAction(
+    '[institutions] get Institution transaction type filter ',
+    props<{ payload: any }>()
+  
+);
+
+export const setInstitutionDataSourceSuccess = createAction(
+  '[institutions] get Institution transaction type filter success',
+  props<{ payload: any }>()
+);
+
+
+
