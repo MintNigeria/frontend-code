@@ -290,5 +290,25 @@ export class InstitutionService
       `${this.baseUrl}mint-higherinstitution/api/v1/DegreeConfiguration/All-Degree-Configuration`
     );
   }
+  getInstitutionDataSource(id: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/DataSource/${id}`
+    );
+  }
+  setInstitutionDataSource(payload: any) {
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/SetDataSource`, payload
+    );
+  }
+  getInstitutionDataEncryptionDecryption(id: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/EncryptionData/${id}`
+    );
+  }
+  setInstitutionDataEncryptionDecryption(payload: any) {
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/SetEncryptionData`, payload
+    );
+  }
 
 }

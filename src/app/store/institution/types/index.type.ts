@@ -30,4 +30,6 @@ export interface IInstitutionStateInterface {
   dropdown: any;
   degreeTypeByName: any;
   transactionTypeFilter: any;
+  getDataSource: any;
+  setDataSource: any;
 }
