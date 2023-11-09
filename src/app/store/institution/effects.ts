@@ -75,6 +75,14 @@ import {
   getInstitutionDataSourceSuccess,
   setInstitutionDataSourceSuccess,
   setInstitutionDataSource,
+  getInstitutionDataEncryptionDecryption,
+  getInstitutionDataEncryptionDecryptionSuccess,
+  setInstitutionDataEncryptionDecryption,
+  setInstitutionDataEncryptionDecryptionSuccess,
+  getInstitutionEndpoint,
+  getInstitutionEndpointSuccess,
+  setInstitutionEndpoint,
+  setInstitutionEndpointSuccess,
 } from './action';
 
 @Injectable()
@@ -135,27 +143,24 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService
-          .createFaculty(action.payload)
-          .pipe(
-            map((data) => {
-              this.appStore.dispatch(
-                setAPIResponseMessage({
-                  apiResponseMessage: {
-                    apiResponseMessage: '',
-                    isLoading: false,
-                    isApiSuccessful: true,
-                  },
-                })
-              );
-              // read data and update payload
-              return createFacultyInInstitutionSuccess({
-                payload: data
-                  
-              });
-            })
-          );
+
+        return this.institutionService.createFaculty(action.payload).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return createFacultyInInstitutionSuccess({
+              payload: data,
+            });
+          })
+        );
       })
     );
   });
@@ -173,27 +178,24 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService
-          .updateFaculty(action.payload)
-          .pipe(
-            map((data) => {
-              this.appStore.dispatch(
-                setAPIResponseMessage({
-                  apiResponseMessage: {
-                    apiResponseMessage: '',
-                    isLoading: false,
-                    isApiSuccessful: true,
-                  },
-                })
-              );
-              // read data and update payload
-              return updateFacultyInInstitutionSuccess({
-                payload: data
-                  
-              });
-            })
-          );
+
+        return this.institutionService.updateFaculty(action.payload).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return updateFacultyInInstitutionSuccess({
+              payload: data,
+            });
+          })
+        );
       })
     );
   });
@@ -246,27 +248,24 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService
-          .createDepartment(action.payload)
-          .pipe(
-            map((data) => {
-              this.appStore.dispatch(
-                setAPIResponseMessage({
-                  apiResponseMessage: {
-                    apiResponseMessage: '',
-                    isLoading: false,
-                    isApiSuccessful: true,
-                  },
-                })
-              );
-              // read data and update payload
-              return createDepartmentInInstitutionSuccess({
-                payload: data
-                  
-              });
-            })
-          );
+
+        return this.institutionService.createDepartment(action.payload).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return createDepartmentInInstitutionSuccess({
+              payload: data,
+            });
+          })
+        );
       })
     );
   });
@@ -284,27 +283,24 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService
-          .updateDepartment(action.payload)
-          .pipe(
-            map((data) => {
-              this.appStore.dispatch(
-                setAPIResponseMessage({
-                  apiResponseMessage: {
-                    apiResponseMessage: '',
-                    isLoading: false,
-                    isApiSuccessful: true,
-                  },
-                })
-              );
-              // read data and update payload
-              return updateDepartmentInInstitutionSuccess({
-                payload: data
-                  
-              });
-            })
-          );
+
+        return this.institutionService.updateDepartment(action.payload).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return updateDepartmentInInstitutionSuccess({
+              payload: data,
+            });
+          })
+        );
       })
     );
   });
@@ -344,7 +340,6 @@ export class InstitutionEffects {
     );
   });
 
- 
   getInstitutionConfiguration$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(getInstitutionConfiguration),
@@ -379,7 +374,7 @@ export class InstitutionEffects {
       })
     );
   });
- 
+
   getInstitutionUserInfo$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(getInstitutionUserInfo),
@@ -415,8 +410,6 @@ export class InstitutionEffects {
     );
   });
 
- 
-
   getAllInstitutionUsers$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(getAllInstitutionUsers),
@@ -430,40 +423,30 @@ export class InstitutionEffects {
             },
           })
         );
-        const {
-          payload
-        } = action;
+        const { payload } = action;
         getAllInstitutionUsersSuccess({
           payload: { data: [], totalCount: 0 },
         });
-        return this.institutionService
-          .getAllInstitutionUsers(
-            payload
-          )
-          .pipe(
-            map((data) => {
-              this.appStore.dispatch(
-                setAPIResponseMessage({
-                  apiResponseMessage: {
-                    apiResponseMessage: '',
-                    isLoading: false,
-                    isApiSuccessful: true,
-                  },
-                })
-              );
-              // read data and update payload
-              return getAllInstitutionUsersSuccess({
-                payload: {data: data.payload, totalCount: data.totalCount}
-                  
-              });
-            })
-          );
+        return this.institutionService.getAllInstitutionUsers(payload).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return getAllInstitutionUsersSuccess({
+              payload: { data: data.payload, totalCount: data.totalCount },
+            });
+          })
+        );
       })
     );
   });
-
-
- 
 
   getAllInstitutionType$ = createEffect(() => {
     return this.actions$.pipe(
@@ -478,31 +461,27 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService
-          .getAllInstitutionType()
-          .pipe(
-            map((data) => {
-              this.appStore.dispatch(
-                setAPIResponseMessage({
-                  apiResponseMessage: {
-                    apiResponseMessage: '',
-                    isLoading: false,
-                    isApiSuccessful: true,
-                  },
-                })
-              );
-              // read data and update payload
-              return getInstitutionTypeSuccess({
-                payload: {data: data.payload, totalCount: data.totalCount}
-                  
-              });
-            })
-          );
+
+        return this.institutionService.getAllInstitutionType().pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return getInstitutionTypeSuccess({
+              payload: { data: data.payload, totalCount: data.totalCount },
+            });
+          })
+        );
       })
     );
   });
- 
 
   getAllInstitutionTypeLinkedToBody$ = createEffect(() => {
     return this.actions$.pipe(
@@ -517,7 +496,7 @@ export class InstitutionEffects {
             },
           })
         );
-        
+
         return this.institutionService
           .getAllInstitutionTypeLinkedToBody(action.id)
           .pipe(
@@ -533,8 +512,7 @@ export class InstitutionEffects {
               );
               // read data and update payload
               return getAllInstitutionTypeLinkedToBodySuccess({
-                payload: {data: data.payload, totalCount: data.totalCount}
-                  
+                payload: { data: data.payload, totalCount: data.totalCount },
               });
             })
           );
@@ -555,27 +533,24 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService
-          .getAllInstitutionSector()
-          .pipe(
-            map((data) => {
-              this.appStore.dispatch(
-                setAPIResponseMessage({
-                  apiResponseMessage: {
-                    apiResponseMessage: '',
-                    isLoading: false,
-                    isApiSuccessful: true,
-                  },
-                })
-              );
-              // read data and update payload
-              return getInstitutionSectorSuccess({
-                payload: {data: data.payload, totalCount: data.totalCount}
-                  
-              });
-            })
-          );
+
+        return this.institutionService.getAllInstitutionSector().pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return getInstitutionSectorSuccess({
+              payload: { data: data.payload, totalCount: data.totalCount },
+            });
+          })
+        );
       })
     );
   });
@@ -593,27 +568,24 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService
-          .getAllInstitutionBody()
-          .pipe(
-            map((data) => {
-              this.appStore.dispatch(
-                setAPIResponseMessage({
-                  apiResponseMessage: {
-                    apiResponseMessage: '',
-                    isLoading: false,
-                    isApiSuccessful: true,
-                  },
-                })
-              );
-              // read data and update payload
-              return getInstitutionBodySuccess({
-                payload: {data: data.payload, totalCount: data.totalCount}
-                  
-              });
-            })
-          );
+
+        return this.institutionService.getAllInstitutionBody().pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return getInstitutionBodySuccess({
+              payload: { data: data.payload, totalCount: data.totalCount },
+            });
+          })
+        );
       })
     );
   });
@@ -631,7 +603,7 @@ export class InstitutionEffects {
             },
           })
         );
-        
+
         return this.institutionService
           .getAllInstitutionRecords(action.payload)
           .pipe(
@@ -647,8 +619,7 @@ export class InstitutionEffects {
               );
               // read data and update payload
               return getAllInstitutionRecordsSuccess({
-                payload: {data: data.payload}
-                  
+                payload: { data: data.payload },
               });
             })
           );
@@ -669,27 +640,24 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService
-          .getAllInstitutionsRecordsAllNames()
-          .pipe(
-            map((data) => {
-              this.appStore.dispatch(
-                setAPIResponseMessage({
-                  apiResponseMessage: {
-                    apiResponseMessage: '',
-                    isLoading: false,
-                    isApiSuccessful: true,
-                  },
-                })
-              );
-              // read data and update payload
-              return getAllInstitutionsRecordsAllNamesSuccess({
-                payload: {data: data.payload}
-                  
-              });
-            })
-          );
+
+        return this.institutionService.getAllInstitutionsRecordsAllNames().pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return getAllInstitutionsRecordsAllNamesSuccess({
+              payload: { data: data.payload },
+            });
+          })
+        );
       })
     );
   });
@@ -707,7 +675,7 @@ export class InstitutionEffects {
             },
           })
         );
-        
+
         return this.institutionService
           .getAllInstitutionDegreeType(action.payload)
           .pipe(
@@ -723,8 +691,7 @@ export class InstitutionEffects {
               );
               // read data and update payload
               return getAllInstitutionDegreeTypeSuccess({
-                payload: {data: data.payload, totalCount: data.totalCount}
-                  
+                payload: { data: data.payload, totalCount: data.totalCount },
               });
             })
           );
@@ -745,27 +712,24 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService
-          .createDegreeType(action.payload)
-          .pipe(
-            map((data) => {
-              this.appStore.dispatch(
-                setAPIResponseMessage({
-                  apiResponseMessage: {
-                    apiResponseMessage: '',
-                    isLoading: false,
-                    isApiSuccessful: true,
-                  },
-                })
-              );
-              // read data and update payload
-              return createDegreeTypeInInstitutionSuccess({
-                payload: data
-                  
-              });
-            })
-          );
+
+        return this.institutionService.createDegreeType(action.payload).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return createDegreeTypeInInstitutionSuccess({
+              payload: data,
+            });
+          })
+        );
       })
     );
   });
@@ -782,27 +746,24 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService
-          .updateDegreeType(action.payload)
-          .pipe(
-            map((data) => {
-              this.appStore.dispatch(
-                setAPIResponseMessage({
-                  apiResponseMessage: {
-                    apiResponseMessage: '',
-                    isLoading: false,
-                    isApiSuccessful: true,
-                  },
-                })
-              );
-              // read data and update payload
-              return updateDegreeTypeInInstitutionSuccess({
-                payload: data
-                  
-              });
-            })
-          );
+
+        return this.institutionService.updateDegreeType(action.payload).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return updateDegreeTypeInInstitutionSuccess({
+              payload: data,
+            });
+          })
+        );
       })
     );
   });
@@ -820,7 +781,7 @@ export class InstitutionEffects {
             },
           })
         );
-        
+
         return this.institutionService
           .getAllInstitutionGrade(action.payload)
           .pipe(
@@ -836,8 +797,7 @@ export class InstitutionEffects {
               );
               // read data and update payload
               return getAllInstitutionGradeSuccess({
-                payload: {data: data.payload, totalCount: data.totalCount}
-                  
+                payload: { data: data.payload, totalCount: data.totalCount },
               });
             })
           );
@@ -858,27 +818,24 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService
-          .createGrade(action.payload)
-          .pipe(
-            map((data) => {
-              this.appStore.dispatch(
-                setAPIResponseMessage({
-                  apiResponseMessage: {
-                    apiResponseMessage: '',
-                    isLoading: false,
-                    isApiSuccessful: true,
-                  },
-                })
-              );
-              // read data and update payload
-              return createGradeInInstitutionSuccess({
-                payload: data
-                  
-              });
-            })
-          );
+
+        return this.institutionService.createGrade(action.payload).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return createGradeInInstitutionSuccess({
+              payload: data,
+            });
+          })
+        );
       })
     );
   });
@@ -895,27 +852,24 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService
-          .updateGrades(action.payload)
-          .pipe(
-            map((data) => {
-              this.appStore.dispatch(
-                setAPIResponseMessage({
-                  apiResponseMessage: {
-                    apiResponseMessage: '',
-                    isLoading: false,
-                    isApiSuccessful: true,
-                  },
-                })
-              );
-              // read data and update payload
-              return updateGradeInInstitutionSuccess({
-                payload: data
-                  
-              });
-            })
-          );
+
+        return this.institutionService.updateGrades(action.payload).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return updateGradeInInstitutionSuccess({
+              payload: data,
+            });
+          })
+        );
       })
     );
   });
@@ -933,26 +887,24 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService.RegisterInstitution(action.payload)
-          .pipe(
-            map((data) => {
-              this.appStore.dispatch(
-                setAPIResponseMessage({
-                  apiResponseMessage: {
-                    apiResponseMessage: '',
-                    isLoading: false,
-                    isApiSuccessful: true,
-                  },
-                })
-              );
-              // read data and update payload
-              return createNewInstitutionSuccess({
-                payload: data
-                  
-              });
-            })
-          );
+
+        return this.institutionService.RegisterInstitution(action.payload).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return createNewInstitutionSuccess({
+              payload: data,
+            });
+          })
+        );
       })
     );
   });
@@ -970,8 +922,9 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService.updatedInstitution(action.payload, action.id)
+
+        return this.institutionService
+          .updatedInstitution(action.payload, action.id)
           .pipe(
             map((data) => {
               this.appStore.dispatch(
@@ -985,8 +938,7 @@ export class InstitutionEffects {
               );
               // read data and update payload
               return updatedInstitutionSuccess({
-                payload: data
-                  
+                payload: data,
               });
             })
           );
@@ -1007,8 +959,9 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService.ValidateRegistrationCode(action.payload)
+
+        return this.institutionService
+          .ValidateRegistrationCode(action.payload)
           .pipe(
             map((data) => {
               this.appStore.dispatch(
@@ -1022,8 +975,7 @@ export class InstitutionEffects {
               );
               // read data and update payload
               return ValidateRegistrationCodeSuccess({
-                payload: data
-                  
+                payload: data,
               });
             })
           );
@@ -1044,8 +996,9 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService.getFacultyAndDepartmentByInstitutionName(action.payload)
+
+        return this.institutionService
+          .getFacultyAndDepartmentByInstitutionName(action.payload)
           .pipe(
             map((data) => {
               this.appStore.dispatch(
@@ -1059,8 +1012,7 @@ export class InstitutionEffects {
               );
               // read data and update payload
               return getFacultyAndDepartmentByInstitutionNameSuccess({
-                payload: data
-                  
+                payload: data,
               });
             })
           );
@@ -1081,8 +1033,9 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService.getDegreeTypeWithInstitutionName(action.name)
+
+        return this.institutionService
+          .getDegreeTypeWithInstitutionName(action.name)
           .pipe(
             map((data) => {
               this.appStore.dispatch(
@@ -1096,8 +1049,7 @@ export class InstitutionEffects {
               );
               // read data and update payload
               return getDegreeTypeWithInstitutionNameSuccess({
-                payload: data.payload
-                  
+                payload: data.payload,
               });
             })
           );
@@ -1118,8 +1070,9 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService.getAllInstitutionsDropdown(action.payload)
+
+        return this.institutionService
+          .getAllInstitutionsDropdown(action.payload)
           .pipe(
             map((data) => {
               this.appStore.dispatch(
@@ -1133,8 +1086,7 @@ export class InstitutionEffects {
               );
               // read data and update payload
               return getAllInstitutionsDropdownSuccess({
-                payload: data.payload
-                  
+                payload: data.payload,
               });
             })
           );
@@ -1155,8 +1107,9 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService.getInstitutionTransactionTypeFilter()
+
+        return this.institutionService
+          .getInstitutionTransactionTypeFilter()
           .pipe(
             map((data) => {
               this.appStore.dispatch(
@@ -1170,8 +1123,7 @@ export class InstitutionEffects {
               );
               // read data and update payload
               return getInstitutionTransactionTypeFilterSuccess({
-                payload: data.payload
-                  
+                payload: data.payload,
               });
             })
           );
@@ -1192,26 +1144,24 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService.getInstitutionDataSource(action.id)
-          .pipe(
-            map((data) => {
-              this.appStore.dispatch(
-                setAPIResponseMessage({
-                  apiResponseMessage: {
-                    apiResponseMessage: '',
-                    isLoading: false,
-                    isApiSuccessful: true,
-                  },
-                })
-              );
-              // read data and update payload
-              return getInstitutionDataSourceSuccess({
-                payload: data.payload
-                  
-              });
-            })
-          );
+
+        return this.institutionService.getInstitutionDataSource(action.id).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return getInstitutionDataSourceSuccess({
+              payload: data.payload,
+            });
+          })
+        );
       })
     );
   });
@@ -1229,8 +1179,9 @@ export class InstitutionEffects {
             },
           })
         );
-        
-        return this.institutionService.setInstitutionDataSource(action.payload)
+
+        return this.institutionService
+          .setInstitutionDataSource(action.payload)
           .pipe(
             map((data) => {
               this.appStore.dispatch(
@@ -1244,8 +1195,153 @@ export class InstitutionEffects {
               );
               // read data and update payload
               return setInstitutionDataSourceSuccess({
-                payload: data
-                  
+                payload: data,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getInstitutionDataEncryptionDecryption$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getInstitutionDataEncryptionDecryption),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+
+        return this.institutionService
+          .getInstitutionDataEncryptionDecryption(action.id)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return getInstitutionDataEncryptionDecryptionSuccess({
+                payload: data.payload,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  setInstitutionDataEncryptionDecryption$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(setInstitutionDataEncryptionDecryption),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+
+        return this.institutionService
+          .setInstitutionDataEncryptionDecryption(action.payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return setInstitutionDataEncryptionDecryptionSuccess({
+                payload: data,
+              });
+            })
+          );
+      })
+    );
+  });
+
+  getInstitutionEndpoint$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getInstitutionEndpoint),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+
+        return this.institutionService.getInstitutionEndpoint(action.id).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIResponseMessage({
+                apiResponseMessage: {
+                  apiResponseMessage: '',
+                  isLoading: false,
+                  isApiSuccessful: true,
+                },
+              })
+            );
+            // read data and update payload
+            return getInstitutionEndpointSuccess({
+              payload: data.payload,
+            });
+          })
+        );
+      })
+    );
+  });
+
+  setInstitutionEndpoint$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(setInstitutionEndpoint),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIResponseMessage({
+            apiResponseMessage: {
+              apiResponseMessage: '',
+              isLoading: true,
+              isApiSuccessful: false,
+            },
+          })
+        );
+
+        return this.institutionService
+          .setInstitutionEndpoint(action.payload)
+          .pipe(
+            map((data) => {
+              this.appStore.dispatch(
+                setAPIResponseMessage({
+                  apiResponseMessage: {
+                    apiResponseMessage: '',
+                    isLoading: false,
+                    isApiSuccessful: true,
+                  },
+                })
+              );
+              // read data and update payload
+              return setInstitutionEndpointSuccess({
+                payload: data,
               });
             })
           );

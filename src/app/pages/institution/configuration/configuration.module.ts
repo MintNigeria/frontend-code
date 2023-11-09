@@ -27,7 +27,7 @@ import { InstitutionIndexComponent } from './institution-setup/institution-index
 import { InstitutionGradeComponent } from './institution-setup/institution-grade/institution-grade.component';
 import { CreateGradeComponent } from './create-grade/create-grade.component';
 import { ApiConfigurationComponent } from './api-configuration/api-configuration.component';
-
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -47,7 +47,7 @@ import { ApiConfigurationComponent } from './api-configuration/api-configuration
     InstitutionIndexComponent,
     InstitutionGradeComponent,
     CreateGradeComponent,
-    ApiConfigurationComponent
+    ApiConfigurationComponent,
   ],
   imports: [
     CommonModule,
@@ -56,10 +56,9 @@ import { ApiConfigurationComponent } from './api-configuration/api-configuration
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
+    MatExpansionModule,
     StoreModule.forFeature('configuration', configurationReducer),
     EffectsModule.forFeature([ConfigurationEffects, InstitutionEffects]),
-
-
-  ]
+  ],
 })
-export class ConfigurationModule { }
+export class ConfigurationModule {}

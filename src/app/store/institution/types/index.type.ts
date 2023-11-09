@@ -32,4 +32,8 @@ export interface IInstitutionStateInterface {
   transactionTypeFilter: any;
   getDataSource: any;
   setDataSource: any;
+  getDataEncryptionDecryption: any;
+  setDataEncryptionDecryption: any;
+  getEndpoint: any;
+  setEndpoint: any;
 }
