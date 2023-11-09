@@ -35,57 +35,58 @@ export class InstitutionService
   }
 
   RegisterInstitution(payload: any) {
-    const {approvalFile} = payload
-    const body = new FormData()
-    body.append('InstitutionTypeId', payload.institutionTypeId)
-    body.append('InstitutionSectorId', payload.institutionSectorId)
-    body.append('RegisteringBody', payload.RegisteringBody)
-    body.append('InstitutionBodyId', payload.institutionBodyId)
-    body.append('InstitutionName', payload.InstitutionName)
-    body.append('DateOfIncorporation', payload.DateOfIncorporation)
-    body.append('RegistrationNumber', payload.RegistrationNumber)
-    body.append('LgaId', payload.LgaId)
-    body.append('StateId', payload.StateId)
-    body.append('Street', payload.Street)
-    body.append('PhoneNumber', payload.PhoneNumber)
-    body.append('EmailAddress', payload.EmailAddress)
-    body.append('ApproverVM.Title', payload.Title)
-    body.append('ApproverVM.FirstName', payload.FirstName)
-    body.append('ApproverVM.LastName', payload.LastName)
-    body.append('ApproverVM.Designation', payload.Designation)
+    const { approvalFile } = payload;
+    const body = new FormData();
+    body.append('InstitutionTypeId', payload.institutionTypeId);
+    body.append('InstitutionSectorId', payload.institutionSectorId);
+    body.append('RegisteringBody', payload.RegisteringBody);
+    body.append('InstitutionBodyId', payload.institutionBodyId);
+    body.append('InstitutionName', payload.InstitutionName);
+    body.append('DateOfIncorporation', payload.DateOfIncorporation);
+    body.append('RegistrationNumber', payload.RegistrationNumber);
+    body.append('LgaId', payload.LgaId);
+    body.append('StateId', payload.StateId);
+    body.append('Street', payload.Street);
+    body.append('PhoneNumber', payload.PhoneNumber);
+    body.append('EmailAddress', payload.EmailAddress);
+    body.append('ApproverVM.Title', payload.Title);
+    body.append('ApproverVM.FirstName', payload.FirstName);
+    body.append('ApproverVM.LastName', payload.LastName);
+    body.append('ApproverVM.Designation', payload.Designation);
     // body.append('Documents[' + i + ']', approvalFile[i]);
     for (let i = 0; i < approvalFile?.length; i++) {
       body.append('DocumentVM[' + i + '].FileNo', '');
       body.append('DocumentVM[' + i + '].File', approvalFile[i]);
     }
     return this.http.post<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/RegisterInstitution`, body
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/RegisterInstitution`,
+      body
     );
   }
 
   updatedInstitution(payload: any, id: any) {
-    const body = new FormData()
-    body.append('LgaId', payload.lga)
-    body.append('StateId', payload.state)
-    body.append('Address', payload.address)
-    body.append('PhoneNumber', payload.phone)
-    body.append('Logo', payload.logo)
-    body.append('imei', payload.imei)
-    body.append('serialNumber', payload.serialNumber)
-    body.append('device', payload.device)
-    body.append('ipAddress', payload.ipAddress)
+    const body = new FormData();
+    body.append('LgaId', payload.lga);
+    body.append('StateId', payload.state);
+    body.append('Address', payload.address);
+    body.append('PhoneNumber', payload.phone);
+    body.append('Logo', payload.logo);
+    body.append('imei', payload.imei);
+    body.append('serialNumber', payload.serialNumber);
+    body.append('device', payload.device);
+    body.append('ipAddress', payload.ipAddress);
     return this.http.put<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/UpdateInstitution/${id}`, body
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/UpdateInstitution/${id}`,
+      body
     );
   }
 
   ValidateRegistrationCode(payload: any) {
     return this.http.post<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/ValidateRegistrationCode`, payload
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/ValidateRegistrationCode`,
+      payload
     );
   }
-
-  
 
   getAllInstitutionBody() {
     return this.http.get<any>(
@@ -111,7 +112,8 @@ export class InstitutionService
 
   getAllInstitutionsDropdown(params?: any) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/DropDown`, {params}
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/DropDown`,
+      { params }
     );
   }
 
@@ -123,50 +125,56 @@ export class InstitutionService
 
   getAllInstitutionGrade(payload: any) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/Grades/GetAllIGrades`, {params: payload}
+      `${this.baseUrl}mint-higherinstitution/api/v1/Grades/GetAllIGrades`,
+      { params: payload }
     );
   }
 
   getAllInstitutionDegreeType(payload: any) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/DegreeType/GetAllIDegreeTypes`, {params: payload}
+      `${this.baseUrl}mint-higherinstitution/api/v1/DegreeType/GetAllIDegreeTypes`,
+      { params: payload }
     );
   }
   getFacultyAndDepartmentByInstitutionName(payload: any) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/FacultiesAndDepartmentsByInstitutionName`, {params: payload}
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/FacultiesAndDepartmentsByInstitutionName`,
+      { params: payload }
     );
   }
 
   createDegreeType(payload: any) {
     return this.http.post<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/DegreeType/CreateDegreeType`, payload
+      `${this.baseUrl}mint-higherinstitution/api/v1/DegreeType/CreateDegreeType`,
+      payload
     );
   }
 
   updateDegreeType(payload: any) {
     return this.http.put<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/DegreeType/UpdateDegreeType`, payload
+      `${this.baseUrl}mint-higherinstitution/api/v1/DegreeType/UpdateDegreeType`,
+      payload
     );
   }
 
   createGrade(payload: any) {
     return this.http.post<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/Grades/CreateGrade`, payload
+      `${this.baseUrl}mint-higherinstitution/api/v1/Grades/CreateGrade`,
+      payload
     );
   }
 
   updateGrades(payload: any) {
     return this.http.put<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/Grades/UpdateGrade`, payload
+      `${this.baseUrl}mint-higherinstitution/api/v1/Grades/UpdateGrade`,
+      payload
     );
   }
 
- 
-
   getAllInstitutionRecords(payload: any) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/GetAllInstitutionRecords`, {params: payload}
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/GetAllInstitutionRecords`,
+      { params: payload }
     );
   }
 
@@ -189,7 +197,8 @@ export class InstitutionService
 
   getAllInstitutionUsers(payload: any) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-auth/api/v1/InstitutionUser/InstitutionUsersAndRoles`, {params: payload}
+      `${this.baseUrl}mint-auth/api/v1/InstitutionUser/InstitutionUsersAndRoles`,
+      { params: payload }
     );
   }
   getInstitutionUserInfo(userId: any) {
@@ -227,12 +236,14 @@ export class InstitutionService
   }
   createFaculty(payload: any) {
     return this.http.post<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/CreateFaculty`, payload
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/CreateFaculty`,
+      payload
     );
   }
   updateFaculty(payload: any) {
     return this.http.put<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/UpdateFaculty`, payload
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/UpdateFaculty`,
+      payload
     );
   }
 
@@ -244,13 +255,15 @@ export class InstitutionService
 
   createDepartment(payload: any) {
     return this.http.post<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/CreateDepartment`, payload
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/CreateDepartment`,
+      payload
     );
   }
 
   updateDepartment(payload: any) {
     return this.http.put<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/UpdateDepartment`, payload
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/UpdateDepartment`,
+      payload
     );
   }
 
@@ -263,7 +276,8 @@ export class InstitutionService
 
   approveRejectInstitution(payload: any) {
     return this.http.post<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionApproval/Approval-Action`, payload
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionApproval/Approval-Action`,
+      payload
     );
   }
 
@@ -297,7 +311,8 @@ export class InstitutionService
   }
   setInstitutionDataSource(payload: any) {
     return this.http.post<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/SetDataSource`, payload
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/SetDataSource`,
+      payload
     );
   }
   getInstitutionDataEncryptionDecryption(id: any) {
@@ -307,8 +322,20 @@ export class InstitutionService
   }
   setInstitutionDataEncryptionDecryption(payload: any) {
     return this.http.post<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/SetEncryptionData`, payload
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/SetEncryptionData`,
+      payload
     );
   }
 
+  getInstitutionEndpoint(id: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/Api/${id}`
+    );
+  }
+  setInstitutionEndpoint(payload: any) {
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Institution/SetApi`,
+      payload
+    );
+  }
 }
