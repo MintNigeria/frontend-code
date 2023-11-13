@@ -427,6 +427,49 @@ export class GraduatesService
         Document[i]
       );
     }
+    if (payload?.academicDetails.institutionDataSource === 1) {
+      body.append(
+        'graduateRecordInformationVM.fullName',
+        payload?.academicDetails.fullName
+      ); 
+      body.append(
+        'graduateRecordInformationVM.gender',
+        payload?.academicDetails.gender
+      ); 
+      body.append(
+        'graduateRecordInformationVM.faculty',
+        payload?.academicDetails.faculty
+      ); 
+      body.append(
+        'graduateRecordInformationVM.department',
+        payload?.academicDetails.department
+      ); 
+      body.append(
+        'graduateRecordInformationVM.yearOfEntry',
+        payload?.academicDetails.yearOfEntry
+      ); 
+      body.append(
+        'graduateRecordInformationVM.graduationYear',
+        payload?.academicDetails.graduationYear
+      ); 
+      body.append(
+        'graduateRecordInformationVM.matriculationNumber',
+        payload?.academicDetails.matriculationNumber
+      ); 
+      body.append(
+        'graduateRecordInformationVM.degreeType',
+        payload?.academicDetails.degreeType
+      ); 
+      body.append(
+        'graduateRecordInformationVM.programme',
+        payload?.academicDetails.programme
+      ); 
+      body.append(
+        'graduateRecordInformationVM.grade',
+        payload?.academicDetails.grade
+      ); 
+    }
+
     return this.http.post<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Graduate-Certificate-Verification-Request`,
       body
@@ -842,6 +885,68 @@ export class GraduatesService
         supportingDocument[1].File
       );
     }
+    if (payload?.academicDetails.institutionDataSource === 1) {
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.fullName',
+        payload?.academicDetails.fullName
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.gender',
+        payload?.academicDetails.gender
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.faculty',
+        payload?.academicDetails.faculty
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.department',
+        payload?.academicDetails.department
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.yearOfEntry',
+        payload?.academicDetails.yearOfEntry
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.graduationYear',
+        payload?.academicDetails.graduationYear
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.matriculationNumber',
+        payload?.academicDetails.matriculationNumber
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.degreeType',
+        payload?.academicDetails.degreeType
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.programme',
+        payload?.academicDetails.programme
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.grade',
+        payload?.academicDetails.grade
+      ); 
+    }
 
     return this.http.post<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/ApplicationRequest`,
@@ -935,6 +1040,68 @@ export class GraduatesService
         'model.CreateApplicationVM[' + 0 + '].SupportingDocuments[1].File',
         supportingDocument[1].File
       );
+    }
+    if (payload?.academicDetails.institutionDataSource === 1) {
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.fullName',
+        payload?.academicDetails.fullName
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.gender',
+        payload?.academicDetails.gender
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.faculty',
+        payload?.academicDetails.faculty
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.department',
+        payload?.academicDetails.department
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.yearOfEntry',
+        payload?.academicDetails.yearOfEntry
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.graduationYear',
+        payload?.academicDetails.graduationYear
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.matriculationNumber',
+        payload?.academicDetails.matriculationNumber
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.degreeType',
+        payload?.academicDetails.degreeType
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.programme',
+        payload?.academicDetails.programme
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.grade',
+        payload?.academicDetails.grade
+      ); 
     }
     return this.http.post<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/ApplicationRequest`,
@@ -1084,6 +1251,68 @@ export class GraduatesService
                 'model.CreateApplicationVM[' + 0 + '].SupportingDocuments[5].File',
                 supportingDocument[5].File
               );
+            }
+            if (payload?.academicDetails.institutionDataSource === 1) {
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.fullName',
+                payload?.academicDetails.fullName
+              ); 
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.gender',
+                payload?.academicDetails.gender
+              ); 
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.faculty',
+                payload?.academicDetails.faculty
+              ); 
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.department',
+                payload?.academicDetails.department
+              ); 
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.yearOfEntry',
+                payload?.academicDetails.yearOfEntry
+              ); 
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.graduationYear',
+                payload?.academicDetails.graduationYear
+              ); 
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.matriculationNumber',
+                payload?.academicDetails.matriculationNumber
+              ); 
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.degreeType',
+                payload?.academicDetails.degreeType
+              ); 
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.programme',
+                payload?.academicDetails.programme
+              ); 
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.grade',
+                payload?.academicDetails.grade
+              ); 
             }
  
     return this.http.post<any>(

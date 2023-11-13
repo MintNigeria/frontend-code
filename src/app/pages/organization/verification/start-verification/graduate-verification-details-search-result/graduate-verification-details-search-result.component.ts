@@ -100,7 +100,19 @@ export class GraduateVerificationDetailsSearchResultComponent implements OnInit 
       imei: '',
       serialNumber: '',
       device: this.deviceModel,
-      ipAddress: this.ipAddress
+      ipAddress: this.ipAddress,
+      graduateRecordInformationVM: {
+        fullName: this.data.fullName,
+        gender: this.data.gender,
+        faculty: this.data.faculty,
+        department: this.data.department,
+        yearOfEntry: this.data.yearOfEntry,
+        graduationYear: this.data.graduationYear,
+        matriculationNumber: this.data.matriculationNumber,
+        degreeType: this.data.degreeType,
+        programme: this.data.programme,
+        grade: this.data.grade,
+      }
     }
     this.store.dispatch(organizationVerificationByGraduateDetails({payload}))
     this.actions$.pipe(ofType(organizationVerificationByGraduateDetailsSuccess)).subscribe((res: any) => {
