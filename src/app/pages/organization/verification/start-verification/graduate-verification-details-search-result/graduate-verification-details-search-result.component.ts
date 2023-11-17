@@ -97,6 +97,7 @@ export class GraduateVerificationDetailsSearchResultComponent implements OnInit 
       organizationId: Number(this.userData.OrganizationId),
       organizationIndustry: this.organizationAndSectorName.organizationIndustry,
       organizationSectorName: this.organizationAndSectorName.organizationSector,
+      matriculationNumber: this.data.matriculationNumber,
       imei: '',
       serialNumber: '',
       device: this.deviceModel,

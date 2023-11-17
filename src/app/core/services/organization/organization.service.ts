@@ -132,8 +132,11 @@ export class OrganizationService
     id: any
   ) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Graduate-Record/${id}`
+      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/${id}`
     );
+    // return this.http.get<any>(
+    //   `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Graduate-Record/${id}`
+    // );
   }
 
   getAlltalentSearchPool(
