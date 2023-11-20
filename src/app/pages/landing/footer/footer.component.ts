@@ -10,6 +10,7 @@ import { CreateAccountModalComponent } from '../modals/create-account-modal/crea
 })
 export class FooterComponent implements OnInit {
 
+  currentYear = new Date().getFullYear();
   constructor(
     private dialog: MatDialog,
   ) { }

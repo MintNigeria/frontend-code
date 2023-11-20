@@ -22,4 +22,8 @@ export class HowItWorksComponent implements OnInit {
     });
   }
 
+  openVideo() {
+    document.getElementById('my-modal-4')?.click()
+  }
+
 }
