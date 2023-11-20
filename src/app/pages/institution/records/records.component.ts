@@ -6,7 +6,7 @@ import { Store, select } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { downloadCSV, downloadCSVSuccess, downloadExcel, downloadExcelSuccess, invokeGetAllGraduates, invokeGetAllGraduatesSuccess } from 'src/app/store/graduates/action';
-import { getALlDepartmentInInstitution, getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess } from 'src/app/store/institution/action';
+import { getALlDepartmentInInstitution, getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess, getInstitutionDataEncryptionDecryption, getInstitutionDataSource, getInstitutionDataSourceSuccess } from 'src/app/store/institution/action';
 import { departmentSelector } from 'src/app/store/institution/selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
@@ -67,6 +67,7 @@ filter = {
   superAdminRole: any;
   adminUser: any;
   permissionList: any;
+  configurationData: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -120,6 +121,16 @@ filter = {
     .subscribe((term) => {
       this.search(term as string);
     });
+    this.store.dispatch(getInstitutionDataSource({ id: this.institutionId }));
+    this.actions$
+      .pipe(ofType(getInstitutionDataSourceSuccess))
+      .subscribe((res: any) => {
+        this.configurationData = res.payload;
+        if (this.configurationData.dataSource === 1) {
+          // this.selectedFileUploadType = 'api';
+
+        }
+      });
   }
 
   addFilter() {

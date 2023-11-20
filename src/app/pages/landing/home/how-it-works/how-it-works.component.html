@@ -19,12 +19,44 @@
       </div>
       <div>
         <p class="mt-4 font-inter font-medium text-base text-failedNormal mb-2">Receive your Result</p>
-        <p class="font-inter font-normal text-base text-lightGray w-full md:w-80">We process your request and share outcome 72 hours after confirmation.</p>
+        <p class="font-inter font-normal text-base text-lightGray w-full md:w-80">We process your request and share outcome instantly after confirmation.</p>
       </div>
     </div>
 
+    <div class="md:w-9/12 w-full mx-auto">
+      <button (click)="openVideo()"
+    class="w-full relative flex justify-center items-center focus:outline-none focus-visible:ring focus-visible:ring-indigo-300 rounded-3xl group"
+    aria-controls="modal"
+    aria-label="Watch the video"
+>
+    <img class="rounded-3xl shadow-2xl transition-shadow duration-300 ease-in-out" src="assets/images/explainer.jpg" width="768" height="432" alt="Modal video thumbnail" />
+    <!-- Play icon -->
+    <svg class="absolute pointer-events-none group-hover:scale-110 transition-transform duration-300 ease-in-out" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+        <circle class="fill-black" cx="36" cy="36" r="36" fill-opacity=".8" />
+        <path class="fill-indigo-500 drop-shadow-2xl" d="M44 36a.999.999 0 0 0-.427-.82l-10-7A1 1 0 0 0 32 29V43a.999.999 0 0 0 1.573.82l10-7A.995.995 0 0 0 44 36V36c0 .001 0 .001 0 0Z" />
+    </svg>
+      </button>
+      <!-- The button to open modal -->
+
+<!-- Put this part before </body> tag -->
+<input type="checkbox" id="my-modal-4" class="modal-toggle" />
+<label for="my-modal-4" class="modal cursor-pointer">
+  <label class="modal-box max-w-5xl md:w-3/4 bg-white relative" for="">
+    <div class=" w-full  h-full flex items-center">
+      <iframe src="https://drive.google.com/file/d/17WnU7ceZMAhrjPYLESsZSoykd1lYiz_D/preview" width="100%" height="480" allow="autoplay"></iframe>
+      <!-- <video  loop controls>
+          <source src="https://drive.google.com/file/d/17WnU7ceZMAhrjPYLESsZSoykd1lYiz_D/view" type="video/mp4" />
+          Your browser does not support the video tag.
+      </video> -->
+      <!-- <div class="w-full max-h-full rounded-3xl shadow-2xl aspect-video bg-black overflow-hidden">
+      </div> -->
+  </div>
+  </label>
+</label>
+    </div>
+
     <div class="space-x-6">
-      <app-button
+      <!-- <app-button
       [overRideButtonClass]="true"
       [customClass]="'border bg-white text-failedNormal font-inter font-medium text-lg p-2 rounded-md'">
         Learn More
@@ -34,7 +66,7 @@
       [overRideButtonClass]="true"
       [customClass]="'bg-buttonBlue text-white font-inter font-medium text-lg p-2 rounded-md'">
         Get Started
-      </app-button>
+      </app-button> -->
     </div>
   </div>
 </div>

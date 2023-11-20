@@ -258,7 +258,7 @@ export class GraduateVerificationPaymentComponent implements OnInit {
       if (res) {
         this.notification.publishMessages('success', res.payload.description)
         // this.router.navigate(['organization/verifications']); 
-        this.router.navigateByUrl(`/organization/verifications/view-verified-record/${res.payload.payload.institutionGraduateId}`)     
+        this.router.navigateByUrl(`/organization/verifications/view-verified-record/${res.payload.payload.organizationVerificationId}`)     
 
       }
 

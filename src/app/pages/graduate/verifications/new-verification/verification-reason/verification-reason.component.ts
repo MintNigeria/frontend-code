@@ -130,6 +130,7 @@ export class VerificationReasonComponent implements OnInit {
       serialNumber: '',
       device: this.deviceModel,
       ipAddress: this.ipAddress,
+      academicDetails: this.selectedVerificationUser
 
     }
     this.store.dispatch(submitVerificationReasonForRequest({payload}))

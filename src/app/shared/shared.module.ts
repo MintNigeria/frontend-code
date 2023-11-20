@@ -77,7 +77,7 @@ const components: any[] = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-        MatDialogModule,
+    MatDialogModule,
 
     RouterModule
   ],

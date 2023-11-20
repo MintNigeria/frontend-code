@@ -1,7 +1,7 @@
 <div class="md:px-8 px-6  py-6 bg-white ">
     <div class="flex gap-3 items-center">
         <div>
-            <img [routerLink]="'/institution/uploads'" src="assets/images/icons/home.svg" />
+            <img src="assets/images/icons/home.svg" />
         </div>
         <div>
             <img src="assets/images/icons/forward_arrow.svg" />
@@ -22,259 +22,269 @@
                 <h4 class="font-medium font-poppins text-4xl text-[#101828] my-3">
                     Graduate Records
                 </h4>
-                <app-button
-                *ngIf="permissionList?.includes('INSTITUTION_RECORDS_UPLOAD') || superAdminRole === 'Super Admin' || superAdminRole === 'undefined'"
+                <ng-container *ngIf="configurationData.dataSource === 2">
 
-                [routerLink]="'/institution/uploads/upload-records'"
-                [overRideButtonClass]="true"
-                [customClass]="'h-[52px] w-32 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue'">
-                    Upload Record
-                </app-button>
+                    <app-button
+                    *ngIf="permissionList?.includes('INSTITUTION_RECORDS_UPLOAD') || superAdminRole === 'Super Admin' || superAdminRole === 'undefined'"
+    
+                    [routerLink]="'/institution/uploads/upload-records'"
+                    [overRideButtonClass]="true"
+                    [customClass]="'h-[52px] w-32 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue'">
+                        Upload Record
+                    </app-button>
+                </ng-container>
             </div>
         </div>
     </div>
 
-    <div class="w-full  rounded-xl shadow-sm p-6 border-none  bg-tabBlue">
-            <div>
-                <div class="flex md:flex-row md:justify-between md:items-center  flex-col w-full">
-                    <div class="lg:flex lg:justify-between gap-4">
-                        <div class="lg:justify-between gap-4">
-                            <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
-                                Faculty
-                            </p>
-                            <div class="dropdown dropdown-bottom">
-                                <label (click)="showFaculty = false;" tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg w-[160px] h-[40px] py-[14px] px-3 cursor-pointer">
-                                <p class="my-0 text-black font-inter font-medium text-sm">{{ selectedOption }}</p>
-                                <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
-                                </label>
-                                <ul tabindex="0"
-                                [ngClass]="showFaculty? 'hidden' : 'block'"
-                                class="dropdown-content h-64 overflow-y-scroll menu p-2 shadow bg-white text-black rounded-box w-52">
-                                <li><a (click)="selectedOption='All'">All</a></li>
-                                <li><a (click)="changeFaculty(unit.id, unit.name)" *ngFor="let unit of facultyList">{{unit.name}}</a></li>
-                                <!-- <li><a (click)="changeFaculty()selectedOption='Art'">Art</a></li> -->
-                                </ul>
+    <ng-container *ngIf="configurationData.dataSource === 2">
+        <div class="w-full  rounded-xl shadow-sm p-6 border-none  bg-tabBlue">
+                <div>
+                    <div class="flex md:flex-row md:justify-between md:items-center  flex-col w-full">
+                        <div class="lg:flex lg:justify-between gap-4">
+                            <div class="lg:justify-between gap-4">
+                                <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
+                                    Faculty
+                                </p>
+                                <div class="dropdown dropdown-bottom">
+                                    <label (click)="showFaculty = false;" tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg w-[160px] h-[40px] py-[14px] px-3 cursor-pointer">
+                                    <p class="my-0 text-black font-inter font-medium text-sm">{{ selectedOption }}</p>
+                                    <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
+                                    </label>
+                                    <ul tabindex="0"
+                                    [ngClass]="showFaculty? 'hidden' : 'block'"
+                                    class="dropdown-content h-64 overflow-y-scroll menu p-2 shadow bg-white text-black rounded-box w-52">
+                                    <li><a (click)="selectedOption='All'">All</a></li>
+                                    <li><a (click)="changeFaculty(unit.id, unit.name)" *ngFor="let unit of facultyList">{{unit.name}}</a></li>
+                                    <!-- <li><a (click)="changeFaculty()selectedOption='Art'">Art</a></li> -->
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="lg:justify-between gap-4">
-                            <p class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2">
-                                Department
-                            </p>
-                            <div class="dropdown dropdown-bottom">
-                                <label tabindex="0" (click)=" showDepartment= false;" [ngClass]="showDepartment? 'w-fit' : 'w-[160px]'" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg  h-[40px] py-[14px] px-3 cursor-pointer">
-                                <p class="my-0 text-black font-inter font-medium text-sm">{{ department }}</p>
-                                <img src="assets/images/icons/downward_arrow.svg">
-                                </label>
-                                <ul 
-                                tabindex="0" 
-                                [ngClass]="showDepartment? 'hidden' : 'block'"
-                                class="dropdown-content h-64 overflow-y-scroll menu p-2 shadow bg-white text-black rounded-box w-72">
-                                    <li *ngFor="let unit of departmentList"><a (click)="changeDepartment(unit.id, unit.departmentName)">{{unit.departmentName}}</a></li>
-                                    <!-- <li><a (click)="changeDepartment('id', 'name')">Computer Science</a></li> -->
-                                    <!-- <li><a (click)="department='English Department'">English Department</a></li> -->
-                                </ul>
+    
+                            <div class="lg:justify-between gap-4">
+                                <p class="text-[#344054] font-inter text-sm font-medium cursor-pointer mb-2">
+                                    Department
+                                </p>
+                                <div class="dropdown dropdown-bottom">
+                                    <label tabindex="0" (click)=" showDepartment= false;" [ngClass]="showDepartment? 'w-fit' : 'w-[160px]'" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg  h-[40px] py-[14px] px-3 cursor-pointer">
+                                    <p class="my-0 text-black font-inter font-medium text-sm">{{ department }}</p>
+                                    <img src="assets/images/icons/downward_arrow.svg">
+                                    </label>
+                                    <ul 
+                                    tabindex="0" 
+                                    [ngClass]="showDepartment? 'hidden' : 'block'"
+                                    class="dropdown-content h-64 overflow-y-scroll menu p-2 shadow bg-white text-black rounded-box w-72">
+                                        <li *ngFor="let unit of departmentList"><a (click)="changeDepartment(unit.id, unit.departmentName)">{{unit.departmentName}}</a></li>
+                                        <!-- <li><a (click)="changeDepartment('id', 'name')">Computer Science</a></li> -->
+                                        <!-- <li><a (click)="department='English Department'">English Department</a></li> -->
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-
-                        <!-- <div class="lg:justify-between gap-4">
-                            <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
-                                Graduation Year
-                            </p>
-                            <div class="dropdown dropdown-bottom">
-                                <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg w-[160px] h-[40px] py-[14px] px-3 cursor-pointer">
-                                <p class="my-0 text-black font-inter font-medium text-sm">{{ gradYear }}</p>
-                                <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
-                                </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-56">
-                                    <li><a (click)="gradYear='All'">All</a></li>
-                                    <li><a (click)="gradYear='2019'">2019</a></li>
-                                </ul>
+    
+                            <!-- <div class="lg:justify-between gap-4">
+                                <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
+                                    Graduation Year
+                                </p>
+                                <div class="dropdown dropdown-bottom">
+                                    <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg w-[160px] h-[40px] py-[14px] px-3 cursor-pointer">
+                                    <p class="my-0 text-black font-inter font-medium text-sm">{{ gradYear }}</p>
+                                    <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
+                                    </label>
+                                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-56">
+                                        <li><a (click)="gradYear='All'">All</a></li>
+                                        <li><a (click)="gradYear='2019'">2019</a></li>
+                                    </ul>
+                                </div>
+                            </div> -->
+    
+                            <div class="flex items-center mt-6">
+                                <button
+                                class="bg-primaryBlue text-white font-medium font-inter text-xs w-[80px] h-[40px] rounded-xl"
+                                (click)="addFilter()"
+                                >
+                                Generate
+                                </button>
+                                <button
+                                class="bg-none text-[#4086EF] font-medium font-inter text-xs w-[80px] h-[40px] rounded"
+                                (click)="clearFilter()"
+                                >
+                                Clear Filter
+                                </button>
                             </div>
-                        </div> -->
-
-                        <div class="flex items-center mt-6">
-                            <button
-                            class="bg-primaryBlue text-white font-medium font-inter text-xs w-[80px] h-[40px] rounded-xl"
-                            (click)="addFilter()"
-                            >
-                            Generate
-                            </button>
-                            <button
-                            class="bg-none text-[#4086EF] font-medium font-inter text-xs w-[80px] h-[40px] rounded"
-                            (click)="clearFilter()"
-                            >
-                            Clear Filter
-                            </button>
+    
                         </div>
-
+                        
                     </div>
-                    
                 </div>
-            </div>
-    </div>
-
-    <!---->
-
-    <!--Table-->
-
-    <div class="mt-3 rounded-xl bg-white border border-solid border-[#EFF0F6]">
-        <div
-            class="flex border-b border-solid border-[#EFF0F7]  items-center gap-3 p-[20px_24px]">
-            <h5 class="text-darkGray text-base md:text-lg font-medium">
-                Records
-                <span>
-                    
-                </span>
-            </h5>
-            <div class="rounded text-center">
-                <div class=" rounded-full text-center w-auto bg-tabBlue">
-                    <p class="text-primaryBlue text-sm cursor-pointer font-inter font-medium">
-                        {{ totalCount }}
-                    </p>
-                </div>
-            </div>
-                    
         </div>
-        <!--Search and Export-->
-        <div class="mt-3 bg-white" >
-            <div class="md:block hidden px-7">
-                <form>
-                    <div class="flex md:flex-row md:justify-between md:items-center flex-col w-full">
-                        <div class="flex lg:justify-between gap-4">
-                            <app-search 
-                            [placeholder]="'Search by name'"
-                            (iconSearch)="search($event)"
-                [formGrp]="searchForm" formCtrlName="searchPhrase"  
-                ></app-search>
-                        </div>
-
-                        <div class="flex md:items-center gap-4 ">
-                            <div>
-                                <div class="lg:justify-between gap-4">
-                                    <div class="dropdown dropdown-end">
-                                        <label tabindex="0" class="flex justify-between bg-[#F5F9FF] rounded-[10px] items-center  border border-none min-w-[101px] py-[8px] px-4 text-sm cursor-pointer">
-                                        <p class="my-0 text-[#0D47A1] font-inter font-medium text-sm">Export</p>
-                                        <img src="assets/images/icons/downward_arrow_blue.svg" alt="" class="">
-                                        </label>
-                                        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
-                                            <li (click)="download('CSV')"><a>Export as CSV</a></li>
-                                            <li (click)="download('Excel')"><a >Export as Excel</a></li>
-                                        </ul>
+    
+     
+    
+        <div class="mt-3 rounded-xl bg-white border border-solid border-[#EFF0F6]">
+            <div
+                class="flex border-b border-solid border-[#EFF0F7]  items-center gap-3 p-[20px_24px]">
+                <h5 class="text-darkGray text-base md:text-lg font-medium">
+                    Records
+                    <span>
+                        
+                    </span>
+                </h5>
+                <div class="rounded text-center">
+                    <div class=" rounded-full text-center w-auto bg-tabBlue">
+                        <p class="text-primaryBlue text-sm cursor-pointer font-inter font-medium">
+                            {{ totalCount }}
+                        </p>
+                    </div>
+                </div>
+                        
+            </div>
+            <!--Search and Export-->
+            <div class="mt-3 bg-white" >
+                <div class="md:block hidden px-7">
+                    <form>
+                        <div class="flex md:flex-row md:justify-between md:items-center flex-col w-full">
+                            <div class="flex lg:justify-between gap-4">
+                                <app-search 
+                                [placeholder]="'Search by name'"
+                                (iconSearch)="search($event)"
+                    [formGrp]="searchForm" formCtrlName="searchPhrase"  
+                    ></app-search>
+                            </div>
+    
+                            <div class="flex md:items-center gap-4 ">
+                                <div>
+                                    <div class="lg:justify-between gap-4">
+                                        <div class="dropdown dropdown-end">
+                                            <label tabindex="0" class="flex justify-between bg-[#F5F9FF] rounded-[10px] items-center  border border-none min-w-[101px] py-[8px] px-4 text-sm cursor-pointer">
+                                            <p class="my-0 text-[#0D47A1] font-inter font-medium text-sm">Export</p>
+                                            <img src="assets/images/icons/downward_arrow_blue.svg" alt="" class="">
+                                            </label>
+                                            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
+                                                <li (click)="download('CSV')"><a>Export as CSV</a></li>
+                                                <li (click)="download('Excel')"><a >Export as Excel</a></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+    
+    
                         </div>
-
-
-                    </div>
-                </form>
-
-            </div>
-            <!---->
-
-            <!--Table Content-->
-
-            <div>
-
-                <div class="overflow-x-auto mt-8 hide-scrollbar">
-                    <table class="table w-full">
-                        <thead>
-                            <tr>
+                    </form>
+    
+                </div>
+                <!---->
+    
+                <!--Table Content-->
+    
+                <div>
+    
+                    <div class="overflow-x-auto mt-8 hide-scrollbar">
+                        <table class="table w-full">
+                            <thead>
+                                <tr>
+                                    
+                                    <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Name</th>
+                                    <th class="flex gap-1 text-xs text-lightGray font-medium font-inter bg-tableHeader ">Faculty
+                                    </th>
+                                    <th class="bg-tableHeader">
+                                       <div class="flex gap-2">
+                                            <p class="text-xs text-lightGray font-medium font-inter ">Department</p>
+                                            <!-- <img src="assets/images/icons/arrow_down.svg" alt="arrow_down"> -->
+                                       </div>
+                                    </th>
+                                    <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Matriculation Number
+                                    </th>
+                                    <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Graduation Year</th>
+                                    <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Action</th>
+                                   
+                                </tr>
+                            </thead>
+    
+                            <tbody class="bg-white">
+                                <tr *ngFor="let data of recordList | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: totalCount }" class="bg-white">
                                 
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Name</th>
-                                <th class="flex gap-1 text-xs text-lightGray font-medium font-inter bg-tableHeader ">Faculty
-                                </th>
-                                <th class="bg-tableHeader">
-                                   <div class="flex gap-2">
-                                        <p class="text-xs text-lightGray font-medium font-inter ">Department</p>
-                                        <!-- <img src="assets/images/icons/arrow_down.svg" alt="arrow_down"> -->
-                                   </div>
-                                </th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Matriculation Number
-                                </th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Graduation Year</th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Action</th>
-                               
-                            </tr>
-                        </thead>
-
-                        <tbody class="bg-white">
-                            <tr *ngFor="let data of recordList | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: totalCount }" class="bg-white">
-                            
-                                
-                                <td class="bg-white">
-                                    <div>
+                                    
+                                    <td class="bg-white">
                                         <div>
                                             <div>
-                                                <p class="my-0 text-base  font-inter font-medium text-primaryBlue ">{{data.fullName || 'N/A' | titlecase}}</p>
+                                                <div>
+                                                    <p class="my-0 text-base  font-inter font-medium text-primaryBlue ">{{data.fullName || 'N/A' | titlecase}}</p>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                    </div>
-                                </td>
-                                
-                                <td class="bg-white">
-                                    <div>
-                                        <p class="my-0 text-base  font-inter font-normal text-lightGray ">{{data?.faculty | titlecase}}</p>
-                                    </div>
-                                </td>
-
-                                <td class="bg-white">
-                                    <div>
-                                        <p class="my-0 text-base  font-inter font-normal text-lightGray ">{{data.department | titlecase}}</p>
-                                       
-                                    </div>
-                                </td>
-                                <td class="bg-white">
-                                    <div>
-                                        <p class="my-0 text-base  font-inter font-normal text-lightGray ">{{data.matriculationNumber}}</p>
-                                        
-                                    </div>
-
-                                </td>
-                                <td class="bg-white">
-                                    <div>
-                                        <p class="my-0 text-base  font-inter font-normal text-lightGray ">{{data.graduationYear}}</p>
-                                        
-                                    </div>
-
-                                </td>
-                                <td class="bg-white"
-                                [routerLink]="'/institution/records/record-details/'+data.id">
-                                    <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-primaryBlue ">View</p>
-                                        
-                                    </div>
-
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-
-                </div>
-            </div>
-
-            <!---->
-
-            <!--Pagination-->
-            <div class="flex items-center justify-between mt-10">
-                <select class=" text-black select max-w-xs bg-white" (change)="selectRecordCount($event.target)">
-                    <option disabled selected>Per page</option>
-                    <option value="10">10</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                    <option value="150">150</option>
-                    <option value="200">200</option>
-                  </select>
-                <div class="flex item gap-3">
-                    <pagination-controls [responsive]="true"   (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next"></pagination-controls>
-                </div>
-            </div>
-
-        </div>
-                
-    </div>
     
+                                        </div>
+                                    </td>
+                                    
+                                    <td class="bg-white">
+                                        <div>
+                                            <p class="my-0 text-base  font-inter font-normal text-lightGray ">{{data?.faculty | titlecase}}</p>
+                                        </div>
+                                    </td>
+    
+                                    <td class="bg-white">
+                                        <div>
+                                            <p class="my-0 text-base  font-inter font-normal text-lightGray ">{{data.department | titlecase}}</p>
+                                           
+                                        </div>
+                                    </td>
+                                    <td class="bg-white">
+                                        <div>
+                                            <p class="my-0 text-base  font-inter font-normal text-lightGray ">{{data.matriculationNumber}}</p>
+                                            
+                                        </div>
+    
+                                    </td>
+                                    <td class="bg-white">
+                                        <div>
+                                            <p class="my-0 text-base  font-inter font-normal text-lightGray ">{{data.graduationYear}}</p>
+                                            
+                                        </div>
+    
+                                    </td>
+                                    <td class="bg-white"
+                                    [routerLink]="'/institution/records/record-details/'+data.id">
+                                        <div>
+                                            <p class="my-0 text-base cursor-pointer font-inter font-normal text-primaryBlue ">View</p>
+                                            
+                                        </div>
+    
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+    
+    
+                    </div>
+                </div>
+    
+                <!---->
+    
+                <!--Pagination-->
+                <div class="flex items-center justify-between mt-10">
+                    <select class=" text-black select max-w-xs bg-white" (change)="selectRecordCount($event.target)">
+                        <option disabled selected>Per page</option>
+                        <option value="10">10</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="150">150</option>
+                        <option value="200">200</option>
+                      </select>
+                    <div class="flex item gap-3">
+                        <pagination-controls [responsive]="true"   (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next"></pagination-controls>
+                    </div>
+                </div>
+    
+            </div>
+                    
+        </div>
+        
+    </ng-container>
+    <ng-container *ngIf="configurationData.dataSource === 1">
+        <app-request-empty-state
+        
+        [dataStatus]="'Graduate Records'"
+        [bodyText]="'Graduate records can not be show becuase this institution uses API for graduate fetch graduate record.'"
+        ></app-request-empty-state>
+    </ng-container>
 </div>
