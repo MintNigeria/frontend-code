@@ -14,7 +14,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { OrganizationEffects } from 'src/app/store/organization/effects';
 import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/request-empty-state.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { FlutterwaveModule } from "flutterwave-angular-v3"
 
 @NgModule({
   declarations: [
@@ -30,6 +30,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RequestEmptyStateComponent,
     TransactionsRoutingModule,
     NgxPaginationModule,
+    FlutterwaveModule,
     StoreModule.forFeature('graduates', graduatesReducer),
     EffectsModule.forFeature([GraduatesEffects, OrganizationEffects]),
 

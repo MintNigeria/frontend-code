@@ -12,4 +12,9 @@ export class QuestionsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  showSection(section: string) {
+    document.querySelector('#'+ section)?.scrollIntoView({ block: 'start', behavior: 'smooth', inline: 'nearest' })
+
+  }
+
 }

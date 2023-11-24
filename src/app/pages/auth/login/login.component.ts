@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
       userType: new FormControl(2),
       rememberMe: new FormControl(false),
       // recaptchaReactive: new FormControl(null),
-      recaptchaReactive: new FormControl(null, ),
+      recaptchaReactive: new FormControl(null, [Validators.required]),
 
     });
   }

@@ -10,6 +10,12 @@ import { NotificationsService } from 'src/app/core/services/shared/notifications
 declare var PaystackPop: any;
 import { environment } from 'src/environments/environment';
 import { getGraduateWalletId, getGraduateWalletIdSuccess, retryApplicationVarificationPayment, retryApplicationVarificationPaymentSuccess } from 'src/app/store/graduates/action';
+import {
+  Flutterwave,
+  InlinePaymentOptions,
+  PaymentSuccessResponse,
+} from "flutterwave-angular-v3";
+import { ConfigurationService } from 'src/app/core/services/configuration/configuration.service';
 
 @Component({
   selector: 'app-make-payment',
@@ -18,6 +24,7 @@ import { getGraduateWalletId, getGraduateWalletIdSuccess, retryApplicationVarifi
 })
 export class MakePaymentComponent implements OnInit, OnDestroy {
   pk: string = environment.pkKey
+  wavePk: string = environment.wavePk_key
 
   selectedPaymentMethod: string = '';
 
@@ -76,6 +83,10 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
   retryApplicationAmount:any;
   retryApplicationTransactionId!: number;
   retryApplicationmakePaymentType!: number;
+  reference = `ref-${Math.ceil(Math.random() * 10e13)}`;
+  customerDetails : any;
+  customizations : any;
+
   constructor(
     private fb: FormBuilder,
     private appStore: Store<AppStateInterface>,
@@ -85,6 +96,8 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private utilityService: UtilityService,
     private notification: NotificationsService,
+    private flutterwave: Flutterwave,
+    private configurationService: ConfigurationService
 
   ) { 
     const userAgent = navigator.userAgent;
@@ -106,6 +119,15 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
     this.trxData = JSON.parse(trx)
     const data: any = localStorage.getItem('userData')
     this.userData = JSON.parse(data)
+    this.customerDetails = {
+      name: `${this.userData?.given_name + ' ' + this.userData?.family_name}`,
+      email: this.userData?.email,
+      phone_number: this.userData?.phone_number
+
+    }
+    this.customizations = {
+      title: 'Verification Payment',
+    }
     this.store.dispatch(getGraduateWalletId())
     this.actions$.pipe(ofType(getGraduateWalletIdSuccess)).subscribe((res: any) => {
       this.balance = res.payload.payload.balance;
@@ -238,10 +260,16 @@ payWithCard() {
       // this.router.navigate(['organization/verifications/view-verified-documents/2']);      
     }
   })
-  if (this.selectedMerchant === 'Paystack') {
-    this.launchPaystack()
-  }
+  // if (this.selectedMerchant === 'Paystack') {
+  //   this.launchPaystack()
+  // }
+  if (this.selectedMerchant === 'Flutterwave') {
+    this.makePaymentWithFlutterwave()
+  } 
 }
+
+
+// paystack implementations
 
 launchPaystack() {
   const paystack = new PaystackPop();
@@ -268,13 +296,74 @@ onClose() {
   ////console.log('trx')
 }
 
+
+// launch flutterwave modal
+
+
+makePaymentWithFlutterwave() {
+  const paymentData: InlinePaymentOptions = {
+    public_key: this.wavePk,
+    tx_ref: this.generateReference(),
+    amount: this.retryPayment === false ? (this.trxData?.amount) : (this.retryApplicationAmount) , //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    currency: "NGN",
+    subaccounts: [
+      {
+        id: this.trxData.institutionSubAccount,
+        transaction_charge_type: "flat_subaccount",
+        transaction_charge: Number(this.trxData.institutionAmount),
+      }
+    ],
+    payment_options: "card, ussd",
+    redirect_url: "",
+    customer: this.customerDetails,
+    customizations: this.customizations,
+    callback: this.makePaymentCallback,
+    onclose: this.closedPaymentModal,
+    callbackContext: this,
+  };
+  this.flutterwave.inlinePay(paymentData);
+}
+
+makePaymentCallback(response: PaymentSuccessResponse): void {
+  console.log("Pay", response);
+  this.flutterwave.closePaymentModal(5);
+  this.callFLWverification(response)
+}
+
+
+callFLWverification(response: any) {
+  this.configurationService.verifyFLWTransactions(response.transaction_id).subscribe((res: any) => {
+    console.log(res)
+    if (res.payload.status === 'successful') {
+      
+      this.isTransactionSuccessful = 'success'
+      this.validatePayment(response)
+    }
+  })
+}
+closedPaymentModal(): void {
+  // console.log("payment is closed");
+}
+generateReference(): string {
+  let date = new Date();
+  return date.getTime().toString();
+}
+
+// flutterwave validate payment
+
+
+
+
+
+
+// validate main payment
 validatePayment(data: any) {
   ////console.log(data)
   const payload = {
     transactionId: this.retryPayment === false ? Number(this.transactionId): Number(this.retryApplicationTransactionId),
     makePaymentType: this.retryPayment === false ? 4 : this.retryApplicationmakePaymentType,
-    refrenceNumber: data.reference,
-    merchantType: 'PAYSTACK',
+    refrenceNumber: data.reference || data.flw_ref,
+    merchantType: 'FLUTTERWAVE',
     isPaymentSuccessful: this.isTransactionSuccessful === 'success' ? true : false,
     imei: '',
     serialNumber: '',

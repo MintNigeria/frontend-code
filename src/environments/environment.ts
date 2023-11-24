@@ -9,8 +9,8 @@ export const environment = {
   // apiBaseURI: 'https://certificatesverification.org/',
   apiBaseURI: 'http://20.83.190.78:2000/',
   pkKey: 'pk_test_eb4b13434160b570438c8b4ce2cc1c4601c4fc94',
+  wavePk_key: 'FLWPUBK_TEST-bbf486778eeae8a4fb9525db0e204235-X',
   // pkKey: 'pk_test_dc7c232fe6f9d7ff3eaeeda082074ef765244dbf',
-
 
 };
 

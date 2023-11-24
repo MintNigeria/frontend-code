@@ -298,4 +298,38 @@ export class ConfigurationService
     );
   }
 
+  createBankAccountDetails(
+    payload : any,
+    institutionId: string
+  ) {
+    
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Payment/Flutterwave/SubAccount/${institutionId}`,
+      payload
+    );
+  }
+
+  validateAccountDetails(
+   payload : any
+  ) {
+    
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Payment/Flutterwave/Validate-Account-Details`,
+      payload
+    );
+  }
+
+  verifyFLWTransactions(transactionId : any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Payment/Flutterwave/Verify-Transaction/${transactionId}`,
+    );
+  }
+
+  getAllBanks() {
+    
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Payment/All-Banks`,
+    );
+  }
+
 }

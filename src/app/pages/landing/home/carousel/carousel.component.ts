@@ -21,7 +21,7 @@ export class CarouselComponent implements OnInit {
       buttonOne: 'Request For Demo',
       buttonOneRoute: '/request-demo',
       buttonTwo: 'See how it works',
-      buttonTwoRoute: '/'
+      buttonTwoRoute: 'explainer'
     },
     {
       id: 'slide2',
@@ -87,9 +87,16 @@ export class CarouselComponent implements OnInit {
   onButtonClick(route: string) {
   if (route === '/login') {
     this.openLogin();
+  } else if (route === 'explainer') {
+    this.openExplainer() 
   } else {
-    this.router.navigate([route]);
+    this.router.navigate([route]); 
+
   }
+}
+
+openExplainer() {
+  document.getElementById('my-modal-4')?.click()
 }
 
 }
