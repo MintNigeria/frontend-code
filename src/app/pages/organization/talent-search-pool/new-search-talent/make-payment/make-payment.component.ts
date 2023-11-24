@@ -14,6 +14,8 @@ import {
   InlinePaymentOptions,
   PaymentSuccessResponse,
 } from "flutterwave-angular-v3";
+import { ConfigurationService } from 'src/app/core/services/configuration/configuration.service';
+
 @Component({
   selector: 'app-make-payment',
   templateUrl: './make-payment.component.html',
@@ -66,7 +68,9 @@ export class MakePaymentComponent implements OnInit {
     private route: ActivatedRoute,
     private utilityService: UtilityService,
     private notification: NotificationsService,
-    private flutterwave: Flutterwave
+    private flutterwave: Flutterwave,
+    private configurationService: ConfigurationService
+
 
   ) { 
     const userAgent = navigator.userAgent;
@@ -98,7 +102,7 @@ export class MakePaymentComponent implements OnInit {
 
     }
     this.customizations = {
-      title: 'Application Payment',
+      title: 'Talent Search Pool Payment',
     }
     this.store.dispatch(getOrganizationWalletId({id: this.userData.OrganizationId}))
     this.actions$.pipe(ofType(getOrganizationWalletIdSuccess)).subscribe((res: any) => {
@@ -261,7 +265,7 @@ makePaymentWithFlutterwave() {
   const paymentData: InlinePaymentOptions = {
     public_key: this.wavePk,
     tx_ref: this.generateReference(),
-    amount: this.retryPayment === false ? (this.trxData?.amount * 100) : (this.retryApplicationAmount * 100) , //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    amount: Number(this.trxData?.amount) , //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
     currency: "NGN",
     // subaccounts: [
     //   {
@@ -284,6 +288,19 @@ makePaymentWithFlutterwave() {
 makePaymentCallback(response: PaymentSuccessResponse): void {
   console.log("Pay", response);
   this.flutterwave.closePaymentModal(5);
+  this.callFLWverification(response)
+}
+
+
+callFLWverification(response: any) {
+  this.configurationService.verifyFLWTransactions(response.transaction_id).subscribe((res: any) => {
+    console.log(res)
+    if (res.payload.status === 'successful') {
+      
+      this.isTransactionSuccessful = 'success'
+      this.validatePayment(response)
+    }
+  })
 }
 closedPaymentModal(): void {
   console.log("payment is closed");
@@ -305,9 +322,9 @@ validatePayment(data: any) {
   ////console.log(data)
   const payload = {
     transactionId: Number(this.transactionId),
-    refrenceNumber: data.reference,
+    refrenceNumber: data.reference || data.flw_ref,
+    merchantType: 'FLUTTERWAVE',
     makePaymentType: 6,
-    merchantType: 'PAYSTACK',
     isPaymentSuccessful: this.isTransactionSuccessful === 'success' ? true : false,
     imei: '',
     // talentSearchPoolTransactionVM: this.trxData,
