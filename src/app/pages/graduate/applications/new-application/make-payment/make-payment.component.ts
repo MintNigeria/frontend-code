@@ -358,6 +358,11 @@ callFLWverification(response: any) {
       
       this.isTransactionSuccessful = 'success'
       this.validatePayment(response)
+    } else {
+      // this.isTransactionSuccessful = 'failed'
+      // this.flutterwave.closePaymentModal(5);
+      // this.validatePayment(response)
+
     }
   })
 }
