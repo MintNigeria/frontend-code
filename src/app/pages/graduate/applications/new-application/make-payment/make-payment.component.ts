@@ -361,6 +361,7 @@ callFLWverification(response: any) {
     }
   })
 }
+
 closedPaymentModal(): void {
   // console.log("payment is closed");
 }

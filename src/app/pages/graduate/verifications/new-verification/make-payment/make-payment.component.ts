@@ -118,6 +118,7 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
     const trx : any = sessionStorage.getItem('ver_pMy')
     this.trxData = JSON.parse(trx)
     const data: any = localStorage.getItem('userData')
+    console.log(this.trxData)
     this.userData = JSON.parse(data)
     this.customerDetails = {
       name: `${this.userData?.given_name + ' ' + this.userData?.family_name}`,
@@ -333,9 +334,7 @@ makePaymentCallback(response: PaymentSuccessResponse): void {
 
 callFLWverification(response: any) {
   this.configurationService.verifyFLWTransactions(response.transaction_id).subscribe((res: any) => {
-    console.log(res)
     if (res.payload.status === 'successful') {
-      
       this.isTransactionSuccessful = 'success'
       this.validatePayment(response)
     }

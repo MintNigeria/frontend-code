@@ -8,6 +8,6 @@ export const environment = {
   // apiBaseURI: 'http://20.83.190.78:2000/',
 
   pkKey: 'pk_test_eb4b13434160b570438c8b4ce2cc1c4601c4fc94',
-  wavePk_key: 'FLWPUBK_TEST-XXXXX-X',
+  wavePk_key: 'FLWPUBK_TEST-2e68ba33afe2082fbf03d3348e22b669-X',
   // pkKey: 'pk_test_dc7c232fe6f9d7ff3eaeeda082074ef765244dbf',
 };

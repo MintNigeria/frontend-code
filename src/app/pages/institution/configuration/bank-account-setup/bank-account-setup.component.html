@@ -41,8 +41,16 @@
                          formControlName="accountNumber"
                          placeholder="Enter account number"
                          [class]="'px-4 text-black mt-1 h-[52px] w-full bg-transparent border focus:bg-transparent rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
-                         [name]="'fee'">
-                         <small class="text-red-500 font-medium" *ngIf="showAccountName">Account Name: {{accountName}}</small>
+                         [name]="'fee'"
+                         [max]="10">
+                         <small class="text-green-800 font-medium" *ngIf="showAccountName">Account Name: {{accountName}}</small>
+                         <small class="text-red-500" *ngIf="bankSetupForm.controls['accountNumber'].touched && bankSetupForm.controls['accountNumber'].invalid">
+                            Correct Account number is required
+                         </small>
+                         <small class="text-red-500 mt-1" *ngIf="bankSetupForm.controls['accountNumber'].errors?.['minlength']">
+                            Account number should not be less than or greater than {{bankSetupForm.controls['accountNumber'].errors?.['minlength'].requiredLength}} characters
+                          </small>
+                          
                     <!-- <app-input-number  [formGrp]="bankSetupForm" formCtrlName="accountNumber" [type]="'text'" [class]="
                               'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
                             " placeholder="Enter account" [name]="'Account Number'"></app-input-number> -->
