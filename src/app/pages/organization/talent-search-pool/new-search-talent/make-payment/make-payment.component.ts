@@ -9,7 +9,11 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 declare var PaystackPop: any;
 import { environment } from 'src/environments/environment';
-
+import {
+  Flutterwave,
+  InlinePaymentOptions,
+  PaymentSuccessResponse,
+} from "flutterwave-angular-v3";
 @Component({
   selector: 'app-make-payment',
   templateUrl: './make-payment.component.html',
@@ -17,6 +21,7 @@ import { environment } from 'src/environments/environment';
 })
 export class MakePaymentComponent implements OnInit {
   pk: string = environment.pkKey
+  wavePk: string = environment.wavePk_key
 
   selectedPaymentMethod: string = '';
 
@@ -34,33 +39,6 @@ export class MakePaymentComponent implements OnInit {
   otpModal = "otpModal";
   successModal = "successModal";
 
-
-  searchResults = [
-    {
-      name: 'Adekunle Ciroma',
-      faculty: 'Management Science',
-      department: 'Bank and Finance',
-      matricNo: '123456',
-      gradYear: '2019',
-      action:'Verify'
-    },
-    {
-      name: 'Adekunle Ciroma',
-      faculty: 'Management Science',
-      department: 'Bank and Finance',
-      matricNo: '123456',
-      gradYear: '2019',
-      action:'Verify'
-    },
-    {
-      name: 'Adekunle Ciroma',
-      faculty: 'Management Science',
-      department: 'Bank and Finance',
-      matricNo: '123456',
-      gradYear: '2019',
-      action:'Verify'
-    }
-  ]
   transactionId: any;
   trxData: any;
   userData: any;
@@ -71,6 +49,13 @@ export class MakePaymentComponent implements OnInit {
   isTransactionSuccessful: any;
   poolId: any;
   reportData: any;
+  reference = `ref-${Math.ceil(Math.random() * 10e13)}`;
+  customerDetails : any;
+  customizations : any;
+  retryPayment: boolean = false;
+  retryApplicationAmount:any;
+  retryApplicationTransactionId!: number;
+  retryApplicationmakePaymentType!: number;
 
   constructor(
     private fb: FormBuilder,
@@ -81,6 +66,7 @@ export class MakePaymentComponent implements OnInit {
     private route: ActivatedRoute,
     private utilityService: UtilityService,
     private notification: NotificationsService,
+    private flutterwave: Flutterwave
 
   ) { 
     const userAgent = navigator.userAgent;
@@ -105,6 +91,15 @@ export class MakePaymentComponent implements OnInit {
     this.reportData = JSON.parse(count)
     const data: any = localStorage.getItem('userData')
     this.userData = JSON.parse(data)
+    this.customerDetails = {
+      name: `${this.userData?.given_name + ' ' + this.userData?.family_name}`,
+      email: this.userData?.email,
+      phone_number: this.userData?.phone_number
+
+    }
+    this.customizations = {
+      title: 'Application Payment',
+    }
     this.store.dispatch(getOrganizationWalletId({id: this.userData.OrganizationId}))
     this.actions$.pipe(ofType(getOrganizationWalletIdSuccess)).subscribe((res: any) => {
       this.balance = res.payload.balance;
@@ -119,43 +114,9 @@ export class MakePaymentComponent implements OnInit {
      this.ipAddress = res.query
     })
   }
-  initPaymentForm() {
-    this.paymentForm = this.fb.group({
-      cardNumber: ['', Validators.required],
-      expiryMonth: ['', Validators.required],
-      expiryYear: ['', Validators.required],
-      cvc: ['', Validators.required],
-      cardholderName: ['', Validators.required],
-    })
-  }
+ 
 
 
-  // openOtpModal(){
-  //   document.getElementById('otpModal')?.click();
-  // }
-
-  // closeOtpModal(){
-  //    document.getElementById('otpModal')?.click();
-  // }
-
-  onOtpChange(index: number, event: any) {
-    const otpValue = event.target.value;
-    if (!isNaN(otpValue)) {
-      this.otp[index] = parseInt(otpValue, 10);
-      if (this.otp.every((value) => !isNaN(value))) {
-        this.otpEntered = true;
-      }
-    } else {
-      this.otp[index] = 0;
-      this.otpEntered = false;
-    }
-  }
-
-  verifyOtp() {
-    const enteredOtp = this.otp.join('');
-    //console.log('Entered OTP:', enteredOtp);
-    this.openSuccess();
-  }
 
   openSuccess() {
     document.getElementById('successModal')?.click();
@@ -256,10 +217,15 @@ payWithCard() {
       // this.router.navigate(['organization/verifications/view-verified-documents/2']);      
     }
   })
-  if (this.selectedMerchant === 'Paystack') {
-    this.launchPaystack()
-  }
+  if (this.selectedMerchant === 'Flutterwave') {
+    this.makePaymentWithFlutterwave()
+  } 
+  // if (this.selectedMerchant === 'Paystack') {
+  //   this.launchPaystack()
+  // }
 }
+
+// paystack implementation
 
 launchPaystack() {
   const paystack = new PaystackPop();
@@ -285,6 +251,55 @@ onSuccess(trx: any) {
 onClose() {
   ////console.log('trx')
 }
+
+
+
+// launch flutterwave modal
+
+
+makePaymentWithFlutterwave() {
+  const paymentData: InlinePaymentOptions = {
+    public_key: this.wavePk,
+    tx_ref: this.generateReference(),
+    amount: this.retryPayment === false ? (this.trxData?.amount * 100) : (this.retryApplicationAmount * 100) , //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    currency: "NGN",
+    // subaccounts: [
+    //   {
+    //     id: "RS_798A35E2050826075149903873FD2E07",
+    //     transaction_charge_type: "flat_subaccount",
+    //     transaction_charge: 2000,
+    //   }
+    // ],
+    payment_options: "card, ussd",
+    redirect_url: "",
+    customer: this.customerDetails,
+    customizations: this.customizations,
+    callback: this.makePaymentCallback,
+    onclose: this.closedPaymentModal,
+    callbackContext: this,
+  };
+  this.flutterwave.inlinePay(paymentData);
+}
+
+makePaymentCallback(response: PaymentSuccessResponse): void {
+  console.log("Pay", response);
+  this.flutterwave.closePaymentModal(5);
+}
+closedPaymentModal(): void {
+  console.log("payment is closed");
+}
+generateReference(): string {
+  let date = new Date();
+  return date.getTime().toString();
+}
+
+// flutterwave validate payment
+
+
+
+
+// main validate payment
+
 
 validatePayment(data: any) {
   ////console.log(data)

@@ -28,6 +28,7 @@ import { InstitutionGradeComponent } from './institution-setup/institution-grade
 import { CreateGradeComponent } from './create-grade/create-grade.component';
 import { ApiConfigurationComponent } from './api-configuration/api-configuration.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { BankAccountSetupComponent } from './bank-account-setup/bank-account-setup.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     InstitutionGradeComponent,
     CreateGradeComponent,
     ApiConfigurationComponent,
+    BankAccountSetupComponent,
   ],
   imports: [
     CommonModule,

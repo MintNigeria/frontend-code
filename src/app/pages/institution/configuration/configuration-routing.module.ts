@@ -18,6 +18,7 @@ import { VerificationFeeComponent } from './verification-fee/verification-fee.co
 import { InstitutionGradeComponent } from './institution-setup/institution-grade/institution-grade.component';
 import { CreateGradeComponent } from './create-grade/create-grade.component';
 import { ApiConfigurationComponent } from './api-configuration/api-configuration.component';
+import { BankAccountSetupComponent } from './bank-account-setup/bank-account-setup.component';
 
 const routes: Routes = [
   {
@@ -68,6 +69,7 @@ const routes: Routes = [
         component: CreateDegreeTypeComponent,
       },
       { path: 'api-configuration', component: ApiConfigurationComponent },
+      { path: 'bank-account-setup', component: BankAccountSetupComponent },
     ],
   },
 ];

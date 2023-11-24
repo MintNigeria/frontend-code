@@ -20,6 +20,7 @@ import { GraduatesEffects } from 'src/app/store/graduates/effects';
 import { graduatesReducer } from 'src/app/store/graduates/reducers';
 import { OrganizationEffects } from 'src/app/store/organization/effects';
 import { InstitutionEffects } from 'src/app/store/institution/effects';
+import { FlutterwaveModule } from 'flutterwave-angular-v3';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { InstitutionEffects } from 'src/app/store/institution/effects';
     NgxPaginationModule,
     NgSelectModule,
     SharedModule,
+    FlutterwaveModule,
     FormsModule,
     ReactiveFormsModule,
         StoreModule.forFeature('graduates', graduatesReducer),

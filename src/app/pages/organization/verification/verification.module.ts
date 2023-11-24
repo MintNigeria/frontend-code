@@ -19,6 +19,7 @@ import { OrganizationEffects } from 'src/app/store/organization/effects';
 import { GraduateVerificationDetailsComponent } from './start-verification/graduate-verification-details/graduate-verification-details.component';
 import { GraduateVerificationDetailsSearchResultComponent } from './start-verification/graduate-verification-details-search-result/graduate-verification-details-search-result.component';
 import { GraduateVerificationPaymentComponent } from './start-verification/graduate-verification-payment/graduate-verification-payment.component';
+import { FlutterwaveModule } from 'flutterwave-angular-v3';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { GraduateVerificationPaymentComponent } from './start-verification/gradu
     ReactiveFormsModule,
     NgxPaginationModule,
     NgSelectModule,
+    FlutterwaveModule,
     StoreModule.forFeature('graduates', graduatesReducer),
     EffectsModule.forFeature([GraduatesEffects, OrganizationEffects]),
   ]

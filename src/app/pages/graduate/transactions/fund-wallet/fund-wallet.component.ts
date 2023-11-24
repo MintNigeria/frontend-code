@@ -11,6 +11,11 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import { environment } from 'src/environments/environment';
 declare var PaystackPop: any;
 import * as numeral from 'numeral';
+import {
+  Flutterwave,
+  InlinePaymentOptions,
+  PaymentSuccessResponse,
+} from "flutterwave-angular-v3";
 @Component({
   selector: 'app-fund-wallet',
   templateUrl: './fund-wallet.component.html',
@@ -20,6 +25,7 @@ export class FundWalletComponent implements OnInit {
   walletData: any;
   walletForm!: FormGroup
   pk: string = environment.pkKey
+  wavePk: string = environment.wavePk_key
   deviceModel: string;
   ipAddress: any;
   userData: any;
@@ -29,6 +35,40 @@ export class FundWalletComponent implements OnInit {
   initialFee: number = 0;
   title!: string;
   reference = `ref-${Math.ceil(Math.random() * 10e13)}`;
+  customerDetails = {
+    name: "Demo Customer  Name",
+    email: "customer@mail.com",
+    phone_number: "08100000000",
+  };
+
+  customizations = {
+    title: "Customization Title",
+    description: "Customization Description",
+    logo: "https://flutterwave.com/images/logo-colored.svg",
+  };
+
+  meta = { counsumer_id: "7898", consumer_mac: "kjs9s8ss7dd" };
+  paymentData: InlinePaymentOptions = {
+    public_key: this.wavePk,
+    tx_ref: this.generateReference(),
+    amount: 2500,
+    currency: "NGN",
+    subaccounts: [
+      {
+        id: "RS_798A35E2050826075149903873FD2E07",
+        transaction_charge_type: "flat_subaccount",
+        transaction_charge: 2000,
+      }
+    ],
+    payment_options: "card",
+    redirect_url: "",
+    meta: this.meta,
+    customer: this.customerDetails,
+    customizations: this.customizations,
+    callback: this.makePaymentCallback,
+    onclose: this.closedPaymentModal,
+    callbackContext: this,
+  };
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -38,6 +78,7 @@ export class FundWalletComponent implements OnInit {
     private fb: FormBuilder,
     private utilityService: UtilityService,
     private notification: NotificationsService,
+    private flutterwave: Flutterwave
 
   ) { 
     const userAgent = navigator.userAgent;
@@ -53,10 +94,23 @@ export class FundWalletComponent implements OnInit {
     }
   }
 
+
+  makePaymentCallback(response: PaymentSuccessResponse): void {
+    console.log("Pay", response);
+    this.flutterwave.closePaymentModal(5);
+  }
+  closedPaymentModal(): void {
+    console.log("payment is closed");
+  }
+  generateReference(): string {
+    let date = new Date();
+    return date.getTime().toString();
+  }
+
+  
   ngOnInit(): void {
         const data: any = localStorage.getItem('userData')
     this.userData = JSON.parse(data)
-
      this.store.dispatch(getGraduateWalletId())
     this.actions$.pipe(ofType(getGraduateWalletIdSuccess)).subscribe((res: any) => {
       this.walletData = res.payload.payload;
@@ -73,6 +127,10 @@ export class FundWalletComponent implements OnInit {
     })
 
 
+  }
+
+  makePayment() {
+    this.flutterwave.inlinePay(this.paymentData);
   }
 
   
