@@ -20,30 +20,32 @@ import { GraduateVerificationDetailsComponent } from './start-verification/gradu
 import { GraduateVerificationDetailsSearchResultComponent } from './start-verification/graduate-verification-details-search-result/graduate-verification-details-search-result.component';
 import { GraduateVerificationPaymentComponent } from './start-verification/graduate-verification-payment/graduate-verification-payment.component';
 import { FlutterwaveModule } from 'flutterwave-angular-v3';
+import { RequestEmptyStateComponent } from "../../../shared/request-empty-state/request-empty-state.component";
 
 
 @NgModule({
-  declarations: [
-    VerificationComponent,
-    StartVerificationComponent,
-    SearchResultsComponent,
-    VerifyDocumentsComponent,
-    NewVerificationComponent,
-    GraduateVerificationDetailsComponent,
-    GraduateVerificationDetailsSearchResultComponent,
-    GraduateVerificationPaymentComponent
-  ],
-  imports: [
-    CommonModule,
-    VerificationRoutingModule,
-    SharedModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgxPaginationModule,
-    NgSelectModule,
-    FlutterwaveModule,
-    StoreModule.forFeature('graduates', graduatesReducer),
-    EffectsModule.forFeature([GraduatesEffects, OrganizationEffects]),
-  ]
+    declarations: [
+        VerificationComponent,
+        StartVerificationComponent,
+        SearchResultsComponent,
+        VerifyDocumentsComponent,
+        NewVerificationComponent,
+        GraduateVerificationDetailsComponent,
+        GraduateVerificationDetailsSearchResultComponent,
+        GraduateVerificationPaymentComponent
+    ],
+    imports: [
+        CommonModule,
+        VerificationRoutingModule,
+        SharedModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxPaginationModule,
+        NgSelectModule,
+        FlutterwaveModule,
+        StoreModule.forFeature('graduates', graduatesReducer),
+        EffectsModule.forFeature([GraduatesEffects, OrganizationEffects]),
+        RequestEmptyStateComponent
+    ]
 })
 export class VerificationModule { }

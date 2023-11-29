@@ -295,7 +295,7 @@ export class OrganizationService
   getTalentSearchBatchRecord(payload: any) {
     
     return this.http.get<any>(
-      `${this.baseUrl}mint-auth/api/v1/TalentSearch/Organization-TalentSearch-Batch-Results`, payload
+      `${this.baseUrl}mint-auth/api/v1/TalentSearch/Organization-TalentSearch-Batch-Results`, {params: payload}
     );
   }
 }

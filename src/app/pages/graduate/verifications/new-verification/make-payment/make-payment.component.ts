@@ -86,6 +86,8 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
   reference = `ref-${Math.ceil(Math.random() * 10e13)}`;
   customerDetails : any;
   customizations : any;
+  retryApplicationinstitutionAmount: any;
+  retryApplicationinstitutionSubAccount: any;
 
   constructor(
     private fb: FormBuilder,
@@ -157,6 +159,9 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
       this.retryApplicationAmount = res.payload?.amount
       this.retryApplicationTransactionId = res.payload?.transactionId
       this.retryApplicationmakePaymentType= res.payload?.makePaymentType
+      this.retryApplicationinstitutionSubAccount= res.payload?.institutionSubAccount
+      this.retryApplicationinstitutionAmount= res.payload?.institutionAmount
+
     })
   }
 
@@ -309,9 +314,9 @@ makePaymentWithFlutterwave() {
     currency: "NGN",
     subaccounts: [
       {
-        id: this.trxData.institutionSubAccount,
+        id: this.retryPayment === false ? this.trxData.institutionSubAccount : this.retryApplicationinstitutionSubAccount,
         transaction_charge_type: "flat_subaccount",
-        transaction_charge: Number(this.trxData.institutionAmount),
+        transaction_charge: this.retryPayment === false ? Number(this.trxData.institutionAmount) : Number(this.retryApplicationinstitutionAmount),
       }
     ],
     payment_options: "card, ussd",
@@ -336,6 +341,10 @@ callFLWverification(response: any) {
   this.configurationService.verifyFLWTransactions(response.transaction_id).subscribe((res: any) => {
     if (res.payload.status === 'successful') {
       this.isTransactionSuccessful = 'success'
+      this.validatePayment(response)
+    } else {
+      this.isTransactionSuccessful = 'failed'
+      // this.flutterwave.closePaymentModal(5);
       this.validatePayment(response)
     }
   })
@@ -372,9 +381,9 @@ validatePayment(data: any) {
   }
   this.store.dispatch(validateOrganizationFundWallet({payload}))
   this.actions$.pipe(ofType(validateOrganizationFundWalletSuccess)).subscribe((res: any) => {
-    ////console.log(res)
+    //console.log(res)
     if (res) {
-      this.notification.publishMessages('success', 'successful')
+      this.notification.publishMessages('success', res.payload.description)
       this.router.navigate(['/graduate/my-verifications']);      
 
     }

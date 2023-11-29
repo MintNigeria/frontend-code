@@ -41,19 +41,19 @@ export class BankAccountSetupComponent implements OnInit {
       this.deviceModel = 'Other';
     }
   }
-
+  
   ngOnInit(): void {
     this.getAllBanks()
     const data: any = localStorage.getItem('userData')
-
+    
     this.institutionData = JSON.parse(data)
+    this.getInstitutionAccountDetails()
     this.bankSetupForm = this.fb.group({
       account_bank: [''],
       bankCode: ['', Validators.required],
       bankName: ['', Validators.required],
       accountNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
     })
-    console.log(this.bankSetupForm.value, this.institutionData)
     this.utilityService.getuserIP().subscribe((res) => {
       this.ipAddress = res.query;
     });
@@ -62,6 +62,17 @@ export class BankAccountSetupComponent implements OnInit {
   getAllBanks() {
     this.configurationService.getAllBanks().subscribe((res: any) => {
       this.bankList = res.payload
+    })
+  }
+
+  getInstitutionAccountDetails() {
+    this.configurationService.getBankAccountDetails(this.institutionData.InstitutionId).subscribe((res: any) => {
+      console.log(res)
+      this.accountName = res.payload.bankName;
+      this.showAccountName = true;
+      this.bankSetupForm.patchValue({
+        accountNumber: res.payload.bankAccountNumber
+      })
     })
   }
 
@@ -114,7 +125,6 @@ export class BankAccountSetupComponent implements OnInit {
     }
 
     this.configurationService.createBankAccountDetails(payload, this.institutionData.InstitutionId).subscribe((res: any) => {
-      console.log('test', res)
       if (res.hasErrors === false) {
         this.notification.publishMessages('success', res.description)
       }

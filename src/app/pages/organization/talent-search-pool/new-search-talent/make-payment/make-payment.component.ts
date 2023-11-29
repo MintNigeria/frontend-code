@@ -206,7 +206,7 @@ selectPaymentMerchant(merchant: string) {
 payWithCard() {
   const payload = {
     transactionId: Number(this.transactionId),
-    makePaymentType: 5,
+    makePaymentType: 6,
     isCard: true,
     imei: '',
     serialNumber: '',
@@ -328,7 +328,7 @@ validatePayment(data: any) {
     isPaymentSuccessful: this.isTransactionSuccessful === 'success' ? true : false,
     imei: '',
     // talentSearchPoolTransactionVM: this.trxData,
-    talentSearchPoolTransactionVM: this.reportData,
+    talentSearchPoolTransactionVM: {OrganizationId : Number(this.userData.OrganizationId) , ...this.reportData},
     serialNumber: '',
     device: this.deviceModel,
     ipAddress: this.ipAddress

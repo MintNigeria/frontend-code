@@ -242,13 +242,13 @@ initForm() {
             label: 'Application',
             data: grad,
             // fill: false,
-            backgroundColor: '#0D47A1'
+            borderColor: '#FAC515'
           }, {
             type: 'line',
             label: 'Verification',
             data: org,
             // fill: false,
-            borderColor: '#FAC515'
+            borderColor: '#0D47A1'
           }]
       },
       options: {

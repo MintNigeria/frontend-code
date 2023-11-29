@@ -280,6 +280,10 @@
 
 
         </div>
+        <app-request-empty-state
+                *ngIf="history?.length < 1"
+                [dataStatus]="'No record found'"
+                ></app-request-empty-state>
       </div>
 
       <!---->
