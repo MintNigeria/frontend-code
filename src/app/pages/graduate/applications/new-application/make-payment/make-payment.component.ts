@@ -59,6 +59,8 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
   reference = `ref-${Math.ceil(Math.random() * 10e13)}`;
   customerDetails : any;
   customizations : any;
+  retryApplicationinstitutionAmount: any;
+  retryApplicationinstitutionSubAccount: any;
 
   constructor(
     private fb: FormBuilder,
@@ -128,11 +130,13 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
   getApplicationAmout() {
     this.store.dispatch(retryApplicationVarificationPayment({id: this.requestId}))
     this.actions$.pipe(ofType(retryApplicationVarificationPaymentSuccess)).subscribe((res: any) => {
-      console.log(res)
+      // console.log(res)
       this.retryPayment = true;
       this.retryApplicationAmount = res.payload?.amount
       this.retryApplicationTransactionId = res.payload?.transactionId
       this.retryApplicationmakePaymentType= res.payload?.makePaymentType
+      this.retryApplicationinstitutionSubAccount= res.payload?.institutionSubAccount
+      this.retryApplicationinstitutionAmount= res.payload?.institutionAmount
     })
   }
 
@@ -328,9 +332,9 @@ makePaymentWithFlutterwave() {
     currency: "NGN",
     subaccounts: [
       {
-        id: this.trxData.institutionSubAccount,
+        id: this.retryPayment === false ? this.trxData.institutionSubAccount : this.retryApplicationinstitutionSubAccount,
         transaction_charge_type: "flat_subaccount",
-        transaction_charge: Number(this.trxData.institutionAmount),
+        transaction_charge: this.retryPayment === false ? Number(this.trxData.institutionAmount) : Number(this.retryApplicationinstitutionAmount),
       }
     ],
     payment_options: "card, ussd",
@@ -353,11 +357,16 @@ makePaymentCallback(response: PaymentSuccessResponse): void {
 
 callFLWverification(response: any) {
   this.configurationService.verifyFLWTransactions(response.transaction_id).subscribe((res: any) => {
-    console.log(res)
+    // console.log(res)
     if (res.payload.status === 'successful') {
       
       this.isTransactionSuccessful = 'success'
       this.validatePayment(response)
+    } else {
+      this.isTransactionSuccessful = 'failed'
+      // this.flutterwave.closePaymentModal(5);
+      this.validatePayment(response)
+
     }
   })
 }
@@ -370,7 +379,6 @@ generateReference(): string {
   return date.getTime().toString();
 }
 
-// flutterwave validate payment
 
 // ==================== End of flutterwave implementation =============== //
 

@@ -132,7 +132,7 @@ export class TransactionsIndexComponent implements OnInit {
   
       })
     } else {
-      const filter = {...this.filter, ['range'] : range};
+      const filter = {...this.filter, ['TimeBoundSearchVm.TimeRange'] : range};
       this.filter = filter;
     }
   }

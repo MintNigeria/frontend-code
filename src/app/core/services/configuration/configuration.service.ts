@@ -309,6 +309,11 @@ export class ConfigurationService
     );
   }
 
+  getBankAccountDetails(institutionId: string) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Payment/Institution/Bank-Account-Details/${institutionId}`);
+  }
+
   validateAccountDetails(
    payload : any
   ) {

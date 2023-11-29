@@ -23,7 +23,7 @@
 <div class="flex justify-between items-center">
     
         <h4 class="font-medium font-poppins text-4xl text-[#101828] my-5 px-5 md:px-8">
-            Verification ID: #{{requestDetail?.applicationNumber}}
+            Verification ID: {{requestDetail?.applicationNumber}}
         </h4>
         <app-button *ngIf="requestDetail?.paymentStatus === 'UnPaid'"
     (buttonClick)="retryPayment()"

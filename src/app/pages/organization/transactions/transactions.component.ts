@@ -39,6 +39,7 @@ export class TransactionsComponent implements OnInit {
     filter: '',
     pageSize: 10,
     pageIndex: 1,
+    status: 5,
  }
  userData: any;
   balance: any;
@@ -128,13 +129,13 @@ searchForm = new FormGroup({
   
       })
     } else {
-      const filter = {...this.filter, ['range'] : range};
+      const filter = {...this.filter, ['TimeBoundSearchVm.TimeRange'] : range};
       this.filter = filter;
     }
   }
   
 
-  changeStatus(status: number, name: string) {
+  changeStatus(status: any, name: string) {
     this.status = name
     this.showStatus = true
     const filter = {...this.filter, ['status'] : status};

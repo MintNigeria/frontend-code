@@ -33,7 +33,7 @@ export class TalentSearchPoolComponent implements OnInit {
 
  
  filter= {
-  'TimeBoundSearchVm.TimeRange': 0,
+  'TimeBoundSearchVM.TimeRange': 0,
   keyword: '',
     filter: '',
     pageSize: 10,
@@ -126,13 +126,13 @@ pageSize: number = 10;
         if (res) {
               const {start , end} = res; // use this start and end as fromDate and toDate on your filter
               this.selectedOption = `${start} - ${end}`
-              const filter = {...this.filter, ['TimeBoundSearchVm.FromDate'] : start, ['TimeBoundSearchVm.ToDate'] : end, 'TimeBoundSearchVm.TimeRange': 5}
+              const filter = {...this.filter, ['TimeBoundSearchVM.FromDate'] : start, ['TimeBoundSearchVM.ToDate'] : end, 'TimeBoundSearchVM.TimeRange': 5}
               this.filter = filter;
         }
   
       })
     } else {
-      const filter = {...this.filter, ['range'] : range};
+      const filter = {...this.filter, ['TimeBoundSearchVM.TimeRange'] : range};
       this.filter = filter;
     }
   }
