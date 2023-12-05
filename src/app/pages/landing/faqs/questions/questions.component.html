@@ -6,364 +6,1103 @@
     </p>
   </div>
   <div class="px-3 sm:px-20 md:px-20 lg:px-80">
-    <div class="mt-6 mb-6">
-      <div class="collapse collapse-plus border rounded-lg text-black mb-3">
-        <input type="checkbox" />
-        <div class="collapse-title text-xl font-medium">
-          Registration / Sign up
-        </div>
-        <div class="collapse-content">
-          <div id="signup" class="">
-            <h6 class="font-semibold text-black pb-3 mt-2">Must I sign up/register an account before I can request for transcript or verification? </h6>
-            <p class="font-normal text-black">To make a verification or transcript request, and benefit from our services, it is necessary for you to have an active account, which requires registration. </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">How do I create an account? </h6>
-            <p class="font-normal text-black">To register an account, look for the "Sign Up" button on the website or app. Click on it and select your category. Follow the prompts to provide the required information. Once you've filled in all the necessary details, submit the form to create your account. </p>
-            
-            <!-- Click here to register as a Graduate (individual) 
-            Click here to register as an Academic or Professional Institution 
-            Click here to register as an Organization  -->
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">What information do I need to provide during the registration process? </h6>
-            <p class="font-normal text-black">For Individuals: Name, email address, phone number, contact address, identification type and number, institution(s) attended. </p>
-            
-            <p class="font-normal text-black">For Academic/Professional Institutions: Name and type of institution, date of incorporation, registration type, email address, phone number, contact address and necessary supporting documents (certificate of incorporation, etc.). </p>
-            
-            <p class="font-normal text-black">For Organizations: Name, organization industry and sector, date of incorporation, registration type, email address, phone number, contact address and necessary supporting documents (certificate of incorporation, etc.). You will also be required to provide the details of the approver/staff – name, designation, and the organization’s letter of approval. </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">Do I need to verify my email address after signing up? </h6>
-            <p class="font-normal text-black">Yes! An email verification message will be sent to the email address you provided during registration. This verification step ensures that the email address belongs to you and allows you to activate your account. Check your email inbox for a verification message and follow the instructions provided to complete the email verification process. </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">What should I do if I do not receive an email verification?</h6>
-            <p class="font-normal text-black">First, check your spam or junk folder to ensure that the email message has not been filtered incorrectly. If you still do not find the email message, try requesting for a new email verification message from the platform. If the issue persists, contact the platform's support team for further assistance.  </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">How do I create a password after registering? </h6>
-            <p class="font-normal text-black">After creating your account, check your email inbox for a verification message. Click on the link and you will be directed to a page to create your password.  </p>
-            <p class="font-normal text-black">Can I register multiple accounts using the same email address?</p>
-            <p class="font-normal text-black">No, you can only use one unique email address for each registered account. This helps to ensure the security and integrity of user accounts and prevents misuse. If you wish to create multiple accounts, you will need to provide different email addresses for each registration. </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">What should I do if I encounter an error during the registration process? </h6>
-            <p class="font-normal text-black">First, double-check that you have entered the required information correctly and that all fields are filled out properly. If the error persists, try refreshing the page or restarting the app and attempting the registration process again. If the problem continues, reach out to our support team for assistance, providing details about the error you are experiencing. </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">Can I update my profile after registration? </h6>
-            <p class="font-normal text-black">Yes, you can update your profile information anytime. </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">What is Two-Factor Authentication (2FA)? </h6>
-            <p class="font-normal text-black">Two-Factor Authentication (2FA) is a security procedure that ensures user verification through the provision of two distinct authentication factors. By employing 2FA, an extra layer of security is added to the traditional username and password method. Users are prompted to enter a security code or one-time password (OTP) generated and sent to them via email or text, based on their chosen option. This strengthens the overall security of the authentication process.</p>
-          </div>
+    <div class="flex flex-wrap w-full gap-10 ">
+      <div class="flex-1 w-full flex justify-between">
+        <ul class="w-full overflow-x-auto flex md:flex-col md:gap0 gap-10   space-y-4 text-left text-gray-500 dark:text-gray-400">
+          <li class="flex items-center space-x-3">
+            <svg class="hidden md:block flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+             </svg>
+             <button class="text-black font-medium "(click)="showSection('signup')" >Registration / Sign up</button></li>
+          <li class="flex items-center space-x-3">
+            <svg class="hidden md:block flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+             </svg>
+             <button class="text-black font-medium "(click)="showSection('signin')" >Sign In</button></li>
+          <li class="flex items-center space-x-3">
+            <svg class="hidden md:block flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+             </svg>
+             <button class="text-black font-medium "(click)="showSection('verification')" >Verification</button></li>
+          <li class="flex items-center space-x-3">
+            <svg class="hidden md:block flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+             </svg>
+             <button class="text-black font-medium "(click)="showSection('transcript')" >Transcript</button></li>
+          <li class="flex items-center space-x-3">
+            <svg class="hidden md:block flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+             </svg>
+             <button class="text-black font-medium "(click)="showSection('payment')" >Payment</button></li>
+          <li class="flex items-center space-x-3">
+            <svg class="hidden md:block flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+             </svg>
+             <button class="text-black font-medium "(click)="showSection('security')" >Data Security and Privacy</button></li>
+          <li class="flex items-center space-x-3">
+            <svg class="hidden md:block flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+             </svg>
+             <button class="text-black font-medium "(click)="showSection('audit')">Audit and Reports</button></li>
+          <li class="flex items-center space-x-3">
+            <svg class="hidden md:block flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+             </svg>
+             <button class="text-black font-medium "(click)="showSection('integration')" >API Integration</button></li>
+          <li class="flex items-center space-x-3">
+            <svg class="hidden md:block flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+             </svg>
+             <button class="text-black font-medium "(click)="showSection('technical')" >Technical</button></li>
+        </ul>
+      </div>
+      <div class="md:w-9/12 w-full">
+        <div class="mb-6">
+          <ng-container *ngIf="signup">
+
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Must I sign up/register an account before I can request for transcript or verification?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">To make a verification or transcript request, and benefit from our services, it is necessary for you to have an active account, which requires registration. </p>
+                  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                How do I create an account?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">To register an account, look for the "Sign Up" button on the website or app. Click on it and select your category. Follow the prompts to provide the required information. Once you've filled in all the necessary details, submit the form to create your account.</p>
+                  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                What information do I need to provide during the registration process? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black pb-1">
+                    For Individuals: Name, email address, phone number, contact address, identification type and number, institution(s) attended.                 </p>
+                    <p class="font-normal text-black pb-1">For Academic/Professional Institutions: Name and type of institution, date of incorporation, registration type, email address, phone number, contact address and necessary supporting documents (certificate of incorporation, etc.). </p>
+                  
+                    <p class="font-normal text-black">For Organizations: Name, organization industry and sector, date of incorporation, registration type, email address, phone number, contact address and necessary supporting documents (certificate of incorporation, etc.). You will also be required to provide the details of the approver/staff – name, designation, and the organization’s letter of approval. </p>
+    
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Do I need to verify my email address after signing up?  
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Yes! An email verification message will be sent to the email address you provided during registration. This verification step ensures that the email address belongs to you and allows you to activate your account. Check your email inbox for a verification message and follow the instructions provided to complete the email verification process. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                What should I do if I do not receive an email verification?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">First, check your spam or junk folder to ensure that the email message has not been filtered incorrectly. If you still do not find the email message, try requesting for a new email verification message from the platform. If the issue persists, contact the platform's support team for further assistance.  </p>
+  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                How do I create a password after registering?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">After creating your account, check your email inbox for a verification message. Click on the link and you will be directed to a page to create your password.  </p>
+                  <p class="font-normal text-black">Can I register multiple accounts using the same email address?</p>
+                  <p class="font-normal text-black">No, you can only use one unique email address for each registered account. This helps to ensure the security and integrity of user accounts and prevents misuse. If you wish to create multiple accounts, you will need to provide different email addresses for each registration. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Can I register multiple accounts using the same email address?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">No, you can only use one unique email address for each registered account. This helps to ensure the security and integrity of user accounts and prevents misuse. If you wish to create multiple accounts, you will need to provide different email addresses for each registration. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                What should I do if I encounter an error during the registration process? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">First, double-check that you have entered the required information correctly and that all fields are filled out properly. If the error persists, try refreshing the page or restarting the app and attempting the registration process again. If the problem continues, reach out to our support team for assistance, providing details about the error you are experiencing. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Can I update my profile after registration? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Yes, you can update your profile information anytime. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                What is Two-Factor Authentication (2FA)? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Two-Factor Authentication (2FA) is a security procedure that ensures user verification through the provision of two distinct authentication factors. By employing 2FA, an extra layer of security is added to the traditional username and password method. Users are prompted to enter a security code or one-time password (OTP) generated and sent to them via email or text, based on their chosen option. This strengthens the overall security of the authentication process.</p>
+  
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          
+          <ng-container *ngIf="signin">
+
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                What if I forget my password?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">If you forget your password, click on the "Forgot password" link on the sign-in page. You will be prompted to enter your registered email address, and instructions to reset your password will be sent to that email.</p>
+                  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                I am experiencing difficulties signing into my account.
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">If you are experiencing issues signing in, first ensure that you are entering the correct credentials. Double-check your username, password, and any additional authentication steps. If the problem persists, contact the VAC support team for further assistance. </p>
+                  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Can I sign-in from multiple devices at the same time?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">No, you cannot. Although you can sign-in to VAC from multiple devices, concurrent sessions with the same registered email address are not permitted. If you want to log in on another device using the same login details, you will be prompted to end your active session. </p>
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Can I sign in using my phone number or social media accounts?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">No, you cannot. You can only sign in using your unique email address and password.  </p>
+  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Is my personal information secure during the sign-in process?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Yes, VAC solution prioritizes the security and protection of personal information. VAC solution uses encryption techniques and follows industry best practices to safeguard user data.</p>
+  
+                </div>
+              </div>
+            </div>
+  
+          </ng-container>
+
+          
+          <ng-container *ngIf="verification">
+
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Who can verify?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Employers, individuals, academic institutions, professional bodies, embassies. </p>
+                  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                What types of documents can be verified using the VAC solution?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">VAC solution can verify a range of documents such as academic certificate, statement of result, professional certification. </p>
+                  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Can I sign-in from multiple devices at the same time?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">No, you cannot. Although you can sign-in to VAC from multiple devices, concurrent sessions with the same registered email address are not permitted. If you want to log in on another device using the same login details, you will be prompted to end your active session. </p>
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Can individuals verify their own certificates using the VAC solution?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Absolutely! VAC solution includes a user-friendly interface that allows individuals to request for the verification of their certificates. However, you cannot use VAC solution to verify another individual’s education credentials. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                What is verification by code? Can an individual request verification for an organization? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">This is where an individual submits a verification request and a unique digital verification code is assigned and sent to his/her email address, enabling easy and secure sharing of the verification code with relevant parties. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Why cannot I verify another person’s certificate?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">To adhere to the Nigerian Data Protection Regulations (NDPR), designed to safeguard the privacy rights of students, only companies with legitimate purposes are authorized to request verifications on behalf of others. If you are not affiliated with such a company and lack a valid reason for conducting verifications, you are only allowed to verify your personal records. </p>
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                I am trying to verify a certificate, but I cannot find my record after searching. 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Kindly check to see if your institution has been onboarded on the VAC platform. If your institution has not yet been onboarded on the VAC platform, kindly click the Notify my Institution button. You can also ensure that the information you provided is accurate. Double check to see if the information you provided is the same information used in school or as written/typed on the certificate being verified. – institution onboarded</p>
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                How long does the verification process take?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">VAC solution provides real-time verification thereby eliminating any significant delay and ensuring prompt and reliable verification. </p>
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Can I request verification anytime?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">VAC solution verification services are available to users 24/7. </p>
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                How do I view my verified result? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black"> 
+                    The verified result is displayed on the portal once the request is completed and successful. It can also be downloaded to your device.  
+                         </p>
+                        </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Can I edit the details of a verification request that has been submitted?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">No, you cannot edit a verification request that has been submitted. </p>
+
+                        </div>
+              </div>
+            </div>
+  
+          </ng-container>
+          
+          <ng-container *ngIf="transcript">
+
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Can the VAC solution be used to request and facilitate transcript services?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Yes, the VAC solution manages and facilitates transcript requests. It enables secure and efficient transmission of transcript data between educational institutions and recipients. </p>
+                  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                How can individuals request transcripts using the VAC solution? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Individuals can request transcripts using the VAC solution by registering as a ‘Graduate’ and initiate a transcript request by filling and submitting the necessary information, such as personal details, program or course information, and recipient details. </p>
+                  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                What information is required to request a transcript using the VAC solution?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Generally, individuals will need to provide personal identification details, program or course information including unique identifiers, and recipient information (such as the institution receiving the transcript). </p>
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Can the VAC solution facilitate the electronic delivery of transcripts? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Yes, the VAC solution can facilitate the electronic delivery of transcripts, enabling secure and efficient transmission of transcript data to recipients. This can include electronic formats such as PDFs or secure online access to the transcript data. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                How long does it take to process and deliver transcripts using the VAC solution? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">The processing and delivery time for transcripts using the VAC solution can vary depending on factors such as the institution's policies and the specific delivery method chosen. However, VAC solution aims to streamline the process and reduce processing times compared to traditional manual methods. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Can I track the status of my transcript request?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Yes, Individuals or institutions can use the VAC solution to monitor the progress of the transcript request, including confirmation of receipt, processing stages, and delivery status. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Can the VAC solution be used for international transcript requests and delivery? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Yes, the VAC solution can facilitate international transcript requests and delivery. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Can the VAC solution provide official digital signatures or seals on electronic transcripts?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Yes, the VAC solution can often provide official digital signatures or seals on electronic transcripts. These digital signatures or seals serve as a digital representation of the institution's official stamp or signature, providing added authenticity and integrity to the transcript. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Can the VAC solution assist in the transfer of transcripts between educational institutions?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">VAC solution is currently working on including a functionality for the transfer of transcripts between educational institutions, where institutions can securely transmit transcript data to other institutions, facilitating the transfer process for students or individuals seeking to further their education or transfer credits. Kindly check our News tab frequently for updates on this.</p>
+                </div>
+              </div>
+            </div>
+  
+  
+          </ng-container>
+          
+          <ng-container *ngIf="security">
+
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Is VAC Solution NDPR compliant? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Yes, VAC solution is Nigeria Data Protection Regulation (NDPR) compliant. </p>
+                  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Is the VAC solution secure?  
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Yes, VAC prioritizes security and data integrity. It employs robust security measures. </p>
+                  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                How does VAC solution handle data privacy?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">At NSPM Plc, data privacy is of the utmost importance. VAC solution follows strict security protocols and complies with relevant data protection laws to ensure the confidentiality of user data. </p>
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                What data does VAC solution collect and store?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">VAC solution collects and stores minimal personal data necessary for the certificate and transcript verification process. Such data is used to improve your user experience, provide relevant services as it pertains to Verification and Authentication of Certificates. Your personal data would not be used for other purposes outside of the Verification and Authentication of Certificates. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                How is the data stored and secured within VAC solution?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">The data collected by VAC solution is stored in secure servers with strong encryption measures in place. We implement industry-standard security practices to protect against unauthorized access, data breaches, and other potential threats. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Is the data shared with any third parties? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">We do not share user data collected through VAC solution with any third parties, except in cases where it is necessary for verification and transcript processes and only with the explicit consent of the user and educational institution. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                What measures does NSPM have for data security (at rest or in transit)?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">For data in motion (transit):</p>
+                  <p class="font-normal text-black">-TLS/SSL certificates for data in transit </p>
+                  <p class="font-normal text-black">-IPSEC connection to the institution </p>
+                  
+                  <p class="font-normal text-black">For data at rest:   </p>
+                  <p class="font-normal text-black">-Encryption (with self-encrypting hardware)</p>
+                  <p class="font-normal text-black">-Access Controls</p>
+                  <p class="font-normal text-black">-Strong Authentication</p>
+                  <p class="font-normal text-black">-Regular Backups</p>
+                  <p class="font-normal text-black">-Secure Storage </p>  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                How secure are NSPM’s data centre system and servers?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">The NSPM IT Security architecture has a multi-layered approach to ensure the security of data within our system. Multi-layered approach includes some methods such as: </p>
+                  <p class="font-normal text-black">-Perimeter Security </p>
+                  <p class="font-normal text-black">-Network Segmentation </p>
+                  <p class="font-normal text-black">-Identity and Access Management (IAM) </p>
+                  <p class="font-normal text-black">-Endpoint Security  </p>
+                  <p class="font-normal text-black">-Data Encryption </p>  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                What is the encryption process?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Encryption within our company is implemented at the following stages:</p>
+                  <p class="font-normal text-black">-Secure Communication: Encryption is used to secure data transmission over the internet, such as HTTPS for websites and email encryption.</p>
+                  <p class="font-normal text-black">-Data Storage: Encryption of stored information on our Servers. </p>
+                  <p class="font-normal text-black">-Authentication: Passwords and sensitive authentication information uses encryption at its core</p>
+                            </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Disaster recovery and maintenance of the software
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Our critical data are regularly backed up, and we have sites we replicate to, for failover in case there’s a disaster.  </p>
+                </div>
+              </div>
+            </div>
+  
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                What infrastructure do institutions need to put in place before they can partner with NSPM on the VAC solution?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Kindly contact us from through contact page </p>
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Do they need to pay for our services?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">For now, no financial cost is accrued to the partner institution for integrating the VAC solution. </p>
+                </div>
+              </div>
+            </div>
+  
+  
+          </ng-container>
+          
+          <ng-container *ngIf="payment">
+
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Can I make payment after verification is completed? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">No, payments must be made before a verification or transcript request can be processed. </p>
+                  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                How do I pay for verification or transcript request?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Once you have initiated a verification or transcript request, follow the payment prompt that pops up, select the payment method of your choice, and make payment. </p>
+                  
+                </div>
+              </div>
+            </div>
+  
+            <!-- <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Which payment methods/options are available on VAC solution? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Generally, individuals will need to provide personal identification details, program or course information including unique identifiers, and recipient information (such as the institution receiving the transcript). </p>
+                </div>
+              </div>
+            </div> -->
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Which payment gateways are used by VAC solution?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Flutterwave </p>
+  
+                </div>
+              </div>
+            </div>
+  
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                How is the payment split between NSPM and the institution and how long does it take for reconciliation?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Payment is an instant split, and reconciliation is immediate. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+  
+          </ng-container>
+          
+          <ng-container *ngIf="audit">
+
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Does VAC solution generate audit reports? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Yes, VAC solution generates audit reports that provide a comprehensive overview of certificate verification and transcript request activities, ensuring transparency and accountability. </p>
+                  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                What information is included in the audit reports generated by the VAC solution?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">The audit reports generated by VAC solution typically include details such as verification requests, transcript requests, transactions, revenue, user actions, timestamps, system events, and any relevant errors or exceptions encountered during the process. </p>
+                  
+                </div>
+              </div>
+            </div>
+  
+
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                How often are audit reports generated by VAC solution?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">The frequency of generating audit reports using the VAC solution can be configured based on the requirements of the organization. Reports can be generated regularly, such as daily, weekly, monthly, or using a customized date range to provide up-to-date insights into system activities. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Who has access to the audit reports generated by the VAC solution?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Access to the audit reports generated by VAC solution is usually limited to authorized personnel or administrators responsible for monitoring and reviewing system activities. They are granted appropriate privileges and permissions to access and analyze the reports. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Can the audit reports track user access and actions?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Yes, the audit reports generated by the VAC solution can track user access and actions. This includes recording details such as user logins, verification attempts, request submissions, and other relevant activities performed within the system. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Can the audit reports be exported or shared with other systems or stakeholders? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Yes, reports can be exported and shared with other systems or stakeholders. VAC solution provides options to export reports in various formats (PDF, CSV, XML), allowing them to be shared with auditors, management, or other relevant parties for review and analysis. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Can I save my verification report on my device?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Yes, reports can be downloaded on your computer or mobile device. </p>
+  
+                </div>
+              </div>
+            </div>
+
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                How do I view the report of my requested certificate verification or transcript request?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Log in to your account and simply navigate to verification history or transactions history. </p>
+  
+                </div>
+              </div>
+            </div>
+
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                What if a document fails the verification process?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">If a document fails the verification process, it signifies that the document is either invalid or requires further scrutiny. In such cases, the VAC solution provides detailed reports or notifications to the concerned parties, enabling them to take appropriate actions to rectify the issue or investigate further. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+  
+          </ng-container>
+          
+          <ng-container *ngIf="integration">
+
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Can my institution integrate with VAC solution?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Yes. Interested institutions can integrate using their APIs or our API that would be made available from the VAC platform once all due processes have been followed.</p>
+                  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                How long does integration take?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Integration takes only as long as the institution can navigate. </p>
+                  
+                </div>
+              </div>
+            </div>
+  
+
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Do you have a sandbox environment? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Yes, we are integrating a sandbox environment into the system. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                How can I get access to your API? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Once we have an understanding through MOU, and agreement through a mutual contract agreement, our API will be made available to your technical team. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+  
+  
+          </ng-container>
+
+          
+          
+          <ng-container *ngIf="technical">
+
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                What is VAC solution?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">VAC solution is a digital security solution developed by NSPM Plc that simplifies and automates the process of certificate verification and transcript requests. </p>
+                  
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                How does VAC solution work?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">VAC solution utilizes advanced technology and secure protocols to securely authenticate and verify certificates and facilitate transcript requests. It integrates with educational institutions and certification bodies to ensure the accuracy and reliability of the verification process. </p>
+                  
+                </div>
+              </div>
+            </div>
+  
+
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                What type of credential can VAC solution verify? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">VAC solution is designed to verify a wide range of certificates including academic certificates statements of result, and professional certifications. VAC solution also facilitates transcript requests. </p>
+  
+                </div>
+              </div>
+            </div>
+  
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                Is VAC solution compatible with different systems and platforms? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Yes, VAC solution is designed to be compatible with various systems and platforms, including web-based applications, mobile devices, and APIs, allowing seamless integration into existing infrastructures. </p>
+  
+                </div>
+              </div>
+            </div>
+
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+               Who can benefit from using the VAC solution? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">The VAC solution is beneficial for various entities, including educational institutions, employers, government agencies, and individuals. Educational institutions can streamline their verification processes, employers can easily authenticate the credentials of job applicants, government agencies can ensure the legitimacy of official documents, and individuals can securely validate their certificates for personal and professional purposes. </p>
+  
+                </div>
+              </div>
+            </div>
+
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                How can employers benefit from the VAC solution? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Employers can benefit from the VAC solution by quickly and accurately verifying the credentials of job applicants. With the VAC solution, employers can easily access verified information about an applicant's educational qualifications and certifications, reducing the time and effort required for manual verification. </p>
+  
+                </div>
+              </div>
+            </div>
+
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                How can institutions benefit from the VAC solution? 
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">-Ease of verification and authentication</p>
+                  <p class="font-normal text-black">-Ease of doing business</p>
+                  <p class="font-normal text-black">-Measures against counterfeiting </p>
+                  <p class="font-normal text-black">-Advanced analysis</p>
+                  <p class="font-normal text-black">-Increased visibility for the institution </p>
+                  <p class="font-normal text-black">-Increased revenue </p>  
+                </div>
+              </div>
+            </div>
+
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                How can the VAC solution help combat document fraud?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">VAC solution plays a crucial role in combating document fraud by providing a secure and reliable means of verifying certificates and documents. By utilizing advanced technologies and standardized verification processes, it significantly reduces the risk of accepting fraudulent or counterfeit documents, thereby preserving the integrity of the verification data ecosystem. </p>
+                </div>
+              </div>
+            </div>
+  
+            <div class="collapse collapse-plus border rounded-lg text-black mb-3">
+              <input type="checkbox" />
+              <div class="collapse-title font-semibold text-black ">
+                What cost savings can be expected from implementing VAC solution?
+              </div>
+              <div class="collapse-content">
+                <div  class="">
+                  <p class="font-normal text-black">Organizations can achieve substantial cost savings by implementing the VAC solution. It eliminates the necessity for manual verification processes, reduces administrative overhead, mitigates the risk of fraudulent hires or admissions, and streamlines document authentication operations. These enhanced efficiencies not only contribute to cost savings but also improve overall productivity.</p>
+                </div>
+              </div>
+            </div>
+  
+  
+  
+          </ng-container>
+
+          
+
+
+      
+    
+    
         </div>
       </div>
-
-      <div class="collapse collapse-plus border rounded-lg text-black mb-3">
-        <input type="checkbox" />
-        <div class="collapse-title text-xl font-medium">
-          Sign In
-        </div>
-        <div class="collapse-content">
-          <div id="signin" class="">
-      
-      
-            <h6 class="font-semibold text-black pb-3 mt-2">What if I forget my password?</h6>
-      <p class="font-normal text-black">If you forget your password, click on the "Forgot password" link on the sign-in page. You will be prompted to enter your registered email address, and instructions to reset your password will be sent to that email.</p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">I am experiencing difficulties signing into my account. </h6>
-      <p class="font-normal text-black">If you are experiencing issues signing in, first ensure that you are entering the correct credentials. Double-check your username, password, and any additional authentication steps. If the problem persists, contact the VAC support team for further assistance. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">Can I sign-in from multiple devices at the same time?</h6>
-      <p class="font-normal text-black">No, you cannot. Although you can sign-in to VAC from multiple devices, concurrent sessions with the same registered email address are not permitted. If you want to log in on another device using the same login details, you will be prompted to end your active session. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">Can I sign in using my phone number or social media accounts?</h6>
-      <p class="font-normal text-black">No, you cannot. You can only sign in using your unique email address and password.  </p>
-      <h6 class="font-semibold text-black pb-3 mt-2">Is my personal information secure during the sign-in process?</h6>
-      <p class="font-normal text-black">Yes, VAC solution prioritizes the security and protection of personal information. VAC solution uses encryption techniques and follows industry best practices to safeguard user data.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="collapse collapse-plus border rounded-lg text-black mb-3">
-        <input type="checkbox" />
-        <div class="collapse-title text-xl font-medium">
-          Verification
-        </div>
-        <div class="collapse-content">
-          <div id="verification" class="">
-      
-            <h6 class="font-semibold text-black pb-3 mt-2">Who can verify? </h6>
-            <p class="font-normal text-black">Employers, individuals, academic institutions, professional bodies, embassies. </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">What types of documents can be verified using the VAC solution?</h6>
-            <p class="font-normal text-black">VAC solution can verify a range of documents such as academic certificate, statement of result, professional certification. </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">Can individuals verify their own certificates using the VAC solution?</h6>
-            <p class="font-normal text-black">Absolutely! VAC solution includes a user-friendly interface that allows individuals to request for the verification of their certificates. However, you cannot use VAC solution to verify another individual’s education credentials. </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">What is verification by code? Can an individual request verification for an organization? </h6>
-            <p class="font-normal text-black">This is where an individual submits a verification request and a unique digital verification code is assigned and sent to his/her email address, enabling easy and secure sharing of the verification code with relevant parties. </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">Why cannot I verify another person’s certificate? </h6>
-            <p class="font-normal text-black">To adhere to the Nigerian Data Protection Regulations (NDPR), designed to safeguard the privacy rights of students, only companies with legitimate purposes are authorized to request verifications on behalf of others. If you are not affiliated with such a company and lack a valid reason for conducting verifications, you are only allowed to verify your personal records. </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">I am trying to verify a certificate, but I cannot find my record after searching. </h6>
-            <p class="font-normal text-black">Kindly check to see if your institution has been onboarded on the VAC platform. If your institution has not yet been onboarded on the VAC platform, kindly click the Notify my Institution button. You can also ensure that the information you provided is accurate. Double check to see if the information you provided is the same information used in school or as written/typed on the certificate being verified. – institution onboarded</p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">How long does the verification process take?</h6>
-            <p class="font-normal text-black">VAC solution provides real-time verification thereby eliminating any significant delay and ensuring prompt and reliable verification. </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">Can I request verification anytime? </h6>
-            <p class="font-normal text-black">VAC solution verification services are available to users 24/7. </p>
-            <h6 class="font-semibold text-black pb-3 mt-2">How do I view my verified result? </h6>
-            <p class="font-normal text-black"> 
-        The verified result is displayed on the portal once the request is completed and successful. It can also be downloaded to your device.  
-             </p>
-            <h6 class="font-semibold text-black pb-3 mt-2">Can I edit the details of a verification request that has been submitted? </h6>
-            <p class="font-normal text-black">No, you cannot edit a verification request that has been submitted. </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="collapse collapse-plus border rounded-lg text-black mb-3">
-        <input type="checkbox" />
-        <div class="collapse-title text-xl font-medium">
-          Transcript
-        </div>
-        <div class="collapse-content">
-          <div id="transcript" class="">
-      
-            <h6 class="font-semibold text-black pb-3 mt-2">Can the VAC solution be used to request and facilitate transcript services? </h6>
-      <p class="font-normal text-black">Yes, the VAC solution manages and facilitates transcript requests. It enables secure and efficient transmission of transcript data between educational institutions and recipients. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">How can individuals request transcripts using the VAC solution? </h6>
-      <p class="font-normal text-black">Individuals can request transcripts using the VAC solution by registering as a ‘Graduate’ and initiate a transcript request by filling and submitting the necessary information, such as personal details, program or course information, and recipient details. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">What information is required to request a transcript using the VAC solution? </h6>
-      <p class="font-normal text-black">Generally, individuals will need to provide personal identification details, program or course information including unique identifiers, and recipient information (such as the institution receiving the transcript). </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">Can the VAC solution facilitate the electronic delivery of transcripts? </h6>
-      <p class="font-normal text-black">Yes, the VAC solution can facilitate the electronic delivery of transcripts, enabling secure and efficient transmission of transcript data to recipients. This can include electronic formats such as PDFs or secure online access to the transcript data. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">How long does it take to process and deliver transcripts using the VAC solution? </h6>
-      <p class="font-normal text-black">The processing and delivery time for transcripts using the VAC solution can vary depending on factors such as the institution's policies and the specific delivery method chosen. However, VAC solution aims to streamline the process and reduce processing times compared to traditional manual methods. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">Can I track the status of my transcript request?</h6>
-      <p class="font-normal text-black">Yes, Individuals or institutions can use the VAC solution to monitor the progress of the transcript request, including confirmation of receipt, processing stages, and delivery status. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">Can the VAC solution be used for international transcript requests and delivery? </h6>
-      <p class="font-normal text-black">Yes, the VAC solution can facilitate international transcript requests and delivery. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">Can the VAC solution provide official digital signatures or seals on electronic transcripts? </h6>
-      <p class="font-normal text-black">Yes, the VAC solution can often provide official digital signatures or seals on electronic transcripts. These digital signatures or seals serve as a digital representation of the institution's official stamp or signature, providing added authenticity and integrity to the transcript. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">Can the VAC solution assist in the transfer of transcripts between educational institutions? </h6>
-      <p class="font-normal text-black">VAC solution is currently working on including a functionality for the transfer of transcripts between educational institutions, where institutions can securely transmit transcript data to other institutions, facilitating the transfer process for students or individuals seeking to further their education or transfer credits. Kindly check our News tab frequently for updates on this.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="collapse collapse-plus border rounded-lg text-black mb-3">
-        <input type="checkbox" />
-        <div class="collapse-title text-xl font-medium">
-          Payment
-        </div>
-        <div class="collapse-content">
-          <div id="payment" class="">
-      
-            <h6 class="font-semibold text-black pb-3 mt-2">Can I make payment after verification is completed? </h6>
-      <p class="font-normal text-black">No, payments must be made before a verification or transcript request can be processed. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">How do I pay for verification or transcript request? </h6>
-      <p class="font-normal text-black">Once you have initiated a verification or transcript request, follow the payment prompt that pops up, select the payment method of your choice, and make payment. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">Which payment methods/options are available on VAC solution? </h6>
-      <p class="font-normal text-black">Individual account holders have two payment options: </p>
-      <p class="font-normal text-black">1.Card payment – use your debit/credit cards to make payments (Visa, MasterCard, Verve)</p>
-      <p class="font-normal text-black">2.Wallet payment – fund your wallet and carry out transactions. </p>
-      <p class="font-normal text-black">Organizations: </p>
-      <p class="font-normal text-black">1.Card payment - use your debit/credit cards to make payments (Visa, MasterCard, Verve)</p>
-      <p class="font-normal text-black">2.Wallet payment – fund your wallet and carry out transactions. </p>
-      <p class="font-normal text-black">3.Subscription plan – subscribe to plan that fits your organization to carry out transactions and enjoy plan benefits. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">Which payment gateways are used by VAC solution? </h6>
-      <p class="font-normal text-black">Paystack and PayPal. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">How is the payment split between NSPM and the institution and how long does it take for reconciliation? </h6>
-      <p class="font-normal text-black">Payment is an instant split, and reconciliation is immediate. </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="collapse collapse-plus border rounded-lg text-black mb-3">
-        <input type="checkbox" />
-        <div class="collapse-title text-xl font-medium">
-          Data Security and Privacy
-        </div>
-        <div class="collapse-content">
-          <div id="security" class="">
-      
-            <h6 class="font-semibold text-black pb-3 mt-2">Is VAC Solution NDPR compliant? </h6>
-            <p class="font-normal text-black">Yes, VAC solution is Nigeria Data Protection Regulation (NDPR) compliant. </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">Is the VAC solution secure?  </h6>
-            <p class="font-normal text-black">Yes, VAC prioritizes security and data integrity. It employs robust security measures. </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">How does VAC solution handle data privacy?  </h6>
-            <p class="font-normal text-black">At NSPM Plc, data privacy is of the utmost importance. VAC solution follows strict security protocols and complies with relevant data protection laws to ensure the confidentiality of user data. </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">What data does VAC solution collect and store?  </h6>
-            <p class="font-normal text-black">VAC solution collects and stores minimal personal data necessary for the certificate and transcript verification process. Such data is used to improve your user experience, provide relevant services as it pertains to Verification and Authentication of Certificates. Your personal data would not be used for other purposes outside of the Verification and Authentication of Certificates. </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">How is the data stored and secured within VAC solution?  </h6>
-            <p class="font-normal text-black">The data collected by VAC solution is stored in secure servers with strong encryption measures in place. We implement industry-standard security practices to protect against unauthorized access, data breaches, and other potential threats. </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">Is the data shared with any third parties?  </h6>
-            <p class="font-normal text-black">We do not share user data collected through VAC solution with any third parties, except in cases where it is necessary for verification and transcript processes and only with the explicit consent of the user and educational institution. </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">What measures does NSPM have for data security (at rest or in transit)?</h6>
-            
-            <p class="font-normal text-black">For data in motion (transit):</p>
-            <p class="font-normal text-black">-TLS/SSL certificates for data in transit </p>
-            <p class="font-normal text-black">-IPSEC connection to the institution </p>
-            
-            <p class="font-normal text-black">For data at rest:   </p>
-            <p class="font-normal text-black">-Encryption (with self-encrypting hardware)</p>
-            <p class="font-normal text-black">-Access Controls</p>
-            <p class="font-normal text-black">-Strong Authentication</p>
-            <p class="font-normal text-black">-Regular Backups</p>
-            <p class="font-normal text-black">-Secure Storage </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">How secure are NSPM’s data centre system and servers? </h6>
-            <p class="font-normal text-black">The NSPM IT Security architecture has a multi-layered approach to ensure the security of data within our system. Multi-layered approach includes some methods such as: </p>
-            <p class="font-normal text-black">-Perimeter Security </p>
-            <p class="font-normal text-black">-Network Segmentation </p>
-            <p class="font-normal text-black">-Identity and Access Management (IAM) </p>
-            <p class="font-normal text-black">-Endpoint Security  </p>
-            <p class="font-normal text-black">-Data Encryption </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">What is the encryption process?</h6>
-            <p class="font-normal text-black">Encryption within our company is implemented at the following stages:</p>
-            <p class="font-normal text-black">-Secure Communication: Encryption is used to secure data transmission over the internet, such as HTTPS for websites and email encryption.</p>
-            <p class="font-normal text-black">-Data Storage: Encryption of stored information on our Servers. </p>
-            <p class="font-normal text-black">-Authentication: Passwords and sensitive authentication information uses encryption at its core</p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">Disaster recovery and maintenance of the software</h6>
-            <p class="font-normal text-black">Our critical data are regularly backed up, and we have sites we replicate to, for failover in case there’s a disaster.  </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">What infrastructure do institutions need to put in place before they can partner with NSPM on the VAC solution?</h6>
-            <p class="font-normal text-black">Kindly contact us from through contact page </p>
-            
-            <h6 class="font-semibold text-black pb-3 mt-2">Do they need to pay for our services?</h6>
-            <p class="font-normal text-black">For now, no financial cost is accrued to the partner institution for integrating the VAC solution. </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="collapse collapse-plus border rounded-lg text-black mb-3">
-        <input type="checkbox" />
-        <div class="collapse-title text-xl font-medium">
-          Audit and Reports
-        </div>
-        <div class="collapse-content">
-          <div id="audit" class="">
-      
-            <h6 class="font-semibold text-black pb-3 mt-2">Does VAC solution generate audit reports? </h6>
-      <p class="font-normal text-black">Yes, VAC solution generates audit reports that provide a comprehensive overview of certificate verification and transcript request activities, ensuring transparency and accountability. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">What information is included in the audit reports generated by the VAC solution? </h6>
-      <p class="font-normal text-black">The audit reports generated by VAC solution typically include details such as verification requests, transcript requests, transactions, revenue, user actions, timestamps, system events, and any relevant errors or exceptions encountered during the process. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">How often are audit reports generated by VAC solution? </h6>
-      <p class="font-normal text-black">The frequency of generating audit reports using the VAC solution can be configured based on the requirements of the organization. Reports can be generated regularly, such as daily, weekly, monthly, or using a customized date range to provide up-to-date insights into system activities. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">Who has access to the audit reports generated by the VAC solution?</h6>
-      <p class="font-normal text-black">Access to the audit reports generated by VAC solution is usually limited to authorized personnel or administrators responsible for monitoring and reviewing system activities. They are granted appropriate privileges and permissions to access and analyze the reports. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">Can the audit reports track user access and actions?  </h6>
-      <p class="font-normal text-black">Yes, the audit reports generated by the VAC solution can track user access and actions. This includes recording details such as user logins, verification attempts, request submissions, and other relevant activities performed within the system. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">Can the audit reports be exported or shared with other systems or stakeholders? </h6>
-      <p class="font-normal text-black">Yes, reports can be exported and shared with other systems or stakeholders. VAC solution provides options to export reports in various formats (PDF, CSV, XML), allowing them to be shared with auditors, management, or other relevant parties for review and analysis. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">Can I save my verification report on my device? </h6>
-      <p class="font-normal text-black">Yes, reports can be downloaded on your computer or mobile device. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">How do I view the report of my requested certificate verification or transcript request? </h6>
-      <p class="font-normal text-black">Log in to your account and simply navigate to verification history or transactions history. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">What if a document fails the verification process? </h6>
-      <p class="font-normal text-black">If a document fails the verification process, it signifies that the document is either invalid or requires further scrutiny. In such cases, the VAC solution provides detailed reports or notifications to the concerned parties, enabling them to take appropriate actions to rectify the issue or investigate further. </p>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="collapse collapse-plus border rounded-lg text-black mb-3">
-        <input type="checkbox" />
-        <div class="collapse-title text-xl font-medium">
-          API Integration
-        </div>
-        <div class="collapse-content">
-          <div id="integration" class="">
-      
-            <h6 class="font-semibold text-black pb-3 mt-2">Can my institution integrate with VAC solution?</h6>
-      <p class="font-normal text-black">Yes. Interested institutions can integrate using their APIs or our API that would be made available from the VAC platform once all due processes have been followed.</p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">How long does integration take?  </h6>
-      <p class="font-normal text-black">Integration takes only as long as the institution can navigate. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">Do you have a sandbox environment? </h6>
-      <p class="font-normal text-black">Yes, we are integrating a sandbox environment into the system. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">How can I get access to your API? </h6>
-      <p class="font-normal text-black">Once we have an understanding through MOU, and agreement through a mutual contract agreement, our API will be made available to your technical team. </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="collapse collapse-plus border rounded-lg text-black mb-3">
-        <input type="checkbox" />
-        <div class="collapse-title text-xl font-medium">
-          Technical
-        </div>
-        <div class="collapse-content">
-          <div id="technicals" class="">
-      
-            <h6 class="font-semibold text-black pb-3 mt-2">What is VAC solution? </h6>
-      <p class="font-normal text-black">VAC solution is a digital security solution developed by NSPM Plc that simplifies and automates the process of certificate verification and transcript requests. </p>
-       
-      <h6 class="font-semibold text-black pb-3 mt-2">How does VAC solution work? </h6>
-      <p class="font-normal text-black">VAC solution utilizes advanced technology and secure protocols to securely authenticate and verify certificates and facilitate transcript requests. It integrates with educational institutions and certification bodies to ensure the accuracy and reliability of the verification process. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">What type of credential can VAC solution verify? </h6>
-      <p class="font-normal text-black">VAC solution is designed to verify a wide range of certificates including academic certificates statements of result, and professional certifications. VAC solution also facilitates transcript requests. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">Is VAC solution compatible with different systems and platforms? </h6>
-      <p class="font-normal text-black">Yes, VAC solution is designed to be compatible with various systems and platforms, including web-based applications, mobile devices, and APIs, allowing seamless integration into existing infrastructures. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">Who can benefit from using the VAC solution? </h6>
-      <p class="font-normal text-black">The VAC solution is beneficial for various entities, including educational institutions, employers, government agencies, and individuals. Educational institutions can streamline their verification processes, employers can easily authenticate the credentials of job applicants, government agencies can ensure the legitimacy of official documents, and individuals can securely validate their certificates for personal and professional purposes. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">How can employers benefit from the VAC solution? </h6>
-      <p class="font-normal text-black">Employers can benefit from the VAC solution by quickly and accurately verifying the credentials of job applicants. With the VAC solution, employers can easily access verified information about an applicant's educational qualifications and certifications, reducing the time and effort required for manual verification. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">How can institutions benefit from the VAC solution? </h6>
-      <p class="font-normal text-black">-Ease of verification and authentication</p>
-      <p class="font-normal text-black">-Ease of doing business</p>
-      <p class="font-normal text-black">-Measures against counterfeiting </p>
-      <p class="font-normal text-black">-Advanced analysis</p>
-      <p class="font-normal text-black">-Increased visibility for the institution </p>
-      <p class="font-normal text-black">-Increased revenue </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">How can the VAC solution help combat document fraud? </h6>
-      <p class="font-normal text-black">VAC solution plays a crucial role in combating document fraud by providing a secure and reliable means of verifying certificates and documents. By utilizing advanced technologies and standardized verification processes, it significantly reduces the risk of accepting fraudulent or counterfeit documents, thereby preserving the integrity of the verification data ecosystem. </p>
-      
-      <h6 class="font-semibold text-black pb-3 mt-2">What cost savings can be expected from implementing VAC solution? </h6>
-      <p class="font-normal text-black">Organizations can achieve substantial cost savings by implementing the VAC solution. It eliminates the necessity for manual verification processes, reduces administrative overhead, mitigates the risk of fraudulent hires or admissions, and streamlines document authentication operations. These enhanced efficiencies not only contribute to cost savings but also improve overall productivity.</p>
-          </div>
-        </div>
-      </div>
-
-
-
     </div>
+   
   </div>
   <div class="mx-3 sm:mx-10 md:mx-10 lg:mx-40 mt-10 p-10 bg-[#F9FAFB] rounded-xl">
     <p class="font-inter text-center text-[#101828] font-semibold text-2xl sm:text-3xl">Still have a question?</p>

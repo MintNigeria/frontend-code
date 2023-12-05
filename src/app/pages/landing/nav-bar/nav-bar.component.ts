@@ -11,6 +11,7 @@ import { CreateAccountModalComponent } from '../modals/create-account-modal/crea
 export class NavBarComponent implements OnInit {
   showServices: boolean = false
   mobileMenuOpen = false;
+  showDate : boolean = false;
 
   constructor(
     private dialog: MatDialog,
@@ -34,8 +35,10 @@ export class NavBarComponent implements OnInit {
     });
 
   }
-  showOthers() {
-    this.showServices = !this.showServices
+  showOthers(status: boolean) {
+    this.showServices = status
+    // console.log(this.showServices)
   }
+
 
 }
