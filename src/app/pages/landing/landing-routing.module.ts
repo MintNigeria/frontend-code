@@ -22,8 +22,8 @@ const routes: Routes = [
       { path: 'contacts', component: ContactsComponent },
       { path: 'request-demo', component: RequestDemoComponent },
       { path: 'faqs', component: FaqsComponent },
-      {path: 'verification-services', component: VerificationServicesComponent},
-      {path: 'transcript-services', component: TranscriptServicesComponent},
+      {path: 'certificate-verification', component: VerificationServicesComponent},
+      {path: 'transcript-request', component: TranscriptServicesComponent},
 
     ],
   },

@@ -19,9 +19,9 @@ export class FooterComponent implements OnInit {
   }
 
   openLogin() {
-    const dialogRef = this.dialog.open(CreateAccountModalComponent, {
-      width: '700px'
-    });
+    // const dialogRef = this.dialog.open(CreateAccountModalComponent, {
+    //   width: '700px'
+    // });
   }
 
 }
