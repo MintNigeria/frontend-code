@@ -16,7 +16,7 @@ export class CarouselComponent implements OnInit {
     {
       id: 'slide1',
       image: 'assets/images/main/carousel-1.jpg',
-      header: 'Transcript requests and certificate verification just got better.',
+      header: 'Certificate verification and transcript requests just got better.',
       text: 'The VAC solution is an innovative digital solution that streamlines and automates the process of certificate verification, as well as manage and facilitate transcript requests.',
       buttonOne: 'Request For Demo',
       buttonOneRoute: '/request-demo',

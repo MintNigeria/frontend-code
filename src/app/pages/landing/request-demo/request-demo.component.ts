@@ -40,9 +40,9 @@ export class RequestDemoComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', Validators.required],
       phoneNumber : ['', Validators.required],
-      jobTitle: [''],
-      Organization : [''],
-      message: [''],
+      jobTitle: ['', Validators.required],
+      Organization : ['', Validators.required],
+      message: ['', Validators.required],
     })
   }
 
