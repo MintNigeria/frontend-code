@@ -1,9 +1,10 @@
 export const environment = {
   production: true,
-  recaptchaKey: '6LcLK9MnAAAAAIyZS-UebpSGm0PsGiQXsjMB36-x',
+  recaptchaKey: '6LfnQhgmAAAAAEgAA41biAAa2A_5ImpmAWJU-KwD',
+  // recaptchaKey: '6LcLK9MnAAAAAIyZS-UebpSGm0PsGiQXsjMB36-x',
   //apiBaseURI: 'http://certificatesverification.org:2008/',
-  // apiBaseURI: 'https://certificatesverification.org/',
-  apiBaseURI: 'https://authenticatehub.org/',
+  apiBaseURI: 'https://certificatesverification.org/',
+  // apiBaseURI: 'https://authenticatehub.org/',
   // apiBaseURI: 'http://102.164.32.78:2000/',
   // apiBaseURI: 'http://40.67.166.30:2000/',
   // apiBaseURI: 'http://20.83.190.78:2000/',
