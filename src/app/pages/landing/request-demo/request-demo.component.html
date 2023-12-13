@@ -121,7 +121,7 @@
 
         <div class="mb-4">
           <label for="subject" 
-          class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">Organization </label>
+          class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">Organization <span class="text-danger font-bold">*</span> </label>
           <app-input 
               [formGrp]="contactForm" 
               formCtrlName="Organization" 
@@ -132,7 +132,7 @@
         </div>
         <div class="mb-4">
           <label for="subject" 
-          class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">Job Title </label>
+          class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">Job Title <span class="text-danger font-bold">*</span> </label>
           <app-input 
               [formGrp]="contactForm" 
               formCtrlName="jobTitle" 
@@ -143,7 +143,7 @@
         </div>
         <div class="mb-4">
           <label for="message" 
-          class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">Message</label>
+          class=" font-inter font-medium lg:text-sm text-xs text-failedNormal" for="inline-full-name">Message<span class="text-danger font-bold">*</span></label>
           <textarea name="" formControlName="message" id="" class="w-full h-32 rounded border bg-white"></textarea>
         </div>
         <app-button 
