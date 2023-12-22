@@ -276,7 +276,6 @@ selectedFileList: any  = []
       if (res.payload.hasErrors === false) {
         document.getElementById('myModal')?.click()
         this.showOTPPage = true;
-
         // this.router.navigateByUrl('/')
       }
     })
