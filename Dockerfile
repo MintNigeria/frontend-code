@@ -7,7 +7,7 @@ WORKDIR /mint_client
 
 COPY package.json package-lock.json ./
 
-RUN npm install -g @angular/cli@14
+RUN npm install -g @angular/cli
 #RUN npm install nodejs
 RUN npm install
 
