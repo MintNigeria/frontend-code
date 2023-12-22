@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  recaptchaKey: '6LcLK9MnAAAAAN8li8R0Ptfw7y--RGXeZpptTtMl', //prod
+  recaptchaKey: '6Le5tzkpAAAAAL3tSNuyENezcBugdUN8CqHhhtUL', //prod
   // recaptchaKey: '6LfnQhgmAAAAAEgAA41biAAa2A_5ImpmAWJU-KwD', // staging
   // recaptchaKey: '6LcLK9MnAAAAAIyZS-UebpSGm0PsGiQXsjMB36-x',
   //apiBaseURI: 'http://certificatesverification.org:2008/',
