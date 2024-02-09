@@ -132,7 +132,6 @@ filter: any = {
   selectInstitutionSector(event: any) {
     const filter = {...this.filter, ['SectorId'] : event}
     this.filter = filter;
-    console.log(this.filter)
     this.store.dispatch(getAllInstitutionRecords({payload: this.filter}))
     this.actions$.pipe(ofType(getAllInstitutionRecordsSuccess)).subscribe((res: any) => {
          // console.log(res);

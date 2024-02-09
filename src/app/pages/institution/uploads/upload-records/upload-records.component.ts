@@ -252,11 +252,16 @@ submitBulkUpload() {
     institutionId: this.institutionId
   }
   this.graduateService.uploadBulkGraduateRecordSync(data).subscribe((resp: HttpEvent<any>) => {
-    if (resp.type === HttpEventType.Response) {
-      // console.log('Upload complete');
-      this.notification.publishMessages('success', 'File completely uploaded')
-      this.router.navigateByUrl(`/institution/uploads`)
-  }
+    if (resp.type === HttpEventType.Response ) {
+      if (resp.body.hasErrors === true) {
+        this.notification.publishMessages('error', resp.body.errors.toString())
+        this.showProgress = false
+      } else {
+
+        this.notification.publishMessages('success', 'File completely uploaded')
+        this.router.navigateByUrl(`/institution/uploads`)
+      }
+    }
   if (resp.type === HttpEventType.UploadProgress) {
       const percentDone = Math.round((100 * resp.loaded) / resp.total!)
       // console.log('Progress ' + percentDone + '%', resp.loaded , resp.total!);
@@ -299,7 +304,6 @@ launchEndpointModal() {
 submitEndpoint() {
   const {endpoint} = this.bulkApiEndpoint.value
   this.utilityService.getCustomFieldEndpoint(endpoint).subscribe((res: any) => {
-    console.log(res)
     this.showApiProgress = true;
     const isDataStructureTrue = this.isArrayTypeEqual(res)
     console.log(isDataStructureTrue)

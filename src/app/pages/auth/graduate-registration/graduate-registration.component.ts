@@ -223,7 +223,6 @@ selectedFileList: any  = []
   }
 
   validateIdType(event: any) {
-    console.log(typeof(event.value))
     if (event.value === '1') {
       this.institutionRegForm.controls['IdNumber'].setValidators([Validators.pattern('^[A-Z0-9]{7,9}$')])
     } else if (event.value === '2') {
@@ -277,7 +276,6 @@ selectedFileList: any  = []
       if (res.payload.hasErrors === false) {
         document.getElementById('myModal')?.click()
         this.showOTPPage = true;
-
         // this.router.navigateByUrl('/')
       }
     })
