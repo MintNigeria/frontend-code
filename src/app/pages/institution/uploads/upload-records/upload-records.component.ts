@@ -304,7 +304,6 @@ launchEndpointModal() {
 submitEndpoint() {
   const {endpoint} = this.bulkApiEndpoint.value
   this.utilityService.getCustomFieldEndpoint(endpoint).subscribe((res: any) => {
-    console.log(res)
     this.showApiProgress = true;
     const isDataStructureTrue = this.isArrayTypeEqual(res)
     console.log(isDataStructureTrue)
