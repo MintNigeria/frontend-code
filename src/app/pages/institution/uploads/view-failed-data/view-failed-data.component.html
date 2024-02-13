@@ -1,0 +1,135 @@
+<div class="bg-white p-6">
+    <div class="flex  items-center md:gap-4 gap-2 ">
+        <div>
+            <img [routerLink]="'/institution/uploads'" src="assets/images/icons/home.svg">
+        </div>
+        <div>
+            <img src="assets/images/icons/forward_arrow.svg">
+        </div>
+
+        <div>
+            <p class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer">
+                Uploads
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="flex  items-center md:gap-4 gap-2 mt-6" (click)="goBack()">
+        <div>
+            <img src="assets/images/icons/backward_arrow.svg">
+        </div>
+
+        <div>
+            <p class="text-[#0D47A1] font-inter md:text-base text-sm font-medium cursor-pointer">
+                Back
+            </p>
+
+        </div>
+
+    </div>
+
+    
+
+    <div class="border rounded-lg mt 6">
+       
+
+        <div class="bg-white">
+       
+            <div class="overflow-x-auto hide-scrollbar">
+                <table class="table w-full bg-white">
+                    <thead>
+                        <tr class="bg-white">
+                           <th class="text-xs text-[#667085] font-medium font-inter bg-tableHeader">Name</th>
+                           <th class="text-xs text-[#667085] font-medium font-inter bg-tableHeader">Gender</th>
+                           <th class="text-xs text-[#667085] font-medium font-inter bg-tableHeader">Date of Birth</th>
+                           <th class="text-xs text-[#667085] font-medium font-inter bg-tableHeader">Matric Number</th>
+                           <th class="text-xs text-[#667085] font-medium font-inter bg-tableHeader">Grade</th>
+                           <th class="text-xs text-[#667085] font-medium font-inter bg-tableHeader">Year of Entry</th>
+                           <th class="text-xs text-[#667085] font-medium font-inter bg-tableHeader">State of Origin</th>
+                           <!-- <th class="text-xs text-[#667085] font-medium font-inter bg-tableHeader">Status</th> -->
+                           <th class="text-xs text-[#667085] font-medium font-inter bg-tableHeader">Reason</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let data of failedData | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: totalCount }">
+                            <td class="bg-white font-inter font-medium text-base text-primaryBlue">
+                                {{data.firstName + ' ' + data.lastName}}
+                            </td>
+                            <td class="bg-white font-inter font-medium text-lightGray text-base">
+                                {{data.gender}}
+                            </td>
+                            <td class="bg-white font-inter font-medium text-base text-lightGray">
+                                {{data.dateOfBirth | date: 'mediumDate'}}
+                            </td>
+                            <td class="bg-white font-inter font-medium text-base"
+                            >
+                                {{data?.academicInformation?.matriculationNumber}}
+                            </td>
+                            <td class="bg-white font-inter font-medium text-base text-lightGray">
+                                {{data?.academicInformation?.grade}}
+                            </td>
+                            <td class="bg-white font-inter font-medium text-base text-lightGray">
+                                {{data?.academicInformation?.yearOfEntry}}
+                            </td>
+                            <td class="bg-white font-inter font-medium text-base text-lightGray">
+                                {{data.stateOfOrigin}}
+                            </td>
+                            <!-- <td class="bg-white">
+                                <div class="flex gap-1 px-3 items-center w-fit rounded-lg font-inter font-medium text-base"
+                                [ngClass]="data.successStatus === true ? 'bg-successLight'
+                                :'bg-failedLight' ">
+                                    <div class="rounded-full w-2 h-2"
+                                    [ngClass]="data.successStatus === true ? 'bg-successNormal' :
+                                    'bg-failedDark'"></div>
+                                    <p
+                                    [ngClass]="
+                                    data.successStatus === true? 'text-successNormal'
+                                    :'text-danger' ">
+                                        {{data.successStatus === true ? 'successful' : 'failed'}}
+                                    </p>
+
+                                </div>
+                            </td> -->
+                                <td [innerHTML]="data.reasonForFailure | breakAtFirstComma"  class="bg-white font-inter font-medium text-base text-lightGray">
+                                  
+                                </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-between mt-10">
+            <select class=" text-black select max-w-xs bg-white" (change)="selectRecordCount($event.target)">
+                <option disabled selected>Per page</option>
+                <option value="10">10</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="150">150</option>
+                <option value="200">200</option>
+              </select>
+            <div class="flex item gap-3">
+                <pagination-controls  [responsive]="true"  (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next"></pagination-controls>
+      
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <app-modal [id]="changesConfirmed">
+    <div class="toast toast-top">
+        <div class="alert alert-success flex justify-between items-center">
+            <div class="font-avenir font-meduim lg:text-lg text-base">
+                <img src="assets/images/icons/confirmed_icon.svg" alt="close_toast">
+                <span class="text-successNormal">Records uploaded successfully.</span>
+            </div>
+            <label [for]="changesConfirmed">
+                <img src="assets/images/icons/green_x.svg" alt="close_toast">
+            </label>
+        </div>
+    </div>
+</app-modal> -->

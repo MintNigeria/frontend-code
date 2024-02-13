@@ -32,6 +32,7 @@ import { NigeriaPhoneNumberPipe } from '../core/pipe/nigeria-phone-number.pipe';
 import { ActionConfirmationModalComponent } from './components/action-confirmation-modal/action-confirmation-modal.component';
 import { SingleSessionModalComponent } from './components/single-session-modal/single-session-modal.component';
 import { InputNumberComponent } from './components/input-number/input-number.component';
+import { BreakAtFirstCommaPipe } from '../core/pipe/breakAtFirstComma.pipe';
 
 const components: any[] = [
   InputComponent,
@@ -60,6 +61,7 @@ const components: any[] = [
   FilesizePipe,
   TrustedURLPipe,
   NigeriaPhoneNumberPipe,
+  BreakAtFirstCommaPipe,
   CommaDelimiterPipe,
   SingleSessionModalComponent,
 

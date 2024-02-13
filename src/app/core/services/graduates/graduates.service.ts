@@ -138,6 +138,11 @@ export class GraduatesService
       { params: payload }
     );
   }
+  getFailedGraduateInABatch(id: any, payload:any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/FailedInstitutionGraduateFromABatch/${id}`, {params: payload}
+    );
+  }
 
   uploadGraduateRecord(payload: any) {
     const body = new FormData();

@@ -38,7 +38,7 @@ export class ApiConfigurationComponent implements OnInit {
       dataSource: 2,
     },
     {
-      name: 'API Upload',
+      name: 'API Integration',
       slug: 'api',
       description: 'Upload record by entering API endpoint in a structure data',
       dataSource: 1,
