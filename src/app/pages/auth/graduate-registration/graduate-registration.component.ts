@@ -331,5 +331,12 @@ selectedFileList: any  = []
     }, 1000);
   }
 
+  openLink() {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/terms-and-condition`])
+    );
+    window.open(url, '_blank');
+  }
+
 
 }
