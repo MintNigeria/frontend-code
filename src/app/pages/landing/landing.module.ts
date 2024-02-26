@@ -35,6 +35,8 @@ import { UtilityEffects } from 'src/app/store/institution copy/effects';
 import { RequestDemoComponent } from './request-demo/request-demo.component';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { CountdownComponent } from './countdown/countdown.component';
+import { TermsAndConditionComponent } from './terms-and-condition/terms-and-condition.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 
 @NgModule({
@@ -65,6 +67,8 @@ import { CountdownComponent } from './countdown/countdown.component';
     CreateAccountModalComponent,
     RequestDemoComponent,
     CountdownComponent,
+    TermsAndConditionComponent,
+    PrivacyPolicyComponent,
   ],
   imports: [
     CommonModule,

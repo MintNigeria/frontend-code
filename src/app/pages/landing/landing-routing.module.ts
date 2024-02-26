@@ -10,6 +10,8 @@ import { FaqsComponent } from './faqs/faqs.component';
 import { VerificationServicesComponent } from './verification-services/verification-services.component';
 import { TranscriptServicesComponent } from './transcript-services/transcript-services.component';
 import { RequestDemoComponent } from './request-demo/request-demo.component';
+import { TermsAndConditionComponent } from './terms-and-condition/terms-and-condition.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   {
@@ -24,6 +26,8 @@ const routes: Routes = [
       { path: 'faqs', component: FaqsComponent },
       {path: 'verification-services', component: VerificationServicesComponent},
       {path: 'transcript-services', component: TranscriptServicesComponent},
+      {path: 'terms-and-condition', component: TermsAndConditionComponent},
+      {path: 'privacy-policy', component: PrivacyPolicyComponent},
 
     ],
   },
