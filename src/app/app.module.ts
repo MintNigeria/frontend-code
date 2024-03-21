@@ -20,11 +20,12 @@ import { SharedModule } from './shared/shared.module';
 import { GlobalErrorHandler } from './global-error-handler';
 import { IdleScreenLoginComponent } from './pages/idle-screen-login/idle-screen-login.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { AcceptCookiesComponent } from './accept-cookies/accept-cookies.component';
 
 
 
 @NgModule({
-  declarations: [AppComponent, LoaderComponent, IdleScreenLoginComponent,  ],
+  declarations: [AppComponent, LoaderComponent, IdleScreenLoginComponent, AcceptCookiesComponent,  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

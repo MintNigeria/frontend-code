@@ -1,0 +1,35 @@
+<div  *ngIf="showPopUp" class="z-5 fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
+    <div class="bg-white p-8 rounded-lg shadow-md" [@easeInOut]  style="max-width: 799px;">
+      <h2 class="text-lg font-bold mb-4">Cookie Consent</h2>
+      <p class="mb-4">We use cookies to improve your experience on our website.
+        
+        By continuing to use our site, you accept our use of cookies.</p>
+
+         <!-- Collapsible sections for Privacy Policy and Terms of Condition -->
+            <div class="mb-4">
+                <button class="flex items-center justify-between w-full bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-md focus:outline-none" (click)="togglePrivacyPolicy()">
+                Privacy Policy
+                <img src="assets/images/icons/dropdown.svg" alt="dropdown" class="cursor-pointer">
+                </button>
+                <div *ngIf="showPrivacyPolicy" class="mt-2 ml-4">
+                    <p class="text-black pb-2">Your privacy is important to us. Please review our <a  class="link" href="" routerLink="/privacy-policy">Privacy Policy</a>, which explains how we collect, use, and disclose information about you when you access or use our website, mobile application, and services.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <button class="flex items-center justify-between w-full bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-md focus:outline-none" (click)="toggleTermsOfCondition()">
+                Terms of Condition
+                <img src="assets/images/icons/dropdown.svg" alt="dropdown" class="cursor-pointer">
+                </button>
+                <div *ngIf="showTermsOfCondition" class="mt-2 ml-4">
+                    <p class="text-black pb-2">
+                         Please review our <a  class="link" href="" routerLink="/terms-and-condition">Terms & Conditions</a>, which explains our terms and conditions of service.
+                    </p>
+                </div>
+            </div>
+      <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" (click)="acceptCookies()">Accept</button>
+      <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded ml-2 hover:bg-gray-400" (click)="closePopup()">Close</button>
+    </div>
+  </div>
+  
