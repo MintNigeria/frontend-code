@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import { DashboardService } from 'src/app/core/services/dashboard/dashboard.service';
-import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { isUserSelector } from 'src/app/store/auth/selector';
 import { getGraduateDashboardBottomData, getGraduateDashboardBottomDataSuccess, getGraduateDashboardTopData, getGraduateDashboardTopDataSuccess } from 'src/app/store/dashboard/action';
@@ -13,6 +12,8 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import {Chart} from 'chart.js/auto'
 import { MatDialog } from '@angular/material/dialog';
 import { DateRangeComponent } from 'src/app/shared/date-range/date-range.component';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
+import { GraduatesService } from 'src/app/core/services/graduates/graduates.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -36,6 +37,7 @@ export class DashboardComponent implements OnInit {
   modalId = 'messageModal'
   notifyInstitutionForm!: FormGroup
   user: any;
+  talentSearchProfile: any;
   
   constructor(
     private router: Router,
@@ -47,6 +49,7 @@ export class DashboardComponent implements OnInit {
     private notification: NotificationsService,
     private dashboardService: DashboardService,
     private dialog : MatDialog,
+    private graduateService: GraduatesService
 
   ) { 
     const userAgent = navigator.userAgent;
@@ -90,6 +93,13 @@ export class DashboardComponent implements OnInit {
 
     this.checkInstitutionOnboarded()
     this.checkInstitutionOnboardedStatus()
+    this.getCompletionStatus()
+  }
+
+  getCompletionStatus() {
+    this.graduateService.getTalentSearchProfileCmpletionStatus(this.userData?.GraduateId).subscribe((res: any) => {
+      this.talentSearchProfile = res.payload;
+    })
   }
 
 initForm() {
@@ -175,9 +185,12 @@ initForm() {
     console.log(this.notifyInstitutionForm.value)
     this.store.dispatch(notifyMyInstitution({payload: this.notifyInstitutionForm.value}))
     this.actions$.pipe(ofType(notifyMyInstitutionSuccess)).subscribe((res: any) => {
-      this.notification.publishMessages('success', res.payload.description)
-      // document.getElementById('myModal')?.click()
-      this.cancel()
+      if (res) {
+
+        this.notification.publishMessages('success', res.payload.description)
+        // document.getElementById('myModal')?.click()
+        this.cancel()
+      }
     })
 
   }
@@ -229,13 +242,13 @@ initForm() {
             label: 'Application',
             data: grad,
             // fill: false,
-            backgroundColor: '#0D47A1'
+            borderColor: '#FAC515'
           }, {
             type: 'line',
             label: 'Verification',
             data: org,
             // fill: false,
-            borderColor: '#FAC515'
+            borderColor: '#0D47A1'
           }]
       },
       options: {

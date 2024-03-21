@@ -39,12 +39,14 @@ export class TransactionsComponent implements OnInit {
     filter: '',
     pageSize: 10,
     pageIndex: 1,
+    status: 5,
  }
  userData: any;
   balance: any;
   history: any;
   total: any;
 pageIndex = 1
+pageSize = 10
 searchForm = new FormGroup({
   searchPhrase: new FormControl(''),
 });
@@ -127,13 +129,13 @@ searchForm = new FormGroup({
   
       })
     } else {
-      const filter = {...this.filter, ['range'] : range};
+      const filter = {...this.filter, ['TimeBoundSearchVm.TimeRange'] : range};
       this.filter = filter;
     }
   }
   
 
-  changeStatus(status: number, name: string) {
+  changeStatus(status: any, name: string) {
     this.status = name
     this.showStatus = true
     const filter = {...this.filter, ['status'] : status};
@@ -167,7 +169,16 @@ searchForm = new FormGroup({
 
   getPage(currentPage: number) {
     const filter = {...this.filter, ['pageIndex'] : currentPage}
+    this.filter = filter
     this.store.dispatch(getOrganizationSubscriptionHistory({payload: {...filter, OrganizationId: this.userData.OrganizationId}}))
+  }
+  
+  selectRecordCount(event: any) {
+    this.pageSize = event.value
+    const filter = {...this.filter, ['pageSize'] : event.value}
+    this.filter = filter
+    this.store.dispatch(getOrganizationSubscriptionHistory({payload: {...filter, OrganizationId: this.userData.OrganizationId}}))
+
   }
 
 

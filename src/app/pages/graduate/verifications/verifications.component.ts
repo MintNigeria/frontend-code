@@ -46,6 +46,7 @@ export class VerificationsComponent implements OnInit {
     applicationList: any;
     total: any;
   pageIndex = 1
+  pageSize = 10
   searchForm = new FormGroup({
     searchPhrase: new FormControl(''),
   });
@@ -129,7 +130,7 @@ export class VerificationsComponent implements OnInit {
   
       })
     } else {
-      const filter = {...this.filter, ['range'] : range};
+      const filter = {...this.filter, ['TimeBoundSearchVm.TimeRange'] : range};
       this.filter = filter;
     }
   }
@@ -185,7 +186,15 @@ export class VerificationsComponent implements OnInit {
 
   getPage(currentPage: number) {
     const filter = {...this.filter, ['pageIndex'] : currentPage}
+    this.filter = filter
     this.store.dispatch(getGraduateCertificateVerifications({payload: {...filter, GraduateId: this.graduateId}}))
+  }
+  selectRecordCount(event: any) {
+    this.pageSize = event.value
+    const filter = {...this.filter, ['pageSize'] : event.value}
+    this.filter = filter
+    this.store.dispatch(getGraduateCertificateVerifications({payload: {...filter, GraduateId: this.graduateId}}))
+
   }
 
 

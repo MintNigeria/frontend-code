@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TimerService } from 'src/app/shared/util/timer.service';
 
 @Component({
   selector: 'app-landing',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private timer: TimerService
+
+  ) { }
 
   ngOnInit(): void {
   }

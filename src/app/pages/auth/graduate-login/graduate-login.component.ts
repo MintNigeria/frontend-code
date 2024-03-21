@@ -12,6 +12,9 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import { Status } from 'src/app/types/shared.types';
 import { environment } from 'src/environments/environment';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
+import { SingleSessionModalComponent } from 'src/app/shared/components/single-session-modal/single-session-modal.component';
+import { MatDialog } from '@angular/material/dialog';
+import { UtilityService } from 'src/app/core/services/utility/utility.service';
 
 @Component({
   selector: 'app-graduate-login',
@@ -35,33 +38,49 @@ export class GraduateLoginComponent implements OnInit {
     private store: Store,
     private appStore: Store<AppStateInterface>,
     private actions$: Actions,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
+    private dialog: MatDialog,
+    private utility: UtilityService
+
+
   ) {}
 
   ngOnInit(): void {
     this.currentRoute = this.route.snapshot.url[0].path;
     this.initLoginForm();
+    const a = this.utility.getCookieValue('email')
+    if (a !== undefined) {
+      this.loginAuth.patchValue({
+        email: a
+      })
+    }
   }
 
   initLoginForm() {
     this.loginAuth = new FormGroup({
       password: new FormControl('', [
         Validators.required,
-        Validators.minLength(6),
+        Validators.minLength(8),
       ]),
       email: new FormControl(
         '',
-        Validators.compose([Validators.email, Validators.required])
+        Validators.compose([Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/), Validators.required])
       ),
-      recaptchaReactive: new FormControl('', [Validators.required]),
+      userType: new FormControl(3),
+
+      rememberMe: new FormControl(false),
+      // recaptchaReactive: new FormControl(null),
+      recaptchaReactive: new FormControl(null, [Validators.required]),
+
     });
   }
+
 
   accessAccount() {
     this.status = Status.LOADING;
     this.store.dispatch(invokeLoginUser({payload: this.loginAuth.value}));
     this.actions$.pipe(ofType(loginSuccess)).subscribe((res: any) => {
-      if (res.accessToken !== undefined && typeof(res.payload) !== 'string') {
+      if (res.accessToken !== undefined) {
         const helper = new JwtHelperService();
         this.loggedInUser = helper.decodeToken(res.accessToken);
         const data =  {
@@ -92,13 +111,22 @@ export class GraduateLoginComponent implements OnInit {
         }
         
         
-      } else {
-        this.show2FAOTP = true
-        this.timer(1)
-      
+      } else if (res.accessToken === undefined && res.hasErrors === false) {
+        this.show2FAOTP = true;
+        this.timer(3)
+      } else if (res.accessToken === undefined && res.hasErrors === true && res.errors[0] === 'You have an active session!!!') {
+        this.launchSingleLoginModal(this.loginAuth.value)
 
       }
     })
+    const {email,rememberMe} = this.loginAuth.value;
+    if (rememberMe === true) {
+      const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+      document.cookie = `email=${email}; expires=${expires.toUTCString()}; path=/`;
+    } else {
+      this.utility.deleteCookie('email')
+    }
+
    
   }
 
@@ -115,10 +143,11 @@ export class GraduateLoginComponent implements OnInit {
   }
 
   verifyOTP() {
-    const {email, password} = this.loginAuth.value
+    const {email, password, userType} = this.loginAuth.value
     const payload = {
       email,
       password,
+      userType,
       code: this.otpValue,
       twoFA: true
     }
@@ -140,7 +169,6 @@ export class GraduateLoginComponent implements OnInit {
           role: this.loggedInUser?.role || 'undefined',
         },
         permissions: this.loggedInUser.Permission
-  
       };
       
       if (this.loggedInUser.UserType === 'Graduates') {
@@ -175,9 +203,7 @@ export class GraduateLoginComponent implements OnInit {
     this.actions$.pipe(ofType(confirm2FActionSuccess)).subscribe((res: any) => {
       if (res.message.hasErrors === false) {
         this.notificationService.publishMessages('success', res.message.description);
-        this.timer(1)
-       
-
+        this.timer(3)
       }
     })
   }
@@ -211,6 +237,16 @@ export class GraduateLoginComponent implements OnInit {
 
       }
     }, 1000);
+  }
+
+  launchSingleLoginModal(data: any) {
+    const dialogRef = this.dialog.open(SingleSessionModalComponent, {
+      // width: '600px',
+      // height: '600px'
+      data,
+      disableClose: true 
+
+    });
   }
 
 }

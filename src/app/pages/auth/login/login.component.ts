@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Actions, ofType } from '@ngrx/effects';
-import { select, Store } from '@ngrx/store';
+import { select, Store, UPDATE } from '@ngrx/store';
 import { RecaptchaErrorParameters } from 'ng-recaptcha';
 import { confirm2FAction, confirm2FActionSuccess, invokeLoginUser, loginSuccess } from 'src/app/store/auth/action';
 import { isUserSelector } from 'src/app/store/auth/selector';
@@ -13,6 +13,10 @@ import { Status } from 'src/app/types/shared.types';
 import { environment } from 'src/environments/environment';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { SingleSessionModalComponent } from 'src/app/shared/components/single-session-modal/single-session-modal.component';
+import { MatDialog } from '@angular/material/dialog';
+import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import { TimerService } from 'src/app/shared/util/timer.service';
 
 @Component({
   selector: 'app-login',
@@ -36,25 +40,40 @@ export class LoginComponent implements OnInit {
     private store: Store,
     private appStore: Store<AppStateInterface>,
     private actions$: Actions,
+    private dialog: MatDialog,
     private notificationService: NotificationsService,
+    private utility: UtilityService,
+    // private timerService: TimerService
+
   ) {}
 
   ngOnInit(): void {
     this.currentRoute = this.route.snapshot.url[0].path;
     this.initLoginForm();
+    const a = this.utility.getCookieValue('email')
+    if (a !== undefined) {
+      this.loginAuth.patchValue({
+        email: a
+      })
+    }
+    // this.timerService.initListener()
   }
 
   initLoginForm() {
     this.loginAuth = new FormGroup({
       password: new FormControl('', [
         Validators.required,
-        Validators.minLength(6),
+        Validators.minLength(8),
       ]),
       email: new FormControl(
         '',
-        Validators.compose([Validators.email, Validators.required])
+        Validators.compose([Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/), Validators.required])
       ),
-      recaptchaReactive: new FormControl('', [Validators.required]),
+      userType: new FormControl(2),
+      rememberMe: new FormControl(false),
+      // recaptchaReactive: new FormControl(null),
+      recaptchaReactive: new FormControl(null, [Validators.required]),
+
     });
   }
 
@@ -63,10 +82,10 @@ export class LoginComponent implements OnInit {
 
     this.store.dispatch(invokeLoginUser({payload: this.loginAuth.value}));
     this.actions$.pipe(ofType(loginSuccess)).subscribe((res: any) => {
-      console.log(res)
-      if (res.accessToken !== undefined && typeof(res.payload) !== 'string') {
+      if (res.accessToken !== undefined) {
         const helper = new JwtHelperService();
         this.loggedInUser = helper.decodeToken(res.accessToken);
+        
         const data =  {
           isAuthenticated: true,
           user: {
@@ -83,23 +102,36 @@ export class LoginComponent implements OnInit {
           permissions: this.loggedInUser.Permission
     
         };
-        console.log(this.loggedInUser.UserType)
+        
         if (this.loggedInUser.UserType === 'Institution') {
           this.router.navigateByUrl('/institution/dashboard');
           this.notificationService.publishMessages('success', 'Login Successful');
           localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
           localStorage.setItem('authData', JSON.stringify(data));
+          localStorage.setItem('authx', JSON.stringify(data));
+
         } else if(this.loggedInUser.UserType !== 'Institution') {
           this.notificationService.publishMessages('error', 'Invalid login credential');
           // localStorage.clear()
         }
        
-      } else {
+      } else if (res.accessToken === undefined && res.hasErrors === false) {
         this.show2FAOTP = true;
-        this.timer(1)
-       
+        this.timer(3)
+      } else if (res.accessToken === undefined && res.hasErrors === true && res.errors[0] === 'You have an active session!!!') {
+        this.launchSingleLoginModal(this.loginAuth.value)
+
       }
     })
+    const {email,rememberMe} = this.loginAuth.value;
+    if (rememberMe === true) {
+      const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+      document.cookie = `email=${email}; expires=${expires.toUTCString()}; path=/`;
+    } else {
+      this.utility.deleteCookie('email')
+    }
+
+    
   
   }
 
@@ -115,10 +147,11 @@ export class LoginComponent implements OnInit {
   }
 
   verifyOTP() {
-    const {email, password} = this.loginAuth.value
+    const {email, password, userType} = this.loginAuth.value
     const payload = {
       email,
       password,
+      userType,
       code: this.otpValue,
       twoFA: true
     }
@@ -127,6 +160,8 @@ export class LoginComponent implements OnInit {
     this.actions$.pipe(ofType(loginSuccess)).subscribe((res: any) => {
       const helper = new JwtHelperService();
       this.loggedInUser = helper.decodeToken(res.accessToken);
+      let currentAuthData: any = localStorage.getItem('auth')
+      currentAuthData.permissions = this.loggedInUser.Permission
       const data =  {
         isAuthenticated: true,
         user: {
@@ -145,14 +180,13 @@ export class LoginComponent implements OnInit {
       };
       localStorage.setItem('userData', JSON.stringify(this.loggedInUser));
       localStorage.setItem('authData', JSON.stringify(data));
+      localStorage.setItem('authx', JSON.stringify(data));
+      // this.appStore.up
       this.notificationService.publishMessages('success', 'Login Successful');
       if (this.loggedInUser.UserType === 'Institution') {
         this.router.navigateByUrl('/institution/dashboard');
-
         // this.showOTPPage = true;
-      }
-     
-    
+      }   
     })
     
    
@@ -176,7 +210,7 @@ export class LoginComponent implements OnInit {
     this.actions$.pipe(ofType(confirm2FActionSuccess)).subscribe((res: any) => {
       if (res.message.hasErrors === false) {
         this.notificationService.publishMessages('success', res.message.description);
-        this.timer(1)
+        this.timer(3)
       }
     })
   }
@@ -210,5 +244,14 @@ export class LoginComponent implements OnInit {
 
       }
     }, 1000);
+  }
+
+  launchSingleLoginModal(data: any) {
+    const dialogRef = this.dialog.open(SingleSessionModalComponent, {
+      // width: '600px',
+      // height: '600px'
+      data,
+      disableClose: true 
+    });
   }
 }

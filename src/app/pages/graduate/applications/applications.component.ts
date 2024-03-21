@@ -45,7 +45,8 @@ export class ApplicationsComponent implements OnInit {
    userData: any;
     applicationList: any;
     total: any;
-  pageIndex = 1
+  pageIndex: number = 1
+  pageSize: number = 10;
   searchForm = new FormGroup({
     searchPhrase: new FormControl(''),
   });
@@ -139,7 +140,7 @@ export class ApplicationsComponent implements OnInit {
   
       })
     } else {
-      const filter = {...this.filter, ['range'] : range};
+      const filter = {...this.filter, ['TimeBoundSearchVm.TimeRange'] : range};
       this.filter = filter;
     }
   }
@@ -203,6 +204,15 @@ export class ApplicationsComponent implements OnInit {
 
   getPage(currentPage: number) {
     const filter = {...this.filter, ['pageIndex'] : currentPage}
+    this.filter = filter
     this.store.dispatch(getAllGraduateRequestForGradaute({payload: {...filter, GraduateId: this.userData.GraduateId}}))
+  }
+  
+  selectRecordCount(event: any) {
+    this.pageSize = event.value
+    const filter = {...this.filter, ['pageSize'] : event.value}
+    this.filter = filter
+    this.store.dispatch(getAllGraduateRequestForGradaute({payload: {...filter, GraduateId: this.userData.GraduateId}}))
+
   }
 }

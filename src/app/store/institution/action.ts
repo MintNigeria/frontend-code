@@ -5,14 +5,14 @@ export const invokeGetInstitutions = createAction(
   props<{
     institutionStatus: number;
     instituionTypeId: string;
-    instituionSectorId: string,
+    instituionSectorId: string;
     keyword: string;
     filter: string;
     pageSize: number;
     pageIndex: number;
-    range?: string,
-    fromDate?: string,
-    toDate?: string
+    range?: string;
+    fromDate?: string;
+    toDate?: string;
   }>()
 );
 
@@ -44,7 +44,7 @@ export const approveRejectInstitutionSuccess = createAction(
 export const getAllInstitutionUsers = createAction(
   '[institutions] get all institution users',
   props<{
-    payload: any
+    payload: any;
   }>()
 );
 export const getAllInstitutionUsersSuccess = createAction(
@@ -52,19 +52,18 @@ export const getAllInstitutionUsersSuccess = createAction(
   props<{ payload: any }>()
 );
 
-
 export const getInstitutionTypes = createAction(
-  '[institutions] get all institution types',
+  '[institutions] get all institution types'
 );
 
 export const getInstitutionTypeSuccess = createAction(
   '[institutions] get all institution types transaction success',
   props<{ payload: any }>()
-  );
-  
-  export const getAllInstitutionTypeLinkedToBody = createAction(
-    '[institutions] get all institution types linked to a body',
-    props<{ id: any }>()
+);
+
+export const getAllInstitutionTypeLinkedToBody = createAction(
+  '[institutions] get all institution types linked to a body',
+  props<{ id: any }>()
 );
 
 export const getAllInstitutionTypeLinkedToBodySuccess = createAction(
@@ -73,7 +72,7 @@ export const getAllInstitutionTypeLinkedToBodySuccess = createAction(
 );
 
 export const getInstitutionSector = createAction(
-  '[institutions] get all institution Sector',
+  '[institutions] get all institution Sector'
 );
 export const getInstitutionSectorSuccess = createAction(
   '[institutions] get all institution Sector transaction success',
@@ -90,7 +89,7 @@ export const getAllInstitutionsDropdownSuccess = createAction(
 );
 
 export const getInstitutionBody = createAction(
-  '[institutions] get all institution Body',
+  '[institutions] get all institution Body'
 );
 export const getInstitutionBodySuccess = createAction(
   '[institutions] get all institution Body  success',
@@ -102,6 +101,13 @@ export const getAllInstitutionRecords = createAction(
 );
 export const getAllInstitutionRecordsSuccess = createAction(
   '[institutions] get all institution records  success',
+  props<{ payload: any }>()
+);
+export const getAllInstitutionsRecordsAllNames = createAction(
+  '[institutions] get all institution names'
+);
+export const getAllInstitutionsRecordsAllNamesSuccess = createAction(
+  '[institutions] get all institution names  success',
   props<{ payload: any }>()
 );
 
@@ -117,7 +123,7 @@ export const createNewInstitutionSuccess = createAction(
 
 export const updatedInstitution = createAction(
   '[institutions] update institution profile',
-  props<{ payload: any, id: any }>()
+  props<{ payload: any; id: any }>()
 );
 
 export const updatedInstitutionSuccess = createAction(
@@ -135,7 +141,6 @@ export const ValidateRegistrationCodeSuccess = createAction(
   props<{ payload: any }>()
 );
 
-
 export const getInstitutionConfiguration = createAction(
   '[institutions] get institution configuration success',
   props<{
@@ -146,21 +151,21 @@ export const getInstitutionConfiguration = createAction(
 export const getInstitutionConfigurationSuccess = createAction(
   '[institutions] get institution configuration success',
   props<{ payload: any }>()
-  );
-  
-  export const getInstitutionUserInfo = createAction(
-    '[institutions] get institution user info',
-    props<{
-      id: any;
-    }>()
-  );
-  
-  export const getInstitutionUserInfoSuccess = createAction(
-    '[institutions] get institution user info success',
-    props<{
-      payload: any;
-    }>()
-  );
+);
+
+export const getInstitutionUserInfo = createAction(
+  '[institutions] get institution user info',
+  props<{
+    id: any;
+  }>()
+);
+
+export const getInstitutionUserInfoSuccess = createAction(
+  '[institutions] get institution user info success',
+  props<{
+    payload: any;
+  }>()
+);
 
 export const getALlDepartmentInInstitution = createAction(
   '[institutions] get institution departments ',
@@ -327,8 +332,7 @@ export const getDegreeTypeWithInstitutionNameSuccess = createAction(
 );
 
 export const getInstitutionTransactionTypeFilter = createAction(
-  '[institutions] get Institution transaction type filter ',
-  
+  '[institutions] get Institution transaction type filter '
 );
 
 export const getInstitutionTransactionTypeFilterSuccess = createAction(
@@ -336,3 +340,62 @@ export const getInstitutionTransactionTypeFilterSuccess = createAction(
   props<{ payload: any }>()
 );
 
+export const getInstitutionDataSource = createAction(
+  '[institutions] get Institution data source ',
+  props<{ id: any }>()
+);
+
+export const getInstitutionDataSourceSuccess = createAction(
+  '[institutions] get Institution data source success',
+  props<{ payload: any }>()
+);
+
+export const setInstitutionDataSource = createAction(
+  '[institutions] set Institution Data Source ',
+  props<{ payload: any }>()
+);
+
+export const setInstitutionDataSourceSuccess = createAction(
+  '[institutions] set Institution Data Source success',
+  props<{ payload: any }>()
+);
+
+export const getInstitutionDataEncryptionDecryption = createAction(
+  '[institutions] get Institution Data Encryption Decryption ',
+  props<{ id: any }>()
+);
+
+export const getInstitutionDataEncryptionDecryptionSuccess = createAction(
+  '[institutions] get Institution Data Encryption Decryption success',
+  props<{ payload: any }>()
+);
+
+export const setInstitutionDataEncryptionDecryption = createAction(
+  '[institutions] set Institution Data Encryption Decryption ',
+  props<{ payload: any }>()
+);
+
+export const setInstitutionDataEncryptionDecryptionSuccess = createAction(
+  '[institutions] set Institution Data Encryption Decryption success',
+  props<{ payload: any }>()
+);
+
+export const getInstitutionEndpoint = createAction(
+  '[institutions] get Institution Endpoint ',
+  props<{ id: any }>()
+);
+
+export const getInstitutionEndpointSuccess = createAction(
+  '[institutions] get Institution Endpoint success',
+  props<{ payload: any }>()
+);
+
+export const setInstitutionEndpoint = createAction(
+  '[institutions] set Institution Endpoint ',
+  props<{ payload: any }>()
+);
+
+export const setInstitutionEndpointSuccess = createAction(
+  '[institutions] set Institution Endpoint success',
+  props<{ payload: any }>()
+);

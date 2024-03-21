@@ -21,6 +21,8 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/request-empty-state.component';
 import { GraduatesEffects } from 'src/app/store/graduates/effects';
 import { AuthEffects } from 'src/app/store/auth/effects';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { GraduateTalentSearchComponent } from './graduate-talent-search/graduate-talent-search.component';
 
 
 @NgModule({
@@ -30,7 +32,8 @@ import { AuthEffects } from 'src/app/store/auth/effects';
     MyInstituitonComponent,
     MyHubComponent,
     ChangePasswordComponent,
-    TwoFactorAuthenticationComponent
+    TwoFactorAuthenticationComponent,
+    GraduateTalentSearchComponent
   ],
   imports: [
     CommonModule,
@@ -41,6 +44,7 @@ import { AuthEffects } from 'src/app/store/auth/effects';
     RequestEmptyStateComponent,
     NgSelectModule,
     NgxPaginationModule,
+    NgxIntlTelInputModule,
     NgOtpInputModule,
     StoreModule.forFeature('usersAndRoles', usersAndRolesReducer),
     EffectsModule.forFeature([UsersAndRolesEffects, InstitutionEffects, GraduatesEffects, AuthEffects]),

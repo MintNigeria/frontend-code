@@ -24,9 +24,10 @@ import { OrganizationEffects } from 'src/app/store/organization/effects';
 import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/request-empty-state.component';
 import { InstitutionEffects } from 'src/app/store/institution/effects';
 import { ConfigurationEffects } from 'src/app/store/configuration/effects';
+import { FlutterwaveModule } from "flutterwave-angular-v3"
 
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-
+// import { NgInterswitchModule } from 'ng-interswitch';
 @NgModule({
   declarations: [
     ApplicationsComponent,
@@ -48,6 +49,9 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
     NgSelectModule,
     NgxPaginationModule,
     NgxIntlTelInputModule,
+   FlutterwaveModule,
+
+    // NgInterswitchModule,
     StoreModule.forFeature('graduates', graduatesReducer),
     StoreModule.forFeature('organization', organizationReducer),
     EffectsModule.forFeature([GraduatesEffects, OrganizationEffects, InstitutionEffects, ConfigurationEffects]),

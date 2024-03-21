@@ -67,7 +67,7 @@
                             <td class="bg-white">
                                 <div>
                                     <p class=" text-base cursor-pointer font-inter font-normal text-lightGray ">
-                                    {{item.roleName || 'N/A'}}</p>
+                                    {{(item.roleName | titlecase) || 'N/A'}}</p>
                                    
                                 </div>
     
@@ -110,7 +110,9 @@
                                 >
                                     <div>
                                         <div class="cursor-pointer flex gap-3">
-                                            <input type="checkbox" [checked]="item.userStatus === 1" (change)="enableDisableUser($event, item?.userId)" class="toggle toggle-primary" />
+                                            <input type="checkbox" [disabled]="item.isAdmin === true" 
+                                            [checked]="item.userStatus === 1" (change)="enableDisableUser($event, item?.userId)" class="toggle" 
+                                            [ngClass]="item?.userStatus === 1 ? 'toggle-success' : 'toggle-error'" />
                                             <p class="font-inter font-meduim text-base text-darkGray">&nbsp;</p>
                                         </div>
                                     </div>
@@ -132,11 +134,15 @@
 
         </div>
 
-        <div class="flex items-center justify-end mt-10 p-6">
-            <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
-              {{ userAndRoles.length }} of
-              {{ totalCount }} entries
-            </p> -->
+        <div class="flex items-center justify-between mt-10 p-6">
+            <select class=" text-black select max-w-xs bg-white" (change)="selectRecordCount($event.target)">
+                <option disabled selected>Per page</option>
+                <option value="10">10</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="150">150</option>
+                <option value="200">200</option>
+              </select>
             <div class="flex item gap-3">
                 <pagination-controls  [responsive]="true"  (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next"></pagination-controls>
 

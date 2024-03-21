@@ -260,7 +260,7 @@
                     <div class="flex md:flex-row md:justify-between md:items-center flex-col w-full">
                         <div class="flex lg:justify-between gap-4">
                             <app-search 
-                            [placeholder]="'Search by name, email'"
+                            [placeholder]="'Search by transactionId, initiator'"
                             (iconSearch)="search($event)"
                 [formGrp]="searchForm" formCtrlName="searchPhrase"  
                 ></app-search>
@@ -298,9 +298,10 @@
                         <table class="table w-full">
                             <thead>
                                 <tr>
-                                    <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  "> Transaction Id / <br> Transaction Date</th>
+                                    <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  "> Transaction Id </th>
+                                    <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  "> Transaction Date / <br> Transaction Time</th>
                                     <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Transaction Type</th>
-                                    <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Initiator</th>
+                                    <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Initiator / <br> Initiator Type </th>
                                     <th class="flex gap-1 text-xs text-lightGray font-medium font-inter bg-tableHeader ">Amount
                                     </th>
                                     <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">status</th>
@@ -310,16 +311,24 @@
                             </thead>
 
                             <tbody class="bg-white">
-                                        <tr *ngFor="let data of transactionDetails?.minifiedTransactionInfoVMs | paginate: { itemsPerPage: filter.pageSize, currentPage: pageIndex, totalItems: totalCount } " class="bg-white" [ngClass]="{ 'bg-primaryBlue': selectedDataId === data.id }">
+                                        <tr *ngFor="let data of transactionDetails?.minifiedTransactionInfoVMs | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: totalCount } " class="bg-white" [ngClass]="{ 'bg-primaryBlue': selectedDataId === data.id }">
                                         
                                             
                                             <td class="bg-white" [ngClass]="selectedDataId === data.id ? 'bg-blue-200': '' ">
                                                 <div>
                                                     <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray">
-                                                      {{ data?.transactionRefId }}
+                                                      {{ data?.transactionRefId || 'N/A' }}
+                                                    </p>
+                                                  
+                                                  </div>
+                                            </td>
+                                            <td class="bg-white" [ngClass]="selectedDataId === data.id ? 'bg-blue-200': '' ">
+                                                <div>
+                                                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray">
+                                                      {{ data?.createdOn | date : 'mediumDate' }}
                                                     </p>
                                                     <p class="text-xs font-normal font-inter my-0 text-lightGray">
-                                                      {{ data?.createdOn | date }}
+                                                      {{ data?.createdOn | date: 'mediumTime' }}
                                                     </p>
                                                   </div>
                                             </td>
@@ -337,7 +346,10 @@
                                                 <div>
                                                     <div>
                                                         <div>
-                                                            <p class="my-0 text-base cursor-pointer font-inter font-medium text-primaryBlue ">{{data.initiatorName}}</p>
+                                                            <p class="my-0 text-base cursor-pointer font-inter font-medium text-primaryBlue ">{{data.initiatorName |titlecase}}</p>
+                                                            <p class="text-xs font-normal font-inter my-0 text-lightGray">
+                                                                {{ data?.initiatorType | titlecase}}
+                                                              </p>
                                                         </div>
                                                     </div>
 
@@ -346,7 +358,7 @@
                                             
                                             <td class="bg-white" [ngClass]="selectedDataId === data.id ? 'bg-blue-200': '' ">
                                                 <div>
-                                                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">₦{{data?.amount | commaDelimiter}}</p>
+                                                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">₦{{data?.institutionAmount | commaDelimiter}}</p>
                                                 </div>
                                             </td>
 
@@ -388,7 +400,7 @@
                                     <p class="text-base font-inter font-normal mb-3 text-lightGray">Transaction Amount:</p>
                                     <div class="flex items-center">
                                     <img src="assets/images/icons/naira.svg" alt="naira" class="m-1 -mt-1">
-                                        <p class="text-2xl font-inter font-bold mb-3 text-successNormal">{{selectedData.amount | commaDelimiter}}</p>
+                                        <p class="text-2xl font-inter font-bold mb-3 text-successNormal">{{selectedData.institutionAmount | commaDelimiter}}</p>
                                     </div>
                                 
                                 </div>
@@ -489,7 +501,7 @@
                                 </div>
                             </div>
 
-                            <div class="bg-white -mt-5">
+                            <!-- <div class="bg-white -mt-5">
                                 <div class="bg-white p-4 grid grid-cols-2 items-center">
                                     <p class="text-base font-inter font-normal mb-3 text-lightGray">Degree:</p>
                                     <div class="flex items-center">
@@ -497,9 +509,9 @@
                                     </div>
                                 
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="bg-white -mt-5">
+                            <!-- <div class="bg-white -mt-5">
                                 <div class="bg-white p-4 grid grid-cols-2 items-center">
                                     <p class="text-base font-inter font-normal mb-3 text-lightGray">Graduation Year:</p>
                                     <div class="flex items-center">
@@ -507,10 +519,10 @@
                                     </div>
                                 
                                 </div>
-                            </div>
+                            </div> -->
 
 
-                            <div class="bg-white -mt-5">
+                            <!-- <div class="bg-white -mt-5">
                                 <div class="bg-white p-4 grid grid-cols-2 items-center">
                                     <p class="text-base font-inter font-normal mb-3 text-lightGray">Dispatch Method:</p>
                                     <div class="flex items-center">
@@ -518,7 +530,7 @@
                                     </div>
                                 
                                 </div>
-                            </div>
+                            </div> -->
 
                             
                         </div>
@@ -543,10 +555,15 @@
             
 
             <!--Pagination-->
-            <div class="flex items-center justify-end mt-10">
-                <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
-                    Showing 1 to 7 of {{ transactionList.length }} entries
-                </p> -->
+            <div class="flex items-center justify-between mt-10">
+                <select class=" text-black select max-w-xs bg-white" (change)="selectRecordCount($event.target)">
+                    <option disabled selected>Per page</option>
+                    <option value="10">10</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="150">150</option>
+                    <option value="200">200</option>
+                  </select>
                 <div class="flex item gap-3">
                     <pagination-controls  [responsive]="true"  (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next"></pagination-controls>
           

@@ -18,8 +18,13 @@ export class HowItWorksComponent implements OnInit {
   }
 
   openLogin() {
-    const dialogRef = this.dialog.open(LoginModalComponent, {
-    });
+    // const dialogRef = this.dialog.open(LoginModalComponent, {
+    // });
+  }
+
+ 
+  openVideo() {
+    document.getElementById('my-modal-4')?.click()
   }
 
 }

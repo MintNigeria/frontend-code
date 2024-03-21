@@ -9,7 +9,7 @@
             <div class="flex gap-6 mb-9">
                 <div class="w-full md:w-1/4">
                     <label class=" font-inter font-medium text-sm text-failedNormal" for="inline-full-name">
-                         Title
+                         Title <span class="text-danger">*</span>
                       </label>
                 </div>
                 <div class="w-full md:w-2/3">
@@ -22,7 +22,7 @@
             <div class="flex gap-6 mb-9" *ngIf="getRolePermission$ | async as permissions">
                 <div class="w-full md:w-1/4">
                     <label class=" font-inter font-medium text-sm text-failedNormal" for="inline-full-name">
-                        Permissions
+                        Permissions <span class="text-danger">*</span>
                       </label>
                 </div>
                 <div class="w-full md:w-2/3">
@@ -63,7 +63,7 @@
             <div class="flex gap-6 mb-9">
                 <div class="w-full md:w-1/4">
                     <label class=" font-inter font-medium text-sm text-failedNormal" for="inline-full-name">
-                         Title
+                         Title <span class="text-danger">*</span>
                       </label>
                 </div>
                 <div class="w-full md:w-2/3">
@@ -76,7 +76,7 @@
             <div class="flex gap-6 mb-9" *ngIf="getRolePermission$ | async as permissions">
                 <div class="w-full md:w-1/4">
                     <label class=" font-inter font-medium text-sm text-failedNormal" for="inline-full-name">
-                        Permissions
+                        Permissions <span class="text-danger">*</span>
                       </label>
                 </div>
                 <div class="w-full md:w-2/3">
@@ -110,6 +110,7 @@
 
             <app-button
             [overRideButtonClass]="true"
+            [disabled]="roleForm.invalid"
             (buttonClick)="createRole()"
             customClass="px-4 py-[10px] rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
             >Create Role</app-button>

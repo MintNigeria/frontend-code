@@ -12,6 +12,7 @@ import { InstitutionEffects } from 'src/app/store/institution/effects';
 import { reportingReducer } from 'src/app/store/reporting/reducers';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { graduatesReducer } from 'src/app/store/graduates/reducers';
+import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/request-empty-state.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { graduatesReducer } from 'src/app/store/graduates/reducers';
     CommonModule,
     RecordsRoutingModule,
     SharedModule,
+    RequestEmptyStateComponent,
     NgxPaginationModule,
     StoreModule.forFeature('graduates', graduatesReducer),
     EffectsModule.forFeature([GraduatesEffects, InstitutionEffects]),

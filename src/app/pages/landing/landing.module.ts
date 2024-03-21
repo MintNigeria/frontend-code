@@ -32,6 +32,11 @@ import { utilityReducers } from 'src/app/store/institution copy/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { UtilityEffects } from 'src/app/store/institution copy/effects';
+import { RequestDemoComponent } from './request-demo/request-demo.component';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { CountdownComponent } from './countdown/countdown.component';
+import { TermsAndConditionComponent } from './terms-and-condition/terms-and-condition.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 
 @NgModule({
@@ -60,6 +65,10 @@ import { UtilityEffects } from 'src/app/store/institution copy/effects';
     TranscriptServicesComponent,
     TranscriptServiceComponent,
     CreateAccountModalComponent,
+    RequestDemoComponent,
+    CountdownComponent,
+    TermsAndConditionComponent,
+    PrivacyPolicyComponent,
   ],
   imports: [
     CommonModule,
@@ -67,6 +76,7 @@ import { UtilityEffects } from 'src/app/store/institution copy/effects';
     ReactiveFormsModule,
     FormsModule,
     LandingRoutingModule,
+    NgxIntlTelInputModule,
     StoreModule.forFeature('utility', utilityReducers),
     EffectsModule.forFeature([UtilityEffects]),
 

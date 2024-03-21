@@ -14,6 +14,7 @@ export interface IInstitutionStateInterface {
   institutionFaculty: any;
   institutionDepartment: any;
   institutionRecord: any;
+  institutionRecordNames: any;
   institutionDegreeType: any;
   institutiongrade: any;
   newDegreeType: any;
@@ -29,4 +30,10 @@ export interface IInstitutionStateInterface {
   dropdown: any;
   degreeTypeByName: any;
   transactionTypeFilter: any;
+  getDataSource: any;
+  setDataSource: any;
+  getDataEncryptionDecryption: any;
+  setDataEncryptionDecryption: any;
+  getEndpoint: any;
+  setEndpoint: any;
 }

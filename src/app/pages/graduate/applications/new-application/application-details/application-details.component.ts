@@ -79,6 +79,7 @@ export class ApplicationDetailsComponent implements OnInit {
   dispatchFee: any;
   newDispatchVM: any;
   showDescription: boolean = false;
+  selecedDelMethod: any;
   constructor(
     private fb: FormBuilder,
     private store: Store,
@@ -108,7 +109,7 @@ export class ApplicationDetailsComponent implements OnInit {
       // console.log(this.dispatchFee)
     })
     this.emailForm.valueChanges.subscribe(res => {
-      console.log(res)
+      // console.log(res)
     })
 
   }
@@ -132,7 +133,7 @@ export class ApplicationDetailsComponent implements OnInit {
       address: ['', Validators.required],
       country: ['', Validators.required],
       state: ['', Validators.required],
-      city: ['', Validators.required],
+      city: [''],
       zipCode: ['', Validators.required],
       phoneNo: ['', Validators.required],
       reasonForRequest: ['', Validators.required],
@@ -179,6 +180,10 @@ export class ApplicationDetailsComponent implements OnInit {
 
   }
 
+  showDocType(option: any) {
+    this.selecedDelMethod = option?.deliveryOptionsType
+  }
+
   changeDestination(option: any) {
     // console.log(option)
     this.paymentDetailsVM = option
@@ -193,7 +198,7 @@ export class ApplicationDetailsComponent implements OnInit {
     // console.log(this.selectedCountry)
     if (this.selectedCountry.name === 'Nigeria') {
       let data = this.dispatchFee.map((item: any) => {
-        if (item.keyName === "Nipost" || item.keyName === "WithinState" || item.keyName === "OutsideStateWithinNigeria") {
+        if ( item.keyName === "WithinState" || item.keyName === "OutsideStateWithinNigeria") {
           return item
         }
       })
@@ -202,7 +207,7 @@ export class ApplicationDetailsComponent implements OnInit {
       // console.log(this.newDispatchVM)
     } else {
       let newData = this.dispatchFee.map((item: any) => {
-        if (item.keyName !== "Nipost" || item.keyName !== "WithinState" || item.keyName !== "OutsideStateWithinNigeria") {
+        if ( item.keyName !== "WithinState" || item.keyName !== "OutsideStateWithinNigeria") {
           return item
         }
       })
@@ -310,7 +315,6 @@ export class ApplicationDetailsComponent implements OnInit {
       this.emailForm.get('fileList')?.updateValueAndValidity();
       console.log(this.selectedEmailFileList)
       const totalSize = this.selectedEmailFileList.map((item: any) => item.File).reduce((accumulator: any, currentFile: any) => accumulator + currentFile.size, 0);
-      console.log(totalSize)
       if (totalSize > 5 * 1024 * 1024) { // 5MB in bytes
         this.selectedEmailFileList.pop();
         this.notification.publishMessages('danger', 'Total size of uploaded files exceeds the maximum allowed size of 5MB.')
@@ -462,6 +466,10 @@ export class ApplicationDetailsComponent implements OnInit {
         sessionStorage.setItem('app_Data', JSON.stringify(res.payload))
         this.router.navigateByUrl(`/graduate/my-applications/new/review-order/${res.payload.requestId}`)
         sessionStorage.setItem('appl_Dt', JSON.stringify(data))
+        const amount = data.emailOptionVM[0].deliveryMethod + data?.paymentDetailsVM.fee
+        sessionStorage.setItem('st__ng', amount) // transaction mount
+
+
       }
     })
   }
@@ -481,6 +489,9 @@ export class ApplicationDetailsComponent implements OnInit {
         sessionStorage.setItem('app_Data', JSON.stringify(res.payload))
         this.router.navigateByUrl(`/graduate/my-applications/new/review-order/${res.payload.requestId}`)
         sessionStorage.setItem('appl_Dt', JSON.stringify(data))
+        const amount = data.fileUploadOptionVM[0].deliveryMethod + data?.paymentDetailsVM.fee
+        sessionStorage.setItem('st__ng', amount) // transaction mount
+
       }
     })
   }
@@ -492,13 +503,16 @@ export class ApplicationDetailsComponent implements OnInit {
       paymentDetailsVM: { ...this.paymentDetailsVM, documentType: this.selectedDocumentType, documentId: this.selectedDocumentTypeId }
     }
 
-    this.graduateService.createGraduateApplicationHardCopy (data).subscribe((res: any) => {
+    this.graduateService.createGraduateApplicationHardCopy(data).subscribe((res: any) => {
       if (res.hasErrors === false) {
 
         this.notification.publishMessages('success', res.description)
         sessionStorage.setItem('app_Data', JSON.stringify(res.payload))
         this.router.navigateByUrl(`/graduate/my-applications/new/review-order/${res.payload.requestId}`)
         sessionStorage.setItem('appl_Dt', JSON.stringify(data))
+        const amount = data.hardCopyOptionVM[0].dispatchAmount + data?.paymentDetailsVM.fee
+        sessionStorage.setItem('st__ng', amount) // transaction mount
+
       }
     })
   }

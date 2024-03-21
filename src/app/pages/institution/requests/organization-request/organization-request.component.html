@@ -231,10 +231,10 @@
         </div>
         <div class="bg-failedLight text-white rounded-md p-4">
           <h3 class="text-[#344054] text-base font-inter font-medium mb-2">
-            Failed Requests
+            Pending Requests
           </h3>
           <p class="text-3xl font-nunito text-failedDark font-bold">
-            {{ request?.data?.failedRequests }}
+            {{ request?.data?.pendingRequest }}
           </p>
         </div>
       </div>
@@ -320,11 +320,11 @@
               </thead>
   
               <tbody class="" *ngIf="request.data.organisationRequests.length >=  1">
-                <tr *ngFor="let data of request?.data?.organisationRequests | paginate: { itemsPerPage: filterParams.pageSize, currentPage: pageIndex, totalItems: request?.data?.totalOrganisationRequests }" class=" ">
+                <tr *ngFor="let data of request?.data?.organisationRequests | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: request?.data?.totalOrganisationRequests }" class=" ">
                   <td class="bg-white">
                     <div>
                       <p
-                        class="my-0 text-base cursor-pointer font-inter font-medium text-[#101828]"
+                        class="my-0 text-base ] font-inter font-medium text-[#101828]"
                       >
                         {{ data.requestId }}
                       </p>
@@ -335,7 +335,7 @@
                   <td class="bg-white">
                     <div>
                       <p
-                        class="my-0 text-base font-inter cursor-pointer font-medium text-[#0D47A1]"
+                        class="my-0 text-base font-inter ] font-medium text-[#0D47A1]"
                       >
                       {{data.graduteFullName}}
                       </p>
@@ -350,21 +350,21 @@
                   <td class="bg-white">
                     <div>
                       <p
-                        class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]"
+                        class="my-0 text-base ] font-inter font-normal text-[#667085]"
                       >
                         {{ data.documentType }}
                       </p>
                       <p
                       class="text-xs font-normal font-inter my-0 text-[#667085]"
                     >
-                    {{data?.dateRequested | date }}
+                    {{data?.dateRequested | date : 'medium' }}
                     </p>
                     </div>
                   </td>
                   <td class="bg-white">
                     <div>
                       <p
-                        class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]"
+                        class="my-0 text-base ] font-inter font-normal text-[#667085]"
                       >
                         {{ data.organisationName }}
                       </p>
@@ -373,7 +373,7 @@
                   <td class="bg-white">
                     <div>
                       <p
-                        class="my-0 text-base cursor-pointer font-inter font-normal text-[#667085]"
+                        class="my-0 text-base ] font-inter font-normal text-[#667085]"
                       >
                         {{ data.reasonForRequest }}
                       </p>
@@ -405,7 +405,7 @@
                         "
                       ></div>
                       <p
-                        class="my-0 text-sm cursor-pointer font-inter font-medium w-auto"
+                        class="my-0 text-sm ] font-inter font-medium w-auto"
                         [ngClass]="
                           data.status === 1
                             ? 'text-[#A0A3BD]'
@@ -448,10 +448,15 @@
         *ngIf="request.data.organisationRequests.length < 1"
         [dataStatus]="'No Request'"
         ></app-request-empty-state>
-        <div class="flex items-center justify-end mt-10" *ngIf="request.data.organisationRequests.length >=  1">
-          <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
-            Showing 1 to 7 of {{ graduateList.length }} entries
-          </p> -->
+        <div class="flex items-center justify-between mt-10" *ngIf="request.data.organisationRequests.length >=  1">
+          <select class=" text-black select max-w-xs bg-white" (change)="selectRecordCount($event.target)">
+            <option disabled selected>Per page</option>
+            <option value="10">10</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="150">150</option>
+            <option value="200">200</option>
+          </select>
           <div class="flex item gap-3">
             <pagination-controls  [responsive]="true"  (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next"></pagination-controls>
 

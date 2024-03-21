@@ -17,39 +17,65 @@ import { AwaitingApprovalFeeComponent } from './verification-fee/awaiting-approv
 import { VerificationFeeComponent } from './verification-fee/verification-fee.component';
 import { InstitutionGradeComponent } from './institution-setup/institution-grade/institution-grade.component';
 import { CreateGradeComponent } from './create-grade/create-grade.component';
+import { ApiConfigurationComponent } from './api-configuration/api-configuration.component';
+import { BankAccountSetupComponent } from './bank-account-setup/bank-account-setup.component';
 
 const routes: Routes = [
-  {path: '', component:ConfigurationComponent,
-  children: [
-    {path:'', component:ProcessingFeeComponent},
-    {path:'verification-fee',component:VerificationFeeComponent},
-    {path: 'dispatch-fee', component:DispatchFeeComponent},
-    {path:'institution-setup',component:InstitutionIndexComponent, children : [
-      {path : '', component: InstitutionSetupComponent, children: [
-        {path : '',  component : FacultyComponent},
-      {path : 'faculty',  component : FacultyComponent},
-      {path : 'department', component: DepartmentComponent},
-      { path : 'degree-type', component : DegreeTypeComponent},
-      { path : 'grade', component : InstitutionGradeComponent}
-      ]},
-      {path: 'create-faculty', component: CreateFacultyComponent},
-      {path: 'create-grade', component: CreateGradeComponent},
-      {path: 'edit-faculty/:id/:name', component: CreateFacultyComponent},
-      {path: 'create-department', component: CreateDepartmentComponent},
-      {path: 'edit-department/:id/:name/:faculty', component: CreateDepartmentComponent},
-      {path: 'create-degree-type', component: CreateDegreeTypeComponent},
-      {path: 'edit-degree-type/:id/:name', component: CreateDegreeTypeComponent},
-      {path: 'edit-grade/:id/:name', component: CreateGradeComponent},
-
-    ]},
-    {path: 'awaiting-approval', component: AwaitingApprovalComponent},
-    {path: 'awaiting-approval-fee', component: AwaitingApprovalFeeComponent},
-    {path: 'institution-setup/create-degree-type', component: CreateDegreeTypeComponent},
-  ]}
+  {
+    path: '',
+    component: ConfigurationComponent,
+    children: [
+      { path: '', component: ProcessingFeeComponent },
+      { path: 'verification-fee', component: VerificationFeeComponent },
+      { path: 'dispatch-fee', component: DispatchFeeComponent },
+      {
+        path: 'institution-setup',
+        component: InstitutionIndexComponent,
+        children: [
+          {
+            path: '',
+            component: InstitutionSetupComponent,
+            children: [
+              { path: '', component: FacultyComponent },
+              { path: 'faculty', component: FacultyComponent },
+              { path: 'department', component: DepartmentComponent },
+              { path: 'degree-type', component: DegreeTypeComponent },
+              { path: 'grade', component: InstitutionGradeComponent },
+            ],
+          },
+          { path: 'create-faculty', component: CreateFacultyComponent },
+          { path: 'create-grade', component: CreateGradeComponent },
+          { path: 'edit-faculty/:id/:name', component: CreateFacultyComponent },
+          { path: 'create-department', component: CreateDepartmentComponent },
+          {
+            path: 'edit-department/:id/:name/:faculty',
+            component: CreateDepartmentComponent,
+          },
+          { path: 'create-degree-type', component: CreateDegreeTypeComponent },
+          {
+            path: 'edit-degree-type/:id/:name',
+            component: CreateDegreeTypeComponent,
+          },
+          { path: 'edit-grade/:id/:name', component: CreateGradeComponent },
+        ],
+      },
+      { path: 'awaiting-approval', component: AwaitingApprovalComponent },
+      {
+        path: 'awaiting-approval-fee',
+        component: AwaitingApprovalFeeComponent,
+      },
+      {
+        path: 'institution-setup/create-degree-type',
+        component: CreateDegreeTypeComponent,
+      },
+      { path: 'api-configuration', component: ApiConfigurationComponent },
+      { path: 'bank-account-setup', component: BankAccountSetupComponent },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ConfigurationRoutingModule { }
+export class ConfigurationRoutingModule {}

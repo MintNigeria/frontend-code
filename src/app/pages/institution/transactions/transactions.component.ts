@@ -71,6 +71,7 @@ export class TransactionsComponent implements OnInit {
   institutionId: any;
   institutionData: any;
   pageIndex = 1;
+  pageSize = 10;
 filter = {
   keyword: '',
     filter: '',
@@ -156,7 +157,7 @@ filter = {
         filter: '',
         pageSize: 10,
         pageIndex: 1,
-        requestor: 1,
+        // requestor: 1,
         'TimeBoundSearchVm.TimeRange': 0,
         status: '',
         transactionType: '',
@@ -254,7 +255,17 @@ filter = {
 
   getPage(currentPage: number) {
     const filter = {...this.filter, ['pageIndex'] : currentPage}
+    this.filter = filter
     this.store.dispatch(invokeGetTransactions({institutionId: this.institutionId, payload: filter}))
   }
+  
+  selectRecordCount(event: any) {
+    this.pageSize = event.value
+    const filter = {...this.filter, ['pageSize'] : event.value}
+    this.filter = filter
+    this.store.dispatch(invokeGetTransactions({institutionId: this.institutionId, payload: filter}))
+
+  }
+
 
 }

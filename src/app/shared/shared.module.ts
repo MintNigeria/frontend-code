@@ -30,6 +30,9 @@ import { MobileNavComponent } from './components/mobile-nav/mobile-nav.component
 import { FilePreviewComponent } from './components/file-preview/file-preview.component';
 import { NigeriaPhoneNumberPipe } from '../core/pipe/nigeria-phone-number.pipe';
 import { ActionConfirmationModalComponent } from './components/action-confirmation-modal/action-confirmation-modal.component';
+import { SingleSessionModalComponent } from './components/single-session-modal/single-session-modal.component';
+import { InputNumberComponent } from './components/input-number/input-number.component';
+import { BreakAtFirstCommaPipe } from '../core/pipe/breakAtFirstComma.pipe';
 
 const components: any[] = [
   InputComponent,
@@ -52,12 +55,15 @@ const components: any[] = [
   MobileNavComponent,
   FilePreviewComponent,
   ActionConfirmationModalComponent,
+  InputNumberComponent,
 
   
   FilesizePipe,
   TrustedURLPipe,
   NigeriaPhoneNumberPipe,
+  BreakAtFirstCommaPipe,
   CommaDelimiterPipe,
+  SingleSessionModalComponent,
 
 ]
 
@@ -73,7 +79,7 @@ const components: any[] = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-        MatDialogModule,
+    MatDialogModule,
 
     RouterModule
   ],

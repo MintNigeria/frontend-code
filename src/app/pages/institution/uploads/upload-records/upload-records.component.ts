@@ -1,13 +1,19 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { GraduatesService } from 'src/app/core/services/graduates/graduates.service';
+import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
-import { downloadRecordUploadFormat, downloadRecordUploadFormatSuccess, uploadGraduateRecord, uploadGraduateRecordSuccess } from 'src/app/store/graduates/action';
+import { downloadRecordUploadFormat, downloadRecordUploadFormatSuccess, uploadBulkGraduateRecord, uploadBulkGraduateRecordSuccess, uploadGraduateRecord, uploadGraduateRecordSuccess } from 'src/app/store/graduates/action';
 import { getALlDepartmentInInstitution, getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess, getAllInstitutionDegreeType, getAllInstitutionDegreeTypeSuccess } from 'src/app/store/institution/action';
+import { setAPILoadingState } from 'src/app/store/shared/app.action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
+import { ActionConfirmationModalComponent } from 'src/app/shared/components/action-confirmation-modal/action-confirmation-modal.component';
+import { MatDialog } from '@angular/material/dialog';
+import { BulkApiType } from 'src/app/types/index.types';
 
 @Component({
   selector: 'app-upload-records',
@@ -24,7 +30,11 @@ export class UploadRecordsComponent implements OnInit {
   institutionId: any;
   facultyList: any;
   departmentList: any;
-
+uploadType=[
+  {name: 'simple', description: 'This template contains doesnt not contain columns like Faculty, department, and Year' },
+  {name: 'bulk', description: 'This template contains column like Program, Faculty, Department, Degree,  Year of Graduation' },
+  // {name: 'API Upload', description: 'Upload record by entering API endpoint that returns a structure data' },
+]
   years: Array<any> = [];
 
   degreeFilter = {
@@ -35,8 +45,18 @@ export class UploadRecordsComponent implements OnInit {
     IpAddress: '',
 
   }
-  uploadRecordForm!: FormGroup
+  simpleuploadRecordForm!: FormGroup
+  bulkuploadRecordForm!: FormGroup
   degreeTypeList: any;
+  selectedFileUploadType: string = ''
+  ipAddress: any;
+  deviceModel: string;
+  isBulkUpload: boolean = false;
+  showProgress: boolean = false;
+  bulkApiEndpoint!: FormGroup;
+  modalId = 'messageModal'
+  showApiProgress: boolean = false;
+
   constructor(
      private route: ActivatedRoute,
     private router: Router,
@@ -44,14 +64,29 @@ export class UploadRecordsComponent implements OnInit {
     private appStore: Store<AppStateInterface>,
     private actions$: Actions,
     private fb: FormBuilder,
-    private utilityService: UtilityService
-  ) { }
+    private utilityService: UtilityService,
+    private graduateService: GraduatesService,
+    private notification: NotificationsService,
+    private  dialog: MatDialog
+  ) { 
+    const userAgent = navigator.userAgent;
+    if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
+     this.deviceModel = 'iPad or iPhone';
+   } else if (userAgent.match(/Android/i)) {
+     this.deviceModel = 'Android';
+   } else if (userAgent.match(/Window/i)) {
+     this.deviceModel = 'Window';
+   } else {
+     this.deviceModel = 'Other';
+   }
+  }
 
   ngOnInit(): void {
     const data: any = localStorage.getItem('userData')
     this.institutionData = JSON.parse(data)
     this.institutionId = this.institutionData.InstitutionId
     this.initUploadForm()
+    this.initBulkUploadForm()
     
     this.store.dispatch(getALlDepartmentInInstitution({id: this.institutionId}))
     this.store.dispatch(getALlFacultiesInInstitution({id: this.institutionId}))
@@ -68,23 +103,47 @@ export class UploadRecordsComponent implements OnInit {
       this.years.push(index)
 
     }
+    this.bulkApiEndpoint = this.fb.group({
+      endpoint: ['', Validators.required]
+    })
+
+
   }
 
   loadIp() {
     this.utilityService.getuserIP().subscribe((res: any) => {
+      this.ipAddress = res.query;
       const filter = {...this.degreeFilter, ['IpAddress'] : res.ip}
       this.degreeFilter = filter
     })
     
   }
 
+  selecUploadType(unit: any) {
+    this.selectedFileUploadType = unit.name
+    if (unit.name === 'bulk') {
+      this.isBulkUpload = true;
+    } else if (unit.name === 'simple') {
+
+      this.isBulkUpload = false;
+    } else {
+      this.launchEndpointModal()
+    }
+  }
+
   initUploadForm() {
-    this.uploadRecordForm = this.fb.group({
+    this.simpleuploadRecordForm = this.fb.group({
       faculty: [null, Validators.required],
       department: [null, Validators.required],
       degreeType: [null, Validators.required],
       yearOfGraduation: [null, Validators.required],
-      Document: null
+      Document: [null, Validators.required]
+    })
+  }
+  initBulkUploadForm() {
+    this.bulkuploadRecordForm = this.fb.group({
+     
+      Document: [null, Validators.required]
     })
   }
 
@@ -103,18 +162,40 @@ export class UploadRecordsComponent implements OnInit {
 		  return;
 		} else {
       this.selectedFile = e.target.files[0]
-      this.uploadRecordForm.controls['Document'].setValue(file)
+      this.simpleuploadRecordForm.controls['Document'].setValue(file)
+      this.uploadFile(file);
+    }
+  }
+  handleBulkFileUpload(e: any) {
+    const file = e.target.files[0];
+    ////console.log(file)
+    if (!this.allowedFiled.includes(file.type)) {
+		  alert("Invalid format! Please select only correct file type");
+
+		  return;
+		} else {
+      this.selectedFile = e.target.files[0]
+      this.bulkuploadRecordForm.controls['Document'].setValue(file)
       this.uploadFile(file);
     }
   }
 
 
   downloadFormat() {
-    this.store.dispatch(downloadRecordUploadFormat({payload: {institutionId: this.institutionId}}))
+    const payload = {
+      institutionId: this.institutionId,
+      isBulkUpload: this.isBulkUpload,
+      imei: '',
+  serialNumber: '',
+  device: this.deviceModel,
+  ipAddress: this.ipAddress 
+    }
+    // this.store.dispatch(downloadRecordUploadFormat({payload: {institutionId: this.institutionId}}))
+    this.store.dispatch(downloadRecordUploadFormat({payload}))
     this.actions$.pipe(ofType(downloadRecordUploadFormatSuccess)).subscribe((res: any) => {
       const link = document.createElement('a');
       ////console.log(res)
-       link.download = `${res.payload?.fileName}.xlsx`;
+       link.download = `${res.payload?.fileName}`;
        link.href = 'data:image/png;base64,' + res.payload?.base64;
        link.click();
    })
@@ -152,7 +233,7 @@ export class UploadRecordsComponent implements OnInit {
 
 submitUpload() {
   const data = {
-    ...this.uploadRecordForm.value,
+    ...this.simpleuploadRecordForm.value,
     institutionId: this.institutionId
   }
   this.store.dispatch(uploadGraduateRecord({payload: data}))
@@ -164,6 +245,100 @@ submitUpload() {
 
    }
  })
+}
+submitBulkUpload() {
+  const data = {
+    ...this.bulkuploadRecordForm.value,
+    institutionId: this.institutionId
+  }
+  this.graduateService.uploadBulkGraduateRecordSync(data).subscribe((resp: HttpEvent<any>) => {
+    if (resp.type === HttpEventType.Response ) {
+      if (resp.body.hasErrors === true) {
+        this.notification.publishMessages('error', resp.body.errors.toString())
+        this.showProgress = false
+      } else {
+
+        this.notification.publishMessages('success', 'File completely uploaded')
+        this.router.navigateByUrl(`/institution/uploads`)
+      }
+    }
+  if (resp.type === HttpEventType.UploadProgress) {
+      const percentDone = Math.round((100 * resp.loaded) / resp.total!)
+      // console.log('Progress ' + percentDone + '%', resp.loaded , resp.total!);
+      this.showProgress = true;
+      this.appStore.dispatch(
+        setAPILoadingState({ apiLoading: { isLoading: false } })
+      );
+  } 
+  })
+
+  //   this.store.dispatch(uploadBulkGraduateRecord({payload: data}))
+  //   this.actions$.pipe(ofType(uploadBulkGraduateRecordSuccess)).subscribe((res: any) => {
+    //    ////console.log(res)
+    //    if (res.payload.hasErrors === false) {
+//     localStorage.setItem('recordUpload', JSON.stringify(res.payload.payload))
+
+//    }
+//  })
+}
+
+goBack() {
+  this.dialog.open(ActionConfirmationModalComponent, {
+    width: '',
+    height: '',
+    data: {
+      question:  'Are you sure you want to leave this page to continue other operations?',
+      title: 'Leave Page'
+    }
+  }).afterClosed().subscribe((res: any) => {
+  
+    this.router.navigateByUrl('/institution/uploads')
+  })
+}
+
+launchEndpointModal() {
+  document.getElementById('myModal')?.click()
+}
+
+
+submitEndpoint() {
+  const {endpoint} = this.bulkApiEndpoint.value
+  this.utilityService.getCustomFieldEndpoint(endpoint).subscribe((res: any) => {
+    this.showApiProgress = true;
+    const isDataStructureTrue = this.isArrayTypeEqual(res)
+    console.log(isDataStructureTrue)
+    if (res) {
+      const data = {
+        apiAddInstitutionGraduateVMs: res,
+        imei: '',
+        serialNumber: '',
+        device: this.deviceModel,
+        ipAddress: this.ipAddress 
+      }
+
+      this.callBulkApiEndpoint(data)
+    }
+    // if()
+  })
+}
+
+
+callBulkApiEndpoint(data: any) {
+  this.graduateService.uploadBulkGraduateRecordViaApi(data).subscribe((res: any) => {
+    console.log(res)
+    if (res.hasErrors === false) {
+  document.getElementById('myModal')?.click()
+  this.notification.publishMessages('success', res.description)
+  this.router.navigateByUrl('/institution/uploads')
+
+    }
+  });
+}
+
+isArrayTypeEqual(array: any[]) {
+ array.every((item) => {
+  return typeof item === "object" && item instanceof Object && !(item instanceof Array);
+})
 }
 
 }

@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import { ActionConfirmationModalComponent } from 'src/app/shared/components/action-confirmation-modal/action-confirmation-modal.component';
+import { FilePreviewComponent } from 'src/app/shared/components/file-preview/file-preview.component';
 import { deleteHubItem, deleteHubItemSuccess, getAllHubItem, getAllHubItemSuccess, uploadHubItem, uploadHubItemSuccess } from 'src/app/store/graduates/action';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
@@ -38,7 +41,9 @@ filter = {
     private actions$: Actions,
     private utilityService: UtilityService,
     private notification: NotificationsService,
-    private router: Router
+    private router: Router,
+    private  dialog: MatDialog
+
   ) { 
     const userAgent = navigator.userAgent;
 
@@ -60,9 +65,7 @@ filter = {
       this.hubDocuments = res.payload.payload
     })
     this.initUploadForm()
-    setTimeout(() => {
-      this.populateForm()
-    },2000)
+   
   }
 
   initUploadForm(){
@@ -82,13 +85,7 @@ filter = {
     })
   }
 
-  populateForm(){
-    this.uploadForm.patchValue({
-      documentName: 'NYSC',
-      Issuer: 'Federal Government',
-      date: '03/04/1963'
-    })
-  }
+ 
 
   openConfirmChanges() {
     document.getElementById('confirmChanges')?.click();
@@ -165,22 +162,42 @@ filter = {
     }
   }
 
+  previewFile(data: any) {
+    // console.log(data)
+    this.dialog.open(FilePreviewComponent, {
+      width: '800px',
+      height: '800px',
+      data
+    })
+  }
+
 
 
   deleteFile(data: any) {
-    const payload = {
-      HubItemId: data.hubItemId,
-      // imei: '',
-      // serialNumber: '',
-      // device: this.deviceModel,
-      // ipAddress: this.ipAddress
-    }
-    this.store.dispatch(deleteHubItem({payload}))
-    this.actions$.pipe(ofType(deleteHubItemSuccess)).subscribe((res: any) => {
-      this.notification.publishMessages('success', res.payload.description)
-      this.store.dispatch(getAllHubItem({payload: this.filter}))
-
+    this.dialog.open(ActionConfirmationModalComponent, {
+      width: '',
+      height: '',
+      data: {
+        question:  'Are you sure you want to delete this file?',
+        title: 'Delete File'
+      }
+    }).afterClosed().subscribe((res: any) => {
+    
+      const payload = {
+        HubItemId: data.hubItemId,
+        // imei: '',
+        // serialNumber: '',
+        // device: this.deviceModel,
+        // ipAddress: this.ipAddress
+      }
+      this.store.dispatch(deleteHubItem({payload}))
+      this.actions$.pipe(ofType(deleteHubItemSuccess)).subscribe((res: any) => {
+        this.notification.publishMessages('success', res.payload.description)
+        this.store.dispatch(getAllHubItem({payload: this.filter}))
+  
+      })
     })
+    
   }
 
 }

@@ -136,18 +136,12 @@
             </div>
             <div class="w-full md:w-1/2 px-3  md:mb-0">
               <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">City
-                <span class="text-danger">*</span> </label>
-                <ng-select class="custom-ng-dropdown" 
-                formControlName="City" 
-                [selectOnTab]="true" 
-                placeholder="Select City"
-                (change)="onCityChange($event)"
-                >
-            <ng-option *ngFor="let lga of cities" [value]="lga | json">{{lga.name}}</ng-option>
-            </ng-select>
-            <small class="text-red-500" *ngIf="institutionRegForm.controls['City'].touched && institutionRegForm.controls['City'].invalid">
-              City is required
-            </small>
+                 </label>
+                
+            <app-input [formGrp]="institutionRegForm" formCtrlName="City" [type]="'text'" [class]="
+                      'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                    " placeholder="Enter city" [name]="'City'"></app-input>
+
             </div>
           </div>
 
@@ -178,7 +172,7 @@
           <div class="w-full md:w-1/2 px-3  md:mb-0">
             <label for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">ID Type <span
                 class="text-danger">*</span> </label>
-            <select name="" id="" formControlName="IdType"
+            <select name="" id="" formControlName="IdType" (change)="validateIdType($event.target)"
               class="mt-2 select h-[52px] w-full  bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none">
               <option value="">Select ID type</option>
               <option value="1">International PassPort </option>
@@ -310,8 +304,10 @@
             <input id="nspmcheck" type="checkbox" value="" formControlName="nspm"
               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
             <label for="nspmcheck"
-              class="ml-2 text-sm font-medium text-failedNormal dark:text-gray-300 font-inter">I agree to NSPM terms and
-              conditions.</label>
+              class="ml-2 text-sm font-medium text-failedNormal dark:text-gray-300 font-inter">I agree to NSPM <span class="cursor-pointer link" (click)="openLink()">
+                terms and
+                conditions.
+              </span></label>
           </div>
           <div class="mb-6">
             <re-captcha formControlName="recaptchaReactive" (resolved)="resolved($event)" [siteKey]="siteKey">
@@ -376,7 +372,7 @@
                 Email Verified
             </p>            
             <p class="font-normal text-center font-inter text-base text-lightGray">
-                Your email address verification was successful. <br> Please await the approval email
+                Your email address verification was successful. <br> Please check your email for futher step.
             </p>
 
           </div>

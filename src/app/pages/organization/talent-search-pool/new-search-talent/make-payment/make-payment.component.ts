@@ -9,6 +9,12 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 declare var PaystackPop: any;
 import { environment } from 'src/environments/environment';
+import {
+  Flutterwave,
+  InlinePaymentOptions,
+  PaymentSuccessResponse,
+} from "flutterwave-angular-v3";
+import { ConfigurationService } from 'src/app/core/services/configuration/configuration.service';
 
 @Component({
   selector: 'app-make-payment',
@@ -17,6 +23,7 @@ import { environment } from 'src/environments/environment';
 })
 export class MakePaymentComponent implements OnInit {
   pk: string = environment.pkKey
+  wavePk: string = environment.wavePk_key
 
   selectedPaymentMethod: string = '';
 
@@ -34,33 +41,6 @@ export class MakePaymentComponent implements OnInit {
   otpModal = "otpModal";
   successModal = "successModal";
 
-
-  searchResults = [
-    {
-      name: 'Adekunle Ciroma',
-      faculty: 'Management Science',
-      department: 'Bank and Finance',
-      matricNo: '123456',
-      gradYear: '2019',
-      action:'Verify'
-    },
-    {
-      name: 'Adekunle Ciroma',
-      faculty: 'Management Science',
-      department: 'Bank and Finance',
-      matricNo: '123456',
-      gradYear: '2019',
-      action:'Verify'
-    },
-    {
-      name: 'Adekunle Ciroma',
-      faculty: 'Management Science',
-      department: 'Bank and Finance',
-      matricNo: '123456',
-      gradYear: '2019',
-      action:'Verify'
-    }
-  ]
   transactionId: any;
   trxData: any;
   userData: any;
@@ -70,6 +50,14 @@ export class MakePaymentComponent implements OnInit {
   selectedMerchant!: string;
   isTransactionSuccessful: any;
   poolId: any;
+  reportData: any;
+  reference = `ref-${Math.ceil(Math.random() * 10e13)}`;
+  customerDetails : any;
+  customizations : any;
+  retryPayment: boolean = false;
+  retryApplicationAmount:any;
+  retryApplicationTransactionId!: number;
+  retryApplicationmakePaymentType!: number;
 
   constructor(
     private fb: FormBuilder,
@@ -80,6 +68,9 @@ export class MakePaymentComponent implements OnInit {
     private route: ActivatedRoute,
     private utilityService: UtilityService,
     private notification: NotificationsService,
+    private flutterwave: Flutterwave,
+    private configurationService: ConfigurationService
+
 
   ) { 
     const userAgent = navigator.userAgent;
@@ -97,10 +88,22 @@ export class MakePaymentComponent implements OnInit {
 
   ngOnInit(): void {
     this.transactionId = this.route.snapshot.params['id']
-    const trx : any = sessionStorage.getItem('telx_pl')
+    // const trx : any = sessionStorage.getItem('telx_pl')
+    const trx : any = sessionStorage.getItem('tal_trx')
     this.trxData = JSON.parse(trx)
+    const count: any = sessionStorage.getItem('telx_pl')
+    this.reportData = JSON.parse(count)
     const data: any = localStorage.getItem('userData')
     this.userData = JSON.parse(data)
+    this.customerDetails = {
+      name: `${this.userData?.given_name + ' ' + this.userData?.family_name}`,
+      email: this.userData?.email,
+      phone_number: this.userData?.phone_number
+
+    }
+    this.customizations = {
+      title: 'Talent Search Pool Payment',
+    }
     this.store.dispatch(getOrganizationWalletId({id: this.userData.OrganizationId}))
     this.actions$.pipe(ofType(getOrganizationWalletIdSuccess)).subscribe((res: any) => {
       this.balance = res.payload.balance;
@@ -108,19 +111,6 @@ export class MakePaymentComponent implements OnInit {
     this.loadIp();
 
 
-    this.initPaymentForm()
-    setTimeout(() => {
-      this.populateForm()
-    }, 2000);
-
-    const interval = setInterval(() => {
-      if (this.timer > 0) {
-        this.timer--;
-      } else {
-        clearInterval(interval);
-        this.timerExpired = true;
-      }
-    }, 1000);
   }
 
   loadIp() {
@@ -128,52 +118,9 @@ export class MakePaymentComponent implements OnInit {
      this.ipAddress = res.query
     })
   }
-  initPaymentForm() {
-    this.paymentForm = this.fb.group({
-      cardNumber: ['', Validators.required],
-      expiryMonth: ['', Validators.required],
-      expiryYear: ['', Validators.required],
-      cvc: ['', Validators.required],
-      cardholderName: ['', Validators.required],
-    })
-  }
+ 
 
-  populateForm() {
-    this.paymentForm.patchValue({
-      cardNumber: '1234 1234 1234 2123',
-      expiryMonth: '11',
-      expiryYear: '27',
-      cvc: '789',
-      cardholderName: 'Chiemela Esther',
-    })
-  }
 
-  openOtpModal(){
-    document.getElementById('otpModal')?.click();
-  }
-
-  closeOtpModal(){
-     document.getElementById('otpModal')?.click();
-  }
-
-  onOtpChange(index: number, event: any) {
-    const otpValue = event.target.value;
-    if (!isNaN(otpValue)) {
-      this.otp[index] = parseInt(otpValue, 10);
-      if (this.otp.every((value) => !isNaN(value))) {
-        this.otpEntered = true;
-      }
-    } else {
-      this.otp[index] = 0;
-      this.otpEntered = false;
-    }
-  }
-
-  verifyOtp() {
-    const enteredOtp = this.otp.join('');
-    //console.log('Entered OTP:', enteredOtp);
-    this.openSuccess();
-  }
 
   openSuccess() {
     document.getElementById('successModal')?.click();
@@ -226,7 +173,8 @@ payWithWallet() {
     transactionId: Number(this.transactionId),
     makePaymentType: 6,
     isCard: false,
-    talentSearchPoolTransactionVM: this.trxData,
+    talentSearchPoolTransactionVM: this.reportData,
+    // talentSearchPoolTransactionVM: this.trxData,
     imei: '',
     serialNumber: '',
     device: this.deviceModel,
@@ -235,9 +183,11 @@ payWithWallet() {
   }
   this.store.dispatch(makePayment({payload}))
   this.actions$.pipe(ofType(makePaymentSuccess)).subscribe((res: any) => {
+    console.log(res)
+
     if (res.payload.hasErrors === false) {
       this.poolId = res.payload.payload.organizationSearchPoolId
-      this.notification.publishMessages('success', 'successful')
+      this.notification.publishMessages('success', res.payload.description)
       document.getElementById('successModal')?.click();
       
       // this.router.navigate(['organization/verifications/view-verified-documents/2']);      
@@ -256,7 +206,7 @@ selectPaymentMerchant(merchant: string) {
 payWithCard() {
   const payload = {
     transactionId: Number(this.transactionId),
-    makePaymentType: 5,
+    makePaymentType: 6,
     isCard: true,
     imei: '',
     serialNumber: '',
@@ -271,10 +221,15 @@ payWithCard() {
       // this.router.navigate(['organization/verifications/view-verified-documents/2']);      
     }
   })
-  if (this.selectedMerchant === 'Paystack') {
-    this.launchPaystack()
-  }
+  if (this.selectedMerchant === 'Flutterwave') {
+    this.makePaymentWithFlutterwave()
+  } 
+  // if (this.selectedMerchant === 'Paystack') {
+  //   this.launchPaystack()
+  // }
 }
+
+// paystack implementation
 
 launchPaystack() {
   const paystack = new PaystackPop();
@@ -301,16 +256,79 @@ onClose() {
   ////console.log('trx')
 }
 
+
+
+// launch flutterwave modal
+
+
+makePaymentWithFlutterwave() {
+  const paymentData: InlinePaymentOptions = {
+    public_key: this.wavePk,
+    tx_ref: this.generateReference(),
+    amount: Number(this.trxData?.amount) , //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    currency: "NGN",
+    // subaccounts: [
+    //   {
+    //     id: "RS_798A35E2050826075149903873FD2E07",
+    //     transaction_charge_type: "flat_subaccount",
+    //     transaction_charge: 2000,
+    //   }
+    // ],
+    payment_options: "card, ussd",
+    redirect_url: "",
+    customer: this.customerDetails,
+    customizations: this.customizations,
+    callback: this.makePaymentCallback,
+    onclose: this.closedPaymentModal,
+    callbackContext: this,
+  };
+  this.flutterwave.inlinePay(paymentData);
+}
+
+makePaymentCallback(response: PaymentSuccessResponse): void {
+  console.log("Pay", response);
+  this.flutterwave.closePaymentModal(5);
+  this.callFLWverification(response)
+}
+
+
+callFLWverification(response: any) {
+  this.configurationService.verifyFLWTransactions(response.transaction_id).subscribe((res: any) => {
+    console.log(res)
+    if (res.payload.status === 'successful') {
+      
+      this.isTransactionSuccessful = 'success'
+      this.validatePayment(response)
+    }
+  })
+}
+closedPaymentModal(): void {
+  console.log("payment is closed");
+}
+generateReference(): string {
+  let date = new Date();
+  return date.getTime().toString();
+}
+
+// flutterwave validate payment
+
+
+
+
+// main validate payment
+
+
 validatePayment(data: any) {
   ////console.log(data)
   const payload = {
     transactionId: Number(this.transactionId),
-    refrenceNumber: data.reference,
+    refrenceNumber: data.reference || data.flw_ref,
+    merchantType: 'FLUTTERWAVE',
     makePaymentType: 6,
-    merchantType: 'PAYSTACK',
     isPaymentSuccessful: this.isTransactionSuccessful === 'success' ? true : false,
     imei: '',
-    talentSearchPoolTransactionVM: this.trxData,
+    // talentSearchPoolTransactionVM: this.trxData,
+    talentSearchPoolTransactionVM: {OrganizationId : Number(this.userData.OrganizationId) , ...this.reportData},
     serialNumber: '',
     device: this.deviceModel,
     ipAddress: this.ipAddress
@@ -318,8 +336,9 @@ validatePayment(data: any) {
   }
   this.store.dispatch(validateOrganizationFundWallet({payload}))
   this.actions$.pipe(ofType(validateOrganizationFundWalletSuccess)).subscribe((res: any) => {
+    console.log(res)
     if (res.payload.hasErrors === false) {
-      this.notification.publishMessages('success', 'successful')
+      this.notification.publishMessages('success', res.payload.description)
       this.router.navigate(['organization/talent-search-pool']);
     } else {
       this.notification.publishMessages('danger', res.payload.errors)

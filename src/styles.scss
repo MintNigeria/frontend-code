@@ -183,6 +183,10 @@ ngx-intl-tel-input.ng-invalid.ng-touched input {
 }
 
 
+.ng-select {
+  // z-index: 10 !important;
+}
+
 
 *::-webkit-scrollbar {
   width: 4px;

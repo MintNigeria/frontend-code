@@ -86,18 +86,18 @@ filter: any = {
       institutionTypeId: [null, Validators.required],
       institutionSectorId: [null, Validators.required],
       InstitutionName: [null, Validators.required],
-      DateOfIncorporation: [''],
-      RegistrationNumber: [''],
+      DateOfIncorporation: ['', Validators.required],
+      RegistrationNumber: ['', Validators.required],
       LgaId: [null, Validators.required],
       StateId: [null, Validators.required],
-      EmailAddress: ['', [Validators.required, Validators.email]],
-      PhoneNumber : ['', [Validators.pattern(/^(\+?234|0)[789]\d{9}$/)]],
+      EmailAddress: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
+      PhoneNumber : ['', [Validators.required, Validators.pattern(/^(\+?234|0)[789]\d{9}$/)]],
       Street : ['', Validators.required],
       recaptchaReactive: [null, Validators.required],
-      Title: [''],
-      FirstName: [''],
-      LastName: [''],
-      Designation: [''],
+      Title: ['', Validators.required],
+      FirstName: ['', Validators.required],
+      LastName: ['', Validators.required],
+      Designation: ['', Validators.required],
       consent: [false, Validators.requiredTrue],
       nspm: [false, Validators.requiredTrue],
       fileList: [null, [Validators.required, Validators.minLength(1)]],
@@ -132,7 +132,6 @@ filter: any = {
   selectInstitutionSector(event: any) {
     const filter = {...this.filter, ['SectorId'] : event}
     this.filter = filter;
-    console.log(this.filter)
     this.store.dispatch(getAllInstitutionRecords({payload: this.filter}))
     this.actions$.pipe(ofType(getAllInstitutionRecordsSuccess)).subscribe((res: any) => {
          // console.log(res);
@@ -144,7 +143,7 @@ filter: any = {
   changeRegistrationType(event: any) {
     if (event.target.value === 'CAC' ) {
       this.institutionRegForm.controls['RegisteringBody'].setValue('CAC')
-      this.institutionRegForm.controls['RegistrationNumber'].setValidators([Validators.pattern('^(rc|RC)+([0-9]{7,7})+$')])
+      this.institutionRegForm.controls['RegistrationNumber'].setValidators([Validators.pattern('^(rc|RC|BN)+([0-9]{7,7})+$')])
     } else {
       this.institutionRegForm.controls['RegistrationNumber'].clearValidators()
       this.institutionRegForm.controls['RegisteringBody'].setValue('')
@@ -201,6 +200,11 @@ filter: any = {
   }
 
   continueCreation() {
+    if (this.institutionRegForm.invalid) {
+      // Mark all form controls as touched to trigger validation errors
+      this.institutionRegForm.markAllAsTouched();
+      return;
+    }
     const data = {
       approvalFile : this.selectedFileList, ...this.institutionRegForm.value
     }
@@ -284,6 +288,14 @@ filter: any = {
 
       }
     }, 1000);
+  }
+
+
+  openLink() {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/terms-and-condition`])
+    );
+    window.open(url, '_blank');
   }
  
 

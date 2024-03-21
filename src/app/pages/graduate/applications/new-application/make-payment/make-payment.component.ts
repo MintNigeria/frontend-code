@@ -9,8 +9,13 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import { NotificationsService } from 'src/app/core/services/shared/notifications.service';
 declare var PaystackPop: any;
 import { environment } from 'src/environments/environment';
-import { getGraduateWalletId, getGraduateWalletIdSuccess } from 'src/app/store/graduates/action';
-
+import { getGraduateWalletId, getGraduateWalletIdSuccess, retryApplicationVarificationPayment, retryApplicationVarificationPaymentSuccess } from 'src/app/store/graduates/action';
+import {
+  Flutterwave,
+  InlinePaymentOptions,
+  PaymentSuccessResponse,
+} from "flutterwave-angular-v3";
+import { ConfigurationService } from 'src/app/core/services/configuration/configuration.service';
 @Component({
   selector: 'app-make-payment',
   templateUrl: './make-payment.component.html',
@@ -18,6 +23,7 @@ import { getGraduateWalletId, getGraduateWalletIdSuccess } from 'src/app/store/g
 })
 export class MakePaymentComponent implements OnInit, OnDestroy {
   pk: string = environment.pkKey
+  wavePk: string = environment.wavePk_key
 
   selectedPaymentMethod: string = '';
 
@@ -45,6 +51,16 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
   selectedMerchant: string = '';
   isTransactionSuccessful: any;
   applicationData: any;
+  requestId: any;
+  retryPayment: boolean = false;
+  retryApplicationAmount:any;
+  retryApplicationTransactionId!: number;
+  retryApplicationmakePaymentType!: number;
+  reference = `ref-${Math.ceil(Math.random() * 10e13)}`;
+  customerDetails : any;
+  customizations : any;
+  retryApplicationinstitutionAmount: any;
+  retryApplicationinstitutionSubAccount: any;
 
   constructor(
     private fb: FormBuilder,
@@ -55,6 +71,8 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private utilityService: UtilityService,
     private notification: NotificationsService,
+    private flutterwave: Flutterwave,
+    private configurationService: ConfigurationService
 
   ) { 
     const userAgent = navigator.userAgent;
@@ -76,44 +94,55 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
     this.trxData = JSON.parse(trx)
     const app_Data : any = sessionStorage.getItem('appl_Dt')
     this.applicationData = JSON.parse(app_Data)
+    const trxAmount : any = sessionStorage.getItem('st__ng')
+    this.applicationData = trxAmount
+   
     const data: any = localStorage.getItem('userData')
     this.userData = JSON.parse(data)
+    this.customerDetails = {
+      name: `${this.userData?.given_name + ' ' + this.userData?.family_name}`,
+      email: this.userData?.email,
+      phone_number: this.userData?.phone_number
+
+    }
+    this.customizations = {
+      title: 'Application Payment',
+    }
     this.store.dispatch(getGraduateWalletId())
     this.actions$.pipe(ofType(getGraduateWalletIdSuccess)).subscribe((res: any) => {
       this.balance = res.payload.payload.balance;
 
     })
+    this.requestId = this.route.snapshot.params['id']
+    const currentURL = window.location.href;
+      const path = new URL(currentURL).pathname;
+      if (path.includes('retry-payment')) {
+        this.getApplicationAmout()
+      }
+    // this.currentRoute = this.route.snapshot
     this.loadIp();
 
 
     this.initPaymentForm()
-    setTimeout(() => {
-      this.populateForm()
-    }, 2000);
+   
+  }
 
-    const interval = setInterval(() => {
-      if (this.timer > 0) {
-        this.timer--;
-      } else {
-        clearInterval(interval);
-        this.timerExpired = true;
-      }
-    }, 1000);
+  getApplicationAmout() {
+    this.store.dispatch(retryApplicationVarificationPayment({id: this.requestId}))
+    this.actions$.pipe(ofType(retryApplicationVarificationPaymentSuccess)).subscribe((res: any) => {
+      // console.log(res)
+      this.retryPayment = true;
+      this.retryApplicationAmount = res.payload?.amount
+      this.retryApplicationTransactionId = res.payload?.transactionId
+      this.retryApplicationmakePaymentType= res.payload?.makePaymentType
+      this.retryApplicationinstitutionSubAccount= res.payload?.institutionSubAccount
+      this.retryApplicationinstitutionAmount= res.payload?.institutionAmount
+    })
   }
 
   get applicationAmount () {
     // console.log(this.applicationData)
-    if (this.applicationData.emailOptionVM !== null) {
-      const amount = this.applicationData.emailOptionVM[0].deliveryMethod + this.applicationData.paymentDetailsVM.fee
-      return amount
-    } else if (this.applicationData.fileUploadOptionVM !== null) {
-      const amount = this.applicationData.fileUploadOptionVM[0].deliveryMethod + this.applicationData.paymentDetailsVM.fee
-      return amount
-    } else {
-      const amount = this.applicationData.hardCopyOptionVM[0].deliveryMethod + this.applicationData.paymentDetailsVM.fee
-      return amount
-      
-    }
+   return this.applicationData
   }
   loadIp() {
     this.utilityService.getuserIP().subscribe((res: any) => {
@@ -130,15 +159,6 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
     })
   }
 
-  populateForm() {
-    this.paymentForm.patchValue({
-      cardNumber: '1234 1234 1234 2123',
-      expiryMonth: '11',
-      expiryYear: '27',
-      cvc: '789',
-      cardholderName: 'Chiemela Esther',
-    })
-  }
 
   openOtpModal(){
     document.getElementById('otpModal')?.click();
@@ -148,24 +168,7 @@ export class MakePaymentComponent implements OnInit, OnDestroy {
      document.getElementById('otpModal')?.click();
   }
 
-  onOtpChange(index: number, event: any) {
-    const otpValue = event.target.value;
-    if (!isNaN(otpValue)) {
-      this.otp[index] = parseInt(otpValue, 10);
-      if (this.otp.every((value) => !isNaN(value))) {
-        this.otpEntered = true;
-      }
-    } else {
-      this.otp[index] = 0;
-      this.otpEntered = false;
-    }
-  }
 
-  verifyOtp() {
-    const enteredOtp = this.otp.join('');
-    //console.log('Entered OTP:', enteredOtp);
-    this.openSuccess();
-  }
 
   openSuccess() {
     document.getElementById('successModal')?.click();
@@ -215,8 +218,8 @@ openWalletPayment() {
 
 payWithWallet() {
   const payload = {
-    transactionId: Number(this.trxData.transactionId),
-    makePaymentType: 1,
+    transactionId: this.retryPayment === false ? Number(this.trxData.transactionId) : Number(this.retryApplicationTransactionId),
+    makePaymentType: this.retryPayment === false ? 1 : this.retryApplicationmakePaymentType,
     isCard: false,
     imei: '',
     serialNumber: '',
@@ -227,7 +230,7 @@ payWithWallet() {
   this.store.dispatch(makePayment({payload}))
   this.actions$.pipe(ofType(makePaymentSuccess)).subscribe((res: any) => {
     if (res.payload.hasErrors === false) {
-      this.notification.publishMessages('success', 'successful')
+      this.notification.publishMessages('success', res.payload.description)
       document.getElementById('successModal')?.click();
       // this.router.navigate(['organization/verifications/view-verified-documents/2']);      
     }
@@ -241,8 +244,8 @@ selectPaymentMerchant(merchant: string) {
 
 payWithCard() {
   const payload = {
-    transactionId: Number(this.trxData.transactionId),
-    makePaymentType: 1,
+    transactionId: this.retryPayment === false ? Number(this.trxData.transactionId) : Number(this.retryApplicationTransactionId),
+    makePaymentType: this.retryPayment === false ? 1 : this.retryApplicationmakePaymentType,
     isCard: true,
     imei: '',
     serialNumber: '',
@@ -257,18 +260,28 @@ payWithCard() {
       // this.router.navigate(['organization/verifications/view-verified-documents/2']);      
     }
   })
-  if (this.selectedMerchant === 'Paystack') {
-    this.launchPaystack()
-  }
+  if (this.selectedMerchant === 'Flutterwave') {
+    this.makePaymentWithFlutterwave()
+  } 
+  // if (this.selectedMerchant === 'Paystack') {
+  //   this.launchPaystack()
+  // } 
 }
 
+
+paymentCallback(data: any){
+  // console.log('data: ', data);
+}
+
+
+// launch pastack modal
 launchPaystack() {
   const paystack = new PaystackPop();
   paystack.newTransaction({
     key: this.pk, // Replace with your public key
     reference: new Date().getTime().toString(),
     email: this.userData?.email,
-    amount: this.applicationAmount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    amount: this.retryPayment === false ? (this.applicationAmount * 100) : (this.retryApplicationAmount * 100), //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
     onCancel: () => {
       this.onClose();
     },
@@ -285,8 +298,8 @@ onSuccess(trx: any) {
 }
 onClose() {
   const payload = {
-    transactionId: Number(this.trxData.transactionId),
-    makePaymentType: 1,
+    transactionId: this.retryPayment === false ? Number(this.trxData.transactionId) : Number(this.retryApplicationTransactionId),
+    makePaymentType: this.retryPayment === false ? 1 : this.retryApplicationmakePaymentType,
     refrenceNumber: 'N/A',
     merchantType: 'PAYSTACK',
     isPaymentSuccessful: false,
@@ -308,25 +321,87 @@ onClose() {
   })
 }
 
+// launch flutterwave modal
+
+
+makePaymentWithFlutterwave() {
+  const paymentData: InlinePaymentOptions = {
+    public_key: this.wavePk,
+    tx_ref: this.generateReference(),
+    amount: this.retryPayment === false ? (this.applicationAmount) : (this.retryApplicationAmount ), //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    currency: "NGN",
+    subaccounts: [
+      {
+        id: this.retryPayment === false ? this.trxData.institutionSubAccount : this.retryApplicationinstitutionSubAccount,
+        transaction_charge_type: "flat_subaccount",
+        transaction_charge: this.retryPayment === false ? Number(this.trxData.institutionAmount) : Number(this.retryApplicationinstitutionAmount),
+      }
+    ],
+    payment_options: "card, ussd",
+    redirect_url: "",
+    customer: this.customerDetails,
+    customizations: this.customizations,
+    callback: this.makePaymentCallback,
+    onclose: this.closedPaymentModal,
+    callbackContext: this,
+  };
+  this.flutterwave.inlinePay(paymentData);
+}
+
+makePaymentCallback(response: PaymentSuccessResponse): void {
+  console.log("Pay", response);
+  this.flutterwave.closePaymentModal(5);
+  this.callFLWverification(response)
+}
+
+
+callFLWverification(response: any) {
+  this.configurationService.verifyFLWTransactions(response.transaction_id).subscribe((res: any) => {
+    // console.log(res)
+    if (res.payload.status === 'successful') {
+      
+      this.isTransactionSuccessful = 'success'
+      this.validatePayment(response)
+    } else {
+      this.isTransactionSuccessful = 'failed'
+      // this.flutterwave.closePaymentModal(5);
+      this.validatePayment(response)
+
+    }
+  })
+}
+
+closedPaymentModal(): void {
+  // console.log("payment is closed");
+}
+generateReference(): string {
+  let date = new Date();
+  return date.getTime().toString();
+}
+
+
+// ==================== End of flutterwave implementation =============== //
+
+//  main validate payment
+
 validatePayment(data: any) {
   ////console.log(data)
   const payload = {
-    transactionId: Number(this.trxData.transactionId),
-    makePaymentType: 1,
-    refrenceNumber: data.reference,
-    merchantType: 'PAYSTACK',
+    transactionId: this.retryPayment === false ? Number(this.trxData.transactionId) : Number(this.retryApplicationTransactionId),
+    makePaymentType: this.retryPayment === false ? 1 : this.retryApplicationmakePaymentType,
+    refrenceNumber: data.reference || data.flw_ref,
+    merchantType: 'FLUTTERWAVE',
     isPaymentSuccessful: this.isTransactionSuccessful === 'success' ? true : false,
     imei: '',
     serialNumber: '',
     device: this.deviceModel,
     ipAddress: this.ipAddress
-
   }
   this.store.dispatch(validateOrganizationFundWallet({payload}))
   this.actions$.pipe(ofType(validateOrganizationFundWalletSuccess)).subscribe((res: any) => {
     ////console.log(res)
     if (res) {
-      this.notification.publishMessages('success', 'successful')
+      this.notification.publishMessages('success', res.payload.description)
       this.router.navigate(['/graduate/my-applications']);      
 
     }
@@ -336,8 +411,8 @@ validatePayment(data: any) {
 
 
 ngOnDestroy(): void {
-  sessionStorage.removeItem('app_Data')  
-  sessionStorage.removeItem('appl_Dt')  
+  // sessionStorage.removeItem('app_Data')  
+  // sessionStorage.removeItem('appl_Dt')  
 }
 
 }

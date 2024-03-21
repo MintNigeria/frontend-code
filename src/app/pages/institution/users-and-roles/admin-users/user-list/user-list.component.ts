@@ -42,6 +42,7 @@ export class UserListComponent implements OnInit {
     pageIndex: 1
   }
   superAdminRole: any;
+  adminUser: any;
 
   constructor(
     private store: Store,
@@ -54,8 +55,15 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     const data: any = localStorage.getItem('userData')
+    console.log(data)
     this.institutionData = JSON.parse(data)
     this.institutionId = this.institutionData.InstitutionId
+    const data2: any = localStorage.getItem('authData')
+
+    this.adminUser = JSON.parse(data2)
+    this.permissionList = this.adminUser?.permissions;
+    console.log(this.adminUser)
+    // this.superAdminRole = this.adminUser.user.role.split('|')[0]
     this.permissions()
     this.users()
 
@@ -74,10 +82,13 @@ export class UserListComponent implements OnInit {
   }
 
   permissions() {
-    this.permission$.subscribe((res: any) => {
-      this.permissionList = res
-      console.log(res)
-    })
+    const data: any = localStorage.getItem('authData')
+    this.adminUser = JSON.parse(data)
+    this.permissionList = this.adminUser?.permissions;
+    // this.permission$.subscribe((res: any) => {
+    //   this.permissionList = res
+    //   console.log(res)
+    // })
   }
 
   users() {
@@ -114,9 +125,19 @@ export class UserListComponent implements OnInit {
 
   getPage(currentPage: number) {
     const filter = {...this.filter, ['pageIndex'] : currentPage}
+    this.filter = filter
+    this.store.dispatch(getAllInstitutionUsers({payload: {...filter, institutionId: this.institutionId}}))
+    
+  }
+  
+  selectRecordCount(event: any) {
+    this.pageSize = event.value
+    const filter = {...this.filter, ['pageSize'] : event.value}
+    this.filter = filter
     this.store.dispatch(getAllInstitutionUsers({payload: {...filter, institutionId: this.institutionId}}))
 
   }
+
 
   enableDisableUser(event: any, userId: any) {
     // console.log(event.target.checked)
@@ -128,11 +149,12 @@ export class UserListComponent implements OnInit {
       .activateOrDeactivateUsers(payload)
       .subscribe((res) => {
         if (!res.hasErrors) {
-          console.log(res)
           this.notificationService.publishMessages(
             'success',
             event.target.checked === true ? 'User successfully activated' : 'User successfully deactivated'
-          );
+            );
+            this.store.dispatch(getAllInstitutionUsers({payload: {...this.filter, institutionId: this.institutionId}}))
+
         }
       });
    

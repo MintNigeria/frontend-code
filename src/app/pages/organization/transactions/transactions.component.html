@@ -21,7 +21,7 @@
       <h4 class="font-medium font-poppins lg:text-4xl text-xl  text-darkGray my-3">
         Transaction History
       </h4>
-      <div class="rounded-md border">
+      <!-- <div class="rounded-md border">
         <div class="bg-successLight rounded-md">
           <div class="p-6 flex justify-between items-center gap-3">
             <div>
@@ -35,6 +35,10 @@
               <p class="text-successNormal font-bold text-3xl font-poppins">₦{{balance || 0 | commaDelimiter}}</p>
             </div>
             <div>
+              <app-button [buttonText]="'Fund Wallet'" [overRideButtonClass]="true"
+                [customClass]="'border rounded border-grayWhite bg-white text-failedNormal font-inter font-medium text-sm h-8'"
+                [routerLink]="'/organization/transactions/fund-wallet'">
+              </app-button>
               <app-button [buttonText]="'Buy Plan'" [overRideButtonClass]="true"
                 [customClass]="'border rounded border-grayWhite bg-white text-failedNormal font-inter font-medium text-sm h-8'"
                 [routerLink]="'/organization/transactions/payment-plan'">
@@ -42,7 +46,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <!---->
@@ -121,10 +125,10 @@
               <li><a (click)="changeStatus(0, 'Pending')">Pending</a>
               </li>
               <li>
-                <a (click)="changeStatus(1, 'Approved')">Approved</a>
+                <a (click)="changeStatus(1, 'Successful')">Successful</a>
               </li>
               <li>
-                <a (click)="changeStatus(2, 'Decline')">Declined</a>
+                <a (click)="changeStatus(2, 'Failed')">Failed</a>
               </li>
               </ul>
             </div>
@@ -191,7 +195,7 @@
 
             <tbody class="">
               <tr
-                *ngFor="let data of history | paginate: { itemsPerPage: filter.pageSize, currentPage: filter.pageIndex, totalItems: total } "
+                *ngFor="let data of history | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: total } "
                 class="bg-white" class=" ">
 
 
@@ -199,7 +203,7 @@
                   <div class="items-center">
                     <div>
                       <div>
-                        <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">
+                        <p class="my-0 text-base  font-inter font-medium text-darkGray ">
                           {{data.transactionId || 'N/A'}}</p>
                       </div>
                     </div>
@@ -210,8 +214,11 @@
                   <div class="items-center">
                     <div>
                       <div>
-                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">
+                        <p class="my-0 text-base  font-inter font-normal text-lightGray ">
                           {{data.transactionDate || 'N/A' | date: 'mediumDate'}}</p>
+                          <p class="text-xs font-normal font-inter my-0 text-lightGray">
+                            {{ data?.transactionDate | date: 'mediumTime' }}
+                          </p>
                       </div>
                     </div>
 
@@ -220,7 +227,7 @@
 
                 <td class="bg-white">
                   <div>
-                    <p class=" table-wrapper my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.description || 'N/A'}}
+                    <p class=" table-wrapper my-0 text-base  font-inter font-normal text-lightGray ">{{data.description || 'N/A'}}
                     </p>
 
                   </div>
@@ -228,7 +235,7 @@
 
                 <td class="bg-white">
                   <div>
-                    <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">₦{{data.amountPaid | commaDelimiter}}</p>
+                    <p class="my-0 text-base  font-inter font-normal text-lightGray ">₦{{data.amountPaid | commaDelimiter}}</p>
 
                   </div>
                 </td>
@@ -249,7 +256,7 @@
                               "
                         ></div>
                         <p
-                          class="my-0 text-sm cursor-pointer font-inter font-medium w-auto"
+                          class="my-0 text-sm  font-inter font-medium w-auto"
                           [ngClass]="
                             data.paymentStatus === 2
                               ? 'text-[#E61B00]'
@@ -259,7 +266,7 @@
                               
                           "
                         >
-                          {{ data.paymentStatus === 1? 'Approved' : data.paymentStatus === 2 ? 'Declined' : 'Pending' }}
+                          {{ data.paymentStatus === 1? 'Successful' : data.paymentStatus === 2 ? 'Failed' : 'Pending' }}
                         </p>
                           
                         </div>
@@ -273,17 +280,26 @@
 
 
         </div>
+        <app-request-empty-state
+                *ngIf="history?.length < 1"
+                [dataStatus]="'No record found'"
+                ></app-request-empty-state>
       </div>
 
       <!---->
 
       <!--Pagination-->
-      <div class="flex items-center justify-end mt-10">
-        <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
-                Showing 1 to 7 of {{ transactionList.length }} entries
-            </p> -->
+      <div class="flex items-center justify-between mt-10">
+        <select class=" text-black select max-w-xs bg-white" (change)="selectRecordCount($event.target)">
+          <option disabled selected>Per page</option>
+          <option value="10">10</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="150">150</option>
+          <option value="200">200</option>
+        </select>
         <div class="flex item gap-3">
-          <pagination-controls  [responsive]="true"  (pageChange)="getPage(filter.pageIndex = $event)" previousLabel="Prev" nextLabel="Next">
+          <pagination-controls  [responsive]="true"  (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next">
           </pagination-controls>
 
         </div>

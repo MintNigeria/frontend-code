@@ -12,7 +12,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 dir('/var/lib/jenkins/workspace/ngmintclient') {
-                    sh 'docker-compose -f nspm-client-fe.yml build'
+                    sh 'docker build -t nspm-client-fe .'
                 }
             }
         }

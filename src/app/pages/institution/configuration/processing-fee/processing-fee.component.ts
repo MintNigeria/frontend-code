@@ -87,7 +87,7 @@ export class ProcessingFeeComponent implements OnInit {
           return {
             processingFeeConfigId: element.id,
             deliveryOptionsType: element.deliveryOptionsType,
-            inActiveFee: numeral(element.inActiveFee).format('00,'),
+            inActiveFee: numeral(element.inActiveFee).format('0,0'),
           }
         });
         return {
@@ -107,7 +107,7 @@ export class ProcessingFeeComponent implements OnInit {
         const a = x.processingFeeConfigVM.map((element: any) => {
           return {
             processingFeeConfigId: element.id,
-            inActiveFee: numeral(element.inActiveFee).format('00,')
+            inActiveFee: numeral(element.inActiveFee).format('0,0')
           }
         });
         return {
@@ -226,7 +226,7 @@ export class ProcessingFeeComponent implements OnInit {
     })
     newData.processingFeeConfigVM = j
     this.processingFeeList[parent] = newData;
-    console.log(this.processingFeeList)
+    // console.log(this.processingFeeList)
     // sessionStorage.setItem('prox_f', JSON.stringify(this.updatedData))
    
   }
@@ -243,7 +243,6 @@ export class ProcessingFeeComponent implements OnInit {
     })
     newData.updateProcessingFeeConfigVM = j
     this.updatedData[parent] = newData;
-    console.log(this.updatedData)
     sessionStorage.setItem('prox_f', JSON.stringify(this.updatedData))
    
   }
@@ -278,5 +277,15 @@ this.actions$.pipe(ofType(sendProcessingFeeForApprovalSuccess)).subscribe((res: 
 
   }
 })
+  }
+
+
+  numberOnly(event: any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
   }
 }

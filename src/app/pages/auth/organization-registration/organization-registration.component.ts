@@ -88,9 +88,9 @@ selectedFileList: any  = []
     this.institutionRegForm = this.fb.group({
       // institutionBody: ['', Validators.required],
       Name : ['', Validators.required],
-      EmailAddress: ['', [Validators.required, Validators.email]],
+      EmailAddress: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
       PhoneNumber : [null, Validators.required],
-      City: [null, Validators.required],
+      City: [''],
       Country: [null, Validators.required],
       State: [null, Validators.required],
       Address : ['', Validators.required],
@@ -99,11 +99,11 @@ selectedFileList: any  = []
       RegisteringBody: ['', Validators.required],
       DateOfIncorporation: ['', Validators.required],
       CAC: [''],
-      recaptchaReactive: [null, Validators.required],
-      Title: [''],
-      FirstName: [''],
-      LastName: [''],
-      Designation: [''],
+      recaptchaReactive: [null],
+      Title: ['', Validators.required],
+      FirstName: ['', Validators.required],
+      LastName: ['', Validators.required],
+      Designation: ['', Validators.required],
       consent: [false, Validators.requiredTrue],
       nspm: [false, Validators.requiredTrue],
       fileList: [null, [Validators.required, Validators.minLength(1)]],
@@ -140,6 +140,8 @@ selectedFileList: any  = []
   changeRegistrationType(event: any) {
     if (event.target.value === 'CAC' ) {
       this.institutionRegForm.controls['RegisteringBody'].setValue('CAC')
+      this.institutionRegForm.controls['CAC'].setValidators([Validators.pattern('^(rc|RC|BN)+([0-9]{7,7})+$')])
+
     } else {
       this.institutionRegForm.controls['RegisteringBody'].setValue('')
     }
@@ -201,6 +203,12 @@ selectedFileList: any  = []
   }
 
   continueCreation() {
+    if (this.institutionRegForm.invalid) {
+      // Mark all form controls as touched to trigger validation errors
+      this.institutionRegForm.markAllAsTouched();
+      return;
+    }
+
     const data = {
       approvalFile : this.selectedFileList, ...this.institutionRegForm.value
     }
@@ -284,6 +292,13 @@ selectedFileList: any  = []
 
       }
     }, 1000);
+  }
+
+  openLink() {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/terms-and-condition`])
+    );
+    window.open(url, '_blank');
   }
 
 }

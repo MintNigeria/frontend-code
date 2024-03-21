@@ -90,6 +90,9 @@ export class ViewMoreGraduateComponent implements OnInit {
 
 selectOption(event: any) {
   this.selectedUpdateType = this.requestStatus[event.value];
+  if (event.value === 'PAUSED') {
+
+  }
 }
 
 actionRequest() {

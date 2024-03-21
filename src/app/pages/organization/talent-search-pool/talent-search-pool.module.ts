@@ -17,22 +17,28 @@ import { StoreModule } from '@ngrx/store';
 import { OrganizationEffects } from 'src/app/store/organization/effects';
 import { organizationReducer } from 'src/app/store/organization/reducers';
 
+import { RequestEmptyStateComponent } from 'src/app/shared/request-empty-state/request-empty-state.component';
+import { ViewGraduateTalentSearchProfileComponent } from './view-graduate-talent-search-profile/view-graduate-talent-search-profile.component';
+import { FlutterwaveModule } from 'flutterwave-angular-v3';
 
 @NgModule({
   declarations: [
     TalentSearchPoolComponent,
     NewSearchTalentComponent,
     MakePaymentComponent,
-    ViewReportComponent
+    ViewReportComponent,
+    ViewGraduateTalentSearchProfileComponent
   ],
   imports: [
     CommonModule,
+    RequestEmptyStateComponent,
     TalentSearchPoolRoutingModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
     NgxPaginationModule,
+    FlutterwaveModule,
     StoreModule.forFeature('institution', institutionReducers),
     EffectsModule.forFeature([InstitutionEffects]),
     StoreModule.forFeature('organization', organizationReducer),

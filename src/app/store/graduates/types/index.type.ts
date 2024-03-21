@@ -42,6 +42,8 @@ export interface GraduatesStateInterface {
     recorduploads: any;
     graduateRecord: any;
   graduateRecordUploadFormat: any;
+  graduateBulkRecordUploadFormat: any;
+  recordsInABatch: any;
   uploadRecord: any;
   createGraduaterecord: any;
   graduateRequestRecord: any;
@@ -66,6 +68,7 @@ export interface GraduatesStateInterface {
   searchRecord: any;
   transactionType: any;
   documentType: any;
+  retryPayment: any;
   createGraduateApplication: any;
   submitverificationRequest: any;
   submitVerificationRequest: any;
@@ -75,5 +78,7 @@ export interface GraduatesStateInterface {
   exportVerificationCSV: any;
   exportTransactionExcel: any;
   exportTransactionCSV: any;
+  exportTalentSearchReportExcel: any,
+  exportTalentSearchReportCSV: any,
   activeDeliveryoptions: any;
   }

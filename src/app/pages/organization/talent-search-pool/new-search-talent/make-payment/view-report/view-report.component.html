@@ -2,7 +2,7 @@
     <!--Header-->
     <div class="flex  items-center md:gap-4 gap-2 mb-6">
         <div>
-            <img [routerLink]="'/organization/value-added-services'" src="assets/images/icons/home.svg" alt="home-icon">
+            <img [routerLink]="'/organization/talent-search-pool'" src="assets/images/icons/home.svg" alt="home-icon">
         </div>
         <div>
             <img src="assets/images/icons/forward_arrow.svg" alt="forward-arrow">
@@ -50,7 +50,7 @@
             <form>
                 <div class="flex md:flex-row md:justify-between md:items-center  flex-col w-full">
                     <div class="lg:flex lg:justify-between gap-4 grid grid-cols-2 ">
-                        <div class="lg:justify-between gap-4">
+                        <!-- <div class="lg:justify-between gap-4">
                             <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
                                 Grade
                             </p>
@@ -69,7 +69,7 @@
                                     </li>
                                   </ul>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="lg:justify-between gap-4">
                             <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
@@ -80,10 +80,10 @@
                                 <p class="my-0 text-black font-inter font-medium text-sm">{{ selectedInstitution }}</p>
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
                                 </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-56">
+                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-56">
                                     <li><a (click)="selectedInstitution='All'">All</a></li>
                                     <li> <a  (click)="changeGender(1, 'Male')">Male</a></li>
-                                    <li> <a  (click)="changeGender(2, 'Feale')">Female</a></li>
+                                    <li> <a  (click)="changeGender(2, 'Female')">Female</a></li>
 
                                 </ul>
                             </div>
@@ -91,16 +91,20 @@
 
                         <div class="lg:justify-between gap-4">
                             <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
-                                Graduation Year
+                                Class of Degree
                             </p>
                             <div class="dropdown dropdown-bottom">
-                                <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
+                                <label tabindex="0"
+                                (click)="showClassOfDegree = false;" [ngClass]="showClassOfDegree? 'w-fit' : 'w-[160px]'"
+                                 class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
                                 <p class="my-0 text-black font-inter font-medium text-sm">{{ selectedSector }}</p>
                                 <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
                                 </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-56">
+                                <ul tabindex="0"
+                                [ngClass]="showClassOfDegree ? 'hidden' : 'block'"
+                                 class="dropdown-content h-64 overflow-y-scroll menu p-2 shadow bg-white text-black rounded-box w-72">
                                     <li><a (click)="selectedSector='All'">All</a></li>
-                                    <li *ngFor="let unit of years"> <a  (click)="changeYear(unit)">{{unit}}</a></li>
+                                    <li *ngFor="let unit of degreeType"> <a  (click)="changeYear(unit.name)">{{unit.name}}</a></li>
                                     
                                 </ul>
                             </div>
@@ -130,6 +134,13 @@
                         Below are the available reports generated
                     </p>
                 </div>
+                <!-- <div class="my-3">
+                    <app-search 
+                  [placeholder]="'Search by gender or class of degree'"
+                  (iconSearch)="search($event)"
+      [formGrp]="searchForm" formCtrlName="searchPhrase"  
+      ></app-search>
+                </div> -->
                 <div class="flex md:items-center gap-4 ">
                     <div>
                         <div class="lg:justify-between gap-4">
@@ -139,8 +150,8 @@
                                 <img src="assets/images/icons/downward_arrow_white.svg" alt="downward_arrow_white">
                                 </label>
                                 <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
-                                    <li (click)="exportData('csv')"><a>Export as CSV</a></li>
-                                    <li (click)="exportData('excel')"><a >Export as PDF</a></li>
+                                    <li (click)="exportCSV()"><a>Export as CSV</a></li>
+                                    <li (click)="exportExcel()"><a >Export as Excel</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -158,12 +169,13 @@
                     <table class="table w-full">
                         <thead>
                             <tr>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Name</th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Institution</th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Faculty</th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Department</th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Graduation Year</th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Grade</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Name / Gender</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Class of Degree</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Email</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Phone Number</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Year of Experience</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Age</th>
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Action</th>
                             </tr>
                         </thead>
 
@@ -175,7 +187,7 @@
                                     <div class="items-center">
                                         <div>
                                             <div>
-                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">{{data.name}}</p>
+                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">{{data.fullName}}</p>
                                                 <p class="my-0 text-sm cursor-pointer font-inter font-normal text-lightGray ">{{data.gender}}</p>
                                             </div>
                                         </div>
@@ -184,7 +196,7 @@
                                 </td>
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.institutionName}}</p>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.classOfDegree}}</p>
                                       
                                     </div>
 
@@ -193,7 +205,7 @@
                                     <div class="items-center">
                                         <div>
                                             <div>
-                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-lightGray ">{{data.faculty}}</p>
+                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-lightGray ">{{data.email}}</p>
                                             </div>
                                         </div>
 
@@ -202,23 +214,33 @@
                                 
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.department}}</p>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.phoneNumber}}</p>
                                        
                                     </div>
                                 </td>
 
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.yearOfGraduation}}</p>
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.yearOfExperience}}</p>
                                         
                                     </div>
                                 </td>
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.grade}}</p>
-                                      
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.age}}</p>
+                                        
                                     </div>
                                 </td>
+                                <td class="bg-white">
+                                    <div  (click)="viewDetails(data?.graduateId)"
+                                    class="flex  gap-2 items-center" 
+                                    >
+                                    <p 
+                                    class="my-0 text-sm font-inter cursor-pointer font-medium text-primaryBlue ">View</p>
+                                    </div>
+
+                                </td>
+                               
 
 
 

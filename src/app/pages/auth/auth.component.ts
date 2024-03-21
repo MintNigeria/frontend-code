@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TimerService } from 'src/app/shared/util/timer.service';
 
 @Component({
   selector: 'app-auth',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-
+time: any;
   carouselIndex = 0;
   carouselItems = [
     {
@@ -32,9 +33,12 @@ export class AuthComponent implements OnInit {
     // },
   ];
 
-  constructor() { }
+  constructor(
+    // private timer: TimerService
+  ) { }
 
   ngOnInit(): void {
+    // this.time = this.timer;
   }
 
   prevSlide() {

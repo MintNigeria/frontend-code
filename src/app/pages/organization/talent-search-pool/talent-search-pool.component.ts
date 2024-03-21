@@ -33,7 +33,7 @@ export class TalentSearchPoolComponent implements OnInit {
 
  
  filter= {
-  'TimeBoundSearchVm.TimeRange': 0,
+  'TimeBoundSearchVM.TimeRange': 0,
   keyword: '',
     filter: '',
     pageSize: 10,
@@ -42,7 +42,8 @@ export class TalentSearchPoolComponent implements OnInit {
  total: any;
 //  pageIndex: a
 
- pageIndex = 1
+pageIndex = 1
+pageSize: number = 10;
  searchForm = new FormGroup({
    searchPhrase: new FormControl(''),
  });
@@ -125,13 +126,13 @@ export class TalentSearchPoolComponent implements OnInit {
         if (res) {
               const {start , end} = res; // use this start and end as fromDate and toDate on your filter
               this.selectedOption = `${start} - ${end}`
-              const filter = {...this.filter, ['TimeBoundSearchVm.FromDate'] : start, ['TimeBoundSearchVm.ToDate'] : end, 'TimeBoundSearchVm.TimeRange': 5}
+              const filter = {...this.filter, ['TimeBoundSearchVM.FromDate'] : start, ['TimeBoundSearchVM.ToDate'] : end, 'TimeBoundSearchVM.TimeRange': 5}
               this.filter = filter;
         }
   
       })
     } else {
-      const filter = {...this.filter, ['range'] : range};
+      const filter = {...this.filter, ['TimeBoundSearchVM.TimeRange'] : range};
       this.filter = filter;
     }
   }
@@ -182,7 +183,17 @@ export class TalentSearchPoolComponent implements OnInit {
   getPage(currentPage: number) {
     const filter = {...this.filter, ['pageIndex'] : currentPage}
 
+    this.filter = filter
     this.store.dispatch(getAlltalentSearchPool({payload: {...filter, OrganizationId: this.userData.OrganizationId}}))
+  }
+  
+  
+  selectRecordCount(event: any) {
+    this.pageSize = event.value
+    const filter = {...this.filter, ['pageSize'] : event.value}
+    this.filter = filter
+    this.store.dispatch(getAlltalentSearchPool({payload: {...filter, OrganizationId: this.userData.OrganizationId}}))
+
   }
 
 

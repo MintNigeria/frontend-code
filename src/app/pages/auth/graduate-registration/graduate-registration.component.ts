@@ -101,11 +101,11 @@ selectedFileList: any  = []
       // institutionBody: ['', Validators.required],
       FirstName  : ['', Validators.required],
       LastName   : ['', Validators.required],
-      Email: ['', [Validators.required, Validators.email]],
+      Email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
       PhoneNumber : [null,Validators.required],
       Address : ['', Validators.required],
       Gender: ['', Validators.required],
-      City: [null, Validators.required],
+      City: [''],
       Country: [null, Validators.required],
       State: [null, Validators.required],
       ZipCode: [null, Validators.required],
@@ -222,6 +222,19 @@ selectedFileList: any  = []
     this.institutionRegForm.controls['institutionSectorId'].setValue(event.name)
   }
 
+  validateIdType(event: any) {
+    if (event.value === '1') {
+      this.institutionRegForm.controls['IdNumber'].setValidators([Validators.pattern('^[A-Z0-9]{7,9}$')])
+    } else if (event.value === '2') {
+      this.institutionRegForm.controls['IdNumber'].setValidators([Validators.pattern('^[a-zA-Z]{3}([ -]{1})?[A-Z0-9]{6,12}$')])
+    } else if (event.value === '3') {
+      this.institutionRegForm.controls['IdNumber'].setValidators([Validators.pattern('^[a-zA-Z0-9 ]{9,20}$')])
+    } else if (event.value === '4') {
+      this.institutionRegForm.controls['IdNumber'].setValidators([Validators.pattern('^[0-9]{11}$/')])
+
+    }
+  }
+
   public resolved(captchaResponse: string): void {
     this.institutionRegForm.controls['recaptchaReactive'].setValue(captchaResponse)
   }
@@ -263,7 +276,6 @@ selectedFileList: any  = []
       if (res.payload.hasErrors === false) {
         document.getElementById('myModal')?.click()
         this.showOTPPage = true;
-
         // this.router.navigateByUrl('/')
       }
     })
@@ -317,6 +329,13 @@ selectedFileList: any  = []
 
       }
     }, 1000);
+  }
+
+  openLink() {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/terms-and-condition`])
+    );
+    window.open(url, '_blank');
   }
 
 

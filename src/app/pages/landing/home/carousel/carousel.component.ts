@@ -16,20 +16,20 @@ export class CarouselComponent implements OnInit {
     {
       id: 'slide1',
       image: 'assets/images/main/carousel-1.jpg',
-      header: 'Transcript requests and certificate verification just got better.',
-      text: 'VAC is your one-stop solution for all your academic verification needs. With VAC, you can easily request for your academic transcripts and have them verified with just a few clicks. Our platform provides fast and secure verification services, making the process of job applications, further education and other verification needs hassle-free.',
-      buttonOne: 'Apply Now',
-      buttonOneRoute: '/login',
+      header: 'Certificate verification and transcript requests just got better.',
+      text: 'The VAC solution is an innovative digital solution that streamlines and automates the process of certificate verification, as well as manage and facilitate transcript requests.',
+      buttonOne: 'Request For Demo',
+      buttonOneRoute: '/request-demo',
       buttonTwo: 'See how it works',
-      buttonTwoRoute: '/'
+      buttonTwoRoute: 'explainer'
     },
     {
       id: 'slide2',
       image: 'assets/images/main/carousel2.jpg',
       header: 'Say Goodbye to the Hassle of Manual Certificate Verification Processes.',
       text: 'VAC provides a simple and efficient solution for verifying your academic certificates. Our system is designed to ensure accuracy, speed, and security, making it the go-to platform for certificate verification. Join the VAC community today and elevate your certificate verification experience.',
-      buttonOne: 'Get Started',
-      buttonOneRoute: '/login',
+      buttonOne: 'Request For Demo',
+      buttonOneRoute: '/request-demo',
       buttonTwo: 'Learn more',
       buttonTwoRoute: '/verification-services'
     },
@@ -38,8 +38,8 @@ export class CarouselComponent implements OnInit {
       image: 'assets/images/main/carousel3.jpg',
       header: 'Elevate Your Transcript Request Experience with VAC',
       text: 'Gone are the days of lengthy transcript request processes and manual verification methods. Experience the convenience of VAC for all your transcript needs.',
-      buttonOne: 'Get Started',
-      buttonOneRoute: '/login',
+      buttonOne: 'Request For Demo',
+      buttonOneRoute: '/request-demo',
       buttonTwo: 'Learn more',
        buttonTwoRoute: '/transcript-services'
     },
@@ -87,9 +87,16 @@ export class CarouselComponent implements OnInit {
   onButtonClick(route: string) {
   if (route === '/login') {
     this.openLogin();
+  } else if (route === 'explainer') {
+    this.openExplainer() 
   } else {
-    this.router.navigate([route]);
+    this.router.navigate([route]); 
+
   }
+}
+
+openExplainer() {
+  document.getElementById('my-modal-4')?.click()
 }
 
 }

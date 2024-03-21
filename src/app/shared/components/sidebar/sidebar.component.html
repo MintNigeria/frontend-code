@@ -1,93 +1,3 @@
-<!-- <aside
-  *ngIf="user$ | async as user"
-  class="p-6 w-[20rem] relative bg-primaryBlue h-screen flex flex-col justify-between"
->
-  <div>
-    <img
-      class=" "
-      src="assets/images/main/logo.png"
-      class="w-fit pt-6 pb-8"
-      alt=""
-    />
-
-    <div class=" ">
-      <div
-        class="pb-4"
-        *ngFor="let link of menuLinks"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: false }"
-        #rla="routerLinkActive"
-        [ngClass]="
-          rla.isActive
-            ? 'bg-[#4086EF] rounded-xl py-3 px-2  text-bg-primaryBlue font-medium text-base font-inter'
-            : 'font-medium text-base text-[#EBF3FF] py-3 px-2'
-        "
-        [ngClass]="link.show ? 'block py-3 px-2 ' : 'hidden '" 
-      >
-        <div *ngIf="link.show" 
-        
-          class="relative flex items-center justify-between cursor-pointer text-[#EBF3FF]"
-          (click)="goToPath(link.path, link.hasChild)"
-        >
-          <div class="flex" *ngIf="link.show">
-            <span
-              ><img
-                [src]="rla.isActive ? link.active : link.inactive"
-                alt=""
-                class="mr-3"
-            /></span>
-            <a [routerLink]="link?.path">{{ link.title }}</a>
-          </div>
-          <span class="relative" *ngIf="link.hasChild === true">
-            <div class="dropdown dropdown-right dropdown-hover">
-              <svg
-                tabindex="0"
-                width="20"
-                height="21"
-                viewBox="0 0 20 21"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7.5 15.752L12.5 10.752L7.5 5.75195"
-                  stroke="#BDD5FA"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              <ul
-                tabindex="0"
-                class="main dropdown-content menu p-2 shadow bg-primaryBlue md:z-50 w-52"
-              >
-                <li *ngFor="let item of link?.childRoute">
-                  <a [routerLink]="item?.route">{{ item.name }}</a>
-                </li>
-              </ul>
-            </div>
-            
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="mt-5 flex items-center justify-between">
-    <div class="">
-      <p class="font-inter capitalize font-medium text-sm text-white">
-        {{ user?.firstName }} {{ user?.lastName }}
-      </p>
-      <p class="font-inter font-normal text-sm text-[#D7E7FE]">
-        {{ user?.email }}
-      </p>
-    </div>
-    <img (click)="openLogoutModal()"
-      src="assets/images/log-out.svg"
-      alt="logout icons"
-      class="cursor-pointer"
-    />
-  </div>
-</aside> -->
 
 <nav class="bg-primaryBlue md:block hidden">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 pb-4">
@@ -111,8 +21,8 @@
             rla.isActive
               ? ' text-white '
               : ' text-[#EBF3FF] '
-          " [routerLink]="link?.path">{{ link.title }} </a>
-            <div class="relative cursor-pointer" *ngIf="link.hasChild === true">
+          " [routerLink]="link?.path">{{ link?.title }} </a>
+            <div class="relative cursor-pointer" *ngIf="link?.hasChild === true">
               <div class="dropdown dropdown-bottom dropdown-end">
                 <svg tabindex="0" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5 7.5L10 12.5L15 7.5" stroke="#BDD5FA" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>

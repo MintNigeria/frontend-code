@@ -6,7 +6,7 @@ import { Store, select } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { downloadCSV, downloadCSVSuccess, downloadExcel, downloadExcelSuccess, invokeGetAllGraduates, invokeGetAllGraduatesSuccess } from 'src/app/store/graduates/action';
-import { getALlDepartmentInInstitution, getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess } from 'src/app/store/institution/action';
+import { getALlDepartmentInInstitution, getALlFacultiesInInstitution, getALlFacultiesInInstitutionSuccess, getInstitutionDataEncryptionDecryption, getInstitutionDataSource, getInstitutionDataSourceSuccess } from 'src/app/store/institution/action';
 import { departmentSelector } from 'src/app/store/institution/selector';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
@@ -43,6 +43,7 @@ export class RecordsComponent implements OnInit {
   institutionData: any;
   institutionId: any;
   pageIndex = 1;
+  pageSize: number = 10;
 filter = {
   keyword: '',
     filter: '',
@@ -63,6 +64,10 @@ filter = {
   deviceModel: string;
   ipAddress: any;
   extra: any;
+  superAdminRole: any;
+  adminUser: any;
+  permissionList: any;
+  configurationData: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -86,10 +91,19 @@ filter = {
     }
     const data: any = sessionStorage.getItem('extras')
     this.extra = JSON.parse(data)
+    const data2: any = localStorage.getItem('authData')
+    this.adminUser = JSON.parse(data2)
+    this.permissionList = this.adminUser?.permissions;
+ 
+    this.superAdminRole = this.adminUser.user.role.split('|')[0]
    }
 
   ngOnInit(): void {
     const data: any = localStorage.getItem('userData')
+    this.adminUser = JSON.parse(data)
+    // this.permissionList = this.adminUser?.permissions;
+
+    // this.superAdminRole = this.adminUser.user.role.split('|')[0]
     this.institutionData = JSON.parse(data)
     this.institutionId = this.institutionData.InstitutionId
     this.store.dispatch(invokeGetAllGraduates({institutionId: this.institutionId, payload: {...this.filter, ...this.extra}}))
@@ -107,6 +121,16 @@ filter = {
     .subscribe((term) => {
       this.search(term as string);
     });
+    this.store.dispatch(getInstitutionDataSource({ id: this.institutionId }));
+    this.actions$
+      .pipe(ofType(getInstitutionDataSourceSuccess))
+      .subscribe((res: any) => {
+        this.configurationData = res.payload;
+        if (this.configurationData.dataSource === 1) {
+          // this.selectedFileUploadType = 'api';
+
+        }
+      });
   }
 
   addFilter() {
@@ -198,7 +222,16 @@ filter = {
 
   getPage(currentPage: number) {
     const filter = {...this.filter, ['pageIndex'] : currentPage}
+    this.filter = filter
     this.store.dispatch(invokeGetAllGraduates({institutionId: this.institutionId, payload: filter}))
+  }
+  
+  selectRecordCount(event: any) {
+    this.pageSize = event.value
+    const filter = {...this.filter, ['pageSize'] : event.value}
+    this.filter = filter
+    this.store.dispatch(invokeGetAllGraduates({institutionId: this.institutionId, payload: filter}))
+
   }
 
 }

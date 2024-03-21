@@ -1,0 +1,113 @@
+<div class="lg:mx-44 p-3">
+    <div class="mb-8">
+        <div class="border-b-1.5 py-7">
+            <p class="font-inter font-semibold text-base text-uploadtxt">Select a configuration method</p>
+        </div>
+        <div class="grid gap-5">
+            <div class="flex gap-4 px-2 py-3 border border-solid rounded-md cursor-pointer"
+                *ngFor="let unit of uploadType"
+                [ngClass]="selectedFileUploadType === 'unit' ? 'border-[#BDD5FA] bg-[#F5F9FF] text-[#4086EF]' : 'border-[#EAECF0]'"
+                (click)="selecUploadType(unit)">
+                <div class="flex gap-4 justify-start items-start w-[92%]">
+                    <img src="assets/images/graduates/featured-icon.svg" alt="">
+                    <div>
+                        <div class=" text-[#344054]">
+                            {{unit.name | titlecase}}
+                        </div>
+
+                        <p *ngIf="selectedFileUploadType === unit.name">
+                            {{unit.description}}
+                        </p>
+
+
+                    </div>
+
+                </div>
+                <div>
+                    <input type="radio" name="certificateType" [value]="4"
+                        [checked]="selectedFileUploadType === unit.slug" class="form-radio h-6 w-6 text-primaryBlue" />
+                </div>
+
+
+            </div>
+            <div class="flex justify-end">
+                <app-button [overRideButtonClass]="true" (buttonClick)="saveConfig()"
+                    [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'">Save
+                </app-button>
+            </div>
+        </div>
+    </div>
+
+
+    <ng-container *ngIf="configurationData?.dataSource === 1">
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="font-inter font-semibold text-base text-uploadtxt">
+                        Set configuration credentials
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6 mt-6">
+                    <div class="w-full md:w-1/2 px-3  md:mb-0">
+                        <label for="institutionBody"
+                            class="text-failedNormal font-medium text-sm font-inter mb-[6px]">IV
+                            Key<span class="text-danger">*</span> </label>
+                        <app-input [formGrp]="apiConfigurationForm" formCtrlName="ivKey" [type]="'text'" [class]="
+                                'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                              " placeholder="Enter IV Key" [name]="'IV Key'"></app-input>
+                    </div>
+                    <div class="w-full md:w-1/2 px-3  md:mb-0">
+                        <label for="institutionBody"
+                            class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Secret
+                            Key<span class="text-danger">*</span> </label>
+
+                        <app-input [formGrp]="apiConfigurationForm" formCtrlName="secretKey" [type]="'text'" [class]="
+                              'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                            " placeholder="Enter secret key" [name]="'Secret Key'"></app-input>
+                    </div>
+                </div>
+
+                <div class="flex justify-end">
+                    <app-button [overRideButtonClass]="true" (buttonClick)="setEncryptAndDecryptData()"
+                        [disabled]="apiConfigurationForm.invalid"
+                        [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'">Save
+                    </app-button>
+                </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="font-inter font-semibold text-base text-uploadtxt">
+                        Set Query and Configuration Endpoints
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6 mt-6">
+                    <div class="w-full md:w-1/2 px-3  md:mb-0">
+                        <label for="institutionBody"
+                            class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Query Endpoint<span
+                                class="text-danger">*</span> </label>
+                        <app-input [formGrp]="endpointForm" formCtrlName="queryEndpoint" [type]="'text'" [class]="
+                                'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                              " placeholder="Enter Query Endpoint" [name]="'Query Endpoint'"></app-input>
+                    </div>
+                    <div class="w-full md:w-1/2 px-3  md:mb-0">
+                        <label for="institutionBody"
+                            class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Configuration
+                            Endpoint<span class="text-danger">*</span> </label>
+
+                        <app-input [formGrp]="endpointForm" formCtrlName="configurationEndpoint" [type]="'text'"
+                            [class]="
+                              'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                            " placeholder="Enter Configuration Endpoint" [name]="'Configuration Endpoint'"></app-input>
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <app-button [overRideButtonClass]="true" (buttonClick)="setEndpointData()"
+                        [disabled]="endpointForm.invalid"
+                        [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'">Save
+                    </app-button>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+    </ng-container>
+</div>

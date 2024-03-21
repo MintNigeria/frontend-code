@@ -10,7 +10,7 @@
               <div class="flex justify-between p-3 items-center gap-3">
                   <div>
                       <p class="font-nunito font-normal text-base text-failedNormal">Total Amount</p>
-                      <p class="text-discountBlue font-semibold text-2xl font-avenir">₦{{ applicationAmount | commaDelimiter}}</p>
+                      <p class="text-discountBlue font-semibold text-2xl font-avenir">₦{{ applicationAmount || retryApplicationAmount | commaDelimiter}}</p>
                   </div>
                   <div>
                       <img src="assets/images/icons/wallet.svg" alt="wallet_icon">
@@ -47,12 +47,12 @@
                           </div>
                       </div>
                       <div>
-                          <input type="radio" name="paymentMethod" id="creditCard" (click)="selectPaymentMethod('creditCard')">
+                          <input type="radio" class="form-radio h-5 w-5 text-primaryBlue" name="paymentMethod" id="creditCard" (click)="selectPaymentMethod('creditCard')">
                       </div>
                   </div> 
               </div>
           </div>
-          <div class="rounded-lg border border-[#F2F4F7] mt-3"  >
+          <!-- <div class="rounded-lg border border-[#F2F4F7] mt-3"  >
               <div class="bg-white rounded-lg">
                   <div class="flex justify-between p-3 items-center gap-3">
                       <div class="flex gap-2">
@@ -63,11 +63,11 @@
                           </div>
                       </div>
                       <div>
-                          <input type="radio" name="paymentMethod" id="wallet" (click)="selectPaymentMethod('wallet')">
+                          <input type="radio" class="form-radio h-5 w-5 text-primaryBlue" name="paymentMethod" id="wallet" (click)="selectPaymentMethod('wallet')">
                       </div>
                   </div> 
               </div>
-          </div>
+          </div> -->
       </div>
   </div>
   <!-- <div class="flex justify-end items-center gap-4 mt-6 mb-6 mr-8">
@@ -139,17 +139,34 @@
               Please select a merchant
           </h3>
 
-          <div class="grid grid-cols-3 mt-5 mb-10">
-            <div class="bg bg-lightBlue rounded-lg py-10 px-8 border shadow-lg " [ngClass]="selectedMerchant === 'Paystack' ? 'border-4 border-[#BDD5FA] bg-transparent text-[#4086EF]' : 'border-[#EAECF0]'">
+          <div class="grid grid-cols-3 gap-4 mt-5 mb-10">
+            <!-- <div class="bg bg-lightBlue rounded-lg py-10 px-8 border shadow-lg " [ngClass]="selectedMerchant === 'Paystack' ? 'border-4 border-[#BDD5FA] bg-transparent text-[#4086EF]' : 'border-[#EAECF0]'">
                 <div class="text-primaryBlue cursor-pointer" (click)="selectPaymentMerchant('Paystack')"> 
                     <div class="flex flex-col items-center">
                         <img src="assets/images/main/paystack.png">
                         <p class="font-medium font-inter pt-4">Paystack</p>
                     </div>
-            </div>
-              <div>&nbsp;</div>
-              <div>&nbsp;</div>
-          </div>
+                </div>
+               
+           </div> -->
+            <div class="bg bg-lightBlue rounded-lg py-10 px-8 border shadow-lg " [ngClass]="selectedMerchant === 'Flutterwave' ? 'border-4 border-[#BDD5FA] bg-transparent text-[#4086EF]' : 'border-[#EAECF0]'">
+                <div class="text-primaryBlue cursor-pointer" (click)="selectPaymentMerchant('Flutterwave')"> 
+                    <div class="flex flex-col items-center">
+                        <img src="assets/images/main/flutterwave.png">
+                        <p class="font-medium font-inter pt-4">Flutterwave</p>
+                    </div>
+                </div>
+               
+           </div>
+            <!-- <div class="bg bg-lightBlue rounded-lg py-10 px-8 border shadow-lg " [ngClass]="selectedMerchant === 'Interswitch' ? 'border-4 border-[#BDD5FA] bg-transparent text-[#4086EF]' : 'border-[#EAECF0]'">
+               
+                <div class="text-primaryBlue cursor-pointer" (click)="selectPaymentMerchant('Interswitch')"> 
+                    <div class="flex flex-col items-center">
+                        <img src="assets/images/main/interswitch.png">
+                        <p class="font-medium font-inter pt-4">Interswitch</p>
+                    </div>
+                </div>
+          </div> -->
          
 
         </div>
@@ -175,70 +192,6 @@
 </div>
 
 
-<app-modal [id]="otpModal">
-<div class="lg:rounded-xl p-6 bg-white hide-scrollbar modal-box">
-  <div>
-      <div class="grid grid-rows-2 justify-items-center">
-          <h3 class="font-inter font-medium text-2xl text-discountBlue">One Time Password</h3>
-          <p class="text-center lg:w-96 font-inter font-normal text-sm text-failedNormal">An OTP has been sent to adebim.....@gmail.com to authorize the transaction of 
-              <span class="font-bold text-discountBlue">N5,000</span>
-          </p>
-      </div>
-      <div class="flex items-center justify-center">
-          <div class="flex gap-3 mt-8 mb-4">
-              <input
-              class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
-              type="text"
-              maxLength="1"
-              (input)="onOtpChange(0, $event)"
-              />
-              <input
-              class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
-              type="text"
-              maxLength="1"
-              (input)="onOtpChange(1, $event)"
-              />
-              <input
-              class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
-              type="text"
-              maxLength="1"
-              (input)="onOtpChange(2, $event)"
-              />
-              <input
-              class="border rounded-lg p-2 text-center lg:w-20 lg:h-20 w-10 h-10 bg-white  border-grayWhite font-poppins font-semibold lg:text-4xl text-2xl text-discountBlue"
-              type="text"
-              maxLength="1"
-              (input)="onOtpChange(3, $event)"
-              />
-          </div>
-      </div>
-
-      <div class="text-center mt-4">
-          <p *ngIf="!timerExpired" class="text-[#2F4662] font-semibold text-base font-inter">Code would expire in 
-              <span class="bg-[#0EA5AE] bg-opacity-20 rounded text-danger font-inter font-semibold text-base">{{ timer }}</span>
-          </p>
-          <!-- <p *ngIf="timerExpired" class="text-[#2F4662]">OTP expired</p> -->
-      </div>
-
-      <div class="flex justify-center mt-16">
-          <button
-              class="bg-buttonBlue rounded-lg  hover:bg-buttonBlue text-white text-base font-medium font-inter py-2 px-4 w-56 disabled:opacity-50"
-              [disabled]="!otpEntered"
-              (click)="verifyOtp()"
-          >
-              Verify
-          </button>
-      </div>
-
-      <div class="flex justify-center mt-16">
-          <p class="text-center w-96 font-inter font-normal text-sm text-failedNormal">Didn't get the code?
-              <span class="font-medium text-discountBlue">Resend</span>
-          </p>
-      </div>
-
-  </div>
-</div>
-</app-modal>
 
 <app-modal [id]="successModal">
 <div class="lg:rounded-xl bg-white hide-scrollbar h-auto w-auto lg:p-2 p-6 modal-box">

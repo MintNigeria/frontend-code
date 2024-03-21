@@ -71,33 +71,33 @@ export class TwoFactorAuthenticationComponent implements OnInit {
   }
 
   openOtpModal(){
-    this.dialog.open(ActionConfirmationModalComponent, {
-      width: '',
-      height: '',
-      data: {
-        question: this.twoFactorEnabled ? 'Are you sure you want to activate 2FA?' : 'Are you sure you want to deactivate 2FA?',
-        title: 'Two Factor Authentication'
-      }
-    }).afterClosed().subscribe((res: any) => {
-      console.log(res)
-      if (res.continue === true) {
-
-       
-        const payload = {
-          enable2FA: this.twoFactorEnabled ,
-          code: ''
+      this.dialog.open(ActionConfirmationModalComponent, {
+        width: '',
+        height: '',
+        data: {
+          question: this.twoFactorEnabled ? 'Are you sure you want to activate 2FA?' : 'Are you sure you want to deactivate 2FA?',
+          title: 'Two Factor Authentication'
         }
+      }).afterClosed().subscribe((res: any) => {
+        console.log(res)
+        if (res.continue === true) {
+
         
-        this.store.dispatch(activateDeactivate2FA({payload}))
-        this.actions$.pipe(ofType(activateDeactivate2FASuccess)).subscribe((res: any) => {
-          if(res.message.hasErrors === false) {
-            this.timer(10)
-            // this.notification.publishMessages('success', res.message.description)
-            document.getElementById('otpModal')?.click();
+          const payload = {
+            enable2FA: this.twoFactorEnabled ,
+            code: ''
           }
-        })
-      } 
-    })
+          
+          this.store.dispatch(activateDeactivate2FA({payload}))
+          this.actions$.pipe(ofType(activateDeactivate2FASuccess)).subscribe((res: any) => {
+            if(res.message.hasErrors === false) {
+              this.timer(10)
+              // this.notification.publishMessages('success', res.message.description)
+              document.getElementById('otpModal')?.click();
+            }
+          })
+        } 
+      })
   }
 
   onOtpChange(event: any) {

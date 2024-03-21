@@ -17,6 +17,8 @@ import { StoreModule } from '@ngrx/store';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { InstitutionEffects } from 'src/app/store/institution/effects';
+import { BatchDetailsComponent } from './batch-details/batch-details.component';
+import { ViewFailedDataComponent } from './view-failed-data/view-failed-data.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { InstitutionEffects } from 'src/app/store/institution/effects';
     SuccessUploadsComponent,
     FailedUploadsComponent,
     UploadRecordsComponent,
-    ConfirmUploadsComponent
+    ConfirmUploadsComponent,
+    BatchDetailsComponent,
+    ViewFailedDataComponent
   ],
   imports: [
     CommonModule,

@@ -15,26 +15,46 @@ export class AdminUsersComponent implements OnInit {
 
   adminUser: any;
   superAdminRole: any;
-
+  alternativePermissions: any;
   constructor(
     private appStore: Store<AppStateInterface>,
 
-  ) { }
+  ) { 
+    const data: any = localStorage.getItem('authData')
+    this.adminUser = JSON.parse(data)
+    this.alternativePermissions = this.adminUser?.permissions
+    this.superAdminRole = this.adminUser?.user?.role.split('|')[0]
+
+    console.log(this.alternativePermissions)
+
+  }
   ngOnInit(): void {
     this.permissions()
-    this.users()
+    // this.users()
 
   }
 
   permissions() {
-    this.permission$.subscribe((res: any) => {
-      this.permissionList = res;  
-    })
+    const data: any = localStorage.getItem('authData')
+    this.adminUser = JSON.parse(data)
+    this.alternativePermissions = this.adminUser?.permissions
+    this.permissionList = this.alternativePermissions
+    // console.log(this.permissionList)
+
+    // this.permission$.subscribe((res: any) => {
+    //   if (res !== null) {
+    //     this.permissionList = res;
+    //   } else {
+    //     this.permissionList = this.alternativePermissions
+    //     // console.log(this.permissionList)
+    //   }
+    // })
   }
 
   users() {
     this.user$.subscribe((res: any) => {
       this.superAdminRole = res.role.split('|')[0]
+      console.log(this.superAdminRole)
 
     })
   }

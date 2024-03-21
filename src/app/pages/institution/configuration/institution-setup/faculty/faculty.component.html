@@ -12,7 +12,7 @@
                 <tr *ngFor="let data of facultyList">
                     <td class="font-inter font-medium text-base text-darkGray bg-white">{{data.name}}</td>
                     <td class="bg-white font-inter font-normal text-base text-lightGray">{{data.departmentCount}}</td>
-                    <td class="bg-white font-inter font-medium text-base text-primaryBlue" (click)="activateEditFaculty(data)">Edit</td>
+                    <td class="bg-white font-inter font-medium text-base text-primaryBlue cursor-pointer" (click)="activateEditFaculty(data)">Edit</td>
                 </tr>
             </tbody>
         </table>

@@ -11,7 +11,7 @@
                         [name]="'title'"
                         [Issuer]="'Enter Title'"
                         [type]="'text'"
-                        [class]="' bg-white w-full h-[52px] mt-2 border border-[#D0D5DD] rounded-md placeholder:text-sm placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
+                        [class]="'h-[52px] px-2 w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none  '">
                     </app-input>
                 </div>
                 <div class="px-7 py-3 grid grid-cols-3 items-center">
@@ -22,7 +22,7 @@
                         [name]="'Name'"
                         [Issuer]="'Enter Name'"
                         [type]="'text'"
-                        [class]="' bg-white w-full h-[52px] mt-2 border border-[#D0D5DD] rounded-md placeholder:text-sm placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
+                        [class]="'h-[52px] px-2 w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none  '">
                     </app-input>
                 </div>
                 <div class="px-7 py-3 grid grid-cols-3 items-center">
@@ -34,19 +34,19 @@
                         [name]="'Email'"
                         [Issuer]="'Enter Email Address'"
                         [type]="'text'"
-                        [class]="' bg-tableHeader w-full h-[52px] mt-2 border border-[#D0D5DD] rounded-md placeholder:text-sm placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
+                        [class]="'h-[52px] px-2 w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none '">
                     </app-input>
                 </div>
                 <div class="px-7 py-3 grid grid-cols-3 items-center">
                     <p class="font-inter font-medium text-sm text-darkGray">Phone Number</p>
-                    <app-input
+                    <app-input-number
                         [formGrp]="userForm"
                         formCtrlName="phoneNumber"
                         [name]="'Phone Number'"
-                        [Issuer]="'Enter Phone Number'"
+                        placeholder="Enter Phone Number"
                         [type]="'text'"
-                        [class]="' bg-white w-full h-[52px] mt-2 border border-[#D0D5DD] rounded-md placeholder:text-sm placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
-                    </app-input>
+                        [class]="'h-[52px] px-2 w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none  '">
+                    </app-input-number>
                 </div>
                 <div class="px-7 py-3 grid grid-cols-3 items-center">
                     <label for="faculty" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Faculty</label>
@@ -92,7 +92,7 @@
                         [name]="'address'"
                         [Issuer]="'Enter Address'"
                         [type]="'text'"
-                        [class]="' bg-white w-full h-[52px] mt-2 border border-[#D0D5DD] rounded-md placeholder:text-sm placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
+                        [class]="'h-[52px] px-2 w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none  '">
                     </app-input>
                 </div>
                 <div class="p-6">
@@ -115,7 +115,7 @@
                                 [name]="'staffID'"
                                 [Issuer]="'Enter Staff ID'"
                                 [type]="'text'"
-                                [class]="' bg-white w-full h-[52px] mt-2 border border-[#D0D5DD] rounded-md placeholder:text-sm placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
+                                [class]="'h-[52px] px-2 w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none  '">
                             </app-input>
                         </div>
                         <div class="grid grid-cols-3 items-center mt-6">
@@ -149,100 +149,120 @@
             <h3 class="py-2  border-b-1.5 rounded-t-xl px-6 font-sans font-medium text-lg text-darkGray bg-white">User</h3>
             <div class="border-b-1.5">
                 <div class="px-7 py-3 grid grid-cols-3 items-center">
-                    <p class="font-inter font-medium text-sm text-darkGray">Title</p>
+                    <p class="font-inter font-medium text-sm text-darkGray">Title <span class="text-danger">*</span> </p>
                     <app-input
                         [formGrp]="userForm"
                         formCtrlName="title"
-                        [name]="'title'"
+                        [name]="'Title'"
                         [Issuer]="'Enter Title'"
                         [type]="'text'"
-                        [class]="' bg-white w-full h-[52px] mt-2 border border-[#D0D5DD] rounded-md placeholder:text-sm placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
+                        [class]="'h-[52px] px-2 w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none '">
                     </app-input>
                 </div>
                 <div class="px-7 py-3 grid grid-cols-3 items-center">
-                    <p class="font-inter font-medium text-sm text-darkGray">Name</p>
+                    <p class="font-inter font-medium text-sm text-darkGray">Name <span class="text-danger">*</span></p>
                     <app-input
                         [formGrp]="userForm"
                         formCtrlName="fullName"
-                        [name]="'lastName'"
-                        [Issuer]="'Enter Name'"
+                        [name]="'Name'"
+                        [Issuer]="'Enter full name'"
                         [type]="'text'"
-                        [class]="' bg-white w-full h-[52px] mt-2 border border-[#D0D5DD] rounded-md placeholder:text-sm placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
+                        [class]="'h-[52px] px-2 w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none '">
                     </app-input>
                 </div>
                 <div class="px-7 py-3 grid grid-cols-3 items-center">
-                    <p class="font-inter font-medium text-sm text-darkGray">Email Address</p>
+                    <p class="font-inter font-medium text-sm text-darkGray">Email Address <span class="text-danger">*</span></p>
                     <app-input
                         [formGrp]="userForm"
                         formCtrlName="emailAddress"
-                        [name]="'email'"
+                        [name]="'Email'"
                         [Issuer]="'Enter Email Address'"
                         [type]="'text'"
-                        [class]="' bg-tableHeader w-full h-[52px] mt-2 border border-[#D0D5DD] rounded-md placeholder:text-sm placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
+                        [class]="'h-[52px] px-2 w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none '">
                     </app-input>
                 </div>
                 <div class="px-7 py-3 grid grid-cols-3 items-center">
-                    <p class="font-inter font-medium text-sm text-darkGray">Phone Number</p>
+                    <p class="font-inter font-medium text-sm text-darkGray">Phone Number<span class="text-danger">*</span></p>
                     <app-input
                         [formGrp]="userForm"
                         formCtrlName="phoneNumber"
-                        [name]="'phone'"
+                        [name]="'Phone Number'"
                         [Issuer]="'Enter Phone Number'"
                         [type]="'text'"
-                        [class]="' bg-white w-full h-[52px] mt-2 border border-[#D0D5DD] rounded-md placeholder:text-sm placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
+                        [class]="'h-[52px] px-2 w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none '">
                     </app-input>
                 </div>
                 <div class="px-7 py-3 grid grid-cols-3 items-center">
-                    <label for="faculty" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Faculty</label>
-                    <ng-select class="custom-ng-dropdown" (change)="changeFaculty($event)"  [selectOnTab]="true"
-                    placeholder="Select faculty">
-                    <ng-option *ngFor="let unit of facultyList" [value]="unit?.id">{{unit?.name}}</ng-option>
-                  </ng-select>
+                    <label for="faculty" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Faculty<span class="text-danger">*</span></label>
+                    <div>
+                        <ng-select class="custom-ng-dropdown" (change)="changeFaculty($event)"  [selectOnTab]="true"
+                        placeholder="Select faculty">
+                        <ng-option *ngFor="let unit of facultyList" [value]="unit?.id">{{unit?.name}}</ng-option>
+                                          </ng-select>
+                                          <small class="text-red-500" *ngIf="userForm.controls['faculty'].touched && userForm.controls['faculty'].invalid">
+                                           Faculty is required
+                                          </small>
+                    </div>
                 </div>
                 <div class="px-7 py-3 grid grid-cols-3 items-center">
-                    <label for="department" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Department</label>
+                    <label for="department" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Department<span class="text-danger">*</span></label>
         
-                  <ng-select class="custom-ng-dropdown"  formControlName="department" [selectOnTab]="true"
-                                    placeholder="Select department">
-                                    <ng-option *ngFor="let unit of departmentList" [value]="unit?.departmentName">{{unit?.departmentName}}</ng-option>
-                                  </ng-select>
+                  <div>
+                      <ng-select class="custom-ng-dropdown"  formControlName="department" [selectOnTab]="true"
+                                        placeholder="Select department">
+                                        <ng-option *ngFor="let unit of departmentList" [value]="unit?.departmentName">{{unit?.departmentName}}</ng-option>
+                                      </ng-select>
+                                      <small class="text-red-500" *ngIf="userForm.controls['department'].touched && userForm.controls['department'].invalid">
+                                        Department is required
+                                       </small>
+                  </div>
                 </div>
                 <div class="px-7 py-3 grid grid-cols-3 items-center" *ngIf="stateLGA$ | async as states">
-                    <label for="faculty" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">State</label>
-                    <ng-select class="custom-ng-dropdown"
-                    formControlName="stateOfResidence"
-                    [selectOnTab]="true"
-                    placeholder="Select State"
-                    (change)="selectLocalGovt($event)"
-                    >
-                <ng-option *ngFor="let state of states" [value]="state.id">{{state.name}}</ng-option>
-                </ng-select>
+                    <label for="faculty" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">State<span class="text-danger">*</span></label>
+                    <div>
+                        <ng-select class="custom-ng-dropdown"
+                        formControlName="stateOfResidence"
+                        [selectOnTab]="true"
+                        placeholder="Select State"
+                        (change)="selectLocalGovt($event)"
+                        >
+                                        <ng-option *ngFor="let state of states" [value]="state.id">{{state.name}}</ng-option>
+                                        </ng-select>
+                                        <small class="text-red-500" *ngIf="userForm.controls['stateOfResidence'].touched && userForm.controls['stateOfResidence'].invalid">
+                                            State of residence is required
+                                           </small>
+                    </div>
                 </div>
                 <div class="px-7 py-3 grid grid-cols-3 items-center" *ngIf="stateLGA$ | async as states">
-                    <label for="faculty" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Local Government</label>
-                    <ng-select class="custom-ng-dropdown" 
-            formControlName="localGovernment" 
-            [selectOnTab]="true" 
-            placeholder="Select LGA"
-            >
-        <ng-option *ngFor="let lga of lga" [value]="lga.name">{{lga.name}}</ng-option>
-        </ng-select>
+                    <label for="faculty" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Local Government<span class="text-danger">*</span></label>
+                    <div>
+                        <ng-select class="custom-ng-dropdown" 
+                                    formControlName="localGovernment" 
+                                    [selectOnTab]="true" 
+                                    placeholder="Select LGA"
+                                    >
+                                <ng-option *ngFor="let lga of lga" [value]="lga.name">{{lga.name}}</ng-option>
+                                </ng-select>
+                                <small class="text-red-500" *ngIf="userForm.controls['localGovernment'].touched && userForm.controls['localGovernment'].invalid">
+                                    LGA is required
+                                   </small>
+                    </div>
                 </div>
                 <div class="px-7 py-3 grid grid-cols-3 items-center">
-                    <p class="font-inter font-medium text-sm text-darkGray">Address</p>
+                    <p class="font-inter font-medium text-sm text-darkGray">Address<span class="text-danger">*</span></p>
                     <app-input
                         [formGrp]="userForm"
                         formCtrlName="address"
                         [name]="'address'"
                         [Issuer]="'Enter Address'"
                         [type]="'text'"
-                        [class]="' bg-white w-full h-[52px] mt-2 border border-[#D0D5DD] rounded-md placeholder:text-sm placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
+                        [class]="'h-[52px] px-2 w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none '">
                     </app-input>
                 </div>
                 <div class="p-6">
                     <div class="py-3 border-t-1.5 border-b-1.5 ">
                         <div class="grid grid-cols-3 items-center mt-4">
-                            <label for="faculty" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Role</label>
+                            <label for="faculty" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Role<span class="text-danger">*</span></label>
                             <ng-select class="custom-ng-dropdown" 
             formControlName="roleId" 
             [selectOnTab]="true" 
@@ -251,15 +271,15 @@
         <ng-option *ngFor="let role of roles" [value]="role.id">{{role.name}}</ng-option>
         </ng-select>
                         </div>
-                        <div class="grid grid-cols-3 items-center mt-4">
-                            <p class="font-inter font-medium text-sm text-darkGray">Staff ID</p>
+                        <div class="grid grid-cols-3  items-center mt-5">
+                            <p class="font-inter font-medium text-sm text-darkGray">Staff ID<span class="text-danger">*</span></p>
                             <app-input
                                 [formGrp]="userForm"
                                 formCtrlName="staffIdNumber"
                                 [name]="'staffID'"
                                 [Issuer]="'Enter Staff ID'"
                                 [type]="'text'"
-                                [class]="' bg-white w-full h-[52px] mt-2 border border-[#D0D5DD] rounded-md placeholder:text-sm placeholder:font-inter placeholder:font-medium placeholder:text-lightGray placeholder:p-2'">
+                                [class]="' h-[52px] px-2 w-full text-black bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none '">
                             </app-input>
                         </div>
                         <!-- <div class="grid grid-cols-3 items-center mt-6">
@@ -281,7 +301,7 @@
                 <app-button
                     (buttonClick)="createNewUser()"
                     [overRideButtonClass]="true"
-                    [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-buttonBlue p-2 mt-6'">Create
+                    [customClass]="'w-20 h-10 rounded-lg font-normal text-base text-white leading-6 bg-primaryBlue p-2 mt-6'">Create
                 </app-button>
             </div>
         </div>

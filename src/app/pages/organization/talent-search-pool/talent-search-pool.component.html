@@ -62,7 +62,7 @@
                                   </ul>
                             </div>
                         </div>
-
+<!-- 
                         <div class="lg:justify-between gap-4">
                             <p class="text-failedNormal font-inter text-sm font-medium cursor-pointer mb-2">
                                 Institution
@@ -72,14 +72,7 @@
             <ng-option  *ngFor="let unit of institutionList; let i = index" [value]="unit">{{unit?.institutionName}}</ng-option>
           </ng-select>
                             <div class="dropdown dropdown-bottom">
-                                <!-- <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
-                                <p class="my-0 text-black font-inter font-medium text-sm">{{ selectedInstitution }}</p>
-                                <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
-                                </label> -->
-                                <!-- <ul tabindex="0" class="dropdown-content h-64 overflow-y-scroll menu p-2 shadow bg-white text-black rounded-box w-56">
-                                    <li><a (click)="selectedInstitution='All'">All</a></li>
-                                    <li *ngFor="let unit of institutionList"> <a  (click)="changeInstitution(unit.institutionName, unit.id)">{{unit?.institutionName}}</a></li>
-                                </ul> -->
+                                
                             </div>
                         </div>
 
@@ -91,17 +84,7 @@
                 [placeholder]="selectedFaculty">
                 <ng-option  *ngFor="let unit of facultyList; let i = index" [value]="unit.name">{{unit?.name}}</ng-option>
               </ng-select>
-                            <!-- <div class="dropdown dropdown-bottom">
-                                <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
-                                <p class="my-0 text-black font-inter font-medium text-sm">{{ selectedSector }}</p>
-                                <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
-                                </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-56">
-                                    <li><a (click)="selectedFaculty='All'">All</a></li>
-                                    <li *ngFor="let unit of facultyList"> <a  (click)="changeFaculty(unit.name)">{{unit?.name}}</a></li>
-
-                                </ul>
-                            </div> -->
+                           
                         </div>
 
                         <div class="lg:justify-between gap-4">
@@ -112,18 +95,8 @@
                 [placeholder]="selectedSector" (change)="changeDegree($event)">
                 <ng-option  *ngFor="let unit of degreeType; let i = index" [value]="unit.name">{{unit?.name}}</ng-option>
               </ng-select>
-                            <!-- <div class="dropdown dropdown-bottom">
-                                <label tabindex="0" class="flex justify-between items-center bg-white rounded-[10px] border border-inputBg lg:w-40 h-10 w-32  py-4 px-3 cursor-pointer">
-                                <p class="my-0 text-black font-inter font-medium text-sm">{{ selectedSector }}</p>
-                                <img src="assets/images/icons/downward_arrow.svg" alt="downward_arrow">
-                                </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-56">
-                                    <li><a (click)="selectedSector='All'">All</a></li>
-                                    <li *ngFor="let unit of degreeType"> <a  (click)="changeDegree(unit.name)">{{unit?.name}}</a></li>
-
-                                </ul>
-                            </div> -->
-                        </div>
+                           
+                        </div> -->
 
                         <div class="flex items-center ">
                             <button type="button" class="bg-[#4086EF] text-white font-medium font-inter text-xs w-[80px] h-[40px] rounded-xl" (click)="addFilter()">Generate</button>
@@ -167,29 +140,26 @@
                     <table class="table w-full">
                         <thead>
                             <tr>
-                                <th class="flex gap-1 text-xs text-lightGray font-medium font-inter bg-tableHeader ">Batch ID
+                                <th class="flex gap-1 text-xs text-lightGray font-medium font-inter bg-tableHeader ">Batch ID / Date
                                 </th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Institution Name</th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Faculty</th>
-                                <th class="flex gap-1 text-xs text-lightGray font-medium font-inter bg-tableHeader ">Department
-                                </th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Degree Type</th>
-                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Counts</th>
+                                <!-- <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Institution Name</th> -->
+                                <!-- <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader  ">Class of Degree</th> -->
+                                <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Record Counts</th>
                                 <th class="text-xs text-lightGray font-medium font-inter bg-tableHeader ">Action</th>
                             </tr>
                         </thead>
 
-                        <tbody class="">
-                            <tr *ngFor="let data of poolList | paginate: { itemsPerPage: filter.pageSize, currentPage: filter.pageIndex, totalItems: total }" class=" ">
+                        <tbody class="" *ngIf="poolList?.length !== 0">
+                            <tr *ngFor="let data of poolList | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: total }" class=" ">
                             
                                 
                                 <td class="bg-white">
                                     <div class="items-center">
                                         <div>
                                             <div>
-                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">{{data.searchPoolBatchId}}</p>
+                                                <p class="my-0 text-base cursor-pointer font-inter font-medium text-darkGray ">{{data.batchIdNumber}}</p>
                                                 <p class="text-xs font-normal font-inter my-0 text-lightGray">
-                                                {{data.createdOn | date}}
+                                                {{data.createdOn | date: 'medium'}}
                                                 </p>
 
                                             </div>
@@ -197,31 +167,19 @@
 
                                     </div>
                                 </td>
-                                <td class="bg-white">
+                                <!-- <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.institutionName}}</p>  
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.institutions}}</p>  
                                     </div>
                                 </td>
                                 
                                 <td class="bg-white">
                                     <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.faculty}}</p>  
+                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.classesOfDegree}}</p>  
                                     </div>
-                                </td>
+                                </td> -->
 
-                                <td class="bg-white">
-                                    <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.department}}</p>
-                                        
-                                    </div>
-                                </td>
-                                <td class="bg-white">
-                                    <div>
-                                        <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.degree}}</p>
-                                      
-                                    </div>
-
-                                </td>
+                               
                                 <td class="bg-white">
                                     <div>
                                         <p class="my-0 text-base cursor-pointer font-inter font-normal text-lightGray ">{{data.count}}</p>
@@ -240,19 +198,29 @@
                                 </td>
                             </tr>
                         </tbody>
+
                     </table>
-
-
+                    
+                    
                 </div>
+                <app-request-empty-state
+                *ngIf="poolList?.length < 1"
+                [dataStatus]="'No record found'"
+                ></app-request-empty-state>
             </div>
 
             <!---->
 
             <!--Pagination-->
-            <div class="flex items-center justify-end mt-10">
-                <!-- <p class="text-xs md:text-sm text-[#4E4B66] opacity-50">
-                        Showing 1 to 7 of {{ transactionList.length }} entries
-                    </p> -->
+            <div class="flex items-center justify-between mt-10" *ngIf="poolList?.length !== 0">
+                <select class=" text-black select max-w-xs bg-white" (change)="selectRecordCount($event.target)">
+                    <option disabled selected>Per page</option>
+                    <option value="10">10</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="150">150</option>
+                    <option value="200">200</option>
+                  </select>
                 <div class="flex item gap-3">
                   <pagination-controls  [responsive]="true"  (pageChange)="getPage(pageIndex = $event)" previousLabel="Prev" nextLabel="Next">
                   </pagination-controls>

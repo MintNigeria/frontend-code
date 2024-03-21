@@ -1,14 +1,15 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 
 import * as storage from '../storage';
-import { contactHelpDeskSuccess, contactUsSuccess, invokeGetStateAndLGASuccess } from './action';
+import { contactHelpDeskSuccess, contactUsSuccess, invokeGetStateAndLGASuccess, requestForDemoSuccess } from './action';
 import { IUtilityStateInterface } from './types/index.type';
 
 
 const initialState: IUtilityStateInterface = {
   getStateAndLGA: {data: []},
   contact: null,
-  helpDesk: null
+  helpDesk: null,
+  requestDemo: null
 
 };
 
@@ -30,6 +31,12 @@ export const utilityReducers = createReducer(
     return {
       ...state,
       helpDesk: payload,
+    };
+  }),
+  on(requestForDemoSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      requestDemo: payload,
     };
   }),
   

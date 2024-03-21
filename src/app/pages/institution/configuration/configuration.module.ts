@@ -26,7 +26,9 @@ import { CreateFacultyComponent } from './create-faculty/create-faculty.componen
 import { InstitutionIndexComponent } from './institution-setup/institution-index/institution-index.component';
 import { InstitutionGradeComponent } from './institution-setup/institution-grade/institution-grade.component';
 import { CreateGradeComponent } from './create-grade/create-grade.component';
-
+import { ApiConfigurationComponent } from './api-configuration/api-configuration.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { BankAccountSetupComponent } from './bank-account-setup/bank-account-setup.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { CreateGradeComponent } from './create-grade/create-grade.component';
     CreateFacultyComponent,
     InstitutionIndexComponent,
     InstitutionGradeComponent,
-    CreateGradeComponent
+    CreateGradeComponent,
+    ApiConfigurationComponent,
+    BankAccountSetupComponent,
   ],
   imports: [
     CommonModule,
@@ -54,10 +58,9 @@ import { CreateGradeComponent } from './create-grade/create-grade.component';
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
+    MatExpansionModule,
     StoreModule.forFeature('configuration', configurationReducer),
     EffectsModule.forFeature([ConfigurationEffects, InstitutionEffects]),
-
-
-  ]
+  ],
 })
-export class ConfigurationModule { }
+export class ConfigurationModule {}

@@ -10,6 +10,7 @@ import { CreateAccountModalComponent } from '../modals/create-account-modal/crea
 })
 export class FooterComponent implements OnInit {
 
+  currentYear = new Date().getFullYear();
   constructor(
     private dialog: MatDialog,
   ) { }
@@ -18,9 +19,9 @@ export class FooterComponent implements OnInit {
   }
 
   openLogin() {
-    const dialogRef = this.dialog.open(CreateAccountModalComponent, {
-      width: '700px'
-    });
+    // const dialogRef = this.dialog.open(CreateAccountModalComponent, {
+    //   width: '700px'
+    // });
   }
 
 }

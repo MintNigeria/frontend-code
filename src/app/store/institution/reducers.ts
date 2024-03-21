@@ -15,18 +15,25 @@ import {
   getAllInstitutionGradeSuccess,
   getAllInstitutionRecordsSuccess,
   getAllInstitutionsDropdownSuccess,
+  getAllInstitutionsRecordsAllNamesSuccess,
   getAllInstitutionTypeLinkedToBodySuccess,
   getAllInstitutionUsersSuccess,
   getDegreeTypeWithInstitutionNameSuccess,
   getFacultyAndDepartmentByInstitutionNameSuccess,
   getInstitutionBodySuccess,
   getInstitutionConfigurationSuccess,
+  getInstitutionDataEncryptionDecryptionSuccess,
+  getInstitutionDataSourceSuccess,
+  getInstitutionEndpointSuccess,
   getInstitutionSectorSuccess,
   getInstitutionTransactionTypeFilterSuccess,
   getInstitutionTypeSuccess,
   getInstitutionUserInfoSuccess,
   invokeGetInstitutionsSuccess,
   invokeGetInstitutionSuccess,
+  setInstitutionDataEncryptionDecryptionSuccess,
+  setInstitutionDataSourceSuccess,
+  setInstitutionEndpointSuccess,
   updateDegreeTypeInInstitutionSuccess,
   updateDepartmentInInstitutionSuccess,
   updatedInstitutionSuccess,
@@ -53,6 +60,7 @@ const initialState: IInstitutionStateInterface = {
   institutionFaculty: null,
   institutionDepartment: null,
   institutionRecord: null,
+  institutionRecordNames: null,
   institutionDegreeType: null,
   institutiongrade: null,
   newDegreeType: null,
@@ -68,6 +76,12 @@ const initialState: IInstitutionStateInterface = {
   dropdown: null,
   degreeTypeByName: null,
   transactionTypeFilter: null,
+  getDataSource: null,
+  setDataSource: null,
+  getDataEncryptionDecryption: null,
+  setDataEncryptionDecryption: null,
+  setEndpoint: null,
+  getEndpoint: null,
 };
 
 export const institutionReducers = createReducer(
@@ -97,189 +111,234 @@ export const institutionReducers = createReducer(
     };
   }),
 
-
-
   on(getInstitutionTypeSuccess, (state, { payload }) => {
     return {
       ...state,
-      institutionType: payload
+      institutionType: payload,
     };
   }),
-
 
   on(getAllInstitutionTypeLinkedToBodySuccess, (state, { payload }) => {
     return {
       ...state,
-      institutionType: payload
+      institutionType: payload,
     };
   }),
 
   on(getInstitutionSectorSuccess, (state, { payload }) => {
     return {
       ...state,
-      institutionSector: payload
+      institutionSector: payload,
     };
   }),
 
   on(getInstitutionBodySuccess, (state, { payload }) => {
     return {
       ...state,
-      institutionBody: payload
+      institutionBody: payload,
     };
   }),
 
   on(createNewInstitutionSuccess, (state, { payload }) => {
     return {
       ...state,
-      institutionRegistration: payload
+      institutionRegistration: payload,
     };
   }),
 
   on(updatedInstitutionSuccess, (state, { payload }) => {
     return {
       ...state,
-      updateRegistration: payload
+      updateRegistration: payload,
     };
   }),
 
   on(ValidateRegistrationCodeSuccess, (state, { payload }) => {
     return {
       ...state,
-      otpVerification: payload
+      otpVerification: payload,
     };
   }),
 
   on(getInstitutionConfigurationSuccess, (state, { payload }) => {
     return {
       ...state,
-      otpVerification: payload
+      otpVerification: payload,
     };
   }),
 
   on(getInstitutionUserInfoSuccess, (state, { payload }) => {
     return {
       ...state,
-      userInfo: payload
+      userInfo: payload,
     };
   }),
 
   on(getALlDepartmentInInstitutionSuccess, (state, { payload }) => {
     return {
       ...state,
-      institutionDepartment: payload
+      institutionDepartment: payload,
     };
   }),
 
   on(getALlFacultiesInInstitutionSuccess, (state, { payload }) => {
     return {
       ...state,
-      institutionFaculty: payload
+      institutionFaculty: payload,
     };
   }),
 
   on(getAllInstitutionRecordsSuccess, (state, { payload }) => {
     return {
       ...state,
-      institutionRecord: payload
+      institutionRecord: payload,
     };
   }),
-  
+
+  on(getAllInstitutionsRecordsAllNamesSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      institutionRecordNames: payload,
+    };
+  }),
+
   on(getAllInstitutionDegreeTypeSuccess, (state, { payload }) => {
     return {
       ...state,
-      institutionDegreeType: payload
+      institutionDegreeType: payload,
     };
   }),
-  
+
   on(createDegreeTypeInInstitutionSuccess, (state, { payload }) => {
     return {
       ...state,
-      newDegreeType: payload
+      newDegreeType: payload,
     };
   }),
 
   on(updateDegreeTypeInInstitutionSuccess, (state, { payload }) => {
     return {
       ...state,
-      updateDegreeType: payload
+      updateDegreeType: payload,
     };
   }),
-  
+
   on(getAllInstitutionGradeSuccess, (state, { payload }) => {
     return {
       ...state,
-      institutiongrade: payload
+      institutiongrade: payload,
     };
   }),
-  
+
   on(createGradeInInstitutionSuccess, (state, { payload }) => {
     return {
       ...state,
-      newgrade: payload
+      newgrade: payload,
     };
   }),
 
   on(updateGradeInInstitutionSuccess, (state, { payload }) => {
     return {
       ...state,
-      updategrade: payload
-    };
-  }),
-  
-  on(createDepartmentInInstitutionSuccess, (state, { payload }) => {
-    return {
-      ...state,
-      newDepartment: payload
-    };
-  }),
-  
-  on(updateDepartmentInInstitutionSuccess, (state, { payload }) => {
-    return {
-      ...state,
-      updateDepartment: payload
-    };
-  }),
-  
-  on(createFacultyInInstitutionSuccess, (state, { payload }) => {
-    return {
-      ...state,
-      newFaculty: payload
-    };
-  }),
-  
-  on(updateFacultyInInstitutionSuccess, (state, { payload }) => {
-    return {
-      ...state,
-      updateFaculty: payload
-    };
-  }),
-  
-  on(getFacultyAndDepartmentByInstitutionNameSuccess, (state, { payload }) => {
-    return {
-      ...state,
-      faultyAndDepartmentName : payload
-    };
-  }),
-  
-  on(getAllInstitutionsDropdownSuccess, (state, { payload }) => {
-    return {
-      ...state,
-      dropdown : payload
-    };
-  }),
-  
-  on(getDegreeTypeWithInstitutionNameSuccess, (state, { payload }) => {
-    return {
-      ...state,
-      degreeTypeByName : payload
-    };
-  }),
-  
-  on(getInstitutionTransactionTypeFilterSuccess, (state, { payload }) => {
-    return {
-      ...state,
-      transactionTypeFilter : payload
+      updategrade: payload,
     };
   }),
 
+  on(createDepartmentInInstitutionSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      newDepartment: payload,
+    };
+  }),
+
+  on(updateDepartmentInInstitutionSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      updateDepartment: payload,
+    };
+  }),
+
+  on(createFacultyInInstitutionSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      newFaculty: payload,
+    };
+  }),
+
+  on(updateFacultyInInstitutionSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      updateFaculty: payload,
+    };
+  }),
+
+  on(getFacultyAndDepartmentByInstitutionNameSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      faultyAndDepartmentName: payload,
+    };
+  }),
+
+  on(getAllInstitutionsDropdownSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      dropdown: payload,
+    };
+  }),
+
+  on(getDegreeTypeWithInstitutionNameSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      degreeTypeByName: payload,
+    };
+  }),
+
+  on(getInstitutionTransactionTypeFilterSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      transactionTypeFilter: payload,
+    };
+  }),
+
+  on(getInstitutionDataSourceSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      getDataSource: payload,
+    };
+  }),
+
+  on(setInstitutionDataSourceSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      setDataSource: payload,
+    };
+  }),
+
+  on(getInstitutionDataEncryptionDecryptionSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      getDataEncryptionDecryption: payload,
+    };
+  }),
+
+  on(setInstitutionDataEncryptionDecryptionSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      setDataEncryptionDecryption: payload,
+    };
+  }),
+
+  on(getInstitutionEndpointSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      getEndpoint: payload,
+    };
+  }),
+
+  on(setInstitutionEndpointSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      setEndpoint: payload,
+    };
+  })
 );

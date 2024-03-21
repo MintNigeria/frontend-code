@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { approveRejectPendingGraduateSuccess, createGraduateApplicationSuccess, createGraduateRecordSuccess, deleteHubItemSuccess, downloadCSVSuccess, downloadExcelSuccess, downloadRecordUploadFormatSuccess, exportGraduateApplicationAsExcelSuccess, exportGraduateApplicationCSVSuccess, exportGraduateVerificationAsExcel, exportGraduateVerificationAsExcelSuccess, exportGraduateVerificationCSVSuccess, fundGraduateWalletSuccess, getActiveDeliveryOptionsSuccess, getAllGraduateRequestForGradauteSuccess, getAllHubItemSuccess, getAllInstitutionUploadSuccess, getGraduateCertificateVerificationDetailSuccess, getGraduateCertificateVerificationsSuccess, getGraduateInstitutionsSuccess, getGraduateProfileSuccess, getGraduateTransactionHistorySuccess, getGraduateWalletIdSuccess, getMyInstitutionNotifiedSuccess, getMyInstitutionsNotifiedStatusSuccess, graduateDocumentTypeFilterSuccess, graduateTransactionTypeFilterSuccess, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, notifyMyInstitutionSuccess, registerNewGraduateSuccess, searchGraduateRecordsSuccess, submitGraduateVerificationRequestSuccess, submitVerificationReasonForRequestSuccess, updateGraduateInstitutionsSuccess, updateGraduateProfileSuccess, uploadGraduateRecordSuccess, uploadHubItemSuccess, validateGraduateRegistrationSuccess } from './action';
+import { approveRejectPendingGraduateSuccess, createGraduateApplicationSuccess, createGraduateRecordSuccess, deleteHubItemSuccess, downloadCSVSuccess, downloadExcelSuccess, downloadRecordUploadFormatSuccess, downloadTalentSearchReportCSVSuccess, downloadTalentSearchReportExcelSuccess, exportGraduateApplicationAsExcelSuccess, exportGraduateApplicationCSVSuccess, exportGraduateVerificationAsExcel, exportGraduateVerificationAsExcelSuccess, exportGraduateVerificationCSVSuccess, fundGraduateWalletSuccess, getActiveDeliveryOptionsSuccess, getAllGraduateRequestForGradauteSuccess, getAllHubItemSuccess, getAllInstitutionUploadSuccess, getGraduateCertificateVerificationDetailSuccess, getGraduateCertificateVerificationsSuccess, getGraduateInstitutionsSuccess, getGraduateProfileSuccess, getGraduateTransactionHistorySuccess, getGraduateWalletIdSuccess, getMyInstitutionNotifiedSuccess, getMyInstitutionsNotifiedStatusSuccess, getRecordsInABatchSuccess, graduateDocumentTypeFilterSuccess, graduateTransactionTypeFilterSuccess, invokeGetAllGraduatesSuccess, invokeGetAllPendingGraduatesSuccess, invokeGetGraduateDetails, invokeGetGraduateDetailsSuccess, notifyMyInstitutionSuccess, registerNewGraduateSuccess, retryApplicationVarificationPaymentSuccess, searchGraduateRecordsSuccess, submitGraduateVerificationRequestSuccess, submitVerificationReasonForRequestSuccess, updateGraduateInstitutionsSuccess, updateGraduateProfileSuccess, uploadBulkGraduateRecordSuccess, uploadGraduateRecordSuccess, uploadHubItemSuccess, validateGraduateRegistrationSuccess } from './action';
 import {GraduatesStateInterface} from './types/index.type';
 import { exportTransactionCSVSuccess, exportTransactionExcelSuccess } from '../reporting/action';
 
@@ -33,6 +33,8 @@ const initialState: GraduatesStateInterface  = {
   recorduploads: null,
   graduateRecord: null,
   graduateRecordUploadFormat: null,
+  graduateBulkRecordUploadFormat: null,
+  recordsInABatch: null,
   uploadRecord: null,
   createGraduaterecord: null,
   graduateRequestRecord: null,
@@ -57,6 +59,7 @@ const initialState: GraduatesStateInterface  = {
   searchRecord: null,
   transactionType: null,
   documentType: null,
+  retryPayment: null,
   submitverificationRequest: null,
   submitVerificationRequest: null,
   exportApplicationExcel: null,
@@ -65,6 +68,8 @@ const initialState: GraduatesStateInterface  = {
   exportVerificationCSV: null,
   exportTransactionExcel: null,
   exportTransactionCSV: null,
+  exportTalentSearchReportExcel: null,
+  exportTalentSearchReportCSV: null,
   activeDeliveryoptions: null,
   createGraduateApplication: null,
 };
@@ -108,6 +113,18 @@ export const graduatesReducer = createReducer(
       downloadFile: payload
     };
   }),
+  on(downloadTalentSearchReportExcelSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      exportTalentSearchReportExcel: payload
+    };
+  }),
+  on(downloadTalentSearchReportCSVSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      exportTalentSearchReportCSV: payload
+    };
+  }),
   on(getAllInstitutionUploadSuccess, (state, { payload }) => {
     return {
       ...state,
@@ -124,6 +141,18 @@ export const graduatesReducer = createReducer(
     return {
       ...state,
       graduateRecordUploadFormat: payload
+    };
+  }),
+  on(uploadBulkGraduateRecordSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      graduateBulkRecordUploadFormat: payload
+    };
+  }),
+  on(getRecordsInABatchSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      recordsInABatch: payload
     };
   }),
   on(createGraduateRecordSuccess, (state, { payload }) => {
@@ -310,6 +339,12 @@ export const graduatesReducer = createReducer(
     return {
       ...state,
       documentType: payload
+    };
+  }),
+  on(retryApplicationVarificationPaymentSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      retryPament: payload
     };
   }),
   on(submitVerificationReasonForRequestSuccess, (state, { payload }) => {

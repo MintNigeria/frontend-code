@@ -1,11 +1,11 @@
-<div class="bg-white p-6 " *ngIf="user$ | async as user">
+<div class="bg-white p-6 " >
   <div class="flex justify-between">
     <div>
         <h4 class="font-poppins font-medium text-3xl headerGray capitalize pb-1">
             Welcome back, {{ adminUser?.user.firstName }}
         </h4>
         <p class="font-nunito font-normal text-base text-lightGray mb-6">
-            Last login date: {{ adminUser?.user.lastLogin }}
+            Last login date: {{ adminUser?.user.lastLogin | date: 'medium' }}
         </p>
     </div>
     <app-button
@@ -17,7 +17,7 @@
     </app-button>
   </div>
 
-  <div>
+  <div *ngIf="permissionList?.includes('INSTITUTION_DASHBOARD') || superAdminRole === 'Super Admin' || superAdminRole === 'undefined'" >
     <div class="overflow-x-auto hide-scrollbar mb-6">
       <div class="inline-flex rounded-md shadow-sm  bg-white" role="group">
         <button (click)="changeRange(0)" type="button"
@@ -52,7 +52,7 @@
     </div>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-[22px]">
+  <div *ngIf="permissionList?.includes('INSTITUTION_DASHBOARD') || superAdminRole === 'Super Admin' || superAdminRole === 'undefined'"  class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-[22px]">
     <div class="rounded-md border">
       <div class="bg-successLight">
         <div class="p-6">
@@ -207,7 +207,7 @@
     </div>
   </div>
 
-  <div class="p-6 mb-6 bg-white border rounded-lg">
+  <div *ngIf="permissionList?.includes('INSTITUTION_DASHBOARD') || superAdminRole === 'Super Admin' || superAdminRole === 'undefined'"  class="p-6 mb-6 bg-white border rounded-lg">
     <div class="flex justify-between">
         <h4 class="font-inter text-lg text-darkGray font-medium mb-2">
         Revenue Vs Request Overview
@@ -274,7 +274,7 @@
     </div>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <div *ngIf="permissionList?.includes('INSTITUTION_DASHBOARD') || superAdminRole === 'Super Admin' || superAdminRole === 'undefined'"  class="grid grid-cols-1 md:grid-cols-3 gap-6">
     <div class="border-[1.5px] rounded-md p-6 bg-[#FCFCFD]">
       <p class="text-darkGray font-medium text-lg font-inter pb-5 border-b mb-2">
         Revenue Analysis
@@ -366,5 +366,11 @@
         <app-top-institution-chart [topInstitutionRequests]="topInstitutionRequestData"></app-top-institution-chart>
       </div>
     </div>
+  </div>
+
+  <div [hidden]="permissionList?.includes('INSTITUTION_DASHBOARD') || superAdminRole === 'Super Admin' || superAdminRole === 'undefined'">
+    <app-request-empty-state
+    
+     [dataStatus]="'You do not have permission to view data on this page'"></app-request-empty-state>
   </div>
 </div>

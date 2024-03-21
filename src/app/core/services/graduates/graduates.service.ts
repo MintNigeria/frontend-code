@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseURI } from '../shared/baseURI.shared';
+import { BulkApiType } from 'src/app/types/index.types';
 
 abstract class AbstractGraduateService {
   abstract getAllInstitutionGraduates(
@@ -131,6 +132,17 @@ export class GraduatesService
       { params: payload }
     );
   }
+  getGraduateInABatch(payload: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/GetInstitutionGraduatesFromABatch`,
+      { params: payload }
+    );
+  }
+  getFailedGraduateInABatch(id: any, payload:any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/FailedInstitutionGraduateFromABatch/${id}`, {params: payload}
+    );
+  }
 
   uploadGraduateRecord(payload: any) {
     const body = new FormData();
@@ -143,6 +155,47 @@ export class GraduatesService
     return this.http.post<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/UploadGraduates`,
       body
+    );
+  }
+
+  uploadBulkGraduateRecord(payload: any) {
+    const body = new FormData();
+    body.append('InstitutionId', payload.institutionId);
+    // body.append('FacultyId', payload.faculty);
+    // body.append('DepartmentId', payload.department);
+    // body.append('DegreeTypeId', payload.degreeType);
+    // body.append('YearOfGraduation', payload.yearOfGraduation);
+    body.append('File', payload.Document);
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/BulkUploadGraduates`,
+      body
+    );
+  }
+  uploadBulkGraduateRecordSync(payload: any) {
+    const body = new FormData();
+    body.append('InstitutionId', payload.institutionId);
+    // body.append('FacultyId', payload.faculty);
+    // body.append('DepartmentId', payload.department);
+    // body.append('DegreeTypeId', payload.degreeType);
+    // body.append('YearOfGraduation', payload.yearOfGraduation);
+    body.append('File', payload.Document);
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/BulkUploadAsyncRealTime`,
+      body, {reportProgress: true,
+        observe: 'events'}
+    );
+  }
+  uploadBulkGraduateRecordViaApi(payload: any) {
+    // const body = new FormData();
+    // body.append('InstitutionId', payload.institutionId);
+    // // body.append('FacultyId', payload.faculty);
+    // // body.append('DepartmentId', payload.department);
+    // // body.append('DegreeTypeId', payload.degreeType);
+    // // body.append('YearOfGraduation', payload.yearOfGraduation);
+    // body.append('File', payload.Document);
+    return this.http.post<Array<BulkApiType>>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionGraduate/CreateGraduatesAPI`,
+      payload
     );
   }
 
@@ -222,10 +275,13 @@ export class GraduatesService
     const body = new FormData();
     body.append('FirstName', payload.firstName);
     body.append('LastName', payload.lastName);
-    body.append('PhoneNumber', payload.phone);
+    body.append('MiddleName', payload.middleName);
+    body.append('PhoneNumber', payload.phone.internationalNumber);
     body.append('DateOfBirth', payload.dateOfBirth);
+    body.append('Address', payload.address);
     body.append('Country', payload.country);
     body.append('State', payload.state);
+    body.append('StateOfOrigin', payload.stateOfOrigin);
     body.append('City', payload.city);
     body.append('ZipCode', payload.zipCode);
     body.append('Twitter', payload.twitter);
@@ -352,6 +408,12 @@ export class GraduatesService
     );
   }
 
+  retryApplicationVarificationPayment(id: any) {
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Retry-Payment-For-Graduate-Requests`, {requestId: Number(id)}
+    );
+  }
+
   submitVerificationReasonForRequest(payload: any) {
     const { Document } = payload;
     const body = new FormData();
@@ -370,6 +432,49 @@ export class GraduatesService
         Document[i]
       );
     }
+    if (payload?.academicDetails.institutionDataSource === 1) {
+      body.append(
+        'graduateRecordInformationVM.fullName',
+        payload?.academicDetails.fullName
+      ); 
+      body.append(
+        'graduateRecordInformationVM.gender',
+        payload?.academicDetails.gender
+      ); 
+      body.append(
+        'graduateRecordInformationVM.faculty',
+        payload?.academicDetails.faculty
+      ); 
+      body.append(
+        'graduateRecordInformationVM.department',
+        payload?.academicDetails.department
+      ); 
+      body.append(
+        'graduateRecordInformationVM.yearOfEntry',
+        payload?.academicDetails.yearOfEntry
+      ); 
+      body.append(
+        'graduateRecordInformationVM.graduationYear',
+        payload?.academicDetails.graduationYear
+      ); 
+      body.append(
+        'graduateRecordInformationVM.matriculationNumber',
+        payload?.academicDetails.matriculationNumber
+      ); 
+      body.append(
+        'graduateRecordInformationVM.degreeType',
+        payload?.academicDetails.degreeType
+      ); 
+      body.append(
+        'graduateRecordInformationVM.programme',
+        payload?.academicDetails.programme
+      ); 
+      body.append(
+        'graduateRecordInformationVM.grade',
+        payload?.academicDetails.grade
+      ); 
+    }
+
     return this.http.post<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/Graduate-Certificate-Verification-Request`,
       body
@@ -785,6 +890,68 @@ export class GraduatesService
         supportingDocument[1].File
       );
     }
+    if (payload?.academicDetails.institutionDataSource === 1) {
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.fullName',
+        payload?.academicDetails.fullName
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.gender',
+        payload?.academicDetails.gender
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.faculty',
+        payload?.academicDetails.faculty
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.department',
+        payload?.academicDetails.department
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.yearOfEntry',
+        payload?.academicDetails.yearOfEntry
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.graduationYear',
+        payload?.academicDetails.graduationYear
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.matriculationNumber',
+        payload?.academicDetails.matriculationNumber
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.degreeType',
+        payload?.academicDetails.degreeType
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.programme',
+        payload?.academicDetails.programme
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.grade',
+        payload?.academicDetails.grade
+      ); 
+    }
 
     return this.http.post<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/ApplicationRequest`,
@@ -878,6 +1045,68 @@ export class GraduatesService
         'model.CreateApplicationVM[' + 0 + '].SupportingDocuments[1].File',
         supportingDocument[1].File
       );
+    }
+    if (payload?.academicDetails.institutionDataSource === 1) {
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.fullName',
+        payload?.academicDetails.fullName
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.gender',
+        payload?.academicDetails.gender
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.faculty',
+        payload?.academicDetails.faculty
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.department',
+        payload?.academicDetails.department
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.yearOfEntry',
+        payload?.academicDetails.yearOfEntry
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.graduationYear',
+        payload?.academicDetails.graduationYear
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.matriculationNumber',
+        payload?.academicDetails.matriculationNumber
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.degreeType',
+        payload?.academicDetails.degreeType
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.programme',
+        payload?.academicDetails.programme
+      ); 
+      body.append(
+        'model.CreateApplicationVM[' +
+        0 +
+        '].graduateRecordInformationVM.grade',
+        payload?.academicDetails.grade
+      ); 
     }
     return this.http.post<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/ApplicationRequest`,
@@ -1028,6 +1257,68 @@ export class GraduatesService
                 supportingDocument[5].File
               );
             }
+            if (payload?.academicDetails.institutionDataSource === 1) {
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.fullName',
+                payload?.academicDetails.fullName
+              ); 
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.gender',
+                payload?.academicDetails.gender
+              ); 
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.faculty',
+                payload?.academicDetails.faculty
+              ); 
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.department',
+                payload?.academicDetails.department
+              ); 
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.yearOfEntry',
+                payload?.academicDetails.yearOfEntry
+              ); 
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.graduationYear',
+                payload?.academicDetails.graduationYear
+              ); 
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.matriculationNumber',
+                payload?.academicDetails.matriculationNumber
+              ); 
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.degreeType',
+                payload?.academicDetails.degreeType
+              ); 
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.programme',
+                payload?.academicDetails.programme
+              ); 
+              body.append(
+                'model.CreateApplicationVM[' +
+                0 +
+                '].graduateRecordInformationVM.grade',
+                payload?.academicDetails.grade
+              ); 
+            }
  
     return this.http.post<any>(
       `${this.baseUrl}mint-higherinstitution/api/v1/GraduateRequest/ApplicationRequest`,
@@ -1040,4 +1331,298 @@ export class GraduatesService
       `${this.baseUrl}mint-higherinstitution/api/v1/InstitutionConfiguration/ActiveDeliveryOptions/${processingfeeId}`
     );
   }
+
+  getTalentSearchProfileCmpletionStatus(graduateId: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-auth/api/v1/TalentSearch/Has-Completed-Profile-For-TalentSearch/${graduateId}`
+    );
+  }
+
+  getTalentSearchProfile(graduateId: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-auth/api/v1/TalentSearch/Experience-Profile/${graduateId}`
+    );
+  }
+
+  completeGraduateTalentSearchProfile(payload: any) {
+    const { educationalQualificationVM, skillSetVM, workHistoryVM } = payload;
+    const body = new FormData();
+    body.append(
+      'GraduateId',
+      payload.graduateId
+    );
+    body.append(
+      'CreateProfessionalQualificationVM[' + 0 + '].LinkedInProfile',
+      payload.linkedInProfile
+    );
+    body.append(
+      'CreateProfessionalQualificationVM[' + 0 + '].PortfolioUrl',
+      payload.porfolioUrl
+    );
+    body.append(
+      'CreateProfessionalQualificationVM[' + 0 + '].DocumentVM.File',
+      payload.resume
+    );
+    for (let i = 0; i < payload.qualifications?.length; i++) {
+
+      body.append(
+        `CreateProfessionalQualificationVM[0].ProfessionalQualifications[${i}]`,
+        payload.qualifications[i]
+      );
+   
+    }
+    for (let i = 0; i < educationalQualificationVM?.length; i++) {
+
+      body.append(
+        'CreateEducationalQualificationVM[' + i + '].InstitutionName',
+        educationalQualificationVM[i].InstitutionName
+      );
+      body.append(
+        'CreateEducationalQualificationVM[' + i + '].CourseOfStudy',
+        educationalQualificationVM[i].course
+      );
+      body.append(
+        'CreateEducationalQualificationVM[' + i + '].DegreeObtained',
+        educationalQualificationVM[i].degree
+      );
+      body.append(
+        'CreateEducationalQualificationVM[' + i + '].ClassOfDegree',
+        educationalQualificationVM[i].classOfDegree
+      );
+      body.append(
+        'CreateEducationalQualificationVM[' + i + '].YearOfGraduation',
+        educationalQualificationVM[i].yearOfGraduation
+      );
+      body.append(
+        'CreateEducationalQualificationVM[' + i + '].DocumentVM.File',
+        educationalQualificationVM[i].certificate
+      );
+   
+    }
+    for (let i = 0; i < skillSetVM?.length; i++) {
+
+      body.append(
+        'CreateSkillSetVM[' + i + '].Description',
+        skillSetVM[i].description
+      );
+      body.append(
+        'CreateSkillSetVM[' + i + '].QualificationName',
+        skillSetVM[i].title
+      );
+      body.append(
+        'CreateSkillSetVM[' + i + '].YearOfCertification',
+        skillSetVM[i].year
+      );
+    
+      body.append(
+        'CreateSkillSetVM[' + i + '].DocumentVM.File',
+        skillSetVM[i].document
+      );
+   
+    }
+    for (let i = 0; i < workHistoryVM?.length; i++) {
+
+      body.append(
+        'CreateWorkHistoryVM[' + i + '].CompanyName',
+        workHistoryVM[i].companyName
+      );
+      body.append(
+        'CreateWorkHistoryVM[' + i + '].CompanyAddress',
+        workHistoryVM[i].companyAddress
+      );
+      body.append(
+        'CreateWorkHistoryVM[' + i + '].Profession',
+        workHistoryVM[i].profession
+      );
+      body.append(
+        'CreateWorkHistoryVM[' + i + '].Title',
+        workHistoryVM[i].title
+      );
+      body.append(
+        'CreateWorkHistoryVM[' + i + '].IsCurrentPlaceOfEmployment',
+        workHistoryVM[i].isCurrent
+      );
+      body.append(
+        'CreateWorkHistoryVM[' + i + '].DateOfEmployment',
+        workHistoryVM[i].dateOfEmployment
+      );
+      body.append(
+        'CreateWorkHistoryVM[' + i + '].EndDateOfEmployment',
+        workHistoryVM[i].endOfEmployment
+      );
+      body.append(
+        'CreateWorkHistoryVM[' + i + '].YearsOfExperience',
+        workHistoryVM[i].yearsOfExperience
+      );
+    
+     
+   
+    }
+    return this.http.post<any>(
+      `${this.baseUrl}mint-auth/api/v1/TalentSearch/Complete-Profile-For-TalentSearch`, body
+    );
+  }
+
+
+  updateGraduateTalentSearchProfile(payload: any) {
+    const { educationalQualificationVM, skillSetVM, workHistoryVM } = payload;
+    const body = new FormData();
+    body.append(
+      'GraduateId',
+      payload.graduateId
+    );
+    body.append(
+      'UpdateProfessionalQualificationVM[' + 0 + '].LinkedInProfile',
+      payload.linkedInProfile
+    );
+    body.append(
+      'UpdateProfessionalQualificationVM[' + 0 + '].PortfolioUrl',
+      payload.porfolioUrl
+    );
+    if (payload.resume) {
+      body.append(
+        'UpdateProfessionalQualificationVM[' + 0 + '].DocumentVM.File',
+        payload.resume
+      );
+
+    }
+    body.append(
+      'UpdateProfessionalQualificationVM[' + 0 + '].Id',
+      payload.id 
+    );
+    for (let i = 0; i < payload.qualifications?.length; i++) {
+
+      body.append(
+        `UpdateProfessionalQualificationVM[0].ProfessionalQualifications[${i}]`,
+        payload.qualifications[i]
+      );
+   
+    }
+    for (let i = 0; i < educationalQualificationVM?.length; i++) {
+
+      body.append(
+        'UpdateEducationalQualificationVM[' + i + '].Id',
+        educationalQualificationVM[i].id
+      );
+      body.append(
+        'UpdateEducationalQualificationVM[' + i + '].InstitutionName',
+        educationalQualificationVM[i].institutionName
+      );
+      body.append(
+        'UpdateEducationalQualificationVM[' + i + '].CourseOfStudy',
+        educationalQualificationVM[i].course
+      );
+      body.append(
+        'UpdateEducationalQualificationVM[' + i + '].DegreeObtained',
+        educationalQualificationVM[i].degree
+      );
+      body.append(
+        'UpdateEducationalQualificationVM[' + i + '].ClassOfDegree',
+        educationalQualificationVM[i].classOfDegree
+      );
+      body.append(
+        'UpdateEducationalQualificationVM[' + i + '].YearOfGraduation',
+        educationalQualificationVM[i].yearOfGraduation
+      );
+      if (educationalQualificationVM[i].certificate) {
+
+        body.append(
+          'UpdateEducationalQualificationVM[' + i + '].DocumentVM.File',
+          educationalQualificationVM[i].certificate
+        );
+      }
+   
+    }
+    for (let i = 0; i < skillSetVM?.length; i++) {
+
+      body.append(
+        'UpdateSkillSetVM[' + i + '].Description',
+        skillSetVM[i].description
+      );
+      body.append(
+        'UpdateSkillSetVM[' + i + '].Id',
+        skillSetVM[i].id
+      );
+      body.append(
+        'UpdateSkillSetVM[' + i + '].QualificationName',
+        skillSetVM[i].title
+      );
+      body.append(
+        'UpdateSkillSetVM[' + i + '].YearOfCertification',
+        skillSetVM[i].year
+      );
+    
+      if (skillSetVM[i].document) {
+
+        body.append(
+          'UpdateSkillSetVM[' + i + '].DocumentVM.File',
+          skillSetVM[i].document
+        );
+      }
+   
+    }
+    for (let i = 0; i < workHistoryVM?.length; i++) {
+
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].Id',
+        workHistoryVM[i].id
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].CompanyName',
+        workHistoryVM[i].companyName
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].CompanyAddress',
+        workHistoryVM[i].companyAddress
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].Profession',
+        workHistoryVM[i].profession
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].Title',
+        workHistoryVM[i].title
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].DateOfEmployment',
+        workHistoryVM[i].dateOfEmployment
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].IsCurrentPlaceOfEmployment',
+        workHistoryVM[i].isCurrent
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].EndDateOfEmployment',
+        workHistoryVM[i].endOfEmployment
+      );
+      body.append(
+        'UpdateWorkHistoryVM[' + i + '].YearsOfExperience',
+        workHistoryVM[i].yearsOfExperience
+      );
+    }
+    return this.http.put<any>(
+      `${this.baseUrl}mint-auth/api/v1/TalentSearch/Profile-For-TalentSearch`, body
+    );
+  }
+
+
+  downloadTalentSearchDocuments(fileId: any) {
+    return this.http.get<any>(
+      `${this.baseUrl}mint-auth/api/v1/TalentSearch/Retrieve-File/${fileId}`
+    );
+  }
+
+    downloadTalentCSV(payload: any) {
+      return this.http.get<any>(
+        `${this.baseUrl}mint-auth/api/v1/TalentSearch/Export-As-CSV`,
+        { params: payload }
+      );
+    }
+  
+    downloadTalentExcel(payload: any) {
+      return this.http.get<any>(
+        `${this.baseUrl}mint-auth/api/v1/TalentSearch/Export-As-Excel`,
+        { params: payload }
+      );
+    }
 }

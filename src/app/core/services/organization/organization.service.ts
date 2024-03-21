@@ -132,8 +132,11 @@ export class OrganizationService
     id: any
   ) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Graduate-Record/${id}`
+      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/${id}`
     );
+    // return this.http.get<any>(
+    //   `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Graduate-Record/${id}`
+    // );
   }
 
   getAlltalentSearchPool(
@@ -148,8 +151,11 @@ export class OrganizationService
     payload: any
   ) {
     return this.http.get<any>(
-      `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Organization-Search-Pool-Results`, {params: payload}
+      `${this.baseUrl}mint-auth/api/v1/TalentSearch/Organization-TalentSearch-Results`, {params: payload}
     );
+    // return this.http.get<any>(
+    //   `${this.baseUrl}mint-higherinstitution/api/v1/OrganizationVerification/Organization-Search-Pool-Results`, {params: payload}
+    // );
   }
 
   newTalentPoolSearch(
@@ -249,6 +255,47 @@ export class OrganizationService
   exportTalentSearchPoolResults(payload: any) {
     return this.http.get<any>(
       `${this.baseUrl}mint-organization/api/v1/OrganizationVerification/Export-Talent-Search-Pool-Result-As-Excel`, {params: payload}
+    );
+  }
+  searchCompletedGraduateProfileForTalentSearch(payload: any) {
+    const {Institutions,ClassesOfDegree} = payload
+    const body = new FormData()
+    body.append('StateOfOrigin', payload.StateOfOrigin)
+    body.append('StateOfLocation', payload.StateOfLocation)
+    body.append('YearOfExperience', payload.YearOfExperience)
+    body.append('YearOfGraduation', payload.YearOfGraduation)
+    body.append('FromYearOfGraduation', payload.FromYearOfGraduation)
+    body.append('ToYearOfGraduation', payload.ToYearOfGraduation)
+    body.append('Profession', payload.Profession)
+    body.append('Age', payload.Age)
+    body.append('StartAgeRange', payload.StartAgeRange)
+    body.append('EndAgeRange', payload.EndAgeRange)
+    if (Institutions !== null ) {
+
+      for (let i = 0; i < Institutions.length; i++) {
+        body.append('Institutions[' + i + ']', Institutions[i]);
+      }
+    }
+    if (ClassesOfDegree !== null ) {
+
+      for (let i = 0; i < ClassesOfDegree.length; i++) {
+        body.append('ClassesOfDegree[' + i + ']', ClassesOfDegree[i]);
+      }
+    }
+    return this.http.post<any>(
+      `${this.baseUrl}mint-auth/api/v1/TalentSearch/Search-Completed-Graduate-Profile-For-TalentSearch`, payload
+    );
+  }
+  getTalentSearchTransactionId(payload: any) {
+    
+    return this.http.post<any>(
+      `${this.baseUrl}mint-higherinstitution/api/v1/Transaction/Organization-Make-Payment-For-TalentSearch`, payload
+    );
+  }
+  getTalentSearchBatchRecord(payload: any) {
+    
+    return this.http.get<any>(
+      `${this.baseUrl}mint-auth/api/v1/TalentSearch/Organization-TalentSearch-Batch-Results`, {params: payload}
     );
   }
 }

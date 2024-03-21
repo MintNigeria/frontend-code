@@ -1,0 +1,78 @@
+<div class="border-b-1.5 rounded">
+    <div class="flex justify-between items-start">
+        <div class="py-4 md:px-3 w-3/4" >
+            <h3 class="font-inter font-medium text-base text-black">Bank Account Setup</h3>
+            <p class="font-inter font-normal text-base text-lightGray">
+               Setup and view your bank account detail. This is used to make payment reconciliations
+            </p>
+            <hr class="w-32  h-1 my-4 border-0 bg-[#EAECF0]">
+        </div>
+
+
+
+    </div>
+    
+    <div class="py-3 md:px-3 border-b" >
+        <div class="w-10/12 mx-auto ">
+            <form [formGroup]="bankSetupForm">
+                <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0 mb-6">
+                    <div class="w-full md:w-1/2 px-3  md:mb-0" >
+                      <label for="account_bank" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Bank <span
+                          class="text-danger">*</span> </label>
+                          <ng-select class="custom-ng-dropdown" 
+                          [selectOnTab]="true" 
+                          placeholder="Select Bank Name"
+                          (change)="selectBank($event)"
+                          >
+                            <ng-option *ngFor="let bank of bankList" [value]="bank" >{{bank.name}}</ng-option>
+                      </ng-select>
+                      <small class="text-red-500" *ngIf="bankSetupForm.controls['account_bank'].touched && bankSetupForm.controls['account_bank'].invalid">
+                        Bank name is required
+                      </small>
+                    </div>
+                    <div class="w-full md:w-1/2 px-3  md:mb-0">
+                      <p for="institutionBody" class="text-failedNormal font-medium text-sm font-inter mb-[6px]">Account Number <span
+                        class="text-danger">*</span>
+                         </p>
+                        
+                         <input type="text"
+                         (keypress)="numberOnly($event)"
+                         (blur)="validateAccount($event)"
+                         formControlName="accountNumber"
+                         placeholder="Enter account number"
+                         [class]="'px-4 text-black mt-1 h-[52px] w-full bg-transparent border focus:bg-transparent rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'" 
+                         [name]="'fee'"
+                         [max]="10">
+                         <small class="text-green-800 font-medium" *ngIf="showAccountName">Account Name: {{accountName}}</small>
+                         <small class="text-red-500" *ngIf="bankSetupForm.controls['accountNumber'].touched && bankSetupForm.controls['accountNumber'].invalid">
+                            Correct Account number is required
+                         </small>
+                         <small class="text-red-500 mt-1" *ngIf="bankSetupForm.controls['accountNumber'].errors?.['minlength']">
+                            Account number should not be less than or greater than {{bankSetupForm.controls['accountNumber'].errors?.['minlength'].requiredLength}} characters
+                          </small>
+                          
+                    <!-- <app-input-number  [formGrp]="bankSetupForm" formCtrlName="accountNumber" [type]="'text'" [class]="
+                              'mt-2 px-4 h-[52px] w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
+                            " placeholder="Enter account" [name]="'Account Number'"></app-input-number> -->
+        
+                    </div>
+                  </div>
+                  <div class="flex justify-end items-center gap-4 mt-4 mb-6">
+                      <!-- <app-button
+                          [overRideButtonClass]="true"
+                          customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm   bg-white border text-failedNormal"
+                          >Cancel
+                      </app-button> -->
+                      <app-button
+                      [disabled]="bankSetupForm.invalid"
+                      (buttonClick)="createSetup()"
+                      [overRideButtonClass]="true"
+                      customClass="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-primaryBlue"
+                          >Save setup
+                      </app-button>
+                  </div>
+            </form>
+           
+    </div>
+
+</div>

@@ -47,9 +47,9 @@
         
         <div class="relative" [formGroup]="walletForm">
           <p class="absolute text-black inset-y-0 left-0 flex items-center pl-3 pr-10 pointer-events-none">₦</p>
-          <app-input [formGrp]="walletForm" formCtrlName="amount" [type]="'text'" [class]="
+          <app-input-number [formGrp]="walletForm" formCtrlName="amount" [type]="'text'" [class]="
           ' h-[52px] text-black px-10 w-full bg-white border focus:bg-white rounded-lg border-[#D0D5DD] placeholder:font-nunito placeholder:leading-6 placeholder:text-base placeholder:text-lightGray placeholder:font-normal focus:border-[D0D5DD] outline-none'
-        " placeholder="Enter amount" [name]="'Amount'" [value]="walletValue"></app-input>   
+        " placeholder="Enter amount" [name]="'Amount'" [value]="walletValue"></app-input-number>   
         <!-- input     -->
       </div>
     </div> 
@@ -64,8 +64,9 @@
     <button (buttonClick)="cancel()"
     [disabled]="walletForm.invalid"
     class="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
-    (click)="proceedToPayment()"
+    (click)="makePayment()"
     >Proceed to Payment</button>
+    <!-- (click)="proceedToPayment()" -->
 
     <!-- <button id="paystack"
     class="px-3 py-2 rounded-lg font-inter font-medium text-sm text-white  bg-buttonBlue"
