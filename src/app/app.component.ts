@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NotificationsService } from './core/services/shared/notifications.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,8 @@ export class AppComponent {
   isOnline: boolean;
   title = 'mint-client';
   constructor(
-    private notification: NotificationsService
+    private notification: NotificationsService,
+    private router : Router
   ) {
     this.isOnline = navigator.onLine;
       window.addEventListener('online', () => {
@@ -25,4 +27,12 @@ export class AppComponent {
         this.notification.publishMessages('danger', 'You are currently offline, please check your internet connection')
       });
   }
+
+  // showCookies(currentRoute: string): boolean{
+  //   if(currentRoute == "privacy-policy" || currentRoute == "terms-and-condition"){
+  //     return false
+  //   }
+  //   return true
+  // }
+  
 }

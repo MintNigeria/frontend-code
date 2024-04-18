@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { trigger, state, style, animate, transition } from '@angular/animations'; 
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-accept-cookies',
   templateUrl: './accept-cookies.component.html',
   styleUrls: ['./accept-cookies.component.scss'],
-   animations: [ // Define animations here
+  animations: [ // Define animations here
     trigger('easeInOut', [
       state('void', style({
         opacity: 0,
@@ -18,25 +18,31 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   ]
 })
 export class AcceptCookiesComponent implements OnInit {
-  cookiesVAC: boolean = false;
   showPopUp: boolean = true;
   showPrivacyPolicy: boolean = false;
-  showTermsOfCondition: boolean = false; 
+  showTermsOfCondition: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
-    const cookiesVAC = localStorage.getItem('cookiesVAC');
+    const cookiesVAC = this.getCookie("cookiesVAC");
     if (cookiesVAC === 'true') {
-      this.showPopUp = false; 
+      this.showPopUp = false; // Hide the pop-up if cookies are already accepted
     }
   }
 
   acceptCookies(): void {
-    localStorage.setItem('cookiesVAC', 'true');
-    this.cookiesVAC= true;
+    this.setCookie('cookiesVAC', 'true');
+    this.showPopUp = false;
 
     this.closePopup();
+  }
+
+  setCookie(name: string, value: string, days: number = 365) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
   }
 
   closePopup(): void {
@@ -44,11 +50,26 @@ export class AcceptCookiesComponent implements OnInit {
   }
 
   togglePrivacyPolicy(): void {
-    this.showPrivacyPolicy = !this.showPrivacyPolicy; 
+    this.showPrivacyPolicy = !this.showPrivacyPolicy;
   }
 
   toggleTermsOfCondition(): void {
-    this.showTermsOfCondition = !this.showTermsOfCondition; 
+    this.showTermsOfCondition = !this.showTermsOfCondition;
   }
 
+  getCookie(name: string) {
+    const cookieName = name + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookieArray = decodedCookie.split(';');
+    for (let i = 0; i < cookieArray.length; i++) {
+      let cookie = cookieArray[i];
+      while (cookie.charAt(0) == ' ') {
+        cookie = cookie.substring(1);
+      }
+      if (cookie.indexOf(cookieName) == 0) {
+        return cookie.substring(cookieName.length, cookie.length);
+      }
+    }
+    return "";
+  }
 }
