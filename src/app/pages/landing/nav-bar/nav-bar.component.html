@@ -1,10 +1,11 @@
 
-<header class="w-full fixed z-20 top-0 left-0">
+<header class="w-full fixed z-20 top-0 left-0 h-[70px]">
   <div class="bg-white p-2">
     <div class="max-w-screen-xl mx-auto px-4 py-2 flex items-center justify-between">
       <!-- Logo -->
-      <div class="text-2xl font-semibold">
-        <a href="/"><img src="assets/images/main/vac-logo.png" alt="logo"></a>
+      <div class="text-3xl font-semibold">
+        <a href="/"><img src="assets/images/main/new-logo-vac.svg" class="h-[110px] opacity-100" alt="logo"></a>
+        <!-- <a href="/"><img src="assets/images/main/vac-logo.png" class="h-[110px] opacity-100" alt="logo"></a> -->
       </div>
       <!-- Navigation links -->
       <nav class="hidden md:flex items-center space-x-6">
@@ -28,6 +29,20 @@
           <a routerLink="/faqs" class="font-inter font-medium text-base text-lightGray">
             FAQs
           </a>
+
+          <!-- <div  class="dropdown cursor-pointer">
+            <label  (click)="showOthers(true)"  tabindex="0"  class="font-inter font-medium text-base text-lightGray inline-flex items-center space-x-2">
+              <p>Partner Institutions</p>
+              <img src="assets/images/icons/dropdown.svg" alt="dropdown" class="cursor-pointer">
+            </label>
+            <ul  [ngClass]="showServices ? 'block' : 'hidden'" class="dropdown-content menu p-2 shadow bg-white text-black rounded-box w-52">
+              <li (click)="showOthers(false)"><a routerLink="#">Regulatory Bodies</a></li>
+              <li (click)="showOthers(false)"><a routerLink="#">Universities</a></li>
+              <li (click)="showOthers(false)"><a routerLink="#">Polytechnics</a></li>
+              <li (click)="showOthers(false)"><a routerLink="#">Colleges of Education</a></li>
+              <li (click)="showOthers(false)"><a routerLink="#">Professional Bodies</a></li>
+            </ul>
+          </div> -->
           
         </div>
 
